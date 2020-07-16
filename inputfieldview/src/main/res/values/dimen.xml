@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Padding -->
+    <dimen name="tiniest_padding">4dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="default_padding">12dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="large_padding">24dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="horizontal_margin_for_cards">15dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="medium_margin">12dp</dimen>
+    <dimen name="large_margin">16dp</dimen>
+    <dimen name="dialog_standard_margin">12dp</dimen>
+
+    <!-- Text -->
+    <dimen name="textSizeDefault">16sp</dimen>
+    <dimen name="textSizeHint">12sp</dimen>
+
+    <dimen name="default_min_btn_side_size">48dp</dimen>
+    <dimen name="pin_icon_padding">2dp</dimen>
+</resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/v_field_editable_layout"
+        style="@style/AppTheme.TextInputLayout.Default"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:minHeight="76dp"
+        android:theme="@style/AppTheme.TextInputLayout.Default"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/v_field_editable_input"
+            style="@style/AppTheme.TextInputLayout.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:minHeight="44dp"
+            android:scrollHorizontally="true"
+            tools:text="Text text text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/v_field_editable_floating_label"
+        style="@style/AppTheme.TextInputLayout.DefaultHintAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:background="@color/colorBackground"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:scrollHorizontally="true"
+        app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="&#x202B;HINT Hint hint" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/v_field_editable_prefix_text"
+        style="@style/AppTheme.TextInputLayout.Default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:minHeight="45dp"
+        app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
+        app:layout_constraintTop_toTopOf="@id/v_field_editable_layout"
+        tools:text="Text"
+        tools:visibility="invisible" />
+
+</merge>

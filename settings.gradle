@@ -1,0 +1,4 @@
+rootProject.name='BaseTools'
+include ':app'
+include ':accesscontainer'
+include ':inputfieldview'
