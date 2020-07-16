@@ -28,4 +28,15 @@
         <attr name="inputCheckedDrawable" format="reference" />
         <attr name="inputUncheckedDrawable" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="SpinnerFieldView">
+        <attr name="android:hint" format="string" />
+        <attr name="spinnerStartDrawable" format="reference" />
+        <attr name="spinnerEnabled" default="false" format="boolean" />
+        <attr name="spinnerStartDrawableTint" format="color" />
+        <attr name="spinnerEndDrawable" format="reference" />
+        <attr name="spinnerEndDrawableTint" format="color" />
+        <attr name="spinnerDropDownLayout" format="integer" />
+        <attr name="spinnerHideLabel" default="false" format="boolean" />
+    </declare-styleable>
 </resources>

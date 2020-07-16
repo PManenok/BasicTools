@@ -1,0 +1,47 @@
+apply plugin: 'com.github.dcendents.android-maven'
+
+Properties properties = new Properties()
+properties.load(new FileInputStream("library.properties"))
+
+def REPO = properties.getProperty("repository")
+def GROUP = properties.getProperty("group")
+def WEB = properties.getProperty("website_url")
+def VCS = properties.getProperty("vcs_url")
+
+group = GROUP
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                groupId GROUP
+                artifactId 'inputfieldview'
+                name REPO
+                description 'An android library.'
+                url VCS
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'pmanenok'
+                        name 'Palina Manenok'
+                        email 'pmanenok@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection VCS
+                    developerConnection VCS
+                    url WEB
+                }
+            }
+        }
+    }
+}

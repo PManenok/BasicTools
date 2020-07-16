@@ -73,8 +73,36 @@ fun setListeners(view: InputFieldView, attrChange: InverseBindingListener) {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
-
     })
 }
 
 /*############ InputFieldView ############*/
+
+
+/*############ SpinnerField ###########*/
+
+/*@BindingAdapter("spinnerEditable")
+fun setEditable(view: SpinnerFieldView, editable: Boolean) {
+    view.setEditable(editable)
+}*/
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getText(view: SpinnerFieldView): String {
+    return view.getText()
+}
+
+@BindingAdapter("android:textAttrChanged")
+fun setListeners(view: SpinnerFieldView, attrChange: InverseBindingListener) {
+    view.inputText.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            attrChange.onChange()
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    })
+}
+/*############ SpinnerField ###########*/
