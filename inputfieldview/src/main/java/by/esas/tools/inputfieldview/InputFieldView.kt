@@ -34,7 +34,7 @@ class InputFieldView : ConstraintLayout {
     val prefixText: MaterialTextView
     private val hintText: MaterialTextView
     private var hint: String = ""
-    private var endIconMode: Int = 0
+    private var endIconMode: Int = TextInputLayout.END_ICON_NONE
     private var inputType: Int = EditorInfo.TYPE_CLASS_TEXT
     private var prefix: String = ""
     private var hasStartDrawable: Boolean = false
@@ -85,14 +85,14 @@ class InputFieldView : ConstraintLayout {
         // Hint
         hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         // End Icon Mode
-        endIconMode = typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, 0)
+        endIconMode = typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, TextInputLayout.END_ICON_NONE)
         // Input Type
-        inputType = typedArray.getInt(R.styleable.InputFieldView_android_inputType, 0)
+        inputType = typedArray.getInt(R.styleable.InputFieldView_android_inputType, EditorInfo.TYPE_CLASS_TEXT)
         // Max Lines
         val maxLines: Int = typedArray.getInt(R.styleable.InputFieldView_android_maxLines, 1)
         // Text Direction
         val textDirection: Int =
-            typedArray.getInt(R.styleable.InputFieldView_android_textDirection, 0)
+            typedArray.getInt(R.styleable.InputFieldView_android_textDirection, View.TEXT_DIRECTION_ANY_RTL)
         // Editable
         val editable: Boolean =
             typedArray.getBoolean(R.styleable.InputFieldView_inputEditable, true)
@@ -144,7 +144,7 @@ class InputFieldView : ConstraintLayout {
         } else if (startDraw != null)
             setStartDraw(startDraw!!)
 
-        setCustomPrefix(prefix)
+        setInputPrefix(prefix)
         inputLayout.endIconMode = endIconMode
         inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
         if (endDraw != null) {
@@ -179,7 +179,7 @@ class InputFieldView : ConstraintLayout {
         return isChecked
     }
 
-    fun setCustomPrefix(prefix: String) {
+    fun setInputPrefix(prefix: String) {
         this.prefix = prefix
         if (prefix.isBlank()) {
             prefixText.visibility = View.INVISIBLE

@@ -180,6 +180,15 @@ class SpinnerFieldView : ConstraintLayout {
         return inputText.isEnabled
     }
 
+    fun disable() {
+        //this.alpha = 0.55f
+        inputLayout.isEndIconVisible = false
+    }
+
+    fun enable() {
+        //this.alpha = 1f
+        inputLayout.isEndIconVisible = true
+    }
 
     // Error
     fun setError(text: String?) {
