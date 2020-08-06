@@ -1,6 +1,6 @@
 package by.esas.tools.domain.usecase
 
-import by.esas.tools.domain.mapper.IErrorModel
+import by.esas.tools.logger.IErrorModel
 import java.util.concurrent.CancellationException
 
 open class Request<T, E : Enum<E>, Model : IErrorModel<E>> {

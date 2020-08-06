@@ -32,7 +32,8 @@ class InputFieldView : ConstraintLayout {
     val inputLayout: TextInputLayout
     val inputText: TextInputEditText
     val prefixText: MaterialTextView
-    private val hintText: MaterialTextView
+    private val layoutText: MaterialTextView
+    private var label: String = ""
     private var hint: String = ""
     private var endIconMode: Int = TextInputLayout.END_ICON_NONE
     private var inputType: Int = EditorInfo.TYPE_CLASS_TEXT
@@ -72,7 +73,7 @@ class InputFieldView : ConstraintLayout {
         defaultPaddingLeft = inputText.paddingLeft
         currentPaddingLeft = defaultPaddingLeft
         prefixText = view.findViewById<MaterialTextView>(R.id.v_field_editable_prefix_text)
-        hintText = view.findViewById(R.id.v_field_editable_floating_label)
+        layoutText = view.findViewById(R.id.v_field_editable_floating_label)
         startTint = ContextCompat.getColor(context, R.color.colorPrimary)
         endTint = startTint
         inputText.onFocusChangeListener =
@@ -82,6 +83,8 @@ class InputFieldView : ConstraintLayout {
     /*  Initialize attributes from XML file  */
     private fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputFieldView)
+        // Hint
+        label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
         // Hint
         hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         // End Icon Mode
@@ -132,11 +135,12 @@ class InputFieldView : ConstraintLayout {
         uncheckedDrawable = uncheckedDraw ?: ContextCompat.getDrawable(context, uncheckedResDef)
 
 
-        hintText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
+        layoutText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
 
+        inputText.hint = hint
         inputText.textDirection = textDirection
         inputText.maxLines = maxLines
-        setHint(hint)
+        setInputLabel(label)
         inputText.inputType = inputType
         inputText.isEnabled = editable
         if (startIconIsCheckable) {
@@ -222,34 +226,34 @@ class InputFieldView : ConstraintLayout {
 
     fun setHideLabel(hide: Boolean) {
         hideLabel = hide
-        hintText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
+        layoutText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
     }
 
-    fun setHint(text: String) {
-        if (!(hintText.text?.toString() ?: "").equals(text)) {
+    fun setInputLabel(text: String) {
+        if (!(layoutText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
                 Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
             val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
                 "\u202B$text"
             } else text
-            hintText.text = hint
+            layoutText.text = hint
         }
     }
 
-    fun setHint(textId: Int) {
+    fun setInputLabel(textId: Int) {
         val text = if (textId != -1) context.resources.getString(textId) else ""
-        if (!(hintText.text?.toString() ?: "").equals(text)) {
+        if (!(layoutText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
                 Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
             val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
                 "\u202B$text"
             } else text
-            hintText.text = hint
+            layoutText.text = hint
         }
     }
 
     fun getHint(): String {
-        return hintText.text?.toString() ?: ""
+        return layoutText.text?.toString() ?: ""
     }
 
     fun setEditable(value: Boolean) {

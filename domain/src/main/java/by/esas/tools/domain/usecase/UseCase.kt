@@ -1,7 +1,7 @@
 package by.esas.tools.domain.usecase
 
 import by.esas.tools.domain.mapper.BaseErrorMapper
-import by.esas.tools.domain.mapper.IErrorModel
+import by.esas.tools.logger.IErrorModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

@@ -2,17 +2,12 @@ package by.esas.tools
 
 import by.esas.tools.domain.exception.BaseStatusEnum
 import by.esas.tools.domain.mapper.BaseErrorMapper
-import by.esas.tools.domain.mapper.error.HttpErrorStatusEnum
-import by.esas.tools.domain.util.ILogger
+import by.esas.tools.logger.ILogger
 import com.squareup.moshi.Moshi
 import retrofit2.HttpException
 
 class AppErrorMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum>) : BaseErrorMapper<AppErrorStatusEnum, ErrorModel>(moshi, logger) {
     override fun mapBaseException(errorText: String?): AppErrorStatusEnum {
-        return AppErrorStatusEnum.APP_UNPREDICTED_ERROR
-    }
-
-    override fun mapHttpStatus(enum: HttpErrorStatusEnum): AppErrorStatusEnum {
         return AppErrorStatusEnum.APP_UNPREDICTED_ERROR
     }
 
@@ -30,11 +25,11 @@ class AppErrorMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum>) : BaseEr
         return ErrorModel(model.code, model.statusEnum)
     }
 
-    override fun parseResponse(throwable: HttpException?, body: String?): HttpErrorStatusEnum {
-        return super.parseResponse(throwable, body)
-    }
-
     override fun createModel(code: Int, status: AppErrorStatusEnum): ErrorModel {
         return ErrorModel(code, status)
+    }
+
+    override fun mapHttpStatus(httpEnumString: String): AppErrorStatusEnum {
+        return AppErrorStatusEnum.APP_UNPREDICTED_ERROR
     }
 }

@@ -16,7 +16,7 @@
         android:minHeight="76dp"
         android:theme="@style/AppTheme.TextInputLayout.Default"
         app:hintAnimationEnabled="false"
-        app:hintEnabled="true"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
             android:maxLines="1"
             android:minHeight="44dp"
             android:scrollHorizontally="true"
-            tools:text="Text text text" />
+            android:text="Text text text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -41,6 +41,7 @@
         android:layout_marginStart="9dp"
         android:background="@color/colorBackground"
         android:includeFontPadding="false"
+        tools:visibility="invisible"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"

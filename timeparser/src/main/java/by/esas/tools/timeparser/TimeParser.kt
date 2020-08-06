@@ -86,6 +86,17 @@ object TimeParser {
         }
     }
 
+    fun getUTCDate(date: Date?): Date {
+        val cal = Calendar.getInstance(TimeZone.getDefault())
+        cal.time = date ?: Date(System.currentTimeMillis())
+        val year = cal[Calendar.YEAR]
+        val month = cal[Calendar.MONTH]
+        val day = cal[Calendar.DAY_OF_MONTH]
+        cal.timeZone = TimeZone.getTimeZone("UTC")
+        cal.set(year, month, day, 0, 0, 0)
+        return cal.time
+    }
+
     fun Date.getLocal(outPattern: String = simpleDatePattern): String {
         val sdf = SimpleDateFormat(outPattern, Locale.getDefault())
         //sdf.dateFormatSymbols

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,12 +10,13 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <by.esas.tools.inputfieldview.SpinnerFieldView
-            android:id="@+id/f_main_add_invoice_service_spinner"
+        <!--<by.esas.tools.inputfieldview.SpinnerFieldView
+            android:id="@+id/a_main_service_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Service"
@@ -25,8 +24,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
+            app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />-->
 
+        <by.esas.tools.inputfieldview.InputFieldView
+            android:id="@+id/a_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_name"
+            app:inputEndIconMode="clear_text"
+            app:inputLabel="1234" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

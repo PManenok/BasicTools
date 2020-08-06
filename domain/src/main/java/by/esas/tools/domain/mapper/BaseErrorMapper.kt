@@ -7,7 +7,8 @@ import by.esas.tools.domain.mapper.error.ErrorMessageEnum
 import by.esas.tools.domain.mapper.error.HttpErrorStatusEnum
 import by.esas.tools.domain.mapper.error.IdentityErrorEnum
 import by.esas.tools.domain.mapper.response.ErrorCode
-import by.esas.tools.domain.util.ILogger
+import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.ILogger
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import okhttp3.ResponseBody

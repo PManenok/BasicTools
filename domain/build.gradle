@@ -52,6 +52,9 @@ dependencies {
     // Network
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.okhttp3:okhttp:$okhttp_version"
+
+    //Module
+    implementation project(path: ':logger')
 }
 
 apply from: 'install.gradle'

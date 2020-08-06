@@ -1,6 +1,6 @@
 package by.esas.tools.domain.usecase
 
-import by.esas.tools.domain.mapper.IErrorModel
+import by.esas.tools.logger.IErrorModel
 
 interface IRefresh<E : Enum<E>, Model : IErrorModel<E>> {
     fun getToken(): String

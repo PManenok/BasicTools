@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PinView">
+        <attr name="pinAmount" format="integer" />
+        <attr name="pinFilledIcon" format="integer" />
+        <attr name="pinUnfilledIcon" format="integer" />
+        <attr name="pinInAnimationDuration" format="integer" />
+        <attr name="pinOutAnimationDuration" format="integer" />
+    </declare-styleable>
+
+</resources>

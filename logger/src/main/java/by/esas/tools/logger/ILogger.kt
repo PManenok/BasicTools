@@ -1,8 +1,7 @@
-package by.esas.tools.domain.util
+package by.esas.tools.logger
 
 import android.util.Log
 import android.widget.Toast
-import by.esas.tools.domain.mapper.ErrorModel
 
 interface ILogger<E : Enum<E>> {
     fun setTag(tag: String)
@@ -19,7 +18,7 @@ interface ILogger<E : Enum<E>> {
 
     fun logError(throwable: Throwable)
 
-    fun logError(error: ErrorModel<E>)
+    fun logError(error: IErrorModel<E>)
 
     fun logError(msg: String)
 

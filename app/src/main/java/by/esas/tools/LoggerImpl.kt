@@ -1,7 +1,8 @@
 package by.esas.tools
 
 import by.esas.tools.domain.mapper.ErrorModel
-import by.esas.tools.domain.util.ILogger
+import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.ILogger
 
 class LoggerImpl : ILogger<AppErrorStatusEnum> {
     override fun setTag(tag: String) {
@@ -32,10 +33,6 @@ class LoggerImpl : ILogger<AppErrorStatusEnum> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun logError(error: ErrorModel<AppErrorStatusEnum>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun logError(msg: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -46,5 +43,9 @@ class LoggerImpl : ILogger<AppErrorStatusEnum> {
 
     override fun sendLogs(msg: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun logError(error: IErrorModel<AppErrorStatusEnum>) {
+        TODO("Not yet implemented")
     }
 }

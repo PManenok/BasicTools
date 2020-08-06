@@ -1,4 +1,4 @@
-package by.esas.tools.domain.mapper
+package by.esas.tools.logger
 
 interface IErrorModel<E : Enum<E>> {
     val code: Int
