@@ -1,9 +1,11 @@
 package by.esas.tools.accesscontainer.error
 
-interface IErrorMapper<Model> {
-    fun mapError(e: Exception): Model
+import by.esas.tools.logger.IErrorModel
 
-    operator fun invoke(e: Exception): Model {
+interface IErrorMapper<E : Enum<E>> {
+    fun mapError(e: Exception): IErrorModel<E>
+
+    operator fun invoke(e: Exception): IErrorModel<E> {
         return mapError(e)
     }
 }

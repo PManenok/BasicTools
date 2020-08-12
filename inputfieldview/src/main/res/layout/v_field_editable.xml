@@ -16,7 +16,7 @@
         android:minHeight="76dp"
         android:theme="@style/AppTheme.TextInputLayout.Default"
         app:hintAnimationEnabled="false"
-        app:hintEnabled="false"
+        app:hintEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:minHeight="44dp"
-            android:scrollHorizontally="true"
-            android:text="Text text text"/>
+            android:scrollHorizontally="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -41,14 +40,13 @@
         android:layout_marginStart="9dp"
         android:background="@color/colorBackground"
         android:includeFontPadding="false"
-        tools:visibility="invisible"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:scrollHorizontally="true"
         app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="&#x202B;HINT Hint hint" />
+        tools:text="&#x202B;Label" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_field_editable_prefix_text"

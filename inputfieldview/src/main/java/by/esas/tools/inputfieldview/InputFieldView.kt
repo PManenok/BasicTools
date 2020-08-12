@@ -83,8 +83,10 @@ class InputFieldView : ConstraintLayout {
     /*  Initialize attributes from XML file  */
     private fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputFieldView)
-        // Hint
+        // Label
         label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
+        // Text
+        val text: String = typedArray.getString(R.styleable.InputFieldView_android_text) ?: ""
         // Hint
         hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         // End Icon Mode
@@ -137,6 +139,7 @@ class InputFieldView : ConstraintLayout {
 
         layoutText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
 
+        inputText.setText(text)
         inputText.hint = hint
         inputText.textDirection = textDirection
         inputText.maxLines = maxLines

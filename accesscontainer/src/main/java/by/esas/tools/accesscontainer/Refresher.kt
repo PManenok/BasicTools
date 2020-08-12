@@ -15,28 +15,29 @@ import by.esas.tools.accesscontainer.entity.RefreshResult
 import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.error.ErrorStatusEnum
 import by.esas.tools.accesscontainer.error.IErrorMapper
-import by.esas.tools.accesscontainer.error.IModel
 import by.esas.tools.accesscontainer.support.IContainerCancellationCallback
 import by.esas.tools.accesscontainer.support.IContainerExecutor
-import by.esas.tools.accesscontainer.support.IContainerLogger
 import by.esas.tools.accesscontainer.support.ITypeManager
 import by.esas.tools.accesscontainer.support.supporter.Supporter
+import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.ILogger
 import java.lang.ref.WeakReference
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 
-class Refresher<T>(
-    private val logger: IContainerLogger<T>,
-    private val executor: IContainerExecutor<T>,
+class Refresher<E : Enum<E>>(
+    private val logger: ILogger<E>,
+    private val executor: IContainerExecutor<E>,
     private val typeManager: ITypeManager,
     private val userInfo: BiometricUserInfo,
-    private val mapper: IErrorMapper<T>,
+    private val mapper: IErrorMapper<E>,
     private val dialogProvider: DialogProvider,
-    private val supporter: Supporter<T>
-) : IRefreshContainer<T> {
+    private val supporter: Supporter<E>
+) : IRefreshContainer<E> {
     val TAG: String = Refresher::class.java.simpleName
     private var accessToken: String = ""
     private var refreshToken: String = ""
+
     // default cancellation callback
     private val defaultCancellationCallback: IContainerCancellationCallback = object :
         IContainerCancellationCallback {
@@ -51,8 +52,8 @@ class Refresher<T>(
     private var fragmentManager: WeakReference<FragmentManager?> = WeakReference(null) // fragment manager for simple dialogs
     private var activity: WeakReference<FragmentActivity?> = WeakReference(null) // activity for biometric dialog
 
-    private var result: ContainerRequest<RefreshResult, T> =
-        ContainerRequest<RefreshResult, T>() // result instance which will get result when it is finished
+    private var result: ContainerRequest<RefreshResult, E> =
+        ContainerRequest<RefreshResult, E>() // result instance which will get result when it is finished
     private var userId: String = "" // user ID sets from getSecrets
 
     private var isBiometricAvailable: Boolean = false // shows if biometric is available
@@ -71,6 +72,11 @@ class Refresher<T>(
     private var forgotPasswordAction: () -> Unit = {} // action for forgot password
 
     private val types: MutableSet<AuthType> = mutableSetOf()// shows which secret types user has
+
+    private var refresherErrorStatusToCheck: E? = null
+    private var checkRefreshError: Boolean = false
+    private var useExtraCheck: Boolean = false
+    private var extraRefreshCheck: (IErrorModel<E>) -> Unit = {}
 
     init {
         logger.setTag(TAG)
@@ -92,27 +98,26 @@ class Refresher<T>(
      * данных контейнера и выполнением переданного блока кода
      *
      */
-    override fun refresh(repeat: () -> Unit, onError: (IModel<T>) -> Unit, onCancel: () -> Unit) {
+    override fun refresh(onComplete: (String?) -> Unit, onError: (IErrorModel<E>) -> Unit, onCancel: () -> Unit) {
         logger.log("refresh")
-        result = ContainerRequest<RefreshResult, T>()
+        this.refreshExplicitly = true
+        result = ContainerRequest<RefreshResult, E>()
             .apply {
-            onComplete { tokenResponse ->
-                logger.log("refresh result.onComplete token != null = ${tokenResponse.token != null}")
-                tokenResponse.token?.let {
-                    setToken(it)
+                onComplete { tokenResponse ->
+                    logger.log("refresh result.onComplete token != null = ${tokenResponse.token != null}")
+                    tokenResponse.token?.let { setToken(it) }
+                    onComplete(tokenResponse.token?.accessToken)
                 }
-                repeat()
+                onError {
+                    logger.log("refresh result.onError")
+                    logger.logError(it)
+                    onError(it)
+                }
+                onCancel {
+                    logger.log("refresh result.onCancel")
+                    onCancel()
+                }
             }
-            onError {
-                logger.log("refresh result.onError")
-                logger.logError(it.value)
-                onError(it)
-            }
-            onCancel {
-                logger.log("refresh result.onCancel")
-                onCancel()
-            }
-        }
 
         logger.log("refresh needCheck = false")
         needCheck = false
@@ -132,33 +137,33 @@ class Refresher<T>(
         cancellationCallback.onCancel()
     }
 
-    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, T>.() -> Unit) {
+    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, E>.() -> Unit) {
         logger.log("checkAccess refreshExplicitly = $refreshExplicitly")
         this.refreshExplicitly = refreshExplicitly
-        val result = ContainerRequest<String, T>().apply(response)
+        val result = ContainerRequest<String, E>().apply(response)
 
-        this.result = ContainerRequest<RefreshResult, T>()
+        this.result = ContainerRequest<RefreshResult, E>()
             .apply {
-            onComplete { tokenResponse ->
-                logger.log("checkAccess result.onComplete hasAccess = ${tokenResponse.hasAccess}")
-                if (tokenResponse.hasAccess) {
-                    logger.log("checkAccess result.onComplete token != null = ${tokenResponse.token != null}")
-                    tokenResponse.token?.let { token ->
-                        setToken(token)
-                    }
-                    result(accessToken)
-                } else result()
+                onComplete { tokenResponse ->
+                    logger.log("checkAccess result.onComplete hasAccess = ${tokenResponse.hasAccess}")
+                    if (tokenResponse.hasAccess) {
+                        logger.log("checkAccess result.onComplete token != null = ${tokenResponse.token != null}")
+                        tokenResponse.token?.let { token ->
+                            setToken(token)
+                        }
+                        result(accessToken)
+                    } else result()
+                }
+                onError {
+                    logger.log("checkAccess result.onError")
+                    logger.logError(it)
+                    result(it)
+                }
+                onCancel {
+                    logger.log("checkAccess result.onCancel")
+                    result()
+                }
             }
-            onError {
-                logger.log("checkAccess result.onError")
-                logger.logError(it.value)
-                result(it)
-            }
-            onCancel {
-                logger.log("checkAccess result.onCancel")
-                result()
-            }
-        }
         logger.log("checkAccess needCheck = true")
         needCheck = true
         userId = userInfo.getCurrentUser()
@@ -175,14 +180,27 @@ class Refresher<T>(
             onComplete { token ->
                 logger.log("refreshAccess onComplete it != null ${token != null}")
                 if (token != null) {
-                    result(
-                        RefreshResult(token = token)
-                    )
+                    result(RefreshResult(token = token))
                 }
             }
             onError { error ->
                 logger.log("refreshAccess onError")
-                result(error)
+                if (checkRefreshError) {
+                    checkRefreshError(error)
+                } else {
+                    result(error)
+                }
+            }
+        }
+    }
+
+    private fun checkRefreshError(error: IErrorModel<E>) {
+        if (useExtraCheck) {
+            extraRefreshCheck(error)
+        } else {
+            if (error.statusEnum == refresherErrorStatusToCheck) {
+                //deleteSecrets()
+                showPasswordDialog(true)
             }
         }
     }
@@ -234,22 +252,24 @@ class Refresher<T>(
         }
     }
 
-    private fun refreshWithSecret(pinKey: SecretKey? = null, cipher: Cipher? = null) {
+    /*private fun refreshWithSecret(pinKey: SecretKey? = null, cipher: Cipher? = null) {
         logger.log("refreshWithSecret pinKey!=null ${pinKey != null}, cipher!=null ${cipher != null}")
         executor.refreshWithSecretUC(pinKey, cipher) {
             onComplete { token ->
                 logger.log("refreshWithSecret onComplete")
-                result(
-                    RefreshResult(token)
-                )
+                result(RefreshResult(token))
             }
 
             onError { error ->
                 logger.log("refreshWithSecret onError")
-                result(error)
+                if (checkRefreshError) {
+                    checkRefreshError(error)
+                } else {
+                    result(error)
+                }
             }
         }
-    }
+    }*/
     /*############################# Refresh token with dialogs END ##############################*/
 
     /*############################# Check access with dialogs ###################################*/
@@ -262,11 +282,11 @@ class Refresher<T>(
                 if (it.first) {
                     if (refreshExplicitly) {
                         logger.log("checkSecret onComplete refreshToken != null")
-                        if (refreshToken.isNotBlank()) {
+                        /*if (refreshToken.isNotBlank()) {
                             refreshAccess(refreshToken)
-                        } else {
-                            refreshWithSecret(it.second)
-                        }
+                        } else {*/
+                        refreshWithSecret(it.second)
+                        //}
                     } else {
                         logger.log("checkSecret onComplete return")
                         result(RefreshResult())
@@ -274,11 +294,9 @@ class Refresher<T>(
                 } else {
                     logger.log("checkSecret onComplete failed check return error SECRET_CHECK_NOT_MATCH")
                     result(
-                        IModel(
-                            supporter.util.createErrorModel(
-                                0,
-                                ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name
-                            )
+                        supporter.util.createErrorModel(
+                            0,
+                            ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name
                         )
                     )
                 }
@@ -295,14 +313,16 @@ class Refresher<T>(
         executor.refreshWithSecretUC(secret) {
             onComplete { token ->
                 logger.log("refreshWithSecret onComplete")
-                result(
-                    RefreshResult(token)
-                )
+                result(RefreshResult(token))
             }
 
             onError { error ->
                 logger.log("refreshWithSecret onError")
-                result(error)
+                if (checkRefreshError) {
+                    checkRefreshError(error)
+                } else {
+                    result(error)
+                }
             }
         }
     }
@@ -310,7 +330,7 @@ class Refresher<T>(
     /*############################## Check access with dialogs END ##############################*/
 
     /*############################### Authentication with password ##############################*/
-    private fun authenticate(password: String, recreate: Boolean) {
+    private fun authenticate(password: String, recreate: Boolean, noSecrets: Boolean) {
         logger.log("authenticate password not blank = ${password.isNotBlank()}")
         if (password.isNotBlank()) {
             executor.authorizationInSystemUC(password) {
@@ -326,19 +346,11 @@ class Refresher<T>(
                                 showEncryptPinDialog(token)
                             }
                         } else {
-                            result(
-                                RefreshResult(
-                                    token
-                                )
-                            )
+                            result(RefreshResult(token))
                         }
                     } else {
                         logger.log("authenticate onComplete return")
-                        result(
-                            RefreshResult(
-                                token
-                            )
-                        )
+                        result(RefreshResult(token))
                     }
                 }
                 onError { error ->
@@ -348,7 +360,7 @@ class Refresher<T>(
             }
         } else {
             logger.log("authenticate showPasswordDialog")
-            showPasswordDialog()
+            showPasswordDialog(noSecrets)
         }
     }
 
@@ -376,7 +388,7 @@ class Refresher<T>(
             dialog.createDialog()
             dialog.setStateActions({ e ->
                 logger.log("showAuthDialog onError ${e.message}")
-                result(IModel(mapper(e)))
+                result(mapper(e))
             }, { afterOk ->
                 logger.log("showAuthDialog onDismiss afterOk=${afterOk}")
                 if (!afterOk) {
@@ -418,7 +430,7 @@ class Refresher<T>(
             dialog.createDialog()
             dialog.setStateActions({ e ->
                 logger.log("showDecryptPinDialog onError ${e.message}")
-                result(IModel(mapper(e)))
+                result(mapper(e))
             }, { afterOk ->
                 logger.log("showDecryptPinDialog onDismiss afterOk=$afterOk")
                 if (!afterOk) {
@@ -433,11 +445,11 @@ class Refresher<T>(
                     Settings.Secure.getString(activity.get()?.contentResolver, Settings.Secure.ANDROID_ID)
                 )
                 typeManager.putPreferredType(AuthType.PIN_AUTH)
-                if (needCheck) {
-                    checkSecret(pinKey = pinKey)
-                } else {
+                //if (needCheck) {
+                checkSecret(pinKey = pinKey)
+                /*} else {
                     refreshWithSecret(pinKey = pinKey)
-                }
+                }*/
             }, {
                 logger.log("showDecryptPinDialog onPinCanceled showAuthDialog(isDecrypting = true)")
                 showAuthDialog(isDecrypting = true)
@@ -461,7 +473,7 @@ class Refresher<T>(
             dialog.createDialog()
             dialog.setStateActions({ e ->
                 logger.log("showDecryptPinDialog onError ${e.message}")
-                result(IModel(mapper(e)))
+                result(mapper(e))
             }, { afterOk ->
                 logger.log("showEncryptPinDialog onDismiss afterOk=$afterOk")
                 if (!afterOk) {
@@ -523,11 +535,11 @@ class Refresher<T>(
                     logger.log("DecryptBiometricDialog preferredType BIOMETRIC_AUTH")
                     typeManager.putPreferredType(AuthType.BIOMETRIC_AUTH)
                     logger.log("DecryptBiometricDialog needCheck $needCheck")
-                    if (needCheck) {
-                        checkSecret(cipher = cipher)
-                    } else {
+                    //if (needCheck) {
+                    checkSecret(cipher = cipher)
+                    /*} else {
                         refreshWithSecret(cipher = cipher)
-                    }
+                    }*/
                 })
 
                 logger.log("showDecryptBiometricDialog needCheck=$needCheck")
@@ -613,23 +625,30 @@ class Refresher<T>(
 
 /*##################### Password ########################*/
 
-    private fun showPasswordDialog() {
+    private fun showPasswordDialog(noSecrets: Boolean = false) {
         logger.log("showPasswordDialog")
         dialogProvider.passwordDialog.let { dialog ->
             dialog.createDialog()
             dialog.setStateActions({ e: Exception ->
                 logger.log("showPasswordDialog onError ${e.message}")
-                result(IModel(mapper(e)))
+                result(mapper(e))
             }, { afterOk: Boolean ->
                 logger.log("showPasswordDialog onDismiss afterOk=$afterOk, types not empty=${types.isNotEmpty()}")
-                if (!afterOk && types.isNotEmpty()) {
+                if (!afterOk){
+                    if (!noSecrets && types.isNotEmpty()){
+                        showAuthDialog(isDecrypting = true)
+                    }else{
+                        result()
+                    }
+                }
+                /*if (!afterOk && types.isNotEmpty()) {
                     showAuthDialog(isDecrypting = true)
                 } else if (!afterOk && types.isEmpty()) {
                     result()
-                }
+                }*/
             })
             logger.log("showPasswordDialog types not empty=${types.isNotEmpty()}")
-            if (types.isNotEmpty()) {
+            if (!noSecrets && types.isNotEmpty()) {
                 dialog.setCancelTitle(supporter.resProvider.provideAlterCancelStr())
                 dialog.setShowRecreateAuth(true)
             }
@@ -642,7 +661,7 @@ class Refresher<T>(
                 dialog.setTitle(supporter.resProvider.provideAccessStr())
             dialog.setCallbacks({ password: String, recreate: Boolean ->
                 logger.log("showPasswordDialog onPasswordComplete")
-                authenticate(password, recreate)
+                authenticate(password, recreate,noSecrets)
             }, {
                 logger.log("showPasswordDialog onPasswordForgot forgotPasswordActionEnable=$forgotPasswordActionEnable")
                 if (forgotPasswordActionEnable)
@@ -696,12 +715,39 @@ class Refresher<T>(
                 }
             }
             onError {
-                logger.logError(it.value)
+                logger.logError(it)
                 logger.log("deleteBiometricType showAuthDialog(isDecrypting = true)")
                 showAuthDialog(isDecrypting = true)
             }
         }
     }
+
+    /*fun deleteSecrets() {
+        logger.log("deleteBiometricType BIOMETRIC_AUTH")
+        executor.deleteSecretsUC {
+            onComplete {
+                logger.log("deleteBiometricType $it")
+                if (it) {
+                    types.clear()
+                    if (types.isEmpty()) {
+                        presentType = AuthType.NONE
+                        logger.log("deleteBiometricType containsSecrets = false presentType=NONE")
+                        showPasswordDialog()
+                    } else {
+                        presentType = types.firstOrNull() ?: AuthType.NONE
+                        typeManager.putPreferredType(presentType)
+                        logger.log("deleteBiometricType presentType=$presentType")
+                        showAuthDialog(isDecrypting = true)
+                    }
+                }
+            }
+            onError {
+                logger.logError(it)
+                logger.log("deleteBiometricType showAuthDialog(isDecrypting = true)")
+                showAuthDialog(isDecrypting = true)
+            }
+        }
+    }*/
 /*#################################### Common END ###########################################*/
 
 /*############################## Settings ###################################################*/
@@ -791,4 +837,14 @@ class Refresher<T>(
         forgotPasswordActionEnable = false
         forgotPasswordAction = {}
     }
+
+    fun setCheckRefreshError(
+        check: Boolean = false, errorStatus: E? = null, useExtraCheck: Boolean = false, extraCheck: (IErrorModel<E>) -> Unit = {}
+    ) {
+        checkRefreshError = check
+        refresherErrorStatusToCheck = errorStatus
+        this.useExtraCheck = useExtraCheck
+        extraRefreshCheck = extraCheck
+    }
+
 }

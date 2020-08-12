@@ -31,8 +31,7 @@
             android:paddingStart="12dp"
             android:paddingTop="16dp"
             android:paddingEnd="12dp"
-            android:paddingBottom="16dp"
-            tools:text="Text" />
+            android:paddingBottom="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -52,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/v_field_spinner_layout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="\&#x202B;HINT Hint hint" />
+        tools:text="&#x202B;Label" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_field_spinner_prefix_text"
