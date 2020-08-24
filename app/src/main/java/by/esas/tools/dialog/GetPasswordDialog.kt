@@ -1,8 +1,7 @@
-package by.esas.tools
+package by.esas.tools.dialog
 
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckBox
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import by.esas.basictools.dialog.BaseDialogFragment
@@ -16,14 +15,14 @@ import by.esas.eposmobile.databinding.DfPasswordBinding
 import by.esas.eposmobile.utils.logger.LoggerImpl
 import by.esas.eposmobile.utils.setHeader
 import by.esas.eposmobile.utils.validation.RegexSamples
+import by.esas.tools.BR
+import by.esas.tools.R
 import by.esas.tools.databinding.DfPasswordBinding
-import by.esas.tools.dialog.BindingDialogFragment
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
 import by.esas.tools.logger.BaseLogger
-import com.google.android.material.button.MaterialButton
+import by.esas.tools.logger.LoggerImpl
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textview.MaterialTextView
 import io.github.anderscheow.validator.Validation
 import io.github.anderscheow.validator.Validator
 import io.github.anderscheow.validator.rules.common.NotEmptyRule

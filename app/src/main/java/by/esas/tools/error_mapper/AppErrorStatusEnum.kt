@@ -1,4 +1,4 @@
-package by.esas.tools
+package by.esas.tools.error_mapper
 
 enum class AppErrorStatusEnum {
     OK,

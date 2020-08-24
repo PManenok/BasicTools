@@ -1,10 +1,12 @@
-package by.esas.tools
+package by.esas.tools.fields
 
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import androidx.annotation.RequiresApi
 import androidx.core.text.BidiFormatter
+import by.esas.tools.R
+import by.esas.tools.getLocale
 import by.esas.tools.inputfieldview.InputFieldView
 
 class RohabInputField : InputFieldView {
@@ -75,7 +77,11 @@ class RohabInputField : InputFieldView {
                 val afterSecondBrace = afterFirstBrace.substringAfter(")", "")
                 val builder = StringBuilder("")
                 builder.append(beforeBrace.toUpperCase(getLocale(context))).append("(")
-                    .append(betweenBraces).append(")").append(afterSecondBrace.toUpperCase(getLocale(context)))
+                    .append(betweenBraces).append(")").append(afterSecondBrace.toUpperCase(
+                        getLocale(
+                            context
+                        )
+                    ))
                 builder.toString()
             } else hint.toUpperCase(getLocale(context))
             labelText.text = hint//HtmlCompat.fromHtml(hint,HtmlCompat.FROM_HTML_MODE_LEGACY)

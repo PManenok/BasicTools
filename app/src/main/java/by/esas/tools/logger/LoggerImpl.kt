@@ -1,8 +1,6 @@
-package by.esas.tools
+package by.esas.tools.logger
 
-import by.esas.tools.domain.mapper.ErrorModel
-import by.esas.tools.logger.IErrorModel
-import by.esas.tools.logger.ILogger
+import by.esas.tools.error_mapper.AppErrorStatusEnum
 
 class LoggerImpl : ILogger<AppErrorStatusEnum> {
     override fun setTag(tag: String) {

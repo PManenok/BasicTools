@@ -1,8 +1,8 @@
-package by.esas.tools
+package by.esas.tools.usecase
 
+import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
-import by.esas.tools.domain.usecase.UseCase
 import kotlin.coroutines.CoroutineContext
 
 class GetDefaultCardUseCase constructor(

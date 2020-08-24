@@ -5,8 +5,16 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import by.esas.tools.checker.Checker
+import by.esas.tools.checking.AppChecker
+import by.esas.tools.checking.FieldChecking
+import by.esas.tools.error_mapper.AppErrorMapper
+import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inputfieldview.InputFieldView
 import by.esas.tools.inputfieldview.SpinnerFieldView
+import by.esas.tools.logger.ErrorModel
+import by.esas.tools.logger.LoggerImpl
+import by.esas.tools.usecase.GetDefaultCardUseCase
 import com.squareup.moshi.Moshi
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -33,13 +41,23 @@ class MainActivity : AppCompatActivity() {
         spinner.adapter.notifyDataSetChanged()
         val currentText = "1"
         spinner.setText(currentText)
+
+        AppChecker()
+            .setShowError(true)
+            .setListener(object :Checker.CheckListener{})
+            .validate(listOf(FieldChecking(field)))
+
+
     }
 
     val serviceName = ObservableField<String>("")
 
 
     fun testError() {
-        val uc = GetDefaultCardUseCase(AppErrorMapper(Moshi.Builder().build(), LoggerImpl()), Dispatchers.Main)
+        val uc = GetDefaultCardUseCase(
+            AppErrorMapper(Moshi.Builder().build(), LoggerImpl()),
+            Dispatchers.Main
+        )
         uc.execute {
             onComplete {
 

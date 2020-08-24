@@ -38,4 +38,5 @@ dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':logger')
     implementation project(path: ':dialog')
+    implementation project(path: ':checker')
 }

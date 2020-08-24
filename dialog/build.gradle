@@ -45,4 +45,5 @@ dependencies {
     //Module
     implementation project(path: ':logger')
     implementation project(path: ':util')
+    implementation project(path: ':checker')
 }

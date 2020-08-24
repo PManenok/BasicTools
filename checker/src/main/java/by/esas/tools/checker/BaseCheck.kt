@@ -10,8 +10,9 @@ abstract class BaseCheck {
     protected var errorRes: Int = 0
     protected var params: Array<out Any> = emptyArray()
     protected var errorText: String = "Error"
-    protected var exception: Exception? = null
-    protected var status: Enum<*>? = null
+    protected var exceptionValue: Exception? = null
+    protected var errStatus: Enum<*>? = null
+    protected var errorGetter: ErrorGetter = object : ErrorGetter {}
 
     private constructor()
 
@@ -29,31 +30,41 @@ abstract class BaseCheck {
     }*/
 
     constructor(error: Exception) : this() {
-        this.exception = error
+        this.exceptionValue = error
     }
 
     constructor(status: Enum<*>) : this() {
-        this.status = status
+        this.errStatus = status
     }
 
     abstract fun check(value: Any?): Boolean
 
-    open fun getError(context: Context?): String {
+    open fun getError(context: Context?, errorGetter: ErrorGetter? = null): String {
         return if (errorRes != 0 && context != null) {
             context.resources.getString(errorRes, params)
-        } else if (exception != null) {
-            getErrorMsgFromException()
-        } else if (status != null) {
-            getErrorMsgFromStatus()
+        } else if (exceptionValue != null) {
+            (errorGetter ?: this.errorGetter).getErrorMsgFromException(exceptionValue)
+        } else if (errStatus != null) {
+            (errorGetter ?: this.errorGetter).getErrorMsgFromStatus(errStatus)
         } else errorText
     }
 
-    protected open fun getErrorMsgFromException(): String {
-        return exception?.message ?: ""
+    fun getException(): Exception? {
+        return exceptionValue
     }
 
-    protected open fun getErrorMsgFromStatus(): String {
-        return status?.name ?: ""
+    fun getStatus(): Enum<*>? {
+        return errStatus
+    }
+
+    interface ErrorGetter {
+        fun getErrorMsgFromException(exception: Exception?): String {
+            return exception?.message ?: ""
+        }
+
+        fun getErrorMsgFromStatus(status: Enum<*>?): String {
+            return status?.name ?: ""
+        }
     }
 }
 
