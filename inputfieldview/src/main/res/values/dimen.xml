@@ -21,4 +21,7 @@
 
     <dimen name="default_min_btn_side_size">48dp</dimen>
     <dimen name="pin_icon_padding">2dp</dimen>
+
+    <dimen name="input_text_layout_height_with_hint">70dp</dimen>
+    <dimen name="input_text_layout_height_without_hint">65dp</dimen>
 </resources>

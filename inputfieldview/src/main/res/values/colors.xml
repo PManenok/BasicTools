@@ -15,5 +15,6 @@
     <!-- Text colors end-->
     <color name="colorStrokeOutline">#B3B3B3</color>
     <color name="colorTextButton">#FFFFFF</color>
+    <color name="colorSpinnerBackground">#FFFFFF</color>
 
 </resources>

@@ -33,18 +33,18 @@ class SpinnerFieldView : ConstraintLayout {
     private val inputType: Int = EditorInfo.TYPE_NULL
     var adapter: ArrayAdapter<*> = ArrayAdapter<String>(context, R.layout.i_field_spinner_drop_down)
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttrs(attrs)
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
         initAttrs(attrs)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
     }
@@ -95,6 +95,7 @@ class SpinnerFieldView : ConstraintLayout {
         inputText.isEnabled = enabled
 
         adapter.setDropDownViewResource(dropDown)
+        inputText.setDropDownBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_spinner_drop_down))
         inputText.setAdapter(adapter)
 
         if (startDraw != null)

@@ -1,5 +1,8 @@
 package by.esas.tools.inputfieldview
 
+import android.content.Context
+import android.util.DisplayMetrics
+
 fun Double.toFormattedInput(): String {
     val temp = this.toString()
     val dotIndex = temp.indexOf(".")

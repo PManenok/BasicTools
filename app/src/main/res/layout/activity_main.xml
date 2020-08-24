@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,31 +11,59 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <!--<by.esas.tools.inputfieldview.SpinnerFieldView
-            android:id="@+id/a_main_service_spinner"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Service"
-            android:text="@={viewModel.serviceName}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />-->
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/horizontal_margin_for_cards"
+            android:orientation="vertical">
 
-        <by.esas.tools.inputfieldview.InputFieldView
-            android:id="@+id/a_main_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/app_name"
-            android:text="@={viewModel.serviceName}"
-            app:inputEndIconMode="clear_text"
-            app:inputHideLabel="false"
-            app:inputLabel="1234" />
+            <by.esas.tools.inputfieldview.SpinnerFieldView
+                android:id="@+id/a_main_service_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Service"
+                android:text="@={viewModel.serviceName}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
 
-    </LinearLayout>
+            <by.esas.tools.RohabInputField
+                android:id="@+id/a_main_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.serviceName}"
+                app:inputEndIconMode="clear_text"
+                app:inputLabel="qwerty (ex. 34567)"
+                app:inputPrefix="1-1-"
+                app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                tools:text="1234" />
+
+            <by.esas.tools.RohabInputField
+                android:id="@+id/a_main_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.serviceName}"
+                app:inputEndIconMode="clear_text"
+                app:inputLabel="qwerty aegaerg areg (ex. 3456 356 2452457)"
+                app:inputLabelType="on_line"
+                app:inputPrefix="1-1-"
+                app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                tools:text="1234" />
+            <!--    <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/a_main_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="text"
+                    app:inputEndIconMode="clear_text"
+                    app:inputHideLabel="false"
+                    app:inputLabel="1234"
+                    app:inputPrefix="1"
+                    app:inputStartDrawable="@drawable/ic_baseline_build_24" />-->
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -23,7 +23,7 @@
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/v_field_spinner_input"
-            style="@style/AppTheme.TextInputLayout.Default"
+            style="@style/AppTheme.SpinnerInputLayout.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -31,7 +31,7 @@
             android:paddingStart="12dp"
             android:paddingTop="16dp"
             android:paddingEnd="12dp"
-            android:paddingBottom="16dp" />
+            android:paddingBottom="16dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView

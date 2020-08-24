@@ -28,6 +28,12 @@ interface IRefreshContainer<E : Enum<E>> {
      **/
     fun checkAccess(refreshExplicitly: Boolean = false, response: ContainerRequest<String, E>.() -> Unit)
 
+    /**
+     * This function can save refresh token, it invokes only encryption dialogs
+     * Should be used only when no secret exist, because it will override old secrets
+     **/
+    fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E>.() -> Unit)
+
     fun onCancel()
 
     fun clearAccess()

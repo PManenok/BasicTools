@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:minHeight="76dp"
+        android:minHeight="@dimen/input_text_layout_height_with_hint"
         android:theme="@style/AppTheme.TextInputLayout.Default"
         app:hintAnimationEnabled="false"
         app:hintEnabled="true"
@@ -29,9 +29,25 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:minHeight="44dp"
-            android:scrollHorizontally="true"/>
+            android:scrollHorizontally="true" />
+        <!--
+            tools:text="Text text text" -->
     </com.google.android.material.textfield.TextInputLayout>
-
+    <!--<com.google.android.material.textview.MaterialTextView
+        android:id="@+id/v_field_editable_floating_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingStart="12dp"
+        android:textColor="@color/colorBtnDefault"
+        android:textDirection="locale"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:fontFamily="@font/proxima"
+        app:layout_constraintBottom_toTopOf="@id/v_field_editable_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="\&#x202B;HINT Hint hint"
+        tools:visibility="visible" />-->
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_field_editable_floating_label"
         style="@style/AppTheme.TextInputLayout.DefaultHintAppearance"
@@ -46,7 +62,9 @@
         android:scrollHorizontally="true"
         app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="&#x202B;Label" />
+        tools:text="&#x202B;HINT Hint hint" />
+    <!--
+        tools:text="&#x202B;HINT Hint hint"-->
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_field_editable_prefix_text"

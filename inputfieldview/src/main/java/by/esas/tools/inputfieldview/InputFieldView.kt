@@ -20,26 +20,31 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import java.util.concurrent.Semaphore
 
-class InputFieldView : ConstraintLayout {
-    val TAG: String = InputFieldView::class.java.simpleName
+open class InputFieldView : ConstraintLayout {
+    open val TAG: String = InputFieldView::class.java.simpleName
 
     private var startDraw: Drawable? = null
-    private var startTint: Int
-    private var endTint: Int
-    private val passwordToggleRes: Int = R.drawable.selector_password_toggle
-    private val defaultPaddingLeft: Int
-    private var currentPaddingLeft: Int
+    protected var startTint: Int
+    protected var endTint: Int
+    protected val passwordToggleRes: Int = R.drawable.selector_password_toggle
+    protected val defaultPaddingLeft: Int
+    protected var currentPaddingLeft: Int
     val inputLayout: TextInputLayout
     val inputText: TextInputEditText
     val prefixText: MaterialTextView
-    private val layoutText: MaterialTextView
-    private var label: String = ""
+    protected val labelText: MaterialTextView
+    protected var label: String = ""
     private var hint: String = ""
     private var endIconMode: Int = TextInputLayout.END_ICON_NONE
-    private var inputType: Int = EditorInfo.TYPE_CLASS_TEXT
-    private var prefix: String = ""
-    private var hasStartDrawable: Boolean = false
-    private var hideLabel: Boolean = false
+    protected var inputType: Int = EditorInfo.TYPE_CLASS_TEXT
+    protected var prefix: String = ""
+    protected var hasStartDrawable: Boolean = false
+    protected var hideLabel: Boolean = false
+        set(value) {
+            field = value
+            labelText.visibility = if (hideLabel) View.GONE else View.VISIBLE
+        }
+    protected open val defaultLabelType: Int = LabelType.ON_LINE
 
     private val uncheckedResDef: Int = R.drawable.ic_check_box_unfilled
     private val checkedResDef: Int = R.drawable.ic_check_box_filled
@@ -50,18 +55,18 @@ class InputFieldView : ConstraintLayout {
     private var checkedListener: StartIconCheckedListener? = null
     private val checkSemaphore: Semaphore = Semaphore(1)
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttrs(attrs)
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
         initAttrs(attrs)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
     }
@@ -73,7 +78,7 @@ class InputFieldView : ConstraintLayout {
         defaultPaddingLeft = inputText.paddingLeft
         currentPaddingLeft = defaultPaddingLeft
         prefixText = view.findViewById<MaterialTextView>(R.id.v_field_editable_prefix_text)
-        layoutText = view.findViewById(R.id.v_field_editable_floating_label)
+        labelText = view.findViewById(R.id.v_field_editable_floating_label)
         startTint = ContextCompat.getColor(context, R.color.colorPrimary)
         endTint = startTint
         inputText.onFocusChangeListener =
@@ -131,13 +136,16 @@ class InputFieldView : ConstraintLayout {
         val uncheckedDraw: Drawable? =
             typedArray.getDrawable(R.styleable.InputFieldView_inputUncheckedDrawable)
 
+        // End Icon Mode
+        val labelType = typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
+
         typedArray.recycle()
 
         checkedDrawable = checkedDraw ?: ContextCompat.getDrawable(context, checkedResDef)
         uncheckedDrawable = uncheckedDraw ?: ContextCompat.getDrawable(context, uncheckedResDef)
 
 
-        layoutText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
+        labelText.visibility = if (hideLabel) View.GONE else View.VISIBLE
 
         inputText.setText(text)
         inputText.hint = hint
@@ -151,13 +159,40 @@ class InputFieldView : ConstraintLayout {
         } else if (startDraw != null)
             setStartDraw(startDraw!!)
 
-        setInputPrefix(prefix)
         inputLayout.endIconMode = endIconMode
         inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
         if (endDraw != null) {
             inputLayout.endIconDrawable = endDraw
         }
+        setInputPrefix(prefix)
+        setLabelType(labelType)
     }
+
+    open fun setLabelType(labelType: Int) {
+        when (labelType) {
+            LabelType.ON_TOP -> {
+                labelText.background = null
+                inputLayout.isHintEnabled = false
+                inputLayout.minimumHeight = resources.getDimensionPixelOffset(R.dimen.input_text_layout_height_without_hint)
+                labelText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+                val prefixParams = (prefixText.layoutParams as ConstraintLayout.LayoutParams)
+                prefixParams.setMargins(prefixParams.leftMargin, 0, prefixParams.rightMargin, prefixParams.bottomMargin)
+                if (!hideLabel) {
+                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
+                    params.setMargins(params.leftMargin, labelText.measuredHeight, params.rightMargin, params.bottomMargin)
+                }
+            }
+            LabelType.ON_LINE -> {
+                if (hideLabel) {
+                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
+                    params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin)
+                }
+            }
+            else -> {
+            }
+        }
+    }
+
 
     interface StartIconCheckedListener {
         fun onCheckChanged(isChanged: Boolean)
@@ -186,7 +221,7 @@ class InputFieldView : ConstraintLayout {
         return isChecked
     }
 
-    fun setInputPrefix(prefix: String) {
+    open fun setInputPrefix(prefix: String) {
         this.prefix = prefix
         if (prefix.isBlank()) {
             prefixText.visibility = View.INVISIBLE
@@ -201,62 +236,66 @@ class InputFieldView : ConstraintLayout {
             prefixText.setPadding(
                 currentPaddingLeft, 0, 0, 0
             )
-            prefixText.height = inputText.height - 1
-            var left = prefixText.width
+            inputText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+            prefixText.height = inputText.measuredHeight - 1
+            prefixText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+            var left = prefixText.measuredWidth
             if (hasStartDrawable) {
                 left -= (currentPaddingLeft - defaultPaddingLeft)
             }
-            inputText.setPadding(
-                left, inputText.paddingTop,
-                inputText.paddingRight, inputText.paddingBottom
-            )
+            inputText.post {
+                inputText.setPadding(
+                    left, inputText.paddingTop,
+                    inputText.paddingRight, inputText.paddingBottom
+                )
+            }
         }
     }
 
-    fun setText(text: String) {
+    open fun setText(text: String) {
         if (!inputText.text.toString().equals(text)) {
             inputText.setText(text)
         }
     }
 
-    fun getText(): String {
+    open fun getText(): String {
         return inputText.text.toString()
     }
 
-    fun getTextWithPrefix(): String {
+    open fun getTextWithPrefix(): String {
         return prefix + inputText.text.toString()
     }
 
-    fun setHideLabel(hide: Boolean) {
-        hideLabel = hide
-        layoutText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
-    }
+    /*   fun setHideLabel(hide: Boolean) {
+          hideLabel = hide
+          labelText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
+      }*/
 
-    fun setInputLabel(text: String) {
-        if (!(layoutText.text?.toString() ?: "").equals(text)) {
+    open fun setInputLabel(text: String) {
+        if (!(labelText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
                 Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
             val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
                 "\u202B$text"
             } else text
-            layoutText.text = hint
+            labelText.text = hint
         }
     }
 
-    fun setInputLabel(textId: Int) {
+    open fun setInputLabel(textId: Int) {
         val text = if (textId != -1) context.resources.getString(textId) else ""
-        if (!(layoutText.text?.toString() ?: "").equals(text)) {
+        if (!(labelText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
                 Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
             val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
                 "\u202B$text"
             } else text
-            layoutText.text = hint
+            labelText.text = hint
         }
     }
 
     fun getHint(): String {
-        return layoutText.text?.toString() ?: ""
+        return labelText.text?.toString() ?: ""
     }
 
     fun setEditable(value: Boolean) {
@@ -372,6 +411,13 @@ class InputFieldView : ConstraintLayout {
             setError(error.message)
         else {
             setError(null)
+        }
+    }
+
+    class LabelType {
+        companion object {
+            const val ON_TOP: Int = 0
+            const val ON_LINE: Int = 1
         }
     }
 }

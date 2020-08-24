@@ -29,6 +29,10 @@
         <attr name="inputHideLabel" default="false" format="boolean" />
         <attr name="inputCheckedDrawable" format="reference" />
         <attr name="inputUncheckedDrawable" format="reference" />
+        <attr name="inputLabelType">
+            <enum name="on_top" value="0" />
+            <enum name="on_line" value="1" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">

@@ -171,6 +171,32 @@ class Refresher<E : Enum<E>>(
         getSecrets()
     }
 
+    override fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E>.() -> Unit) {
+        val result = ContainerRequest<String, E>().apply(response)
+
+        this.result = ContainerRequest<RefreshResult, E>()
+            .apply {
+                onComplete { tokenResponse ->
+                    logger.log("saveRefresh result.onComplete")
+                    result(accessToken)
+                }
+                onError {
+                    logger.log("saveRefresh result.onError")
+                    logger.logError(it)
+                    result(it)
+                }
+                onCancel {
+                    logger.log("saveRefresh result.onCancel")
+                    result()
+                }
+            }
+
+        if (isBiometricAvailable) {
+            showEncryptBiometricDialog(Token(accessToken, refreshToken))
+        } else {
+            showEncryptPinDialog(Token(accessToken, refreshToken))
+        }
+    }
 
     /*############################ Simple refresh token #########################################*/
 
@@ -634,10 +660,10 @@ class Refresher<E : Enum<E>>(
                 result(mapper(e))
             }, { afterOk: Boolean ->
                 logger.log("showPasswordDialog onDismiss afterOk=$afterOk, types not empty=${types.isNotEmpty()}")
-                if (!afterOk){
-                    if (!noSecrets && types.isNotEmpty()){
+                if (!afterOk) {
+                    if (!noSecrets && types.isNotEmpty()) {
                         showAuthDialog(isDecrypting = true)
-                    }else{
+                    } else {
                         result()
                     }
                 }
@@ -661,7 +687,7 @@ class Refresher<E : Enum<E>>(
                 dialog.setTitle(supporter.resProvider.provideAccessStr())
             dialog.setCallbacks({ password: String, recreate: Boolean ->
                 logger.log("showPasswordDialog onPasswordComplete")
-                authenticate(password, recreate,noSecrets)
+                authenticate(password, recreate, noSecrets)
             }, {
                 logger.log("showPasswordDialog onPasswordForgot forgotPasswordActionEnable=$forgotPasswordActionEnable")
                 if (forgotPasswordActionEnable)
