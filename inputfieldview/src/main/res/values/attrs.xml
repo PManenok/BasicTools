@@ -33,6 +33,7 @@
             <enum name="on_top" value="0" />
             <enum name="on_line" value="1" />
         </attr>
+        <attr name="inputLabelBgColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">

@@ -7,6 +7,9 @@
         <attr name="pinUnfilledIcon" format="integer" />
         <attr name="pinInAnimationDuration" format="integer" />
         <attr name="pinOutAnimationDuration" format="integer" />
+        <attr name="pinUnfilledPadding" format="dimension" />
+        <attr name="pinBetweenMargin" format="dimension" />
+        <attr name="pinFilledAmount" format="integer" />
     </declare-styleable>
 
 </resources>

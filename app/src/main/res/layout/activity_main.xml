@@ -54,6 +54,12 @@
                 app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
                 tools:text="1234" />
+
+            <by.esas.tools.pinview.PinView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:pinAmount="6"
+                app:pinFilledAmount="3" />
             <!--    <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/a_main_text2"
                     android:layout_width="match_parent"

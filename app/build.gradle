@@ -30,13 +30,19 @@ android {
 }
 
 dependencies {
+    ext.databinding_version = '3.1.4'
+    
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.3.0'
+
+    // Data binding
+    kapt "com.android.databinding:compiler:$databinding_version"
 
     implementation project(path: ':inputfieldview')
     implementation project(path: ':domain')
     implementation project(path: ':logger')
     implementation project(path: ':dialog')
     implementation project(path: ':checker')
+    implementation project(path: ':pinview')
 }

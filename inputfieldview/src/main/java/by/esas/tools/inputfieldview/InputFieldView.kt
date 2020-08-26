@@ -11,7 +11,9 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
+import android.widget.ProgressBar
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -23,20 +25,23 @@ import java.util.concurrent.Semaphore
 open class InputFieldView : ConstraintLayout {
     open val TAG: String = InputFieldView::class.java.simpleName
 
-    private var startDraw: Drawable? = null
-    protected var startTint: Int
-    protected var endTint: Int
-    protected val passwordToggleRes: Int = R.drawable.selector_password_toggle
-    protected val defaultPaddingLeft: Int
-    protected var currentPaddingLeft: Int
     val inputLayout: TextInputLayout
     val inputText: TextInputEditText
     val prefixText: MaterialTextView
     protected val labelText: MaterialTextView
+    private val progress: ProgressBar
+
+    private var startDraw: Drawable? = null
+    protected var startTint: Int
+    private var endDraw: Drawable? = null
+    protected var endTint: Int
+    protected val passwordToggleRes: Int = R.drawable.selector_password_toggle
+    protected val defaultPaddingLeft: Int
+    protected var currentPaddingLeft: Int
     protected var label: String = ""
     private var hint: String = ""
     private var endIconMode: Int = TextInputLayout.END_ICON_NONE
-    protected var inputType: Int = EditorInfo.TYPE_CLASS_TEXT
+    protected var defaultInputType: Int = EditorInfo.TYPE_CLASS_TEXT
     protected var prefix: String = ""
     protected var hasStartDrawable: Boolean = false
     protected var hideLabel: Boolean = false
@@ -54,6 +59,21 @@ open class InputFieldView : ConstraintLayout {
     private var startIconIsCheckable: Boolean = false
     private var checkedListener: StartIconCheckedListener? = null
     private val checkSemaphore: Semaphore = Semaphore(1)
+
+    /*############################ TextListener ################################*/
+    private var textListener: TextListener? = null
+    private val textWatcher: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            textListener?.onTextChanged(s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+    /*############################ TextListener End ################################*/
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -83,6 +103,7 @@ open class InputFieldView : ConstraintLayout {
         endTint = startTint
         inputText.onFocusChangeListener =
             OnFocusChangeListener { v, hasFocus -> if (hasFocus) inputLayout?.error = null }
+        progress = view.findViewById(R.id.v_field_editable_progress)
     }
 
     /*  Initialize attributes from XML file  */
@@ -97,12 +118,15 @@ open class InputFieldView : ConstraintLayout {
         // End Icon Mode
         endIconMode = typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, TextInputLayout.END_ICON_NONE)
         // Input Type
-        inputType = typedArray.getInt(R.styleable.InputFieldView_android_inputType, EditorInfo.TYPE_CLASS_TEXT)
+        val inputType = typedArray.getInt(R.styleable.InputFieldView_android_inputType, defaultInputType)
         // Max Lines
         val maxLines: Int = typedArray.getInt(R.styleable.InputFieldView_android_maxLines, 1)
         // Text Direction
-        val textDirection: Int =
+        val textDirection: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             typedArray.getInt(R.styleable.InputFieldView_android_textDirection, View.TEXT_DIRECTION_ANY_RTL)
+        } else {
+            0
+        }
         // Editable
         val editable: Boolean =
             typedArray.getBoolean(R.styleable.InputFieldView_inputEditable, true)
@@ -121,9 +145,8 @@ open class InputFieldView : ConstraintLayout {
         // End Drawable
         val endDrawParam: Drawable? =
             typedArray.getDrawable(R.styleable.InputFieldView_inputEndDrawable)
-        val endDraw =
-            if (endDrawParam != null || (endIconMode == TextInputLayout.END_ICON_PASSWORD_TOGGLE && passwordToggleRes != -1))
-                endDrawParam ?: ContextCompat.getDrawable(context, passwordToggleRes) else null
+        endDraw = if (endDrawParam != null || (endIconMode == TextInputLayout.END_ICON_PASSWORD_TOGGLE && passwordToggleRes != -1))
+            endDrawParam ?: ContextCompat.getDrawable(context, passwordToggleRes) else null
         // End Tint
         endTint = typedArray.getColor(R.styleable.InputFieldView_inputEndDrawableTint, endTint)
 
@@ -138,18 +161,23 @@ open class InputFieldView : ConstraintLayout {
 
         // End Icon Mode
         val labelType = typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
+        //Label BG color
+        val labelBg = typedArray
+            .getColor(R.styleable.InputFieldView_inputLabelBgColor, ContextCompat.getColor(context, R.color.colorBackground))
 
         typedArray.recycle()
 
         checkedDrawable = checkedDraw ?: ContextCompat.getDrawable(context, checkedResDef)
         uncheckedDrawable = uncheckedDraw ?: ContextCompat.getDrawable(context, uncheckedResDef)
 
-
+        labelText.setBackgroundColor(labelBg)
         labelText.visibility = if (hideLabel) View.GONE else View.VISIBLE
 
         inputText.setText(text)
         inputText.hint = hint
-        inputText.textDirection = textDirection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            inputText.textDirection = textDirection
+        }
         inputText.maxLines = maxLines
         setInputLabel(label)
         inputText.inputType = inputType
@@ -168,57 +196,58 @@ open class InputFieldView : ConstraintLayout {
         setLabelType(labelType)
     }
 
-    open fun setLabelType(labelType: Int) {
-        when (labelType) {
-            LabelType.ON_TOP -> {
-                labelText.background = null
-                inputLayout.isHintEnabled = false
-                inputLayout.minimumHeight = resources.getDimensionPixelOffset(R.dimen.input_text_layout_height_without_hint)
-                labelText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-                val prefixParams = (prefixText.layoutParams as ConstraintLayout.LayoutParams)
-                prefixParams.setMargins(prefixParams.leftMargin, 0, prefixParams.rightMargin, prefixParams.bottomMargin)
-                if (!hideLabel) {
-                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
-                    params.setMargins(params.leftMargin, labelText.measuredHeight, params.rightMargin, params.bottomMargin)
-                }
-            }
-            LabelType.ON_LINE -> {
-                if (hideLabel) {
-                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
-                    params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin)
-                }
-            }
-            else -> {
-            }
+    fun setDefaultValues() {
+        inputText.maxLines = 1
+        inputText.inputType = defaultInputType
+        inputText.isEnabled = true
+        if (startIconIsCheckable) {
+            setCheckableStartIcon()
+        } else if (startDraw != null)
+            setStartDraw(startDraw!!)
+
+        setInputPrefix(prefix)
+        inputLayout.endIconMode = endIconMode
+        inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
+        if (endDraw != null) {
+            inputLayout.endIconDrawable = endDraw
         }
     }
 
-
-    interface StartIconCheckedListener {
-        fun onCheckChanged(isChanged: Boolean)
+    /*############################ Getters ################################*/
+    open fun getText(): String {
+        return inputText.text.toString()
     }
 
-    private fun setCheckableStartIcon() {
-        (if (isChecked) checkedDrawable else uncheckedDrawable)?.let { setStartDraw(it) }
-        inputLayout.setStartIconOnClickListener { view ->
-            if (checkSemaphore.tryAcquire()) {
-                view.isClickable = false
-                isChecked = !isChecked
-                (if (isChecked) checkedDrawable else uncheckedDrawable)?.let { setStartDraw(it) }
-                //inputLayout.startIconDrawable = ContextCompat.getDrawable(context, if (isChecked) checkedRes else uncheckedRes)
-                checkedListener?.onCheckChanged(isChecked)
-                view.isClickable = true
-                checkSemaphore.release()
-            }
-        }
+    fun getInputLabel(): String {
+        return labelText.text?.toString() ?: ""
     }
 
-    fun setOnCheckedListener(listener: StartIconCheckedListener?) {
-        this.checkedListener = listener
+    fun isEditable(): Boolean {
+        return inputText.isEnabled
+    }
+
+    open fun getTextWithPrefix(): String {
+        return prefix + inputText.text.toString()
     }
 
     fun isChecked(): Boolean {
         return isChecked
+    }
+    /*############################ Getters End ################################*/
+
+
+    /*############################ Setters ################################*/
+    open fun setText(text: String) {
+        if (!inputText.text.toString().equals(text)) {
+            inputText.setText(text)
+        }
+    }
+
+    fun setTextListener(listener: TextListener?) {
+        textListener = listener
+        if (textListener != null) {
+            inputText.addTextChangedListener(textWatcher)
+        } else inputText.removeTextChangedListener(textWatcher)
     }
 
     open fun setInputPrefix(prefix: String) {
@@ -252,24 +281,30 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    open fun setText(text: String) {
-        if (!inputText.text.toString().equals(text)) {
-            inputText.setText(text)
+    open fun setLabelType(labelType: Int) {
+        when (labelType) {
+            LabelType.ON_TOP -> {
+                labelText.background = null
+                inputLayout.isHintEnabled = false
+                inputLayout.minimumHeight = resources.getDimensionPixelOffset(R.dimen.input_text_layout_height_without_hint)
+                labelText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+                val prefixParams = (prefixText.layoutParams as ConstraintLayout.LayoutParams)
+                prefixParams.setMargins(prefixParams.leftMargin, 0, prefixParams.rightMargin, prefixParams.bottomMargin)
+                if (!hideLabel) {
+                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
+                    params.setMargins(params.leftMargin, labelText.measuredHeight, params.rightMargin, params.bottomMargin)
+                }
+            }
+            LabelType.ON_LINE -> {
+                if (hideLabel) {
+                    val params: ConstraintLayout.LayoutParams = inputLayout.layoutParams as ConstraintLayout.LayoutParams
+                    params.setMargins(params.leftMargin, 0, params.rightMargin, params.bottomMargin)
+                }
+            }
+            else -> {
+            }
         }
     }
-
-    open fun getText(): String {
-        return inputText.text.toString()
-    }
-
-    open fun getTextWithPrefix(): String {
-        return prefix + inputText.text.toString()
-    }
-
-    /*   fun setHideLabel(hide: Boolean) {
-          hideLabel = hide
-          labelText.visibility = if (hideLabel) View.INVISIBLE else View.VISIBLE
-      }*/
 
     open fun setInputLabel(text: String) {
         if (!(labelText.text?.toString() ?: "").equals(text)) {
@@ -294,20 +329,16 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    fun getHint(): String {
-        return labelText.text?.toString() ?: ""
-    }
-
     fun setEditable(value: Boolean) {
         inputText.isEnabled = value
     }
 
-    fun isEditable(): Boolean {
-        return inputText.isEnabled
-    }
-
     fun setMaxLines(value: Int) {
         inputText.maxLines = value
+    }
+
+    fun setInputType(inputType: Int = defaultInputType) {
+        inputText.inputType = inputType
     }
 
     fun setEndIconMode(mode: Int) {
@@ -316,6 +347,10 @@ open class InputFieldView : ConstraintLayout {
             inputLayout.endIconMode = mode
             inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
         }
+    }
+
+    fun setEndIconDrawable(@DrawableRes endIcon: Int) {
+        setEndIconDrawable(ContextCompat.getDrawable(context, endIcon))
     }
 
     fun setEndIconDrawable(endIcon: Drawable?) {
@@ -332,11 +367,23 @@ open class InputFieldView : ConstraintLayout {
         inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
     }
 
-    private fun setStartDraw(startDraw: Drawable) {
-        inputLayout.startIconDrawable = startDraw
-        inputLayout.setStartIconTintList(ColorStateList.valueOf(startTint))
-        hasStartDrawable = true
-        currentPaddingLeft = 80 + defaultPaddingLeft
+    private fun setCheckableStartIcon() {
+        (if (isChecked) checkedDrawable else uncheckedDrawable)?.let { setStartDraw(it) }
+        inputLayout.setStartIconOnClickListener { view ->
+            if (checkSemaphore.tryAcquire()) {
+                view.isClickable = false
+                isChecked = !isChecked
+                (if (isChecked) checkedDrawable else uncheckedDrawable)?.let { setStartDraw(it) }
+                //inputLayout.startIconDrawable = ContextCompat.getDrawable(context, if (isChecked) checkedRes else uncheckedRes)
+                checkedListener?.onCheckChanged(isChecked)
+                view.isClickable = true
+                checkSemaphore.release()
+            }
+        }
+    }
+
+    fun setOnCheckedListener(listener: StartIconCheckedListener?) {
+        this.checkedListener = listener
     }
 
     fun setChecked(checked: Boolean) {
@@ -368,30 +415,14 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    interface TextListener {
-        fun onTextChanged(text: String)
+    private fun setStartDraw(startDraw: Drawable) {
+        inputLayout.startIconDrawable = startDraw
+        inputLayout.setStartIconTintList(ColorStateList.valueOf(startTint))
+        hasStartDrawable = true
+        currentPaddingLeft = 80 + defaultPaddingLeft
     }
 
-    private var textListener: TextListener? = null
-    private val textWatcher: TextWatcher = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            textListener?.onTextChanged(s.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-    }
-
-    fun setTextListener(listener: TextListener?) {
-        textListener = listener
-        if (textListener != null) {
-            inputText.addTextChangedListener(textWatcher)
-        } else inputText.removeTextChangedListener(textWatcher)
-    }
-
+    /* Error */
     fun setError(text: String?) {
         val errorText = if (text.isNullOrBlank()) null else text
         inputLayout.error = errorText
@@ -412,6 +443,28 @@ open class InputFieldView : ConstraintLayout {
         else {
             setError(null)
         }
+    }
+    /* Error End*/
+
+    /*############################ Setters End ################################*/
+
+    /*############################ Progress ################################*/
+    fun isInProgress(value: Boolean) {
+        progress.visibility = if (value) View.VISIBLE else View.INVISIBLE
+    }
+
+    fun isInProgress(): Boolean {
+        return progress.visibility == View.VISIBLE
+    }
+    /*############################ Progress End ################################*/
+
+
+    interface TextListener {
+        fun onTextChanged(text: String)
+    }
+
+    interface StartIconCheckedListener {
+        fun onCheckChanged(isChanged: Boolean)
     }
 
     class LabelType {

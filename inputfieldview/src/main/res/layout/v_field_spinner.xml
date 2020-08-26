@@ -31,7 +31,7 @@
             android:paddingStart="12dp"
             android:paddingTop="16dp"
             android:paddingEnd="12dp"
-            android:paddingBottom="16dp"/>
+            android:paddingBottom="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -40,7 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
         android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="@color/colorBackground"
         android:maxLines="1"
         android:paddingStart="4dp"
@@ -59,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="11dp"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="@id/v_field_spinner_layout"

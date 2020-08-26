@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="pin_icon_padding">2dp</dimen>
+    <dimen name="pin_icon_padding">0dp</dimen>
+    <dimen name="pin_icon_margin">4dp</dimen>
 
 </resources>

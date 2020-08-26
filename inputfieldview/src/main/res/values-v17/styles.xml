@@ -1,16 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-    </style>
-
-    <!--######################## Extra styles #########################-->
-    <!--Custom input text styles-->
     <style name="AppTheme.TextInputLayout.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/color_box_stroke_selector</item>
         <item name="colorControlNormal">@color/colorStrokeOutline</item>
@@ -20,18 +10,21 @@
         <item name="colorOnSurface">@color/colorStrokeOutline</item>
         <item name="android:textColor">@color/colorTextDefault</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textDirection">anyRtl</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/textSizeDefault</item>
     </style>
 
     <style name="AppTheme.TextInputLayout.DefaultHintAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textDirection">locale</item>
         <item name="android:gravity">start</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textColor">@color/colorTextHint</item>
         <item name="android:textSize">@dimen/textSizeHint</item>
     </style>
-    <!--Custom input text style end-->
-    <!--Custom spinner text styles-->
+
     <style name="AppTheme.SpinnerInputLayout.Default" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="boxStrokeColor">@color/color_box_stroke_selector</item>
         <item name="colorControlNormal">@color/colorStrokeOutline</item>
@@ -41,16 +34,18 @@
         <item name="colorOnSurface">@color/colorStrokeOutline</item>
         <item name="android:textColor">@color/colorTextDefault</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textDirection">anyRtl</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/textSizeDefault</item>
     </style>
 
     <style name="AppTheme.SpinnerInputLayout.DefaultHintAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textDirection">locale</item>
         <item name="android:gravity">start</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textColor">@color/colorTextHint</item>
         <item name="android:textSize">@dimen/textSizeHint</item>
     </style>
-    <!--Custom spinner text style end-->
-    <!--######################## Extra styles end #########################-->
 </resources>

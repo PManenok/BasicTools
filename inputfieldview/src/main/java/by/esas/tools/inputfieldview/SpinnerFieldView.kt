@@ -114,7 +114,11 @@ class SpinnerFieldView : ConstraintLayout {
 
     fun setText(text: String) {
         if (!inputText.text.toString().equals(text)) {
-            inputText.setText(text, false)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                inputText.setText(text, false)
+            } else {
+                inputText.setText("")
+            }
         }
     }
 
