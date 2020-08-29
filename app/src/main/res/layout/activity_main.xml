@@ -39,7 +39,6 @@
                 android:text="@={viewModel.serviceName}"
                 app:inputEndIconMode="clear_text"
                 app:inputLabel="qwerty (ex. 34567)"
-                app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
                 tools:text="1234" />
 

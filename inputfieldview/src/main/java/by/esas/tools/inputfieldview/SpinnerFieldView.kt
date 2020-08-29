@@ -43,11 +43,11 @@ class SpinnerFieldView : ConstraintLayout {
         initAttrs(attrs)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+   /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
-    }
+    }*/
 
     init {
         val view = inflate(context, R.layout.v_field_spinner, this)
@@ -134,8 +134,8 @@ class SpinnerFieldView : ConstraintLayout {
     fun setHint(text: String) {
         if (!(hintText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
-                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
-            val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
+                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.input_is_rtl_direction)}")
+            val hint = if (resources.getBoolean(R.bool.input_is_rtl_direction)) {
                 "\u202B$text"
             } else text
             hintText.text = hint
@@ -146,8 +146,8 @@ class SpinnerFieldView : ConstraintLayout {
         val text = if (textId != -1) context.resources.getString(textId) else ""
         if (!(hintText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
-                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
-            val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
+                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.input_is_rtl_direction)}")
+            val hint = if (resources.getBoolean(R.bool.input_is_rtl_direction)) {
                 "\u202B$text"
             } else text
             hintText.text = hint

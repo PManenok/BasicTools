@@ -27,7 +27,7 @@ fun setFirstIconCheckable(view: InputFieldView, checkable: Boolean) {
 @BindingAdapter("android:text")
 fun setTextDouble(view: InputFieldView, text: Double) {
     val result = if (text == 0.0) "" else text.toFormattedInput()
-    if (view.inputText.text.toString().toDoubleOrNull() != text || result.toDoubleOrNull() != text) {
+    if (view.inputText?.text.toString().toDoubleOrNull() != text || result.toDoubleOrNull() != text) {
         view.setText(result)
     }
 }
@@ -63,7 +63,7 @@ fun setCheckedListener(view: InputFieldView, attrChange: InverseBindingListener)
 
 @BindingAdapter("android:textAttrChanged")
 fun setListeners(view: InputFieldView, attrChange: InverseBindingListener) {
-    view.inputText.addTextChangedListener(object : TextWatcher {
+    view.inputText?.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             attrChange.onChange()
         }

@@ -8,13 +8,13 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/v_field_editable_layout"
+        android:id="@+id/v_input_field_layout"
         style="@style/AppTheme.TextInputLayout.Default"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:minHeight="@dimen/input_text_layout_height_with_hint"
-        android:theme="@style/AppTheme.TextInputLayout.Default"
         app:hintAnimationEnabled="false"
         app:hintEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/v_field_editable_input"
+            android:id="@+id/v_input_field_input"
             style="@style/AppTheme.TextInputLayout.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/v_field_editable_floating_label"
+        android:id="@+id/v_input_field_floating_label"
         style="@style/AppTheme.TextInputLayout.DefaultHintAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,14 +45,14 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:scrollHorizontally="true"
-        app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
+        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="&#x202B;Label" />
+        tools:text="Label"/>
     <!--
         tools:text="&#x202B;HINT Hint hint"-->
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/v_field_editable_prefix_text"
+        android:id="@+id/v_input_field_prefix_text"
         style="@style/AppTheme.TextInputLayout.Default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,13 +62,13 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:minHeight="45dp"
-        app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
-        app:layout_constraintTop_toTopOf="@id/v_field_editable_layout"
+        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
+        app:layout_constraintTop_toTopOf="@id/v_input_field_layout"
         tools:text="Text"
         tools:visibility="invisible" />
 
     <ProgressBar
-        android:id="@+id/v_field_editable_progress"
+        android:id="@+id/v_input_field_progress"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="24dp"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
         android:indeterminate="true"
         android:minHeight="45dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@id/v_field_editable_layout"
-        app:layout_constraintTop_toTopOf="@id/v_field_editable_prefix_text"
+        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
+        app:layout_constraintTop_toTopOf="@id/v_input_field_prefix_text"
         tools:visibility="visible" />
 </merge>

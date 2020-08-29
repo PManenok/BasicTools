@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
     </style>
 
     <!--######################## Extra styles #########################-->
@@ -22,6 +23,7 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:gravity">start</item>
         <item name="android:textSize">@dimen/textSizeDefault</item>
+        <item name="android:textAppearance">@style/AppTheme.TextAppearance</item>
     </style>
 
     <style name="AppTheme.TextInputLayout.DefaultHintAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
@@ -52,5 +54,10 @@
         <item name="android:textSize">@dimen/textSizeHint</item>
     </style>
     <!--Custom spinner text style end-->
+
+    <style name="AppTheme.TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorTextDefault</item>
+        <item name="android:textSize">@dimen/textSizeDefault</item>
+    </style>
     <!--######################## Extra styles end #########################-->
 </resources>

@@ -23,8 +23,8 @@ class PinView : LinearLayout {
     private var filledRes: Int = R.drawable.ic_pin_filled_24dp
     private var unfilledRes: Int = R.drawable.ic_pin_unfilled_24dp
 
-    var unfilledPadding: Int = resources.getDimensionPixelOffset(R.dimen.pin_icon_padding)
-    var betweenMargin: Int = resources.getDimensionPixelOffset(R.dimen.pin_icon_margin)
+    var unfilledPadding: Int = context.resources.getDimensionPixelSize(R.dimen.pin_unfilled_padding)
+    var betweenMargin: Int = context.resources.getDimensionPixelSize(R.dimen.pin_icon_margin)
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
@@ -56,30 +56,34 @@ class PinView : LinearLayout {
 
         unfilledRes = typedArray.getResourceId(R.styleable.PinView_pinUnfilledIcon, R.drawable.ic_pin_unfilled_24dp)
 
-        unfilledPadding = typedArray.getDimensionPixelOffset(R.styleable.PinView_pinUnfilledPadding, unfilledPadding)
-        betweenMargin = typedArray.getDimensionPixelOffset(R.styleable.PinView_pinBetweenMargin, betweenMargin)
+        unfilledPadding = typedArray.getDimensionPixelSize(R.styleable.PinView_pinUnfilledPadding, unfilledPadding)
+        betweenMargin = typedArray.getDimensionPixelSize(R.styleable.PinView_pinBetweenMargin, betweenMargin)
 
         typedArray.recycle()
 
-        addPins(filledAmount)
+        addPins()
+        setPinWithoutAnimation(filledAmount)
     }
 
     fun setPinAmount(pinsAmount: Int, filledAmount: Int = 0) {
         this.pinsAmount = pinsAmount
-        addPins(filledAmount)
+        addPins()
+        setPinWithoutAnimation(filledAmount)
     }
 
-    private fun addPins(filledAmount: Int) {
+    private fun addPins() {
         for (ind in 0 until pinsAmount) {
             val pin = AppCompatImageView(context)
             pin.setImageResource(unfilledRes)
             val params = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
+            pin.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+            val height = pin.measuredHeight
             params.setMargins(betweenMargin, 0, betweenMargin, 0)
+            params.height = height
+            pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
             addView(pin, params)
             listImages.add(pin)
         }
-        setPin(filledAmount)
     }
 
     private fun animate(pin: AppCompatImageView, imageRes: Int, dimensionValue: Int = 0) {
@@ -111,6 +115,21 @@ class PinView : LinearLayout {
         }
         while (lastUnFilledIndex > pinLength) {
             unFillPin()
+        }
+    }
+
+    fun setPinWithoutAnimation(pinLength: Int) {
+        while (lastUnFilledIndex < pinLength) {
+            val pin = listImages[lastUnFilledIndex]
+            pin.setImageResource(filledRes)
+            pin.setPadding(0, 0, 0, 0)
+            lastUnFilledIndex++
+        }
+        while (lastUnFilledIndex > pinLength) {
+            lastUnFilledIndex--
+            val pin = listImages[lastUnFilledIndex]
+            pin.setImageResource(unfilledRes)
+            pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
         }
     }
 

@@ -15,7 +15,7 @@ fun setVisibilityOrGone(view: View, isVisible: Boolean) {
 
 @BindingAdapter("android:textAttrChanged")
 fun setListeners(view: RohabInputField, attrChange: InverseBindingListener) {
-    view.inputText.addTextChangedListener(object : TextWatcher {
+    view.inputText?.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             attrChange.onChange()
         }

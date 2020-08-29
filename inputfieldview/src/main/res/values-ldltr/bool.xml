@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="is_rtl_direction">true</bool>
+    <bool name="input_is_rtl_direction">true</bool>
 </resources>

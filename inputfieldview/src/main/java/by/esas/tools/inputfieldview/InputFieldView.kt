@@ -14,9 +14,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.updatePadding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
@@ -25,19 +25,20 @@ import java.util.concurrent.Semaphore
 open class InputFieldView : ConstraintLayout {
     open val TAG: String = InputFieldView::class.java.simpleName
 
-    val inputLayout: TextInputLayout
-    val inputText: TextInputEditText
-    val prefixText: MaterialTextView
-    protected val labelText: MaterialTextView
-    private val progress: ProgressBar
+    lateinit var inputLayout: TextInputLayout
+    lateinit var inputText: TextInputEditText
+    lateinit var prefixText: MaterialTextView
+    protected lateinit var labelText: MaterialTextView
+    private lateinit var progress: ProgressBar
+
+    protected var startTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
+    protected var endTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
+    protected var defaultPaddingLeft: Int = 0
+    protected var currentPaddingLeft: Int = 0
 
     private var startDraw: Drawable? = null
-    protected var startTint: Int
     private var endDraw: Drawable? = null
-    protected var endTint: Int
     protected val passwordToggleRes: Int = R.drawable.selector_password_toggle
-    protected val defaultPaddingLeft: Int
-    protected var currentPaddingLeft: Int
     protected var label: String = ""
     private var hint: String = ""
     private var endIconMode: Int = TextInputLayout.END_ICON_NONE
@@ -75,35 +76,41 @@ open class InputFieldView : ConstraintLayout {
     }
     /*############################ TextListener End ################################*/
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : super(context) {
+        initialSetting()
+    }
+
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        initialSetting()
         initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
+        initialSetting()
         initAttrs(attrs)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attrs, defStyleAttr, defStyleRes) {
-        initAttrs(attrs)
-    }
+    /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+             : super(context, attrs, defStyleAttr, defStyleRes) {
+         initialSetting()
+         initAttrs(attrs)
+     }*/
 
-    init {
-        val view = inflate(context, R.layout.v_field_editable, this)
-        inputLayout = view.findViewById<TextInputLayout>(R.id.v_field_editable_layout)
-        inputText = view.findViewById<TextInputEditText>(R.id.v_field_editable_input)
+    private fun initialSetting() {
+        val view = inflate(context, R.layout.v_input_field, this)
+        inputLayout = view.findViewById<TextInputLayout>(R.id.v_input_field_layout)
+        inputText = view.findViewById<TextInputEditText>(R.id.v_input_field_input)
         defaultPaddingLeft = inputText.paddingLeft
         currentPaddingLeft = defaultPaddingLeft
-        prefixText = view.findViewById<MaterialTextView>(R.id.v_field_editable_prefix_text)
-        labelText = view.findViewById(R.id.v_field_editable_floating_label)
+        prefixText = view.findViewById<MaterialTextView>(R.id.v_input_field_prefix_text)
+        labelText = view.findViewById(R.id.v_input_field_floating_label)
         startTint = ContextCompat.getColor(context, R.color.colorPrimary)
         endTint = startTint
         inputText.onFocusChangeListener =
             OnFocusChangeListener { v, hasFocus -> if (hasFocus) inputLayout?.error = null }
-        progress = view.findViewById(R.id.v_field_editable_progress)
+        progress = view.findViewById(R.id.v_input_field_progress)
     }
 
     /*  Initialize attributes from XML file  */
@@ -192,8 +199,8 @@ open class InputFieldView : ConstraintLayout {
         if (endDraw != null) {
             inputLayout.endIconDrawable = endDraw
         }
-        setInputPrefix(prefix)
         setLabelType(labelType)
+        setInputPrefix(prefix)
     }
 
     fun setDefaultValues() {
@@ -205,12 +212,12 @@ open class InputFieldView : ConstraintLayout {
         } else if (startDraw != null)
             setStartDraw(startDraw!!)
 
-        setInputPrefix(prefix)
         inputLayout.endIconMode = endIconMode
         inputLayout.setEndIconTintList(ColorStateList.valueOf(endTint))
         if (endDraw != null) {
             inputLayout.endIconDrawable = endDraw
         }
+        setInputPrefix(prefix)
     }
 
     /*############################ Getters ################################*/
@@ -262,22 +269,31 @@ open class InputFieldView : ConstraintLayout {
         } else {
             prefixText.visibility = View.VISIBLE
             prefixText.text = prefix
-            prefixText.setPadding(
-                currentPaddingLeft, 0, 0, 0
-            )
+            prefixText.updatePadding(left = currentPaddingLeft)
             inputText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
             prefixText.height = inputText.measuredHeight - 1
             prefixText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-            var left = prefixText.measuredWidth
+            var leftPadding = prefixText.measuredWidth
             if (hasStartDrawable) {
-                left -= (currentPaddingLeft - defaultPaddingLeft)
+                leftPadding -= (currentPaddingLeft - defaultPaddingLeft)
+            }
+            /*inputText.setPadding(
+                left, inputText.paddingTop,
+                inputText.paddingRight, inputText.paddingBottom
+            )*/
+            inputText.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                inputText.updatePadding(left = leftPadding)
+                /*inputText.post {
+                    inputText.updatePadding(left = left)
+                }*/
             }
             inputText.post {
-                inputText.setPadding(
-                    left, inputText.paddingTop,
-                    inputText.paddingRight, inputText.paddingBottom
-                )
+                inputText.updatePadding(left = leftPadding)
             }
+            //inputText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+            //val params = (inputText.layoutParams as FrameLayout.LayoutParams)
+
+            //params.setMargins(left, params.topMargin, params.rightMargin, params.bottomMargin)
         }
     }
 
@@ -307,26 +323,17 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun setInputLabel(text: String) {
+        val isRTL: Boolean = resources.getBoolean(R.bool.input_is_rtl_direction)
         if (!(labelText.text?.toString() ?: "").equals(text)) {
             if (!isInEditMode)
-                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
-            val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
-                "\u202B$text"
-            } else text
+                Log.i(TAG, "Is RTL direction $isRTL")
+            val hint = if (isRTL) "\u202B$text" else text
             labelText.text = hint
         }
     }
 
     open fun setInputLabel(textId: Int) {
-        val text = if (textId != -1) context.resources.getString(textId) else ""
-        if (!(labelText.text?.toString() ?: "").equals(text)) {
-            if (!isInEditMode)
-                Log.i(TAG, "Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")
-            val hint = if (resources.getBoolean(R.bool.is_rtl_direction)) {
-                "\u202B$text"
-            } else text
-            labelText.text = hint
-        }
+        setInputLabel(if (textId != -1) context.resources.getString(textId) else "")
     }
 
     fun setEditable(value: Boolean) {

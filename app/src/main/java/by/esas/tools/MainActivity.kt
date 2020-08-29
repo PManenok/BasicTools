@@ -5,9 +5,6 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import by.esas.tools.checker.Checker
-import by.esas.tools.checking.AppChecker
-import by.esas.tools.checking.FieldChecking
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inputfieldview.InputFieldView
@@ -42,12 +39,10 @@ class MainActivity : AppCompatActivity() {
         val currentText = "1"
         spinner.setText(currentText)
 
-        AppChecker()
-            .setShowError(true)
-            .setListener(object :Checker.CheckListener{})
-            .validate(listOf(FieldChecking(field)))
-
-
+        /*   AppChecker()
+               .setShowError(true)
+               .setListener(object :Checker.CheckListener{})
+               .validate(listOf(FieldChecking(field)))*/
     }
 
     val serviceName = ObservableField<String>("")
