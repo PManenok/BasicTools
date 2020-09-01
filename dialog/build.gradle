@@ -47,3 +47,6 @@ dependencies {
     implementation project(path: ':util')
     implementation project(path: ':checker')
 }
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

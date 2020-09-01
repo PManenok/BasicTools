@@ -6,6 +6,10 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import by.esas.tools.BR
 import by.esas.tools.R
+import by.esas.tools.checker.BaseChecking
+import by.esas.tools.checker.Checking
+import by.esas.tools.checker.checks.NotEmptyCheck
+import by.esas.tools.checker.checks.RegexCheck
 import by.esas.tools.databinding.DfPasswordBinding
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
@@ -32,13 +36,12 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         return listOf(df_password_layout.inputText)
     }
 
-   /* override fun provideValidationList(): List<Validation> {
+    override fun provideValidationList(): List<Checking> {
         return listOf(
-            Validation(df_password_layout.inputLayout)
-                .add(NotEmptyRule(R.string.validation_password_cannot_be_empty))
-                .add(RegexRule(RegexSamples.PASSWORD_REGEX, R.string.validation_password))
+            BaseChecking(df_password_layout.inputLayout)
+                .addCheck(NotEmptyCheck("Can't be empty"))
         )
-    }*/
+    }
 
     override fun provideProgressBar(): View? {
         return null

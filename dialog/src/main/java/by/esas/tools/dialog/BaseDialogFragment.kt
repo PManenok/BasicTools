@@ -6,20 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import by.esas.tools.checker.Checking
 import by.esas.tools.logger.BaseLogger
 import by.esas.tools.logger.ILogger
-import by.esas.tools.util.disableView
-import by.esas.tools.util.enableView
-import com.google.android.material.textfield.TextInputEditText
+import by.esas.tools.util.SwitchManager
 
 abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : DialogFragment() {
     abstract val TAG: String
     protected open lateinit var logger: ILogger<EnumT>
 
-    //protected val validationList: MutableList<Validation> = mutableListOf()
-    protected var switchableViewsList: List<TextInputEditText?> = emptyList()
+    protected val validationList: MutableList<Checking> = mutableListOf()
+    protected var switchableViewsList: List<View?> = emptyList()
     protected open var stateCallback: StateCallback<E>? = null
     protected var afterOk: Boolean = false
+    protected var switcher: SwitchManager = SwitchManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +27,9 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
     }
 
     abstract fun provideLayoutId(): Int
-    abstract fun provideSwitchableList(): List<TextInputEditText>
+    abstract fun provideSwitchableList(): List<View>
 
-    //abstract fun provideValidationList(): List<Validation>
+    abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
     protected open fun provideLogger(): ILogger<EnumT> {
         return BaseLogger(TAG, this.context)
@@ -45,15 +45,14 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
         super.onViewCreated(view, savedInstanceState)
         switchableViewsList = provideSwitchableList()
 
-        //todo uncomment
-        //validationList.clear()
-        //validationList.addAll(provideValidationList())
+        validationList.clear()
+        validationList.addAll(provideValidationList())
     }
 
     protected open fun disableControls() {
         showProgress()
         switchableViewsList.forEach { view ->
-            if (view != null) disableView(view)
+            if (view != null) switcher.disableView(view)
         }
     }
 
@@ -64,7 +63,7 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
     protected open fun enableControls() {
         hideProgress()
         switchableViewsList.forEach { view ->
-            if (view != null) enableView(view)
+            if (view != null) switcher.enableView(view)
         }
     }
 

@@ -43,11 +43,11 @@ class SpinnerFieldView : ConstraintLayout {
         initAttrs(attrs)
     }
 
-   /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
-    }*/
+    }
 
     init {
         val view = inflate(context, R.layout.v_field_spinner, this)

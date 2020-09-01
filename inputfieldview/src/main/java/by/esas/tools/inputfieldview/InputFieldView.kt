@@ -14,9 +14,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.updatePadding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
@@ -91,12 +91,12 @@ open class InputFieldView : ConstraintLayout {
         initAttrs(attrs)
     }
 
-    /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-             : super(context, attrs, defStyleAttr, defStyleRes) {
-         initialSetting()
-         initAttrs(attrs)
-     }*/
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+            : super(context, attrs, defStyleAttr, defStyleRes) {
+        initialSetting()
+        initAttrs(attrs)
+    }
 
     private fun initialSetting() {
         val view = inflate(context, R.layout.v_input_field, this)
@@ -218,6 +218,7 @@ open class InputFieldView : ConstraintLayout {
             inputLayout.endIconDrawable = endDraw
         }
         setInputPrefix(prefix)
+        setLabelType(defaultLabelType)
     }
 
     /*############################ Getters ################################*/
@@ -269,31 +270,20 @@ open class InputFieldView : ConstraintLayout {
         } else {
             prefixText.visibility = View.VISIBLE
             prefixText.text = prefix
-            prefixText.updatePadding(left = currentPaddingLeft)
+            prefixText.setPadding(currentPaddingLeft, prefixText.paddingTop, prefixText.paddingRight, prefixText.paddingBottom)
             inputText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
             prefixText.height = inputText.measuredHeight - 1
             prefixText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-            var leftPadding = prefixText.measuredWidth
+            var left = prefixText.measuredWidth
             if (hasStartDrawable) {
-                leftPadding -= (currentPaddingLeft - defaultPaddingLeft)
-            }
-            /*inputText.setPadding(
-                left, inputText.paddingTop,
-                inputText.paddingRight, inputText.paddingBottom
-            )*/
-            inputText.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-                inputText.updatePadding(left = leftPadding)
-                /*inputText.post {
-                    inputText.updatePadding(left = left)
-                }*/
+                left -= (currentPaddingLeft - defaultPaddingLeft)
             }
             inputText.post {
-                inputText.updatePadding(left = leftPadding)
+                inputText.setPadding(
+                    left, inputText.paddingTop,
+                    inputText.paddingRight, inputText.paddingBottom
+                )
             }
-            //inputText.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-            //val params = (inputText.layoutParams as FrameLayout.LayoutParams)
-
-            //params.setMargins(left, params.topMargin, params.rightMargin, params.bottomMargin)
         }
     }
 
