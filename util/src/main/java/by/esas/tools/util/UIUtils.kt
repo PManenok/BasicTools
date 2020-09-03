@@ -1,9 +1,12 @@
 package by.esas.tools.util
 
 import android.app.Activity
+import android.os.Build
 import android.text.method.KeyListener
 import android.view.View
+import android.view.WindowInsets
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 
 fun disableView(view: EditText) {
     view.setText(view.text.toString().trim())
@@ -16,6 +19,27 @@ fun disableView(view: EditText) {
 fun enableView(view: EditText) {
     if (view.tag != null)
         view.keyListener = view.tag as KeyListener
+}
+
+
+@RequiresApi(Build.VERSION_CODES.R)
+fun hideSystemUIR(activity: Activity?) {
+    // You have to wait for the view to be attached to the
+    // window (otherwise, windowInsetController will be null)
+    activity?.window?.insetsController?.let { controller ->
+        controller.hide(WindowInsets.Type.systemBars())
+        controller.hide(WindowInsets.Type.ime())
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.R)
+fun hideSystemUIR(view: View) {
+    // You have to wait for the view to be attached to the
+    // window (otherwise, windowInsetController will be null)
+    view.windowInsetsController?.let { controller ->
+        controller.hide(WindowInsets.Type.systemBars())
+        controller.hide(WindowInsets.Type.ime())
+    }
 }
 
 /*    Standard    */

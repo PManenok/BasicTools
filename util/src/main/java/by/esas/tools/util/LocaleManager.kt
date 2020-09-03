@@ -1,4 +1,4 @@
-package by.esas.basictools.utils.extra
+package by.esas.tools.util
 
 import android.content.Context
 import android.content.res.Configuration

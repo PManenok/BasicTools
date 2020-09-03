@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="by.esas.tools.MainActivity" />
+            type="by.esas.tools.MainVM" />
 
     </data>
 
@@ -36,7 +36,7 @@
                 android:id="@+id/a_main_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.serviceName}"
+                android:text="@={viewModel.mainText}"
                 app:inputEndIconMode="clear_text"
                 app:inputLabel="qwerty (ex. 34567)"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"

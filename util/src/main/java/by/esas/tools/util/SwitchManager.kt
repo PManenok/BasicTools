@@ -4,15 +4,25 @@ import android.view.View
 import android.widget.EditText
 
 open class SwitchManager {
-    open fun enableView(view: View) {
-        if (view is EditText) {
+    /**
+     * Method makes view editable
+     * return true if method handled switch and false if not
+     * */
+    open fun enableView(view: View): Boolean {
+        return if (view is EditText) {
             by.esas.tools.util.enableView(view)
-        }
+            true
+        } else false
     }
 
-    open fun disableView(view: View) {
-        if (view is EditText) {
+    /**
+     * Method makes view not editable
+     * return true if method handled switch and false if not
+     * */
+    open fun disableView(view: View): Boolean {
+        return if (view is EditText) {
             by.esas.tools.util.disableView(view)
-        }
+            true
+        } else false
     }
 }

@@ -1,33 +1,71 @@
 package by.esas.tools
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.Observable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.baseui.simple.SimpleActivity
+import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inputfieldview.InputFieldView
 import by.esas.tools.inputfieldview.SpinnerFieldView
 import by.esas.tools.logger.ErrorModel
+import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.usecase.GetDefaultCardUseCase
+import by.esas.tools.util.LanguageSetter
 import com.squareup.moshi.Moshi
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorStatusEnum>() {
+    override val TAG: String = "MainActivity"
+    override var logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
+    override fun provideViewModel(): MainVM {
+        return ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(Application())).get(MainVM::class.java)
+    }
+
+    override fun provideLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun provideVariableInd(): Int {
+        return BR.viewModel
+    }
+
+    override fun provideLifecycleOwner(): LifecycleOwner {
+        return this
+    }
+
+    override fun provideSetter(): LanguageSetter {
+        return object : LanguageSetter {
+            override fun getDefaultLanguage(): String {
+                return "en"
+            }
+
+            override fun getLanguage(): String {
+                return "en"
+            }
+
+            override fun setLanguage(lang: String) {
+
+            }
+        }
+    }
+
+    override fun getAppContext(): Context {
+        return applicationContext
+    }
+
+    override fun setAppContext(context: Context) {
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        serviceName.addOnPropertyChangedCallback(
-            object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    a_main_text.setInputLabel(serviceName.get() ?: "")
-                }
-            }
-        )
+
         val field = findViewById<InputFieldView>(R.id.a_main_text)
         field.setInputPrefix("1")
         //field.setInputPrefix("")
@@ -44,8 +82,6 @@ class MainActivity : AppCompatActivity() {
                .setListener(object :Checker.CheckListener{})
                .validate(listOf(FieldChecking(field)))*/
     }
-
-    val serviceName = ObservableField<String>("")
 
 
     fun testError() {

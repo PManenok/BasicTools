@@ -36,10 +36,7 @@ dependencies {
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
 
+    implementation project(path: ':baseui')
     implementation project(path: ':inputfieldview')
-    implementation project(path: ':domain')
-    implementation project(path: ':logger')
-    implementation project(path: ':dialog')
-    implementation project(path: ':checker')
     implementation project(path: ':pinview')
 }

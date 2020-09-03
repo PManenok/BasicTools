@@ -13,8 +13,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:minHeight="@dimen/input_text_layout_height_with_hint"
+        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:hintAnimationEnabled="false"
         app:hintEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
         android:scrollHorizontally="true"
         app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Label"/>
+        tools:text="Label" />
     <!--
         tools:text="&#x202B;HINT Hint hint"-->
 
@@ -79,5 +79,5 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
         app:layout_constraintTop_toTopOf="@id/v_input_field_prefix_text"
-        tools:visibility="visible" />
+        tools:visibility="invisible" />
 </merge>

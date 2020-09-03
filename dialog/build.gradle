@@ -39,9 +39,9 @@ dependencies {
     kapt "com.android.databinding:compiler:$databinding_version"
 
     //Module
-    implementation project(path: ':logger')
-    implementation project(path: ':util')
-    implementation project(path: ':checker')
+    api project(path: ':logger')
+    api project(path: ':util')
+    api project(path: ':checker')
 }
 
 apply from: 'install.gradle'
