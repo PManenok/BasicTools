@@ -1,8 +1,5 @@
 package by.esas.tools.util
 
-import android.content.Context
-import java.util.*
-
 
 internal const val UNBREAKABLE_SPACE = "\u00A0"
 fun Double.toFormattedInput(): String {

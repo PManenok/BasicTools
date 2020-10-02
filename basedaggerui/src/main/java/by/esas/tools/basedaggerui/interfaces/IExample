@@ -1,0 +1,39 @@
+import by.hgrosh.notary.utils.operators.IAccessContainer
+
+interface IContainVM {
+    fun provideAccessContainer(): IAccessContainer?
+}
+
+import io.github.anderscheow.validator.Validation
+
+interface IValidateVM {
+    val validationsList: MutableList<Validation>
+
+    fun addValidation(validation: Validation) {
+        validationsList.add(validation)
+    }
+
+    fun clearValidations(){
+        validationsList.clear()
+    }
+}
+
+
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDirections
+interface INavigateVM {
+    val navDirection: MutableLiveData<NavDirections?>
+    val popBack: MutableLiveData<Pair<Int, Boolean>?>
+
+    fun navigate(direction: NavDirections) {
+        navDirection.postValue(direction)
+    }
+
+    fun popBack() {
+        popBack.value = Pair(0, false)
+    }
+
+    fun popBack(destination: Int = 0, inclusive: Boolean = false) {
+        popBack.value = Pair(destination, inclusive)
+    }
+}

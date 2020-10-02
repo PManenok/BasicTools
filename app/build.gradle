@@ -36,7 +36,14 @@ dependencies {
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
 
-    implementation project(path: ':baseui')
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+
+    implementation project(path: ':basedaggerui')
     implementation project(path: ':inputfieldview')
     implementation project(path: ':pinview')
 }

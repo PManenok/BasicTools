@@ -1,12 +1,12 @@
 package by.esas.tools
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.baseui.simple.SimpleActivity
+import by.esas.tools.basedaggerui.app.BaseApp
+import by.esas.tools.basedaggerui.simple.SimpleActivity
 import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
@@ -24,7 +24,7 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
     override val TAG: String = "MainActivity"
     override var logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
     override fun provideViewModel(): MainVM {
-        return ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(Application())).get(MainVM::class.java)
+        return ViewModelProvider(this, viewModelFactory).get(MainVM::class.java)
     }
 
     override fun provideLayoutId(): Int {
@@ -56,10 +56,11 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
     }
 
     override fun getAppContext(): Context {
-        return applicationContext
+        return BaseApp.appContext
     }
 
     override fun setAppContext(context: Context) {
+        BaseApp.appContext = context
     }
 
 

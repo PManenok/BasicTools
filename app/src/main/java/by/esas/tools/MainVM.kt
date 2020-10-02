@@ -2,13 +2,14 @@ package by.esas.tools
 
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import by.esas.tools.baseui.simple.SimpleViewModel
+import by.esas.tools.basedaggerui.simple.SimpleViewModel
 import by.esas.tools.domain.mapper.ErrorModel
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
+import javax.inject.Inject
 
-class MainVM : SimpleViewModel<AppErrorStatusEnum>() {
+class MainVM @Inject constructor() : SimpleViewModel<AppErrorStatusEnum>() {
     override val TAG: String = "MainVM"
     override var logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
 

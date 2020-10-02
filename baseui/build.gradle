@@ -47,3 +47,5 @@ dependencies {
     //implementation project(path: ':checker')
     api project(path: ':domain')
 }
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

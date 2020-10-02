@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
-import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -204,8 +203,20 @@ open class InputFieldView : ConstraintLayout {
         setInputPrefix(prefix)
     }
 
-    fun setDefaultValues() {
+    open fun setDefaultValues() {
+        checkedDrawable = ContextCompat.getDrawable(context, checkedResDef)
+        uncheckedDrawable = ContextCompat.getDrawable(context, uncheckedResDef)
+
+        labelText.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground))
+        labelText.visibility = if (hideLabel) View.GONE else View.VISIBLE
+
+        inputText.setText("")
+        inputText.hint = ""
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            inputText.textDirection = View.TEXT_DIRECTION_ANY_RTL
+        }
         inputText.maxLines = 1
+        setInputLabel("")
         inputText.inputType = defaultInputType
         inputText.isEnabled = true
         if (startIconIsCheckable) {
@@ -218,8 +229,8 @@ open class InputFieldView : ConstraintLayout {
         if (endDraw != null) {
             inputLayout.endIconDrawable = endDraw
         }
-        setInputPrefix(prefix)
         setLabelType(defaultLabelType)
+        setInputPrefix(prefix)
     }
 
     /*############################ Getters ################################*/
