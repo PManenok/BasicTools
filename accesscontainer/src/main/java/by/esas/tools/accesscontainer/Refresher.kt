@@ -227,7 +227,8 @@ class Refresher<E : Enum<E>>(
             if (error.statusEnum == refresherErrorStatusToCheck) {
                 //deleteSecrets()
                 showPasswordDialog(true)
-            }
+            } else
+                result(error)
         }
     }
 
