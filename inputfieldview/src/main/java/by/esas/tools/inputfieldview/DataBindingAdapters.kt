@@ -16,12 +16,15 @@ fun setClearEndIcon(view: InputFieldView, enabled: Boolean) {
 
 @BindingAdapter("inputEditable")
 fun setEditable(view: InputFieldView, editable: Boolean) {
-    view.setEditable(editable)
+    view.isEditable(editable)
 }
 
 @BindingAdapter("inputStartIconIsCheckable")
 fun setFirstIconCheckable(view: InputFieldView, checkable: Boolean) {
-    view.setFirstIconCheckable(checkable)
+    if (checkable)
+        view.setStartIconMode(InputFieldView.START_ICON_CHECKABLE)
+    else
+        view.setStartIconMode()
 }
 
 @BindingAdapter("android:text")
@@ -44,21 +47,21 @@ fun getText(view: InputFieldView): String {
 
 @BindingAdapter("inputIsChecked")
 fun setChecked(view: InputFieldView, isChecked: Boolean) {
-    return view.setChecked(isChecked)
+    return view.isStartChecked(isChecked)
 }
 
 @InverseBindingAdapter(attribute = "inputIsChecked")
 fun getChecked(view: InputFieldView): Boolean {
-    return view.isChecked()
+    return view.isStartChecked()
 }
 
 @BindingAdapter("inputIsCheckedAttrChanged")
 fun setCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
-    view.setOnCheckedListener(object : InputFieldView.StartIconCheckedListener {
+    view.startCheckedListener = object : InputFieldView.IconCheckedListener {
         override fun onCheckChanged(isChanged: Boolean) {
             attrChange.onChange()
         }
-    })
+    }
 }
 
 @BindingAdapter("android:textAttrChanged")

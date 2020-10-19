@@ -6,78 +6,187 @@
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <View
+        android:id="@+id/v_input_field_layout_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_input_box"
+        app:layout_constraintBottom_toBottomOf="@id/v_input_field_layout_container"
+        app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/v_input_field_layout"
-        style="@style/AppTheme.TextInputLayout.Default"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:minHeight="@dimen/input_text_layout_height_with_hint"
-        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:hintAnimationEnabled="false"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/v_input_field_input"
-            style="@style/AppTheme.TextInputLayout.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:minHeight="44dp"
-            android:scrollHorizontally="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/v_input_field_floating_label"
-        style="@style/AppTheme.TextInputLayout.DefaultHintAppearance"
+    <TextView
+        android:id="@+id/v_input_field_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@color/colorBackground"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
-        android:scrollHorizontally="true"
-        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Label" />
-    <!--
-        tools:text="&#x202B;HINT Hint hint"-->
+        android:textColor="@color/colorTextHint"
+        android:textSize="12sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/v_input_field_prefix_text"
-        style="@style/AppTheme.TextInputLayout.Default"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/v_input_field_layout_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="6dp"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:minHeight="45dp"
-        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
-        app:layout_constraintTop_toTopOf="@id/v_input_field_layout"
-        tools:text="Text"
-        tools:visibility="invisible" />
+        android:layout_marginTop="@dimen/input_container_top_margin_default"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toTopOf="@id/v_input_field_bottom_text_container"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ProgressBar
-        android:id="@+id/v_input_field_progress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="24dp"
+        <FrameLayout
+            android:id="@+id/v_input_field_start_container"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/v_input_field_prefix"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/v_input_field_progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="9dp"
+                android:indeterminate="true"
+                android:padding="4dp"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/v_input_field_start_drawable"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:visibility="gone"
+                app:tint="@color/colorStrokeOutline" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/v_input_field_start_checkbox"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/v_input_field_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/v_input_field_edit"
+            app:layout_constraintStart_toEndOf="@id/v_input_field_start_container"
+            app:layout_constraintTop_toTopOf="@id/v_input_field_edit"
+            tools:text="" />
+
+        <EditText
+            android:id="@+id/v_input_field_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:autofillHints="none"
+            android:background="@null"
+            android:inputType="text|textMultiLine"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="4dp"
+            android:paddingRight="4dp"
+            android:textColor="@color/colorTextDefault"
+            android:textColorHint="@color/colorTextHint"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/v_input_field_end_container"
+            app:layout_constraintStart_toEndOf="@id/v_input_field_prefix"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="" />
+
+        <FrameLayout
+            android:id="@+id/v_input_field_end_container"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v_input_field_edit"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/v_input_field_end_drawable"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:visibility="invisible"
+                app:tint="@color/colorStrokeOutline"
+                tools:srcCompat="@drawable/ic_input_field_clear_default" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/v_input_field_password_toggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:button="@drawable/selector_password_toggle"
+                android:gravity="center"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+        android:id="@+id/v_input_field_bottom_text_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:indeterminate="true"
-        android:minHeight="45dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@id/v_input_field_layout"
-        app:layout_constraintTop_toTopOf="@id/v_input_field_prefix_text"
-        tools:visibility="invisible" />
+        android:paddingStart="12dp"
+        android:paddingLeft="12dp"
+        android:paddingEnd="12dp"
+        android:paddingRight="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_input_field_layout_container">
+
+        <TextView
+            android:id="@+id/v_input_field_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorInputError"
+            android:textSize="12sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/v_input_field_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorInputHelp"
+            android:textSize="12sp"
+            android:visibility="invisible" />
+    </FrameLayout>
 </merge>

@@ -1,7 +1,7 @@
 package by.esas.tools.inputfieldview
 
-import android.content.Context
-import android.util.DisplayMetrics
+import android.text.InputType
+import android.widget.EditText
 
 fun Double.toFormattedInput(): String {
     val temp = this.toString()
@@ -20,6 +20,11 @@ fun Double.toFormattedInput(): String {
         }
         else -> temp
     }
+}
+
+fun isInputTypePassword(editText: EditText?): Boolean {
+    return (editText != null
+            && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
 }
 
 /*java.lang.NoSuchFieldError: ConstraintLayout_Layout_layout_constraintTag

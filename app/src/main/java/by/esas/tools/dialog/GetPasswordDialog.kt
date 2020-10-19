@@ -2,45 +2,37 @@ package by.esas.tools.dialog
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import by.esas.tools.BR
 import by.esas.tools.R
-import by.esas.tools.checker.BaseChecking
 import by.esas.tools.checker.Checking
-import by.esas.tools.checker.checks.NotEmptyCheck
-import by.esas.tools.checker.checks.RegexCheck
 import by.esas.tools.databinding.DfPasswordBinding
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
-import by.esas.tools.logger.BaseLogger
-import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.LoggerImpl
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.df_password.df_password_cancel_btn
-import kotlinx.android.synthetic.main.df_password.df_password_continue_btn
-import kotlinx.android.synthetic.main.df_password.df_password_layout
+import kotlinx.android.synthetic.main.df_password.*
 
-class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException,BaseStatusEnum>() {
+class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException, BaseStatusEnum>() {
     override val TAG: String = GetPasswordDialog::class.java.simpleName
 
-   /* override fun provideLogger(): LoggerImpl {
-        return LoggerImpl(TAG)
-    }*/
+    /* override fun provideLogger(): LoggerImpl {
+         return LoggerImpl(TAG)
+     }*/
 
     override fun provideLayoutId(): Int {
         return R.layout.df_password
     }
 
-    override fun provideSwitchableList(): List<TextInputEditText> {
-        return listOf(df_password_layout.inputText)
+    override fun provideSwitchableList(): List<EditText> {
+        return emptyList()//listOf(df_password_layout.inputText)
     }
 
     override fun provideValidationList(): List<Checking> {
-        return listOf(
+        return emptyList()/*listOf(
             BaseChecking(df_password_layout.inputLayout)
                 .addCheck(NotEmptyCheck("Can't be empty"))
-        )
+        )*/
     }
 
     override fun provideProgressBar(): View? {
@@ -75,15 +67,16 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         binding.dfPasswordCancelBtn.setText(cancelTitleRes)
     }
 
-    fun onCancelClick(){
+    fun onCancelClick() {
         afterOk = false
         dismiss()
     }
 
-    fun onContinueClick(){
+    fun onContinueClick() {
         validatePassword()
     }
-    fun onForgotPasswordClick(){
+
+    fun onForgotPasswordClick() {
         afterOk = true
         callback?.onPasswordForgot()
         dismiss()

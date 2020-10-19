@@ -1,9 +1,7 @@
 package by.esas.tools.fields
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
-import androidx.annotation.RequiresApi
 import androidx.core.text.BidiFormatter
 import by.esas.tools.R
 import by.esas.tools.getLocale
@@ -13,7 +11,7 @@ class RohabInputField : InputFieldView {
     override val TAG: String = RohabInputField::class.java.simpleName
     //val logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
 
-    override val defaultLabelType: Int = LabelType.ON_TOP
+    override val defaultLabelType: Int = LABEL_TYPE_ON_TOP
     private var formattedText: String = ""
 
     constructor(context: Context) : super(context)
@@ -26,11 +24,11 @@ class RohabInputField : InputFieldView {
         initAttrs(attrs)
     }
 
-   /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attrs, defStyleAttr, defStyleRes) {
-        initAttrs(attrs)
-    }*/
+    /* @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
+             : super(context, attrs, defStyleAttr, defStyleRes) {
+         initAttrs(attrs)
+     }*/
 
     init {
         //logger.setTag(TAG)
@@ -40,13 +38,13 @@ class RohabInputField : InputFieldView {
     private fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RohabInputField)
         // Label
-        label = typedArray.getString(R.styleable.RohabInputField_inputLabel) ?: ""
+        val label = typedArray.getString(R.styleable.RohabInputField_inputLabel) ?: ""
         // Hint
         formattedText = typedArray.getString(R.styleable.RohabInputField_inputHintFormattedText) ?: ""
 
         typedArray.recycle()
 
-        labelText.setText("")
+        labelText?.text = ""
         if (formattedText.isNotBlank()) {
             setInputLabel(label, formattedText)
         } else setInputLabel(label)
@@ -66,7 +64,7 @@ class RohabInputField : InputFieldView {
     }
 
     override fun setInputLabel(text: String) {
-        if (!(labelText.text?.toString() ?: "").equals(text)) {
+        if (!(labelText?.text?.toString() ?: "").equals(text)) {
             /*if (!isInEditMode)
                 logger.log("Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")*/
             var hint = text
@@ -77,14 +75,16 @@ class RohabInputField : InputFieldView {
                 val afterSecondBrace = afterFirstBrace.substringAfter(")", "")
                 val builder = StringBuilder("")
                 builder.append(beforeBrace.toUpperCase(getLocale(context))).append("(")
-                    .append(betweenBraces).append(")").append(afterSecondBrace.toUpperCase(
-                        getLocale(
-                            context
+                    .append(betweenBraces).append(")").append(
+                        afterSecondBrace.toUpperCase(
+                            getLocale(
+                                context
+                            )
                         )
-                    ))
+                    )
                 builder.toString()
             } else hint.toUpperCase(getLocale(context))
-            labelText.text = hint//HtmlCompat.fromHtml(hint,HtmlCompat.FROM_HTML_MODE_LEGACY)
+            labelText?.text = hint//HtmlCompat.fromHtml(hint,HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
     }
 

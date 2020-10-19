@@ -3,7 +3,7 @@
     <!-- Default colors -->
     <color name="colorPrimary">#A3A3A3</color>
     <color name="colorPrimaryDark">#595959</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#1976D2</color>
     <color name="colorSecondary">#1976D2</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorDivider">#ECECEC</color>
@@ -13,8 +13,11 @@
     <color name="colorTextDefault">#A3A3A3</color>
     <color name="colorTextHint">#DDDDDD</color>
     <!-- Text colors end-->
+
     <color name="colorStrokeOutline">#B3B3B3</color>
     <color name="colorTextButton">#FFFFFF</color>
     <color name="colorSpinnerBackground">#FFFFFF</color>
+    <color name="colorInputError">#FF4E3E</color>
+    <color name="colorInputHelp">#DDDDDD</color>
 
 </resources>

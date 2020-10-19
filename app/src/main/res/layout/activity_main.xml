@@ -32,26 +32,29 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
 
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/a_main_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.mainText}"
-                app:inputEndIconMode="clear_text"
-                app:inputLabel="qwerty (ex. 34567)"
-                app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                tools:text="1234" />
+            <!--  <by.esas.tools.inputfieldview.InputFieldView
+                  android:id="@+id/a_main_text"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@={viewModel.mainText}"
+                  app:inputEndIconMode="clear_text"
+                  app:inputLabel="qwerty (ex. 34567)"
+                  app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                  tools:text="1234" />-->
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/a_main_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@={viewModel.serviceName}"
+                app:inputEditViewMinHeight="170dp"
                 app:inputEndIconMode="clear_text"
-                app:inputLabel="qwerty aegaerg areg (ex. 3456 356 2452457)"
+                app:inputLabel="qwerty (ex. 3456)"
+                app:inputLabelTextStyle="@style/TextAppearance.AppCompat.Body1"
                 app:inputLabelType="on_line"
                 app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                app:inputStartIconMode="custom"
                 tools:text="1234" />
 
             <by.esas.tools.pinview.PinView

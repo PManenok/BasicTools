@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="InputFieldView">
-        <attr name="android:text" format="string" />
+        <attr name="inputLabelBgColor" format="color" />
+        <attr name="inputLabel" format="string" />
+        <attr name="inputLabelTextStyle" format="reference" />
+        <attr name="inputLabelType">
+            <enum name="on_top" value="0" />
+            <enum name="on_line" value="1" />
+            <enum name="hide" value="2" />
+            <enum name="on_top_multi" value="3" />
+            <enum name="on_line_multi" value="4" />
+        </attr>
+        <attr name="inputLabelMaxLines" format="integer" />
+        <attr name="inputLabelExtraTopMargin" format="dimension" />
+
         <attr name="android:hint" format="string" />
+        <attr name="android:text" format="string" />
         <attr name="android:inputType" format="integer" />
+        <attr name="inputEditable" format="boolean" />
         <attr name="android:maxLines" format="integer" />
         <attr name="android:textDirection" format="integer" />
-        <attr name="inputLabel" format="string" />
-        <attr name="inputEditable" format="boolean" />
+        <attr name="inputEditViewMinHeight" format="dimension" />
+        <attr name="inputEditTextStyle" format="reference" />
+
         <attr name="inputPrefix" format="string" />
-        <attr name="inputStartIconIsCheckable" format="boolean" />
+        <attr name="inputPrefixTextStyle" format="reference" />
+
         <attr name="inputStartDrawable" format="reference" />
         <attr name="inputStartDrawableTint" format="color" />
+        <attr name="inputStartIconMode">
+            <!-- The view will display a custom icon specified by the user. -->
+            <enum name="custom" value="-1" />
+            <!-- No end icon. -->
+            <enum name="none" value="0" />
+            <!-- The view will display an end icon if it is set, but no action will be done. -->
+            <enum name="default_mode" value="1" />
+            <!-- The view will display a toggle that displays/hides a check box. -->
+            <enum name="checkable" value="2" />
+            <!-- The view will display a progress bar. -->
+            <enum name="progress" value="3" />
+        </attr>
+
         <attr name="inputEndDrawable" format="reference" />
         <attr name="inputEndDrawableTint" format="color" />
         <attr name="inputEndIconMode">
@@ -23,17 +52,16 @@
             <enum name="password_toggle" value="1" />
             <!-- The view will display a clear text button while the EditText contains input. -->
             <enum name="clear_text" value="2" />
-            <!-- The view will display a toggle that displays/hides a dropdown menu. -->
-            <enum name="dropdown_menu" value="3" />
+            <!-- The view will display a toggle that displays/hides a check box. -->
+            <enum name="checkable" value="3" />
         </attr>
-        <attr name="inputHideLabel" default="false" format="boolean" />
-        <attr name="inputCheckedDrawable" format="reference" />
-        <attr name="inputUncheckedDrawable" format="reference" />
-        <attr name="inputLabelType">
-            <enum name="on_top" value="0" />
-            <enum name="on_line" value="1" />
-        </attr>
-        <attr name="inputLabelBgColor" format="color"/>
+
+        <attr name="inputPasswordToggle" format="reference" />
+        <attr name="inputCheckToggle" format="reference" />
+
+        <attr name="inputHelp" format="string" />
+        <attr name="inputHelpTextStyle" format="reference" />
+        <attr name="inputErrorTextStyle" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">

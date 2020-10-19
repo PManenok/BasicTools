@@ -67,7 +67,7 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val field = findViewById<InputFieldView>(R.id.a_main_text)
+        val field = findViewById<InputFieldView>(R.id.a_main_text2)
         field.setInputPrefix("1")
         //field.setInputPrefix("")
         //field.setInputPrefix("2")
