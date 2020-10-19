@@ -57,7 +57,7 @@ open class InputFieldView : ConstraintLayout {
 
     /*################ Views ################*/
     protected var labelText: TextView? = null
-    protected var inputBox: View? = null
+    protected var inputBox: ViewGroup? = null
 
     protected var inputContainer: ViewGroup? = null
     var inputText: EditText? = null
@@ -84,6 +84,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultCheckBoxToggle: Int = R.drawable.selector_check_box_toggle
     protected var checkBoxToggle: Int = R.drawable.selector_check_box_toggle
     protected open val defaultMinHeight: Int = context.resources.getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
+    protected var editTextMinHeight: Int = context.resources.getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
 
     //Label
     protected open val defaultLabelMaxLines: Int = Integer.MAX_VALUE
@@ -127,7 +128,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val clearTextClickListener: IconClickListener = object : IconClickListener {
         override fun onIconClick() {
             inputText?.setText("")
-            endIconView?.visibility = View.GONE
+            endIconView?.visibility = View.INVISIBLE
         }
     }
     protected open val passwordClickListener: IconClickListener = object : IconClickListener {
@@ -156,8 +157,8 @@ open class InputFieldView : ConstraintLayout {
     protected open val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             textListener?.onTextChanged(s.toString())
-            if (s?.isNotBlank() == true && endIconMode == END_ICON_CLEAR_TEXT && endIconView?.visibility == View.GONE) {
-                endIconView?.visibility = View.VISIBLE
+            if (endIconMode == END_ICON_CLEAR_TEXT) {
+                endIconView?.visibility = if (s?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
             }
         }
 
@@ -171,29 +172,17 @@ open class InputFieldView : ConstraintLayout {
 
     protected open val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
         labelText?.let { label ->
-            when (currentLabelType) {
-                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI -> {
-                    val currTopMargin = label.height + labelExtraTopMargin
-                    (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)?.apply {
-                        setMargins(leftMargin, currTopMargin, rightMargin, bottomMargin)
-                    }
-                }
-                LABEL_TYPE_ON_LINE_MULTI -> {
-                    val currTopMargin =
-                        label.height + labelExtraTopMargin - resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default)
-                    (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)?.apply {
-                        setMargins(leftMargin, currTopMargin, rightMargin, bottomMargin)
-                    }
-                }
-                LABEL_TYPE_ON_LINE -> {
-                    val currTopMargin =
-                        resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default) + labelExtraTopMargin
-                    (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)?.apply {
-                        setMargins(leftMargin, currTopMargin, rightMargin, bottomMargin)
-                    }
-                }
-                else -> {
-                }
+            val params = (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)
+            val currTopMargin: Int = when (currentLabelType) {
+                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI -> label.height + labelExtraTopMargin
+                LABEL_TYPE_ON_LINE_MULTI ->
+                    label.height + labelExtraTopMargin - resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default)
+                LABEL_TYPE_ON_LINE ->
+                    resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default) + labelExtraTopMargin
+                else -> params?.topMargin ?: 0
+            }
+            params?.apply {
+                setMargins(leftMargin, currTopMargin, rightMargin, bottomMargin)
             }
         }
         true
@@ -228,7 +217,7 @@ open class InputFieldView : ConstraintLayout {
     private fun initialSetting() {
         val view = inflate(context, inflateLayoutRes, this)
         labelText = view.findViewById<TextView>(R.id.v_input_field_label)
-        inputBox = view.findViewById<View>(R.id.v_input_field_layout_box)
+        inputBox = view.findViewById<ViewGroup>(R.id.v_input_field_edit_layout)
 
         inputContainer = view.findViewById<ViewGroup>(R.id.v_input_field_layout_container)
         inputText = view.findViewById<EditText>(R.id.v_input_field_edit)
@@ -250,9 +239,10 @@ open class InputFieldView : ConstraintLayout {
         startTint = ContextCompat.getColor(context, R.color.colorPrimary)
         endTint = startTint
 
+        inputContainer?.isEnabled = false
         inputText?.onFocusChangeListener =
             OnFocusChangeListener { v, hasFocus ->
-                inputBox?.isEnabled = hasFocus
+                inputContainer?.isEnabled = hasFocus
                 //if (hasFocus) setError(null)
             }
 
@@ -294,7 +284,7 @@ open class InputFieldView : ConstraintLayout {
         // Editable
         val editable: Boolean = typedArray.getBoolean(R.styleable.InputFieldView_inputEditable, true)
         // EditText min height
-        val editTextMinHeight = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputEditViewMinHeight, defaultMinHeight)
+        editTextMinHeight = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputEditViewMinHeight, defaultMinHeight)
         val editStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, -1)
 
         // Prefix
@@ -331,6 +321,10 @@ open class InputFieldView : ConstraintLayout {
         typedArray.recycle()
 
         // Set new attributes
+        inputBox?.apply {
+            minimumHeight = editTextMinHeight
+        }
+
         if (labelStyleId != -1)
             labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
         if (prefixStyleId != -1)
@@ -359,13 +353,11 @@ open class InputFieldView : ConstraintLayout {
         setError(null)
         updateStartIcon()
         updateEndIcon()
-
-        inputContainer?.minimumHeight = editTextMinHeight
     }
 
     open fun setDefaultValues() {
         labelMaxLines = defaultLabelMaxLines
-        inputContainer?.minimumHeight = defaultMinHeight
+        editTextMinHeight = defaultMinHeight
         checkBoxToggle = defaultCheckBoxToggle
         passwordToggleRes = defaultPasswordToggleRes
         labelBg = defaultLabelBg
@@ -389,6 +381,10 @@ open class InputFieldView : ConstraintLayout {
         setError(null)
         setStartIconMode()
         setEndIconMode()
+
+        inputBox?.apply {
+            minimumHeight = editTextMinHeight
+        }
     }
 
 
@@ -525,7 +521,7 @@ open class InputFieldView : ConstraintLayout {
                     else
                         setImageDrawable(endDrawable)
                     ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
-                    visibility = View.VISIBLE
+                    visibility = if (inputText?.text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
                 }
                 endCheckBox?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.VISIBLE
@@ -762,7 +758,7 @@ open class InputFieldView : ConstraintLayout {
     protected open fun updateBottomTextPosition() {
         when {
             hasErrorText -> {
-                inputBox?.apply {
+                inputContainer?.apply {
                     ViewCompat.setBackgroundTintList(
                         this,
                         ContextCompat.getColorStateList(context, R.color.color_error_box_stroke_selector)
@@ -773,7 +769,7 @@ open class InputFieldView : ConstraintLayout {
                 helpTextView?.visibility = View.GONE
             }
             hasHelpText -> {
-                inputBox?.apply {
+                inputContainer?.apply {
                     ViewCompat.setBackgroundTintList(this, boxTintList)
                 }
                 bottomContainer?.visibility = View.VISIBLE
@@ -781,7 +777,7 @@ open class InputFieldView : ConstraintLayout {
                 helpTextView?.visibility = View.VISIBLE
             }
             else -> {
-                inputBox?.apply {
+                inputContainer?.apply {
                     ViewCompat.setBackgroundTintList(this, boxTintList)
                 }
                 bottomContainer?.visibility = if (showBottomContainer) View.INVISIBLE else View.GONE
