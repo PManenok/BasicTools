@@ -2,6 +2,7 @@ package by.esas.tools
 
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import by.esas.tools.basedaggerui.simple.SimpleViewModel
 import by.esas.tools.domain.mapper.ErrorModel
 import by.esas.tools.error_mapper.AppErrorStatusEnum
@@ -33,12 +34,12 @@ class MainVM @Inject constructor() : SimpleViewModel<AppErrorStatusEnum>() {
         serviceName.addOnPropertyChangedCallback(
             object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    mainText.set(serviceName.get() ?: "")
+                    mainText.postValue(serviceName.get() ?: "")
                 }
             }
         )
     }
 
     val serviceName = ObservableField<String>("")
-    val mainText = ObservableField<String>("")
+    val mainText = MutableLiveData<String>().apply { postValue("") }
 }

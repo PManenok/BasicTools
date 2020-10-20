@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="InputFieldView">
-        <attr name="inputLabelBgColor" format="color" />
+        <!--<attr name="inputLabelBgColor" format="color" />-->
         <attr name="inputLabel" format="string" />
         <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelType">
@@ -13,6 +13,13 @@
         </attr>
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
+
+        <attr name="inputInactiveStrokeColor" format="color" />
+        <attr name="inputActiveStrokeColor" format="color" />
+        <attr name="inputErrorColor" format="color" />
+        <attr name="inputBoxBgColor" format="color" />
+        <attr name="inputStrokeRadius" format="dimension" />
+        <attr name="inputStrokeWidth" format="dimension" />
 
         <attr name="android:hint" format="string" />
         <attr name="android:text" format="string" />
@@ -61,7 +68,10 @@
 
         <attr name="inputHelp" format="string" />
         <attr name="inputHelpTextStyle" format="reference" />
+        <attr name="inputErrorIcon" format="reference" />
         <attr name="inputErrorTextStyle" format="reference" />
+
+        <attr name="inputShowBottomContainer" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">
@@ -74,4 +84,15 @@
         <attr name="spinnerDropDownLayout" format="integer" />
         <attr name="spinnerHideLabel" default="false" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="BoxView">
+        <attr name="boxVStartPadding" format="dimension" />
+        <attr name="boxVTopClip" format="dimension" />
+        <attr name="boxVStrokeRadius" format="dimension" />
+        <attr name="boxVStrokeWidth" format="dimension" />
+        <attr name="boxVStrokeColor" format="color" />
+        <attr name="boxVStrokeErrorColor" format="color" />
+        <attr name="boxVBgColor" format="color" />
+    </declare-styleable>
+
 </resources>

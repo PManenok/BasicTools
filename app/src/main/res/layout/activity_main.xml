@@ -13,7 +13,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,13 +49,13 @@
                 android:id="@+id/a_main_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.serviceName}"
+                android:inputType="text|textMultiLine"
+                android:maxLines="10"
+                android:text="@={viewModel.mainText}"
                 app:inputEditViewMinHeight="52dp"
                 app:inputEndIconMode="clear_text"
                 app:inputLabel="Service qwerty (ex. 3456)"
-                android:inputType="text|textMultiLine"
                 app:inputLabelExtraTopMargin="2dp"
-                android:maxLines="10"
                 app:inputLabelType="on_line"
                 app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"

@@ -5,20 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
-    <!--<View
+
+    <!-- <View
+         android:id="@+id/v_input_field_layout_box"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:background="@drawable/bg_input_box"
+         app:layout_constraintBottom_toBottomOf="@id/v_input_field_layout_container"
+         app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />-->
+
+    <by.esas.tools.inputfieldview.BoxView
         android:id="@+id/v_input_field_layout_box"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/bg_input_box"
+        app:boxVStartPadding="8dp"
+        app:boxVStrokeRadius="4dp"
         app:layout_constraintBottom_toBottomOf="@id/v_input_field_layout_container"
-        app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />-->
+        app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/v_input_field_layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/input_container_top_margin_default"
-        android:background="@drawable/bg_input_box"
         android:paddingStart="8dp"
         android:paddingLeft="8dp"
         android:paddingEnd="8dp"
@@ -75,8 +84,6 @@
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:gravity="center_vertical"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/v_input_field_end_container"
             app:layout_constraintStart_toEndOf="@id/v_input_field_start_container"
@@ -92,6 +99,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:lines="1"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@id/v_input_field_edit"
                     app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +115,8 @@
                     android:background="@null"
                     android:inputType="text"
                     android:paddingStart="0dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:paddingLeft="0dp"
                     android:paddingEnd="4dp"
                     android:paddingRight="4dp"
@@ -164,13 +175,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@color/colorBackground"
         android:includeFontPadding="false"
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:textColor="@color/colorTextHint"
         android:textSize="12sp"
+        tools:text="Label"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -205,4 +216,6 @@
             android:textSize="12sp"
             android:visibility="invisible" />
     </FrameLayout>
+
+
 </merge>

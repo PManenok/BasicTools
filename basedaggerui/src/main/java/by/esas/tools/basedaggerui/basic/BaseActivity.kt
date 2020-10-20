@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
@@ -96,7 +97,7 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
-            if (v is TextInputEditText) {
+            if (v is EditText) {
                 val outRect = Rect()
                 v.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {

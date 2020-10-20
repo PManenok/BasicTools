@@ -1,5 +1,6 @@
 package by.esas.tools.inputfieldview
 
+import android.content.res.Resources
 import android.text.InputType
 import android.widget.EditText
 
@@ -21,30 +22,14 @@ fun Double.toFormattedInput(): String {
         else -> temp
     }
 }
+fun dpToPx(dp: Int): Float {
+    return (dp * Resources.getSystem().displayMetrics.density)
+}
 
+fun pxToDp(px: Int): Float {
+    return (px / Resources.getSystem().displayMetrics.density)
+}
 fun isInputTypePassword(editText: EditText?): Boolean {
     return (editText != null
             && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
 }
-
-/*java.lang.NoSuchFieldError: ConstraintLayout_Layout_layout_constraintTag
-	at androidx.constraintlayout.widget.ConstraintLayout$LayoutParams$Table.<clinit>(ConstraintLayout.java:2593)
-	at androidx.constraintlayout.widget.ConstraintLayout$LayoutParams.<init>(ConstraintLayout.java:2603)
-	at androidx.constraintlayout.widget.ConstraintLayout.generateLayoutParams(ConstraintLayout.java:1823)
-	at androidx.constraintlayout.widget.ConstraintLayout.generateLayoutParams(ConstraintLayout.java:481)
-	at android.view.LayoutInflater.rInflate_Original(LayoutInflater.java:1125)
-	at android.view.LayoutInflater_Delegate.rInflate(LayoutInflater_Delegate.java:72)
-	at android.view.LayoutInflater.rInflate(LayoutInflater.java:1097)
-	at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:1084)
-	at android.view.LayoutInflater.inflate(LayoutInflater.java:682)
-	at android.view.LayoutInflater.inflate(LayoutInflater.java:501)
-	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:328)
-	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:373)
-	at com.android.tools.idea.layoutlib.LayoutLibrary.createSession(LayoutLibrary.java:141)
-	at com.android.tools.idea.rendering.RenderTask.createRenderSession(RenderTask.java:678)
-	at com.android.tools.idea.rendering.RenderTask.lambda$inflate$8(RenderTask.java:809)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1604)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-*/
