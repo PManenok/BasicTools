@@ -61,6 +61,19 @@
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
                 app:inputStartIconMode="custom"
                 tools:text="1234" />
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/a_main_text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="@={viewModel.mainText}"
+                app:inputEditViewMinHeight="52dp"
+                app:inputEndIconMode="password_toggle"
+                app:inputLabel="Service qwerty (ex. 3456)"
+                app:inputLabelExtraTopMargin="2dp"
+                app:inputLabelType="on_line"
+                app:inputStartIconMode="progress"
+                tools:text="1234" />
 
             <by.esas.tools.pinview.PinView
                 android:layout_width="match_parent"

@@ -68,13 +68,13 @@
                 android:visibility="gone"
                 app:tint="@color/colorStrokeOutline" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+           <!-- <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_start_checkbox"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:visibility="invisible" />
+                android:visibility="invisible" />-->
         </FrameLayout>
 
         <LinearLayout
@@ -141,6 +141,7 @@
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/v_input_field_edit_layout"
@@ -151,18 +152,20 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:padding="4dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:tint="@color/colorStrokeOutline"
                 tools:srcCompat="@drawable/ic_input_field_clear_default" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <!--<androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/v_input_field_password_toggle"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:button="@drawable/selector_password_toggle"
+                app:srcCompat="@drawable/selector_password_toggle"
                 android:gravity="center"
-                android:visibility="invisible" />
+                tools:visibility="visible"
+                android:visibility="invisible"
+                tools:srcCompat="@drawable/selector_password_toggle" />-->
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

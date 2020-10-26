@@ -22,6 +22,7 @@ fun Double.toFormattedInput(): String {
         else -> temp
     }
 }
+
 fun dpToPx(dp: Int): Float {
     return (dp * Resources.getSystem().displayMetrics.density)
 }
@@ -29,7 +30,18 @@ fun dpToPx(dp: Int): Float {
 fun pxToDp(px: Int): Float {
     return (px / Resources.getSystem().displayMetrics.density)
 }
+
+fun isPasswordInputType(inputType: Int): Boolean {
+    val variation = inputType and (InputType.TYPE_MASK_CLASS or InputType.TYPE_MASK_VARIATION)
+    return (variation == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) ||
+            (variation == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) ||
+            (variation == InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD)
+}
+
 fun isInputTypePassword(editText: EditText?): Boolean {
-    return (editText != null
-            && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
+    val variation = editText?.inputType ?: 0 and (InputType.TYPE_MASK_CLASS or InputType.TYPE_MASK_VARIATION)
+    return (variation == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) ||
+            (variation == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) ||
+            (variation == InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD)
+    //(editText != null && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
 }

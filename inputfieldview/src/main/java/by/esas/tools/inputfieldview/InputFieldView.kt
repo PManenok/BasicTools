@@ -24,12 +24,10 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 
@@ -73,11 +71,11 @@ open class InputFieldView : ConstraintLayout {
     protected var startContainer: FrameLayout? = null
     protected var progressBar: ProgressBar? = null
     var startIconView: AppCompatImageView? = null
-    var startCheckBox: AppCompatCheckBox? = null
+    //var startCheckBox: AppCompatCheckBox? = null
 
     protected var endContainer: FrameLayout? = null
     var endIconView: AppCompatImageView? = null
-    var endCheckBox: AppCompatCheckBox? = null
+    //var endCheckBox: AppCompatCheckBox? = null
     /*################ Views END ################*/
 
     /*################ Parameters ################*/
@@ -158,18 +156,18 @@ open class InputFieldView : ConstraintLayout {
         override fun onIconClick() {
             // Store the current cursor position
             inputText?.apply {
-                val selection: Int = selectionEnd
+                //val selection: Int = selectionEnd
                 transformationMethod = if (hasPasswordTransformation()) {
-                    endCheckBox?.isChecked = false
+                    endIconView?.isEnabled = false
                     null
                 } else {
-                    endCheckBox?.isChecked = true
+                    endIconView?.isEnabled = true
                     PasswordTransformationMethod.getInstance()
                 }
 
                 // And restore the cursor position
-                if (selection >= 0)
-                    setSelection(selection)
+                /*if (selection >= 0)
+                    setSelection(selection)*/
             }
         }
     }
@@ -272,11 +270,11 @@ open class InputFieldView : ConstraintLayout {
         startContainer = view.findViewById<FrameLayout>(R.id.v_input_field_start_container)
         progressBar = view.findViewById<ProgressBar>(R.id.v_input_field_progress_bar)
         startIconView = view.findViewById<AppCompatImageView>(R.id.v_input_field_start_drawable)
-        startCheckBox = view.findViewById<AppCompatCheckBox>(R.id.v_input_field_start_checkbox)
+        //startCheckBox = view.findViewById<AppCompatCheckBox>(R.id.v_input_field_start_checkbox)
 
         endContainer = view.findViewById<FrameLayout>(R.id.v_input_field_end_container)
         endIconView = view.findViewById<AppCompatImageView>(R.id.v_input_field_end_drawable)
-        endCheckBox = view.findViewById<AppCompatCheckBox>(R.id.v_input_field_password_toggle)
+        //endCheckBox = view.findViewById<AppCompatImageView>(R.id.v_input_field_password_toggle)
 
         startTint = ContextCompat.getColor(context, R.color.colorPrimary)
         endTint = startTint
@@ -577,39 +575,37 @@ open class InputFieldView : ConstraintLayout {
                 setEndIconAsClear()
             }
             END_ICON_PASSWORD_TOGGLE -> {
-                endContainer?.setOnClickListener {
-                    passwordClickListener.onIconClick()
-                }
                 if (isInputTypePassword(inputText)) {
+                    endContainer?.setOnClickListener {
+                        passwordClickListener.onIconClick()
+                    }
                     // By default set the input to be disguised.
                     inputText?.transformationMethod = PasswordTransformationMethod.getInstance()
-                    endCheckBox?.isChecked = true
+                    endIconView?.isEnabled = true
                 }
-                endCheckBox?.apply {
+                endIconView?.apply {
                     if (endDrawable == null)
-                        setButtonDrawable(passwordToggleRes)
+                        setImageResource(passwordToggleRes)
                     else
-                        buttonDrawable = endDrawable
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
+                        setImageDrawable(endDrawable)
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
                     visibility = View.VISIBLE
                 }
-                endIconView?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.VISIBLE
             }
             END_ICON_CHECKABLE -> {
                 endContainer?.setOnClickListener {
-                    endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
+                    endCheckedListener?.onCheckChanged(endIconView?.isEnabled ?: false)
                 }
-                endCheckBox?.apply {
+                endIconView?.apply {
                     if (endDrawable == null)
-                        setButtonDrawable(checkBoxToggle)
+                        setImageResource(checkBoxToggle)
                     else {
-                        buttonDrawable = endDrawable
+                        setImageDrawable(endDrawable)
                     }
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
                     visibility = View.VISIBLE
                 }
-                endIconView?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.VISIBLE
             }
             END_ICON_CUSTOM -> {
@@ -624,7 +620,6 @@ open class InputFieldView : ConstraintLayout {
                         ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
                         visibility = View.VISIBLE
                     }
-                    endCheckBox?.visibility = View.INVISIBLE
                     endContainer?.visibility = View.VISIBLE
                 }
             }
@@ -633,7 +628,6 @@ open class InputFieldView : ConstraintLayout {
             }
             else -> {
                 endIconView?.visibility = View.INVISIBLE
-                endCheckBox?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.GONE
             }
         }
@@ -651,7 +645,6 @@ open class InputFieldView : ConstraintLayout {
             ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
             visibility = if (inputText?.text?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
         }
-        endCheckBox?.visibility = View.INVISIBLE
         endContainer?.visibility = View.VISIBLE
     }
 
@@ -664,7 +657,6 @@ open class InputFieldView : ConstraintLayout {
             }
         }
         endIconView?.visibility = View.VISIBLE
-        endCheckBox?.visibility = View.INVISIBLE
         endContainer?.visibility = View.VISIBLE
     }
 
@@ -686,11 +678,11 @@ open class InputFieldView : ConstraintLayout {
 
     fun isEndChecked(checked: Boolean) {
         if (endIconMode == END_ICON_CHECKABLE)
-            endCheckBox?.isChecked = checked
+            endIconView?.isEnabled = checked
     }
 
     fun isEndChecked(): Boolean {
-        return if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked ?: false else false
+        return if (endIconMode == END_ICON_CHECKABLE) endIconView?.isEnabled ?: false else false
     }
 
     fun setEndIconTintRes(@ColorRes tintColor: Int) {
@@ -714,19 +706,18 @@ open class InputFieldView : ConstraintLayout {
         when (startIconMode) {
             START_ICON_CHECKABLE -> {
                 if (startDrawable == null)
-                    startCheckBox?.setButtonDrawable(checkBoxToggle)
+                    startIconView?.setImageResource(checkBoxToggle)
                 else {
-                    startCheckBox?.buttonDrawable = startDrawable
+                    startIconView?.setImageDrawable(startDrawable)
                 }
                 startContainer?.setOnClickListener {
-                    startCheckedListener?.onCheckChanged(startCheckBox?.isChecked ?: false)
+                    startCheckedListener?.onCheckChanged(startIconView?.isEnabled ?: false)
                 }
-                startCheckBox?.apply {
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(startTint))
+                startIconView?.apply {
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(startTint))
                     visibility = View.VISIBLE
                 }
 
-                startIconView?.visibility = View.INVISIBLE
                 progressBar?.visibility = View.INVISIBLE
                 startContainer?.visibility = View.VISIBLE
             }
@@ -744,7 +735,6 @@ open class InputFieldView : ConstraintLayout {
                     }
 
                     progressBar?.visibility = View.INVISIBLE
-                    startCheckBox?.visibility = View.INVISIBLE
                     startContainer?.visibility = View.VISIBLE
                 }
             }
@@ -759,7 +749,6 @@ open class InputFieldView : ConstraintLayout {
                         this.visibility = View.VISIBLE
                     }
                     progressBar?.visibility = View.INVISIBLE
-                    startCheckBox?.visibility = View.INVISIBLE
                     startContainer?.visibility = View.VISIBLE
                 }
             }
@@ -776,12 +765,10 @@ open class InputFieldView : ConstraintLayout {
                     this.visibility = View.VISIBLE
                 }
                 startIconView?.visibility = View.INVISIBLE
-                startCheckBox?.visibility = View.INVISIBLE
                 startContainer?.visibility = View.VISIBLE
             }
             else -> {
                 startIconView?.visibility = View.INVISIBLE
-                startCheckBox?.visibility = View.INVISIBLE
                 progressBar?.visibility = View.INVISIBLE
                 startContainer?.visibility = View.GONE
             }
@@ -804,11 +791,11 @@ open class InputFieldView : ConstraintLayout {
 
     fun isStartChecked(checked: Boolean) {
         if (startIconMode == START_ICON_CHECKABLE)
-            startCheckBox?.isChecked = checked
+            startIconView?.isEnabled = checked
     }
 
     fun isStartChecked(): Boolean {
-        return if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked ?: false else false
+        return if (startIconMode == START_ICON_CHECKABLE) startIconView?.isEnabled ?: false else false
     }
 
     fun isInProgress(value: Boolean) {
