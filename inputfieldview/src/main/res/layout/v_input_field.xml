@@ -47,26 +47,27 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/v_input_field_edit_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <ProgressBar
                 android:id="@+id/v_input_field_progress_bar"
                 style="@style/Widget.AppCompat.ProgressBar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="9dp"
-                android:layout_marginRight="9dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:indeterminate="true"
-                android:padding="4dp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/v_input_field_start_drawable"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="4dp"
-                android:visibility="gone"
-                app:tint="@color/colorStrokeOutline" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                app:tint="@color/colorStrokeOutline"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_start_checkbox"
@@ -74,7 +75,8 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </FrameLayout>
 
         <LinearLayout
@@ -115,11 +117,11 @@
                     android:background="@null"
                     android:inputType="text"
                     android:paddingStart="0dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
                     android:paddingLeft="0dp"
+                    android:paddingTop="12dp"
                     android:paddingEnd="4dp"
                     android:paddingRight="4dp"
+                    android:paddingBottom="12dp"
                     android:textColor="@color/colorTextDefault"
                     android:textColorHint="@color/colorTextHint"
                     android:textSize="14sp"
@@ -144,16 +146,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/v_input_field_edit_layout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/v_input_field_end_drawable"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="4dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:visibility="invisible"
                 app:tint="@color/colorStrokeOutline"
-                tools:srcCompat="@drawable/ic_input_field_clear_default" />
+                tools:srcCompat="@drawable/ic_input_field_clear_default"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_password_toggle"
@@ -162,7 +166,8 @@
                 android:layout_gravity="center"
                 android:button="@drawable/selector_password_toggle"
                 android:gravity="center"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,12 +186,12 @@
         android:paddingEnd="4dp"
         android:textColor="@color/colorTextHint"
         android:textSize="12sp"
-        tools:text="Label"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Label" />
 
     <FrameLayout
         android:id="@+id/v_input_field_bottom_text_container"

@@ -10,6 +10,7 @@
             <enum name="hide" value="2" />
             <enum name="on_top_multi" value="3" />
             <enum name="on_line_multi" value="4" />
+            <enum name="on_top_no_start_padding" value="5" />
         </attr>
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />

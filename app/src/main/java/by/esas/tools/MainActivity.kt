@@ -74,12 +74,12 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
 
         val field = findViewById<InputFieldView>(R.id.a_main_text2)
         field.setInputPrefix("1")
-        val spinner = findViewById<SpinnerFieldView>(R.id.a_main_service_spinner)
+        /*val spinner = findViewById<SpinnerFieldView>(R.id.a_main_service_spinner)
         spinner.adapter.clear()
         (spinner.adapter as ArrayAdapter<String>).addAll(listOf("1", "2", "3"))
         spinner.adapter.notifyDataSetChanged()
         val currentText = "1"
-        spinner.setText(currentText)
+        spinner.setText(currentText)*/
         viewModel.addToObservable(viewModel.mainText, Observer<String> {
             AppChecker()
                 .setShowError(true)

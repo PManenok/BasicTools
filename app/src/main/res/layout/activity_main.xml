@@ -35,28 +35,27 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
 
-            <!--  <by.esas.tools.inputfieldview.InputFieldView
-                  android:id="@+id/a_main_text"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="@={viewModel.mainText}"
-                  app:inputEndIconMode="clear_text"
-                  app:inputLabel="qwerty (ex. 34567)"
-                  app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                  tools:text="1234" />-->
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/a_main_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.mainText}"
+                app:inputEndIconMode="clear_text"
+                app:inputLabel="qwerty (ex. 34567)"
+                app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                tools:text="1234" />
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/a_main_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text|textMultiLine"
-                android:maxLines="10"
+                android:inputType="text|textPassword"
                 android:text="@={viewModel.mainText}"
                 app:inputEditViewMinHeight="52dp"
-                app:inputEndIconMode="clear_text"
+                app:inputEndIconMode="password_toggle"
                 app:inputLabel="Service qwerty (ex. 3456)"
                 app:inputLabelExtraTopMargin="2dp"
-                app:inputLabelType="on_line"
+                app:inputLabelType="on_top_no_start_padding"
                 app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
                 app:inputStartIconMode="custom"

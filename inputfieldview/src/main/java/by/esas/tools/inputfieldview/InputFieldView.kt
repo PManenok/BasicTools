@@ -17,10 +17,7 @@ import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -55,6 +52,7 @@ open class InputFieldView : ConstraintLayout {
         const val LABEL_TYPE_HIDE: Int = 2
         const val LABEL_TYPE_ON_TOP_MULTI: Int = 3
         const val LABEL_TYPE_ON_LINE_MULTI: Int = 4
+        const val LABEL_TYPE_ON_TOP_START: Int = 5
     }
 
     /*################ Views ################*/
@@ -98,6 +96,8 @@ open class InputFieldView : ConstraintLayout {
     protected open var strokeWidthInPx: Float = dpToPx(1)
 
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
+    protected var labelStartMargin: Int = 0
+    protected var labelStartPadding: Int = 0
     protected open val defaultIconsTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
     protected open val defaultInputType: Int = EditorInfo.TYPE_CLASS_TEXT
     protected open val defaultCheckBoxToggle: Int = R.drawable.selector_check_box_toggle
@@ -154,25 +154,43 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    protected open val passwordClickListener: IconClickListener = object : IconClickListener {
-        override fun onIconClick() {
-            // Store the current cursor position
+    protected open val endCheckClickListener: CompoundButton.OnCheckedChangeListener =
+        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            endCheckedListener?.onCheckChanged(isChecked)
+        }
+    protected open val startCheckClickListener: CompoundButton.OnCheckedChangeListener =
+        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            startCheckedListener?.onCheckChanged(isChecked)
+        }
+    protected open val passwordClickListener: CompoundButton.OnCheckedChangeListener =
+        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             inputText?.apply {
-                val selection: Int = selectionEnd
-                transformationMethod = if (hasPasswordTransformation()) {
-                    endCheckBox?.isChecked = false
-                    null
-                } else {
-                    endCheckBox?.isChecked = true
+                transformationMethod = if (isChecked) {
                     PasswordTransformationMethod.getInstance()
+                } else {
+                    null
                 }
-
-                // And restore the cursor position
-                if (selection >= 0)
-                    setSelection(selection)
             }
         }
-    }
+    /* protected open val passwordClickListener: IconClickListener = object : IconClickListener {
+         override fun onIconClick() {
+             // Store the current cursor position
+             inputText?.apply {
+                 val selection: Int = selectionEnd
+                 transformationMethod = if (hasPasswordTransformation()) {
+                     endCheckBox?.isChecked = false
+                     null
+                 } else {
+                     endCheckBox?.isChecked = true
+                     PasswordTransformationMethod.getInstance()
+                 }
+
+                 // And restore the cursor position
+                 if (selection >= 0)
+                     setSelection(selection)
+             }
+         }
+     }*/
     /*############################ Icons Click Listeners End ################################*/
 
     /*############################ TextListener ################################*/
@@ -197,14 +215,14 @@ open class InputFieldView : ConstraintLayout {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
     }
-    /*############################ TextListener End ################################*/
 
+    /*############################ TextListener End ################################*/
     protected open val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
         labelText?.let { label ->
             var topClip = 0
             val params = (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)
             val currTopMargin: Int = when (currentLabelType) {
-                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI -> {
+                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_START -> {
                     topClip = 0
                     label.height + labelExtraTopMargin
                 }
@@ -221,12 +239,36 @@ open class InputFieldView : ConstraintLayout {
                     params?.topMargin ?: 0
                 }
             }
+            setLabelParams(label)
             inputBox?.setTopClipInPx(topClip.toFloat())
             params?.apply {
-                setMargins(leftMargin, currTopMargin, rightMargin, bottomMargin)
+                setMargins(this.leftMargin, currTopMargin, this.rightMargin, this.bottomMargin)
             }
         }
         true
+    }
+
+    protected open fun setLabelParams(label: TextView) {
+        val params = (label.layoutParams as ConstraintLayout.LayoutParams)
+        if (currentLabelType == LABEL_TYPE_ON_TOP_START) {
+            if (labelStartMargin == 0)
+                labelStartMargin = params.leftMargin
+            if (labelStartPadding == 0)
+                labelStartPadding = label.paddingLeft
+            label.setPadding(0, label.paddingTop, label.paddingRight, label.paddingBottom)
+            params.apply {
+                setMargins(0, topMargin, rightMargin, bottomMargin)
+            }
+        } else {
+            if (labelStartMargin == 0)
+                labelStartMargin = params.leftMargin
+            if (labelStartPadding == 0)
+                labelStartPadding = label.paddingLeft
+            label.setPadding(labelStartPadding, label.paddingTop, label.paddingRight, label.paddingBottom)
+            params.apply {
+                setMargins(labelStartMargin, topMargin, rightMargin, bottomMargin)
+            }
+        }
     }
 
     /*############################ Constructors ################################*/
@@ -455,13 +497,13 @@ open class InputFieldView : ConstraintLayout {
     open fun updateLabelState() {
         labelText?.let { label ->
             when (currentLabelType) {
-                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI -> {
-                    label.maxLines = if (currentLabelType == LABEL_TYPE_ON_TOP) 1 else labelMaxLines
+                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_START -> {
+                    label.maxLines = if (currentLabelType != LABEL_TYPE_ON_TOP_MULTI) 1 else labelMaxLines
                     //label.background = null
                     label.invalidate()
                 }
                 LABEL_TYPE_ON_LINE, LABEL_TYPE_ON_LINE_MULTI -> {
-                    label.maxLines = if (currentLabelType == LABEL_TYPE_ON_LINE) 1 else labelMaxLines
+                    label.maxLines = if (currentLabelType != LABEL_TYPE_ON_LINE_MULTI) 1 else labelMaxLines
                     //label.setBackgroundColor(labelBg)
                     label.invalidate()
                 }
@@ -578,7 +620,8 @@ open class InputFieldView : ConstraintLayout {
             }
             END_ICON_PASSWORD_TOGGLE -> {
                 endContainer?.setOnClickListener {
-                    passwordClickListener.onIconClick()
+                    endCheckBox?.performClick()
+                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 if (isInputTypePassword(inputText)) {
                     // By default set the input to be disguised.
@@ -586,6 +629,7 @@ open class InputFieldView : ConstraintLayout {
                     endCheckBox?.isChecked = true
                 }
                 endCheckBox?.apply {
+                    setOnCheckedChangeListener(passwordClickListener)
                     if (endDrawable == null)
                         setButtonDrawable(passwordToggleRes)
                     else
@@ -598,7 +642,8 @@ open class InputFieldView : ConstraintLayout {
             }
             END_ICON_CHECKABLE -> {
                 endContainer?.setOnClickListener {
-                    endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
+                    endCheckBox?.performClick()
+                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 endCheckBox?.apply {
                     if (endDrawable == null)
@@ -606,6 +651,7 @@ open class InputFieldView : ConstraintLayout {
                     else {
                         buttonDrawable = endDrawable
                     }
+                    setOnCheckedChangeListener(endCheckClickListener)
                     CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
                     visibility = View.VISIBLE
                 }
@@ -713,15 +759,15 @@ open class InputFieldView : ConstraintLayout {
             startContainer?.isClickable = true
         when (startIconMode) {
             START_ICON_CHECKABLE -> {
-                if (startDrawable == null)
-                    startCheckBox?.setButtonDrawable(checkBoxToggle)
-                else {
-                    startCheckBox?.buttonDrawable = startDrawable
-                }
                 startContainer?.setOnClickListener {
                     startCheckedListener?.onCheckChanged(startCheckBox?.isChecked ?: false)
                 }
                 startCheckBox?.apply {
+                    if (startDrawable == null)
+                        setButtonDrawable(checkBoxToggle)
+                    else
+                        buttonDrawable = startDrawable
+                    setOnCheckedChangeListener(startCheckClickListener)
                     CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(startTint))
                     visibility = View.VISIBLE
                 }
