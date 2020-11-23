@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -31,6 +32,10 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E>, TBinding : Vie
 
     abstract fun provideLifecycleOwner(): LifecycleOwner
 
+    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(this).setCancelable(false)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,14 +44,14 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E>, TBinding : Vie
 
         binding = DataBindingUtil.setContentView(this, provideLayoutId())
         binding.setVariable(provideVariableInd(), viewModel)
-        viewModel.alertDialogBuilder = MaterialAlertDialogBuilder(this).setCancelable(false)
+        viewModel.alertDialogBuilder = provideMaterialAlertDialogBuilder()
         binding.lifecycleOwner = provideLifecycleOwner()
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
-            if (v is TextInputEditText) {
+            if (v is EditText) {
                 val outRect = Rect()
                 v.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {

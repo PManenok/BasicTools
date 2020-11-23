@@ -1,6 +1,7 @@
 package by.esas.tools.basedaggerui.basic
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -13,12 +14,13 @@ import javax.inject.Inject
 abstract class BaseFragment<E : Enum<E>> : DaggerFragment() {
     abstract val TAG: String
 
-    abstract var logger: ILogger<E>
+    lateinit var logger: ILogger<E>
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     abstract fun provideLogger(): ILogger<E>
+    abstract fun provideAppContext(): Context
 
     override fun onStart() {
         super.onStart()
@@ -65,7 +67,7 @@ abstract class BaseFragment<E : Enum<E>> : DaggerFragment() {
     }
 
     fun showMessage(textId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        logger.logInfo(BaseApp.appContext.resources.getString(textId))
+        logger.logInfo(provideAppContext().resources.getString(textId))
         logger.showMessage(textId, duration)
     }
 }

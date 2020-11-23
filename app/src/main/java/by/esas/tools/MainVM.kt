@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class MainVM @Inject constructor() : SimpleViewModel<AppErrorStatusEnum>() {
     override val TAG: String = "MainVM"
-    override var logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
 
     override fun getErrorMessage(error: ErrorModel<AppErrorStatusEnum>): String {
         return "Error"
@@ -23,6 +22,7 @@ class MainVM @Inject constructor() : SimpleViewModel<AppErrorStatusEnum>() {
     }
 
     override fun initLogger() {
+        logger = LoggerImpl()
         logger.setTag(TAG)
     }
 

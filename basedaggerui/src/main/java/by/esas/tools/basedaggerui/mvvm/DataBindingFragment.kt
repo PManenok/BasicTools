@@ -24,11 +24,18 @@ abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E
 
     abstract fun provideLayoutId(): Int
 
-    abstract fun provideTextInputETViewList(): List<TextInputEditText>
+    abstract fun provideTextInputETViewList(): List<View?>
 
     abstract fun provideLifecycleOwner(): LifecycleOwner
 
     abstract fun provideVariableInd(): Int
+
+    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder{
+        return MaterialAlertDialogBuilder(
+            context,
+            R.style.AppTheme_CustomMaterialDialog
+        ).setCancelable(false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +53,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E
         binding.setVariable(provideVariableInd(), viewModel)
         binding.lifecycleOwner = provideLifecycleOwner()
 
-        viewModel.alertDialogBuilder = MaterialAlertDialogBuilder(
-            context,
-            R.style.AppTheme_CustomMaterialDialog
-        ).setCancelable(false)
+        viewModel.alertDialogBuilder = provideMaterialAlertDialogBuilder()
         return binding.root
     }
 

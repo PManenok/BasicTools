@@ -2,11 +2,9 @@ package by.esas.tools
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.basedaggerui.app.BaseApp
 import by.esas.tools.basedaggerui.simple.SimpleActivity
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.checks.LengthCheck
@@ -16,7 +14,6 @@ import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inputfieldview.InputFieldView
-import by.esas.tools.inputfieldview.SpinnerFieldView
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
@@ -61,11 +58,11 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
     }
 
     override fun getAppContext(): Context {
-        return BaseApp.appContext
+        return App.appContext
     }
 
     override fun setAppContext(context: Context) {
-        BaseApp.appContext = context
+        App.appContext = context
     }
 
 

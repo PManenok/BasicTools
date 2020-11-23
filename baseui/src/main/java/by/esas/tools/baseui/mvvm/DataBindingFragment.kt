@@ -10,7 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 
 abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E : Enum<E>> :
     BaseFragment<E>() {
@@ -23,11 +22,18 @@ abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E
 
     abstract fun provideLayoutId(): Int
 
-    abstract fun provideTextInputETViewList(): List<TextInputEditText>
+    abstract fun provideSwitchableViewList(): List<View?>
 
     abstract fun provideLifecycleOwner(): LifecycleOwner
 
     abstract fun provideVariableInd(): Int
+
+    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder{
+        return MaterialAlertDialogBuilder(
+            context,
+            R.style.AppTheme_CustomMaterialDialog
+        ).setCancelable(false)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,10 +51,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E
         binding.setVariable(provideVariableInd(), viewModel)
         binding.lifecycleOwner = provideLifecycleOwner()
 
-        viewModel.alertDialogBuilder = MaterialAlertDialogBuilder(
-            context,
-            R.style.AppTheme_CustomMaterialDialog
-        ).setCancelable(false)
+        viewModel.alertDialogBuilder = provideMaterialAlertDialogBuilder()
         return binding.root
     }
 
@@ -56,7 +59,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E
         super.onViewCreated(view, savedInstanceState)
         logger.logInfo("onViewCreated")
         if (viewModel.switchableViewsList.isNotEmpty()) viewModel.switchableViewsList.clear()
-        viewModel.switchableViewsList.addAll(provideTextInputETViewList())
+        viewModel.switchableViewsList.addAll(provideSwitchableViewList())
     }
 
     override fun onDestroyView() {

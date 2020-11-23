@@ -16,11 +16,11 @@ abstract class BaseViewModel<E : Enum<E>> : ViewModel() {
     val progressing = ObservableBoolean(false)
     val switchableViewsList = mutableListOf<View?>()
 
-    protected var switcher: SwitchManager = SwitchManager()
-    abstract var logger: ILogger<E>
+    protected open var switcher: SwitchManager = SwitchManager()
+    lateinit var logger: ILogger<E>
 
     var alertDialogBuilder: MaterialAlertDialogBuilder? = null
-    private var alertDialog: AlertDialog? = null
+    protected var alertDialog: AlertDialog? = null
 
     open fun hideProgress() {
         progressing.set(false)
@@ -43,34 +43,45 @@ abstract class BaseViewModel<E : Enum<E>> : ViewModel() {
 
         switchableViewsList.clear()
         alertDialogBuilder = null
-
     }
 
     /**
      * Блокируем редактирование полей.
      */
-    protected open fun disableControls() {
+    protected open fun disableControls(): Boolean {
         showProgress()
+        var result: Boolean = true
         switchableViewsList.forEach { view ->
-            view?.let { switcher.disableView(it) }
+            view?.let { result = result && switcher.disableView(it) }
         }
+        return result
     }
 
     /**
      * Возвращаем возможность редактировать поля.
      */
-    protected open fun enableControls() {
+    protected open fun enableControls(): Boolean {
         hideProgress()
+        var result: Boolean = true
         switchableViewsList.forEach { view ->
-            view?.let { switcher.enableView(it) }
+            view?.let { result = result && switcher.enableView(it) }
         }
+        return result
     }
 
-    open fun handleError(error: Throwable, showType: ShowErrorType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK: () -> Unit = {}) {
+    open fun handleError(error: Throwable, doOnDialogOK: () -> Unit = {}) {
+        handleError(error = mapError(error), showType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK = doOnDialogOK)
+    }
+
+    open fun handleError(error: Throwable, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
         handleError(error = mapError(error), showType = showType, doOnDialogOK = doOnDialogOK)
     }
 
-    open fun handleError(error: ErrorModel<E>, showType: ShowErrorType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK: () -> Unit = {}) {
+    open fun handleError(error: ErrorModel<E>, doOnDialogOK: () -> Unit = {}) {
+        handleError(error = error, showType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK = doOnDialogOK)
+    }
+
+    open fun handleError(error: ErrorModel<E>, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
         hideProgress()
         /*if (error.statusEnum == AppErrorStatusEnum.NET_SSL_HANDSHAKE) {
             logger.logError(SSLContext.getDefault().defaultSSLParameters.protocols?.contentToString() ?: "SSL protocols: Empty")

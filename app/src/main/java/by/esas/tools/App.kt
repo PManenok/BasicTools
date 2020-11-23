@@ -2,14 +2,12 @@ package by.esas.tools
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import by.esas.tools.basedaggerui.app.BaseApp
-import by.esas.tools.basedaggerui.app.BaseApp.Companion.appContext
 import by.esas.tools.inject.component.DaggerAppComponent
 import by.esas.tools.util.LocaleManager
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
-class App : DaggerApplication(), BaseApp {
+class App : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent
             .builder()
@@ -19,6 +17,7 @@ class App : DaggerApplication(), BaseApp {
 
     companion object {
         lateinit var instance: App
+        lateinit var appContext: Context
     }
 
     init {
