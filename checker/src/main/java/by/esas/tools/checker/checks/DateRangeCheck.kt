@@ -6,7 +6,7 @@ import by.esas.tools.checker.BaseCheck
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateRangeCheck : BaseCheck {
+open class DateRangeCheck : BaseCheck {
     override var TAG: String = CustomCheck::class.java.simpleName
 
     private var pattern = "yyyy-MM-dd"

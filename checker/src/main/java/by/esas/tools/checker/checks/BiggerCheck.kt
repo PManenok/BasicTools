@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
-class BiggerCheck<T> : BaseCheck {
+open class BiggerCheck<T> : BaseCheck {
     override var TAG: String = BiggerCheck::class.java.simpleName
     private var biggerThen: T? = null
 

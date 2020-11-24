@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
-class RangeCheck : BaseCheck {
+open class RangeCheck : BaseCheck {
     override var TAG: String = CustomCheck::class.java.simpleName
     private var from: Double = 0.0
     private var to: Double = 1.1

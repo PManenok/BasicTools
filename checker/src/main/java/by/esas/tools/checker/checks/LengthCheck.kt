@@ -3,7 +3,7 @@ package by.esas.tools.checker.checks
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
-class LengthCheck : BaseCheck {
+open class LengthCheck : BaseCheck {
     override var TAG: String = CustomCheck::class.java.simpleName
     private var min: Int = 0
     private var max: Int = Int.MAX_VALUE

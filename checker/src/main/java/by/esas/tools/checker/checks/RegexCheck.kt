@@ -3,7 +3,7 @@ package by.esas.tools.checker.checks
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
-class RegexCheck : BaseCheck {
+open class RegexCheck : BaseCheck {
     override var TAG: String = CustomCheck::class.java.simpleName
     private var regex: String = ""
 
