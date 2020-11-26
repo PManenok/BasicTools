@@ -3,9 +3,9 @@ package by.esas.tools.accesscontainer
 import by.esas.tools.logger.BaseErrorModel
 
 
-class ContainerRequest<T, E:Enum<E>> {
+class ContainerRequest<T, E : Enum<E>, M : BaseErrorModel<E>> {
     private var onComplete: ((T) -> Unit)? = null
-    private var onError: ((BaseErrorModel<E>) -> Unit)? = null
+    private var onError: ((M) -> Unit)? = null
     private var onCancel: (() -> Unit)? = null
     private var onCancellation: ((IllegalStateException) -> Unit)? = null
 
@@ -13,7 +13,7 @@ class ContainerRequest<T, E:Enum<E>> {
         onComplete = block
     }
 
-    fun onError(block: (BaseErrorModel<E>) -> Unit) {
+    fun onError(block: (M) -> Unit) {
         onError = block
     }
 
@@ -29,7 +29,7 @@ class ContainerRequest<T, E:Enum<E>> {
         onComplete?.invoke(result)
     }
 
-    operator fun invoke(error: BaseErrorModel<E>) {
+    operator fun invoke(error: M) {
         onError?.invoke(error)
     }
 

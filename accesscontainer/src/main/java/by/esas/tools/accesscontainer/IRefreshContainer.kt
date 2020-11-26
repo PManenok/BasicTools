@@ -6,7 +6,7 @@ import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.support.IContainerCancellationCallback
 import by.esas.tools.logger.BaseErrorModel
 
-interface IRefreshContainer<E : Enum<E>> {
+interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
     fun setToken(token: Token)
     fun getToken(): String
 
@@ -26,13 +26,13 @@ interface IRefreshContainer<E : Enum<E>> {
      * can refresh token or not
      * @see refreshExplicitly
      **/
-    fun checkAccess(refreshExplicitly: Boolean = false, response: ContainerRequest<String, E>.() -> Unit)
+    fun checkAccess(refreshExplicitly: Boolean = false, response: ContainerRequest<String, E, M>.() -> Unit)
 
     /**
      * This function can save refresh token, it invokes only encryption dialogs
      * Should be used only when no secret exist, because it will override old secrets
      **/
-    fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E>.() -> Unit)
+    fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit)
 
     fun onCancel()
 

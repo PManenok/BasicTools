@@ -25,15 +25,15 @@ import java.lang.ref.WeakReference
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 
-class Refresher<E : Enum<E>>(
-    private val logger: ILogger<E, BaseErrorModel<E>>,
-    private val executor: IContainerExecutor<E>,
+class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
+    private val logger: ILogger<E, M>,
+    private val executor: IContainerExecutor<E, M>,
     private val typeManager: ITypeManager,
     private val userInfo: BiometricUserInfo,
-    private val mapper: IErrorMapper<E>,
+    private val mapper: IErrorMapper<E, M>,
     private val dialogProvider: DialogProvider,
-    private val supporter: Supporter<E>
-) : IRefreshContainer<E> {
+    private val supporter: Supporter<E, M>
+) : IRefreshContainer<E, M> {
     val TAG: String = Refresher::class.java.simpleName
     private var accessToken: String = ""
     private var refreshToken: String = ""
@@ -52,8 +52,8 @@ class Refresher<E : Enum<E>>(
     private var fragmentManager: WeakReference<FragmentManager?> = WeakReference(null) // fragment manager for simple dialogs
     private var activity: WeakReference<FragmentActivity?> = WeakReference(null) // activity for biometric dialog
 
-    private var result: ContainerRequest<RefreshResult, E> =
-        ContainerRequest<RefreshResult, E>() // result instance which will get result when it is finished
+    private var result: ContainerRequest<RefreshResult, E, M> =
+        ContainerRequest<RefreshResult, E, M>() // result instance which will get result when it is finished
     private var userId: String = "" // user ID sets from getSecrets
 
     private var isBiometricAvailable: Boolean = false // shows if biometric is available
@@ -101,7 +101,7 @@ class Refresher<E : Enum<E>>(
     override fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel<E>) -> Unit, onCancel: () -> Unit) {
         logger.log("refresh")
         this.refreshExplicitly = true
-        result = ContainerRequest<RefreshResult, E>()
+        result = ContainerRequest<RefreshResult, E, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.log("refresh result.onComplete token != null = ${tokenResponse.token != null}")
@@ -137,12 +137,12 @@ class Refresher<E : Enum<E>>(
         cancellationCallback.onCancel()
     }
 
-    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, E>.() -> Unit) {
+    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, E, M>.() -> Unit) {
         logger.log("checkAccess refreshExplicitly = $refreshExplicitly")
         this.refreshExplicitly = refreshExplicitly
-        val result = ContainerRequest<String, E>().apply(response)
+        val result = ContainerRequest<String, E, M>().apply(response)
 
-        this.result = ContainerRequest<RefreshResult, E>()
+        this.result = ContainerRequest<RefreshResult, E, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.log("checkAccess result.onComplete hasAccess = ${tokenResponse.hasAccess}")
@@ -171,10 +171,10 @@ class Refresher<E : Enum<E>>(
         getSecrets()
     }
 
-    override fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E>.() -> Unit) {
-        val result = ContainerRequest<String, E>().apply(response)
+    override fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit) {
+        val result = ContainerRequest<String, E, M>().apply(response)
 
-        this.result = ContainerRequest<RefreshResult, E>()
+        this.result = ContainerRequest<RefreshResult, E, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.log("saveRefresh result.onComplete")
@@ -220,7 +220,7 @@ class Refresher<E : Enum<E>>(
         }
     }
 
-    private fun checkRefreshError(error: BaseErrorModel<E>) {
+    private fun checkRefreshError(error: M) {
         if (useExtraCheck) {
             extraRefreshCheck(error)
         } else {
