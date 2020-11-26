@@ -28,7 +28,7 @@ class Biometric(
     companion object {
         val TAG: String = Biometric::class.java.simpleName
         private val KEY_ALIAS = Config.BIOM_ALIAS
-        var logger: ILogger<*>? = null
+        var logger: ILogger<*,*>? = null
         private lateinit var sKeyStore: KeyStore
         private fun getKeyStore(): Boolean {
             try {

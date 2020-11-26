@@ -11,10 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import by.esas.tools.basedaggerui.basic.BaseActivity
+import by.esas.tools.logger.BaseErrorModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
-abstract class DataBindingActivity<TViewModel : BaseViewModel<E>, TBinding : ViewDataBinding, E : Enum<E>> : BaseActivity<E>() {
+abstract class DataBindingActivity<TViewModel : BaseViewModel<E, *>, TBinding : ViewDataBinding, E : Enum<E>> :
+    BaseActivity<E>() {
 
     protected lateinit var binding: TBinding
 

@@ -5,19 +5,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.R
-import by.esas.tools.domain.mapper.ErrorModel
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class BaseViewModel<E : Enum<E>> : ViewModel() {
+abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
     open val TAG: String = BaseViewModel::class.java.simpleName
 
     val progressing = ObservableBoolean(false)
     val switchableViewsList = mutableListOf<View?>()
 
     protected open var switcher: SwitchManager = SwitchManager()
-    lateinit var logger: ILogger<E>
+    lateinit var logger: ILogger<E, M>
 
     var alertDialogBuilder: MaterialAlertDialogBuilder? = null
     protected var alertDialog: AlertDialog? = null
@@ -77,11 +77,11 @@ abstract class BaseViewModel<E : Enum<E>> : ViewModel() {
         handleError(error = mapError(error), showType = showType, doOnDialogOK = doOnDialogOK)
     }
 
-    open fun handleError(error: ErrorModel<E>, doOnDialogOK: () -> Unit = {}) {
+    open fun handleError(error: M, doOnDialogOK: () -> Unit = {}) {
         handleError(error = error, showType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK = doOnDialogOK)
     }
 
-    open fun handleError(error: ErrorModel<E>, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
+    open fun handleError(error: M, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
         hideProgress()
         /*if (error.statusEnum == AppErrorStatusEnum.NET_SSL_HANDSHAKE) {
             logger.logError(SSLContext.getDefault().defaultSSLParameters.protocols?.contentToString() ?: "SSL protocols: Empty")
@@ -110,9 +110,9 @@ abstract class BaseViewModel<E : Enum<E>> : ViewModel() {
         }
     }
 
-    abstract fun getErrorMessage(error: ErrorModel<E>): String
+    abstract fun getErrorMessage(error: M): String
 
-    protected abstract fun mapError(e: Throwable): ErrorModel<E>
+    protected abstract fun mapError(e: Throwable): M
 
     abstract fun initLogger()
 

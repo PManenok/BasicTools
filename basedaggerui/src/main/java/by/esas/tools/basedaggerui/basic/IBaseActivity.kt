@@ -6,7 +6,7 @@ import by.esas.tools.util.LanguageSetter
 import by.esas.tools.util.LocaleManager
 
 interface IBaseActivity<E : Enum<E>> {
-    var logger: ILogger<E>
+    var logger: ILogger<E, *>
     fun doWithAttachBaseContext(context: Context): Context {
         return LocaleManager.setLocale(context, provideSetter().getLanguage())
     }

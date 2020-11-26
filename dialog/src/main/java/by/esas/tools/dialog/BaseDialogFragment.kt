@@ -13,7 +13,7 @@ import by.esas.tools.util.SwitchManager
 
 abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : DialogFragment() {
     abstract val TAG: String
-    protected open lateinit var logger: ILogger<EnumT>
+    protected open lateinit var logger: ILogger<EnumT, *>
 
     protected val validationList: MutableList<Checking> = mutableListOf()
     protected var switchableViewsList: List<View?> = emptyList()
@@ -31,7 +31,7 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
 
     abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
-    protected open fun provideLogger(): ILogger<EnumT> {
+    protected open fun provideLogger(): ILogger<EnumT, *> {
         return BaseLogger(TAG, this.context)
     }
 

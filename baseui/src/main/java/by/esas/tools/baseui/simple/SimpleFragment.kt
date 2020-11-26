@@ -9,7 +9,7 @@ import by.esas.tools.baseui.mvvm.DataBindingFragment
 import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 
-abstract class SimpleFragment<VM : SimpleViewModel<E>, B : ViewDataBinding, E : Enum<E>> : DataBindingFragment<VM, B, E>() {
+abstract class SimpleFragment<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> : DataBindingFragment<VM, B, E>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

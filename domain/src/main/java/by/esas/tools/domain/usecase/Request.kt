@@ -1,9 +1,9 @@
 package by.esas.tools.domain.usecase
 
-import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.BaseErrorModel
 import java.util.concurrent.CancellationException
 
-open class Request<T, E : Enum<E>, Model : IErrorModel<E>> {
+open class Request<T, E : Enum<E>, Model : BaseErrorModel<E>> {
     protected var onComplete: ((T) -> Unit)? = null
     protected open var onError: ((Model) -> Unit)? = null
     protected var onCancel: ((CancellationException) -> Unit)? = null

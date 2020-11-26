@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import by.esas.tools.basedaggerui.R
 import by.esas.tools.basedaggerui.basic.BaseFragment
+import by.esas.tools.logger.BaseErrorModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 
-abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E : Enum<E>> :
+abstract class DataBindingFragment<VM : BaseViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> :
     BaseFragment<E>() {
 
     protected lateinit var binding: B

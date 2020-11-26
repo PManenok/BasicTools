@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 
-class BaseLogger<E : Enum<E>>(tag: String? = null, private var context: Context? = null) : ILogger<E> {
+class BaseLogger<E : Enum<E>>(tag: String? = null, private var context: Context? = null) : ILogger<E, BaseErrorModel<E>> {
     private var TAG: String = tag ?: BaseLogger::class.java.simpleName
     fun setContext(context: Context? = null) {
         this.context = context
@@ -53,7 +53,7 @@ class BaseLogger<E : Enum<E>>(tag: String? = null, private var context: Context?
         Log.e(TAG, Log.getStackTraceString(throwable))
     }
 
-    override fun logError(error: IErrorModel<E>) {
+    override fun logError(error: BaseErrorModel<E>) {
         Log.e(TAG, "ErrorModel{code = ${error.code}, statusEnum = ${error.statusEnum.name}}")
     }
 

@@ -7,7 +7,8 @@ import by.esas.tools.logger.ILogger
 import com.squareup.moshi.Moshi
 import retrofit2.HttpException
 
-class AppErrorMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum>) : BaseErrorMapper<AppErrorStatusEnum, ErrorModel>(moshi, logger) {
+class AppErrorMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum, ErrorModel>) :
+    BaseErrorMapper<AppErrorStatusEnum, ErrorModel>(moshi, logger) {
     override fun mapBaseException(errorText: String?): AppErrorStatusEnum {
         return AppErrorStatusEnum.APP_UNPREDICTED_ERROR
     }

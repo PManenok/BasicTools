@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : BottomSheetDialogFragment() {
     abstract val TAG: String
-    protected open lateinit var logger: ILogger<EnumT>
+    protected open lateinit var logger: ILogger<EnumT,*>
     protected val validationList: MutableList<Checking> = mutableListOf()
     protected var switchableViewsList: List<View?> = emptyList()
     protected var stateCallback: StateCallback<E>? = null
@@ -32,7 +32,7 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : 
     abstract fun provideSwitchableList(): List<View>
     abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
-    protected open fun provideLogger(): ILogger<EnumT> {
+    protected open fun provideLogger(): ILogger<EnumT,*> {
         return BaseLogger(TAG, this.context)
     }
 

@@ -7,7 +7,7 @@ import by.esas.tools.domain.mapper.error.ErrorMessageEnum
 import by.esas.tools.domain.mapper.error.HttpErrorStatusEnum
 import by.esas.tools.domain.mapper.error.IdentityErrorEnum
 import by.esas.tools.domain.mapper.response.ErrorCode
-import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ILogger
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -19,7 +19,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 
-abstract class BaseErrorMapper<E : Enum<E>, Model : IErrorModel<E>>(protected val moshi: Moshi, val logger: ILogger<E>) {
+abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected val moshi: Moshi, val logger: ILogger<E,Model>) {
     open val TAG: String = BaseErrorMapper::class.java.simpleName
     protected val errorCodeAdapter: JsonAdapter<ErrorCode> = moshi.adapter<ErrorCode>(ErrorCode::class.java)
 

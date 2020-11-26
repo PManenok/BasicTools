@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.basedaggerui.simple.SimpleActivity
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.checks.LengthCheck
 import by.esas.tools.checking.AppChecker
@@ -14,6 +13,7 @@ import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inputfieldview.InputFieldView
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
@@ -22,9 +22,9 @@ import by.esas.tools.util.LanguageSetter
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 
-open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorStatusEnum>() {
+open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override val TAG: String = "MainActivity"
-    override var logger: ILogger<AppErrorStatusEnum> = LoggerImpl()
+    override var logger: ILogger<AppErrorStatusEnum, *> = LoggerImpl()
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory).get(MainVM::class.java)
     }
@@ -102,7 +102,7 @@ open class MainActivity : SimpleActivity<MainVM, ActivityMainBinding, AppErrorSt
 
             }
         }
-        val model = ErrorModel(0, AppErrorStatusEnum.APP_UNPREDICTED_ERROR)
+        val model = BaseErrorModel(0, AppErrorStatusEnum.APP_UNPREDICTED_ERROR)
         model.statusEnum
     }
 }

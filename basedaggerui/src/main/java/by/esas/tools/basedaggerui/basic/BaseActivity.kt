@@ -14,7 +14,6 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
-import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 

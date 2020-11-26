@@ -5,6 +5,7 @@ import android.content.Context
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.inject.builder.ViewModelFactoryBuilder
+import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import com.squareup.moshi.Moshi
@@ -34,12 +35,12 @@ class ContextModule {
 
     @Provides
     @Singleton
-    fun provideCrashlyticsMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum>): AppErrorMapper {
+    fun provideCrashlyticsMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum, ErrorModel>): AppErrorMapper {
         return AppErrorMapper(moshi, logger)
     }
 
     @Provides
-    fun provideLogger(): ILogger<AppErrorStatusEnum> {
+    fun provideLogger(): ILogger<AppErrorStatusEnum, ErrorModel> {
         return LoggerImpl().apply { setTag("LoggerImpl") }
     }
 }

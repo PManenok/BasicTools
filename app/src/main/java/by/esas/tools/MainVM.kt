@@ -4,20 +4,20 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import by.esas.tools.basedaggerui.simple.SimpleViewModel
-import by.esas.tools.domain.mapper.ErrorModel
 import by.esas.tools.error_mapper.AppErrorStatusEnum
-import by.esas.tools.logger.ILogger
+import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.LoggerImpl
 import javax.inject.Inject
 
-class MainVM @Inject constructor() : SimpleViewModel<AppErrorStatusEnum>() {
+class MainVM @Inject constructor() : AppVM() {
     override val TAG: String = "MainVM"
 
-    override fun getErrorMessage(error: ErrorModel<AppErrorStatusEnum>): String {
+    override fun getErrorMessage(error: ErrorModel): String {
         return "Error"
     }
 
-    override fun mapError(e: Throwable): ErrorModel<AppErrorStatusEnum> {
+    override fun mapError(e: Throwable): ErrorModel {
         return ErrorModel(0, AppErrorStatusEnum.NOT_SET)
     }
 

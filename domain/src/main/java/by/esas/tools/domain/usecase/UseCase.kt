@@ -1,13 +1,13 @@
 package by.esas.tools.domain.usecase
 
 import by.esas.tools.domain.mapper.BaseErrorMapper
-import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.BaseErrorModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 //typealias CompletionBlock<T, E,Model:IErrorModel<E>> = Request<T, E,Model:IErrorModel<E>>.() -> Unit
 
-abstract class UseCase<T, E : Enum<E>, Model : IErrorModel<E>>(
+abstract class UseCase<T, E : Enum<E>, Model : BaseErrorModel<E>>(
     protected val errorUtil: BaseErrorMapper<E, Model>,
     protected val refresher: IRefresh<E, Model>?
 ) {

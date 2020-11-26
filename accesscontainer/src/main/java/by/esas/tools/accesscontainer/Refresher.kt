@@ -19,14 +19,14 @@ import by.esas.tools.accesscontainer.support.IContainerCancellationCallback
 import by.esas.tools.accesscontainer.support.IContainerExecutor
 import by.esas.tools.accesscontainer.support.ITypeManager
 import by.esas.tools.accesscontainer.support.supporter.Supporter
-import by.esas.tools.logger.IErrorModel
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ILogger
 import java.lang.ref.WeakReference
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 
 class Refresher<E : Enum<E>>(
-    private val logger: ILogger<E>,
+    private val logger: ILogger<E, BaseErrorModel<E>>,
     private val executor: IContainerExecutor<E>,
     private val typeManager: ITypeManager,
     private val userInfo: BiometricUserInfo,
@@ -76,7 +76,7 @@ class Refresher<E : Enum<E>>(
     private var refresherErrorStatusToCheck: E? = null
     private var checkRefreshError: Boolean = false
     private var useExtraCheck: Boolean = false
-    private var extraRefreshCheck: (IErrorModel<E>) -> Unit = {}
+    private var extraRefreshCheck: (BaseErrorModel<E>) -> Unit = {}
 
     init {
         logger.setTag(TAG)
@@ -98,7 +98,7 @@ class Refresher<E : Enum<E>>(
      * данных контейнера и выполнением переданного блока кода
      *
      */
-    override fun refresh(onComplete: (String?) -> Unit, onError: (IErrorModel<E>) -> Unit, onCancel: () -> Unit) {
+    override fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel<E>) -> Unit, onCancel: () -> Unit) {
         logger.log("refresh")
         this.refreshExplicitly = true
         result = ContainerRequest<RefreshResult, E>()
@@ -220,7 +220,7 @@ class Refresher<E : Enum<E>>(
         }
     }
 
-    private fun checkRefreshError(error: IErrorModel<E>) {
+    private fun checkRefreshError(error: BaseErrorModel<E>) {
         if (useExtraCheck) {
             extraRefreshCheck(error)
         } else {
@@ -866,7 +866,7 @@ class Refresher<E : Enum<E>>(
     }
 
     fun setCheckRefreshError(
-        check: Boolean = false, errorStatus: E? = null, useExtraCheck: Boolean = false, extraCheck: (IErrorModel<E>) -> Unit = {}
+        check: Boolean = false, errorStatus: E? = null, useExtraCheck: Boolean = false, extraCheck: (BaseErrorModel<E>) -> Unit = {}
     ) {
         checkRefreshError = check
         refresherErrorStatusToCheck = errorStatus

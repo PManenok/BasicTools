@@ -11,9 +11,9 @@ import by.esas.tools.util.defocusAndHideKeyboard
 abstract class BaseFragment<E : Enum<E>> : Fragment() {
     abstract val TAG: String
 
-    abstract var logger: ILogger<E>
+    abstract var logger: ILogger<E,*>
 
-    abstract fun provideLogger(): ILogger<E>
+    abstract fun provideLogger(): ILogger<E,*>
 
     override fun onStart() {
         super.onStart()

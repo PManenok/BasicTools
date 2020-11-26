@@ -7,7 +7,7 @@ import by.esas.tools.baseui.mvvm.DataBindingActivity
 import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 
-abstract class SimpleActivity<VM : SimpleViewModel<E>, B : ViewDataBinding, E : Enum<E>> : DataBindingActivity<VM, B, E>() {
+abstract class SimpleActivity<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> : DataBindingActivity<VM, B, E>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

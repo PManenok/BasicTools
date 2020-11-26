@@ -2,6 +2,23 @@
 
 buildscript {
     ext {
+        //Lib versions
+        logger_lib_version = '1.1.1'// independent
+        util_lib_version = '1.1.0' // independent
+        timeparser_lib_version = '1.1.0'// independent
+        recycler_lib_version = '1.1.0'// independent
+        pinview_lib_version = '1.1.0'// independent
+        inputfieldview_lib_version = '1.2.1'// independent
+        checker_lib_version = '1.1.2' // independent
+
+        domain_lib_version = '1.1.1' // logger
+        dialog_lib_version = '1.1.1' // logger, util, checker
+        biometric_lib_version = '1.1.1' //logger
+        baseui_lib_version = '1.2.1' //dialog(logger, util, checker), domain(logger)
+        basedaggerui_lib_version = '1.2.1' //dialog(logger, util, checker), domain(logger)
+        accesscontainer_lib_version = '1.1.2' //logger
+
+        // dependencies versions
         kotlin_version = '1.3.72'
         corektx_version = '1.3.1'
         appcompat_version = '1.1.0'

@@ -6,8 +6,9 @@ import androidx.lifecycle.Observer
 import by.esas.tools.basedaggerui.mvvm.DataBindingActivity
 import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.logger.BaseErrorModel
 
-abstract class SimpleActivity<VM : SimpleViewModel<E>, B : ViewDataBinding, E : Enum<E>> : DataBindingActivity<VM, B, E>() {
+abstract class SimpleActivity<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> : DataBindingActivity<VM, B, E>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

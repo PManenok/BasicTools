@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 
 
-abstract class DataBindingActivity<TViewModel : BaseViewModel<E>, TBinding : ViewDataBinding, E : Enum<E>> : BaseActivity<E>() {
+abstract class DataBindingActivity<TViewModel : BaseViewModel<E,*>, TBinding : ViewDataBinding, E : Enum<E>> : BaseActivity<E>() {
 
     protected lateinit var binding: TBinding
 

@@ -3,7 +3,6 @@ package by.esas.tools.accesscontainer.support
 import by.esas.tools.accesscontainer.ContainerRequest
 import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.Token
-import by.esas.tools.logger.IErrorModel
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 

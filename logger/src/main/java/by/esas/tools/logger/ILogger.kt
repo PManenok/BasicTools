@@ -3,7 +3,7 @@ package by.esas.tools.logger
 import android.util.Log
 import android.widget.Toast
 
-interface ILogger<E : Enum<E>> {
+interface ILogger<E : Enum<E>, M : IErrorModel<E>> {
     fun setTag(tag: String)
 
     fun showMessage(msg: String, length: Int = Toast.LENGTH_SHORT)
@@ -18,7 +18,7 @@ interface ILogger<E : Enum<E>> {
 
     fun logError(throwable: Throwable)
 
-    fun logError(error: IErrorModel<E>)
+    fun logError(error: M)
 
     fun logError(msg: String)
 

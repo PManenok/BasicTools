@@ -11,7 +11,6 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import by.esas.tools.logger.ILogger
 import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
 import com.google.android.material.textfield.TextInputEditText

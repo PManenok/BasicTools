@@ -11,7 +11,7 @@ import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class DataBindingFragment<VM : BaseViewModel<E>, B : ViewDataBinding, E : Enum<E>> :
+abstract class DataBindingFragment<VM : BaseViewModel<E,*>, B : ViewDataBinding, E : Enum<E>> :
     BaseFragment<E>() {
 
     protected lateinit var binding: B
