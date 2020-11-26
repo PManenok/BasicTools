@@ -42,10 +42,8 @@ dependencies {
     // Material Design
     implementation "com.google.android.material:material:$material_version"
 
-    //implementation project(path: ':logger')
-    api project(path: ':dialog')
-    //implementation project(path: ':checker')
-    api project(path: ':domain')
+    implementation project(path: ':dialog')
+    implementation project(path: ':domain')
 }
 apply from: 'install.gradle'
 apply from: 'bintray.gradle'

@@ -12,10 +12,10 @@ buildscript {
         checker_lib_version = '1.1.2' // independent
 
         domain_lib_version = '1.1.1' // logger
-        dialog_lib_version = '1.1.1' // logger, util, checker
+        dialog_lib_version = '1.1.2' // logger, util, checker
         biometric_lib_version = '1.1.1' //logger
-        baseui_lib_version = '1.2.1' //dialog(logger, util, checker), domain(logger)
-        basedaggerui_lib_version = '1.2.1' //dialog(logger, util, checker), domain(logger)
+        baseui_lib_version = '1.2.2' //dialog(logger, util, checker), domain(logger)
+        basedaggerui_lib_version = '1.2.2' //dialog(logger, util, checker), domain(logger)
         accesscontainer_lib_version = '1.1.2' //logger
 
         // dependencies versions

@@ -49,8 +49,8 @@ dependencies {
     //kapt "com.google.dagger:dagger-compiler:$dagger2_version"
     //kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
 
-    api project(path: ':dialog')
-    api project(path: ':domain')
+    implementation project(path: ':dialog')
+    implementation project(path: ':domain')
 }
 apply from: 'install.gradle'
 apply from: 'bintray.gradle'

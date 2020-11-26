@@ -19,7 +19,7 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
     protected var switchableViewsList: List<View?> = emptyList()
     protected open var stateCallback: StateCallback<E>? = null
     protected var afterOk: Boolean = false
-    protected var switcher: SwitchManager = SwitchManager()
+    protected open var switcher: SwitchManager = SwitchManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
     }
 
     abstract fun provideLayoutId(): Int
-    abstract fun provideSwitchableList(): List<View>
+    abstract fun provideSwitchableList(): List<View?>
 
     abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
