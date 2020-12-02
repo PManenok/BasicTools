@@ -29,7 +29,10 @@
         <attr name="android:maxLines" format="integer" />
         <attr name="android:textDirection" format="integer" />
         <attr name="inputEditViewMinHeight" format="dimension" />
+        <attr name="inputPaddingTop" format="dimension" />
+        <attr name="inputPaddingBottom" format="dimension" />
         <attr name="inputEditTextStyle" format="reference" />
+        <!--<attr name="inputTextCursor" format="reference" />-->
 
         <attr name="inputPrefix" format="string" />
         <attr name="inputPrefixTextStyle" format="reference" />

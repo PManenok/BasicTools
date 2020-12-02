@@ -9,4 +9,8 @@
         <item name="colorSecondary">@color/colorSecondary</item>
     </style>
 
+    <style name="EditTextStyle" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">12sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

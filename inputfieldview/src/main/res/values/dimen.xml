@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Padding -->
-    <dimen name="tiniest_padding">4dp</dimen>
-    <dimen name="small_padding">8dp</dimen>
-    <dimen name="default_padding">12dp</dimen>
-    <dimen name="medium_padding">16dp</dimen>
-    <dimen name="large_padding">24dp</dimen>
-
-    <!-- Margin -->
+ <!-- Margin -->
     <dimen name="input_edit_text_default_min_height">40dp</dimen>
     <dimen name="input_container_top_margin_default">8dp</dimen>
-    <dimen name="horizontal_margin_for_cards">15dp</dimen>
     <dimen name="small_margin">8dp</dimen>
-    <dimen name="medium_margin">12dp</dimen>
-    <dimen name="large_margin">16dp</dimen>
-    <dimen name="dialog_standard_margin">12dp</dimen>
 
     <!-- Text -->
     <dimen name="textSizeDefault">16sp</dimen>
     <dimen name="textSizeHint">12sp</dimen>
-
-    <dimen name="default_min_btn_side_size">48dp</dimen>
-    <dimen name="pin_icon_padding">2dp</dimen>
-
-    <dimen name="input_text_layout_height_with_hint">70dp</dimen>
-    <dimen name="input_text_layout_height_without_hint">65dp</dimen>
 </resources>

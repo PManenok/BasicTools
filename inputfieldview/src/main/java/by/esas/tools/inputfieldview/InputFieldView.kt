@@ -86,6 +86,8 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultBoxBgColor: Int = Color.TRANSPARENT
     protected open val defaultStrokeRadiusInPx: Int = dpToPx(4).toInt()
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
+    protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
+    protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
 
     protected open var errorDrawableRes: Int = R.drawable.ic_baseline_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
@@ -94,6 +96,8 @@ open class InputFieldView : ConstraintLayout {
     protected open var boxBgColor: Int = Color.TRANSPARENT
     protected open var strokeRadiusInPx: Float = dpToPx(4)
     protected open var strokeWidthInPx: Float = dpToPx(1)
+    protected open var paddingTopInPx: Int = dpToPx(12).toInt()
+    protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
 
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected var labelStartMargin: Int = 0
@@ -166,9 +170,9 @@ open class InputFieldView : ConstraintLayout {
         CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             inputText?.apply {
                 transformationMethod = if (isChecked) {
-                    PasswordTransformationMethod.getInstance()
-                } else {
                     null
+                } else {
+                    PasswordTransformationMethod.getInstance()
                 }
             }
         }
@@ -384,6 +388,11 @@ open class InputFieldView : ConstraintLayout {
         editTextMinHeight = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputEditViewMinHeight, defaultMinHeight)
         val editStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, -1)
 
+        paddingTopInPx = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputPaddingTop, defaultPaddingTopInPx)
+        paddingBottomInPx = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputPaddingBottom, defaultPaddingBottomInPx)
+
+        //val textCursor: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputTextCursor, -1)
+
         // Prefix
         val prefix = typedArray.getString(R.styleable.InputFieldView_inputPrefix) ?: ""
         val prefixStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputPrefixTextStyle, -1)
@@ -423,6 +432,18 @@ open class InputFieldView : ConstraintLayout {
         editTextContainer?.apply {
             minimumHeight = editTextMinHeight
         }
+        /*(inputText?.layoutParams as ConstraintLayout.LayoutParams?)?.apply {
+            setMargins(leftMargin, marginTopInPx, rightMargin, marginBottomInPx)
+        }
+        (prefixTextView?.layoutParams as ConstraintLayout.LayoutParams?)?.apply {
+            setMargins(leftMargin, marginTopInPx, rightMargin, bottomMargin)
+        }*/
+        inputText?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        prefixTextView?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
 
         if (labelStyleId != -1)
             labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
@@ -433,7 +454,9 @@ open class InputFieldView : ConstraintLayout {
         if (errorStyleId != -1)
             errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyleId) }
         if (editStyleId != -1)
-            inputText?.apply { TextViewCompat.setTextAppearance(this, editStyleId) }
+            inputText?.apply {
+                TextViewCompat.setTextAppearance(this, editStyleId)
+            }
 
         setInputLabel(label)
         setLabelType(labelType)
@@ -468,10 +491,19 @@ open class InputFieldView : ConstraintLayout {
         editTextMinHeight = defaultMinHeight
         checkBoxToggle = defaultCheckBoxToggle
         passwordToggleRes = defaultPasswordToggleRes
+        paddingTopInPx = defaultPaddingTopInPx
+        paddingBottomInPx = defaultPaddingBottomInPx
         //labelBg = defaultLabelBg
         startTint = defaultIconsTint
         endTint = defaultIconsTint
         labelExtraTopMargin = defaultLabelExtraTopMargin
+
+        inputText?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        prefixTextView?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
         setLabelType()
         setInputLabel("")
         setInputPrefix("")
@@ -626,7 +658,7 @@ open class InputFieldView : ConstraintLayout {
                 if (isInputTypePassword(inputText)) {
                     // By default set the input to be disguised.
                     inputText?.transformationMethod = PasswordTransformationMethod.getInstance()
-                    endCheckBox?.isChecked = true
+                    endCheckBox?.isChecked = false
                 }
                 endCheckBox?.apply {
                     setOnCheckedChangeListener(passwordClickListener)

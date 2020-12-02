@@ -31,5 +31,9 @@ fun pxToDp(px: Int): Float {
 }
 fun isInputTypePassword(editText: EditText?): Boolean {
     return (editText != null
-            && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
+            && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD
+            || editText.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            || editText.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD
+            || editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            || editText.inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD))
 }

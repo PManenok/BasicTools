@@ -122,6 +122,7 @@
                     android:paddingEnd="4dp"
                     android:paddingRight="4dp"
                     android:paddingBottom="12dp"
+                    android:textCursorDrawable="@drawable/sh_cursor"
                     android:textColor="@color/colorTextDefault"
                     android:textColorHint="@color/colorTextHint"
                     android:textSize="14sp"

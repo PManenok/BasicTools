@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorSpinnerBackground">#FFC107</color>
     <color name="colorStrokeOutline">#FFC107</color>
+    <color name="colorCursor" override="true">#03DAC5</color>
 </resources>
