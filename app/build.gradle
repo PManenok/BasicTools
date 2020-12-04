@@ -10,6 +10,9 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     defaultConfig {
         applicationId "by.esas.tools"
         minSdkVersion 16

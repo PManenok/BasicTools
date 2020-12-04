@@ -52,7 +52,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         showProgress()
         var result: Boolean = true
         switchableViewsList.forEach { view ->
-            view?.let { result = result && switcher.disableView(it) }
+            view?.let { result = switcher.disableView(it) && result }
         }
         return result
     }
@@ -64,7 +64,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         hideProgress()
         var result: Boolean = true
         switchableViewsList.forEach { view ->
-            view?.let { result = result && switcher.enableView(it) }
+            view?.let { result = switcher.enableView(it) && result }
         }
         return result
     }

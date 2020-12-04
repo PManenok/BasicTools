@@ -447,16 +447,16 @@ open class InputFieldView : ConstraintLayout {
 
         if (labelStyleId != -1)
             labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
-        if (prefixStyleId != -1)
-            prefixTextView?.apply { TextViewCompat.setTextAppearance(this, prefixStyleId) }
         if (helpStyleId != -1)
             helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpStyleId) }
         if (errorStyleId != -1)
             errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyleId) }
         if (editStyleId != -1)
-            inputText?.apply {
-                TextViewCompat.setTextAppearance(this, editStyleId)
-            }
+            inputText?.apply { TextViewCompat.setTextAppearance(this, editStyleId) }
+        if (prefixStyleId != -1)
+            prefixTextView?.apply { TextViewCompat.setTextAppearance(this, prefixStyleId) }
+        else if (editStyleId != -1)
+            prefixTextView?.apply { TextViewCompat.setTextAppearance(this, editStyleId) }
 
         setInputLabel(label)
         setLabelType(labelType)

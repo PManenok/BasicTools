@@ -31,11 +31,11 @@ open class Checker {
         var result: Boolean = true
         if (inContinueMode) {
             checks.forEach {
-                result = result && it.checkField(showError, getter)
+                result = it.checkField(showError, getter) && result
             }
         } else {
             checks.forEach {
-                result = result && it.checkField(showError, getter)
+                result = it.checkField(showError, getter) && result
                 if (!result) {
                     return@forEach
                 }
