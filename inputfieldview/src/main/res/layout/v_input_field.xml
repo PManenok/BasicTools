@@ -6,14 +6,6 @@
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <!-- <View
-         android:id="@+id/v_input_field_layout_box"
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:background="@drawable/bg_input_box"
-         app:layout_constraintBottom_toBottomOf="@id/v_input_field_layout_container"
-         app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />-->
-
     <by.esas.tools.inputfieldview.BoxView
         android:id="@+id/v_input_field_layout_box"
         android:layout_width="match_parent"
@@ -134,7 +126,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-
         <FrameLayout
             android:id="@+id/v_input_field_end_container"
             android:layout_width="32dp"
@@ -222,6 +213,4 @@
             android:textSize="12sp"
             android:visibility="invisible" />
     </FrameLayout>
-
-
 </merge>

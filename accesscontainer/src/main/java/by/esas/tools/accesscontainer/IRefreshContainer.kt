@@ -34,6 +34,8 @@ interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
      **/
     fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit)
 
+    fun setUserId(userId: String)
+
     fun onCancel()
 
     fun clearAccess()

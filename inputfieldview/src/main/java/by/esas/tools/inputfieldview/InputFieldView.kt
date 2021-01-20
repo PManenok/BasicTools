@@ -52,7 +52,7 @@ open class InputFieldView : ConstraintLayout {
         const val LABEL_TYPE_HIDE: Int = 2
         const val LABEL_TYPE_ON_TOP_MULTI: Int = 3
         const val LABEL_TYPE_ON_LINE_MULTI: Int = 4
-        const val LABEL_TYPE_ON_TOP_START: Int = 5
+        const val LABEL_TYPE_ON_TOP_NO_START: Int = 5
     }
 
     /*################ Views ################*/
@@ -221,12 +221,17 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /*############################ TextListener End ################################*/
-    protected open val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+    protected val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+        return@OnPreDrawListener labelOnPreDraw()
+    }
+
+    protected open fun labelOnPreDraw(): Boolean {
+        var draw: Boolean = true
         labelText?.let { label ->
             var topClip = 0
             val params = (inputContainer?.layoutParams as ConstraintLayout.LayoutParams?)
             val currTopMargin: Int = when (currentLabelType) {
-                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_START -> {
+                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_NO_START -> {
                     topClip = 0
                     label.height + labelExtraTopMargin
                 }
@@ -243,36 +248,52 @@ open class InputFieldView : ConstraintLayout {
                     params?.topMargin ?: 0
                 }
             }
-            setLabelParams(label)
+            draw = setLabelParams(label)
             inputBox?.setTopClipInPx(topClip.toFloat())
-            params?.apply {
-                setMargins(this.leftMargin, currTopMargin, this.rightMargin, this.bottomMargin)
+            if (params?.topMargin != currTopMargin) {
+                params?.apply {
+                    setMargins(this.leftMargin, currTopMargin, this.rightMargin, this.bottomMargin)
+                }
+                inputContainer?.layoutParams = params
+                draw = false
             }
         }
-        true
+        return draw
     }
 
-    protected open fun setLabelParams(label: TextView) {
+    protected open fun setLabelParams(label: TextView): Boolean {
+        var draw: Boolean = true
         val params = (label.layoutParams as ConstraintLayout.LayoutParams)
-        if (currentLabelType == LABEL_TYPE_ON_TOP_START) {
+        if (currentLabelType == LABEL_TYPE_ON_TOP_NO_START) {
             if (labelStartMargin == 0)
                 labelStartMargin = params.leftMargin
             if (labelStartPadding == 0)
                 labelStartPadding = label.paddingLeft
-            label.setPadding(0, label.paddingTop, label.paddingRight, label.paddingBottom)
-            params.apply {
-                setMargins(0, topMargin, rightMargin, bottomMargin)
+            if (label.paddingLeft != 0) {
+                draw = false
+                label.setPadding(0, label.paddingTop, label.paddingRight, label.paddingBottom)
+            }
+            if (params.leftMargin != 0) {
+                params.apply {
+                    setMargins(0, topMargin, rightMargin, bottomMargin)
+                }
             }
         } else {
             if (labelStartMargin == 0)
                 labelStartMargin = params.leftMargin
             if (labelStartPadding == 0)
                 labelStartPadding = label.paddingLeft
-            label.setPadding(labelStartPadding, label.paddingTop, label.paddingRight, label.paddingBottom)
-            params.apply {
-                setMargins(labelStartMargin, topMargin, rightMargin, bottomMargin)
+            if (label.paddingLeft != labelStartPadding) {
+                draw = false
+                label.setPadding(labelStartPadding, label.paddingTop, label.paddingRight, label.paddingBottom)
+            }
+            if (params.leftMargin != labelStartMargin) {
+                params.apply {
+                    setMargins(labelStartMargin, topMargin, rightMargin, bottomMargin)
+                }
             }
         }
+        return draw
     }
 
     /*############################ Constructors ################################*/
@@ -529,17 +550,19 @@ open class InputFieldView : ConstraintLayout {
     open fun updateLabelState() {
         labelText?.let { label ->
             when (currentLabelType) {
-                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_START -> {
+                LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_NO_START -> {
                     label.maxLines = if (currentLabelType != LABEL_TYPE_ON_TOP_MULTI) 1 else labelMaxLines
+                    label.visibility = View.VISIBLE
                     //label.background = null
                     label.invalidate()
                 }
                 LABEL_TYPE_ON_LINE, LABEL_TYPE_ON_LINE_MULTI -> {
                     label.maxLines = if (currentLabelType != LABEL_TYPE_ON_LINE_MULTI) 1 else labelMaxLines
+                    label.visibility = View.VISIBLE
                     //label.setBackgroundColor(labelBg)
                     label.invalidate()
                 }
-                // as if default LABEL_TYPE_HIDE
+                // as if default is LABEL_TYPE_HIDE
                 else -> {
                     hideLabel()
                 }
@@ -568,8 +591,8 @@ open class InputFieldView : ConstraintLayout {
         updateLabelState()
     }
 
-    open fun setInputLabel(text: String) {
-        if (text.isNotBlank()) {
+    open fun setInputLabel(text: String?) {
+        if (!text.isNullOrBlank()) {
             labelText?.let { label ->
                 val isRTL: Boolean = resources.getBoolean(R.bool.input_is_rtl_direction)
                 if (!(label.text?.toString() ?: "").equals(text)) {
@@ -585,8 +608,8 @@ open class InputFieldView : ConstraintLayout {
             hideLabel()
     }
 
-    open fun setInputLabel(textId: Int) {
-        setInputLabel(if (textId != -1) context.resources.getString(textId) else "")
+    open fun setInputLabel(textId: Int?) {
+        setInputLabel(if (textId != null && textId != -1) context.resources.getString(textId) else "")
     }
 
     fun getInputLabel(): String {

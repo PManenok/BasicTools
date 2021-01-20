@@ -63,11 +63,11 @@ class RohabInputField : InputFieldView {
         setInputLabel(hintTxt)
     }
 
-    override fun setInputLabel(text: String) {
-        if (!(labelText?.text?.toString() ?: "").equals(text)) {
+    override fun setInputLabel(text: String?) {
+        if ((labelText?.text?.toString() ?: "") != text && !text.isNullOrBlank()) {
             /*if (!isInEditMode)
                 logger.log("Is RTL direction ${resources.getBoolean(R.bool.is_rtl_direction)}")*/
-            var hint = text
+            var hint = text ?: ""
             hint = if (hint.contains("(") && hint.contains(")")) {
                 val beforeBrace = text.substringBefore("(")
                 val afterFirstBrace = text.substringAfter("(")
@@ -85,12 +85,7 @@ class RohabInputField : InputFieldView {
                 builder.toString()
             } else hint.toUpperCase(getLocale(context))
             labelText?.text = hint//HtmlCompat.fromHtml(hint,HtmlCompat.FROM_HTML_MODE_LEGACY)
-        }
-    }
-
-    override fun setInputLabel(textId: Int) {
-        val text = if (textId != -1) context.resources.getString(textId) else ""
-        setInputLabel(text)
+        } else hideLabel()
     }
 
     fun setInputLabel(textId: Int, formattedText: String) {

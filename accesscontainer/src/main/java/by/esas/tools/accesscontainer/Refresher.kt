@@ -54,7 +54,7 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
     private var result: ContainerRequest<RefreshResult, E, M> =
         ContainerRequest<RefreshResult, E, M>() // result instance which will get result when it is finished
-    private var userId: String = "" // user ID sets from getSecrets
+    private var userId: String = "" // user ID sets from getSecrets or with setUserId method
 
     private var isBiometricAvailable: Boolean = false // shows if biometric is available
     private var needCheck: Boolean = false // enable check scenario
@@ -80,6 +80,10 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
     init {
         logger.setTag(TAG)
+    }
+
+    override fun setUserId(userId: String) {
+        this.userId = userId
     }
 
     override fun getToken(): String {

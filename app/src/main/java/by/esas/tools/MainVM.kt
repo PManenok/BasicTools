@@ -1,16 +1,16 @@
 package by.esas.tools
 
 import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import by.esas.tools.basedaggerui.simple.SimpleViewModel
 import by.esas.tools.error_mapper.AppErrorStatusEnum
-import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.LoggerImpl
 import javax.inject.Inject
 
 class MainVM @Inject constructor() : AppVM() {
+    var update: () -> Unit = {}
     override val TAG: String = "MainVM"
 
     override fun getErrorMessage(error: ErrorModel): String {
@@ -41,5 +41,11 @@ class MainVM @Inject constructor() : AppVM() {
     }
 
     val serviceName = ObservableField<String>("")
+    val showAdditional = ObservableBoolean(false)
     val mainText = MutableLiveData<String>().apply { postValue("") }
+
+    fun onAdditionalClick() {
+        showAdditional.set(!showAdditional.get())
+        update()
+    }
 }

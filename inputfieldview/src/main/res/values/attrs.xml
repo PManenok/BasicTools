@@ -95,7 +95,6 @@
         <attr name="boxVStrokeRadius" format="dimension" />
         <attr name="boxVStrokeWidth" format="dimension" />
         <attr name="boxVStrokeColor" format="color" />
-        <attr name="boxVStrokeErrorColor" format="color" />
         <attr name="boxVBgColor" format="color" />
     </declare-styleable>
 

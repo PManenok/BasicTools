@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
-import android.view.WindowManager
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.LifecycleOwner
@@ -74,6 +73,9 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             val navigationBar = insets.getSystemWindowInsetBottom()
             binding.root.updatePadding(top = statusBar)
             return@setOnApplyWindowInsetsListener insets
+        }
+        viewModel.update = {
+            binding.fMainAddInvoiceAdditionalContainer.invalidate()
         }
     }
     /*val field = findViewById<InputFieldView>(R.id.a_main_text2)

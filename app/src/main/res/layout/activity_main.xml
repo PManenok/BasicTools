@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
 
-            <by.esas.tools.inputfieldview.InputFieldView
+          <!--  <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/a_main_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,27 +46,61 @@
                 app:inputPaddingBottom="8dp"
                 app:inputPaddingTop="8dp"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                tools:text="1234" />
+                tools:text="1234" />-->
 
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/a_main_text_3"
+            <LinearLayout
+                android:id="@+id/f_main_add_invoice_additional_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text|textPassword"
-                android:text="@={viewModel.mainText}"
-                app:inputEditTextStyle="@style/EditTextStyle"
-                app:inputEditable="true"
-                app:inputEditViewMinHeight="32dp"
-                app:inputEndIconMode="password_toggle"
-                app:inputLabel="qwerty (ex. 34567)"
-                app:inputLabelExtraTopMargin="4dp"
-                app:inputLabelType="on_top_no_start_padding"
-                app:inputPaddingBottom="8dp"
-                app:inputPaddingTop="8dp"
-                app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                tools:text="1234" />
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.onAdditionalClick()}"
+                android:orientation="horizontal">
 
-            <by.esas.tools.inputfieldview.InputFieldView
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/f_main_add_invoice_additional_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Switch" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/f_main_add_invoice_additional_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_arrow_down"
+                    android:enabled="@{viewModel.showAdditional}"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/f_main_add_invoice_additional_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:visibilityGone="@{viewModel.showAdditional}"
+                tools:visibility="visible">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/a_main_text_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textPassword"
+                    app:inputEditTextStyle="@style/EditTextStyle"
+                    app:inputEditViewMinHeight="32dp"
+                    app:inputEditable="true"
+                    app:inputEndIconMode="password_toggle"
+                    app:inputLabel="Label"
+                    app:inputLabelExtraTopMargin="4dp"
+                    app:inputLabelType="on_top_no_start_padding"
+                    app:inputPaddingBottom="8dp"
+                    app:inputPaddingTop="8dp"
+                    app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                    tools:inputLabel="qwerty (ex. 34567)"
+                    tools:text="1234" />
+            </LinearLayout>
+
+          <!--  <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/a_main_text2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +114,7 @@
                 app:inputPrefix="1-1-"
                 app:inputStartDrawable="@drawable/ic_baseline_build_24"
                 app:inputStartIconMode="custom"
-                tools:text="1234" />
+                tools:text="1234" />-->
 
             <by.esas.tools.pinview.PinView
                 android:layout_width="match_parent"
