@@ -35,18 +35,108 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
 
-          <!--  <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/a_main_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/f_main_phone_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.mainText}"
-                app:inputEditTextStyle="@style/EditTextStyle"
-                app:inputEndIconMode="clear_text"
-                app:inputLabel="qwerty (ex. 34567)"
-                app:inputPaddingBottom="8dp"
-                app:inputPaddingTop="8dp"
-                app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                tools:text="1234" />-->
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/f_main_phone_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <by.esas.tools.inputfieldview.BoxView
+                    android:id="@+id/f_main_phone_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:minHeight="48dp"
+                    app:boxVBgColor="@color/colorDivider"
+                    app:boxVStrokeColor="@color/colorDivider"
+                    app:boxVStrokeRadius="4dp"
+                    app:boxVStrokeWidth="1dp"
+                    app:layout_constraintBottom_toBottomOf="@id/f_main_phone_field"
+                    app:layout_constraintTop_toTopOf="@id/f_main_phone_field" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_main_add_invoice_currency_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="BY +375"
+                    app:inputEditable="false"
+                    app:inputEndDrawable="@drawable/ic_arrow_down"
+                    app:inputEndDrawableTint="@android:color/black"
+                    app:inputEndIconMode="custom"
+                    app:inputLabelType="hide"
+                    app:inputIsWrap="true"
+                    app:inputBoxBgColor="@android:color/transparent"
+                    app:inputStrokeWidth="0dp"
+                    app:inputShowBottomContainer="false"
+                    app:layout_constraintEnd_toStartOf="@id/f_main_phone_field"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/f_main_phone_field" />
+
+                <View
+                    android:id="@+id/f_main_add_invoice_currency_click"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/f_main_add_invoice_currency_field"
+                    app:layout_constraintEnd_toEndOf="@id/f_main_add_invoice_currency_field"
+                    app:layout_constraintStart_toStartOf="@id/f_main_add_invoice_currency_field"
+                    app:layout_constraintTop_toTopOf="@id/f_main_add_invoice_currency_field" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_main_phone_field"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Hint"
+                    android:inputType="number|numberDecimal"
+                    android:text="@={viewModel.serviceName}"
+                    app:inputEditable="true"
+                    app:inputLabelType="hide"
+                    app:inputBoxBgColor="@android:color/transparent"
+                    app:inputStrokeWidth="0dp"
+                    app:inputEndIconMode="clear_text"
+                    app:inputShowBottomContainer="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/f_main_add_invoice_currency_field"
+                    app:layout_constraintTop_toBottomOf="@id/f_main_phone_label"
+                    tools:text="" />
+
+                <View
+                    android:id="@+id/f_main_phone_divider"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/f_main_phone_box"
+                    app:layout_constraintStart_toEndOf="@id/f_main_add_invoice_currency_field"
+                    app:layout_constraintTop_toTopOf="@id/f_main_phone_box" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/f_main_phone_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Error"
+                    app:layout_constraintTop_toBottomOf="@id/f_main_phone_box" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--  <by.esas.tools.inputfieldview.InputFieldView
+                  android:id="@+id/a_main_text"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@={viewModel.mainText}"
+                  app:inputEditTextStyle="@style/EditTextStyle"
+                  app:inputEndIconMode="clear_text"
+                  app:inputLabel="qwerty (ex. 34567)"
+                  app:inputPaddingBottom="8dp"
+                  app:inputPaddingTop="8dp"
+                  app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                  tools:text="1234" />-->
 
             <LinearLayout
                 android:id="@+id/f_main_add_invoice_additional_switch"
@@ -68,8 +158,8 @@
                     android:id="@+id/f_main_add_invoice_additional_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_arrow_down"
                     android:enabled="@{viewModel.showAdditional}"
+                    app:srcCompat="@drawable/ic_arrow_down"
                     tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
@@ -100,21 +190,21 @@
                     tools:text="1234" />
             </LinearLayout>
 
-          <!--  <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/a_main_text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text|textPassword"
-                android:text="@={viewModel.mainText}"
-                app:inputEditTextStyle="@style/EditTextStyle"
-                app:inputEndIconMode="password_toggle"
-                app:inputLabel="Service qwerty (ex. 3456)"
-                app:inputLabelExtraTopMargin="2dp"
-                app:inputLabelType="on_top_no_start_padding"
-                app:inputPrefix="1-1-"
-                app:inputStartDrawable="@drawable/ic_baseline_build_24"
-                app:inputStartIconMode="custom"
-                tools:text="1234" />-->
+            <!--  <by.esas.tools.inputfieldview.InputFieldView
+                  android:id="@+id/a_main_text2"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:inputType="text|textPassword"
+                  android:text="@={viewModel.mainText}"
+                  app:inputEditTextStyle="@style/EditTextStyle"
+                  app:inputEndIconMode="password_toggle"
+                  app:inputLabel="Service qwerty (ex. 3456)"
+                  app:inputLabelExtraTopMargin="2dp"
+                  app:inputLabelType="on_top_no_start_padding"
+                  app:inputPrefix="1-1-"
+                  app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                  app:inputStartIconMode="custom"
+                  tools:text="1234" />-->
 
             <by.esas.tools.pinview.PinView
                 android:layout_width="match_parent"

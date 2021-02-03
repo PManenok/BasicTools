@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -88,6 +89,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
+    protected open val defaultIsWrap: Boolean = false
 
     protected open var errorDrawableRes: Int = R.drawable.ic_baseline_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
@@ -98,6 +100,7 @@ open class InputFieldView : ConstraintLayout {
     protected open var strokeWidthInPx: Float = dpToPx(1)
     protected open var paddingTopInPx: Int = dpToPx(12).toInt()
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
+    protected open var isWrap: Boolean = false
 
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected var labelStartMargin: Int = 0
@@ -367,6 +370,8 @@ open class InputFieldView : ConstraintLayout {
     /*  Initialize attributes from XML file  */
     private fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputFieldView)
+        //Width style
+        isWrap = typedArray.getBoolean(R.styleable.InputFieldView_inputIsWrap, defaultIsWrap)
         // Label
         val label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
         // Label Mode
@@ -450,6 +455,15 @@ open class InputFieldView : ConstraintLayout {
         typedArray.recycle()
 
         // Set new attributes
+        if (isWrap) {
+            val inputParams = inputText?.layoutParams as ConstraintLayout.LayoutParams?
+            inputParams?.width = WRAP_CONTENT
+            inputText?.layoutParams = inputParams
+            val containerParams = editTextContainer?.layoutParams as ConstraintLayout.LayoutParams?
+            containerParams?.width = WRAP_CONTENT
+            editTextContainer?.layoutParams = containerParams
+        }
+
         editTextContainer?.apply {
             minimumHeight = editTextMinHeight
         }
@@ -500,6 +514,7 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun setDefaultValues() {
+        isWrap = defaultIsWrap
         showBottomContainer = defaultShowBottomContainer
         errorDrawableRes = defaultErrorDrawableRes
         errorColor = defaultErrorColor

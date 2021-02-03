@@ -76,6 +76,7 @@
         <attr name="inputErrorTextStyle" format="reference" />
 
         <attr name="inputShowBottomContainer" format="boolean"/>
+        <attr name="inputIsWrap" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">
