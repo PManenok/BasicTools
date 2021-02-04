@@ -714,11 +714,11 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         logger.log("showDialog $tag stateIsPaused=$stateIsPaused")
         lastAction = {
             logger.log("showDialog lastAction invoke")
-            fragmentManager.get()?.let { manager ->
-                logger.log("showDialog lastAction fragmentManager get")
-                currentDialog = dialog
-                dialog.show(manager, tag)
-            }
+            val manager = fragmentManager.get()
+            val context = activity.get()
+            logger.log("showDialog lastAction fragmentManager != null ${manager != null} context != null ${context != null}")
+            currentDialog = dialog
+            dialog.show(manager, context, tag)
         }
         if (!stateIsPaused) {
             lastAction.invoke()
