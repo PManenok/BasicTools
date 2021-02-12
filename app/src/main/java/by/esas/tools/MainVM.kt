@@ -4,27 +4,12 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import by.esas.tools.error_mapper.AppErrorStatusEnum
-import by.esas.tools.logger.ErrorModel
-import by.esas.tools.logger.LoggerImpl
+import by.esas.tools.basedaggerui.inject.factory.AssistedSavedStateViewModelFactory
 import javax.inject.Inject
 
 class MainVM @Inject constructor() : AppVM() {
-    var update: () -> Unit = {}
     override val TAG: String = "MainVM"
-
-    override fun getErrorMessage(error: ErrorModel): String {
-        return "Error"
-    }
-
-    override fun mapError(e: Throwable): ErrorModel {
-        return ErrorModel(0, AppErrorStatusEnum.NOT_SET)
-    }
-
-    override fun initLogger() {
-        logger = LoggerImpl()
-        logger.setTag(TAG)
-    }
+    var update: () -> Unit = {}
 
     override fun onChangeLanguage() {
 
@@ -49,3 +34,4 @@ class MainVM @Inject constructor() : AppVM() {
         update()
     }
 }
+

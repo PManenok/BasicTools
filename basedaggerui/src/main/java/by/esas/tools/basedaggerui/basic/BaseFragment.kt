@@ -5,20 +5,21 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
+import by.esas.tools.logger.BaseLogger
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.defocusAndHideKeyboard
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 abstract class BaseFragment<E : Enum<E>> : DaggerFragment() {
-    abstract val TAG: String
+    open val TAG: String = "BaseFragment"
 
-    lateinit var logger: ILogger<E, *>
+    open var logger: ILogger<E, *> = BaseLogger(TAG, null)
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: InjectingViewModelFactory
 
-    abstract fun provideLogger(): ILogger<E, *>
     abstract fun provideAppContext(): Context
 
     override fun onStart() {

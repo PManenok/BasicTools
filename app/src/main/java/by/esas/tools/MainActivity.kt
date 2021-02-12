@@ -26,7 +26,7 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override val TAG: String = "MainActivity"
     override var logger: ILogger<AppErrorStatusEnum, *> = LoggerImpl()
     override fun provideViewModel(): MainVM {
-        return ViewModelProvider(this, viewModelFactory).get(MainVM::class.java)
+        return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
     }
 
     override fun provideLayoutId(): Int {
@@ -141,4 +141,6 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             hideSystemUIR(this)
         } else hideSystemUIApp(this)
     }
+
+
 }

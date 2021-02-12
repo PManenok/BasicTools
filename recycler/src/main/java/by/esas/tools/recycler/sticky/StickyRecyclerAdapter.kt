@@ -15,7 +15,7 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
 ) : BaseRecyclerAdapter<StickyEntity<Entity>, VM>(itemList, onItemClick, onItemClickPosition, onItemLongClick, onItemLongClickPosition) {
     var stickyHeaderDecoration: RecyclerStickyHeaderView<StickyEntity<Entity>, *, VM>? = null
 
-    protected open var timeOut:Long = 1000
+    protected open var timeOut: Long = 1000
 
     //private val adapterScope = CoroutineScope(Dispatchers.Default)
     protected val entityList: MutableList<Entity> = mutableListOf()
@@ -66,38 +66,23 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
 
     open fun analyzeItems(items: List<Entity>): MutableList<StickyEntity<Entity>> {
         val addList: MutableList<StickyEntity<Entity>> = mutableListOf()
-        var currentPair: Pair<Int, Int> = this.entityList.lastOrNull()
-            ?.let { getDatePair(it) }
-            ?: Pair(-1, -1)
+        var compareData = createNew(this.entityList.lastOrNull())
 
         items.forEach { newAdapterItem ->
             newAdapterItem.let { item ->
-                val itemPair = getDatePair(item)
-                if (itemPair.second != currentPair.second || itemPair.first != currentPair.first) {
-                    addList.add(
-                        StickyEntity(
-                            header = createHeader(
-                                itemPair.first,
-                                itemPair.second
-                            )
-                        )
-                    )
-                    currentPair = itemPair
+                val itemData = createNew(item)
+                if (!compareData.compareTo(itemData)) {
+                    addList.add(StickyEntity(header = itemData.createHeader()))
+                    compareData = itemData
                 }
-                val invoiceItem = StickyEntity(entity = item)
-                addList.add(invoiceItem)
+                addList.add(StickyEntity(entity = item))
                 this.entityList.add(item)
             }
         }
         return addList
     }
 
-    abstract fun getDatePair(item: Entity): Pair<Int, Int>
-
-    open fun createHeader(month: Int, year: Int): StickyHeader {
-        return StickyHeader("${month + 1}.$year")
-    }
-
+    abstract fun createNew(entity: Entity?): CompareData
 
     override fun cleanItems() {
         if (semaphore.tryAcquire(1000, TimeUnit.MILLISECONDS)) {

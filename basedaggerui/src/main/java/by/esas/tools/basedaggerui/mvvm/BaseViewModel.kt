@@ -1,26 +1,28 @@
 package by.esas.tools.basedaggerui.mvvm
 
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.R
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.BaseVMLogger
 import by.esas.tools.logger.ILogger
+import by.esas.tools.logger.handler.ErrorData
+import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
     open val TAG: String = BaseViewModel::class.java.simpleName
 
-    val progressing = ObservableBoolean(false)
-    val switchableViewsList = mutableListOf<View?>()
+    open var logger: ILogger<E, M> = BaseVMLogger(TAG, null)
 
+    var switchableViewsList: () -> List<View?> = { emptyList() }
     protected open var switcher: SwitchManager = SwitchManager()
-    lateinit var logger: ILogger<E, M>
 
-    var alertDialogBuilder: MaterialAlertDialogBuilder? = null
-    protected var alertDialog: AlertDialog? = null
+    val progressing = ObservableBoolean(false)
+    val errorData: MutableLiveData<ErrorData<E, M>> = MutableLiveData<ErrorData<E, M>>()
 
     open fun hideProgress() {
         progressing.set(false)
@@ -30,28 +32,18 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         progressing.set(true)
     }
 
-    open fun dismissDialogs() {
-        if (alertDialog?.isShowing == true) {
-            alertDialog?.dismiss()
-        }
-        alertDialog = null
-    }
-
     override fun onCleared() {
         super.onCleared()
         logger.log("onCleared")
-
-        switchableViewsList.clear()
-        alertDialogBuilder = null
     }
 
     /**
      * Блокируем редактирование полей.
      */
-    protected open fun disableControls(): Boolean {
+    open fun disableControls(): Boolean {
         showProgress()
         var result: Boolean = true
-        switchableViewsList.forEach { view ->
+        switchableViewsList().forEach { view ->
             view?.let { result = switcher.disableView(it) && result }
         }
         return result
@@ -60,65 +52,52 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
     /**
      * Возвращаем возможность редактировать поля.
      */
-    protected open fun enableControls(): Boolean {
+    open fun enableControls(): Boolean {
         hideProgress()
         var result: Boolean = true
-        switchableViewsList.forEach { view ->
+        switchableViewsList().forEach { view ->
             view?.let { result = switcher.enableView(it) && result }
         }
         return result
     }
 
-    open fun handleError(error: Throwable, doOnDialogOK: () -> Unit = {}) {
-        handleError(error = mapError(error), showType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK = doOnDialogOK)
+    open fun handleError(
+        error: Throwable,
+        showType: ShowErrorType = ShowErrorType.SHOW_ERROR_DIALOG,
+        doOnDialogOK: () -> Unit = {}
+    ) {
+        errorData.postValue(ErrorData(throwable = error, showType = showType, doOnDialogOK = doOnDialogOK))
     }
 
-    open fun handleError(error: Throwable, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
-        handleError(error = mapError(error), showType = showType, doOnDialogOK = doOnDialogOK)
+    open fun handleError(
+        error: M,
+        showType: ShowErrorType = ShowErrorType.SHOW_ERROR_DIALOG,
+        doOnDialogOK: () -> Unit = {}
+    ) {
+        errorData.postValue(ErrorData(model = error, showType = showType, doOnDialogOK = doOnDialogOK))
     }
 
-    open fun handleError(error: M, doOnDialogOK: () -> Unit = {}) {
-        handleError(error = error, showType = ShowErrorType.SHOW_ERROR_DIALOG, doOnDialogOK = doOnDialogOK)
-    }
-
-    open fun handleError(error: M, showType: ShowErrorType, doOnDialogOK: () -> Unit = {}) {
+    fun showError(msg: String, showType: ShowErrorType, alertDialogBuilder: MaterialAlertDialogBuilder? = null, doOnDialogOK: () -> Unit) {
         hideProgress()
         /*if (error.statusEnum == AppErrorStatusEnum.NET_SSL_HANDSHAKE) {
             logger.logError(SSLContext.getDefault().defaultSSLParameters.protocols?.contentToString() ?: "SSL protocols: Empty")
         }*/
-        logger.logError(error)
-        if (showType != ShowErrorType.SHOW_NOTHING) {
-            if (showType == ShowErrorType.SHOW_ERROR_DIALOG) {
-                alertDialog = alertDialogBuilder?.setTitle(R.string.error_title)
-                    ?.setMessage(getErrorMessage(error))
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING -> enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG -> {
+                alertDialogBuilder?.setTitle(R.string.error_title)
+                    ?.setMessage(msg)
                     ?.setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
                         dialogInterface?.dismiss()
-                        alertDialog = null
                         enableControls()
                         doOnDialogOK()
-                    }?.create()
+                    }?.create()?.show()
             }
-            if (alertDialog != null) {
-                alertDialog?.show()
-            } else {
-                logger.showMessage(getErrorMessage(error))
+            ShowErrorType.SHOW_ERROR_MESSAGE -> {
+                logger.showMessage(msg)
                 enableControls()
                 doOnDialogOK()
             }
-        } else {
-            enableControls()
         }
-    }
-
-    abstract fun getErrorMessage(error: M): String
-
-    protected abstract fun mapError(e: Throwable): M
-
-    abstract fun initLogger()
-
-    enum class ShowErrorType {
-        SHOW_ERROR_DIALOG,
-        SHOW_ERROR_MESSAGE,
-        SHOW_NOTHING
     }
 }

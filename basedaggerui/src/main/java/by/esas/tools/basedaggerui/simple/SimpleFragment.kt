@@ -10,56 +10,34 @@ import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class SimpleFragment<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> : DataBindingFragment<VM, B, E>() {
+abstract class SimpleFragment<VM : SimpleViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
+    DataBindingFragment<VM, B, E, M>() {
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //Settings for IShowingVM
+        viewModel.showDialog.observe(viewLifecycleOwner, Observer { dialog ->
+            onShowDialog(dialog)
+        })
+        viewModel.showBottomDialog.observe(viewLifecycleOwner, Observer { dialog ->
+            onShowBottomDialog(dialog)
+        })
+        //Settings for IChangeLangVM
+        viewModel.changeLang.observe(viewLifecycleOwner, Observer { lang ->
+            onChangeLanguage(lang)
+        })
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Settings for IObserverVM
-        resetObserverManager()
-        //Settings for IShowingVM
-        observeShowDialog()
-        observeShowBottomDialog()
-        //Settings for IChangeLangVM
-        observeChangeLanguage()
         //Settings for IExecutingVM
         viewModel.addUseCases()
-    }
-
-    protected open fun resetObserverManager() {
-        if (!viewModel.observerManager.checkLifecycleOwner(requireActivity())) {
-            viewModel.observerManager.clearLifecycleOwner()
-            viewModel.observerManager.setLifecycleOwner(provideLifecycleOwner())
-        }
-    }
-
-    protected open fun observeShowDialog() {
-        if (!viewModel.showDialog.hasObservers()) {
-            viewModel.addToObservable(viewModel.showDialog, Observer { dialog ->
-                onShowDialog(dialog)
-            })
-        }
-    }
-
-    protected open fun observeShowBottomDialog() {
-        if (!viewModel.showBottomDialog.hasObservers()) {
-            viewModel.addToObservable(viewModel.showBottomDialog, Observer { dialog ->
-                onShowBottomDialog(dialog)
-            })
-        }
-    }
-
-    protected open fun observeChangeLanguage() {
-        if (!viewModel.changeLang.hasObservers()) {
-            viewModel.addToObservable(viewModel.changeLang, Observer { lang ->
-                onChangeLanguage(lang)
-            })
-        }
     }
 
     protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         dialog?.let {
-            it.show(requireFragmentManager(), dialog.TAG)
+            it.show(parentFragmentManager, dialog.TAG)
             viewModel.showDialog.postValue(null)
         }
     }
@@ -67,7 +45,7 @@ abstract class SimpleFragment<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E
     protected open fun onShowBottomDialog(dialog: BaseBottomDialogFragment<*, *>?) {
         logger.logInfo("try to showBottomDialog ${dialog != null}")
         dialog?.let {
-            it.show(requireFragmentManager(), dialog.TAG)
+            it.show(parentFragmentManager, dialog.TAG)
             viewModel.showBottomDialog.postValue(null)
         }
     }
@@ -87,8 +65,6 @@ abstract class SimpleFragment<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //Settings for IObserverVM
-        viewModel.observerManager.clearObservables()
         //Settings for IShowingVM
         viewModel.showDialog.removeObservers(viewLifecycleOwner)
         viewModel.showDialog.postValue(null)

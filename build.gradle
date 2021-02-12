@@ -3,22 +3,23 @@
 buildscript {
     ext {
         //Lib versions
-        logger_lib_version = '1.1.1'// independent (6)
+        logger_lib_version = '1.1.2'// independent (6)
         util_lib_version = '1.1.0' // independent (3)
         timeparser_lib_version = '1.1.0'// independent
-        recycler_lib_version = '1.1.0'// independent
+        recycler_lib_version = '1.1.1'// independent
         pinview_lib_version = '1.1.0'// independent
         inputfieldview_lib_version = '1.2.4'// independent
         checker_lib_version = '1.1.3' // independent (3)
 
-        domain_lib_version = '1.1.1' // logger (2)
-        dialog_lib_version = '1.1.3' // logger, util, checker (2)
-        biometric_lib_version = '1.1.1' //logger
-        baseui_lib_version = '1.2.3' //dialog(logger, util, checker), domain(logger)
-        basedaggerui_lib_version = '1.2.3' //dialog(logger, util, checker), domain(logger)
-        accesscontainer_lib_version = '1.1.4' //logger
+        domain_lib_version = '1.1.2' // logger (2)
+        dialog_lib_version = '1.1.4' // logger, util, checker (2)
+        biometric_lib_version = '1.1.2' //logger
+        baseui_lib_version = '1.2.4' //dialog(logger, util, checker), domain(logger)
+        basedaggerui_lib_version = '1.2.4' //dialog(logger, util, checker), domain(logger)
+        accesscontainer_lib_version = '1.1.5' //logger
 
         // dependencies versions
+        lifecycle_version = '2.2.0'
         kotlin_version = '1.3.72'
         corektx_version = '1.3.1'
         appcompat_version = '1.1.0'
@@ -30,7 +31,7 @@ buildscript {
         retrofit_version = '2.5.0'
         coroutines_version = '1.3.0'
         biometric_version = "1.0.0-beta02"
-        dagger2_version = '2.21'
+        dagger2_version = '2.31'
         recyclerview_version = '1.1.0-beta04'
     }
     repositories {

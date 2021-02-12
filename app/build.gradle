@@ -10,6 +10,10 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -40,9 +44,9 @@ dependencies {
     kapt "com.android.databinding:compiler:$databinding_version"
 
     // Dagger 2
-    implementation "com.google.dagger:dagger:$dagger2_version"
+    /*implementation "com.google.dagger:dagger:$dagger2_version"
     implementation "com.google.dagger:dagger-android:$dagger2_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"*/
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
 

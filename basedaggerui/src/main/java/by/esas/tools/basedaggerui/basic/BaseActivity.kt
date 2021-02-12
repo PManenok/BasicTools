@@ -12,6 +12,9 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
+import by.esas.tools.logger.BaseLogger
+import by.esas.tools.logger.ILogger
 import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,10 +22,12 @@ import javax.inject.Inject
 
 
 abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActivity<E> {
-    abstract val TAG: String
+    open val TAG: String = "BaseActivity"
+
+    override var logger: ILogger<E, *> = BaseLogger(TAG, null)
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: InjectingViewModelFactory
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(doWithAttachBaseContext(base))

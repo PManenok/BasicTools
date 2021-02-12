@@ -8,50 +8,24 @@ import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class SimpleActivity<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E : Enum<E>> : DataBindingActivity<VM, B, E>() {
+abstract class SimpleActivity<VM : SimpleViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
+    DataBindingActivity<VM, B, E, M>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Settings for IObserverVM
-        resetObserverManager()
         //Settings for IShowingVM
-        observeShowDialog()
-        observeShowBottomDialog()
+        viewModel.showDialog.observe(this, Observer { dialog ->
+            onShowDialog(dialog)
+        })
+        viewModel.showBottomDialog.observe(this, Observer { dialog ->
+            onShowBottomDialog(dialog)
+        })
         //Settings for IChangeLangVM
-        observeChangeLanguage()
+        viewModel.changeLang.observe(this, Observer { lang ->
+            onChangeLanguage(lang)
+        })
         //Settings for IExecutingVM
         viewModel.addUseCases()
-    }
-
-    protected open fun resetObserverManager() {
-        if (!viewModel.observerManager.checkLifecycleOwner(this)) {
-            viewModel.observerManager.clearLifecycleOwner()
-            viewModel.observerManager.setLifecycleOwner(provideLifecycleOwner())
-        }
-    }
-
-    protected open fun observeShowDialog() {
-        if (!viewModel.showDialog.hasObservers()) {
-            viewModel.addToObservable(viewModel.showDialog, Observer { dialog ->
-                onShowDialog(dialog)
-            })
-        }
-    }
-
-    protected open fun observeShowBottomDialog() {
-        if (!viewModel.showBottomDialog.hasObservers()) {
-            viewModel.addToObservable(viewModel.showBottomDialog, Observer { dialog ->
-                onShowBottomDialog(dialog)
-            })
-        }
-    }
-
-    protected open fun observeChangeLanguage() {
-        if (!viewModel.changeLang.hasObservers()) {
-            viewModel.addToObservable(viewModel.changeLang, Observer { lang ->
-                onChangeLanguage(lang)
-            })
-        }
     }
 
     protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
@@ -82,8 +56,6 @@ abstract class SimpleActivity<VM : SimpleViewModel<E, *>, B : ViewDataBinding, E
 
     override fun onDestroy() {
         super.onDestroy()
-        //Settings for IObserverVM
-        viewModel.observerManager.clearObservables()
         //Settings for IShowingVM
         viewModel.showDialog.postValue(null)
         viewModel.showDialog.removeObservers(this)
