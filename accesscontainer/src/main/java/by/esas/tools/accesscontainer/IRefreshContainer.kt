@@ -34,6 +34,12 @@ interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
      **/
     fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit)
 
+    /**
+     * This function can save refresh token, it invokes only encryption dialogs
+     * Should be used only when no secret exist, because it will override old secrets
+     **/
+    fun getSecret(response: ContainerRequest<String, E, M>.() -> Unit)
+
     fun setUserId(userId: String)
 
     fun onCancel()

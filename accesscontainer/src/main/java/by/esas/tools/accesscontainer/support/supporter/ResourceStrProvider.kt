@@ -7,6 +7,7 @@ interface ResourceStrProvider {
     fun requireContext(): Context
     fun getString(@StringRes resId: Int): String
     fun provideAlterCancelStr(): Int
+    fun provideCancelStr(): Int
     fun provideAccessStr(): Int
     fun provideAccessConfirmStr(): Int
     fun provideEncryptTitle(): Int

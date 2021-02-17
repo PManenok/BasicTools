@@ -54,10 +54,13 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
     private var result: ContainerRequest<RefreshResult, E, M> =
         ContainerRequest<RefreshResult, E, M>() // result instance which will get result when it is finished
+    private var secretResult: ContainerRequest<String, E, M> =
+        ContainerRequest<String, E, M>() // result instance which will get result when it is finished
     private var userId: String = "" // user ID sets from getSecrets or with setUserId method
 
     private var isBiometricAvailable: Boolean = false // shows if biometric is available
     private var needCheck: Boolean = false // enable check scenario
+    private var needSecret: Boolean = false // enable secret scenario
     private var refreshExplicitly: Boolean = false // enable refresh in check access
 
     private var presentType: AuthType = AuthType.NONE // secret type that user uses at the moment
@@ -125,6 +128,7 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
         logger.log("refresh needCheck = false")
         needCheck = false
+        needSecret = false
         if (refreshToken.isNotEmpty()) {
             logger.log("refresh refreshToken isNotEmpty")
             refreshAccess(refreshToken)
@@ -170,8 +174,22 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
             }
         logger.log("checkAccess needCheck = true")
         needCheck = true
+        needSecret = false
         userId = userInfo.getCurrentUser()
         logger.log("checkAccess userId = $userId")
+        getSecrets()
+    }
+
+    override fun getSecret(response: ContainerRequest<String, E, M>.() -> Unit) {
+        logger.log("getSecret")
+        val result = ContainerRequest<String, E, M>().apply(response)
+
+        this.secretResult = result
+        logger.log("getSecret needSecret = true, needCheck = false")
+        needSecret = true
+        needCheck = false
+        userId = userInfo.getCurrentUser()
+        logger.log("getSecret userId = $userId")
         getSecrets()
     }
 
@@ -262,7 +280,8 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                                 showDecryptBiometricDialog()
                             }
                             AuthType.NONE -> {
-                                showPasswordDialog()
+                                if (needSecret) secretResult(supporter.util.createErrorModel(0, ErrorStatusEnum.HAS_NO_SECRETS.name))
+                                else showPasswordDialog()
                             }
                         }
                     } else {
@@ -273,7 +292,8 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                         }
                     }
                 } else {
-                    showPasswordDialog()
+                    if (needSecret) secretResult(supporter.util.createErrorModel(0, ErrorStatusEnum.HAS_NO_SECRETS.name))
+                    else showPasswordDialog()
                 }
             }
             onError { throwable ->
@@ -311,25 +331,22 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
             onComplete {
                 logger.log("checkSecret onComplete ${it.first}")
                 if (it.first) {
-                    if (refreshExplicitly) {
-                        logger.log("checkSecret onComplete refreshToken != null")
-                        /*if (refreshToken.isNotBlank()) {
-                            refreshAccess(refreshToken)
-                        } else {*/
-                        refreshWithSecret(it.second)
-                        //}
-                    } else {
-                        logger.log("checkSecret onComplete return")
-                        result(RefreshResult())
+                    when {
+                        needSecret -> secretResult(it.second)
+                        refreshExplicitly -> {
+                            logger.log("checkSecret onComplete refreshToken != null")
+                            refreshWithSecret(it.second)
+                        }
+                        else -> {
+                            logger.log("checkSecret onComplete return")
+                            result(RefreshResult())
+                        }
                     }
                 } else {
                     logger.log("checkSecret onComplete failed check return error SECRET_CHECK_NOT_MATCH")
-                    result(
-                        supporter.util.createErrorModel(
-                            0,
-                            ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name
-                        )
-                    )
+                    val error = supporter.util.createErrorModel(0, ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name)
+                    if (needSecret) secretResult(error)
+                    else result(error)
                 }
             }
             onError { error ->
@@ -419,14 +436,17 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
             dialog.createDialog()
             dialog.setStateActions({ e ->
                 logger.log("showAuthDialog onError ${e.message}")
-                result(mapper(e))
+                if (needSecret) secretResult(mapper(e))
+                else result(mapper(e))
             }, { afterOk ->
                 logger.log("showAuthDialog onDismiss afterOk=${afterOk}")
                 if (!afterOk) {
-                    result()
+                    if (needSecret) secretResult()
+                    else result()
                 }
             })
             dialog.isDecrypting(isDecrypting)
+            dialog.showPassword(!needSecret)
             dialog.setCallBacks({
                 logger.log("showAuthDialog onPinClick")
                 if (isDecrypting) showDecryptPinDialog()
@@ -442,7 +462,6 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
             val titleRes: Int = if (isDecrypting) -1 else supporter.resProvider.provideEncryptTitle()
             dialog.setTitle(titleRes)
-            dialog.isChanging(false)
             if (isDecrypting) {
                 dialog.setPinPresent(types.contains(AuthType.PIN_AUTH))
                 dialog.setBiometricPresent(types.contains(AuthType.BIOMETRIC_AUTH))
@@ -461,11 +480,13 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
             dialog.createDialog()
             dialog.setStateActions({ e ->
                 logger.log("showDecryptPinDialog onError ${e.message}")
-                result(mapper(e))
+                if (needSecret) secretResult(mapper(e))
+                else result(mapper(e))
             }, { afterOk ->
                 logger.log("showDecryptPinDialog onDismiss afterOk=$afterOk")
                 if (!afterOk) {
-                    result()
+                    if (needSecret) secretResult()
+                    else result()
                 }
             })
 
@@ -494,6 +515,8 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
             val cancelId = supporter.resProvider.provideAlterCancelStr()
             dialog.setCancelTitle(cancelId)
             dialog.setCancellable(false)
+            if (needSecret) dialog.setHasAnother(types.size > 1)
+            else dialog.setHasAnother(true)
             showDialog(dialog.getDialog(), "OperatorPinDecryptDialog")
         }
     }
@@ -559,7 +582,11 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                             }
                         } else {
                             logger.showMessage(errString)
-                            showAuthDialog(isDecrypting = true)
+                            if (needSecret) {
+                                if (types.size > 1) showAuthDialog(isDecrypting = true)
+                                else secretResult()
+                            } else
+                                showAuthDialog(isDecrypting = true)
                         }
                     }
                 }, { cipher ->
@@ -580,10 +607,15 @@ class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                     if (needCheck) supporter.resProvider.provideAccessConfirmStr()
                     else supporter.resProvider.provideAccessStr()
                 )
-                val negativeId = supporter.resProvider.provideAlterCancelStr()
-                val negativeText = supporter.resProvider.getString(negativeId)
+                val negativeText: String = if (needSecret) {
+                    val negativeId = if (types.size > 1) supporter.resProvider.provideAlterCancelStr()
+                    else supporter.resProvider.provideCancelStr()
+                    supporter.resProvider.getString(negativeId)
+                } else {
+                    val negativeId = supporter.resProvider.provideAlterCancelStr()
+                    supporter.resProvider.getString(negativeId)
+                }
                 dialog.setInfo(title = title, negativeText = negativeText)
-
 
                 lastAction = {
                     logger.log("showDecryptBiometricDialog lastAction DECRYPT_MODE")

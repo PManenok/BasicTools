@@ -5,4 +5,5 @@ interface SetPinDialog :
     fun setCallbacks(complete: (String) -> Unit, cancel: () -> Unit)
     fun setCancelTitle(cancelRes: Int)
     fun setCancellable(value: Boolean)
+    fun setHasAnother(value: Boolean)
 }
