@@ -4,7 +4,7 @@ package by.esas.tools.checker
 open class Checker {
     protected open var inContinueMode: Boolean = true
     protected open var showError: Boolean = true
-    private var listener: CheckListener? = null
+    protected open var listener: CheckListener? = null
     protected open var getter: BaseCheck.ErrorGetter? = null
 
     fun setMode(isContinue: Boolean): Checker {

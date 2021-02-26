@@ -2,15 +2,28 @@ package by.esas.tools.checking
 
 import by.esas.tools.checker.BaseCheck
 import by.esas.tools.checker.Checking
+import by.esas.tools.checker.IFocusableChecking
+import by.esas.tools.checker.IRequestFocusHandler
 import by.esas.tools.checker.checks.NotEmptyCheck
 import by.esas.tools.inputfieldview.InputFieldView
 import java.lang.ref.WeakReference
 
-class FieldChecking(view: InputFieldView) : Checking() {
+class FieldChecking(view: InputFieldView) : Checking(), IFocusableChecking {
     private val field: WeakReference<InputFieldView> = WeakReference(view)
     override var notEmptyRule: NotEmptyCheck? = NotEmptyCheck("Can\'t be empty")
     override var checkEmpty: Boolean = true
+    var focusHandler: IRequestFocusHandler? = object : IRequestFocusHandler {
+        override fun handleRequestFocus() {
+            field.get()?.apply {
+                inputText?.requestFocus()
+            }
+        }
+    }
 
+    fun setRequestFocusHandler(handler: IRequestFocusHandler): FieldChecking {
+        focusHandler = handler
+        return this
+    }
 
     constructor(view: InputFieldView, checkEmpty: Boolean) : this(view) {
         this.checkEmpty = checkEmpty
@@ -39,5 +52,9 @@ class FieldChecking(view: InputFieldView) : Checking() {
             }
         }
         return true
+    }
+
+    override fun requestFocus() {
+        focusHandler?.handleRequestFocus()
     }
 }

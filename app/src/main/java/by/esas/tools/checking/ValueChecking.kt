@@ -5,7 +5,7 @@ import by.esas.tools.checker.BaseCheck
 import by.esas.tools.checker.Checking
 import by.esas.tools.checker.checks.NotEmptyCheck
 
-class ValueChecker(val field: MutableLiveData<String>, val error: MutableLiveData<Throwable?>) : Checking() {
+class ValueChecking(val field: MutableLiveData<String>, val error: MutableLiveData<Throwable?>) : Checking() {
     protected override var checkEmpty: Boolean = true
     protected override var notEmptyRule: NotEmptyCheck? = NotEmptyCheck("Can\'t be empty")
 
