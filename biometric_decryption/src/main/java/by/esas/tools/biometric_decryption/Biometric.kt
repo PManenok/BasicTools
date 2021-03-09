@@ -4,6 +4,7 @@ import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import androidx.biometric.BiometricPrompt
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import by.esas.tools.logger.ILogger
 import java.io.IOException
@@ -12,6 +13,7 @@ import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
 import java.security.cert.CertificateException
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -20,15 +22,11 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
 
-class Biometric(
-    activity: FragmentActivity,
-    callback: BiometricPrompt.AuthenticationCallback,
-    private val listener: BiometricUserInfo
-) {
+class Biometric {
     companion object {
         val TAG: String = Biometric::class.java.simpleName
         private val KEY_ALIAS = Config.BIOM_ALIAS
-        var logger: ILogger<*,*>? = null
+        var logger: ILogger<*, *>? = null
         private lateinit var sKeyStore: KeyStore
         private fun getKeyStore(): Boolean {
             try {
@@ -64,18 +62,34 @@ class Biometric(
         DECRYPT_MODE
     }
 
+    private val listener: BiometricUserInfo
+    protected val executor: ExecutorService
     private lateinit var sCipher: Cipher
     private val biometricPrompt: BiometricPrompt
-    private val userId = listener.getCurrentUser()
+    private val userId: String
 
-    init {
-        /*val executor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            activity.mainExecutor
-        } else {*/
-        val executor = Executors.newSingleThreadExecutor()
-
-        //}
+    constructor(
+        activity: FragmentActivity,
+        callback: BiometricPrompt.AuthenticationCallback,
+        listener: BiometricUserInfo,
+        executor: ExecutorService = Executors.newSingleThreadExecutor()
+    ) {
+        this.listener = listener
+        this.executor = executor
+        userId = listener.getCurrentUser()
         biometricPrompt = BiometricPrompt(activity, executor, callback)
+    }
+
+    constructor(
+        fragment: Fragment,
+        callback: BiometricPrompt.AuthenticationCallback,
+        listener: BiometricUserInfo,
+        executor: ExecutorService = Executors.newSingleThreadExecutor()
+    ) {
+        this.listener = listener
+        this.executor = executor
+        userId = listener.getCurrentUser()
+        biometricPrompt = BiometricPrompt(fragment, executor, callback)
     }
 
     fun authenticate(mode: DialogMode, info: BiometricPrompt.PromptInfo): BiometricPrompt {
