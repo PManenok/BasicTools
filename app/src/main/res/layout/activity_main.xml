@@ -163,14 +163,6 @@
                     tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/f_main_add_invoice_additional_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:visibilityGone="@{viewModel.showAdditional}"
-                tools:visibility="visible">
-
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/a_main_text_3"
                     android:layout_width="match_parent"
@@ -181,6 +173,7 @@
                     app:inputEditable="true"
                     app:inputEndIconMode="password_toggle"
                     app:inputLabel="Label"
+                    android:text="@{viewModel.password}"
                     app:inputLabelExtraTopMargin="4dp"
                     app:inputLabelType="on_top_no_start_padding"
                     app:inputPaddingBottom="8dp"
@@ -188,7 +181,6 @@
                     app:inputStartDrawable="@drawable/ic_baseline_build_24"
                     tools:inputLabel="qwerty (ex. 34567)"
                     tools:text="1234" />
-            </LinearLayout>
 
             <!--  <by.esas.tools.inputfieldview.InputFieldView
                   android:id="@+id/a_main_text2"
@@ -207,6 +199,7 @@
                   tools:text="1234" />-->
 
             <by.esas.tools.pinview.PinView
+                android:id="@+id/f_main_set_error_pin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:pinAmount="6"

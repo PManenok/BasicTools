@@ -4,7 +4,6 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import by.esas.tools.basedaggerui.inject.factory.AssistedSavedStateViewModelFactory
 import javax.inject.Inject
 
 class MainVM @Inject constructor() : AppVM() {
@@ -28,6 +27,8 @@ class MainVM @Inject constructor() : AppVM() {
     val serviceName = ObservableField<String>("")
     val showAdditional = ObservableBoolean(false)
     val mainText = MutableLiveData<String>().apply { postValue("") }
+
+    val password = MutableLiveData<String>("")
 
     fun onAdditionalClick() {
         showAdditional.set(!showAdditional.get())

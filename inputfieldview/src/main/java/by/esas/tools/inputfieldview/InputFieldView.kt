@@ -359,6 +359,13 @@ open class InputFieldView : ConstraintLayout {
                         if (hasFocus) focusedStrokeColor else strokeColor
                     }
                 )
+                /*if (hasErrorText) {
+                    if (hasFocus && previousEndIconMode == END_ICON_PASSWORD_TOGGLE) {
+                        setEndIconMode(previousEndIconMode)
+                    } else {
+                        setEndIconMode(END_ICON_ERROR)
+                    }
+                }*/
                 //inputBox?.isEnabled = hasFocus
                 //if (hasFocus) setError(null)
             }
@@ -704,7 +711,10 @@ open class InputFieldView : ConstraintLayout {
                         setButtonDrawable(passwordToggleRes)
                     else
                         buttonDrawable = endDrawable
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
+                    if (hasErrorText)
+                        CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(errorColor))
+                    else
+                        CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
                     visibility = View.VISIBLE
                 }
                 endIconView?.visibility = View.INVISIBLE
@@ -960,8 +970,10 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(errorColor)
                 }
                 previousEndIconMode = endIconMode
-                //if (endIconMode == END_ICON_NONE)
-                setEndIconMode(END_ICON_ERROR)
+                if (endIconMode == END_ICON_PASSWORD_TOGGLE)
+                    updateEndIcon()
+                else
+                    setEndIconMode(END_ICON_ERROR)
                 bottomContainer?.visibility = View.VISIBLE
                 errorTextView?.visibility = View.VISIBLE
                 helpTextView?.visibility = View.GONE
@@ -971,9 +983,10 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(if (inputText?.isFocused == true) focusedStrokeColor else strokeColor)
                     //ViewCompat.setBackgroundTintList(this, boxStrokeTintList)
                 }
-                if (endIconMode == END_ICON_ERROR) {
+                if (endIconMode == END_ICON_ERROR)
                     setEndIconMode(previousEndIconMode)
-                }
+                else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
+                    updateEndIcon()
                 bottomContainer?.visibility = View.VISIBLE
                 errorTextView?.visibility = View.GONE
                 helpTextView?.visibility = View.VISIBLE
@@ -985,6 +998,8 @@ open class InputFieldView : ConstraintLayout {
                 }
                 if (endIconMode == END_ICON_ERROR)
                     setEndIconMode(previousEndIconMode)
+                else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
+                    updateEndIcon()
                 bottomContainer?.visibility = if (showBottomContainer) View.INVISIBLE else View.GONE
             }
         }
