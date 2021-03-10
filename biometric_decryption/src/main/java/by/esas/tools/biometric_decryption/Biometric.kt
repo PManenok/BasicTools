@@ -98,8 +98,9 @@ class Biometric {
                 val cipher = BiometricPrompt.CryptoObject(sCipher)
                 biometricPrompt.authenticate(info, cipher)
             } else throw DecryptionException(DecryptionEnum.BIOMETRIC_DECRYPTION_FAILED)
-        } finally {
+        } catch (e: DecryptionException) {
             biometricPrompt.cancelAuthentication()
+            throw e
         }
         return biometricPrompt
     }
@@ -108,11 +109,9 @@ class Biometric {
         return BiometricPrompt.PromptInfo.Builder().setTitle(title).setNegativeButtonText(negativeText).build()
     }
 
-
     private fun prepare(): Boolean {
         return getKeyStore() && getCipher() && isKeyReady()
     }
-
 
     private fun convertMode(mode: DialogMode): Int {
         return when (mode) {
@@ -146,7 +145,7 @@ class Biometric {
                 logger?.logError(e)
             } catch (e: InvalidKeyException) {
                 logger?.logError(e)
-                //deleteInvalidKey(userId)
+                deleteInvalidKey(userId)
                 throw DecryptionException(DecryptionEnum.INVALID_KEY)
             }
             false
@@ -181,7 +180,6 @@ class Biometric {
         } else
             false
     }
-
 
     private fun isKeyReady(): Boolean {
         try {
