@@ -90,6 +90,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
     protected open val defaultIsWrap: Boolean = false
+    protected open val defaultHideErrorIcon: Boolean = false
 
     protected open var errorDrawableRes: Int = R.drawable.ic_baseline_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
@@ -101,6 +102,7 @@ open class InputFieldView : ConstraintLayout {
     protected open var paddingTopInPx: Int = dpToPx(12).toInt()
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
     protected open var isWrap: Boolean = false
+    protected open var hideErrorIcon: Boolean = false
 
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected var labelStartMargin: Int = 0
@@ -377,6 +379,8 @@ open class InputFieldView : ConstraintLayout {
     /*  Initialize attributes from XML file  */
     private fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputFieldView)
+        //Hiding error
+        hideErrorIcon = typedArray.getBoolean(R.styleable.InputFieldView_inputHideErrorIcon, defaultHideErrorIcon)
         //Width style
         isWrap = typedArray.getBoolean(R.styleable.InputFieldView_inputIsWrap, defaultIsWrap)
         // Label
@@ -782,16 +786,18 @@ open class InputFieldView : ConstraintLayout {
     }
 
     protected open fun setEndIconAsError(forcefully: Boolean = false) {
-        if (forcefully || endIconView?.visibility == View.INVISIBLE) {
-            endContainer?.setOnClickListener {}
-            endIconView?.apply {
-                setImageResource(errorDrawableRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+        if (!hideErrorIcon) {
+            if (forcefully || endIconView?.visibility == View.INVISIBLE) {
+                endContainer?.setOnClickListener {}
+                endIconView?.apply {
+                    setImageResource(errorDrawableRes)
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+                }
             }
+            endIconView?.visibility = View.VISIBLE
+            endCheckBox?.visibility = View.INVISIBLE
+            endContainer?.visibility = View.VISIBLE
         }
-        endIconView?.visibility = View.VISIBLE
-        endCheckBox?.visibility = View.INVISIBLE
-        endContainer?.visibility = View.VISIBLE
     }
 
     fun setEndIconMode(mode: Int = defaultEndIconMode) {

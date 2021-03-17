@@ -79,10 +79,13 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         }*/
 
         binding.fMainSetErrorPin.setOnClickListener {
-            if (!binding.aMainText3.getText().equals("12345678"))
+            if (!binding.aMainText3.getText().equals("12345678")) {
                 binding.aMainText3.setError("Some error")
-            else
+                binding.aMainText4.setError("This is error")
+            }else {
                 binding.aMainText3.setError("")
+                binding.aMainText4.setError("")
+            }
         }
         /* AppChecker()
              .setShowError(true)

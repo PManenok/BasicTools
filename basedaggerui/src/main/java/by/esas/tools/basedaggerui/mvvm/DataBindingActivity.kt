@@ -6,10 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import by.esas.tools.basedaggerui.R
 import by.esas.tools.basedaggerui.basic.BaseActivity
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.handler.ErrorData
 import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ShowErrorType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
@@ -32,7 +34,10 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : 
     abstract fun provideLifecycleOwner(): LifecycleOwner
 
     open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(this).setCancelable(false)
+        return MaterialAlertDialogBuilder(
+            this,
+            R.style.AppTheme_CustomMaterialDialog
+        ).setCancelable(false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +61,29 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : 
                 data.model != null -> provideErrorHandler().getErrorMessage(data.model!!)
                 else -> "Error"
             }
-            viewModel.showError(msg, data.showType, provideMaterialAlertDialogBuilder(), data.doOnDialogOK)
+            showError(msg, data.showType, data.actionName)
             data.handled = true
+        }
+    }
+
+    open fun showError(msg: String, showType: ShowErrorType, actionName: String? = null) {
+        viewModel.hideProgress()
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING -> viewModel.enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG -> {
+                provideMaterialAlertDialogBuilder().setTitle(R.string.error_title)
+                    .setMessage(msg)
+                    .setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
+                        dialogInterface?.dismiss()
+                        viewModel.enableControls()
+                        viewModel.handleAction(actionName)
+                    }.create().show()
+            }
+            ShowErrorType.SHOW_ERROR_MESSAGE -> {
+                logger.showMessage(msg)
+                viewModel.enableControls()
+                viewModel.handleAction(actionName)
+            }
         }
     }
 }

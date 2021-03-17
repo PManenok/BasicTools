@@ -77,6 +77,7 @@
 
         <attr name="inputShowBottomContainer" format="boolean"/>
         <attr name="inputIsWrap" format="boolean" />
+        <attr name="inputHideErrorIcon" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFieldView">
