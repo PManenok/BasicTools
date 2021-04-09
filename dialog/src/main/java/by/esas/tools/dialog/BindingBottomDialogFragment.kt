@@ -17,7 +17,6 @@ abstract class BindingBottomDialogFragment<B : ViewDataBinding, E : Exception, E
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logger = provideLogger()
         logger.logInfo("onCreateView")
         binding = DataBindingUtil.inflate<B>(inflater, provideLayoutId(), container, false)
         binding.setVariable(provideVariableInd(), this)

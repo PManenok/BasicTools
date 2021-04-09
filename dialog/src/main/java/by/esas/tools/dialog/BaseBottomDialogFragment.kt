@@ -9,13 +9,11 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.logger.BaseLogger
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
-import by.esas.tools.util.disableView
-import by.esas.tools.util.enableView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : BottomSheetDialogFragment() {
-    abstract val TAG: String
-    protected open lateinit var logger: ILogger<EnumT,*>
+abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : BottomSheetDialogFragment() {
+    open val TAG: String = BaseBottomDialogFragment::class.java.simpleName
+    protected open val logger: ILogger<EnumT, *> = BaseLogger(BaseBottomDialogFragment::class.java.simpleName, this.context)
     protected val validationList: MutableList<Checking> = mutableListOf()
     protected var switchableViewsList: List<View?> = emptyList()
     protected var stateCallback: StateCallback<E>? = null
@@ -25,6 +23,8 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logger.setTag(TAG)
+        logger.logInfo("onCreate")
         //setStyle(STYLE_NO_FRAME, R.style.AppTheme)
     }
 
@@ -32,12 +32,11 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : 
     abstract fun provideSwitchableList(): List<View?>
     abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
-    protected open fun provideLogger(): ILogger<EnumT,*> {
+   /* protected open fun provideLogger(): ILogger<EnumT, *> {
         return BaseLogger(TAG, this.context)
-    }
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        logger = provideLogger()
         logger.logInfo("onCreateView")
         return inflater.inflate(provideLayoutId(), container, false)
     }

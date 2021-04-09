@@ -6,7 +6,7 @@ import java.util.*
 
 object TimeParser {
 
-    const val serverRegex: String = "^[\\d]{4}-[\\d]{2}-[\\d]{2}[ T][\\d]{2}:[\\d]{2}:[\\d]{2}.[\\d]+\$"
+    const val serverRegex: String = "^[\\d]{4}-[\\d]{2}-[\\d]{2}[ T][\\d]{2}:[\\d]{2}:[\\d]{2}.[\\d]+[Z]?\$"
     const val serverDatePattern: String = "yyyy-MM-dd HH:mm:ss.ss"
 
     const val serverShortRegex: String = "^[\\d]{4}-[\\d]{2}-[\\d]{2}[ T][\\d]{2}:[\\d]{2}:[\\d]{2}\$"
@@ -39,13 +39,13 @@ object TimeParser {
         return patterns.getValue(key)
     }
 
-    fun getDateFromUTC(dateInUtc: String?): Date? {
+    fun getDateFromUTC(dateInUtc: String?, utcPattern: String? = null): Date? {
         return dateInUtc?.let { parsable ->
             if (parsable.isNotBlank()) {
-                val serverPattern: String = getPattern(parsable)
-                if (serverPattern.isBlank()) return@let null
+                val pattern: String = utcPattern ?: getPattern(parsable)
+                if (pattern.isBlank()) return@let null
                 else {
-                    val sdf = SimpleDateFormat(serverPattern, Locale.getDefault())
+                    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
                     sdf.timeZone = TimeZone.getTimeZone("UTC")
 
                     val dateFormatted = parsable.replace("T", " ")
@@ -66,10 +66,10 @@ object TimeParser {
         }
     }
 
-    fun getDateFromLocal(localDate: String?): Date? {
+    fun getDateFromLocal(localDate: String?, localPattern: String? = null): Date? {
         return localDate?.let { parsable ->
             if (parsable.isNotBlank()) {
-                val pattern: String = getPattern(parsable)
+                val pattern: String = localPattern ?: getPattern(parsable)
                 if (pattern.isBlank()) return@let null
                 else {
                     val sdf = SimpleDateFormat(pattern, Locale.getDefault())

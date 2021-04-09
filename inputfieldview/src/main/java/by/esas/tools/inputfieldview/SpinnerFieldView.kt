@@ -66,8 +66,12 @@ class SpinnerFieldView : ConstraintLayout {
         hint = typedArray.getString(R.styleable.SpinnerFieldView_android_hint) ?: ""
 
         // Start Drawable
-        val startDraw: Drawable? =
-            typedArray.getDrawable(R.styleable.SpinnerFieldView_spinnerStartDrawable)
+        var startDraw: Drawable? = null
+            //typedArray.getDrawable(R.styleable.SpinnerFieldView_spinnerStartDrawable)
+        val startDrawableRes: Int = typedArray.getResourceId(R.styleable.SpinnerFieldView_spinnerStartDrawable, -1)
+        if (startDrawableRes != -1) {
+            startDraw = ContextCompat.getDrawable(context, startDrawableRes)
+        }
         val startTint: Int =
             typedArray.getColor(R.styleable.SpinnerFieldView_spinnerStartDrawableTint, endTint)
 
@@ -78,8 +82,12 @@ class SpinnerFieldView : ConstraintLayout {
         )
 
         // End Drawable
-        val endDrawParam: Drawable? =
-            typedArray.getDrawable(R.styleable.SpinnerFieldView_spinnerEndDrawable)
+        var endDrawParam: Drawable? = null
+            //typedArray.getDrawable(R.styleable.SpinnerFieldView_spinnerEndDrawable)
+        val endDrawableRes: Int = typedArray.getResourceId(R.styleable.SpinnerFieldView_spinnerEndDrawable, -1)
+        if (endDrawableRes != -1) {
+            endDrawParam = ContextCompat.getDrawable(context, startDrawableRes)
+        }
 
         endTint = typedArray.getColor(R.styleable.SpinnerFieldView_spinnerEndDrawableTint, endTint)
         // Hide label

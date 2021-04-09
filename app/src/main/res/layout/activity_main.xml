@@ -167,7 +167,7 @@
                 android:id="@+id/a_main_text_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text|textPassword"
+                android:inputType="text|textPassword|textNoSuggestions"
                 android:text="@{viewModel.password}"
                 app:inputEditTextStyle="@style/EditTextStyle"
                 app:inputEditViewMinHeight="32dp"

@@ -10,6 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.checker.Checker
+import by.esas.tools.checker.IRequestFocusHandler
+import by.esas.tools.checker.checks.LengthCheck
+import by.esas.tools.checking.AppChecker
+import by.esas.tools.checking.FieldChecking
 import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
@@ -79,31 +84,32 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         }*/
 
         binding.fMainSetErrorPin.setOnClickListener {
+            doCheck()
             if (!binding.aMainText3.getText().equals("12345678")) {
                 binding.aMainText3.setError("Some error")
-                binding.aMainText4.setError("This is error")
-            }else {
+            } else {
                 binding.aMainText3.setError("")
-                binding.aMainText4.setError("")
             }
         }
-        /* AppChecker()
-             .setShowError(true)
-             .setListener(object : Checker.CheckListener {})
-             .validate(
-                 listOf(
-                     FieldChecking(binding.aMainText3, true)
-                         .setRequestFocusHandler(object : IRequestFocusHandler {
-                             override fun handleRequestFocus() {
-                                 binding.aMainText3.visibility = View.VISIBLE
-                                 binding.aMainText3.requestFocus()
-                                 //scroll to position
-                             }
-                         })
-                         .addCheck(LengthCheck(0, 4))
-                 )
-             )*/
+    }
 
+    fun doCheck() {
+        AppChecker()
+            .setShowError(true)
+            .setListener(object : Checker.CheckListener {})
+            .validate(
+                listOf(
+                    FieldChecking(binding.aMainText4, true)
+                        .setRequestFocusHandler(object : IRequestFocusHandler {
+                            override fun handleRequestFocus() {
+                                binding.aMainText4.visibility = View.VISIBLE
+                                binding.aMainText4.requestFocus()
+                                //scroll to position
+                            }
+                        })
+                        .addCheck(LengthCheck(0, 4))
+                )
+            )
     }
     /*val field = findViewById<InputFieldView>(R.id.a_main_text2)
     field.setInputPrefix("1")*/

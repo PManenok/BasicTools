@@ -11,9 +11,9 @@ import by.esas.tools.logger.BaseLogger
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
 
-abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : DialogFragment() {
-    abstract val TAG: String
-    protected open lateinit var logger: ILogger<EnumT, *>
+abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>> : DialogFragment() {
+    open val TAG: String = BaseDialogFragment::class.java.simpleName
+    protected open var logger: ILogger<EnumT, *> = BaseLogger(BaseDialogFragment::class.java.simpleName, this.context)
 
     protected val validationList: MutableList<Checking> = mutableListOf()
     protected var switchableViewsList: List<View?> = emptyList()
@@ -23,6 +23,8 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logger.setTag(TAG)
+        logger.logInfo("onCreate")
         setStyle(STYLE_NO_TITLE, 0)
     }
 
@@ -31,12 +33,10 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>>() : Dialog
 
     abstract fun provideValidationList(): List<Checking>
     abstract fun provideProgressBar(): View?
-    protected open fun provideLogger(): ILogger<EnumT, *> {
+    /*protected open fun provideLogger(): ILogger<EnumT, *> {
         return BaseLogger(TAG, this.context)
-    }
-
+    }*/
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        logger = provideLogger()
         logger.logInfo("onCreateView")
         return inflater.inflate(provideLayoutId(), container, false)
     }

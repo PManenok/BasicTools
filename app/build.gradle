@@ -56,4 +56,5 @@ dependencies {
     implementation project(path: ':checker')
     implementation project(path: ':inputfieldview')
     implementation project(path: ':pinview')
+    implementation project(path: ':timeparser')
 }

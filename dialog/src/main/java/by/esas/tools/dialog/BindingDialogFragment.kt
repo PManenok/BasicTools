@@ -12,7 +12,6 @@ abstract class BindingDialogFragment<B : ViewDataBinding, E : Exception, EnumT :
     lateinit var binding: B
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        logger = provideLogger()
         logger.logInfo("onCreateView")
         binding = DataBindingUtil.inflate<B>(inflater, provideLayoutId(), container, false)
         binding.setVariable(provideVariableInd(), this)

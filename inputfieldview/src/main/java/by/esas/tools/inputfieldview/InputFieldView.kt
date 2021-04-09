@@ -22,6 +22,7 @@ import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -437,7 +438,11 @@ open class InputFieldView : ConstraintLayout {
         // Start Icon Mode
         startIconMode = typedArray.getInt(R.styleable.InputFieldView_inputStartIconMode, defaultStartIconMode)
         // Start Drawable
-        startDrawable = typedArray.getDrawable(R.styleable.InputFieldView_inputStartDrawable)
+        //startDrawable = typedArray.getDrawable(R.styleable.InputFieldView_inputStartDrawable)
+        val startDrawableRes: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputStartDrawable, -1)
+        if (startDrawableRes != -1) {
+            startDrawable = ContextCompat.getDrawable(context, startDrawableRes)
+        }
         // Start Tint
         startTint = typedArray.getColor(R.styleable.InputFieldView_inputStartDrawableTint, startTint)
         // Start Icon is Checkable
@@ -445,7 +450,10 @@ open class InputFieldView : ConstraintLayout {
         // End Icon Mode
         endIconMode = typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, defaultEndIconMode)
         // End Drawable
-        endDrawable = typedArray.getDrawable(R.styleable.InputFieldView_inputEndDrawable)
+        val endDrawableRes: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputEndDrawable, -1)
+        if (endDrawableRes != -1) {
+            endDrawable = ContextCompat.getDrawable(context, endDrawableRes)
+        }
         // End Tint
         endTint = typedArray.getColor(R.styleable.InputFieldView_inputEndDrawableTint, endTint)
 
