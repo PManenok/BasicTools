@@ -103,7 +103,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected
         } else HttpErrorStatusEnum.UNKNOWN_ERROR.name
     }
 
-    private fun getStatusFromDescription(description: String): String {
+    protected open fun getStatusFromDescription(description: String): String {
         val errorStatusMessage = ErrorMessageEnum.values().find {
             description.contains(it.message.toRegex())
         }
@@ -111,7 +111,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected
         else getStatusFromIdentityError(description)
     }
 
-    private fun getStatusFromIdentityError(error: String): String {
+    protected open fun getStatusFromIdentityError(error: String): String {
         val status = try {
             IdentityErrorEnum.valueOf(error)
         } catch (e: IllegalStateException) {
@@ -123,7 +123,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected
     /**
      * Get status from message. Message comes from StatusCode + can be combined with ErrorStatusMessage
      * */
-    private fun getStatusFromMessage(message: String): String {
+    protected open fun getStatusFromMessage(message: String): String {
         return if (message.contains(":")) {
             val status = message.substringBefore(":").trim()
             val info = message.substringAfter(":").trim()
@@ -139,14 +139,14 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected
         }
     }
 
-    private fun getHttpStatusFromMessage(message: String): String {
+    protected open fun getHttpStatusFromMessage(message: String): String {
         val errorStatusMessage = ErrorMessageEnum.values().find {
             message.contains(it.message.toRegex())
         }
         return mapErrorMessageToHttpStatus(errorStatusMessage).name
     }
 
-    private fun getHttpStatusFromStatus(message: String): String {
+    protected open fun getHttpStatusFromStatus(message: String): String {
         val status = try {
             ApiErrorStatusEnum.valueOf(message)
         } catch (e: IllegalStateException) {

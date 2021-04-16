@@ -3,25 +3,52 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'maven-publish'
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    task sourceJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier "sources"
+    }
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'by.esas.tools'
+                artifactId = 'domain'
+                version = "$domain_lib_version"
+            }
+            // Creates a Maven publication called “debug”.
+            /*debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = 'com.example.MyLibrary'
+                artifactId = 'final-debug'
+                version = '1.0'
+            }*/
+
+        }
+        repositories {
+            maven {
+                // change to point to your repo, e.g. http://my.org/repo
+                url = layout.buildDirectory.dir('https://github.com/PManenok/BasicTools')
+            }
+        }
+    }
+}
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 30
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
 }
 
 dependencies {
@@ -46,6 +73,3 @@ dependencies {
     //Module
     api project(path: ':logger')
 }
-
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'

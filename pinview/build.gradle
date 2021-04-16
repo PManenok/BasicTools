@@ -2,30 +2,55 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+apply plugin: 'maven-publish'
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 30
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    task sourceJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier "sources"
     }
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'by.esas.tools'
+                artifactId = 'pinview'
+                version = "$pinview_lib_version"
+            }
+            // Creates a Maven publication called “debug”.
+            /*debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = 'com.example.MyLibrary'
+                artifactId = 'final-debug'
+                version = '1.0'
+            }*/
+
+        }
+        repositories {
+            maven {
+                // change to point to your repo, e.g. http://my.org/repo
+                url = layout.buildDirectory.dir('https://github.com/PManenok/BasicTools')
+            }
         }
     }
 }
+android {
+    compileSdkVersion 30
 
+    defaultConfig {
+        minSdkVersion 16
+    }
+}
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$corektx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
 }
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'
