@@ -1,3 +1,3 @@
 # BasicTools
-[![Release](https://jitpack.io/v/User/Repo.svg)]
-(https://jitpack.io/#User/Repo)
+[![Release](https://jitpack.io/v/PManenok/BasicTools.svg)]
+(https://jitpack.io/#PManenok/BasicTools)
