@@ -18,16 +18,35 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
     onItemLongClick: (StickyEntity<Entity>) -> Unit = {},
     onItemLongClickPosition: (Int, StickyEntity<Entity>) -> Unit = { _, _ -> }
 ) : BaseRecyclerAdapter<StickyEntity<Entity>, VM>(itemList, onItemClick, onItemClickPosition, onItemLongClick, onItemLongClickPosition) {
+
     var stickyHeaderDecoration: RecyclerStickyHeaderView<StickyEntity<Entity>, *, VM>? = null
 
     protected open var timeOut: Long = 1000
-
-    //private val adapterScope = CoroutineScope(Dispatchers.Default)
     protected val entityList: MutableList<Entity> = mutableListOf()
     protected val semaphore: Semaphore = Semaphore(1)
 
-    fun getEntitiesCount(): Int {
-        return entityList.size
+    open val listener = object :
+        RecyclerStickyHeaderView.IStickyHeader<StickyEntity<Entity>> {
+        override fun getHeaderPositionForItem(itemPosition: Int): Int {
+            for (position in (0..itemPosition).sortedDescending()) {
+                if (this.isHeader(position)) {
+                    return position
+                }
+            }
+            return 0
+        }
+
+        override fun isHeader(itemPosition: Int): Boolean {
+            return itemList.get(itemPosition).header != null
+        }
+
+        override fun getHeaderForCurrentPosition(position: Int): StickyEntity<Entity> {
+            return itemList.get(position)
+        }
+    }
+
+    override fun addItem(item: StickyEntity<Entity>) {
+        this.addItems(listOf(item))
     }
 
     override fun addItems(items: List<StickyEntity<Entity>>) {
@@ -38,19 +57,32 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
         }
     }
 
-    /*override fun addEntities(items: List<StickyEntity<Type>>) {
+    override fun cleanItems() {
         if (semaphore.tryAcquire(1000, TimeUnit.MILLISECONDS)) {
-            adapterScope.launch {
-                val historyList: MutableList<InvoiceListItem> = analyzeItems(items)
-
-                withContext(Dispatchers.Main) {
-                    itemList.addAll(historyList)
-                    notifyDataSetChanged()
-                    semaphore.release()
-                }
-            }
+            entityList.clear()
+            super.cleanItems()
+            semaphore.release()
         }
-    }*/
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (itemList[position].header != null) {
+            1
+        } else {
+            0
+        }
+    }
+
+    override fun doOnViewAttachedToWindow(holder: BaseViewHolder<StickyEntity<Entity>, VM, *>) {
+        val pos = holder.adapterPosition
+        if (itemList[pos].header == null) {
+            super.onViewAttachedToWindow(holder)
+        }
+    }
+
+    open fun getEntitiesCount(): Int {
+        return entityList.size
+    }
 
     open fun addEntities(items: List<Entity>) {
         if (semaphore.tryAcquire(timeOut, TimeUnit.MILLISECONDS)) {
@@ -59,10 +91,6 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
             notifyDataSetChanged()
             semaphore.release()
         }
-    }
-
-    override fun addItem(item: StickyEntity<Entity>) {
-        this.addItems(listOf(item))
     }
 
     open fun addEntity(item: Entity) {
@@ -88,48 +116,4 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
     }
 
     abstract fun createNew(entity: Entity?): CompareData
-
-    override fun cleanItems() {
-        if (semaphore.tryAcquire(1000, TimeUnit.MILLISECONDS)) {
-            entityList.clear()
-            super.cleanItems()
-            semaphore.release()
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].header != null) {
-            1
-        } else {
-            0
-        }
-    }
-
-
-    override fun onViewAttachedToWindow(holder: BaseViewHolder<StickyEntity<Entity>, VM, *>) {
-        val pos = holder.adapterPosition
-        if (itemList[pos].header == null) {
-            super.onViewAttachedToWindow(holder)
-        }
-    }
-
-    val listener = object :
-        RecyclerStickyHeaderView.IStickyHeader<StickyEntity<Entity>> {
-        override fun getHeaderPositionForItem(itemPosition: Int): Int {
-            for (position in (0..itemPosition).sortedDescending()) {
-                if (this.isHeader(position)) {
-                    return position
-                }
-            }
-            return 0
-        }
-
-        override fun isHeader(itemPosition: Int): Boolean {
-            return itemList.get(itemPosition).header != null
-        }
-
-        override fun getHeaderForCurrentPosition(position: Int): StickyEntity<Entity> {
-            return itemList.get(position)
-        }
-    }
 }

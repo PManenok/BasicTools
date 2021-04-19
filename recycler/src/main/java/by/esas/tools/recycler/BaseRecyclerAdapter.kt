@@ -14,16 +14,25 @@ abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
     val onItemLongClick: (Entity) -> Unit = {},
     val onItemLongClickPosition: (Int, Entity) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<BaseViewHolder<Entity, VM, *>>() {
-    //protected val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-    //val clickItemSubject = PublishSubject.create<ItemClick<Entity>>()
 
+    /*Override methods*/
     override fun getItemCount(): Int = itemList.size
 
     override fun onBindViewHolder(holder: BaseViewHolder<Entity, VM, *>, position: Int) {
-        holder.bind(itemList[position], position)
-        //addToDisposable(holder.viewModel.disposable)
+        doOnBindViewHolder(holder, position)
     }
 
+    override fun onViewAttachedToWindow(holder: BaseViewHolder<Entity, VM, *>) {
+        super.onViewAttachedToWindow(holder)
+        doOnViewAttachedToWindow(holder)
+    }
+
+    override fun onViewDetachedFromWindow(holder: BaseViewHolder<Entity, VM, *>) {
+        super.onViewDetachedFromWindow(holder)
+        doOnViewDetachedFromWindow(holder)
+    }
+
+    /*Public methods*/
     open fun addItems(items: List<Entity>) {
         val startPos = itemList.size
         itemList.addAll(items)
@@ -41,17 +50,12 @@ abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
         notifyDataSetChanged()
     }
 
-    /* protected fun addToDisposable(disposable: Disposable?) {
-         if (disposable != null)
-             compositeDisposable.add(disposable)
-     }
+    /*Protected methods*/
+    protected open fun doOnBindViewHolder(holder: BaseViewHolder<Entity, VM, *>, position: Int) {
+        holder.bind(itemList[position], position)
+    }
 
-     fun clearDisposables() {
-         compositeDisposable.clear()
-     }*/
-
-    override fun onViewAttachedToWindow(holder: BaseViewHolder<Entity, VM, *>) {
-        super.onViewAttachedToWindow(holder)
+    protected open fun doOnViewAttachedToWindow(holder: BaseViewHolder<Entity, VM, *>) {
         holder.itemView.setOnClickListener {
             val pos = holder.adapterPosition
             //clickItemSubject.onNext(ItemClick(itemList[pos], pos))
@@ -68,8 +72,7 @@ abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
         }
     }
 
-    override fun onViewDetachedFromWindow(holder: BaseViewHolder<Entity, VM, *>) {
-        super.onViewDetachedFromWindow(holder)
+    protected open fun doOnViewDetachedFromWindow(holder: BaseViewHolder<Entity, VM, *>) {
         holder.itemView.setOnClickListener(null)
         holder.itemView.setOnLongClickListener(null)
     }

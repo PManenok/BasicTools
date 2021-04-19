@@ -15,13 +15,12 @@ abstract class BaseViewHolder<Entity, VM : BaseItemViewModel<Entity>, Binding : 
         binding.setVariable(this.provideVariable(), viewModel)
     }
 
+    open fun bind(item: Entity, position: Int) {
+        viewModel.bindItem(item, position)
+        binding.executePendingBindings()
+    }
 
     abstract fun provideVariable(): Int /*{
         BR.item
     }*/
-
-    fun bind(item: Entity, position: Int) {
-        viewModel.bindItem(item, position)
-        binding.executePendingBindings()
-    }
 }

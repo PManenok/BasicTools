@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.esas.tools.recycler.BaseItemViewModel
 
 abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseItemViewModel<Entity>>
-    (val binding: B, val viewModel: VM, private val listener: IStickyHeader<Entity>) : RecyclerView.ItemDecoration() {
-    private var mStickyHeaderHeight = 0
+    (val binding: B, val viewModel: VM, protected val listener: IStickyHeader<Entity>) : RecyclerView.ItemDecoration() {
+    protected var mStickyHeaderHeight = 0
 
     abstract fun provideHeaderLayout(): Int
 
@@ -23,18 +23,17 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         binding.setVariable(this.provideVariable(), viewModel)
     }
 
+    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(canvas, parent, state)
+        doOnDrawOver(canvas, parent, state)
+    }
 
-    abstract fun provideVariable(): Int /*{
-        BR.item
-    }*/
-
-    fun bind(item: Entity, position: Int) {
+    open fun bind(item: Entity, position: Int) {
         viewModel.bindItem(item, position)
         binding.executePendingBindings()
     }
 
-    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDrawOver(canvas, parent, state)
+    protected open fun doOnDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val topChild: View = parent.getChildAt(0) ?: return
 
         val topChildPosition = parent.getChildAdapterPosition(topChild)
@@ -54,28 +53,28 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         drawHeader(canvas, binding.root)
     }
 
-    private fun drawHeader(c: Canvas, header: View) {
+    protected open fun drawHeader(c: Canvas, header: View) {
         c.save()
         c.translate(0f, 0f)
         header.draw(c)
         c.restore()
     }
 
-    private fun moveHeader(c: Canvas, currentHeader: View, nextHeader: View) {
+    protected open fun moveHeader(c: Canvas, currentHeader: View, nextHeader: View) {
         c.save()
         c.translate(0f, nextHeader.top.toFloat() - currentHeader.height)
         currentHeader.draw(c)
         c.restore()
     }
 
-    private fun getHeaderViewForItem(headerPosition: Int, parent: RecyclerView): View {
+    protected open fun getHeaderViewForItem(headerPosition: Int, parent: RecyclerView): View {
         val layoutResId: Int = provideHeaderLayout()
         val header = LayoutInflater.from(parent.context).inflate(layoutResId, parent, false)
         bind(listener.getHeaderForCurrentPosition(headerPosition), headerPosition)
         return header
     }
 
-    private fun getChildInContact(parent: RecyclerView, contactPoint: Int, currentHeaderPos: Int): View? {
+    protected open fun getChildInContact(parent: RecyclerView, contactPoint: Int, currentHeaderPos: Int): View? {
         var childInContact: View? = null
         var i: Int = 0
         while (i < parent.childCount) {
@@ -106,7 +105,7 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
     }
 
 
-    private fun fixLayoutSize(parent: ViewGroup, view: View) {
+    protected open fun fixLayoutSize(parent: ViewGroup, view: View) {
         // Specs for parent (RecyclerView)
         val widthSpec: Int = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
         val heightSpec: Int = View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.UNSPECIFIED)
@@ -121,6 +120,10 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         mStickyHeaderHeight = view.measuredHeight
         view.layout(0, 0, view.measuredWidth, mStickyHeaderHeight)
     }
+
+    abstract fun provideVariable(): Int /*{
+        BR.item
+    }*/
 
     interface IStickyHeader<Entity> {
         fun getHeaderPositionForItem(itemPosition: Int): Int
