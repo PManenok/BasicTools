@@ -1,3 +1,3 @@
 # BasicTools
-[![Release](https://jitpack.io/v/PManenok/BasicTools.svg)]
-(https://jitpack.io/#PManenok/BasicTools)
+[![Release](https://jitpack.io/v/esasby/basic-tools.svg)]
+(https://jitpack.io/#esasby/basic-tools)
