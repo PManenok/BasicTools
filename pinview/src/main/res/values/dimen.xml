@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="pin_unfilled_padding">0dp</dimen>
+    <dimen name="pin_filled_padding">0dp</dimen>
 
     <dimen name="pin_icon_margin">12dp</dimen>
 

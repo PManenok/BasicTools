@@ -5,10 +5,14 @@
         <attr name="pinAmount" format="integer" />
         <attr name="pinFilledIcon" format="integer" />
         <attr name="pinUnfilledIcon" format="integer" />
+        <attr name="pinFilledTint" format="color" />
+        <attr name="pinUnfilledTint" format="color" />
         <attr name="pinInAnimationDuration" format="integer" />
         <attr name="pinOutAnimationDuration" format="integer" />
+        <attr name="pinFilledPadding" format="dimension" />
         <attr name="pinUnfilledPadding" format="dimension" />
         <attr name="pinBetweenMargin" format="dimension" />
+        <attr name="pinIconSize" format="dimension" />
         <attr name="pinFilledAmount" format="integer" />
     </declare-styleable>
 

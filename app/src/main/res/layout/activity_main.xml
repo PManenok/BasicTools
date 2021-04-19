@@ -222,7 +222,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:pinAmount="6"
-                app:pinFilledAmount="3" />
+                app:pinBetweenMargin="8dp"
+                app:pinFilledAmount="3"
+                app:pinFilledPadding="0dp"
+                app:pinFilledTint="@color/colorPrimaryDark"
+                app:pinIconSize="28dp"
+                app:pinUnfilledPadding="4dp" />
             <!--    <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/a_main_text2"
                     android:layout_width="match_parent"

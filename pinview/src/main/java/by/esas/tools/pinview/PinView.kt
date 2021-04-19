@@ -13,23 +13,31 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 
 
-class PinView : LinearLayout {
+open class PinView : LinearLayout {
     val TAG: String = PinView::class.java.simpleName
-    private var lastUnFilledIndex: Int = 0
-    private val listImages: ArrayList<AppCompatImageView> = arrayListOf()
-    private var animInDuration: Long = 200L
-    private var animOutDuration: Long = 200L
-    private val animInRes: Int = android.R.anim.fade_in
-    private val animOutRes: Int = android.R.anim.fade_out
+    protected var lastUnFilledIndex: Int = 0
+    protected val listImages: ArrayList<AppCompatImageView> = arrayListOf()
+    protected open var animInDurationMillis: Long = 200L
+    protected open var animOutDurationMillis: Long = 200L
+    protected open val animInRes: Int = android.R.anim.fade_in
+    protected open val animOutRes: Int = android.R.anim.fade_out
 
-    private var pinsAmount: Int = 0
-    private var filledRes: Int = R.drawable.ic_pin_filled_24dp
-    private var unfilledRes: Int = R.drawable.ic_pin_unfilled_24dp
+    protected open var pinsAmount: Int = 0
+    protected open var filledRes: Int = R.drawable.ic_pin_filled_24dp
+    protected open var unfilledRes: Int = R.drawable.ic_pin_unfilled_24dp
 
-    var unfilledPadding: Int = context.resources.getDimensionPixelSize(R.dimen.pin_unfilled_padding)
-    var betweenMargin: Int = context.resources.getDimensionPixelSize(R.dimen.pin_icon_margin)
+    protected open var filledTint: Int = R.color.colorPrimary
+    protected open var unfilledTint: Int = R.color.colorPrimary
+
+    protected open var filledPadding: Int = context.resources.getDimensionPixelSize(R.dimen.pin_filled_padding)
+    protected open var unfilledPadding: Int = context.resources.getDimensionPixelSize(R.dimen.pin_unfilled_padding)
+    protected open var betweenMargin: Int = context.resources.getDimensionPixelSize(R.dimen.pin_icon_margin)
+
+    protected open var iconSize: Int = ViewGroup.LayoutParams.WRAP_CONTENT
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
@@ -47,22 +55,28 @@ class PinView : LinearLayout {
     }
 
     /*  Initialize attributes from XML file  */
-    private fun initAttrs(attrs: AttributeSet?) {
+    protected open fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PinView)
         // Pins Amount
         pinsAmount = typedArray.getInt(R.styleable.PinView_pinAmount, 0)
 
         val filledAmount = typedArray.getInt(R.styleable.PinView_pinFilledAmount, 0)
 
-        animInDuration = typedArray.getInt(R.styleable.PinView_pinInAnimationDuration, 200).toLong()
-        animOutDuration = typedArray.getInt(R.styleable.PinView_pinOutAnimationDuration, 200).toLong()
+        animInDurationMillis = typedArray.getInt(R.styleable.PinView_pinInAnimationDuration, 200).toLong()
+        animOutDurationMillis = typedArray.getInt(R.styleable.PinView_pinOutAnimationDuration, 200).toLong()
 
         filledRes = typedArray.getResourceId(R.styleable.PinView_pinFilledIcon, R.drawable.ic_pin_filled_24dp)
 
         unfilledRes = typedArray.getResourceId(R.styleable.PinView_pinUnfilledIcon, R.drawable.ic_pin_unfilled_24dp)
 
+        filledTint = typedArray.getResourceId(R.styleable.PinView_pinFilledTint, filledTint)
+        unfilledTint = typedArray.getResourceId(R.styleable.PinView_pinUnfilledTint, unfilledTint)
+
+        filledPadding = typedArray.getDimensionPixelSize(R.styleable.PinView_pinFilledPadding, filledPadding)
         unfilledPadding = typedArray.getDimensionPixelSize(R.styleable.PinView_pinUnfilledPadding, unfilledPadding)
         betweenMargin = typedArray.getDimensionPixelSize(R.styleable.PinView_pinBetweenMargin, betweenMargin)
+
+        iconSize = typedArray.getDimensionPixelSize(R.styleable.PinView_pinIconSize, iconSize)
 
         typedArray.recycle()
 
@@ -70,19 +84,20 @@ class PinView : LinearLayout {
         setPinWithoutAnimation(filledAmount)
     }
 
-    fun setPinAmount(pinsAmount: Int, filledAmount: Int = 0) {
+    open fun setPinAmount(pinsAmount: Int, filledAmount: Int = 0) {
         this.pinsAmount = pinsAmount
         addPins()
         setPinWithoutAnimation(filledAmount)
     }
 
-    private fun addPins() {
+    protected open fun addPins() {
         for (ind in 0 until pinsAmount) {
             val pin = AppCompatImageView(context)
             pin.setImageResource(unfilledRes)
-            val params = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            ImageViewCompat.setImageTintList(pin, ContextCompat.getColorStateList(context, unfilledTint))
+            val params = LayoutParams(iconSize, iconSize)
             pin.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
-            val height = pin.measuredHeight
+            val height = if (iconSize > 0) iconSize else pin.measuredHeight
             params.setMargins(betweenMargin, 0, betweenMargin, 0)
             params.height = height
             pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
@@ -91,7 +106,7 @@ class PinView : LinearLayout {
         }
     }
 
-    private fun animate(pin: AppCompatImageView, imageRes: Int, dimensionValue: Int = 0) {
+    protected open fun animate(pin: AppCompatImageView, imageRes: Int, dimensionValue: Int, tint: Int) {
         val animationOut = AnimationUtils.loadAnimation(context, animOutRes)
         animationOut.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
@@ -99,6 +114,7 @@ class PinView : LinearLayout {
             override fun onAnimationEnd(animation: Animation) {
                 pin.setImageResource(imageRes)
                 val padding: Int = dimensionValue
+                ImageViewCompat.setImageTintList(pin, ContextCompat.getColorStateList(context, tint))
                 pin.setPadding(0, padding, 0, padding)
                 val animationIn = AnimationUtils.loadAnimation(context, animInRes)
                 animationIn.setAnimationListener(object : Animation.AnimationListener {
@@ -106,15 +122,15 @@ class PinView : LinearLayout {
                     override fun onAnimationRepeat(animation: Animation) {}
                     override fun onAnimationEnd(animation: Animation) {}
                 })
-                animationIn.duration = animInDuration
+                animationIn.duration = animInDurationMillis
                 pin.startAnimation(animationIn)
             }
         })
-        animationOut.duration = animOutDuration
+        animationOut.duration = animOutDurationMillis
         pin.startAnimation(animationOut)
     }
 
-    fun setPin(pinLength: Int) {
+    open fun setPin(pinLength: Int) {
         while (lastUnFilledIndex < pinLength) {
             fillPin()
         }
@@ -123,56 +139,58 @@ class PinView : LinearLayout {
         }
     }
 
-    fun setPinWithoutAnimation(pinLength: Int) {
+    open fun setPinWithoutAnimation(pinLength: Int) {
         while (lastUnFilledIndex < pinLength) {
             val pin = listImages[lastUnFilledIndex]
             pin.setImageResource(filledRes)
-            pin.setPadding(0, 0, 0, 0)
+            ImageViewCompat.setImageTintList(pin, ContextCompat.getColorStateList(context, filledTint))
+            pin.setPadding(0, filledPadding, 0, filledPadding)
             lastUnFilledIndex++
         }
         while (lastUnFilledIndex > pinLength) {
             lastUnFilledIndex--
             val pin = listImages[lastUnFilledIndex]
             pin.setImageResource(unfilledRes)
+            ImageViewCompat.setImageTintList(pin, ContextCompat.getColorStateList(context, unfilledTint))
             pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
         }
     }
 
-    fun setAnimInDuration(value: Long) {
-        animInDuration = value
+    open fun setAnimInDuration(value: Long) {
+        animInDurationMillis = value
     }
 
-    fun setAnimOutDuration(value: Long) {
-        animOutDuration = value
+    open fun setAnimOutDuration(value: Long) {
+        animOutDurationMillis = value
     }
 
-    fun setAnimInDuration(value: Int) {
-        animInDuration = value.toLong()
+    open fun setAnimInDuration(value: Int) {
+        animInDurationMillis = value.toLong()
     }
 
-    fun setAnimOutDuration(value: Int) {
-        animOutDuration = value.toLong()
+    open fun setAnimOutDuration(value: Int) {
+        animOutDurationMillis = value.toLong()
     }
 
-    fun fillPin() {
-        animate(listImages[lastUnFilledIndex], filledRes)
+    open fun fillPin() {
+        animate(listImages[lastUnFilledIndex], filledRes, filledPadding, filledTint)
         lastUnFilledIndex++
     }
 
-    fun unFillPin() {
+    open fun unFillPin() {
         lastUnFilledIndex--
-        animate(listImages[lastUnFilledIndex], unfilledRes, unfilledPadding)
+        animate(listImages[lastUnFilledIndex], unfilledRes, unfilledPadding, unfilledTint)
     }
 
-    fun clearPins() {
+    open fun clearPins() {
         if (lastUnFilledIndex > 0) {
             while (lastUnFilledIndex > 0) {
                 lastUnFilledIndex--
-                animate(listImages[lastUnFilledIndex], unfilledRes)
+                animate(listImages[lastUnFilledIndex], unfilledRes, unfilledPadding, unfilledTint)
             }
         } else {
             listImages.forEach { image ->
-                animate(image, unfilledRes)
+                animate(image, unfilledRes, unfilledPadding, unfilledTint)
             }
         }
     }
