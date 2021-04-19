@@ -25,18 +25,14 @@ object TimeParser {
 
     const val DATE_IN_UNEXPECTED_FORMAT = "DATE_IN_UNEXPECTED_FORMAT"
 
-    private val patterns: MutableMap<String, String> = mutableMapOf(
+    fun getDefaultPatterns(): MutableMap<String, String> = mutableMapOf(
         serverRegex to serverDatePattern,
         serverShortRegex to serverShortDatePattern,
         localDateRegex to simpleDatePattern,
         localDateTimeRegex to simpleDateTimePattern
     )
 
-    fun addPattern(pattern: String, patternRegex: String) {
-        patterns[patternRegex] = pattern
-    }
-
-    private fun getPattern(parsable: String): String {
+    private fun getPattern(parsable: String, patterns: Map<String, String>): String {
         val key: String = patterns.keys.find { regString ->
             parsable.contains(regString.toRegex())
         } ?: throw Exception(DATE_IN_UNEXPECTED_FORMAT)
@@ -44,10 +40,10 @@ object TimeParser {
         return patterns.getValue(key)
     }
 
-    fun getDateFromUTC(dateInUtc: String?, utcPattern: String? = null): Date? {
+    fun getDateFromUTC(dateInUtc: String?, utcPattern: String? = null, patterns: Map<String, String> = getDefaultPatterns()): Date? {
         return dateInUtc?.let { parsable ->
             if (parsable.isNotBlank()) {
-                val pattern: String = utcPattern ?: getPattern(parsable)
+                val pattern: String = utcPattern ?: getPattern(parsable, patterns)
                 if (pattern.isBlank()) return@let null
                 else {
                     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
@@ -71,10 +67,10 @@ object TimeParser {
         }
     }
 
-    fun getDateFromLocal(localDate: String?, localPattern: String? = null): Date? {
+    fun getDateFromLocal(localDate: String?, localPattern: String? = null, patterns: Map<String, String> = getDefaultPatterns()): Date? {
         return localDate?.let { parsable ->
             if (parsable.isNotBlank()) {
-                val pattern: String = localPattern ?: getPattern(parsable)
+                val pattern: String = localPattern ?: getPattern(parsable, patterns)
                 if (pattern.isBlank()) return@let null
                 else {
                     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
@@ -102,15 +98,14 @@ object TimeParser {
         return cal.time
     }
 
-    fun Date.getLocal(outPattern: String = simpleDatePattern): String {
-        val sdf = SimpleDateFormat(outPattern, Locale.getDefault())
-        //sdf.dateFormatSymbols
+    fun Date.getLocal(outPattern: String = simpleDatePattern, locale: Locale = Locale.getDefault()): String {
+        val sdf = SimpleDateFormat(outPattern, locale)
         sdf.timeZone = TimeZone.getDefault()
         return sdf.format(this)
     }
 
-    fun Date.getUTC(outPattern: String = serverShortDatePattern): String {
-        val sdf = SimpleDateFormat(outPattern, Locale.getDefault())
+    fun Date.getUTC(outPattern: String = serverShortDatePattern, locale: Locale = Locale.getDefault()): String {
+        val sdf = SimpleDateFormat(outPattern, locale)
         sdf.timeZone = TimeZone.getTimeZone("UTC")
         val date = sdf.format(this)
         return date.replaceFirst(" ", "T")
