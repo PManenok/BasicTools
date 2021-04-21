@@ -130,7 +130,7 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         fun onPasswordForgot()
     }
 
-    override fun provideVariableInd(): Int {
+    override fun provideVariableId(): Int {
         return BR.handler
     }
 }

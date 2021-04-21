@@ -11,7 +11,6 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 
-
 /*############ InputFieldView ############*/
 
 @BindingAdapter("inputEndIconMode")
@@ -52,17 +51,41 @@ fun getText(view: InputFieldView): String {
 
 @BindingAdapter("inputIsChecked")
 fun setChecked(view: InputFieldView, isChecked: Boolean) {
-    return view.isStartChecked(isChecked)
+    return view.isChecked(isChecked)
 }
 
 @InverseBindingAdapter(attribute = "inputIsChecked")
 fun getChecked(view: InputFieldView): Boolean {
-    return view.isStartChecked()
+    return view.isChecked()
 }
 
 @BindingAdapter("inputIsCheckedAttrChanged")
 fun setCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
     view.startCheckedListener = object : InputFieldView.IconCheckedListener {
+        override fun onCheckChanged(isChanged: Boolean) {
+            attrChange.onChange()
+        }
+    }
+    view.endCheckedListener = object : InputFieldView.IconCheckedListener {
+        override fun onCheckChanged(isChanged: Boolean) {
+            attrChange.onChange()
+        }
+    }
+}
+
+@BindingAdapter("inputIsPasswordChecked")
+fun setPasswordChecked(view: InputFieldView, isChecked: Boolean) {
+    return view.isPasswordToggleChecked(isChecked)
+}
+
+@InverseBindingAdapter(attribute = "inputIsPasswordChecked")
+fun getPasswordChecked(view: InputFieldView): Boolean {
+    return view.isPasswordToggleChecked()
+}
+
+@BindingAdapter("inputIsPasswordCheckedAttrChanged")
+fun setPasswordCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
+    view.passwordCheckedListener = object : InputFieldView.IconCheckedListener {
         override fun onCheckChanged(isChanged: Boolean) {
             attrChange.onChange()
         }
@@ -85,32 +108,3 @@ fun setListeners(view: InputFieldView, attrChange: InverseBindingListener) {
 }
 
 /*############ InputFieldView ############*/
-
-
-/*############ SpinnerField ###########*/
-
-/*@BindingAdapter("spinnerEditable")
-fun setEditable(view: SpinnerFieldView, editable: Boolean) {
-    view.setEditable(editable)
-}*/
-
-@InverseBindingAdapter(attribute = "android:text")
-fun getText(view: SpinnerFieldView): String {
-    return view.getText()
-}
-
-@BindingAdapter("android:textAttrChanged")
-fun setListeners(view: SpinnerFieldView, attrChange: InverseBindingListener) {
-    view.inputText.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            attrChange.onChange()
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-    })
-}
-/*############ SpinnerField ###########*/

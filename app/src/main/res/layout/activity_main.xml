@@ -24,16 +24,16 @@
             android:layout_margin="15dp"
             android:orientation="vertical">
 
-            <by.esas.tools.inputfieldview.SpinnerFieldView
-                android:id="@+id/a_main_service_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Service"
-                android:text="@={viewModel.serviceName}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />
+            <!--  <by.esas.tools.inputfieldview.SpinnerFieldView
+                  android:id="@+id/a_main_service_spinner"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="Service"
+                  android:text="@={viewModel.serviceName}"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/f_main_phone_container"
@@ -68,7 +68,7 @@
                     android:text="BY +375"
                     app:inputBoxBgColor="@android:color/transparent"
                     app:inputEditable="false"
-                    app:inputEndDrawable="@drawable/ic_arrow_down"
+                    app:inputEndDrawable="@drawable/ic_input_field_arrow_down_default_24"
                     app:inputEndDrawableTint="@android:color/black"
                     app:inputEndIconMode="custom"
                     app:inputIsWrap="true"
@@ -159,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="@{viewModel.showAdditional}"
-                    app:srcCompat="@drawable/ic_arrow_down"
+                    app:srcCompat="@drawable/ic_input_field_arrow_down_default_24"
                     tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
@@ -174,12 +174,16 @@
                 app:inputEditable="true"
                 app:inputEndIconMode="password_toggle"
                 app:inputHideErrorIcon="true"
+                app:inputIconsPadding="8dp"
+                app:inputIconsSize="32dp"
+                app:inputIsChecked="@{viewModel.showAdditional}"
+                app:inputIsPasswordChecked="@={viewModel.showAdditional}"
                 app:inputLabel="Label"
                 app:inputLabelExtraTopMargin="4dp"
                 app:inputLabelType="on_top_no_start_padding"
                 app:inputPaddingBottom="8dp"
                 app:inputPaddingTop="8dp"
-                app:inputStartDrawable="@drawable/ic_baseline_build_24"
+                app:inputStartIconMode="checkable"
                 tools:inputLabel="qwerty (ex. 34567)"
                 tools:text="1234" />
 
@@ -192,7 +196,8 @@
                 app:inputEditTextStyle="@style/EditTextStyle"
                 app:inputEditViewMinHeight="32dp"
                 app:inputEditable="true"
-                app:inputEndIconMode="none"
+                app:inputEndDrawableTint="@null"
+                app:inputEndIconMode="clear_text"
                 app:inputHideErrorIcon="true"
                 app:inputLabel="Label without error icon"
                 app:inputLabelExtraTopMargin="4dp"

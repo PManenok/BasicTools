@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="InputFieldView">
-        <!--<attr name="inputLabelBgColor" format="color" />-->
+        <!--Common-->
+        <attr name="inputPaddingTop" format="dimension" />
+        <attr name="inputPaddingBottom" format="dimension" />
+        <attr name="inputShowBottomContainer" format="boolean" />
+        <attr name="inputIsWrap" format="boolean" />
+        <attr name="inputClickViewEnabled" format="boolean" />
+        <attr name="inputIsChecked" format="boolean" />
+        <attr name="inputIsPasswordChecked" format="boolean" />
+
+        <!--Label-->
         <attr name="inputLabel" format="string" />
-        <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelType">
             <enum name="on_top" value="0" />
             <enum name="on_line" value="1" />
@@ -12,16 +20,12 @@
             <enum name="on_line_multi" value="4" />
             <enum name="on_top_no_start_padding" value="5" />
         </attr>
+        <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
 
-        <attr name="inputInactiveStrokeColor" format="color" />
-        <attr name="inputActiveStrokeColor" format="color" />
-        <attr name="inputErrorColor" format="color" />
-        <attr name="inputBoxBgColor" format="color" />
-        <attr name="inputStrokeRadius" format="dimension" />
-        <attr name="inputStrokeWidth" format="dimension" />
-
+        <!--Input Text-->
+        <attr name="inputEditTextStyle" format="reference" />
         <attr name="android:hint" format="string" />
         <attr name="android:text" format="string" />
         <attr name="android:inputType" format="integer" />
@@ -29,14 +33,18 @@
         <attr name="android:maxLines" format="integer" />
         <attr name="android:textDirection" format="integer" />
         <attr name="inputEditViewMinHeight" format="dimension" />
-        <attr name="inputPaddingTop" format="dimension" />
-        <attr name="inputPaddingBottom" format="dimension" />
-        <attr name="inputEditTextStyle" format="reference" />
-        <!--<attr name="inputTextCursor" format="reference" />-->
 
+        <!--Prefix-->
         <attr name="inputPrefix" format="string" />
         <attr name="inputPrefixTextStyle" format="reference" />
 
+        <!--Icons-->
+        <attr name="inputPasswordToggle" format="reference" />
+        <attr name="inputCheckToggle" format="reference" />
+        <attr name="inputIconsSize" format="dimension" />
+        <attr name="inputIconsPadding" format="dimension" />
+
+        <!--Start Icon-->
         <attr name="inputStartDrawable" format="reference" />
         <attr name="inputStartDrawableTint" format="color" />
         <attr name="inputStartIconMode">
@@ -52,6 +60,7 @@
             <enum name="progress" value="3" />
         </attr>
 
+        <!--End Icon-->
         <attr name="inputEndDrawable" format="reference" />
         <attr name="inputEndDrawableTint" format="color" />
         <attr name="inputEndIconMode">
@@ -67,28 +76,24 @@
             <enum name="checkable" value="3" />
         </attr>
 
-        <attr name="inputPasswordToggle" format="reference" />
-        <attr name="inputCheckToggle" format="reference" />
-
+        <!--Help-->
         <attr name="inputHelp" format="string" />
+        <attr name="inputHelpColor" format="color" />
         <attr name="inputHelpTextStyle" format="reference" />
-        <attr name="inputErrorIcon" format="reference" />
+
+        <!--Error-->
+        <attr name="inputError" format="string" />
+        <attr name="inputErrorColor" format="color" />
         <attr name="inputErrorTextStyle" format="reference" />
-
-        <attr name="inputShowBottomContainer" format="boolean"/>
-        <attr name="inputIsWrap" format="boolean" />
+        <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
-    </declare-styleable>
 
-    <declare-styleable name="SpinnerFieldView">
-        <attr name="android:hint" format="string" />
-        <attr name="spinnerStartDrawable" format="reference" />
-        <attr name="spinnerEnabled" default="false" format="boolean" />
-        <attr name="spinnerStartDrawableTint" format="color" />
-        <attr name="spinnerEndDrawable" format="reference" />
-        <attr name="spinnerEndDrawableTint" format="color" />
-        <attr name="spinnerDropDownLayout" format="integer" />
-        <attr name="spinnerHideLabel" default="false" format="boolean" />
+        <!--Box-->
+        <attr name="inputInactiveStrokeColor" format="color" />
+        <attr name="inputActiveStrokeColor" format="color" />
+        <attr name="inputBoxBgColor" format="color" />
+        <attr name="inputStrokeRadius" format="dimension" />
+        <attr name="inputStrokeWidth" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="BoxView">
