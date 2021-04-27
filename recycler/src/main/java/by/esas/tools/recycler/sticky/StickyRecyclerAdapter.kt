@@ -76,7 +76,7 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
     override fun doOnViewAttachedToWindow(holder: BaseViewHolder<StickyEntity<Entity>, VM, *>) {
         val pos = holder.adapterPosition
         if (itemList[pos].header == null) {
-            super.onViewAttachedToWindow(holder)
+            super.doOnViewAttachedToWindow(holder)
         }
     }
 

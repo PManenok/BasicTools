@@ -16,7 +16,6 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
 import by.esas.tools.logger.BaseLogger
 import by.esas.tools.logger.ILogger
@@ -24,7 +23,6 @@ import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
-
 
 abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActivity<E> {
     open val TAG: String = "BaseActivity"
@@ -36,10 +34,6 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(doWithAttachBaseContext(base))
-    }
-
-    override fun recreateActivity() {
-        recreate()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,11 +49,6 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
         logger.logInfo("onStart")
     }
 
-    override fun onStop() {
-        super.onStop()
-        logger.logInfo("onStop")
-    }
-
     override fun onResume() {
         super.onResume()
         logger.logInfo("onResume")
@@ -70,23 +59,9 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
         logger.logInfo("onPause")
     }
 
-    open fun setFullScreen() {
-        //WindowCompat.setDecorFitsSystemWindows(window, false)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.apply {
-                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-                } else {
-                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                }
-                statusBarColor = Color.TRANSPARENT
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        logger.logInfo("onStop")
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -94,13 +69,6 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
         logger.logInfo("onWindowFocusChanged $hasFocus")
         if (hasFocus)
             hideSystemUI()
-    }
-
-    protected open fun hideSystemUI() {
-        logger.logInfo("hideSystemUI")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            hideSystemUIR(this)
-        } else hideSystemUI(this)
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -121,13 +89,37 @@ abstract class BaseActivity<E : Enum<E>> : DaggerAppCompatActivity(), IBaseActiv
         return super.dispatchTouchEvent(event)
     }
 
-    // Shows the system bars by removing all the flags
-    // except for the ones that make the content appear under the system bars.
-    private fun showSystemUI() {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    /**
+     * @see IBaseActivity
+     * */
+    override fun recreateActivity() {
+        recreate()
     }
 
+    protected open fun setFullScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.apply {
+                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    decorView.systemUiVisibility =
+                        (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                } else {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                }
+                statusBarColor = Color.TRANSPARENT
+            }
+        }
+    }
+
+    protected open fun hideSystemUI() {
+        logger.logInfo("hideSystemUI")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            hideSystemUIR(this)
+        } else hideSystemUI(this)
+    }
 }
 
