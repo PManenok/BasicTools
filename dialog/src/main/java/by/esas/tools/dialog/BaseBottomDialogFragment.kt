@@ -49,7 +49,8 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
      * depends on its interface realisation
      * By default this logger is [BaseLogger]
      * */
-    protected open var logger: ILogger<EnumT, *> = BaseLogger(BaseBottomDialogFragment::class.java.simpleName, this.context)
+    protected open var logger: ILogger<EnumT, *> =
+        BaseLogger(BaseBottomDialogFragment::class.java.simpleName, this.context)
 
     /**
      * Manager that provides enabling and disabling views functionality
@@ -80,20 +81,20 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
      * Provides list of validation checks that can be used for input check
      * @see by.esas.tools.checker.Checking
      * @see by.esas.tools.checker.Checker
-     * */
+     */
     abstract fun provideValidationList(): List<Checking>
 
     /**
      * Provides progress bar view which should be showed or hidden
      * @see showProgress
      * @see hideProgress
-     * */
+     **/
     abstract fun provideProgressBar(): View?
 
     /**
      * Override parents onCreate method
      * Explicitly sets logger tag and invoke [styleSettings] method
-     * */
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         logger.setTag(TAG)
@@ -104,7 +105,7 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
     /**
      * Override parents onCreateDialog method
      * Its purpose is to save behavior property to be able to use it from this dialog fragment methods
-     * */
+     **/
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
         if (dialog is BottomSheetDialog) {
@@ -206,7 +207,7 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
      * Also, this method shows progress, so it become visible to user
      * This method can be used for operations which require input fields to be static and/or requires more time for execution.
      * Should be used in pair with [enableControls] method, otherwise all views would be blocked until enableControls invocation
-     * */
+     */
     protected open fun disableControls() {
         showProgress()
         provideSwitchableList().forEach { view ->

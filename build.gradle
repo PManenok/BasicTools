@@ -3,20 +3,20 @@
 buildscript {
     ext {
         //Lib versions
-        logger_lib_version = '2.0.0'// independent (6)
-        util_lib_version = '2.0.0' // independent (3)
-        timeparser_lib_version = '2.0.0'// independent
-        recycler_lib_version = '2.0.0'// independent
-        pinview_lib_version = '2.0.0'// independent
-        inputfieldview_lib_version = '2.0.0'// independent
-        checker_lib_version = '2.0.0' // independent (3)
+        logger_lib_version = '2.2.0'// independent (6)
+        util_lib_version = '2.2.0' // independent (3)
+        timeparser_lib_version = '2.2.0'// independent
+        recycler_lib_version = '2.2.0'// independent
+        pinview_lib_version = '2.2.0'// independent
+        inputfieldview_lib_version = '2.2.0'// independent
+        checker_lib_version = '2.2.0' // independent (3)
 
-        domain_lib_version = '2.0.1' // logger (2)
-        dialog_lib_version = '2.0.0' // logger, util, checker (2)
-        biometric_lib_version = '2.0.0' //logger
-        baseui_lib_version = '2.0.1' //dialog(logger, util, checker), domain(logger)
-        basedaggerui_lib_version = '2.0.1' //dialog(logger, util, checker), domain(logger)
-        accesscontainer_lib_version = '2.0.0' //logger
+        domain_lib_version = '2.2.0' // logger (2)
+        dialog_lib_version = '2.2.0' // logger, util, checker (2)
+        biometric_lib_version = '2.2.0' //logger
+        baseui_lib_version = '2.2.0' //dialog(logger, util, checker), domain(logger)
+        basedaggerui_lib_version = '2.2.0' //dialog(logger, util, checker), domain(logger)
+        accesscontainer_lib_version = '2.2.0' //logger
 
         // dependencies versions
         lifecycle_version = '2.2.0'
