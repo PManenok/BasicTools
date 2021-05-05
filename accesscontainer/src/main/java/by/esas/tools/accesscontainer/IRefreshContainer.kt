@@ -14,6 +14,7 @@ import by.esas.tools.logger.BaseErrorModel
 interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
     fun setToken(token: Token)
     fun getToken(): String
+    fun getRefresh(): String
 
     fun setCancellationCallback(callback: IContainerCancellationCallback)
     fun setActivity(activity: FragmentActivity)

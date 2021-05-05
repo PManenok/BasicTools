@@ -106,6 +106,10 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         refreshToken = token.refreshToken ?: ""
     }
 
+    override fun getRefresh(): String {
+        return refreshToken
+    }
+
     /**
      * Запуск запроса на восстановление маркера доступа с последующим обновлением
      * данных контейнера и выполнением переданного блока кода
@@ -237,7 +241,7 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                 }
             }
             onError { error ->
-                logger.log("refreshAccess onError")
+                logger.log("refreshAccess onError error = $error")
                 if (checkRefreshError) {
                     checkRefreshError(error)
                 } else {
@@ -379,7 +383,7 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
                     if (token.refreshToken != null) {
                         logger.log("authenticate onComplete isBiometricAvailable $isBiometricAvailable")
 
-                        if (recreate || types.isEmpty()) {
+                        if (recreate) {
                             if (isBiometricAvailable) {
                                 showEncryptBiometricDialog(token)
                             } else {
