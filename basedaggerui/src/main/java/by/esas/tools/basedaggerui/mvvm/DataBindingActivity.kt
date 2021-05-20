@@ -6,7 +6,6 @@
 package by.esas.tools.basedaggerui.mvvm
 
 import android.os.Bundle
-import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
@@ -22,17 +21,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
     BaseActivity<E>() {
+    companion object {
+        val TAG: String = DataBindingActivity::class.java.simpleName
+    }
 
     protected lateinit var binding: TBinding
-
     protected lateinit var viewModel: TViewModel
 
     abstract fun provideViewModel(): TViewModel
+
     abstract fun provideErrorHandler(): ErrorHandler<E, M>
+
     abstract fun provideLayoutId(): Int
-    open fun provideProgressBar(): ProgressBar? {
-        return null
-    }
 
     abstract fun provideVariableInd(): Int
 
@@ -47,7 +47,6 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel = provideViewModel()
         viewModel.errorData.observe(this, Observer { data ->
             handleError(data)

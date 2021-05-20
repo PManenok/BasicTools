@@ -15,10 +15,6 @@ interface ILogger<E : Enum<E>, M : IErrorModel<E>> {
 
     fun showMessage(msgRes: Int, length: Int = Toast.LENGTH_SHORT)
 
-    fun logLocally(msg: String)
-
-    fun log(msg: String)
-
     fun log(tag: String, msg: String, level: Int = Log.DEBUG)
 
     fun logError(throwable: Throwable)
@@ -28,6 +24,8 @@ interface ILogger<E : Enum<E>, M : IErrorModel<E>> {
     fun logError(msg: String)
 
     fun logInfo(msg: String)
+
+    fun logDebug(msg: String)
 
     fun sendLogs(msg: String = "Logs")
 }
