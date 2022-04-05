@@ -62,7 +62,7 @@ open class InputFieldView : ConstraintLayout {
         const val LABEL_TYPE_ON_TOP_NO_START: Int = 5
     }
 
-    /*################ Views ################*/
+    /*region ################ Views ################*/
     var inputText: EditText? = null
     var prefixTextView: TextView? = null
     var errorTextView: TextView? = null
@@ -81,9 +81,9 @@ open class InputFieldView : ConstraintLayout {
     protected var startContainer: FrameLayout? = null
     protected var progressBar: ProgressBar? = null
     protected var endContainer: FrameLayout? = null
-    /*################ Views END ################*/
+    /*endregion ################ Views END ################*/
 
-    /*################ Parameters ################*/
+    /*region ################ Parameters ################*/
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
@@ -120,6 +120,7 @@ open class InputFieldView : ConstraintLayout {
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
     protected open var isWrap: Boolean = false
     protected open var hideErrorIcon: Boolean = false
+    protected open var hideErrorText: Boolean = true
     protected open var checkBoxToggle: Int = R.drawable.selector_input_filed_check_box_toggle
     protected open var editTextMinHeight: Int =
         context.resources.getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
@@ -131,6 +132,9 @@ open class InputFieldView : ConstraintLayout {
     protected var labelMaxLines: Int = Integer.MAX_VALUE
     protected var labelExtraTopMargin: Int = 0
     protected var currentLabelType: Int = LABEL_TYPE_ON_LINE
+    protected val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+        return@OnPreDrawListener labelOnPreDraw()
+    }
 
     //StartIcon
     var startIconClickListener: IconClickListener? = null
@@ -158,13 +162,9 @@ open class InputFieldView : ConstraintLayout {
     protected var showBottomContainer: Boolean = false
     private var hasErrorText: Boolean = false
     private var hasHelpText: Boolean = false
-    /*################ Parameters END ################*/
+    /*endregion ################ Parameters END ################*/
 
-    protected val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
-        return@OnPreDrawListener labelOnPreDraw()
-    }
-
-    /*############################ Icons Click Listeners ################################*/
+    /*region ############################ Icons Click Listeners ################################*/
     protected open val clearTextClickListener: IconClickListener = object : IconClickListener {
         override fun onIconClick() {
             inputText?.setText("")
@@ -192,13 +192,13 @@ open class InputFieldView : ConstraintLayout {
             }
             passwordCheckedListener?.onCheckChanged(isChecked)
         }
-    /*############################ Icons Click Listeners End ################################*/
 
-    /*############################ TextListener ################################*/
-    protected var textListener: TextListener? = null
+    /*endregion ############################ Icons Click Listeners End ################################*/
+
+    /*region ############################ TextWatcher ################################*/
     protected open val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            textListener?.onTextChanged(s.toString())
+            if (hideErrorText) setError(null)
             if (endIconMode == END_ICON_CLEAR_TEXT) {
                 endIconView?.visibility = if (s?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
             } else if (endIconMode == END_ICON_ERROR && previousEndIconMode == END_ICON_CLEAR_TEXT) {
@@ -216,10 +216,9 @@ open class InputFieldView : ConstraintLayout {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
     }
-    /*############################ TextListener End ################################*/
+    /*endregion ############################ TextWatcher End ################################*/
 
-
-    /*############################ Constructors ################################*/
+    /*region ############################ Constructors ################################*/
     constructor(context: Context) : super(context) {
         initialSetting()
     }
@@ -242,105 +241,9 @@ open class InputFieldView : ConstraintLayout {
         initAttrs(attrs)
     }
 
-    /*############################ Constructors End ################################*/
+    /*endregion ############################ Constructors End ################################*/
 
-    open fun isChecked(value: Boolean) {
-        if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked = value
-        if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isChecked(): Boolean {
-        return when {
-            startIconMode == START_ICON_CHECKABLE -> startCheckBox?.isChecked ?: false
-            endIconMode == END_ICON_CHECKABLE -> endCheckBox?.isChecked ?: false
-            else -> false
-        }
-    }
-
-    open fun isPasswordToggleChecked(value: Boolean) {
-        if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isPasswordToggleChecked(): Boolean {
-        return if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false
-        else false
-    }
-
-    open fun setInputClickViewEnabled(value: Boolean) {
-        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
-    }
-
-    open fun getInputClickViewEnabled(): Boolean {
-        return inputClickView?.visibility == View.VISIBLE
-    }
-
-    open fun setIconsSize(iconsSize: Int, iconsPadding: Int) {
-        val size: Int = if (iconsSize == 0) dpToPx(32).roundToInt() else iconsSize
-        val startParams = startContainer?.layoutParams
-        val endParams = endContainer?.layoutParams
-        if (startParams != null && (startParams.width != size || startParams.height != size)) {
-            startParams.width = iconsSize
-            startParams.height = iconsSize
-            startContainer?.layoutParams = startParams
-        }
-        if (endParams != null && (endParams.width != size || endParams.height != size)) {
-            endParams.width = iconsSize
-            endParams.height = iconsSize
-            endContainer?.layoutParams = endParams
-        }
-        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
-        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
-    }
-
-    open fun setDefaultValues() {
-        isWrap = defaultIsWrap
-        showBottomContainer = defaultShowBottomContainer
-        errorDrawableRes = defaultErrorDrawableRes
-        errorColor = defaultErrorColor
-        strokeColor = defaultStrokeColor
-        focusedStrokeColor = defaultFocusedStrokeColor
-        boxBgColor = defaultBoxBgColor
-        strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
-        strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
-        labelMaxLines = defaultLabelMaxLines
-        editTextMinHeight = defaultMinHeight
-        checkBoxToggle = defaultCheckBoxToggle
-        passwordToggleRes = defaultPasswordToggleRes
-        paddingTopInPx = defaultPaddingTopInPx
-        paddingBottomInPx = defaultPaddingBottomInPx
-        startTint = defaultIconsTint
-        endTint = defaultIconsTint
-        labelExtraTopMargin = defaultLabelExtraTopMargin
-
-        inputClickView?.visibility = View.INVISIBLE
-        inputText?.apply {
-            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
-        }
-        prefixTextView?.apply {
-            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
-        }
-        setIconsSize(0, defaultIconsPadding)
-        setLabelType()
-        setInputLabel("")
-        setInputPrefix("")
-        inputText?.apply {
-            inputType = defaultInputType
-            isEnabled = true
-            setText("")
-            hint = ""
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                textDirection = View.TEXT_DIRECTION_ANY_RTL
-            }
-        }
-        setMaxLines(1)
-        setHelp(null)
-        setError(null)
-        setStartIconMode()
-        setEndIconMode()
-        boxSettings()
-    }
-
-    /*############### Label settings ################*/
+    /*region ############### Label settings ################*/
     open fun hideLabel() {
         labelText?.let { label ->
             label.background = null
@@ -409,10 +312,9 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    /*############### Label settings END ################*/
+    /*endregion ############### Label settings END ################*/
 
-
-    /*############### Prefix settings ################*/
+    /*region ############### Prefix settings ################*/
     open fun setInputPrefix(prefix: String) {
         prefixTextView?.text = prefix
     }
@@ -420,10 +322,9 @@ open class InputFieldView : ConstraintLayout {
     open fun getTextWithPrefix(): String {
         return prefixTextView?.text?.toString() ?: "" + inputText?.text?.toString() ?: ""
     }
-    /*############### Prefix settings END ################*/
+    /*endregion ############### Prefix settings END ################*/
 
-
-    /*############### Input settings ################*/
+    /*region ############### Input settings ################*/
     open fun setText(text: String?) {
         if (!(inputText?.text?.toString() ?: "").equals(text ?: "")) {
             inputText?.setText(text)
@@ -432,10 +333,6 @@ open class InputFieldView : ConstraintLayout {
 
     open fun getText(): String {
         return inputText?.text?.toString() ?: ""
-    }
-
-    open fun setInputFieldTextListener(listener: TextListener?) {
-        textListener = listener
     }
 
     open fun isEditable(value: Boolean) {
@@ -453,9 +350,98 @@ open class InputFieldView : ConstraintLayout {
     open fun setInputType(inputType: Int = defaultInputType) {
         inputText?.inputType = inputType
     }
-    /*############### Input settings END ################*/
 
-    /*############### End Icon settings ################*/
+    open fun setInputClickViewEnabled(value: Boolean) {
+        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
+    }
+
+    open fun getInputClickViewEnabled(): Boolean {
+        return inputClickView?.visibility == View.VISIBLE
+    }
+
+    open fun setDefaultValues() {
+        isWrap = defaultIsWrap
+        showBottomContainer = defaultShowBottomContainer
+        errorDrawableRes = defaultErrorDrawableRes
+        errorColor = defaultErrorColor
+        strokeColor = defaultStrokeColor
+        focusedStrokeColor = defaultFocusedStrokeColor
+        boxBgColor = defaultBoxBgColor
+        strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
+        strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
+        labelMaxLines = defaultLabelMaxLines
+        editTextMinHeight = defaultMinHeight
+        checkBoxToggle = defaultCheckBoxToggle
+        passwordToggleRes = defaultPasswordToggleRes
+        paddingTopInPx = defaultPaddingTopInPx
+        paddingBottomInPx = defaultPaddingBottomInPx
+        startTint = defaultIconsTint
+        endTint = defaultIconsTint
+        labelExtraTopMargin = defaultLabelExtraTopMargin
+
+        inputClickView?.visibility = View.INVISIBLE
+        inputText?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        prefixTextView?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        setIconsSize(0, defaultIconsPadding)
+        setLabelType()
+        setInputLabel("")
+        setInputPrefix("")
+        inputText?.apply {
+            inputType = defaultInputType
+            isEnabled = true
+            setText("")
+            hint = ""
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                textDirection = View.TEXT_DIRECTION_ANY_RTL
+            }
+        }
+        setMaxLines(1)
+        setHelp(null)
+        setError(null)
+        setStartIconMode()
+        setEndIconMode()
+        boxSettings()
+    }
+    /*endregion ############### Input settings END ################*/
+
+    /*region ############### Icons settings ################*/
+    open fun setIconsSize(iconsSize: Int, iconsPadding: Int) {
+        val size: Int = if (iconsSize == 0) dpToPx(32).roundToInt() else iconsSize
+        val startParams = startContainer?.layoutParams
+        val endParams = endContainer?.layoutParams
+        if (startParams != null && (startParams.width != size || startParams.height != size)) {
+            startParams.width = iconsSize
+            startParams.height = iconsSize
+            startContainer?.layoutParams = startParams
+        }
+        if (endParams != null && (endParams.width != size || endParams.height != size)) {
+            endParams.width = iconsSize
+            endParams.height = iconsSize
+            endContainer?.layoutParams = endParams
+        }
+        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+    }
+
+    open fun isChecked(value: Boolean) {
+        if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked = value
+        if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked = value
+    }
+
+    open fun isChecked(): Boolean {
+        return when {
+            startIconMode == START_ICON_CHECKABLE -> startCheckBox?.isChecked ?: false
+            endIconMode == END_ICON_CHECKABLE -> endCheckBox?.isChecked ?: false
+            else -> false
+        }
+    }
+    /*endregion ############### Icons settings ################*/
+
+    /*region ############### End Icon settings ################*/
     open fun setEndIconMode(mode: Int = defaultEndIconMode) {
         if (endIconMode != mode) {
             endIconMode = mode
@@ -598,10 +584,18 @@ open class InputFieldView : ConstraintLayout {
             endContainer?.visibility = View.VISIBLE
         }
     }
-    /*############### End Icon settings End ############*/
 
+    open fun isPasswordToggleChecked(value: Boolean) {
+        if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked = value
+    }
 
-    /*############### Start Icon settings ################*/
+    open fun isPasswordToggleChecked(): Boolean {
+        return if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false
+        else false
+    }
+    /*endregion ############### End Icon settings End ############*/
+
+    /*region ############### Start Icon settings ################*/
     open fun setStartIconMode(startMode: Int = defaultStartIconMode) {
         startIconMode = startMode
         updateStartIcon()
@@ -729,10 +723,10 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    /*############### Start Icon settings End ############*/
 
+    /*endregion ############### Start Icon settings End ############*/
 
-    /*############### Bottom text settings ################*/
+    /*region############### Bottom text settings ################*/
     /* Helper */
     open fun setHelp(text: String?) {
         hasHelpText = !text.isNullOrBlank()
@@ -768,6 +762,10 @@ open class InputFieldView : ConstraintLayout {
 
     open fun setErrorException(error: Exception?) {
         setError(error?.message)
+    }
+
+    open fun setHideErrorTextMode(value: Boolean){
+        hideErrorText = value
     }
     /* Error End*/
 
@@ -810,9 +808,29 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    /*################### Bottom text settings End ######################*/
+    /*endregion ################### Bottom text settings End ######################*/
 
-    /*################### Other ######################*/
+    /*region ############### TextWatcher settings ################*/
+    open fun addTextWatcher(textWatcher: TextWatcher){
+        removeTextWatcher(textWatcher)
+        inputText?.addTextChangedListener(textWatcher)
+    }
+
+    open fun removeTextWatcher(textWatcher: TextWatcher){
+        inputText?.removeTextChangedListener(textWatcher)
+    }
+
+    open fun addDefaultTextWatcher(){
+        removeDefaultTextWatcher()
+        inputText?.addTextChangedListener(textWatcher)
+    }
+
+    open fun removeDefaultTextWatcher(){
+        inputText?.removeTextChangedListener(textWatcher)
+    }
+    /*endregion ############### TextWatcher settings ################*/
+
+    /*region ################### Other ######################*/
     protected open fun boxSettings() {
         inputBox?.apply {
             setStrokeWidthInPx(strokeWidthInPx)
@@ -1102,12 +1120,9 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
+    /*endregion ################### Other ######################*/
 
-    /*################### Interfaces ######################*/
-    interface TextListener {
-        fun onTextChanged(text: String)
-    }
-
+    /*region ################### Interfaces ######################*/
     interface IconCheckedListener {
         fun onCheckChanged(isChanged: Boolean)
     }
@@ -1115,5 +1130,5 @@ open class InputFieldView : ConstraintLayout {
     interface IconClickListener {
         fun onIconClick()
     }
-    /*################### Interfaces End ######################*/
+    /*endregion ################### Interfaces End ######################*/
 }
