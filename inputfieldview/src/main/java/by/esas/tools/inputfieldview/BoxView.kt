@@ -191,4 +191,3 @@ open class BoxView : View {
         return (dp * Resources.getSystem().displayMetrics.density)
     }
 }
-
