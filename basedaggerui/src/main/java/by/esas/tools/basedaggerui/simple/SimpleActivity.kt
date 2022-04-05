@@ -7,6 +7,8 @@ package by.esas.tools.basedaggerui.simple
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import by.esas.tools.basedaggerui.mvvm.DataBindingActivity
 import by.esas.tools.dialog.BaseBottomDialogFragment
@@ -18,36 +20,75 @@ abstract class SimpleActivity<VM : SimpleViewModel<E, M>, B : ViewDataBinding, E
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Settings for IShowingVM
-        viewModel.showDialog.observe(this, Observer { dialog ->
-            onShowDialog(dialog)
-        })
-        viewModel.showBottomDialog.observe(this, Observer { dialog ->
-            onShowBottomDialog(dialog)
-        })
-        //Settings for IChangeLangVM
-        viewModel.changeLang.observe(this, Observer { lang ->
-            onChangeLanguage(lang)
-        })
+
         //Settings for IExecutingVM
         viewModel.addUseCases()
     }
 
-    protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
-        logger.logInfo("try to showDialog ${dialog != null}")
-        dialog?.let {
-            it.show(supportFragmentManager, dialog.TAG)
+    //region Observer setups
+
+    override fun setupObservers() {
+        super.setupObservers()
+        //Settings for IShowingVM
+        setupDialogsObservers()
+        //Settings for IChangeLangVM
+        setupChangeLangObserver()
+    }
+
+    open fun setupDialogsObservers() {
+        viewModel.showDialog.observe(this, Observer { dialog ->
+            onShowDialog(dialog)
+        })
+        viewModel.showBottomDialog.observe(this, Observer { dialog ->
+            onShowDialog(dialog)
+        })
+    }
+
+    open fun setupChangeLangObserver() {
+        viewModel.changeLang.observe(this, Observer { lang ->
+            onChangeLanguage(lang)
+        })
+    }
+
+    //endregion Observer setups
+
+
+    //region show dialog functionality
+
+    protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
+        logger.logInfo("try to showDialog $tag")
+        val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*, *>
+            && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
+            && !prevWithSameTag.isRemoving
+        ) {
+            //there is currently showed dialog fragment with same TAG
+        } else {
+            //there is no currently showed dialog fragment with same TAG
+            dialog.show(supportFragmentManager, tag)
+        }
+        if (dialog is BaseBottomDialogFragment<*, *>) {
+            viewModel.showBottomDialog.postValue(null)
+        } else {
             viewModel.showDialog.postValue(null)
         }
     }
 
-    protected open fun onShowBottomDialog(dialog: BaseBottomDialogFragment<*, *>?) {
-        logger.logInfo("try to showBottomDialog ${dialog != null}")
-        dialog?.let {
-            it.show(supportFragmentManager, dialog.TAG)
-            viewModel.showBottomDialog.postValue(null)
+    protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
+        logger.logInfo("try to showDialog ${dialog != null}")
+        if (dialog != null) {
+            onShowDialog(dialog, dialog.TAG)
         }
     }
+
+    protected open fun onShowDialog(dialog: BaseBottomDialogFragment<*, *>?) {
+        logger.logInfo("try to showDialog ${dialog != null}")
+        if (dialog != null) {
+            onShowDialog(dialog, dialog.TAG)
+        }
+    }
+
+    //endregion show dialog functionality
 
     protected open fun onChangeLanguage(lang: String?) {
         logger.logInfo("try to changeLang $lang")
@@ -57,17 +98,5 @@ abstract class SimpleActivity<VM : SimpleViewModel<E, M>, B : ViewDataBinding, E
             logger.logInfo("changeLang reset to null")
             viewModel.changeLang.postValue(null)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //Settings for IShowingVM
-        viewModel.showDialog.postValue(null)
-        viewModel.showDialog.removeObservers(this)
-        viewModel.showBottomDialog.postValue(null)
-        viewModel.showBottomDialog.removeObservers(this)
-        //Settings for IChangeLangVM
-        viewModel.changeLang.postValue(null)
-        viewModel.changeLang.removeObservers(this)
     }
 }

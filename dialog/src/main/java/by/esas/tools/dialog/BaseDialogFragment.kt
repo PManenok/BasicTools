@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import by.esas.tools.checker.Checking
-import by.esas.tools.logger.BaseLogger
+import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
 
@@ -47,9 +47,10 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>> : DialogFr
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
      * depends on its interface realisation
-     * By default this logger is [BaseLogger]
+     * By default this logger is [BaseLoggerImpl]
      * */
-    protected open var logger: ILogger<EnumT, *> = BaseLogger(BaseDialogFragment::class.java.simpleName, this.context)
+    protected open var logger: ILogger<EnumT, *> =
+        BaseLoggerImpl(BaseDialogFragment::class.java.simpleName, this.context)
 
     /**
      * Manager that provides enabling and disabling views functionality

@@ -42,6 +42,7 @@ afterEvaluate {
         }
     }
 }
+
 android {
     compileSdkVersion 30
     dataBinding {
@@ -60,10 +61,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$corektx_version"
 
-    // ViewModel
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    // LiveData
-    //implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Saved state module for ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
@@ -77,6 +74,10 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2_version"
     implementation "com.google.dagger:dagger-android:$dagger2_version"
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     implementation project(path: ':dialog')
     implementation project(path: ':domain')
