@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CardLine">
+        <attr name="cardTitle" format="string" />
+        <attr name="cardTitleSize" format="dimension" />
+        <attr name="cardValue" format="string" />
+        <attr name="cardValueSize" format="dimension" />
+        <attr name="cardValueColor" format="color" />
+    </declare-styleable>
+
+    <style name="TextStyle.Regular17.Gray2">
+        <item name="android:textColor">@color/gray_2</item>
+    </style>
+</resources>
