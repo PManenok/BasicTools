@@ -87,6 +87,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
+    protected open var hideErrorText: Boolean = true
 
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
@@ -120,7 +121,6 @@ open class InputFieldView : ConstraintLayout {
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
     protected open var isWrap: Boolean = false
     protected open var hideErrorIcon: Boolean = false
-    protected open var hideErrorText: Boolean = true
     protected open var checkBoxToggle: Int = R.drawable.selector_input_filed_check_box_toggle
     protected open var editTextMinHeight: Int =
         context.resources.getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
@@ -143,7 +143,7 @@ open class InputFieldView : ConstraintLayout {
     protected var startDrawable: Drawable? = null
     protected open val defaultStartIconMode: Int = START_ICON_NONE
     protected var beforeProgressMode: Int = START_ICON_NONE
-    private var startIconMode: Int = START_ICON_NONE
+    protected var startIconMode: Int = START_ICON_NONE
 
     //End icon
     var endIconClickListener: IconClickListener? = null
@@ -155,7 +155,7 @@ open class InputFieldView : ConstraintLayout {
     protected var endDrawable: Drawable? = null
     protected var passwordToggleRes: Int = R.drawable.selector_input_filed_password_toggle
     protected var previousEndIconMode: Int = END_ICON_NONE
-    private var endIconMode: Int = END_ICON_NONE
+    protected var endIconMode: Int = END_ICON_NONE
 
     //Bottom text
     protected open val defaultShowBottomContainer: Boolean = true
@@ -402,8 +402,8 @@ open class InputFieldView : ConstraintLayout {
         setMaxLines(1)
         setHelp(null)
         setError(null)
-        setStartIconMode()
-        setEndIconMode()
+        setupStartIconMode()
+        setupEndIconMode()
         boxSettings()
     }
     /*endregion ############### Input settings END ################*/
@@ -442,7 +442,7 @@ open class InputFieldView : ConstraintLayout {
     /*endregion ############### Icons settings ################*/
 
     /*region ############### End Icon settings ################*/
-    open fun setEndIconMode(mode: Int = defaultEndIconMode) {
+    open fun setupEndIconMode(mode: Int = defaultEndIconMode) {
         if (endIconMode != mode) {
             endIconMode = mode
             updateEndIcon()
@@ -596,7 +596,7 @@ open class InputFieldView : ConstraintLayout {
     /*endregion ############### End Icon settings End ############*/
 
     /*region ############### Start Icon settings ################*/
-    open fun setStartIconMode(startMode: Int = defaultStartIconMode) {
+    open fun setupStartIconMode(startMode: Int = defaultStartIconMode) {
         startIconMode = startMode
         updateStartIcon()
     }
@@ -779,7 +779,7 @@ open class InputFieldView : ConstraintLayout {
                 if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 else
-                    setEndIconMode(END_ICON_ERROR)
+                    setupEndIconMode(END_ICON_ERROR)
                 bottomContainer?.visibility = View.VISIBLE
                 errorTextView?.visibility = View.VISIBLE
                 helpTextView?.visibility = View.GONE
@@ -789,7 +789,7 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(if (inputText?.isFocused == true) focusedStrokeColor else strokeColor)
                 }
                 if (endIconMode == END_ICON_ERROR)
-                    setEndIconMode(previousEndIconMode)
+                    setupEndIconMode(previousEndIconMode)
                 else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 bottomContainer?.visibility = View.VISIBLE
@@ -801,7 +801,7 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(if (inputText?.isFocused == true) focusedStrokeColor else strokeColor)
                 }
                 if (endIconMode == END_ICON_ERROR)
-                    setEndIconMode(previousEndIconMode)
+                    setupEndIconMode(previousEndIconMode)
                 else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 bottomContainer?.visibility = if (showBottomContainer) View.INVISIBLE else View.GONE

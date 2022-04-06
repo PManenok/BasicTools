@@ -15,7 +15,7 @@ import androidx.databinding.InverseBindingListener
 
 @BindingAdapter("inputEndIconMode")
 fun setClearEndIcon(view: InputFieldView, enabled: Boolean) {
-    view.setEndIconMode(if (enabled) 2 else 0)
+    view.setupEndIconMode(if (enabled) 2 else 0)
 }
 
 @BindingAdapter("inputEditable")
@@ -26,9 +26,9 @@ fun setEditable(view: InputFieldView, editable: Boolean) {
 @BindingAdapter("inputStartIconIsCheckable")
 fun setFirstIconCheckable(view: InputFieldView, checkable: Boolean) {
     if (checkable)
-        view.setStartIconMode(InputFieldView.START_ICON_CHECKABLE)
+        view.setupStartIconMode(InputFieldView.START_ICON_CHECKABLE)
     else
-        view.setStartIconMode()
+        view.setupStartIconMode()
 }
 
 @BindingAdapter("android:text")
