@@ -160,8 +160,8 @@ open class InputFieldView : ConstraintLayout {
     //Bottom text
     protected open val defaultShowBottomContainer: Boolean = true
     protected var showBottomContainer: Boolean = false
-    private var hasErrorText: Boolean = false
-    private var hasHelpText: Boolean = false
+    protected var hasErrorText: Boolean = false
+    protected var hasHelpText: Boolean = false
     /*endregion ################ Parameters END ################*/
 
     /*region ############################ Icons Click Listeners ################################*/
