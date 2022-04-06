@@ -7,8 +7,4 @@
         <attr name="cardValueSize" format="dimension" />
         <attr name="cardValueColor" format="color" />
     </declare-styleable>
-
-    <style name="TextStyle.Regular17.Gray2">
-        <item name="android:textColor">@color/gray_2</item>
-    </style>
 </resources>

@@ -7,7 +7,6 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_card_line_title"
-        style="@style/TextStyle.Regular17.Gray2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,10 +19,9 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_card_line_value"
-        style="@style/TextStyle.Regular17"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacing_16"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/v_card_line_title"

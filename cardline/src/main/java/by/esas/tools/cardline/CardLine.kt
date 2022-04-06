@@ -79,12 +79,6 @@ class CardLine : ConstraintLayout {
         valueText.setTextColor(ContextCompat.getColor(context, colorRes))
     }
 
-    /* fun <T> setValue(text: T) {
-         if (!valueText.text.toString().equals(text)) {
-             valueText.text = text.toString()
-         }
-     }*/
-
     fun getCardTitle(): String {
         return titleText.text.toString()
     }
