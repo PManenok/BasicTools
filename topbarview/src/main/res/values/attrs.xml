@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TopbarView">
+        <attr name="barContainerPaddingTop" format="dimension" />
+        <attr name="barContainerPaddingBottom" format="dimension" />
+        <attr name="barContainerPaddingStart" format="dimension" />
+        <attr name="barContainerPaddingEnd" format="dimension" />
+        <attr name="barContainerHeight" format="dimension" />
+        <!--Title attrs-->
+        <attr name="barTitleText" format="string" />
+        <attr name="barTitleTextAppearance" format="reference" />
+        <attr name="barTitlePaddingStart" format="dimension" />
+        <attr name="barTitlePaddingEnd" format="dimension" />
+        <!--Start icon or nav icon attrs-->
+        <attr name="barNavIcon" format="reference" />
+        <attr name="barNavIconSize" format="dimension" />
+        <attr name="barNavIconTint" format="color" />
+        <attr name="barNavIconPadding" format="dimension" />
+        <attr name="barShowNavIcon" format="boolean" />
+        <!--End icon attrs-->
+        <attr name="barActionIcon" format="reference" />
+        <attr name="barActionIconSize" format="dimension" />
+        <attr name="barActionIconTint" format="color" />
+        <attr name="barActionIconPadding" format="dimension" />
+        <attr name="barShowActionIcon" format="boolean" />
+        <!--Start text attrs-->
+        <attr name="barStartActionText" format="string" />
+        <attr name="barStartActionTextAppearance" format="reference" />
+        <attr name="barStartActionPaddingTop" format="dimension" />
+        <attr name="barStartActionPaddingBottom" format="dimension" />
+        <attr name="barStartActionPaddingStart" format="dimension" />
+        <attr name="barStartActionPaddingEnd" format="dimension" />
+        <!--End text attrs-->
+        <attr name="barEndActionText" format="string" />
+        <attr name="barEndActionTextAppearance" format="reference" />
+        <attr name="barEndActionPaddingTop" format="dimension" />
+        <attr name="barEndActionPaddingBottom" format="dimension" />
+        <attr name="barEndActionPaddingStart" format="dimension" />
+        <attr name="barEndActionPaddingEnd" format="dimension" />
+        <!--bottom Divider attrs-->
+        <attr name="barShowDivider" format="boolean" />
+        <attr name="barDividerHeight" format="dimension" />
+        <attr name="barDividerColor" format="color" />
+    </declare-styleable>
+</resources>
