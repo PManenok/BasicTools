@@ -1,10 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CardLine">
+        <attr name="cardStartIconAlignTop" format="boolean" />
+        <attr name="cardEndIconAlignTop" format="boolean" />
+        <attr name="cardTextAlignTop" format="boolean" />
+        <!--Title attrs-->
         <attr name="cardTitle" format="string" />
-        <attr name="cardTitleSize" format="dimension" />
+        <attr name="cardTitleTextAppearance" format="reference" />
+        <attr name="cardTitleSingleLine" format="boolean" />
+        <attr name="cardTitleWidthPercent" format="float" />
+        <!--Value attrs-->
         <attr name="cardValue" format="string" />
-        <attr name="cardValueSize" format="dimension" />
-        <attr name="cardValueColor" format="color" />
+        <attr name="cardValueTextAppearance" format="reference" />
+        <attr name="cardValueSingleLine" format="boolean" />
+        <attr name="cardValueAlignment" format="integer">
+            <!-- Default. -->
+            <enum name="inherit" value="0" />
+            <!-- Default for the root view. The gravity determines the alignment, ALIGN_NORMAL,
+                ALIGN_CENTER, or ALIGN_OPPOSITE, which are relative to each paragraph’s
+                text direction. -->
+            <enum name="gravity" value="1" />
+            <!-- Align to the start of the paragraph, for example: ALIGN_NORMAL. -->
+            <enum name="textStart" value="2" />
+            <!-- Align to the end of the paragraph, for example: ALIGN_OPPOSITE. -->
+            <enum name="textEnd" value="3" />
+            <!-- Center the paragraph, for example: ALIGN_CENTER. -->
+            <enum name="center" value="4" />
+            <!-- Align to the start of the view, which is ALIGN_LEFT if the view’s resolved
+                layoutDirection is LTR, and ALIGN_RIGHT otherwise. -->
+            <enum name="viewStart" value="5" />
+            <!-- Align to the end of the view, which is ALIGN_RIGHT if the view’s resolved
+                layoutDirection is LTR, and ALIGN_LEFT otherwise. -->
+            <enum name="viewEnd" value="6" />
+        </attr>
+        <!--paddings attrs-->
+        <attr name="cardContainerPaddingTop" format="dimension" />
+        <attr name="cardContainerPaddingBottom" format="dimension" />
+        <attr name="cardContainerPaddingStart" format="dimension" />
+        <attr name="cardContainerPaddingEnd" format="dimension" />
+        <attr name="cardTextPaddingStart" format="dimension" />
+        <attr name="cardTextPaddingBetween" format="dimension" />
+        <attr name="cardTextPaddingEnd" format="dimension" />
+        <attr name="cardIconPaddingStart" format="dimension" />
+        <attr name="cardIconPaddingEnd" format="dimension" />
+        <!--Icon start attrs-->
+        <attr name="cardIconStart" format="reference" />
+        <attr name="cardIconStartSize" format="dimension" />
+        <attr name="cardIconStartTint" format="color" />
+        <!--Icon end attrs-->
+        <attr name="cardIconEnd" format="reference" />
+        <attr name="cardIconEndSize" format="dimension" />
+        <attr name="cardIconEndTint" format="color" />
+        <!--top Divider attrs-->
+        <attr name="cardShowDividerTop" format="boolean" />
+        <attr name="cardTopDividerHeight" format="dimension" />
+        <attr name="cardTopDividerColor" format="color" />
+        <!--bottom Divider attrs-->
+        <attr name="cardShowDividerBottom" format="boolean" />
+        <attr name="cardBottomDividerHeight" format="dimension" />
+        <attr name="cardBottomDividerColor" format="color" />
     </declare-styleable>
 </resources>
