@@ -4,9 +4,9 @@ import android.util.Log
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 
 class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
-    var baseTag: String = "LoggerImpl"
+    override var currentTag: String= "LoggerImpl"
     override fun setTag(tag: String) {
-        this.baseTag = tag
+        this.currentTag = tag
     }
 
     override fun showMessage(msg: String, length: Int) {
@@ -18,27 +18,27 @@ class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
     }
 
     override fun logLocally(msg: String) {
-        Log.w(baseTag, msg)
+        Log.w(currentTag, msg)
     }
 
     override fun log(msg: String) {
-        Log.w(baseTag, msg)
+        Log.w(currentTag, msg)
     }
 
     override fun log(tag: String, msg: String, level: Int) {
-        Log.w(baseTag, msg)
+        Log.w(currentTag, msg)
     }
 
     override fun logError(throwable: Throwable) {
-        Log.e(baseTag, throwable.message, throwable)
+        Log.e(currentTag, throwable.message, throwable)
     }
 
     override fun logError(msg: String) {
-        Log.e(baseTag, msg)
+        Log.e(currentTag, msg)
     }
 
     override fun logInfo(msg: String) {
-        Log.i(baseTag, msg)
+        Log.i(currentTag, msg)
     }
 
     override fun sendLogs(msg: String) {
@@ -46,6 +46,11 @@ class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
     }
 
     override fun logError(error: ErrorModel) {
-        Log.e(baseTag, error.statusEnum.name)
+        Log.e(currentTag, error.statusEnum.name)
+    }
+
+
+    override fun logCategory(category: String, tag: String, msg: String) {
+        TODO("Not yet implemented")
     }
 }

@@ -3,16 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.basedaggerui.navigating
+package by.esas.tools.basedaggerui.interfaces.navigating
 
 import android.os.Bundle
 import androidx.navigation.NavDirections
 import by.esas.tools.logger.Action
-import by.esas.tools.logger.BaseErrorModel
 
-open class NavAction<E : Enum<E>, M : BaseErrorModel<E>>(
-    val direction: NavDirections? = null,
-    val popBack: PopBackEntity? = null,
+open class NavAction(
+    val direction: NavDirections,
     parameters: Bundle? = null
 ) : Action(ACTION_NAVIGATION, parameters) {
 

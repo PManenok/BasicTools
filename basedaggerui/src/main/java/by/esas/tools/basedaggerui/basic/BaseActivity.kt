@@ -34,12 +34,15 @@ import javax.inject.Inject
 
 abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompatActivity(), IChangeAppLanguage<E> {
     companion object {
-        val TAG: String = BaseActivity::class.java.simpleName
+        //CHECK if will work in child classes
+        fun getTag(): String {
+            return this::class.java.simpleName
+        }
     }
 
     @Inject
     lateinit var viewModelFactory: InjectingViewModelFactory
-    open val logger: ILogger<E, M> = BaseLoggerImpl(TAG, null)
+    open val logger: ILogger<E, M> = BaseLoggerImpl(getTag(), null)
     protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
@@ -57,7 +60,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(TAG)
+        logger.setTag(getTag())
         logger.logInfo("onCreate")
         hideSystemUI()
     }

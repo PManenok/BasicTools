@@ -16,9 +16,6 @@ import by.esas.tools.logger.BaseErrorModel
 
 abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
     BaseActivity<E, M>() {
-    companion object {
-        val TAG: String = DataBindingActivity::class.java.simpleName
-    }
 
     protected lateinit var binding: TBinding
     protected lateinit var viewModel: TViewModel
