@@ -73,54 +73,6 @@ open class CardLine : LinearLayout {
     protected var titleWidthPercent = 0.35f
     protected var valueAlignment = 0
 
-    fun setDefaultValues() {
-        startIconAlignTop = defStartIconAlignTop
-        endIconAlignTop = defEndIconAlignTop
-        textAlignTop = defTextAlignTop
-        valueAlignment = defValueAlignment
-
-        setCardTitle("")
-        titleText.apply {
-            isSingleLine = defSingleLine
-            setPadding(
-                paddingLeft + defPadding,
-                paddingTop,
-                paddingRight + defPadding,
-                paddingBottom
-            )}
-
-        setCardValue("")
-        valueText.apply {
-            isSingleLine = defSingleLine
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                textAlignment = defValueAlignment
-            }
-            setPadding(paddingLeft, paddingTop, paddingRight + defPadding, paddingBottom)
-        }
-
-        setupTitleWidthPercent(defTitleWidthPercent)
-
-        startIcon.visibility = View.GONE
-        endIcon.visibility = View.GONE
-
-        setAlignTop(defStartIconAlignTop, listOf(startIcon))
-        setAlignTop(defEndIconAlignTop, listOf(endIcon))
-        setupTextAlignTop(defTextAlignTop)
-
-        setContainerPaddings(
-            defPadding,
-            defPadding,
-            defPadding,
-            defPadding
-        )
-
-        setTopDividerVisibility(defShowTopDiv)
-        setTopDividerParams(defDividerColor, defDividerHeight.toInt())
-
-        setBottomDividerVisibility(showBottomDiv)
-        setBottomDividerParams(defDividerColor, defDividerHeight.toInt())
-    }
-
     /*  Initialize attributes from XML file  */
     protected fun initAttrs(attrs: AttributeSet?) {
 
@@ -266,13 +218,59 @@ open class CardLine : LinearLayout {
         setBottomDividerParams(bottomDividerColor, bottomDivHeight.toInt())
     }
 
+    /*region ####################### Card Text ############################*/
+
+    open fun setupTextAlignTop(alignTop: Boolean) {
+        setAlignTop(alignTop, listOf(titleText, valueText))
+    }
+
+    /* ####################### Card Title ############################*/
+
+    open fun setCardTitle(text: String) {
+        if (!titleText.text.toString().equals(text)) {
+            titleText.text = text
+        }
+    }
+
+    open fun getCardTitle(): String {
+        return titleText.text.toString()
+    }
+
     open fun isTitleSingleLine(value: Boolean) {
         titleText.isSingleLine = value
+    }
+
+    open fun setupTitleWidthPercent(value: Float) {
+        titleWidthPercent = value
+        titleText.apply {
+            (layoutParams as ConstraintLayout.LayoutParams).apply {
+                if (value == 0f) {
+                    width = LayoutParams.WRAP_CONTENT
+                    matchConstraintPercentWidth = 1f
+                } else {
+                    matchConstraintPercentWidth = value
+                }
+            }
+        }
+    }
+
+    /* ####################### Card Value ############################*/
+
+    open fun setCardValue(text: String) {
+        if (!valueText.text.toString().equals(text)) {
+            valueText.text = text
+        }
+    }
+
+    open fun getCardValue(): String {
+        return valueText.text.toString()
     }
 
     open fun isValueSingleLine(value: Boolean){
         valueText.isSingleLine = value
     }
+
+    /*endregion ####################### Text ############################*/
 
     /*region ############################ Icons ################################*/
 
@@ -372,6 +370,56 @@ open class CardLine : LinearLayout {
 
     /*endregion ############################ Dividers ################################*/
 
+    /*region ############################ Other ################################*/
+
+    fun setDefaultValues() {
+        startIconAlignTop = defStartIconAlignTop
+        endIconAlignTop = defEndIconAlignTop
+        textAlignTop = defTextAlignTop
+        valueAlignment = defValueAlignment
+
+        setupTitleWidthPercent(defTitleWidthPercent)
+
+        setAlignTop(defStartIconAlignTop, listOf(startIcon))
+        setAlignTop(defEndIconAlignTop, listOf(endIcon))
+        setupTextAlignTop(defTextAlignTop)
+
+        setContainerPaddings(
+            defPadding,
+            defPadding,
+            defPadding,
+            defPadding
+        )
+
+        setCardTitle("")
+        titleText.apply {
+            isSingleLine = defSingleLine
+            setPadding(
+                paddingLeft + defPadding,
+                paddingTop,
+                paddingRight + defPadding,
+                paddingBottom
+            )}
+
+        setCardValue("")
+        valueText.apply {
+            isSingleLine = defSingleLine
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                textAlignment = defValueAlignment
+            }
+            setPadding(paddingLeft, paddingTop, paddingRight + defPadding, paddingBottom)
+        }
+
+        setStartIconVisibility(false)
+        setEndIconVisibility(false)
+
+        setTopDividerVisibility(defShowTopDiv)
+        setTopDividerParams(defDividerColor, defDividerHeight.toInt())
+
+        setBottomDividerVisibility(showBottomDiv)
+        setBottomDividerParams(defDividerColor, defDividerHeight.toInt())
+    }
+
     open fun setContainerPaddings(
         leftPadding: Int,
         topPadding: Int,
@@ -386,10 +434,6 @@ open class CardLine : LinearLayout {
         )
     }
 
-    open fun setupTextAlignTop(alignTop: Boolean) {
-        setAlignTop(alignTop, listOf(titleText, valueText))
-    }
-
     open fun setAllAlignTop(alignTop: Boolean) {
         setAlignTop(alignTop, listOf(startIcon, titleText, valueText, endIcon))
     }
@@ -401,41 +445,9 @@ open class CardLine : LinearLayout {
         }
     }
 
-    open fun setCardTitle(text: String) {
-        if (!titleText.text.toString().equals(text)) {
-            titleText.text = text
-        }
-    }
-
-    open fun getCardTitle(): String {
-        return titleText.text.toString()
-    }
-
-    open fun setCardValue(text: String) {
-        if (!valueText.text.toString().equals(text)) {
-            valueText.text = text
-        }
-    }
-
-    open fun getCardValue(): String {
-        return valueText.text.toString()
-    }
-
-    open fun setupTitleWidthPercent(value: Float) {
-        titleWidthPercent = value
-        titleText.apply {
-            (layoutParams as ConstraintLayout.LayoutParams).apply {
-                if (value == 0f) {
-                    width = LayoutParams.WRAP_CONTENT
-                    matchConstraintPercentWidth = 1f
-                } else {
-                    matchConstraintPercentWidth = value
-                }
-            }
-        }
-    }
-
     fun dpToPx(dp: Int): Float {
         return (dp * Resources.getSystem().displayMetrics.density)
     }
+
+    /*endregion ############################ Other ################################*/
 }
