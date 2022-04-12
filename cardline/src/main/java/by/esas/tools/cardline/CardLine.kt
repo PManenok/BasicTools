@@ -1,27 +1,19 @@
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.Color.red
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import androidx.annotation.Px
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 import by.esas.tools.cardline.R
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
-
-inline fun View.setPadding(@Px size: Int) {
-    setPadding(size, size, size, size)
-}
 
 open class CardLine : LinearLayout {
     val TAG: String = CardLine::class.java.simpleName
@@ -34,12 +26,10 @@ open class CardLine : LinearLayout {
     val endIcon: AppCompatImageView
 
     constructor(context: Context) : super(context)
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttrs(attrs)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
         initAttrs(attrs)
@@ -62,40 +52,135 @@ open class CardLine : LinearLayout {
         bottomDividerView = view.findViewById(R.id.v_card_line_divider_bottom)
     }
 
+    protected val defDividerHeight = dpToPx(1)
+    protected val defDividerColor = Color.parseColor("#D9E1EE")
+    protected val defIconColor = Color.parseColor("#EC3E37")
+    protected val defStartIconAlignTop: Boolean = false
+    protected val defEndIconAlignTop: Boolean = false
+    protected val defTextAlignTop: Boolean = false
+    protected val defShowTopDiv = false
+    protected val defShowBottomDiv = false
+    protected val defPadding = 0
+    protected val defTitleWidthPercent = 0.35f
+    protected val defSingleLine = false
+    protected val defValueAlignment = 0
+
+    protected var startIconAlignTop: Boolean = false
+    protected var endIconAlignTop: Boolean = false
+    protected var textAlignTop: Boolean = false
+    protected var showTopDiv = false
+    protected var showBottomDiv = false
+    protected var titleWidthPercent = 0.35f
+    protected var valueAlignment = 0
+
+    fun setDefaultValues() {
+        startIconAlignTop = defStartIconAlignTop
+        endIconAlignTop = defEndIconAlignTop
+        textAlignTop = defTextAlignTop
+        valueAlignment = defValueAlignment
+
+        setCardTitle("")
+        titleText.apply {
+            isSingleLine = defSingleLine
+            setPadding(
+                paddingLeft + defPadding,
+                paddingTop,
+                paddingRight + defPadding,
+                paddingBottom
+            )}
+
+        setCardValue("")
+        valueText.apply {
+            isSingleLine = defSingleLine
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                textAlignment = defValueAlignment
+            }
+            setPadding(paddingLeft, paddingTop, paddingRight + defPadding, paddingBottom)
+        }
+
+        setupTitleWidthPercent(defTitleWidthPercent)
+
+        startIcon.visibility = View.GONE
+        endIcon.visibility = View.GONE
+
+        setAlignTop(defStartIconAlignTop, listOf(startIcon))
+        setAlignTop(defEndIconAlignTop, listOf(endIcon))
+        setupTextAlignTop(defTextAlignTop)
+
+        setContainerPaddings(
+            defPadding,
+            defPadding,
+            defPadding,
+            defPadding
+        )
+
+        setTopDividerVisibility(defShowTopDiv)
+        setTopDividerParams(defDividerColor, defDividerHeight.toInt())
+
+        setBottomDividerVisibility(showBottomDiv)
+        setBottomDividerParams(defDividerColor, defDividerHeight.toInt())
+    }
+
     /*  Initialize attributes from XML file  */
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     protected fun initAttrs(attrs: AttributeSet?) {
-        val defDividerHeight = dpToPx(1)
-        val defDividerColor = Color.parseColor("#D9E1EE")
-        val defIconColor = Color.parseColor("#FF0000")
+
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CardLine)
 
-        val startIconAlignTop: Boolean = typedArray.getBoolean(R.styleable.CardLine_cardStartIconAlignTop, false)
-        val endIconAlignTop: Boolean = typedArray.getBoolean(R.styleable.CardLine_cardEndIconAlignTop, false)
-        val textAlignTop: Boolean = typedArray.getBoolean(R.styleable.CardLine_cardTextAlignTop, false)
+        startIconAlignTop =
+            typedArray.getBoolean(R.styleable.CardLine_cardStartIconAlignTop, defStartIconAlignTop)
+        endIconAlignTop =
+            typedArray.getBoolean(R.styleable.CardLine_cardEndIconAlignTop, defEndIconAlignTop)
+        textAlignTop = typedArray.getBoolean(R.styleable.CardLine_cardTextAlignTop, defTextAlignTop)
 
         val title = typedArray.getString(R.styleable.CardLine_cardTitle)
-        val titleStyleId: Int = typedArray.getResourceId(R.styleable.CardLine_cardTitleTextAppearance, -1)
-        val titleSingleLine = typedArray.getBoolean(R.styleable.CardLine_cardTitleSingleLine, false)
-        val titleWidthPercent = typedArray.getFloat(R.styleable.CardLine_cardTitleWidthPercent, 0.35f)
+        val titleStyleId: Int =
+            typedArray.getResourceId(R.styleable.CardLine_cardTitleTextAppearance, -1)
+        val titleSingleLine = typedArray.getBoolean(R.styleable.CardLine_cardTitleSingleLine, defSingleLine)
+        titleWidthPercent =
+            typedArray.getFloat(R.styleable.CardLine_cardTitleWidthPercent, defTitleWidthPercent)
 
         val value = typedArray.getString(R.styleable.CardLine_cardValue)
-        val valueAlignment = typedArray.getInt(R.styleable.CardLine_cardValueAlignment, 0)
-        val valueStyleId: Int = typedArray.getResourceId(R.styleable.CardLine_cardValueTextAppearance, -1)
-        val valueSingleLine = typedArray.getBoolean(R.styleable.CardLine_cardValueSingleLine, false)
+        valueAlignment = typedArray.getInt(R.styleable.CardLine_cardValueAlignment, defValueAlignment)
+        val valueStyleId: Int =
+            typedArray.getResourceId(R.styleable.CardLine_cardValueTextAppearance, -1)
+        val valueSingleLine = typedArray.getBoolean(R.styleable.CardLine_cardValueSingleLine, defSingleLine)
 
-        val topPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardContainerPaddingTop, 0)
-        val bottomPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardContainerPaddingBottom, 0)
-        val startPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardContainerPaddingStart, 0)
-        val endPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardContainerPaddingEnd, 0)
-        val textStartPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardTextPaddingStart, 0)
-        val textBetweenPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardTextPaddingBetween, 0)
-        val textEndPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardTextPaddingEnd, 0)
-        val iconStartPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconPaddingStart, 0)
-        val iconEndPadding = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconPaddingEnd, 0)
+        val topPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardContainerPaddingTop,
+            defPadding
+        )
+        val bottomPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardContainerPaddingBottom,
+            defPadding
+        )
+        val startPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardContainerPaddingStart,
+            defPadding
+        )
+        val endPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardContainerPaddingEnd,
+            defPadding
+        )
+        val textStartPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardTextPaddingStart,
+            defPadding
+        )
+        val textBetweenPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardTextPaddingBetween,
+            defPadding
+        )
+        val textEndPadding = typedArray.getDimensionPixelSize(
+            R.styleable.CardLine_cardTextPaddingEnd,
+            defPadding
+        )
+        val iconStartPadding =
+            typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconPaddingStart, 0)
+        val iconEndPadding =
+            typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconPaddingEnd, 0)
 
         /*##########  Start Icon  ##########*/
-        val startIconSize = typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconStartSize, 0)
+        val startIconSize =
+            typedArray.getDimensionPixelSize(R.styleable.CardLine_cardIconStartSize, 0)
         val startDrawableRes: Int = typedArray.getResourceId(R.styleable.CardLine_cardIconStart, -1)
         val startTint = typedArray.getColor(R.styleable.CardLine_cardIconStartTint, defIconColor)
 
@@ -104,49 +189,49 @@ open class CardLine : LinearLayout {
         val endDrawableRes: Int = typedArray.getResourceId(R.styleable.CardLine_cardIconEnd, -1)
         val endTint = typedArray.getColor(R.styleable.CardLine_cardIconEndTint, defIconColor)
 
-        val showTopDiv = typedArray.getBoolean(R.styleable.CardLine_cardShowDividerTop, false)
-        val topDivHeight = typedArray.getDimension(R.styleable.CardLine_cardTopDividerHeight, defDividerHeight)
-        val topDividerColor = typedArray.getColor(R.styleable.CardLine_cardTopDividerColor, defDividerColor)
-        val showBottomDiv = typedArray.getBoolean(R.styleable.CardLine_cardShowDividerBottom, false)
-        val bottomDivHeight = typedArray.getDimension(R.styleable.CardLine_cardBottomDividerHeight, defDividerHeight)
-        val bottomDividerColor = typedArray.getColor(R.styleable.CardLine_cardBottomDividerColor, defDividerColor)
+        showTopDiv = typedArray.getBoolean(R.styleable.CardLine_cardShowDividerTop, defShowTopDiv)
+        val topDivHeight =
+            typedArray.getDimension(R.styleable.CardLine_cardTopDividerHeight, defDividerHeight)
+        val topDividerColor =
+            typedArray.getColor(R.styleable.CardLine_cardTopDividerColor, defDividerColor)
+        showBottomDiv =
+            typedArray.getBoolean(R.styleable.CardLine_cardShowDividerBottom, defShowBottomDiv)
+        val bottomDivHeight =
+            typedArray.getDimension(R.styleable.CardLine_cardBottomDividerHeight, defDividerHeight)
+        val bottomDividerColor =
+            typedArray.getColor(R.styleable.CardLine_cardBottomDividerColor, defDividerColor)
 
         typedArray.recycle()
 
         setAlignTop(startIconAlignTop, listOf(startIcon))
         setAlignTop(endIconAlignTop, listOf(endIcon))
-        setTextAlignTop(textAlignTop)
+        setupTextAlignTop(textAlignTop)
 
-        container.setPadding(
-            paddingLeft + startPadding,
-            paddingTop + topPadding,
-            paddingRight + endPadding,
-            paddingBottom + bottomPadding
-        )
+        setContainerPaddings(startPadding, topPadding, endPadding, bottomPadding)
 
         titleText.apply {
             text = title ?: ""
             isSingleLine = titleSingleLine
             if (titleStyleId != -1)
                 TextViewCompat.setTextAppearance(this, titleStyleId)
-            setPadding(paddingLeft + textStartPadding, paddingTop, paddingRight + textBetweenPadding, paddingBottom)
-
-            (layoutParams as ConstraintLayout.LayoutParams).apply {
-                if (titleWidthPercent == 0f) {
-                    width = LayoutParams.WRAP_CONTENT
-                    matchConstraintPercentWidth = 1f
-                } else {
-                    matchConstraintPercentWidth = titleWidthPercent
-                }
-            }
+            setPadding(
+                paddingLeft + textStartPadding,
+                paddingTop,
+                paddingRight + textBetweenPadding,
+                paddingBottom
+            )
         }
+
+        setupTitleWidthPercent(titleWidthPercent)
 
         valueText.apply {
             text = value ?: ""
             isSingleLine = valueSingleLine
             if (valueStyleId != -1)
                 TextViewCompat.setTextAppearance(this, valueStyleId)
-            textAlignment = valueAlignment
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                textAlignment = valueAlignment
+            }
             setPadding(paddingLeft, paddingTop, paddingRight + textEndPadding, paddingBottom)
         }
 
@@ -155,39 +240,72 @@ open class CardLine : LinearLayout {
                 updateStartIconSize(startIconSize)
                 setImageResource(startDrawableRes)
                 ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(startTint))
-                setPadding(iconStartPadding)
+                setPadding(iconStartPadding, iconStartPadding, iconStartPadding, iconStartPadding)
                 this.visibility = View.VISIBLE
             } else {
                 this.visibility = View.GONE
             }
         }
+
         endIcon.apply {
             if (endDrawableRes != -1) {
                 updateEndIconSize(endIconSize)
                 setImageResource(endDrawableRes)
                 ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
-                setPadding(iconEndPadding)
+                setPadding(iconEndPadding, iconStartPadding, iconStartPadding, iconStartPadding)
                 this.visibility = View.VISIBLE
             } else {
                 this.visibility = View.GONE
             }
         }
 
-        topDividerView.visibility = if (showTopDiv) View.VISIBLE else View.GONE
-        topDividerView.setBackgroundColor(topDividerColor)
-        val topDivParams = topDividerView.layoutParams as LayoutParams
-        topDivParams.height = topDivHeight.toInt()
-        topDividerView.layoutParams = topDivParams
+        setTopDividerVisibility(showTopDiv)
+        setTopDividerParams(topDividerColor, topDivHeight.toInt())
 
-        bottomDividerView.visibility = if (showBottomDiv) View.VISIBLE else View.GONE
-        bottomDividerView.setBackgroundColor(bottomDividerColor)
-        val bottomDivParams = bottomDividerView.layoutParams as LayoutParams
-        bottomDivParams.height = bottomDivHeight.toInt()
-        bottomDividerView.layoutParams = bottomDivParams
+        setBottomDividerVisibility(showBottomDiv)
+        setBottomDividerParams(bottomDividerColor, bottomDivHeight.toInt())
+    }
+
+    open fun isTitleSingleLine(value: Boolean) {
+        titleText.isSingleLine = value
+    }
+
+    open fun isValueSingleLine(value: Boolean){
+        valueText.isSingleLine = value
+    }
+
+    /*region ############################ Icons ################################*/
+
+    /*####################### Start Icon ############################*/
+
+    open fun setStartIcon(resId: Int) {
+        startIcon.setImageResource(resId)
+    }
+
+    open fun setStartIconVisibility(value: Boolean) {
+        if (value) {
+            startIcon.visibility = View.VISIBLE
+        } else {
+            startIcon.visibility = View.GONE
+        }
     }
 
     open fun updateStartIconSize(size: Int) {
         updateIconSize(size, startIcon)
+    }
+
+    /*####################### End Icon ############################*/
+
+    open fun setEndIcon(resId: Int) {
+        endIcon.setImageResource(resId)
+    }
+
+    open fun setEndIconVisibility(value: Boolean) {
+        if (value) {
+            endIcon.visibility = View.VISIBLE
+        } else {
+            endIcon.visibility = View.GONE
+        }
     }
 
     open fun updateEndIconSize(size: Int) {
@@ -204,7 +322,71 @@ open class CardLine : LinearLayout {
         }
     }
 
-    open fun setTextAlignTop(alignTop: Boolean) {
+    /*endregion ############################ Icons ################################*/
+
+    /*region ############################ Dividers ################################*/
+
+    /*######################## Top divider ############################*/
+
+    open fun setTopDividerVisibility(value: Boolean) {
+        showTopDiv = value
+        topDividerView.visibility = if (showTopDiv) View.VISIBLE else View.GONE
+    }
+
+    open fun setTopDividerColor(color: Int) {
+        topDividerView.setBackgroundColor(color)
+    }
+
+    open fun setTopDividerHeight(value: Int) {
+        val topDivParams = topDividerView.layoutParams as LayoutParams
+        topDivParams.height = value
+        topDividerView.layoutParams = topDivParams
+    }
+
+    open fun setTopDividerParams(color: Int, height: Int) {
+        setTopDividerColor(color)
+        setTopDividerHeight(height)
+    }
+
+    /*######################## Bottom divider ############################*/
+
+    open fun setBottomDividerVisibility(value: Boolean) {
+        showBottomDiv = value
+        bottomDividerView.visibility = if (value) View.VISIBLE else View.GONE
+    }
+
+    open fun setBottomDividerColor(color: Int) {
+        bottomDividerView.setBackgroundColor(color)
+    }
+
+    open fun setBottomDividerHeight(value: Int) {
+        val bottomDivParams = bottomDividerView.layoutParams as LayoutParams
+        bottomDivParams.height = value
+        bottomDividerView.layoutParams = bottomDivParams
+    }
+
+    open fun setBottomDividerParams(color: Int, height: Int) {
+        setBottomDividerColor(color)
+        setBottomDividerHeight(height)
+    }
+
+    /*endregion ############################ Dividers ################################*/
+
+    open fun setContainerPaddings(
+        leftPadding: Int,
+        topPadding: Int,
+        rightPadding: Int,
+        bottomPadding: Int
+    ) {
+        container.setPadding(
+            paddingLeft + leftPadding,
+            paddingTop + topPadding,
+            paddingRight + rightPadding,
+            paddingBottom + bottomPadding
+        )
+    }
+
+    open fun setupTextAlignTop(alignTop: Boolean) {
         setAlignTop(alignTop, listOf(titleText, valueText))
     }
 
@@ -237,6 +419,20 @@ open class CardLine : LinearLayout {
 
     open fun getCardValue(): String {
         return valueText.text.toString()
+    }
+
+    open fun setupTitleWidthPercent(value: Float) {
+        titleWidthPercent = value
+        titleText.apply {
+            (layoutParams as ConstraintLayout.LayoutParams).apply {
+                if (value == 0f) {
+                    width = LayoutParams.WRAP_CONTENT
+                    matchConstraintPercentWidth = 1f
+                } else {
+                    matchConstraintPercentWidth = value
+                }
+            }
+        }
     }
 
     fun dpToPx(dp: Int): Float {
