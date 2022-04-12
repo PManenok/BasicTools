@@ -63,7 +63,7 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E,*>, TBinding : V
                     v.clearFocus()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    logger.log("dispatchTouchEvent")
+                    logger.logDebug("dispatchTouchEvent")
                     hideSystemUI()
                 }
             }

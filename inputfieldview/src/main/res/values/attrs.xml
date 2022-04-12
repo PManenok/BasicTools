@@ -92,6 +92,7 @@
         <attr name="inputInactiveStrokeColor" format="color" />
         <attr name="inputActiveStrokeColor" format="color" />
         <attr name="inputBoxBgColor" format="color" />
+        <attr name="inputHideBox" format="boolean" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
     </declare-styleable>

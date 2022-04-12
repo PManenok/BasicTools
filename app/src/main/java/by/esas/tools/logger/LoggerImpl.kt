@@ -17,14 +17,6 @@ class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
 
     }
 
-    override fun logLocally(msg: String) {
-        Log.w(currentTag, msg)
-    }
-
-    override fun log(msg: String) {
-        Log.w(currentTag, msg)
-    }
-
     override fun log(tag: String, msg: String, level: Int) {
         Log.w(currentTag, msg)
     }
@@ -51,6 +43,6 @@ class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
 
 
     override fun logCategory(category: String, tag: String, msg: String) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 }
