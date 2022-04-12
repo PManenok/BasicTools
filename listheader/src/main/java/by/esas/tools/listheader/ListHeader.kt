@@ -2,6 +2,7 @@ package by.esas.tools.listheader
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
@@ -12,12 +13,11 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.setPadding
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
+import kotlin.math.roundToInt
 
 /**
  * This view  can be used to show a list's header and list arrow or some action text button.
@@ -43,6 +43,14 @@ open class ListHeader : LinearLayout {
     val actionText: MaterialTextView
     val arrowIcon: AppCompatImageView
 
+    protected val defIconInnerPadding = dpToPx(3)
+    protected val defIconColor = Color.RED
+    protected val defPadding = 0
+    protected var defChildrenMarginTop: Int = 0
+    protected var defChildrenMarginBottom: Int = 0
+    protected var defViewBottomPadding: Int = 0
+    protected var defIconDrawableRes: Int? = null
+    protected var defOpened: Boolean = true
 
     protected var childrenMarginTop: Int = 0
     protected var childrenMarginBottom: Int = 0
@@ -53,7 +61,11 @@ open class ListHeader : LinearLayout {
 
     protected open val containerListener: OnClickListener = OnClickListener {
         updateChildrenVisibility(!opened, true)
+
+        setListContainerClickable(false)
     }
+
+    /*region  Constructors  */
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -71,6 +83,8 @@ open class ListHeader : LinearLayout {
         initAttrs(attrs)
     }
 
+    /*endregion  Constructors  */
+
     init {
         this.orientation = LinearLayout.VERTICAL
         val view = inflate(context, R.layout.v_list_header, this)
@@ -83,20 +97,18 @@ open class ListHeader : LinearLayout {
 
     /*  Initialize attributes from XML file  */
     protected fun initAttrs(attrs: AttributeSet?) {
-        val defIconInnerPadding = context.resources.getDimensionPixelSize(R.dimen.spacing_4)
-        val defIconColor = Color.RED
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ListHeader)
 
         val defaultBehaviorEnabled = typedArray.getBoolean(R.styleable.ListHeader_listDefaultBehaviorEnabled, true)
         val containerIsClickable = typedArray.getBoolean(R.styleable.ListHeader_listContainerClickable, false)
-        val topPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingTop, 0)
-        val bottomPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingBottom, 0)
-        val startPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingStart, 0)
-        val endPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingEnd, 0)
+        val topPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingTop, defPadding)
+        val bottomPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingBottom, defPadding)
+        val startPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingStart, defPadding)
+        val endPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingEnd, defPadding)
 
-        childrenMarginTop = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginTop, 0)
-        childrenMarginBottom = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginBottom, 0)
+        childrenMarginTop = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginTop, defChildrenMarginTop)
+        childrenMarginBottom = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginBottom, defChildrenMarginBottom)
 
         /*##########  Title  ##########*/
         val title = typedArray.getString(R.styleable.ListHeader_listTitle)
@@ -111,7 +123,7 @@ open class ListHeader : LinearLayout {
         iconDrawableRes = typedArray.getResourceId(R.styleable.ListHeader_listArrowIcon, -1).takeIf { it != -1 }
         val iconTint = typedArray.getColor(R.styleable.ListHeader_listArrowTint, defIconColor)
         val iconInnerPadding =
-            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listArrowInnerPadding, defIconInnerPadding)
+            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listArrowInnerPadding, defIconInnerPadding.toInt())
         opened = typedArray.getBoolean(R.styleable.ListHeader_listIsOpen, true)
 
         typedArray.recycle()
@@ -129,20 +141,26 @@ open class ListHeader : LinearLayout {
         setupActionVisibility(action, iconDrawableRes)
 
         if (defaultBehaviorEnabled)
-            this.viewTreeObserver.addOnPreDrawListener {
-                var draw = true
-                if (!checkChildrenVisibility(opened)) {
-                    updateChildrenVisibility(opened, true)
-                    draw = false
-                }
-                return@addOnPreDrawListener draw
-            }
+            addOnPreDrawListener()
     }
 
     /*region setups*/
 
+    private fun addOnPreDrawListener(){
+        this.viewTreeObserver.addOnPreDrawListener {
+            var draw = true
+            if (!checkChildrenVisibility(opened)) {
+                updateChildrenVisibility(opened, true)
+                draw = false
+            }
+            return@addOnPreDrawListener draw
+        }
+    }
+
     protected open fun setupPaddings(startPadding: Int, topPadding: Int, endPadding: Int, bottomPadding: Int) {
-        titleText.setPadding(titleText.paddingStart, topPadding, titleText.paddingEnd, bottomPadding)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            titleText.setPadding(titleText.paddingStart, topPadding, titleText.paddingEnd, bottomPadding)
+        }
 
         container.setPadding(startPadding, container.paddingTop, endPadding, container.paddingBottom)
         (container.layoutParams as LayoutParams).apply {
@@ -169,7 +187,7 @@ open class ListHeader : LinearLayout {
                 updateIconSize(iconSize, this)
                 setImageResource(iconDrawableRes)
                 ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(iconTint))
-                setPadding(iconInnerPadding)
+                setPadding(iconInnerPadding, iconInnerPadding, iconInnerPadding, iconInnerPadding)
                 isEnabled = opened
                 this.visibility = View.VISIBLE
             } else {
@@ -226,6 +244,28 @@ open class ListHeader : LinearLayout {
                 }
             }
         }
+    }
+
+    open fun setDefaultValues(){
+        childrenMarginTop = defChildrenMarginTop
+        childrenMarginBottom = defChildrenMarginBottom
+        opened = defOpened
+        iconDrawableRes = defIconDrawableRes
+        viewBottomPadding = defViewBottomPadding
+        openedListeners.clear()
+
+        setDefaultContainerListener()
+        setListContainerClickable(false)
+
+        setupPaddings(defPadding, defPadding, defPadding, defPadding)
+
+        setupTextView(titleText, "title", -1)
+        setupTextView(actionText, "action", -1)
+
+        setupArrowIcon(defIconDrawableRes, defIconColor, 0, defIconInnerPadding.toInt())
+
+        setupActionVisibility("", defIconDrawableRes)
+        addOnPreDrawListener()
     }
     /*endregion Setting functions*/
 
@@ -312,4 +352,8 @@ open class ListHeader : LinearLayout {
     }
 
     /*endregion List Opened Listener*/
+
+    fun dpToPx(dp: Int): Float {
+        return (dp * Resources.getSystem().displayMetrics.density)
+    }
 }

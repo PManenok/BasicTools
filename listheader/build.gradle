@@ -1,40 +1,75 @@
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'maven-publish'
 
-android {
-    compileSdkVersion 32
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 32
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    task sourceJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier "sources"
     }
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'by.esas.tools'
+                artifactId = 'listheader'
+                version = "$listheader_lib_version"
+            }
+            // Creates a Maven publication called “debug”.
+            /*debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+                from components.debug
+
+                groupId = 'com.example.MyLibrary'
+                artifactId = 'final-debug'
+                version = '1.0'
+            }*/
+
+        }
+        repositories {
+            maven {
+                // change to point to your repo, e.g. http://my.org/repo
+                url = layout.buildDirectory.dir('https://github.com/PManenok/BasicTools')
+            }
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+}
+android {
+    compileSdkVersion 30
+
+    buildFeatures {
+        dataBinding = true
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+        vectorDrawables.useSupportLibrary = true
     }
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // Constraint Layout
+    api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+
+    // Material Design
+    api "com.google.android.material:material:$material_version"
+
+    // Data binding
+    kapt "com.android.databinding:compiler:$databinding_version"
+
+    implementation "androidx.core:core-ktx:1.7.0"
 }

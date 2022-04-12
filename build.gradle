@@ -10,6 +10,7 @@ buildscript {
         pinview_lib_version = '2.2.0'// independent
         inputfieldview_lib_version = '2.2.0'// independent
         checker_lib_version = '2.2.0' // independent (3)
+        listheader_lib_version = '2.2.0'
 
         domain_lib_version = '2.2.0' // logger (2)
         dialog_lib_version = '2.2.0' // logger, util, checker (2)
