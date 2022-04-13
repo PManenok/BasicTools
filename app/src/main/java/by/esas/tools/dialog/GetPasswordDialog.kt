@@ -11,7 +11,6 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfPasswordBinding
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
-import kotlinx.android.synthetic.main.df_password.*
 
 class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException, BaseStatusEnum>() {
     override val TAG: String = GetPasswordDialog::class.java.simpleName
@@ -103,14 +102,14 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
 
     override fun disableControls() {
         super.disableControls()
-        df_password_continue_btn.isClickable = false
-        df_password_cancel_btn.isClickable = false
+        binding.dfPasswordContinueBtn.isClickable = false
+        binding.dfPasswordCancelBtn.isClickable = false
     }
 
     override fun enableControls() {
         super.enableControls()
-        df_password_continue_btn.isClickable = true
-        df_password_cancel_btn.isClickable = true
+        binding.dfPasswordContinueBtn.isClickable = true
+        binding.dfPasswordCancelBtn.isClickable = true
     }
 
     fun setForgotPassword(enable: Boolean) {

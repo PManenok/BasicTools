@@ -2,6 +2,7 @@ package by.esas.tools
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.multidex.MultiDex
 import by.esas.tools.inject.component.DaggerAppComponent
 import by.esas.tools.util.LocaleManager
 import dagger.android.AndroidInjector
@@ -43,7 +44,7 @@ class App : DaggerApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base?.let { return@let LocaleManager.setLocale(base, getLocale(base).language) })
-        //MultiDex.install(this)
+        MultiDex.install(this)
     }
 
 }
