@@ -66,7 +66,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : DaggerFragment
 
     protected open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
         return MaterialAlertDialogBuilder(
-            context,
+            requireContext(),
             R.style.AppTheme_CustomMaterialDialog
         ).setCancelable(false)
     }

@@ -4,6 +4,7 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import by.esas.tools.dialog.GetPasswordDialog
 import javax.inject.Inject
 
 class MainVM @Inject constructor() : AppVM() {
@@ -33,6 +34,10 @@ class MainVM @Inject constructor() : AppVM() {
     fun onAdditionalClick() {
         showAdditional.set(!showAdditional.get())
         update()
+    }
+
+    fun onPhoneCodeClick() {
+        showDialog(GetPasswordDialog())
     }
 }
 

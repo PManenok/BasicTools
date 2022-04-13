@@ -63,7 +63,8 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         //setHeader(view.findViewById(R.id.df_password_title), view.context.getString(titleRes))
         showRecreateCheck.set(showRecreateView)
         showForgotPassword.set(forgotPasswordEnable)
-        binding.dfPasswordCancelBtn.setText(cancelTitleRes)
+        if (cancelTitleRes != -1)
+            binding.dfPasswordCancelBtn.setText(cancelTitleRes)
     }
 
     fun onCancelClick() {

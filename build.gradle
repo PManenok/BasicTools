@@ -25,7 +25,7 @@ buildscript {
         appcompat_annotation_version = '1.1.0'
         appcompat_version = '1.4.1'
         constraintlayout_version = '2.0.1'
-        material_version = '1.1.0-rc02'
+        material_version = '1.5.0'
         databinding_version = '3.1.4'
         moshi_version = '1.8.0'
         okhttp_version = '3.11.0'
