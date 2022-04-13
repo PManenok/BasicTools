@@ -21,7 +21,7 @@ buildscript {
         // dependencies versions
         lifecycle_version = '2.2.0'
         kotlin_version = '1.6.20'
-        corektx_version = '1.3.2'
+        corektx_version = '1.7.0'
         appcompat_annotation_version = '1.1.0'
         appcompat_version = '1.4.1'
         constraintlayout_version = '2.0.1'

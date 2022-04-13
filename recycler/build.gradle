@@ -64,5 +64,4 @@ dependencies {
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
-
 }
