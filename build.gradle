@@ -31,7 +31,7 @@ buildscript {
         okhttp_version = '4.9.3'
         retrofit_version = '2.6.4'
         coroutines_version = '1.6.1'
-        biometric_version = "1.0.0-beta02"
+        biometric_version = "1.1.0"
         dagger2_version = '2.40'
         recyclerview_version = '1.2.1'
         navigation_version = "2.3.5"
