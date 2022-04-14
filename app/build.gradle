@@ -43,6 +43,12 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$corektx_version"
 
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+
+    // Material Design
+    implementation "com.google.android.material:material:$material_version"
+
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
 
