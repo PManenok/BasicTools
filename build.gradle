@@ -33,7 +33,7 @@ buildscript {
         coroutines_version = '1.3.0'
         biometric_version = "1.0.0-beta02"
         dagger2_version = '2.40'
-        recyclerview_version = '1.1.0-beta04'
+        recyclerview_version = '1.2.1'
         navigation_version = "2.3.5"
     }
     repositories {

@@ -59,9 +59,6 @@ dependencies {
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
-    // Material Design
-    api "com.google.android.material:material:$material_version"
-
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
 }
