@@ -3,6 +3,7 @@ package by.easa.tools.topbar
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -12,8 +13,6 @@ import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
@@ -56,94 +55,132 @@ open class TopbarView : LinearLayout {
         actionIconView = view.findViewById(R.id.v_top_bar_right_action_icon)
     }
 
-    val defIconColor = ContextCompat.getColor(context, R.color.design_default_color_error)
-    val defaultIconsPadding = dpToPx(5).toInt()
+    protected val defDividerHeight = dpToPx(1)
+    protected val defContainerHeight = dpToPx(35)
+    protected val defDividerColor = Color.parseColor("#D9E1EE")
+    protected val defIconColor = Color.RED
+    protected val defIconsPadding = dpToPx(5).toInt()
+    protected val defPadding: Int = 0
+
+    protected val defShowNavIcon = false
+    protected val defNavIconRes = -1
+    protected val defNavIconSize = 0
+    protected val defShowActionIcon = false
+    protected val defActionIconRes = -1
+    protected val defActionIconSize = 0
 
     protected var showNavIcon: Boolean = false
     protected var navIconRes: Int = -1
     protected var navIconSize: Int = 0
     protected var navIconTint: Int = defIconColor
-    protected var navIconPadding: Int = defaultIconsPadding
+    protected var navIconPadding: Int = defIconsPadding
 
-    protected var showEndIcon: Boolean = false
-    protected var endIconRes: Int = -1
-    protected var endIconSize: Int = 0
-    protected var endIconTint: Int = defIconColor
-    protected var endIconPadding: Int = defaultIconsPadding
+    //заменила в названиях showEndIcon, endIconRes, endIconSize, endIconTint, endIconPadding - end на Action.
+    // Т.к. у нас есть navIcon и ActionIcon, а start и end относятся к текстовым полям.
+    // и в сочетании endIcon созвалась путаница - это название относится к текстовому полю или к icon
+    protected var showActionIcon: Boolean = false
+    protected var actionIconRes: Int = -1
+    protected var actionIconSize: Int = 0
+    protected var actionIconTint: Int = defIconColor
+    protected var actionIconPadding: Int = defIconsPadding
 
     protected fun initAttrs(attrs: AttributeSet?) {
-        val defDividerHeight = dpToPx(1)
-        val defContainerHeight = dpToPx(35)
-        val defDividerColor = ContextCompat.getColor(context, R.color.cardview_light_background)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TopbarView)
 
         // container variables
-        val topPadding = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barContainerPaddingTop, 0)
-        val bottomPadding = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barContainerPaddingBottom, 0)
-        val startPadding = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barContainerPaddingStart, 0)
-        val endPadding = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barContainerPaddingEnd, 0)
+        val topPadding = typedArray.getDimensionPixelSize(
+            R.styleable.TopbarView_barContainerPaddingTop,
+            defPadding
+        )
+        val bottomPadding = typedArray.getDimensionPixelSize(
+            R.styleable.TopbarView_barContainerPaddingBottom,
+            defPadding
+        )
+        val startPadding = typedArray.getDimensionPixelSize(
+            R.styleable.TopbarView_barContainerPaddingStart,
+            defPadding
+        )
+        val endPadding = typedArray.getDimensionPixelSize(
+            R.styleable.TopbarView_barContainerPaddingEnd,
+            defPadding
+        )
         val containerHeight =
-            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barContainerHeight, defContainerHeight.toInt())
+            typedArray.getDimensionPixelSize(
+                R.styleable.TopbarView_barContainerHeight,
+                defContainerHeight.toInt()
+            )
 
         // back arrow variables
-        navIconRes = typedArray.getResourceId(R.styleable.TopbarView_barNavIcon, -1)
-        navIconSize = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barNavIconSize, 0)
+        navIconRes = typedArray.getResourceId(R.styleable.TopbarView_barNavIcon, defNavIconRes)
+        navIconSize =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barNavIconSize, defNavIconSize)
         navIconTint = typedArray.getColor(R.styleable.TopbarView_barNavIconTint, defIconColor)
         navIconPadding = typedArray
-            .getDimensionPixelSize(R.styleable.TopbarView_barNavIconPadding, defaultIconsPadding)
-        showNavIcon = typedArray.getBoolean(R.styleable.TopbarView_barShowNavIcon, false)
+            .getDimensionPixelSize(R.styleable.TopbarView_barNavIconPadding, defIconsPadding)
+        showNavIcon = typedArray.getBoolean(R.styleable.TopbarView_barShowNavIcon, defShowNavIcon)
 
         // start action variables
         val startActionText = typedArray.getString(R.styleable.TopbarView_barStartActionText)
-        val startActionStyle: Int = typedArray.getResourceId(R.styleable.TopbarView_barStartActionTextAppearance, -1)
-        val startActionPaddingTop = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingTop, 0)
+        val startActionStyle: Int =
+            typedArray.getResourceId(R.styleable.TopbarView_barStartActionTextAppearance, -1)
+        val startActionPaddingTop =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingTop, 0)
         val startActionPaddingBottom =
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingBottom, 0)
         val startActionPaddingStart =
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingStart, 0)
-        val startActionPaddingEnd = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingEnd, 0)
+        val startActionPaddingEnd =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barStartActionPaddingEnd, 0)
 
         // title variables
         val title = typedArray.getString(R.styleable.TopbarView_barTitleText)
-        val titleStyleId: Int = typedArray.getResourceId(R.styleable.TopbarView_barTitleTextAppearance, -1)
-        val titlePaddingStart = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingStart, 0)
-        val titlePaddingEnd = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingEnd, 0)
+        val titleStyleId: Int =
+            typedArray.getResourceId(R.styleable.TopbarView_barTitleTextAppearance, -1)
+        val titlePaddingStart =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingStart, 0)
+        val titlePaddingEnd =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingEnd, 0)
 
         // end action variables
         val endActionText = typedArray.getString(R.styleable.TopbarView_barEndActionText)
-        val endActionStyle: Int = typedArray.getResourceId(R.styleable.TopbarView_barEndActionTextAppearance, -1)
-        val endActionPaddingTop = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingTop, 0)
+        val endActionStyle: Int =
+            typedArray.getResourceId(R.styleable.TopbarView_barEndActionTextAppearance, -1)
+        val endActionPaddingTop =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingTop, 0)
         val endActionPaddingBottom =
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingBottom, 0)
         val endActionPaddingStart =
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingStart, 0)
-        val endActionPaddingEnd = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingEnd, 0)
+        val endActionPaddingEnd =
+            typedArray.getDimensionPixelSize(R.styleable.TopbarView_barEndActionPaddingEnd, 0)
 
         // end action icon variables
-        endIconRes = typedArray.getResourceId(R.styleable.TopbarView_barActionIcon, -1)
-        endIconSize = typedArray.getDimensionPixelSize(R.styleable.TopbarView_barActionIconSize, 0)
-        endIconTint = typedArray.getColor(R.styleable.TopbarView_barActionIconTint, defIconColor)
-        endIconPadding = typedArray
-            .getDimensionPixelSize(R.styleable.TopbarView_barActionIconPadding, defaultIconsPadding)
-        showEndIcon = typedArray.getBoolean(R.styleable.TopbarView_barShowActionIcon, false)
+        actionIconRes = typedArray.getResourceId(R.styleable.TopbarView_barActionIcon, defActionIconRes)
+        actionIconSize = typedArray.getDimensionPixelSize(
+            R.styleable.TopbarView_barActionIconSize,
+            defActionIconSize
+        )
+        actionIconTint = typedArray.getColor(R.styleable.TopbarView_barActionIconTint, defIconColor)
+        actionIconPadding = typedArray
+            .getDimensionPixelSize(R.styleable.TopbarView_barActionIconPadding, defIconsPadding)
+        showActionIcon =
+            typedArray.getBoolean(R.styleable.TopbarView_barShowActionIcon, defShowActionIcon)
 
         //divider variables
         val showDiv = typedArray.getBoolean(R.styleable.TopbarView_barShowDivider, false)
-        val divHeight = typedArray.getDimension(R.styleable.TopbarView_barDividerHeight, defDividerHeight)
-        val dividerColor = typedArray.getColor(R.styleable.TopbarView_barDividerColor, defDividerColor)
+        val divHeight =
+            typedArray.getDimension(R.styleable.TopbarView_barDividerHeight, defDividerHeight)
+        val dividerColor =
+            typedArray.getColor(R.styleable.TopbarView_barDividerColor, defDividerColor)
 
         typedArray.recycle()
 
         val titleWidthIsWrap = !startActionText.isNullOrBlank() || !endActionText.isNullOrBlank()
 
-        containerView.setPadding(
-            paddingLeft + startPadding,
-            paddingTop + topPadding,
-            paddingRight + endPadding,
-            paddingBottom + bottomPadding
-        )
-        containerView.layoutParams.apply { height = containerHeight }
+        setContainerPaddings(startPadding, topPadding, endPadding, bottomPadding)
+
+        setContainerHeight(containerHeight)
 
         if (startActionText.isNullOrBlank()) {
             startActionView.visibility = View.GONE
@@ -160,6 +197,7 @@ open class TopbarView : LinearLayout {
                 )
             }
         }
+
         updateNavigationIcon()
 
         if (endActionText.isNullOrBlank()) {
@@ -184,7 +222,12 @@ open class TopbarView : LinearLayout {
             text = title
             if (titleStyleId != -1)
                 TextViewCompat.setTextAppearance(this, titleStyleId)
-            setPadding(paddingLeft + titlePaddingStart, paddingTop, paddingRight + titlePaddingEnd, paddingBottom)
+            setPadding(
+                paddingLeft + titlePaddingStart,
+                paddingTop,
+                paddingRight + titlePaddingEnd,
+                paddingBottom
+            )
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
             val params = layoutParams as ConstraintLayout.LayoutParams
@@ -196,37 +239,50 @@ open class TopbarView : LinearLayout {
         }
 
         dividerView.setBackgroundColor(dividerColor)
-        val bottomDivParams = dividerView.layoutParams as LayoutParams
-        bottomDivParams.height = divHeight.toInt()
-        dividerView.layoutParams = bottomDivParams
+        setDividerHeight(divHeight.toInt())
         dividerView.visibility = if (showDiv) View.VISIBLE else View.GONE
     }
 
-    open fun updateActionIcon() {
-        actionIconView.apply {
-            if (endIconRes != -1) {
-                updateIconSize(endIconSize, this)
-                setImageResource(endIconRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endIconTint))
-                setPadding(endIconPadding)
-                setActionIconVisibility(showEndIcon)
-            } else {
-                this.visibility = View.GONE
-            }
-        }
+    /*region ############################ Title ################################*/
+    fun setTitle(text: String?) {
+        titleView.text = text
     }
 
-    open fun updateNavigationIcon() {
-        navIconView.apply {
-            if (navIconRes != -1) {
-                updateIconSize(navIconSize, this)
-                setImageResource(navIconRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(navIconTint))
-                setPadding(navIconPadding)
-                setNavIconVisibility(showNavIcon)
-            } else {
-                this.visibility = View.GONE
-            }
+    fun setTitle(textRes: Int?) {
+        if (textRes != null)
+            titleView.setText(textRes)
+    }
+
+    fun isTitleSingleLine(value: Boolean) {
+        titleView.isSingleLine = value
+    }
+
+    fun setTitlePaddings(paddingStart: Int, paddingEnd: Int) {
+        titleView.setPadding(
+            paddingLeft + paddingStart,
+            paddingTop,
+            paddingRight + paddingEnd,
+            paddingBottom
+        )
+    }
+
+    fun setEllipsize(truncateAt: TextUtils.TruncateAt) {
+        titleView.ellipsize = truncateAt
+    }
+
+    fun setDefaultTitleParams(){
+        titleView.apply {
+            setPadding(
+                paddingLeft + defPadding,
+                paddingTop,
+                paddingRight + defPadding,
+                paddingBottom
+            )
+            isSingleLine = true
+            ellipsize = TextUtils.TruncateAt.END
+            val params = layoutParams as ConstraintLayout.LayoutParams
+            getLayoutParamsForZeroWidth(params)
+            layoutParams = params
         }
     }
 
@@ -251,6 +307,32 @@ open class TopbarView : LinearLayout {
             endToStart = actionIconView.id
         }
     }
+    /*endregion ############################ Title ################################*/
+
+    /*region ############################ Divider ################################*/
+    fun setDividerVisibility(value: Boolean) {
+        dividerView.visibility = if (value) View.VISIBLE else View.GONE
+    }
+
+    fun setDividerHeight(dividerHeight: Int) {
+        dividerView.layoutParams.apply {
+            height = dividerHeight
+        }
+    }
+
+    fun setDividerColor(color: Int) {
+        dividerView.setBackgroundColor(color)
+    }
+    /*endregion ############################ Divider ################################*/
+
+    /*region ############################ Icons ################################*/
+    protected open fun updateIconVisibility(icon: View, showIcon: Boolean, hasActionText: Boolean) {
+        icon.visibility = when {
+            !hasActionText && showIcon -> View.VISIBLE
+            hasActionText -> View.GONE
+            else -> View.INVISIBLE
+        }
+    }
 
     protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
         val size: Int = if (iconSize == 0) dpToPx(32).roundToInt() else iconSize
@@ -269,14 +351,38 @@ open class TopbarView : LinearLayout {
         endActionView.isClickable = value
     }
 
+    /*############################ Start Action View ################################*/
     open fun setStartActionListener(listener: OnClickListener) {
         navIconView.setOnClickListener(listener)
         startActionView.setOnClickListener(listener)
     }
 
+    fun setStartActionViewVisibility(value: Boolean) {
+        if (value) {
+            startActionView.visibility = View.VISIBLE
+        } else {
+            startActionView.visibility = View.GONE
+        }
+    }
+
+    /*############################ End Action View ################################*/
     open fun setEndActionListener(listener: OnClickListener) {
         actionIconView.setOnClickListener(listener)
         endActionView.setOnClickListener(listener)
+    }
+
+    fun setEndActionViewVisibility(value: Boolean) {
+        if (value) {
+            endActionView.visibility = View.VISIBLE
+        } else {
+            endActionView.visibility = View.GONE
+        }
+    }
+
+    /*############################ Navigation Icon ################################*/
+    fun setNavIconImage(resId: Int) {
+        navIconRes = resId
+        updateNavigationIcon()
     }
 
     open fun setNavIconVisibility(value: Boolean) {
@@ -285,39 +391,104 @@ open class TopbarView : LinearLayout {
         updateIconVisibility(navIconView, value, actionTextIsVisible)
     }
 
+    protected open fun updateNavigationIcon() {
+        navIconView.apply {
+            if (navIconRes != -1) {
+                updateIconSize(navIconSize, this)
+                setImageResource(navIconRes)
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(navIconTint))
+                setPadding(navIconPadding, navIconPadding, navIconPadding, navIconPadding)
+                setNavIconVisibility(showNavIcon)
+            } else {
+                this.visibility = View.GONE
+            }
+        }
+    }
+
+    /*############################ Action Icon ################################*/
+    fun setActionIconImage(resId: Int) {
+        actionIconRes = resId
+        updateActionIcon()
+    }
+
     open fun setActionIconVisibility(value: Boolean) {
-        showEndIcon = value
+        showActionIcon = value
         val actionTextIsVisible = endActionView.visibility == View.VISIBLE
         updateIconVisibility(actionIconView, value, actionTextIsVisible)
     }
 
-    protected open fun updateIconVisibility(icon: View, showIcon: Boolean, hasActionText: Boolean) {
-        icon.visibility = when {
-            !hasActionText && showIcon -> View.VISIBLE
-            hasActionText -> View.GONE
-            else -> View.INVISIBLE
+    open fun updateActionIcon() {
+        actionIconView.apply {
+            if (actionIconRes != -1) {
+                updateIconSize(actionIconSize, this)
+                setImageResource(actionIconRes)
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(actionIconTint))
+                setPadding(actionIconPadding, actionIconPadding, actionIconPadding, actionIconPadding)
+                setActionIconVisibility(showActionIcon)
+            } else {
+                this.visibility = View.GONE
+            }
+        }
+    }
+    /*endregion ############################ Icons ################################*/
+
+    /*region ############################ Container ################################*/
+
+    fun setContainerPaddings(
+        startPadding: Int,
+        topPadding: Int,
+        endPadding: Int,
+        bottomPadding: Int
+    ) {
+        containerView.setPadding(
+            paddingLeft + startPadding,
+            paddingTop + topPadding,
+            paddingRight + endPadding,
+            paddingBottom + bottomPadding
+        )
+    }
+
+    fun setContainerHeight(containerHeight: Int) {
+        containerView.layoutParams.apply {
+            height = containerHeight
         }
     }
 
-    fun setDividerVisibility(value: Boolean) {
-        dividerView.visibility = if (value) View.VISIBLE else View.GONE
-    }
+    /*endregion ############################ Container ################################*/
 
-    fun setEndActionIcon(resId: Int) {
-        endIconRes = resId
+    /*region ############################ Other ################################*/
+    open fun setDefaultValues() {
+        navIconRes = defNavIconRes
+        navIconSize = defNavIconSize
+        navIconTint = defIconColor
+        navIconPadding = defIconsPadding
+        showNavIcon = defShowNavIcon
+
+        actionIconRes = defActionIconRes
+        actionIconSize = defActionIconSize
+        actionIconTint = defIconColor
+        actionIconPadding = defIconsPadding
+        showActionIcon = defShowActionIcon
+
+        setContainerPaddings(defPadding, defPadding, defPadding, defPadding)
+        setContainerHeight(defContainerHeight.toInt())
+
+        startActionView.visibility = View.GONE
+        updateNavigationIcon()
+
+        endActionView.visibility = View.GONE
         updateActionIcon()
-    }
 
-    fun setTitle(text: String?) {
-        titleView.text = text
-    }
+        setTitle("")
+        setDefaultTitleParams()
 
-    fun setTitle(textRes: Int?) {
-        if (textRes != null)
-            titleView.setText(textRes)
+        dividerView.setBackgroundColor(defDividerColor)
+        setDividerHeight(defDividerHeight.toInt())
+        setDividerVisibility(false)
     }
 
     private fun dpToPx(dp: Int): Float {
         return (dp * Resources.getSystem().displayMetrics.density)
     }
+    /*endregion ############################ Other ################################*/
 }
