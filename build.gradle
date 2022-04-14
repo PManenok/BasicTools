@@ -28,7 +28,7 @@ buildscript {
         material_version = '1.5.0'
         databinding_version = '3.1.4'
         moshi_version = '1.8.0'
-        okhttp_version = '3.11.0'
+        okhttp_version = '4.9.3'
         retrofit_version = '2.5.0'
         coroutines_version = '1.6.1'
         biometric_version = "1.0.0-beta02"
