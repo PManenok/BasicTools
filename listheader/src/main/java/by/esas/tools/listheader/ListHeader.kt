@@ -60,9 +60,10 @@ open class ListHeader : LinearLayout {
     protected val openedListeners = mutableListOf<ListOpenedListener>()
 
     protected open val containerListener: OnClickListener = OnClickListener {
+        setListContainerClickable(false)
         updateChildrenVisibility(!opened, true)
 
-        setListContainerClickable(false)
+        setListContainerClickable(true)
     }
 
     /*region  Constructors  */
