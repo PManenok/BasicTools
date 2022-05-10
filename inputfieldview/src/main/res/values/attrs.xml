@@ -23,6 +23,7 @@
         <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
+        <attr name="inputLabelColorWithError" format="boolean"/>
 
         <!--Input Text-->
         <attr name="inputEditTextStyle" format="reference" />
