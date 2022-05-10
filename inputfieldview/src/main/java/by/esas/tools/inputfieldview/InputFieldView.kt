@@ -88,6 +88,7 @@ open class InputFieldView : ConstraintLayout {
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
     protected open var hideErrorText: Boolean = true
+    protected open var hideInputBox: Boolean = false
 
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
@@ -405,6 +406,7 @@ open class InputFieldView : ConstraintLayout {
         setupStartIconMode()
         setupEndIconMode()
         boxSettings()
+        hideInputBox(false)
     }
     /*endregion ############### Input settings END ################*/
 
@@ -830,7 +832,7 @@ open class InputFieldView : ConstraintLayout {
     }
     /*endregion ############### TextWatcher settings ################*/
 
-    /*region ################### Other ######################*/
+    /*region ################### Box View Settings ######################*/
     protected open fun boxSettings() {
         inputBox?.apply {
             setStrokeWidthInPx(strokeWidthInPx)
@@ -839,6 +841,23 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
+    protected open fun setInputBoxVisibility(){
+        if (hideInputBox){
+            inputBox?.visibility = View.VISIBLE
+        } else {
+            inputBox?.visibility = View.GONE
+        }
+    }
+
+    open fun hideInputBox(value: Boolean){
+        if (hideInputBox != value){
+            hideInputBox = value
+            setInputBoxVisibility()
+        }
+    }
+    /*endregion ################### Box View Settings ######################*/
+
+    /*region ################### Other ######################*/
     protected open fun labelOnPreDraw(): Boolean {
         var draw = true
         labelText?.let { label ->
@@ -1102,6 +1121,7 @@ open class InputFieldView : ConstraintLayout {
         updateStartIcon()
         updateEndIcon()
         boxSettings()
+        setInputBoxVisibility()
         //set start and end icons to be checked
         if (startIconMode == START_ICON_CHECKABLE) {
             startCheckBox?.isChecked = isChecked
