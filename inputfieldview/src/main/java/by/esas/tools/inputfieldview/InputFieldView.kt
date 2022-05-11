@@ -353,6 +353,11 @@ open class InputFieldView : ConstraintLayout {
     open fun getTextWithPrefix(): String {
         return prefixTextView?.text?.toString() ?: "" + inputText?.text?.toString() ?: ""
     }
+
+    open fun setPrefixStyle(styleId: Int){
+        if (styleId != -1)
+            prefixTextView?.apply { TextViewCompat.setTextAppearance(this, styleId) }
+    }
     /*endregion ############### Prefix settings END ################*/
 
     /*region ############### Input settings ################*/
@@ -380,6 +385,11 @@ open class InputFieldView : ConstraintLayout {
 
     open fun setInputType(inputType: Int = defaultInputType) {
         inputText?.inputType = inputType
+    }
+
+    open fun setInputStyle(inputStyle: Int){
+        if (inputStyle != -1)
+            inputText?.apply { TextViewCompat.setTextAppearance(this, inputStyle) }
     }
 
     open fun setInputClickViewEnabled(value: Boolean) {
@@ -807,6 +817,11 @@ open class InputFieldView : ConstraintLayout {
             helpTextView?.setTextColor(helpColor)
         }
     }
+
+    open fun setHelpStyle(helpId: Int){
+        if (helpId != -1)
+            helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpId) }
+    }
     /* Helper end */
 
     /* Error */
@@ -844,6 +859,11 @@ open class InputFieldView : ConstraintLayout {
         if (errorColor != color){
             errorColor = color
         }
+    }
+
+    open fun setErrorStyle(errorStyle: Int){
+        if (errorStyle != -1)
+            errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyle) }
     }
     /* Error End*/
 
@@ -1242,12 +1262,6 @@ open class InputFieldView : ConstraintLayout {
             setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
         }
 
-        if (helpStyleId != -1)
-            helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpStyleId) }
-        if (errorStyleId != -1)
-            errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyleId) }
-        if (editStyleId != -1)
-            inputText?.apply { TextViewCompat.setTextAppearance(this, editStyleId) }
         if (prefixStyleId != -1)
             prefixTextView?.apply { TextViewCompat.setTextAppearance(this, prefixStyleId) }
         else if (editStyleId != -1)
@@ -1256,6 +1270,7 @@ open class InputFieldView : ConstraintLayout {
         setInputLabel(label)
         setLabelType(labelType)
         setLabelStyle(labelStyleId)
+        setInputStyle(editStyleId)
         setInputPrefix(prefix)
         inputText?.apply {
             this.inputType = inputType
@@ -1268,7 +1283,9 @@ open class InputFieldView : ConstraintLayout {
         }
         setMaxLines(maxLines)
         setHelp(help)
+        setHelpStyle(helpStyleId)
         setError(errorText)
+        setErrorStyle(errorStyleId)
         updateStartIcon()
         updateEndIcon()
         boxSettings()
