@@ -800,6 +800,13 @@ open class InputFieldView : ConstraintLayout {
             setHelp(null)
         }
     }
+
+    open fun setupHelpColor(color: Int){
+        if (helpColor != color){
+            helpColor = color
+            helpTextView?.setTextColor(helpColor)
+        }
+    }
     /* Helper end */
 
     /* Error */
