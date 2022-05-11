@@ -832,6 +832,12 @@ open class InputFieldView : ConstraintLayout {
     open fun setHideErrorTextMode(value: Boolean) {
         hideErrorText = value
     }
+
+    open fun setupErrorColor(color: Int){
+        if (errorColor != color){
+            errorColor = color
+        }
+    }
     /* Error End*/
 
     protected open fun updateBottomTextPosition() {
