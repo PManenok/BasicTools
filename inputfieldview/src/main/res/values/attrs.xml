@@ -60,6 +60,7 @@
             <!-- The view will display a progress bar. -->
             <enum name="progress" value="3" />
         </attr>
+        <attr name="inputStartIconColorWithError" format="boolean"/>
 
         <!--End Icon-->
         <attr name="inputEndDrawable" format="reference" />

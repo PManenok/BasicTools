@@ -152,6 +152,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultStartIconMode: Int = START_ICON_NONE
     protected var beforeProgressMode: Int = START_ICON_NONE
     protected var startIconMode: Int = START_ICON_NONE
+    protected var inputStartIconColorWithError = false
 
     //End icon
     var endIconClickListener: IconClickListener? = null
@@ -409,6 +410,8 @@ open class InputFieldView : ConstraintLayout {
         endTint = defaultIconsTint
         labelExtraTopMargin = defaultLabelExtraTopMargin
         inputLabelColorWithError = false
+        inputEndIconColorWithError = false
+        inputStartIconColorWithError = false
 
         inputClickView?.visibility = View.INVISIBLE
         inputText?.apply {
@@ -685,6 +688,14 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
+    protected open fun setStartIconTintInErrorMode(){
+        if (inputStartIconColorWithError) {
+            startIconView?.apply {
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+            }
+        }
+    }
+
     open fun setInputStartCheckListener() {
         startCheckedListener
     }
@@ -796,10 +807,12 @@ open class InputFieldView : ConstraintLayout {
         hasErrorText = !text.isNullOrBlank()
         errorTextView?.text = text
         errorTextView?.setTextColor(errorColor)
-        if (inputLabelColorWithError && hasErrorText){
-            setLabelColor(errorColor)
+        if (hasErrorText){
+            if (inputLabelColorWithError) setLabelColor(errorColor)
+            setStartIconTintInErrorMode()
         } else {
             setLabelStyle(labelStyleId)
+            setStartIconTint(startTint)
         }
         updateBottomTextPosition()
     }
@@ -1131,6 +1144,7 @@ open class InputFieldView : ConstraintLayout {
             typedArray.getColor(R.styleable.InputFieldView_inputStartDrawableTint, startTint)
         startIconMode =
             typedArray.getInt(R.styleable.InputFieldView_inputStartIconMode, defaultStartIconMode)
+        inputStartIconColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputStartIconColorWithError, inputStartIconColorWithError)
 
         /*##########  End Icon  ##########*/
         val endDrawableRes: Int =
