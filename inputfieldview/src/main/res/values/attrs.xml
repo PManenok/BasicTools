@@ -76,6 +76,7 @@
             <!-- The view will display a toggle that displays/hides a check box. -->
             <enum name="checkable" value="3" />
         </attr>
+        <attr name="inputEndIconColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />

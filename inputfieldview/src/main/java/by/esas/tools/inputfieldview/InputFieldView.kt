@@ -160,11 +160,12 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultEndIconMode: Int = END_ICON_NONE
     protected open val defaultPasswordToggleRes: Int =
         R.drawable.selector_input_filed_password_toggle
-    protected var endTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
     protected var endDrawable: Drawable? = null
+    protected var endTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
     protected var passwordToggleRes: Int = R.drawable.selector_input_filed_password_toggle
     protected var previousEndIconMode: Int = END_ICON_NONE
     protected var endIconMode: Int = END_ICON_NONE
+    protected var inputEndIconColorWithError = false
 
     //Bottom text
     protected open val defaultShowBottomContainer: Boolean = true
@@ -509,6 +510,10 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
+    open fun setInputEndIconColorWithErrorValue(value: Boolean){
+        inputEndIconColorWithError = value
+    }
+
     protected open fun updateEndIcon() {
         if (endIconMode != END_ICON_PASSWORD_TOGGLE) {
             inputText?.transformationMethod = null
@@ -613,7 +618,8 @@ open class InputFieldView : ConstraintLayout {
                 endContainer?.setOnClickListener {}
                 endIconView?.apply {
                     setImageResource(errorDrawableRes)
-                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+                    val endIconErrorTint = if (inputEndIconColorWithError) errorColor else endTint
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endIconErrorTint))
                 }
             }
             endIconView?.visibility = View.VISIBLE
@@ -1134,6 +1140,7 @@ open class InputFieldView : ConstraintLayout {
         endTint = typedArray.getColor(R.styleable.InputFieldView_inputEndDrawableTint, endTint)
         endIconMode =
             typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, defaultEndIconMode)
+        inputEndIconColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputEndIconColorWithError, inputEndIconColorWithError)
 
         /*##########  Help  ##########*/
         val help = typedArray.getString(R.styleable.InputFieldView_inputHelp) ?: ""
