@@ -103,6 +103,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultBoxBgColor: Int = Color.TRANSPARENT
     protected open val defaultStrokeRadiusInPx: Int = dpToPx(4).toInt()
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
+    protected open val defaultInputStrokeColorWithError = true
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
     protected open val defaultIsWrap: Boolean = false
@@ -123,6 +124,7 @@ open class InputFieldView : ConstraintLayout {
     protected open var boxBgColor: Int = Color.TRANSPARENT
     protected open var strokeRadiusInPx: Float = dpToPx(4)
     protected open var strokeWidthInPx: Float = dpToPx(1)
+    protected open var inputStrokeColorWithError = true
     protected open var paddingTopInPx: Int = dpToPx(12).toInt()
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
     protected open var isWrap: Boolean = false
@@ -410,6 +412,7 @@ open class InputFieldView : ConstraintLayout {
         boxBgColor = defaultBoxBgColor
         strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
         strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
+        inputStrokeColorWithError = defaultInputStrokeColorWithError
         labelMaxLines = defaultLabelMaxLines
         editTextMinHeight = defaultMinHeight
         checkBoxToggle = defaultCheckBoxToggle
@@ -871,7 +874,7 @@ open class InputFieldView : ConstraintLayout {
         when {
             hasErrorText -> {
                 inputBox?.apply {
-                    setStrokeColor(errorColor)
+                    if (inputStrokeColorWithError) setStrokeColor(errorColor)
                 }
                 previousEndIconMode = endIconMode
                 if (endIconMode == END_ICON_PASSWORD_TOGGLE)
@@ -951,6 +954,11 @@ open class InputFieldView : ConstraintLayout {
             setInputBoxVisibility()
         }
     }
+
+    open fun setInputStrokeColorWithErrorValue(value: Boolean){
+        if (inputStrokeColorWithError != value) inputStrokeColorWithError = value
+    }
+
     /*endregion ################### Box View Settings ######################*/
 
     /*region ################### Other ######################*/
