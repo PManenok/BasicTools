@@ -180,9 +180,11 @@ open class InputFieldView : ConstraintLayout {
     /*region ############################ Icons Click Listeners ################################*/
     protected open val clearTextClickListener: IconClickListener = object : IconClickListener {
         override fun onIconClick() {
-            inputText?.setText("")
-            if (endIconMode == END_ICON_CLEAR_TEXT) {
-                endIconView?.visibility = View.INVISIBLE
+            if (isEditable()) {
+                inputText?.setText("")
+                if (endIconMode == END_ICON_CLEAR_TEXT) {
+                    endIconView?.visibility = View.INVISIBLE
+                }
             }
         }
     }
@@ -381,6 +383,18 @@ open class InputFieldView : ConstraintLayout {
         return inputText?.isEnabled ?: false
     }
 
+    open fun enableInputFieldView(){
+        isEditable(true)
+        startIconEnable()
+        endIconEnable()
+    }
+
+    open fun disableInputFieldView(){
+        isEditable(false)
+        startIconDisable()
+        endIconDisable()
+    }
+
     open fun setMaxLines(value: Int) {
         inputText?.maxLines = value
     }
@@ -446,6 +460,7 @@ open class InputFieldView : ConstraintLayout {
                 textDirection = View.TEXT_DIRECTION_ANY_RTL
             }
         }
+        enableInputFieldView()
         setMaxLines(1)
         setHelp(null)
         setError(null)
@@ -528,6 +543,16 @@ open class InputFieldView : ConstraintLayout {
 
     open fun setInputEndIconColorWithErrorValue(value: Boolean){
         inputEndIconColorWithError = value
+    }
+
+    fun endIconEnable(){
+        endContainer?.isClickable = true
+        endCheckBox?.isClickable = true
+    }
+
+    fun endIconDisable(){
+        endContainer?.isClickable = false
+        endCheckBox?.isClickable = false
     }
 
     protected open fun updateEndIcon() {
@@ -707,6 +732,16 @@ open class InputFieldView : ConstraintLayout {
                 ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
             }
         }
+    }
+
+    open fun startIconEnable(){
+        startContainer?.isClickable = true
+        startCheckBox?.isClickable = true
+    }
+
+    open fun startIconDisable(){
+        startContainer?.isClickable = false
+        startCheckBox?.isClickable = false
     }
 
     open fun setInputStartCheckListener() {
