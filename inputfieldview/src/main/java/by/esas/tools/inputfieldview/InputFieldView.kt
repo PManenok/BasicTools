@@ -557,6 +557,10 @@ open class InputFieldView : ConstraintLayout {
         endCheckBox?.isClickable = false
     }
 
+    open fun setInputEndCheckListener(checkedListener: IconCheckedListener) {
+        endCheckedListener = checkedListener
+    }
+
     protected open fun updateEndIcon() {
         if (endIconMode != END_ICON_PASSWORD_TOGGLE) {
             inputText?.transformationMethod = null
@@ -568,7 +572,6 @@ open class InputFieldView : ConstraintLayout {
             END_ICON_PASSWORD_TOGGLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
-                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 if (isInputTypePassword(inputText)) {
                     // By default set the input to be disguised.
@@ -598,7 +601,6 @@ open class InputFieldView : ConstraintLayout {
             END_ICON_CHECKABLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
-                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 endCheckBox?.apply {
                     //if (endDrawable == null)
@@ -746,8 +748,8 @@ open class InputFieldView : ConstraintLayout {
         startCheckBox?.isClickable = false
     }
 
-    open fun setInputStartCheckListener() {
-        startCheckedListener
+    open fun setInputStartCheckListener(checkedListener: IconCheckedListener) {
+        startCheckedListener = checkedListener
     }
 
     protected open fun updateStartIcon() {
@@ -756,7 +758,7 @@ open class InputFieldView : ConstraintLayout {
         when (startIconMode) {
             START_ICON_CHECKABLE -> {
                 startContainer?.setOnClickListener {
-                    startCheckedListener?.onCheckChanged(startCheckBox?.isChecked ?: false)
+                    startCheckBox?.performClick()
                 }
                 startCheckBox?.apply {
                     //if (startDrawable == null)
