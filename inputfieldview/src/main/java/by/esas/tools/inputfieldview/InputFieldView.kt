@@ -174,6 +174,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultShowBottomContainer: Boolean = true
     protected var showBottomContainer: Boolean = false
     protected var hasErrorText: Boolean = false
+    protected var inputErrorTextColorWithError = true
     protected var hasHelpText: Boolean = false
     /*endregion ################ Parameters END ################*/
 
@@ -439,6 +440,7 @@ open class InputFieldView : ConstraintLayout {
         inputLabelColorWithError = false
         inputEndIconColorWithError = false
         inputStartIconColorWithError = false
+        inputErrorTextColorWithError = true
 
         inputClickView?.visibility = View.INVISIBLE
         inputText?.apply {
@@ -866,7 +868,7 @@ open class InputFieldView : ConstraintLayout {
     open fun setError(text: String?) {
         hasErrorText = !text.isNullOrBlank()
         errorTextView?.text = text
-        errorTextView?.setTextColor(errorColor)
+        if (inputErrorTextColorWithError) errorTextView?.setTextColor(errorColor)
         if (hasErrorText){
             if (inputLabelColorWithError) setLabelColor(errorColor)
             setStartIconTintInErrorMode()
@@ -897,6 +899,10 @@ open class InputFieldView : ConstraintLayout {
         if (errorColor != color){
             errorColor = color
         }
+    }
+
+    open fun setInputErrorTextColorWithErrorValue(value: Boolean){
+        if (inputErrorTextColorWithError != value) inputErrorTextColorWithError = value
     }
 
     open fun setErrorStyle(errorStyle: Int){
