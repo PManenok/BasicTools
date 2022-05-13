@@ -97,6 +97,7 @@
         <attr name="inputBoxBgColor" format="color" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
+        <attr name="inputStrokeErrorColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="BoxView">
