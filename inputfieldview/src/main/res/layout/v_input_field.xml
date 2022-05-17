@@ -133,8 +133,8 @@
 
         <FrameLayout
             android:id="@+id/v_input_field_end_container"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:clickable="true"
@@ -151,22 +151,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:tint="@color/colorStrokeOutline"
                 tools:srcCompat="@drawable/ic_input_field_clear_default_24"
-                tools:visibility="visible" />
+                tools:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_password_toggle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:background="@drawable/selector_input_filed_password_toggle"
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:visibility="invisible"
-                tools:visibility="visible" />
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/v_input_field_end_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="close"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"/>
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -199,7 +211,7 @@
         android:textSize="12sp"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Label" />

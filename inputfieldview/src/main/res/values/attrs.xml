@@ -76,8 +76,17 @@
             <enum name="clear_text" value="2" />
             <!-- The view will display a toggle that displays/hides a check box. -->
             <enum name="checkable" value="3" />
+            <!-- The view will display end text instead of icon -->
+            <enum name="text" value="4"/>
         </attr>
         <attr name="inputEndIconColorWithError" format="boolean"/>
+
+        <!--End Text-->
+        <attr name="inputEndText" format="string"/>
+        <attr name="inputEndTextColor" format="color"/>
+        <attr name="inputEndTextStyle" format="reference"/>
+        <attr name="inputEndTextErrorColor" format="color"/>
+        <attr name="inputEndTextColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
