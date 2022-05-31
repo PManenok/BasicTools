@@ -103,6 +103,10 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultBoxBgColor: Int = Color.TRANSPARENT
     protected open val defaultStrokeRadiusInPx: Int = dpToPx(4).toInt()
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
+
+    /**
+     * A variable indicates whether the stroke and error colors will match on error mode by default
+     */
     protected open val defaultInputStrokeColorWithError = true
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
@@ -128,6 +132,10 @@ open class InputFieldView : ConstraintLayout {
     protected open var inputStrokeColorWithError = true
     protected open var paddingTopInPx: Int = dpToPx(12).toInt()
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
+
+    /**
+     * A variable indicates that inputText and editTextContainer have wrap content width
+     */
     protected open var isWrap: Boolean = false
     protected open var hideErrorIcon: Boolean = false
     protected open var checkBoxToggle: Int = R.drawable.selector_input_filed_check_box_toggle
@@ -145,6 +153,10 @@ open class InputFieldView : ConstraintLayout {
         return@OnPreDrawListener labelOnPreDraw()
     }
     protected var labelStyleId: Int = -1
+
+    /**
+     * A variable that indicates whether the label and error colors will match on error mode
+     */
     protected var inputLabelColorWithError = false
 
     //StartIcon
@@ -155,6 +167,10 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultStartIconMode: Int = START_ICON_NONE
     protected var beforeProgressMode: Int = START_ICON_NONE
     protected var startIconMode: Int = START_ICON_NONE
+
+    /**
+     * A variable that indicates whether the start icon and error colors will match on error mode
+     */
     protected var inputStartIconColorWithError = false
 
     //End icon
@@ -169,12 +185,20 @@ open class InputFieldView : ConstraintLayout {
     protected var passwordToggleRes: Int = R.drawable.selector_input_filed_password_toggle
     protected var previousEndIconMode: Int = END_ICON_NONE
     protected var endIconMode: Int = END_ICON_NONE
+
+    /**
+     * A variable indicates whether the end icon and error colors will match on error mode
+     */
     protected var inputEndIconColorWithError = false
 
     //Bottom text
     protected open val defaultShowBottomContainer: Boolean = true
     protected var showBottomContainer: Boolean = false
     protected var hasErrorText: Boolean = false
+
+    /**
+     * A variable indicates whether the error text and error colors will match on error mode
+     */
     protected var inputErrorTextColorWithError = true
     protected var hasHelpText: Boolean = false
     /*endregion ################ Parameters END ################*/
@@ -385,12 +409,18 @@ open class InputFieldView : ConstraintLayout {
         return inputText?.isEnabled ?: false
     }
 
+    /**
+     * Method makes InputFieldView enabled. It means that inputText, start and end icons become enabled, so client can edit text in input text and start and end icons are clickable.
+     */
     open fun enableInputFieldView() {
         isEditable(true)
         startIconEnable()
         endIconEnable()
     }
 
+    /**
+     * Method makes InputFieldView disabled. It means that inputText, start and end icons become disabled, so client can't edit text in input text and start and end icons are not clickable.
+     */
     open fun disableInputFieldView() {
         isEditable(false)
         startIconDisable()
@@ -418,6 +448,9 @@ open class InputFieldView : ConstraintLayout {
         return inputClickView?.visibility == View.VISIBLE
     }
 
+    /**
+     * Method setups default input field view setting.
+     */
     open fun setDefaultValues() {
         isWrap = defaultIsWrap
         showBottomContainer = defaultShowBottomContainer
@@ -562,6 +595,9 @@ open class InputFieldView : ConstraintLayout {
         endCheckedListener = checkedListener
     }
 
+    /**
+     * Method sets end icon settings such as icons click listener, components visibility, resources depending on the end icon type.
+     */
     protected open fun updateEndIcon() {
         if (endIconMode != END_ICON_PASSWORD_TOGGLE) {
             inputText?.transformationMethod = null
@@ -658,6 +694,9 @@ open class InputFieldView : ConstraintLayout {
         endContainer?.visibility = View.VISIBLE
     }
 
+    /**
+     * Method sets required icons settings for error mode. If hideErrorIcon value is false method sets visibility of endIconView, endCheckBox, endContainer and if argument is true or end icon is invisible sets empty clickListener and update end icon image and tint.
+     */
     protected open fun setEndIconAsError(forcefully: Boolean = false) {
         if (!hideErrorIcon) {
             if (forcefully || endIconView?.visibility == View.INVISIBLE) {
@@ -753,6 +792,9 @@ open class InputFieldView : ConstraintLayout {
         startCheckedListener = checkedListener
     }
 
+    /**
+     * Method sets start icon settings and visibility of startIconView, startCheckBox, progressBar, startContainer depending on the start icon type.
+     */
     protected open fun updateStartIcon() {
         if (startIconMode != START_ICON_DEFAULT || startIconMode != START_ICON_PROGRESS)
             startContainer?.isClickable = true
@@ -868,12 +910,15 @@ open class InputFieldView : ConstraintLayout {
     /* Helper end */
 
     /* Error */
+    /**
+     * SetError method setup errorText, label and start icon required colors and bottom text depending on the text argument.
+     */
     open fun setError(text: String?) {
         hasErrorText = !text.isNullOrBlank()
         errorTextView?.text = text
-        if (inputErrorTextColorWithError) errorTextView?.setTextColor(errorColor)
         if (hasErrorText) {
             if (inputLabelColorWithError) setLabelColor(errorColor)
+            if (inputErrorTextColorWithError) errorTextView?.setTextColor(errorColor)
             setStartIconTintInErrorMode()
         } else {
             setLabelStyle(labelStyleId)
@@ -914,6 +959,9 @@ open class InputFieldView : ConstraintLayout {
     }
     /* Error End*/
 
+    /**
+     * Depending on the bottom text type update stroke color in inputBox, previous and current end icon mode, visibility of bottom container, errorTextView and helpTextView.
+     */
     protected open fun updateBottomTextPosition() {
         when {
             hasErrorText -> {
@@ -1006,15 +1054,17 @@ open class InputFieldView : ConstraintLayout {
         if (inputStrokeColorWithError != value) inputStrokeColorWithError = value
     }
 
-    /*endregion ################### Box View Settings ######################*/
-
-    /*region ################### Other ######################*/
-
     open fun setupInputStrokeErrorColor(color: Int){
         if (inputStrokeErrorColor != color) inputStrokeErrorColor = color
     }
 
-    protected open fun labelOnPreDraw(): Boolean {
+    /*endregion ################### Box View Settings ######################*/
+
+    /*region ################### Other ######################*/
+    /**
+     * Method sets label params depending on the label type. Return Boolean result of setLabelParams method or return false if current margin top doesn't equal new margin top value.
+     */
+     protected open fun labelOnPreDraw(): Boolean {
         var draw = true
         labelText?.let { label ->
             var topClip = 0
@@ -1050,6 +1100,9 @@ open class InputFieldView : ConstraintLayout {
         return draw
     }
 
+    /**
+     * Method sets label margins and paddings depending on the label type.
+     */
     protected open fun setLabelParams(label: TextView): Boolean {
         var draw = true
         val params = (label.layoutParams as LayoutParams)
