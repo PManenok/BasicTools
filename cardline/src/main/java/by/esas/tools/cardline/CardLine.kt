@@ -2,14 +2,18 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.core.widget.ImageViewCompat.setImageTintList
 import androidx.core.widget.TextViewCompat
 import by.esas.tools.cardline.R
 import com.google.android.material.textview.MaterialTextView
@@ -191,7 +195,7 @@ open class CardLine : LinearLayout {
             if (startDrawableRes != -1) {
                 updateStartIconSize(startIconSize)
                 setImageResource(startDrawableRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(startTint))
+                setImageTintList(this, ColorStateList.valueOf(startTint))
                 setPadding(iconStartPadding, iconStartPadding, iconStartPadding, iconStartPadding)
                 this.visibility = View.VISIBLE
             } else {
@@ -203,7 +207,7 @@ open class CardLine : LinearLayout {
             if (endDrawableRes != -1) {
                 updateEndIconSize(endIconSize)
                 setImageResource(endDrawableRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endTint))
+                setImageTintList(this, ColorStateList.valueOf(endTint))
                 setPadding(iconEndPadding, iconStartPadding, iconStartPadding, iconStartPadding)
                 this.visibility = View.VISIBLE
             } else {
@@ -227,17 +231,34 @@ open class CardLine : LinearLayout {
     /* ####################### Card Title ############################*/
 
     open fun setCardTitle(text: String) {
-        if (!titleText.text.toString().equals(text)) {
+        if (titleText.text.toString() != text) {
             titleText.text = text
         }
+    }
+
+    open fun setCardTitle(textRes: Int) {
+        setCardTitle(Resources.getSystem().getString(textRes))
     }
 
     open fun getCardTitle(): String {
         return titleText.text.toString()
     }
 
+    open fun setCardTitleStyle(styleId: Int) {
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(titleText, styleId)
+    }
+
     open fun isTitleSingleLine(value: Boolean) {
         titleText.isSingleLine = value
+    }
+
+    open fun setCardTitleColor(color: Int){
+        titleText.setTextColor(color)
+    }
+
+    open fun setCardTitleColorRes(@ColorRes colorRes: Int){
+        setCardTitleColor(ContextCompat.getColor(context, colorRes))
     }
 
     open fun setupTitleWidthPercent(value: Float) {
@@ -257,9 +278,18 @@ open class CardLine : LinearLayout {
     /* ####################### Card Value ############################*/
 
     open fun setCardValue(text: String) {
-        if (!valueText.text.toString().equals(text)) {
+        if (valueText.text.toString() != text) {
             valueText.text = text
         }
+    }
+
+    open fun setCardValue(textRes: Int){
+        setCardValue(Resources.getSystem().getString(textRes))
+    }
+
+    open fun setCardValueStyle(styleId: Int){
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(valueText, styleId)
     }
 
     open fun getCardValue(): String {
@@ -270,6 +300,14 @@ open class CardLine : LinearLayout {
         valueText.isSingleLine = value
     }
 
+    open fun setCardValueColor(color: Int){
+        valueText.setTextColor(color)
+    }
+
+    open fun setCardValueColorRes(@ColorRes colorRes: Int){
+        setCardValueColor(ContextCompat.getColor(context, colorRes))
+    }
+
     /*endregion ####################### Text ############################*/
 
     /*region ############################ Icons ################################*/
@@ -278,6 +316,18 @@ open class CardLine : LinearLayout {
 
     open fun setStartIcon(resId: Int) {
         startIcon.setImageResource(resId)
+    }
+
+    open fun setStartIcon(drawable: Drawable) {
+        startIcon.setImageDrawable(drawable)
+    }
+
+    open fun setStartIconColor(color: Int){
+        setImageTintList(startIcon, ColorStateList.valueOf(color))
+    }
+
+    open fun setStartIconColorRes(@ColorRes colorRes: Int){
+        setStartIconColor(ContextCompat.getColor(context, colorRes))
     }
 
     open fun setStartIconVisibility(value: Boolean) {
@@ -298,6 +348,10 @@ open class CardLine : LinearLayout {
         endIcon.setImageResource(resId)
     }
 
+    open fun setEndIcon(drawable: Drawable) {
+        endIcon.setImageDrawable(drawable)
+    }
+
     open fun setEndIconVisibility(value: Boolean) {
         if (value) {
             endIcon.visibility = View.VISIBLE
@@ -308,6 +362,14 @@ open class CardLine : LinearLayout {
 
     open fun updateEndIconSize(size: Int) {
         updateIconSize(size, endIcon)
+    }
+
+    open fun setEndIconColor(color: Int){
+        setImageTintList(endIcon, ColorStateList.valueOf(color))
+    }
+
+    open fun setEndIconColorRes(@ColorRes colorRes: Int){
+        setEndIconColor(ContextCompat.getColor(context, colorRes))
     }
 
     protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
@@ -335,6 +397,10 @@ open class CardLine : LinearLayout {
         topDividerView.setBackgroundColor(color)
     }
 
+    open fun setTopDividerColorRes(@ColorRes colorRes: Int) {
+        setTopDividerColor(ContextCompat.getColor(context, colorRes))
+    }
+
     open fun setTopDividerHeight(value: Int) {
         val topDivParams = topDividerView.layoutParams as LayoutParams
         topDivParams.height = value
@@ -349,12 +415,18 @@ open class CardLine : LinearLayout {
     /*######################## Bottom divider ############################*/
 
     open fun setBottomDividerVisibility(value: Boolean) {
-        showBottomDiv = value
-        bottomDividerView.visibility = if (value) View.VISIBLE else View.GONE
+        if (showBottomDiv != value){
+            showBottomDiv = value
+            bottomDividerView.visibility = if (value) View.VISIBLE else View.GONE
+        }
     }
 
     open fun setBottomDividerColor(color: Int) {
         bottomDividerView.setBackgroundColor(color)
+    }
+
+    open fun setBottomDividerColorRes(@ColorRes colorRes: Int){
+        setBackgroundColor(ContextCompat.getColor(context, colorRes))
     }
 
     open fun setBottomDividerHeight(value: Int) {
@@ -367,11 +439,9 @@ open class CardLine : LinearLayout {
         setBottomDividerColor(color)
         setBottomDividerHeight(height)
     }
-
     /*endregion ############################ Dividers ################################*/
 
     /*region ############################ Other ################################*/
-
     fun setDefaultValues() {
         startIconAlignTop = defStartIconAlignTop
         endIconAlignTop = defEndIconAlignTop
