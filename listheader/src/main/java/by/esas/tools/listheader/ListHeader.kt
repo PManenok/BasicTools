@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -37,11 +38,11 @@ import kotlin.math.roundToInt
  */
 open class ListHeader : LinearLayout {
     val TAG: String = ListHeader::class.java.simpleName
-    val container: ConstraintLayout
-    val actionContainer: FrameLayout
-    val titleText: MaterialTextView
-    val actionText: MaterialTextView
-    val arrowIcon: AppCompatImageView
+    protected val container: ConstraintLayout
+    protected val actionContainer: FrameLayout
+    protected val titleText: MaterialTextView
+    protected val actionText: MaterialTextView
+    protected val arrowIcon: AppCompatImageView
 
     protected val defIconInnerPadding = dpToPx(3)
     protected val defIconColor = Color.RED
@@ -66,7 +67,7 @@ open class ListHeader : LinearLayout {
         setListContainerClickable(true)
     }
 
-    /*region  Constructors  */
+    /*region ############### Constructors ###############*/
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -84,7 +85,7 @@ open class ListHeader : LinearLayout {
         initAttrs(attrs)
     }
 
-    /*endregion  Constructors  */
+    /*endregion ############### Constructors ###############*/
 
     init {
         this.orientation = LinearLayout.VERTICAL
@@ -97,7 +98,7 @@ open class ListHeader : LinearLayout {
     }
 
     /*  Initialize attributes from XML file  */
-    protected fun initAttrs(attrs: AttributeSet?) {
+    protected open fun initAttrs(attrs: AttributeSet?) {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ListHeader)
 
@@ -145,7 +146,7 @@ open class ListHeader : LinearLayout {
             addOnPreDrawListener()
     }
 
-    /*region setups*/
+    /*region ############### setups ###############*/
 
     private fun addOnPreDrawListener(){
         this.viewTreeObserver.addOnPreDrawListener {
@@ -182,21 +183,6 @@ open class ListHeader : LinearLayout {
         }
     }
 
-    protected open fun setupArrowIcon(iconDrawableRes: Int?, iconTint: Int, iconSize: Int, iconInnerPadding: Int) {
-        arrowIcon.apply {
-            if (iconDrawableRes != null) {
-                updateIconSize(iconSize, this)
-                setImageResource(iconDrawableRes)
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(iconTint))
-                setPadding(iconInnerPadding, iconInnerPadding, iconInnerPadding, iconInnerPadding)
-                isEnabled = opened
-                this.visibility = View.VISIBLE
-            } else {
-                this.visibility = View.GONE
-            }
-        }
-    }
-
     protected open fun setupActionVisibility(action: String?, iconDrawableRes: Int?) {
         if (action.isNullOrBlank()) {
             arrowIcon.visibility = if (iconDrawableRes != null) View.VISIBLE else View.GONE
@@ -207,9 +193,16 @@ open class ListHeader : LinearLayout {
         }
     }
 
-    /*endregion setups*/
+    /*endregion ############### setups ###############*/
 
-    /*region Setting functions*/
+    /*region ############### Setting functions ###############*/
+    open fun setListState(isOpen: Boolean) {
+        updateChildrenVisibility(isOpen, false)
+    }
+
+    open fun getListState(): Boolean {
+        return opened
+    }
 
     protected open fun checkChildrenVisibility(value: Boolean): Boolean {
         var correct: Boolean = true
@@ -268,9 +261,9 @@ open class ListHeader : LinearLayout {
         setupActionVisibility("", defIconDrawableRes)
         addOnPreDrawListener()
     }
-    /*endregion Setting functions*/
+    /*endregion ############### Setting functions ###############*/
 
-    /*region setters and getters*/
+    /*region ############### List Container ################*/
     open fun setListContainerClickable(isClickable: Boolean) {
         container.isClickable = isClickable
     }
@@ -282,7 +275,9 @@ open class ListHeader : LinearLayout {
     open fun setDefaultContainerListener() {
         container.setOnClickListener(containerListener)
     }
+    /*endregion ############### List Container ################*/
 
+    /*region ############### List Action ###############*/
     open fun setListActionClickable(isClickable: Boolean) {
         actionText.isClickable = isClickable
     }
@@ -291,15 +286,57 @@ open class ListHeader : LinearLayout {
         actionText.setOnClickListener(listener)
     }
 
-    open fun setListState(isOpen: Boolean) {
-        updateChildrenVisibility(isOpen, false)
+    open fun setListActionText(text: String?) {
+        if (actionText.text.toString() != text) {
+            actionText.text = text
+            setupActionVisibility(text, iconDrawableRes)
+        }
     }
 
-    open fun getListState(): Boolean {
-        return opened
+    open fun setListActionText(textRes: Int) {
+        setListActionText(Resources.getSystem().getString(textRes))
     }
 
-    open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
+    open fun getListActionText(): String {
+        return actionText.text.toString()
+    }
+    /*endregion ############### List Action############### */
+
+    /*region ############### List Title ############### */
+    open fun setListTitle(text: String) {
+        if (titleText.text.toString() != text) {
+            titleText.text = text
+        }
+    }
+
+    open fun setListTitle(textRes: Int) {
+        setListTitle(Resources.getSystem().getString(textRes))
+    }
+
+    open fun getListTitle(): String? {
+        return titleText.text.toString()
+    }
+
+    open fun setListTitleStyle(styleId: Int){
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(titleText, styleId)
+    }
+    /*endregion ############### List Title ############### */
+
+    /*region ############### Arrow Icon ############### */
+    open fun setArrowIconImage(drawable: Drawable){
+        arrowIcon.setImageDrawable(drawable)
+    }
+
+    open fun setArrowIconImage(imageRes: Int){
+        arrowIcon.setImageResource(imageRes)
+    }
+
+    open fun setArrowIconSize(iconSize: Int){
+        updateIconSize(iconSize, arrowIcon)
+    }
+
+    protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
         val size: Int = if (iconSize == 0) dpToPx(32).roundToInt() else iconSize
         val params = icon.layoutParams
         if (params != null && (params.width != size || params.height != size)) {
@@ -309,31 +346,23 @@ open class ListHeader : LinearLayout {
         }
     }
 
-    open fun setListTitle(text: String) {
-        if (!titleText.text.toString().equals(text)) {
-            titleText.text = text
+    protected open fun setupArrowIcon(iconDrawableRes: Int?, iconTint: Int, iconSize: Int, iconInnerPadding: Int) {
+        arrowIcon.apply {
+            if (iconDrawableRes != null) {
+                updateIconSize(iconSize, this)
+                setImageResource(iconDrawableRes)
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(iconTint))
+                setPadding(iconInnerPadding, iconInnerPadding, iconInnerPadding, iconInnerPadding)
+                isEnabled = opened
+                this.visibility = View.VISIBLE
+            } else {
+                this.visibility = View.GONE
+            }
         }
     }
-
-    open fun getListTitle(): String? {
-        return titleText.text.toString()
-    }
-
-    open fun setListActionText(text: String?) {
-        if (!actionText.text.toString().equals(text)) {
-            actionText.text = text
-            setupActionVisibility(text, iconDrawableRes)
-        }
-    }
-
-    open fun getListActionText(): String {
-        return actionText.text.toString()
-    }
-
-    /*endregion setters and getters*/
+    /*endregion ############### Arrow Icon ############### */
 
     /*region List Opened Listener*/
-
     open fun notifyListeners(isOpened: Boolean) {
         openedListeners.forEach { it.onListStateChanged(isOpened) }
     }
@@ -351,8 +380,7 @@ open class ListHeader : LinearLayout {
     interface ListOpenedListener {
         fun onListStateChanged(isOpen: Boolean)
     }
-
-    /*endregion List Opened Listener*/
+    /*endregion ############### List Opened Listener ############### */
 
     fun dpToPx(dp: Int): Float {
         return (dp * Resources.getSystem().displayMetrics.density)
