@@ -8,9 +8,9 @@ package by.esas.tools.basedaggerui.interfaces
 import by.esas.tools.domain.usecase.UseCase
 
 interface IExecutingVM {
-    var useCases: MutableList<UseCase<*,*,*>>
+    var useCases: MutableList<UseCase<*, *, *>>
 
-    fun provideUseCases(): List<UseCase<*,*,*>> {
+    fun provideUseCases(): List<UseCase<*, *, *>> {
         return emptyList()
     }
 
@@ -19,6 +19,7 @@ interface IExecutingVM {
         useCases.clear()
         useCases.addAll(provideUseCases())
     }
+
     fun unsubscribeUseCases() {
         useCases.forEach { it.unsubscribe() }
     }

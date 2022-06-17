@@ -19,6 +19,7 @@ import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.usecase.GetDefaultCardUseCase
@@ -27,9 +28,8 @@ import by.esas.tools.util.hideSystemUIR
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 
-open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
-    override val TAG: String = "MainActivity"
-    override var logger: ILogger<AppErrorStatusEnum, *> = LoggerImpl()
+class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
+    override var logger: ILogger<AppErrorStatusEnum, ErrorModel> = LoggerImpl()
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
     }
@@ -127,7 +127,8 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     })*/
 
 
-    override fun setFullScreen() {
+    //CHECK if should be in base class
+    fun setFullScreen() {
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
@@ -140,7 +141,8 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
                     decorView.systemUiVisibility =
                         (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
                 } else {
-                    decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+                    decorView.systemUiVisibility =
+                        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
                 }
                 statusBarColor = Color.TRANSPARENT
             }
@@ -173,6 +175,10 @@ open class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             hideSystemUIR(this)
         } else hideSystemUIApp(this)
+    }
+
+    override fun provideSwitchableViews(): List<View?> {
+        return emptyList()
     }
 
 

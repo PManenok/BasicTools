@@ -97,6 +97,7 @@ class Biometric {
         biometricPrompt = BiometricPrompt(fragment, executor, callback)
     }
 
+    // OPTIMIZE can add setInvalidated flag to enable additional check generateNewKey()
     fun authenticate(mode: DialogMode, info: BiometricPrompt.PromptInfo): BiometricPrompt {
         try {
             if (prepare() && initCipher(convertMode(mode))) {

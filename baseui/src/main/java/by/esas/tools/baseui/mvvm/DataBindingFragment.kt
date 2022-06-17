@@ -35,7 +35,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<E,*>, B : ViewDataBinding,
 
     open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder{
         return MaterialAlertDialogBuilder(
-            context,
+            requireContext(),
             R.style.AppTheme_CustomMaterialDialog
         ).setCancelable(false)
     }

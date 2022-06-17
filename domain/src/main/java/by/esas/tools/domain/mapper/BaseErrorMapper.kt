@@ -24,7 +24,10 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 
-abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected val moshi: Moshi, val logger: ILogger<E,Model>) {
+abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(
+    protected val moshi: Moshi,
+    val logger: ILogger<E, Model>
+) {
     open val TAG: String = BaseErrorMapper::class.java.simpleName
     protected val errorCodeAdapter: JsonAdapter<ErrorCode> = moshi.adapter<ErrorCode>(ErrorCode::class.java)
 
@@ -62,7 +65,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(protected
             val responseBody = (response.body() ?: response.errorBody()) as ResponseBody?
             val body = responseBody?.string()
 
-            logger.logLocally("getHttpError(): errorBody = [$body]")
+            logger.logDebug("getHttpError(): errorBody = [$body]")
 
             val error = parseResponse(throwable, body)
 

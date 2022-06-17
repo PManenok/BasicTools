@@ -5,6 +5,7 @@
 
 package by.esas.tools.basedaggerui.basic
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
@@ -16,13 +17,15 @@ import android.widget.EditText
 import android.widget.Toast
 import by.esas.tools.basedaggerui.R
 import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
+import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLogger
+import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.handler.ErrorData
+import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
+import by.esas.tools.util.defocusAndHideKeyboard
 import by.esas.tools.util.hideSystemUI
 import by.esas.tools.util.hideSystemUIR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,12 +34,15 @@ import javax.inject.Inject
 
 abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompatActivity(), IChangeAppLanguage<E> {
     companion object {
-        val TAG: String = BaseActivity::class.java.simpleName
+        //CHECK if will work in child classes
+        fun getTag(): String {
+            return this::class.java.simpleName
+        }
     }
 
     @Inject
     lateinit var viewModelFactory: InjectingViewModelFactory
-    open val logger: ILogger<E, *> = BaseLogger(TAG, null)
+    open val logger: ILogger<E, M> = BaseLoggerImpl(getTag(), null)
     protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
@@ -51,9 +57,10 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
     }
 
     //region activity lifecycle methods
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(TAG)
+        logger.setTag(getTag())
         logger.logInfo("onCreate")
         hideSystemUI()
     }
@@ -77,7 +84,8 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
         super.onStop()
         logger.logInfo("onStop")
     }
-    //endregion
+
+    //endregion activity lifecycle methods
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -87,6 +95,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
     }
 
     //region touch event and keyboard
+
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         handleTouchOutOfInputField(event)
         return super.dispatchTouchEvent(event)
@@ -108,9 +117,11 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
             }
         }
     }
-    //endregion
+
+    //endregion touch event and keyboard
 
     //region IChangeAppLanguage implementation
+
     /**
      * @see IChangeAppLanguage
      */
@@ -124,7 +135,8 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
     override fun provideLogger(): ILogger<E, *> {
         return logger
     }
-    //endregion
+
+    //endregion IChangeAppLanguage implementation
 
     open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
         return MaterialAlertDialogBuilder(
@@ -133,39 +145,85 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
         ).setCancelable(false)
     }
 
-    protected open fun handleError(data: ErrorData<E, M>?) {
-        logger.logInfo("try to handleError ${data != null} && !${data?.handled}")
-        if (data != null && !data.handled) {
+    open fun handleError(action: ErrorAction<E, M>?) {
+        logger.logOrder("handleError ${action != null} && !${action?.handled}")
+        if (action != null && !action.handled) {
+            //set action as handled immediatelly after taking it to work so it wont be handled twice.
+            action.handled = true
+            //get error message depending on what error data we have. throwable has priority
             val msg = when {
-                data.throwable != null -> provideErrorHandler().getErrorMessage(data.throwable!!)
-                data.model != null -> provideErrorHandler().getErrorMessage(data.model!!)
+                action.throwable != null -> provideErrorHandler().getErrorMessage(action.throwable!!)
+                action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
                 else -> "Error"
             }
-            showError(msg, data.showType, data.actionName)
-            data.handled = true
+
+            showError(msg, action.showType, action.getSubAction())
         }
     }
 
-   protected open fun showError(msg: String, showType: ShowErrorType, actionName: String? = null) {
+    protected open fun showError(msg: String, showType: String, action: Action?) {
+        logger.logOrder("showError msg = $msg showType = $showType action = $action")
         hideProgress()
         when (showType) {
-            ShowErrorType.SHOW_NOTHING -> enableControls()
-            ShowErrorType.SHOW_ERROR_DIALOG -> {
+            ShowErrorType.SHOW_NOTHING.name -> enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
                 provideMaterialAlertDialogBuilder().setTitle(R.string.error_title)
                     .setMessage(msg)
                     .setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
                         dialogInterface?.dismiss()
-                        handleAction(actionName)
-                        enableControls()
+                        if (action != null)
+                            handleAction(action)
+                        else
+                            enableControls() // default behavior is to enable controls
                     }.create().show()
             }
-            ShowErrorType.SHOW_ERROR_MESSAGE -> {
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
                 showMessage(msg)
-                handleAction(actionName)
+                if (action != null)
+                    handleAction(action)
                 enableControls()
             }
         }
     }
+
+    /**
+     * Method handles action
+     * @return Boolean (false in case if action was not handled by this method and true if it was handled)
+     */
+    open fun handleAction(action: Action): Boolean {
+        logger.logOrder("handleAction $action")
+        when (action.name) {
+            Action.ACTION_FINISH -> {
+                handleFinishAction(action.parameters)
+                action.handled = true
+            }
+            Action.ACTION_ENABLE_CONTROLS -> {
+                enableControls()
+                hideProgress()
+                action.handled = true
+            }
+            Action.ACTION_DISABLE_CONTROLS -> {
+                showProgress()
+                disableControls()
+                action.handled = true
+            }
+            Action.ACTION_HIDE_KEYBOARD -> {
+                hideKeyboard(this)
+                action.handled = true
+            }
+            else -> {
+                // return false in case if action was not handled by this method
+                return false
+            }
+        }
+        return true
+    }
+
+    protected open fun handleFinishAction(parameters: Bundle?) {
+        finish()
+    }
+
+    //region helping methods
 
     open fun showMessage(text: String, duration: Int = Toast.LENGTH_SHORT) {
         logger.logInfo(text)
@@ -177,17 +235,8 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
         logger.showMessage(textId, duration)
     }
 
-    protected open fun hideProgress() {
-        logger.logInfo("hideProgress")
-        provideProgressBar()?.visibility = View.INVISIBLE
-    }
-
-    protected open fun handleAction(action: String?) {
-        logger.logInfo("handleAction $action")
-    }
-
     protected open fun enableControls() {
-        logger.logInfo("enableControls")
+        logger.logOrder("enableControls")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null)
                 switcher.enableView(switchable)
@@ -195,18 +244,42 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : DaggerAppCompa
     }
 
     protected open fun disableControls() {
-        logger.logInfo("disableControls")
+        logger.logOrder("disableControls")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null)
                 switcher.disableView(switchable)
         }
     }
 
+    protected open fun hideSystemUi(activity: Activity?) {
+        logger.logOrder("hideSystemUi")
+        activity?.onWindowFocusChanged(true)
+    }
+
+    protected open fun hideKeyboard(activity: Activity?) {
+        logger.logOrder("hideKeyboard")
+        defocusAndHideKeyboard(activity)
+    }
+
+    protected open fun hideProgress() {
+        logger.logOrder("hideProgress")
+        provideProgressBar()?.visibility = View.INVISIBLE
+    }
+
+    protected open fun showProgress() {
+        logger.logOrder("hideProgressshowProgress")
+        provideProgressBar()?.visibility = View.VISIBLE
+    }
+
     protected open fun hideSystemUI() {
-        logger.logInfo("hideSystemUI")
+        logger.logOrder("hideSystemUI")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             hideSystemUIR(this)
-        } else hideSystemUI(this)
+        } else {
+            hideSystemUI(this)
+        }
     }
+
+    //endregion  helping methods
 }
 

@@ -44,7 +44,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        logger.log("onCleared")
+        logger.logOrder("onCleared")
 
         switchableViewsList.clear()
         alertDialogBuilder = null

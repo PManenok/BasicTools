@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import by.esas.tools.checker.Checking
-import by.esas.tools.logger.BaseLogger
+import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -47,10 +47,10 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
      * depends on its interface realisation
-     * By default this logger is [BaseLogger]
+     * By default this logger is [BaseLoggerImpl]
      * */
     protected open var logger: ILogger<EnumT, *> =
-        BaseLogger(BaseBottomDialogFragment::class.java.simpleName, this.context)
+        BaseLoggerImpl(BaseBottomDialogFragment::class.java.simpleName, this.context)
 
     /**
      * Manager that provides enabling and disabling views functionality

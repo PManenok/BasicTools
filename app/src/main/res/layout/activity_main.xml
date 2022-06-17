@@ -83,6 +83,7 @@
                     android:id="@+id/f_main_add_invoice_currency_click"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:onClick="@{()->viewModel.onPhoneCodeClick()}"
                     app:layout_constraintBottom_toBottomOf="@id/f_main_add_invoice_currency_field"
                     app:layout_constraintEnd_toEndOf="@id/f_main_add_invoice_currency_field"
                     app:layout_constraintStart_toStartOf="@id/f_main_add_invoice_currency_field"
