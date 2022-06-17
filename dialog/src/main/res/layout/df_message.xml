@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="handler"
+            type="by.esas.tools.dialog.MessageDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="19.50dp"
+            android:background="@drawable/bg_dialog"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/df_message_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19.50dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="19.50dp"
+                android:gravity="center"
+                android:text="@{handler.title}"
+                app:visibilityGone="@{handler.showTitle}"
+                tools:text="@string/main_profile_logout_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/df_message_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19.50dp"
+                android:layout_marginTop="6.50dp"
+                android:layout_marginEnd="19.50dp"
+                android:layout_marginBottom="32.50dp"
+                android:gravity="center"
+                android:text="@{handler.message}"
+                app:visibilityGone="@{handler.showMessage}"
+                tools:text="@string/main_profile_logout_message" />
+
+            <View
+                android:id="@+id/df_message_extra_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D9E1EE"
+                app:visibilityGone="@{handler.showExtraDiv}"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/df_message_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:itemCount="0"/>
+
+            <View
+                android:id="@+id/df_message_btn_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D9E1EE"
+                app:visibilityGone="@{handler.hasButtons}"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_negative_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onNegativeClick()}"
+                    android:text="@{handler.negativeBtnText}"
+                    app:visibilityGone="@{handler.showNegativeBtn}"
+                    tools:text="@string/common_cancel"
+                    tools:visibility="visible" />
+
+                <View
+                    android:id="@+id/df_message_btn_divider_1"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#D9E1EE"
+                    app:visibilityGone="@{handler.showDiv1}"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_neutral_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onNeutralClick()}"
+                    android:text="@{handler.neutralBtnText}"
+                    app:visibilityGone="@{handler.showNeutralBtn}"
+                    tools:text="Neutral"
+                    tools:visibility="gone" />
+
+                <View
+                    android:id="@+id/df_message_btn_divider_2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#D9E1EE"
+                    app:visibilityGone="@{handler.showDiv2}"
+                    tools:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_positive_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onPositiveClick()}"
+                    android:text="@{handler.positiveBtnText}"
+                    app:visibilityGone="@{handler.showPositiveBtn}"
+                    tools:text="@string/main_profile_logout_btn"
+                    tools:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

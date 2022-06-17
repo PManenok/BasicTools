@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/i_subcategory_background_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:minHeight="52dp">
+
+        <!--400 17-->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/i_language_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Русский" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/i_language_icon"
+            android:layout_width="19.50dp"
+            android:layout_height="19.50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_done"
+            app:tint="#EC3E37"
+            app:visibilityGone="@{item.isChoosed}" />
+
+        <View
+            android:id="@+id/i_language_bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D9E1EE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:visibilityGone="@{!item.isLast}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="by.esas.tools.dialog.simpleItemAdapter.SimpleItemViewModel" />
+    </data>
+</layout>
