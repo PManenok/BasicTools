@@ -7,7 +7,8 @@ package by.esas.tools.util
 
 import java.util.*
 
-interface LanguageSetter {
+interface SettingsProvider {
+    // language methods
     fun getDefaultLanguage(): String
     fun getLanguage(): String
     fun setLanguage(lang: String)

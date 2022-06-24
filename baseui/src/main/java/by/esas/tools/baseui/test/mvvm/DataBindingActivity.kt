@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.baseui.mvvm
+package by.esas.tools.baseui.test.mvvm
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import by.esas.tools.baseui.basic.BaseActivity
-import by.esas.tools.baseui.test.mvvm.BaseViewModel
-import by.esas.tools.logger.Action
+import by.esas.tools.baseui.test.basic.BaseActivity
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.handler.ErrorAction
 
 
 abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
@@ -27,39 +27,34 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : 
 
     abstract fun provideVariableInd(): Int
 
+    abstract fun provideLifecycleOwner(): LifecycleOwner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
 
         binding = DataBindingUtil.setContentView(this, provideLayoutId())
         binding.setVariable(provideVariableInd(), viewModel)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = provideLifecycleOwner()
 
         setupObservers()
     }
 
     open fun setupObservers() {
-        setupActionObserver()
+        //setupErrorObserver()
+        setupRequestActionObserver()
     }
 
-    open fun setupActionObserver() {
+  /*  open fun setupErrorObserver() {
+        viewModel.action.observe(this, Observer { data ->
+            handleError(data as ErrorAction<E, M>)
+        })
+    }*/
+
+    open fun setupRequestActionObserver() {
         viewModel.action.observe(this, Observer { action ->
             if (action != null)
                 handleAction(action)
         })
-    }
-
-    /**
-     * Method handles action. If action was not handled by activity's method - action is sent to viewModel.
-     * @return Boolean (false in case if action was not handled by this method and true if it was handled)
-     */
-    override fun handleAction(action: Action): Boolean {
-        //try to handle action by parent's handler
-        if (!super.handleAction(action)) {
-            logger.logInfo("viewModel handleAction $action")
-            // try to handle action in viewModel if parent's handler didn't handle
-            return viewModel.handleAction(action)
-        }
-        return true
     }
 }

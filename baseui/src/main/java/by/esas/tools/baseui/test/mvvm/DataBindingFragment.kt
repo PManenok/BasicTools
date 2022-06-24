@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.baseui.mvvm
+package by.esas.tools.baseui.test.mvvm
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,31 +11,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import by.esas.tools.baseui.basic.BaseFragment
-import by.esas.tools.baseui.test.mvvm.BaseViewModel
+import by.esas.tools.baseui.test.basic.BaseFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
 abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
     BaseFragment<E, M>() {
 
-    val TAG: String = DataBindingFragment::class.java.simpleName
+    companion object {
+        val TAG: String = DataBindingFragment::class.java.simpleName
+    }
 
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
 
     abstract fun provideViewModel(): VM
 
-    abstract fun provideVariableInd(): Int
 
-    //region fragment lifecycle methods
+    abstract fun provideLifecycleOwner(): LifecycleOwner
+
+    abstract fun provideVariableInd(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
         viewModel.logger.setTag(viewModel.TAG)
     }
+
+    //region fragment lifecycle methods
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,13 +52,18 @@ abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding
 
         binding = DataBindingUtil.inflate(inflater, provideLayoutId(), container, false)
         binding.setVariable(provideVariableInd(), viewModel)
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = provideLifecycleOwner()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        logger.logOrder("onDestroyView")
     }
 
     //endregion fragment lifecycle methods
@@ -67,7 +77,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding
     open fun setupActionObserver() {
         viewModel.action.observe(viewLifecycleOwner, Observer { action ->
             if (action != null && !action.handled) {
-                logger.logOrder("action Observer $action")
+                logger.logOrder("requestAction Observer $action")
                 handleAction(action)
             }
         })

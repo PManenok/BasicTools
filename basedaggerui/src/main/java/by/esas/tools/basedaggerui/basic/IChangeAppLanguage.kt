@@ -7,7 +7,7 @@ package by.esas.tools.basedaggerui.basic
 
 import android.content.Context
 import by.esas.tools.logger.ILogger
-import by.esas.tools.util.LanguageSetter
+import by.esas.tools.baseui.basic.SettingsProvider
 import by.esas.tools.util.LocaleManager
 
 interface IChangeAppLanguage<E : Enum<E>> {
@@ -30,7 +30,7 @@ interface IChangeAppLanguage<E : Enum<E>> {
     }
 
     fun provideLogger(): ILogger<E, *>
-    fun provideSetter(): LanguageSetter
+    fun provideSetter(): by.esas.tools.baseui.basic.SettingsProvider
     fun recreateActivity()
     fun getAppContext(): Context
     fun setAppContext(context: Context)

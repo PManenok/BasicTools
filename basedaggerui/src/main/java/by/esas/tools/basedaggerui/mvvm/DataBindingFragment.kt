@@ -5,6 +5,7 @@
 
 package by.esas.tools.basedaggerui.mvvm
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,28 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import by.esas.tools.basedaggerui.basic.BaseFragment
+import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
-    BaseFragment<E, M>() {
+    BaseFragment<E, M>(), HasAndroidInjector {
+
+    @Inject
+    lateinit var viewModelFactory: InjectingViewModelFactory
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+
+    override fun androidInjector(): AndroidInjector<Any?>? {
+        return androidInjector
+    }
+
     companion object {
         val TAG: String = DataBindingFragment::class.java.simpleName
     }
@@ -32,6 +50,11 @@ abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding
     abstract fun provideLifecycleOwner(): LifecycleOwner
 
     abstract fun provideVariableInd(): Int
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

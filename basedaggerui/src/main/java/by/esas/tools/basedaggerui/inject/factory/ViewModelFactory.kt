@@ -7,6 +7,8 @@ package by.esas.tools.basedaggerui.inject.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -37,3 +39,29 @@ class ViewModelFactory @Inject constructor(private val creators: Map<Class<out V
 
     }
 }
+
+/**
+ * To use with Activity do not forget to add
+ *     AndroidInjection.inject(this)
+ * in the fun onCreate(savedInstanceState: Bundle?)
+ *
+ * To use with Fragment do not forget to add
+ *     override fun onAttach(context: Context) {
+ *         AndroidSupportInjection.inject(this)
+ *         super.onAttach(context)
+ *     }
+ */
+/*
+: HasAndroidInjector {
+
+    @Inject
+    lateinit var viewModelFactory: InjectingViewModelFactory
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+
+    override fun androidInjector(): AndroidInjector<Any?>? {
+        return androidInjector
+    }
+}
+*/

@@ -5,48 +5,56 @@
 
 package by.esas.tools.baseui.basic
 
+import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import by.esas.tools.util.hideSystemUI
-import by.esas.tools.util.hideSystemUIR
-import com.google.android.material.textfield.TextInputEditText
+import by.esas.tools.baseui.R
+import by.esas.tools.logger.Action
+import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.BaseLoggerImpl
+import by.esas.tools.logger.ILogger
+import by.esas.tools.logger.handler.ErrorAction
+import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ShowErrorType
+import by.esas.tools.util.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class BaseActivity<E : Enum<E>> : AppCompatActivity(), IBaseActivity<E> {
-    abstract val TAG: String
+abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActivity(), IChangeSettings<E> {
+
+    open val logger: ILogger<E, M> = BaseLoggerImpl(TAGk, null)
+    protected open var switcher: SwitchManager = SwitchManager()
+    protected open var hideSystemUiOnFocus: Boolean = true
+
+    abstract fun provideSwitchableViews(): List<View?>
+
+    abstract fun provideErrorHandler(): ErrorHandler<E, M>
+
+    protected open fun provideProgressBar(): View? = null
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(doWithAttachBaseContext(base))
     }
 
-    override fun recreateActivity() {
-        recreate()
-    }
+    //region activity lifecycle methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(TAG)
+        logger.setTag(TAGk)
         logger.logInfo("onCreate")
-        setFullScreen()
         hideSystemUI()
     }
 
     override fun onStart() {
         super.onStart()
         logger.logInfo("onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        logger.logInfo("onStop")
     }
 
     override fun onResume() {
@@ -59,43 +67,31 @@ abstract class BaseActivity<E : Enum<E>> : AppCompatActivity(), IBaseActivity<E>
         logger.logInfo("onPause")
     }
 
-    open fun setFullScreen() {
-        //WindowCompat.setDecorFitsSystemWindows(window, false)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.apply {
-                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-                } else {
-                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                }
-                statusBarColor = Color.TRANSPARENT
-            }
-        }
+    override fun onStop() {
+        super.onStop()
+        logger.logInfo("onStop")
     }
+
+    //endregion activity lifecycle methods
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        logger.logInfo("onWindowFocusChanged $hasFocus")
-        if (hasFocus)
+        logger.logInfo("onWindowFocusChanged hasFocus = $hasFocus; hideSystemUiOnFocus = $hideSystemUiOnFocus")
+        if (hideSystemUiOnFocus && hasFocus)
             hideSystemUI()
     }
 
-    protected open fun hideSystemUI() {
-        logger.logInfo("hideSystemUI")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            hideSystemUIR(this)
-        } else hideSystemUI(this)
-    }
+    //region touch event and keyboard
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        handleTouchOutOfInputField(event)
+        return super.dispatchTouchEvent(event)
+    }
+
+    protected open fun handleTouchOutOfInputField(event: MotionEvent) {
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
-            if (v is TextInputEditText) {
+            if (v is EditText) {
                 val outRect = Rect()
                 v.getGlobalVisibleRect(outRect)
                 if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
@@ -107,16 +103,174 @@ abstract class BaseActivity<E : Enum<E>> : AppCompatActivity(), IBaseActivity<E>
                 }
             }
         }
-        return super.dispatchTouchEvent(event)
     }
 
-    // Shows the system bars by removing all the flags
-    // except for the ones that make the content appear under the system bars.
-    private fun showSystemUI() {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    //endregion touch event and keyboard
+
+    //region IChangeAppLanguage implementation
+
+    /**
+     * @see IChangeSettings
+     */
+    override fun recreateActivity() {
+        recreate()
     }
 
+    /**
+     * @see IChangeSettings
+     */
+    override fun provideLogger(): ILogger<E, *> {
+        return logger
+    }
+
+    //endregion IChangeAppLanguage implementation
+
+    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(
+            this,
+            R.style.AppTheme_CustomMaterialDialog
+        ).setCancelable(false)
+    }
+
+    //region action
+
+    /**
+     * Method handles action
+     * @return Boolean (false in case if action was not handled by this method and true if it was handled)
+     */
+    open fun handleAction(action: Action): Boolean {
+        logger.logOrder("handleAction $action")
+        when (action.name) {
+            ErrorAction.ACTION_ERROR -> {
+                // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
+                @Suppress("UNCHECKED_CAST")
+                handleError(action as? ErrorAction<E, M>)
+            }
+            Action.ACTION_FINISH -> {
+                handleFinishAction(action.parameters)
+                action.handled = true
+            }
+            Action.ACTION_ENABLE_CONTROLS -> {
+                enableControls()
+                hideProgress()
+                action.handled = true
+            }
+            Action.ACTION_DISABLE_CONTROLS -> {
+                showProgress()
+                disableControls()
+                action.handled = true
+            }
+            Action.ACTION_HIDE_KEYBOARD -> {
+                hideKeyboard(this)
+                action.handled = true
+            }
+            else -> {
+                // return false in case if action was not handled by this method
+                return false
+            }
+        }
+        return true
+    }
+
+    open fun handleError(action: ErrorAction<E, M>?) {
+        logger.logOrder("handleError ${action != null} && !${action?.handled}")
+        if (action != null && !action.handled) {
+            //set action as handled immediately after taking it to work so it wont be handled twice.
+            action.handled = true
+            //get error message depending on what error data we have. throwable has priority
+            val msg = when {
+                action.throwable != null -> provideErrorHandler().getErrorMessage(action.throwable!!)
+                action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
+                else -> "Error"
+            }
+
+            showError(msg, action.showType, action.getSubAction())
+        }
+    }
+
+    protected open fun showError(msg: String, showType: String, action: Action?) {
+        logger.logOrder("showError msg = $msg showType = $showType action = $action")
+        hideProgress()
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING.name -> enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
+                provideMaterialAlertDialogBuilder().setTitle(R.string.error_title)
+                    .setMessage(msg)
+                    .setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
+                        dialogInterface?.dismiss()
+                        if (action != null)
+                            handleAction(action)
+                        else
+                            enableControls() // default behavior is to enable controls
+                    }.create().show()
+            }
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
+                showMessage(msg)
+                if (action != null)
+                    handleAction(action)
+                enableControls()
+            }
+        }
+    }
+
+    protected open fun handleFinishAction(parameters: Bundle?) {
+        finish()
+    }
+
+    //endregion action
+
+    //region helping methods
+
+    open fun showMessage(text: String, duration: Int = Toast.LENGTH_SHORT) {
+        logger.logInfo(text)
+        logger.showMessage(text, duration)
+    }
+
+    open fun showMessage(textId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        logger.logInfo(getAppContext().resources.getString(textId))
+        logger.showMessage(textId, duration)
+    }
+
+    protected open fun enableControls() {
+        logger.logOrder("enableControls")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null)
+                switcher.enableView(switchable)
+        }
+    }
+
+    protected open fun disableControls() {
+        logger.logOrder("disableControls")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null)
+                switcher.disableView(switchable)
+        }
+    }
+
+    protected open fun hideKeyboard(activity: Activity?) {
+        logger.logOrder("hideKeyboard")
+        defocusAndHideKeyboard(activity)
+    }
+
+    protected open fun hideProgress() {
+        logger.logOrder("hideProgress")
+        provideProgressBar()?.visibility = View.INVISIBLE
+    }
+
+    protected open fun showProgress() {
+        logger.logOrder("hideProgressshowProgress")
+        provideProgressBar()?.visibility = View.VISIBLE
+    }
+
+    protected open fun hideSystemUI() {
+        logger.logOrder("hideSystemUI")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            hideSystemUIR(this)
+        } else {
+            hideSystemUI(this)
+        }
+    }
+
+    //endregion  helping methods
 }
 

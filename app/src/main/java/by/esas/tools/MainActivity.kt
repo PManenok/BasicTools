@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.IRequestFocusHandler
 import by.esas.tools.checker.checks.LengthCheck
@@ -23,12 +24,38 @@ import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.usecase.GetDefaultCardUseCase
-import by.esas.tools.util.LanguageSetter
+import by.esas.tools.baseui.basic.SettingsProvider
 import by.esas.tools.util.hideSystemUIR
 import com.squareup.moshi.Moshi
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
+/**
+ * To use HasAndroidInjector with Activity do not forget to add
+ *     AndroidInjection.inject(this)
+ * in the fun onCreate(savedInstanceState: Bundle?)
+ *
+ * To use HasAndroidInjector with Fragment do not forget to add
+ *     override fun onAttach(context: Context) {
+ *         AndroidSupportInjection.inject(this)
+ *         super.onAttach(context)
+ *     }
+ */
+class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), HasAndroidInjector {
 
-class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
+    @Inject
+    lateinit var viewModelFactory: InjectingViewModelFactory
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+
+    override fun androidInjector(): AndroidInjector<Any?>? {
+        return androidInjector
+    }
+
     override var logger: ILogger<AppErrorStatusEnum, ErrorModel> = LoggerImpl()
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
@@ -46,8 +73,8 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         return this
     }
 
-    override fun provideSetter(): LanguageSetter {
-        return object : LanguageSetter {
+    override fun provideSetter(): by.esas.tools.baseui.basic.SettingsProvider {
+        return object : by.esas.tools.baseui.basic.SettingsProvider {
             override fun getDefaultLanguage(): String {
                 return "en"
             }
@@ -72,6 +99,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val statusBar = insets.getSystemWindowInsetTop()
@@ -172,14 +200,18 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     override fun hideSystemUI() {
         logger.logInfo("hideSystemUI")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            hideSystemUIR(this)
-        } else hideSystemUIApp(this)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                hideSystemUIR(this)
+            } else {
+                hideSystemUIApp(this)
+            }
+        } catch (e: NullPointerException) {
+            logger.logError(e)
+        }
     }
 
     override fun provideSwitchableViews(): List<View?> {
         return emptyList()
     }
-
-
 }

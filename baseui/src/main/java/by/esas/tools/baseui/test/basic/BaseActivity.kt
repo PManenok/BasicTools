@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.basedaggerui.basic
+package by.esas.tools.baseui.test.basic
 
 import android.app.Activity
 import android.content.Context
@@ -16,7 +16,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import by.esas.tools.basedaggerui.R
+import by.esas.tools.baseui.R
+import by.esas.tools.baseui.basic.IChangeSettings
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
@@ -24,21 +25,12 @@ import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
-import by.esas.tools.util.SwitchManager
-import by.esas.tools.util.defocusAndHideKeyboard
-import by.esas.tools.util.hideSystemUI
-import by.esas.tools.util.hideSystemUIR
+import by.esas.tools.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActivity(), IChangeAppLanguage<E> {
-    companion object {
-        //CHECK if will work in child classes
-        fun getTag(): String {
-            return this::class.java.simpleName
-        }
-    }
+abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActivity(), IChangeSettings<E> {
 
-    open val logger: ILogger<E, M> = BaseLoggerImpl(getTag(), null)
+    open val logger: ILogger<E, M> = BaseLoggerImpl(TAGk, null)
     protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
@@ -56,7 +48,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(getTag())
+        logger.setTag(TAGk)
         logger.logInfo("onCreate")
         hideSystemUI()
     }
@@ -119,14 +111,14 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
     //region IChangeAppLanguage implementation
 
     /**
-     * @see IChangeAppLanguage
+     * @see IChangeSettings
      */
     override fun recreateActivity() {
         recreate()
     }
 
     /**
-     * @see IChangeAppLanguage
+     * @see IChangeSettings
      */
     override fun provideLogger(): ILogger<E, *> {
         return logger
@@ -144,7 +136,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
     open fun handleError(action: ErrorAction<E, M>?) {
         logger.logOrder("handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
-            //set action as handled immediatelly after taking it to work so it wont be handled twice.
+            //set action as handled immediately after taking it to work so it wont be handled twice.
             action.handled = true
             //get error message depending on what error data we have. throwable has priority
             val msg = when {
@@ -189,6 +181,11 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
     open fun handleAction(action: Action): Boolean {
         logger.logOrder("handleAction $action")
         when (action.name) {
+            ErrorAction.ACTION_ERROR -> {
+                // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
+                @Suppress("UNCHECKED_CAST")
+                handleError(action as? ErrorAction<E, M>)
+            }
             Action.ACTION_FINISH -> {
                 handleFinishAction(action.parameters)
                 action.handled = true

@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.baseui.mvvm
+package by.esas.tools.baseui.test.mvvm
 
 import android.os.Bundle
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.esas.tools.logger.Action
@@ -16,12 +17,12 @@ import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ShowErrorType
 
 abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
-
     open val TAG: String = BaseViewModel::class.java.simpleName
     open var logger: ILogger<E, M> = BaseLoggerImpl(BaseViewModel::class.java.simpleName)
 
-    val progressing = MutableLiveData<Boolean>(false)
+    val progressing = ObservableBoolean(false)
     val action: MutableLiveData<Action?> = MutableLiveData<Action?>(null)
+    val requestAction: MutableLiveData<Action?> = MutableLiveData<Action?>(null)
     val controlsEnabled: MutableLiveData<Boolean> = MutableLiveData<Boolean>(true)
 
     override fun onCleared() {
@@ -52,18 +53,9 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
     }
 
     open fun requestAction(action: Action) {
-        this.action.postValue(action)
+        requestAction.postValue(action)
     }
 
-    /**
-     * Method handles action. This method do not send action elsewhere
-     * and if it could not handle action method returns false
-     *
-     * @return Boolean
-     *   true if action was handled
-     *   false if action was not handled
-     *   By default returns false
-     */
     open fun handleAction(action: Action?): Boolean {
         logger.logOrder("handleAction $action")
         return false
@@ -75,12 +67,12 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
 
     open fun hideProgress() {
         logger.logOrder("hideProgress")
-        progressing.postValue(false)
+        progressing.set(false)
     }
 
     open fun showProgress() {
         logger.logOrder("showProgress")
-        progressing.postValue(true)
+        progressing.set(true)
     }
 
     /**
@@ -91,7 +83,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         logger.logOrder("disableControls")
         showProgress()
         controlsEnabled.postValue(false)
-        action.postValue(Action(Action.ACTION_DISABLE_CONTROLS))
+        requestAction.postValue(Action(Action.ACTION_DISABLE_CONTROLS))
     }
 
     /**
@@ -102,7 +94,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         logger.logOrder("enableControls")
         hideProgress()
         controlsEnabled.postValue(true)
-        action.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
+        requestAction.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
     }
 
     //endregion helping methods

@@ -102,4 +102,8 @@ open class ErrorAction<E : Enum<E>, M : BaseErrorModel<E>>(
             null
         }
     }
+
+    override fun toString(): String {
+        return "ErrorAction(throwable=$throwable, model=$model, showType='$showType') ${super.toString()}"
+    }
 }
