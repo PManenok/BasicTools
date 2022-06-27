@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.checker.Checking
 import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.dialog.simpleItemAdapter.SimpleItemModel
-import by.esas.tools.logger.ILogger
-import kotlinx.android.synthetic.main.df_message.view.*
+import by.esas.tools.dialog.BR
 
 class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<B, E, EnumT> {
     override val TAG: String = MessageDialog::class.java.simpleName
@@ -147,7 +145,6 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
         updateScreen()
 
         val manager = LinearLayoutManager(this.context)
-        binding.root.df_message_recycler
         binding.dfMessageRecycler.layoutManager = manager
         binding.dfMessageRecycler.adapter = adapter
         binding.dfMessageRecycler.setHasFixedSize(true)
@@ -156,7 +153,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     private fun updateScreen() {
-        logger.log("updateScreen")
+        logger.logOrder("updateScreen")
         showMessage.set(!message.get().isNullOrBlank())
         adapter.cleanItems()
         val lastIndex = items.lastIndex
@@ -182,7 +179,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
 
     fun onPositiveClick() {
         disableControls()
-        logger.log("onPositiveClick")
+        logger.logOrder("onPositiveClick")
         afterOk = true
         dismiss()
         provideCallback()?.onPositiveClick(positiveAction)
@@ -191,7 +188,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
 
     fun onNeutralClick() {
         disableControls()
-        logger.log("onNeutralClick")
+        logger.logOrder("onNeutralClick")
         afterOk = true
         dismiss()
         provideCallback()?.onNeutralClick()
@@ -200,7 +197,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
 
     fun onNegativeClick() {
         disableControls()
-        logger.log("onNegativeClick")
+        logger.logOrder("onNegativeClick")
         afterOk = true
         dismiss()
         provideCallback()?.onNegativeClick()
@@ -209,18 +206,18 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
 
     override fun disableControls() {
         super.disableControls()
-        logger.log("disableControls")
+        logger.logOrder("disableControls")
         btnEnabled.set(false)
     }
 
     override fun enableControls() {
         super.enableControls()
-        logger.log("enableControls")
+        logger.logOrder("enableControls")
         btnEnabled.set(true)
     }
 
     override fun onCancel(dialog: DialogInterface) {
-        logger.log("onCancel")
+        logger.logOrder("onCancel")
         afterOk = true
         provideCallback()?.onCancelled()
         super.onCancel(dialog)
@@ -231,7 +228,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     fun setTitle(resId: Int) {
-        logger.log("setTitle resId = $resId")
+        logger.logOrder("setTitle resId = $resId")
         if (resId != -1)
             setTitle(resources.getString(resId))
         else setTitle("")
@@ -243,7 +240,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     fun setMessage(resId: Int) {
-        logger.log("setMessage resId = $resId")
+        logger.logOrder("setMessage resId = $resId")
         if (resId != -1)
             setMessage(resources.getString(resId))
         else setMessage("")
@@ -255,7 +252,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     fun setPositiveButton(resId: Int = R.string.common_ok_btn, actionName: String? = null) {
-        logger.log("setPositiveButton resId = $resId; actionName = $actionName")
+        logger.logOrder("setPositiveButton resId = $resId; actionName = $actionName")
         if (resId != -1)
             setPositiveButton(resources.getString(resId), actionName)
         else setPositiveButton("", actionName)
@@ -268,7 +265,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     fun setNeutralButton(resId: Int) {
-        logger.log("setNeutralButton resId = $resId")
+        logger.logOrder("setNeutralButton resId = $resId")
         if (resId != -1)
             setNeutralButton(resources.getString(resId))
         else setNeutralButton("")
@@ -280,7 +277,7 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     fun setNegativeButton(resId: Int = R.string.common_cancel) {
-        logger.log("setNegativeButton resId = $resId")
+        logger.logOrder("setNegativeButton resId = $resId")
         if (resId != -1)
             setNegativeButton(resources.getString(resId))
         else setNegativeButton("")

@@ -6,7 +6,7 @@ import androidx.databinding.ViewDataBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding
 import by.esas.tools.dialog.databinding.IItemBinding
 import by.esas.tools.recycler.BaseViewHolder
-import by.esas.eposmobile.BR
+import by.esas.tools.dialog.BR
 
 class SimpleItemViewHolder<Binding : ViewDataBinding>(binding: Binding, viewModel: SimpleItemViewModel) :
     BaseViewHolder<SimpleItemModel, SimpleItemViewModel, Binding>(binding, viewModel) {
