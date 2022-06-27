@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import by.esas.tools.baseui.R
-import by.esas.tools.baseui.test.basic.BaseFragment
 import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.Action
@@ -75,7 +74,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
         }
     }
 
-    //endregion
+    //endregion providing methods
 
     //region fragment lifecycle methods
 
@@ -137,7 +136,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
         logger.logOrder("onDestroyView")
     }
 
-    //endregion  fragment lifecycle methods
+    //endregion fragment lifecycle methods
 
     //region dialogs
 
@@ -242,9 +241,9 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
         when (showType) {
             ShowErrorType.SHOW_NOTHING.name -> enableControls()
             ShowErrorType.SHOW_ERROR_DIALOG.name -> {
-                provideMaterialAlertDialogBuilder().setTitle(R.string.error_title)
+                provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
                     .setMessage(msg)
-                    .setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
+                    .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
                         dialogInterface?.dismiss()
                         if (action != null)
                             handleAction(action)

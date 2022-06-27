@@ -16,7 +16,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import by.esas.tools.baseui.R
+import by.esas.tools.dialog.BaseBottomDialogFragment
+import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
@@ -27,6 +31,16 @@ import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+/**
+ * Base class for activity that can:
+ * - update base context on [attachBaseContext] method
+ * - hide system UI when input focus was lost (also hides keyboard)
+ * - show [by.esas.tools.dialog.BaseDialogFragment] and [by.esas.tools.dialog.BaseBottomDialogFragment]
+ * - [handleAction] like: [ErrorAction.ACTION_ERROR], [Action.ACTION_FINISH], [Action.ACTION_ENABLE_CONTROLS],
+ *   [Action.ACTION_DISABLE_CONTROLS], [Action.ACTION_HIDE_KEYBOARD]
+ * - [ErrorAction] is handled via [handleError] method, and it use [ShowErrorType]
+ *   to choose how to show error to user
+ */
 abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActivity(), IChangeSettings<E> {
 
     open val logger: ILogger<E, M> = BaseLoggerImpl(TAGk, null)
@@ -81,6 +95,38 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
             hideSystemUI()
     }
 
+    //region show dialog functionality
+
+    protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
+        logger.logInfo("try to showDialog $tag")
+        val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*, *>
+            && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
+            && !prevWithSameTag.isRemoving
+        ) {
+            //there is currently showed dialog fragment with same TAG
+        } else {
+            //there is no currently showed dialog fragment with same TAG
+            dialog.show(supportFragmentManager, tag)
+        }
+    }
+
+    protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
+        logger.logInfo("try to showDialog ${dialog != null}")
+        if (dialog != null) {
+            onShowDialog(dialog, dialog.TAG)
+        }
+    }
+
+    protected open fun onShowDialog(dialog: BaseBottomDialogFragment<*, *>?) {
+        logger.logInfo("try to showDialog ${dialog != null}")
+        if (dialog != null) {
+            onShowDialog(dialog, dialog.TAG)
+        }
+    }
+
+    //endregion show dialog functionality
+
     //region touch event and keyboard
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -107,7 +153,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
 
     //endregion touch event and keyboard
 
-    //region IChangeAppLanguage implementation
+    //region IChangeSettings implementation
 
     /**
      * @see IChangeSettings
@@ -123,7 +169,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
         return logger
     }
 
-    //endregion IChangeAppLanguage implementation
+    //endregion IChangeSettings implementation
 
     open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
         return MaterialAlertDialogBuilder(
@@ -194,9 +240,9 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
         when (showType) {
             ShowErrorType.SHOW_NOTHING.name -> enableControls()
             ShowErrorType.SHOW_ERROR_DIALOG.name -> {
-                provideMaterialAlertDialogBuilder().setTitle(R.string.error_title)
+                provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
                     .setMessage(msg)
-                    .setPositiveButton(R.string.common_ok_btn) { dialogInterface, _ ->
+                    .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
                         dialogInterface?.dismiss()
                         if (action != null)
                             handleAction(action)

@@ -13,12 +13,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import by.esas.tools.baseui.basic.BaseFragment
-import by.esas.tools.baseui.test.mvvm.BaseViewModel
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
-    BaseFragment<E, M>() {
+abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
+    : BaseFragment<E, M>() {
 
     val TAG: String = DataBindingFragment::class.java.simpleName
 
@@ -80,12 +79,13 @@ abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding
      * @return Boolean (false in case if action was not handled by this method and true if it was handled)
      */
     override fun handleAction(action: Action): Boolean {
+        logger.logInfo("override handleAction $action")
         //try to handle action by parent's handler
         if (!super.handleAction(action)) {
             logger.logInfo("viewModel handleAction $action")
             // try to handle action in viewModel if parent's handler didn't handle
             return viewModel.handleAction(action)
         }
-        return true
+        return false
     }
 }

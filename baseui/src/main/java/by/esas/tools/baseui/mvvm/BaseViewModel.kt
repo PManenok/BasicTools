@@ -18,6 +18,7 @@ import by.esas.tools.logger.handler.ShowErrorType
 abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
 
     open val TAG: String = BaseViewModel::class.java.simpleName
+
     open var logger: ILogger<E, M> = BaseLoggerImpl(BaseViewModel::class.java.simpleName)
 
     val progressing = MutableLiveData<Boolean>(false)
@@ -52,6 +53,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
     }
 
     open fun requestAction(action: Action) {
+        logger.logInfo("requestAction $action")
         this.action.postValue(action)
     }
 
@@ -100,9 +102,9 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
      */
     open fun enableControls() {
         logger.logOrder("enableControls")
-        hideProgress()
-        controlsEnabled.postValue(true)
         action.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
+        controlsEnabled.postValue(true)
+        hideProgress()
     }
 
     //endregion helping methods

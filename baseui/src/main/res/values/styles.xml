@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- Material Alert Dialog Style -->
     <style name="AppTheme.CustomMaterialDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="materialAlertDialogBodyTextStyle">
@@ -15,22 +14,22 @@
 
     <style name="AppTheme.MaterialDialog.TextAppearance.Small" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
-        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textSize">@dimen/textSizeBaseUiSmall</item>
         <item name="android:singleLine">false</item>
         <item name="singleLine">false</item>
         <item name="android:maxLines">10</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">@color/colorBaseUiTextSecondary</item>
     </style>
 
     <style name="AppTheme.MaterialDialog.TextAppearance.Medium" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">@dimen/textSizeDefault</item>
-        <item name="android:textColor">@color/colorTextDefault</item>
+        <item name="android:textSize">@dimen/textSizeBaseUiDefault</item>
+        <item name="android:textColor">@color/colorBaseUiTextDefault</item>
     </style>
 
     <style name="AppTheme.MaterialDialog.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textSize">@dimen/textSizeDefault</item>
+        <item name="android:textSize">@dimen/textSizeBaseUiDefault</item>
     </style>
     <!-- Material Alert Dialog Style End-->
 </resources>

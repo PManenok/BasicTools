@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Text -->
-    <dimen name="textSizeDefault">16sp</dimen>
-    <dimen name="textSizeSmall">14sp</dimen>
-    <!--<dimen name="textSizeHint">12sp</dimen>-->
-   <!-- <dimen name="textSizeTitle">24sp</dimen>-->
-    <!--<dimen name="textSizeTopTitle">28sp</dimen>-->
-
+    <dimen name="textSizeBaseUiDefault">16sp</dimen>
+    <dimen name="textSizeBaseUiSmall">14sp</dimen>
 </resources>

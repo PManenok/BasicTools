@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.baseui.test.interfaces.navigating
+package by.esas.tools.baseui.interfaces.navigating
 
 import android.os.Bundle
 import by.esas.tools.logger.Action

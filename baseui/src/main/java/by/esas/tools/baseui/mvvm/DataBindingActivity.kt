@@ -10,13 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import by.esas.tools.baseui.basic.BaseActivity
-import by.esas.tools.baseui.test.mvvm.BaseViewModel
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-
-abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>> :
-    BaseActivity<E, M>() {
+/**
+ * Base class for activity that inherits from [BaseActivity] and implements data binding.
+ * This class adds observer to view model's activity variable [setupActionObserver]
+ */
+abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
+    : BaseActivity<E, M>() {
 
     protected lateinit var binding: TBinding
     protected lateinit var viewModel: TViewModel
