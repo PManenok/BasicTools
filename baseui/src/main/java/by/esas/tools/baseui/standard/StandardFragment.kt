@@ -114,7 +114,7 @@ abstract class StandardFragment<VM : StandardViewModel<E, M>, B : ViewDataBindin
         logger.logInfo("try to popBack")
         //Check arguments from popBack action and send them to activity if it is IHandlePopBackArguments
         if (action.parameters != null && activity is IHandlePopBackArguments) {
-            (activity as IHandlePopBackArguments).handleArguments(action.parameters)
+            (activity as IHandlePopBackArguments).handlePopBackArguments(action.parameters)
         }
         //Check if popBack destination was set
         if (action.destination != 0) {

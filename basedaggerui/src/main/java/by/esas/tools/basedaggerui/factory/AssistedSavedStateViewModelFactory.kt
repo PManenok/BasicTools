@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.basedaggerui.inject.factory
+package by.esas.tools.basedaggerui.factory
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.basedaggerui.inject.factory
+package by.esas.tools.basedaggerui.factory
 
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
@@ -36,7 +36,7 @@ class InjectingViewModelFactory @Inject constructor(
         }
     }
 
-    fun provideFactory(): ViewModelFactory{
+    fun provideFactory(): ViewModelFactory {
         return simpleFactory
     }
 }

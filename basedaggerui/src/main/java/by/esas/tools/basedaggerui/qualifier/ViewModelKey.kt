@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.basedaggerui.inject.qualifier
+package by.esas.tools.basedaggerui.qualifier
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

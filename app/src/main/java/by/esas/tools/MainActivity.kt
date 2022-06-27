@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.basedaggerui.inject.factory.InjectingViewModelFactory
+import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.IRequestFocusHandler
 import by.esas.tools.checker.checks.LengthCheck
@@ -24,7 +24,7 @@ import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.usecase.GetDefaultCardUseCase
-import by.esas.tools.baseui.basic.SettingsProvider
+import by.esas.tools.util.SettingsProvider
 import by.esas.tools.util.hideSystemUIR
 import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjection
@@ -44,19 +44,10 @@ import javax.inject.Inject
  *         super.onAttach(context)
  *     }
  */
-class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), HasAndroidInjector {
-
-    @Inject
-    lateinit var viewModelFactory: InjectingViewModelFactory
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
-
-    override fun androidInjector(): AndroidInjector<Any?>? {
-        return androidInjector
-    }
+class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     override var logger: ILogger<AppErrorStatusEnum, ErrorModel> = LoggerImpl()
+
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
     }
@@ -69,12 +60,8 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), HasAndroidInjec
         return BR.viewModel
     }
 
-    override fun provideLifecycleOwner(): LifecycleOwner {
-        return this
-    }
-
-    override fun provideSetter(): by.esas.tools.baseui.basic.SettingsProvider {
-        return object : by.esas.tools.baseui.basic.SettingsProvider {
+    override fun provideSetter(): SettingsProvider {
+        return object : SettingsProvider {
             override fun getDefaultLanguage(): String {
                 return "en"
             }
@@ -97,6 +84,9 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), HasAndroidInjec
         App.appContext = context
     }
 
+    override fun handlePopBackArguments(arguments: Bundle?) {
+        TODO("Not yet implemented")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

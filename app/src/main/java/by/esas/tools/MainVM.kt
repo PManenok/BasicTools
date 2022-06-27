@@ -8,12 +8,9 @@ import by.esas.tools.dialog.GetPasswordDialog
 import javax.inject.Inject
 
 class MainVM @Inject constructor() : AppVM() {
+
     override val TAG: String = "MainVM"
     var update: () -> Unit = {}
-
-    override fun onChangeLanguage() {
-
-    }
 
     fun setUp() {
         serviceName.addOnPropertyChangedCallback(

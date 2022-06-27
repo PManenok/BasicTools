@@ -1,7 +1,7 @@
 package by.esas.tools.inject.builder
 
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.basedaggerui.inject.factory.ViewModelFactory
+import by.esas.tools.basedaggerui.factory.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 
