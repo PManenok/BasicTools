@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumPadView">
+        <attr name="numpadIconPadding" format="dimension" />
+        <attr name="numpadIconSize" format="dimension" />
+        <attr name="numpadZeroDrawable" format="reference" />
+        <attr name="numpadOneDrawable" format="reference" />
+        <attr name="numpadTwoDrawable" format="reference" />
+        <attr name="numpadThreeDrawable" format="reference" />
+        <attr name="numpadFourDrawable" format="reference" />
+        <attr name="numpadFiveDrawable" format="reference" />
+        <attr name="numpadSixDrawable" format="reference" />
+        <attr name="numpadSevenDrawable" format="reference" />
+        <attr name="numpadEightDrawable" format="reference" />
+        <attr name="numpadNineDrawable" format="reference" />
+        <attr name="numpadLeftDrawable" format="reference"/>
+        <attr name="numpadRightDrawable" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="NumPadTextView">
+        <attr name="numpadTextIconStyle" format="reference"/>
+        <attr name="numpadTextIconPadding" format="dimension"/>
+        <attr name="numpadTextIconSize" format="dimension" />
+        <attr name="numpadTextIconLeft" format="reference"/>
+        <attr name="numpadTextIconRight" format="reference"/>
+    </declare-styleable>
+</resources>
