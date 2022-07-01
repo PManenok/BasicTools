@@ -35,6 +35,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import androidx.transition.Visibility
 import kotlin.math.roundToInt
 
 open class InputFieldView : ConstraintLayout {
@@ -88,7 +89,6 @@ open class InputFieldView : ConstraintLayout {
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
     protected open var hideErrorText: Boolean = true
-    protected open var hideInputBox: Boolean = false
 
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
@@ -118,6 +118,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultMinHeight: Int = context.resources
         .getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
     protected open val defaultIconsPadding: Int = dpToPx(4).roundToInt()
+    protected open val defaultInputBoxVisibility: Int = 0
 
     protected open var errorDrawableRes: Int = R.drawable.ic_input_field_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
@@ -503,7 +504,7 @@ open class InputFieldView : ConstraintLayout {
         setupStartIconMode()
         setupEndIconMode()
         boxSettings()
-        hideInputBox(false)
+        inputBoxVisibility(defaultInputBoxVisibility)
     }
     /*endregion ############### Input settings END ################*/
 
@@ -1035,19 +1036,12 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    protected open fun setInputBoxVisibility() {
-        if (hideInputBox) {
-            inputBox?.visibility = View.VISIBLE
-        } else {
-            inputBox?.visibility = View.GONE
-        }
+    open fun inputBoxVisibility(): Int{
+        return inputBox?.visibility ?: 2
     }
 
-    open fun hideInputBox(value: Boolean) {
-        if (hideInputBox != value) {
-            hideInputBox = value
-            setInputBoxVisibility()
-        }
+    open fun inputBoxVisibility(visibility: Int) {
+        inputBox?.visibility = visibility
     }
 
     open fun setInputStrokeColorWithErrorValue(value: Boolean) {
@@ -1355,6 +1349,7 @@ open class InputFieldView : ConstraintLayout {
                 defaultStrokeWidthInPx
             )
                 .toFloat()
+        val inputBoxVisibility = typedArray.getInt(R.styleable.InputFieldView_inputBoxVisibility, defaultInputBoxVisibility)
 
         typedArray.recycle()
 
@@ -1410,7 +1405,7 @@ open class InputFieldView : ConstraintLayout {
         updateStartIcon()
         updateEndIcon()
         boxSettings()
-        setInputBoxVisibility()
+        inputBoxVisibility(inputBoxVisibility)
         //set start and end icons to be checked
         if (startIconMode == START_ICON_CHECKABLE) {
             startCheckBox?.isChecked = isChecked

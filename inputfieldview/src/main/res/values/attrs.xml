@@ -98,6 +98,14 @@
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
         <attr name="inputStrokeErrorColor" format="color"/>
+        <attr name="inputBoxVisibility">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0" />
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1" />
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="BoxView">
