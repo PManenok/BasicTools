@@ -904,6 +904,11 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
+    open fun setupHelpColorResource(@ColorRes color: Int){
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupHelpColor(parsedColor)
+    }
+
     open fun setHelpStyle(helpId: Int) {
         if (helpId != -1)
             helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpId) }
