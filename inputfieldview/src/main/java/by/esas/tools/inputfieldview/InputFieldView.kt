@@ -624,7 +624,7 @@ open class InputFieldView : ConstraintLayout {
                     if (hasErrorText)
                         CompoundButtonCompat.setButtonTintList(
                             this,
-                            ColorStateList.valueOf(errorColor)
+                            ColorStateList.valueOf(getColorError())
                         )
                     else
                         CompoundButtonCompat.setButtonTintList(
@@ -704,7 +704,7 @@ open class InputFieldView : ConstraintLayout {
                 endContainer?.setOnClickListener {}
                 endIconView?.apply {
                     setImageResource(errorDrawableRes)
-                    val endIconErrorTint = if (inputEndIconColorWithError) errorColor else endTint
+                    val endIconErrorTint = if (inputEndIconColorWithError) getColorError() else endTint
                     ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endIconErrorTint))
                 }
             }
@@ -774,7 +774,7 @@ open class InputFieldView : ConstraintLayout {
     protected open fun setStartIconTintInErrorMode() {
         if (inputStartIconColorWithError) {
             startIconView?.apply {
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(getColorError()))
             }
         }
     }
@@ -917,9 +917,13 @@ open class InputFieldView : ConstraintLayout {
     open fun setError(text: String?) {
         hasErrorText = !text.isNullOrBlank()
         errorTextView?.text = text
+        updateErrorState()
+    }
+
+    protected open fun updateErrorState(){
         if (hasErrorText) {
-            if (inputLabelColorWithError) setLabelColor(errorColor)
-            if (inputErrorTextColorWithError) errorTextView?.setTextColor(errorColor)
+            if (inputLabelColorWithError) setLabelColor(getColorError())
+            if (inputErrorTextColorWithError) errorTextView?.setTextColor(getColorError())
             setStartIconTintInErrorMode()
         } else {
             setLabelStyle(labelStyleId)
@@ -944,10 +948,20 @@ open class InputFieldView : ConstraintLayout {
         hideErrorText = value
     }
 
+    open fun getColorError(): Int {
+        return if (errorColor == -1 || errorColor == 0) defaultErrorColor else errorColor
+    }
+
     open fun setupErrorColor(color: Int) {
         if (errorColor != color) {
             errorColor = color
+            updateErrorState()
         }
+    }
+
+    open fun setupErrorColorResource(@ColorRes color: Int){
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupErrorColor(parsedColor)
     }
 
     open fun setInputErrorTextColorWithErrorValue(value: Boolean) {
@@ -968,7 +982,7 @@ open class InputFieldView : ConstraintLayout {
             hasErrorText -> {
                 inputBox?.apply {
                     if (inputStrokeColorWithError)
-                        setStrokeColor(errorColor)
+                        setStrokeColor(getColorError())
                     else
                         setStrokeColor(inputStrokeErrorColor)
                 }
@@ -1172,7 +1186,7 @@ open class InputFieldView : ConstraintLayout {
         inputText?.onFocusChangeListener =
             OnFocusChangeListener { _, hasFocus ->
                 inputBox?.setStrokeColor(
-                    if (hasErrorText) errorColor else {
+                    if (hasErrorText) getColorError() else {
                         if (hasFocus) focusedStrokeColor else strokeColor
                     }
                 )
@@ -1329,7 +1343,7 @@ open class InputFieldView : ConstraintLayout {
             defaultStrokeColor
         )
         inputStrokeErrorColor =
-            typedArray.getColor(R.styleable.InputFieldView_inputStrokeErrorColor, errorColor)
+            typedArray.getColor(R.styleable.InputFieldView_inputStrokeErrorColor, getColorError())
         focusedStrokeColor =
             typedArray.getColor(
                 R.styleable.InputFieldView_inputActiveStrokeColor,
