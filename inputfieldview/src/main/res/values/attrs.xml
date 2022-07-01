@@ -90,6 +90,7 @@
         <attr name="inputErrorTextStyle" format="reference" />
         <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
+        <attr name="inputErrorTextColorWithError" format="boolean"/>
 
         <!--Box-->
         <attr name="inputInactiveStrokeColor" format="color" />

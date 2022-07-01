@@ -107,7 +107,6 @@ open class InputFieldView : ConstraintLayout {
     /**
      * A variable indicates whether the stroke and error colors will match on error mode by default
      */
-    protected open val defaultInputStrokeColorWithError = true
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
     protected open val defaultIsWrap: Boolean = false
@@ -462,7 +461,6 @@ open class InputFieldView : ConstraintLayout {
         boxBgColor = defaultBoxBgColor
         strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
         strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
-        inputStrokeColorWithError = defaultInputStrokeColorWithError
         labelMaxLines = defaultLabelMaxLines
         editTextMinHeight = defaultMinHeight
         checkBoxToggle = defaultCheckBoxToggle
@@ -476,6 +474,7 @@ open class InputFieldView : ConstraintLayout {
         inputEndIconColorWithError = false
         inputStartIconColorWithError = false
         inputErrorTextColorWithError = true
+        inputStrokeColorWithError = true
 
         inputClickView?.visibility = View.INVISIBLE
         inputText?.apply {
@@ -970,7 +969,10 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun setInputErrorTextColorWithErrorValue(value: Boolean) {
-        if (inputErrorTextColorWithError != value) inputErrorTextColorWithError = value
+        if (inputErrorTextColorWithError != value){
+            inputErrorTextColorWithError = value
+            updateErrorState()
+        }
     }
 
     open fun setErrorStyle(errorStyle: Int) {
@@ -1341,6 +1343,7 @@ open class InputFieldView : ConstraintLayout {
             R.styleable.InputFieldView_inputHideErrorIcon,
             defaultHideErrorIcon
         )
+        inputErrorTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputErrorTextColorWithError, true)
 
         /*##########  Box  ##########*/
         strokeColor = typedArray.getColor(
