@@ -13,7 +13,9 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.KeyListener
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.util.Log
@@ -35,7 +37,6 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
-import androidx.transition.Visibility
 import kotlin.math.roundToInt
 
 open class InputFieldView : ConstraintLayout {
@@ -397,19 +398,37 @@ open class InputFieldView : ConstraintLayout {
             endIconView?.visibility = View.INVISIBLE
     }
 
-    open fun isEditable(value: Boolean) {
-        inputText?.isEnabled = value
+    /**
+     * Method shows if inputText field is enabled or not.
+     */
+    open fun isInputEnabled(): Boolean {
+        return inputText?.keyListener != null
     }
 
-    open fun isEditable(): Boolean {
-        return inputText?.isEnabled ?: false
+    /**
+     * Method makes inputText field enabled.
+     */
+    open fun enableInput() {
+        if (inputText?.tag != null)
+            inputText?.keyListener = inputText?.tag as KeyListener
+    }
+
+    /**
+     * Method makes inputText field disabled.
+     */
+    open fun disableInput(){
+        inputText?.setText(inputText?.text.toString().trim())
+        if (inputText?.keyListener != null) {
+            inputText?.tag = inputText?.keyListener
+            inputText?.keyListener = null
+        }
     }
 
     /**
      * Method makes InputFieldView enabled. It means that inputText, start and end icons become enabled, so client can edit text in input text and start and end icons are clickable.
      */
-    open fun enableInputFieldView() {
-        isEditable(true)
+    open fun enableView() {
+        enableInput()
         startIconEnable()
         endIconEnable()
     }
@@ -417,8 +436,8 @@ open class InputFieldView : ConstraintLayout {
     /**
      * Method makes InputFieldView disabled. It means that inputText, start and end icons become disabled, so client can't edit text in input text and start and end icons are not clickable.
      */
-    open fun disableInputFieldView() {
-        isEditable(false)
+    open fun disableView() {
+        disableInput()
         startIconDisable()
         endIconDisable()
     }
@@ -492,7 +511,7 @@ open class InputFieldView : ConstraintLayout {
                 textDirection = View.TEXT_DIRECTION_ANY_RTL
             }
         }
-        enableInputFieldView()
+        enableView()
         setMaxLines(1)
         setHelp(null)
         setError(null)
@@ -676,7 +695,8 @@ open class InputFieldView : ConstraintLayout {
 
     protected open fun setEndIconAsClear() {
         endContainer?.setOnClickListener {
-            clearInputText()
+            if (isInputEnabled())
+                clearInputText()
         }
         endIconView?.apply {
             if (endDrawable == null)
