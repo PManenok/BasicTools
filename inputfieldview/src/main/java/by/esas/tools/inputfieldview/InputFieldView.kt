@@ -204,16 +204,6 @@ open class InputFieldView : ConstraintLayout {
     /*endregion ################ Parameters END ################*/
 
     /*region ############################ Icons Click Listeners ################################*/
-    protected open val clearTextClickListener: IconClickListener = object : IconClickListener {
-        override fun onIconClick() {
-            if (isEditable()) {
-                inputText?.setText("")
-                if (endIconMode == END_ICON_CLEAR_TEXT) {
-                    endIconView?.visibility = View.INVISIBLE
-                }
-            }
-        }
-    }
     protected open val endCheckClickListener: CompoundButton.OnCheckedChangeListener =
         CompoundButton.OnCheckedChangeListener { _, isChecked ->
             endCheckedListener?.onCheckChanged(isChecked)
@@ -399,6 +389,12 @@ open class InputFieldView : ConstraintLayout {
 
     open fun getText(): String {
         return inputText?.text?.toString() ?: ""
+    }
+
+    open fun clearInputText(){
+        inputText?.setText("")
+        if (endIconMode == END_ICON_CLEAR_TEXT)
+            endIconView?.visibility = View.INVISIBLE
     }
 
     open fun isEditable(value: Boolean) {
@@ -680,7 +676,7 @@ open class InputFieldView : ConstraintLayout {
 
     protected open fun setEndIconAsClear() {
         endContainer?.setOnClickListener {
-            clearTextClickListener.onIconClick()
+            clearInputText()
         }
         endIconView?.apply {
             if (endDrawable == null)
