@@ -253,14 +253,6 @@ open class CardLine : LinearLayout {
         titleText.isSingleLine = value
     }
 
-    open fun setCardTitleColor(color: Int){
-        titleText.setTextColor(color)
-    }
-
-    open fun setCardTitleColorRes(@ColorRes colorRes: Int){
-        setCardTitleColor(ContextCompat.getColor(context, colorRes))
-    }
-
     open fun setupTitleWidthPercent(value: Float) {
         titleWidthPercent = value
         titleText.apply {
@@ -426,7 +418,7 @@ open class CardLine : LinearLayout {
     }
 
     open fun setBottomDividerColorRes(@ColorRes colorRes: Int){
-        setBackgroundColor(ContextCompat.getColor(context, colorRes))
+        setBottomDividerColor(ContextCompat.getColor(context, colorRes))
     }
 
     open fun setBottomDividerHeight(value: Int) {
