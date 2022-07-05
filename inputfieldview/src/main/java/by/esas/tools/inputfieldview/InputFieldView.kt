@@ -425,7 +425,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /**
-     * Method makes InputFieldView enabled. It means that inputText, start and end icons become enabled, so client can edit text in input text and start and end icons are clickable.
+     * Method makes InputFieldView enabled. It means that inputText, start and end icons become enabled,
+     * so client can edit text in input text and start and end icons are clickable.
      */
     open fun enableView() {
         enableInput()
@@ -434,7 +435,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /**
-     * Method makes InputFieldView disabled. It means that inputText, start and end icons become disabled, so client can't edit text in input text and start and end icons are not clickable.
+     * Method makes InputFieldView disabled. It means that inputText, start and end icons become disabled,
+     * so client can't edit text in input text and start and end icons are not clickable.
      */
     open fun disableView() {
         disableInput()
@@ -611,7 +613,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /**
-     * Method sets end icon settings such as icons click listener, components visibility, resources depending on the end icon type.
+     * Method sets end icon settings such as icons click listener, components visibility,
+     * resources depending on the end icon type.
      */
     protected open fun updateEndIcon() {
         if (endIconMode != END_ICON_PASSWORD_TOGGLE) {
@@ -711,7 +714,10 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /**
-     * Method sets required icons settings for error mode. If hideErrorIcon value is false method sets visibility of endIconView, endCheckBox, endContainer and if argument is true or end icon is invisible sets empty clickListener and update end icon image and tint.
+     * Method sets required icons settings for error mode. If hideErrorIcon value is false
+     * method sets visibility of endIconView, endCheckBox, endContainer and
+     * if argument is true or end icon is invisible sets empty clickListener
+     * and update end icon image and tint.
      */
     protected open fun setEndIconAsError(forcefully: Boolean = false) {
         if (!hideErrorIcon) {
@@ -809,7 +815,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /**
-     * Method sets start icon settings and visibility of startIconView, startCheckBox, progressBar, startContainer depending on the start icon type.
+     * Method sets start icon settings and visibility of startIconView, startCheckBox, progressBar,
+     * startContainer depending on the start icon type.
      */
     protected open fun updateStartIcon() {
         if (startIconMode != START_ICON_DEFAULT || startIconMode != START_ICON_PROGRESS)
@@ -932,7 +939,8 @@ open class InputFieldView : ConstraintLayout {
 
     /* Error */
     /**
-     * SetError method setup errorText, label and start icon required colors and bottom text depending on the text argument.
+     * SetError method setup errorText, label and start icon required colors and bottom text
+     * depending on the text argument.
      */
     open fun setError(text: String?) {
         hasErrorText = !text.isNullOrBlank()
@@ -998,7 +1006,9 @@ open class InputFieldView : ConstraintLayout {
     /* Error End*/
 
     /**
-     * Depending on the bottom text type update stroke color in inputBox, previous and current end icon mode, visibility of bottom container, errorTextView and helpTextView.
+     * Depending on the bottom text type update stroke color in inputBox,
+     * previous and current end icon mode, visibility of bottom container,
+     * errorTextView and helpTextView.
      */
     protected open fun updateBottomTextPosition() {
         when {
@@ -1093,7 +1103,8 @@ open class InputFieldView : ConstraintLayout {
 
     /*region ################### Other ######################*/
     /**
-     * Method sets label params depending on the label type. Return Boolean result of setLabelParams method or return false if current margin top doesn't equal new margin top value.
+     * Method sets label params depending on the label type. Return Boolean result of setLabelParams method
+     * or return false if current margin top doesn't equal new margin top value.
      */
      protected open fun labelOnPreDraw(): Boolean {
         var draw = true
