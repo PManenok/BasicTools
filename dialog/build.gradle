@@ -59,8 +59,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     // Material Design
     implementation "com.google.android.material:material:$material_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation project(path: ':recycler')
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
@@ -69,4 +68,5 @@ dependencies {
     api project(path: ':logger')
     api project(path: ':util')
     api project(path: ':checker')
+    api project(path: ':recycler')
 }

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'maven-publish'
 
@@ -62,6 +61,8 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation "androidx.core:core-ktx:$corektx_version"
+
     // Constraint Layout
     api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
@@ -70,6 +71,4 @@ dependencies {
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
-
-    implementation "androidx.core:core-ktx:1.7.0"
 }

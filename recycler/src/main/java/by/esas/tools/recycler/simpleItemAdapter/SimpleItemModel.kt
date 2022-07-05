@@ -1,4 +1,4 @@
-package by.esas.tools.dialog.simpleItemAdapter
+package by.esas.tools.recycler.simpleItemAdapter
 
 import android.view.View
 

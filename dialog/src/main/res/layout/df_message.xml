@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:text="@{handler.title}"
                 app:visibilityGone="@{handler.showTitle}"
-                tools:text="@string/main_profile_logout_title" />
+                tools:text="Exit?" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/df_message_message"
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:text="@{handler.message}"
                 app:visibilityGone="@{handler.showMessage}"
-                tools:text="@string/main_profile_logout_message" />
+                tools:text="Are you sure, you want to exit this account?" />
 
             <View
                 android:id="@+id/df_message_extra_divider"
@@ -84,7 +84,7 @@
                     android:onClick="@{()->handler.onNegativeClick()}"
                     android:text="@{handler.negativeBtnText}"
                     app:visibilityGone="@{handler.showNegativeBtn}"
-                    tools:text="@string/common_cancel"
+                    tools:text="Cancel"
                     tools:visibility="visible" />
 
                 <View
@@ -124,7 +124,7 @@
                     android:onClick="@{()->handler.onPositiveClick()}"
                     android:text="@{handler.positiveBtnText}"
                     app:visibilityGone="@{handler.showPositiveBtn}"
-                    tools:text="@string/main_profile_logout_btn"
+                    tools:text="Exit"
                     tools:visibility="visible" />
             </LinearLayout>
         </LinearLayout>

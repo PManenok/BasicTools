@@ -1,5 +1,6 @@
 package by.esas.tools.dialog
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
@@ -9,11 +10,14 @@ import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.checker.Checking
 import by.esas.tools.dialog.databinding.DfMessageBinding
-import by.esas.tools.dialog.simpleItemAdapter.SimpleItemAdapter
-import by.esas.tools.dialog.simpleItemAdapter.SimpleItemModel
-import by.esas.tools.dialog.BR
+import by.esas.tools.dialog.databinding.IDialogMessageBinding
+import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
+import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 
-class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<B, E, EnumT> {
+/**
+ *
+ */
+class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<DfMessageBinding, E, EnumT> {
     override val TAG: String = MessageDialog::class.java.simpleName
 
     constructor(cancellable: Boolean) : super() {
@@ -46,11 +50,18 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MessageCallback) {
+            callback = context
+        }
+    }
+
     private var callback: MessageCallback? = null
     private var items: List<String> = emptyList()
     private var textAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     private var adapter: SimpleItemAdapter =
-        SimpleItemAdapter { position, item ->
+        SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java) { position, item ->
             if (btnEnabled.get()) {
                 disableControls()
                 afterOk = true
@@ -304,11 +315,11 @@ class MessageDialog<B : DfMessageBinding, E : Exception, EnumT : Enum<EnumT>> : 
     }
 
     override fun provideSwitchableList(): List<View?> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
     override fun provideValidationList(): List<Checking> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
     override fun provideVariableId(): Int = BR.handler

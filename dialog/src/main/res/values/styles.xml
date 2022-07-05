@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="MessageDialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="colorControlHighlight">#D9E1EE</item>
+        <item name="colorControlHighlight">@color/colorDialogDivider</item>
         <item name="android:windowFrame">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
