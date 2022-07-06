@@ -1,7 +1,9 @@
 package com.example.numpad
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
@@ -14,6 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.widget.ImageViewCompat
 
 open class NumPadImageView : ConstraintLayout {
     open val TAG: String = NumPadImageView::class.java.simpleName
@@ -41,8 +44,8 @@ open class NumPadImageView : ConstraintLayout {
     val numIconSeven: AppCompatImageView
     val numIconEight: AppCompatImageView
     val numIconNine: AppCompatImageView
-    val butIconLeft: AppCompatImageView
-    val butIconRight: AppCompatImageView
+    val btnIconLeft: AppCompatImageView
+    val btnIconRight: AppCompatImageView
 
     val iconsContainersList = ArrayList<FrameLayout>()
     val iconsNumbersList = ArrayList<AppCompatImageView>()
@@ -63,11 +66,9 @@ open class NumPadImageView : ConstraintLayout {
     )
     val defaultRightIconImage = R.drawable.ic_backspace
     val defaultLeftIconImage = R.drawable.ic_cancel
-    val defaultHandler = object : INumPadHandler{
-        override fun onNumClick(num: Int) {
-        }
-    }
-    var handler = defaultHandler
+
+    var numbersColor: Int = Color.BLACK
+    var handler: INumPadHandler? = null
 
     init {
         val view = inflate(context, R.layout.v_num_pad_image, this)
@@ -94,8 +95,8 @@ open class NumPadImageView : ConstraintLayout {
         numIconSeven = view.findViewById(R.id.v_num_pad_icon_seven)
         numIconEight = view.findViewById(R.id.v_num_pad_icon_eight)
         numIconNine = view.findViewById(R.id.v_num_pad_icon_nine)
-        butIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
-        butIconRight = view.findViewById(R.id.v_num_pad_icon_right)
+        btnIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
+        btnIconRight = view.findViewById(R.id.v_num_pad_icon_right)
 
         iconsContainersList.addAll(
             listOf(
@@ -162,16 +163,16 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     protected open fun setupNumpadHandler(){
-        for (i in iconsContainersList){
-            i.setOnClickListener {
-                handler.onNumClick(iconsContainersList.indexOf(i))
+        iconsContainersList.forEach { container ->
+            container.setOnClickListener {
+                handler?.onNumClick(iconsContainersList.indexOf(container))
             }
         }
         butContainerLeft.setOnClickListener {
-            handler.onLeftIconClick()
+            handler?.onLeftIconClick()
         }
         butContainerRight.setOnClickListener {
-            handler.onRightClick()
+            handler?.onRightIconClick()
         }
     }
 
@@ -183,11 +184,11 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     open fun setIconsSize(iconSize: Int) {
-        for (i in iconsNumbersList) {
-            setIconSize(i, iconSize)
+        iconsNumbersList.forEach { icon ->
+            setIconSize(icon, iconSize)
         }
-        setIconSize(butIconLeft, iconSize)
-        setIconSize(butIconRight, iconSize)
+        setIconSize(btnIconLeft, iconSize)
+        setIconSize(btnIconRight, iconSize)
     }
 
     protected open fun setIconSize(iconImageView: ImageView, iconSize: Int) {
@@ -199,11 +200,11 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     open fun setIconsMargins(leftMargin: Int, topMargin: Int, rightMargin: Int, bottomMargin: Int) {
-        for (i in iconsNumbersList) {
-            setIconViewMargins(i, leftMargin, topMargin, rightMargin, bottomMargin)
+        iconsNumbersList.forEach { num ->
+            setIconViewMargins(num, leftMargin, topMargin, rightMargin, bottomMargin)
         }
-        setIconViewMargins(butIconLeft, leftMargin, topMargin, rightMargin, bottomMargin)
-        setIconViewMargins(butIconRight, leftMargin, topMargin, rightMargin, bottomMargin)
+        setIconViewMargins(btnIconLeft, leftMargin, topMargin, rightMargin, bottomMargin)
+        setIconViewMargins(btnIconRight, leftMargin, topMargin, rightMargin, bottomMargin)
     }
 
     protected open fun setIconViewMargins(
@@ -229,11 +230,11 @@ open class NumPadImageView : ConstraintLayout {
         rightPadding: Int,
         bottomPadding: Int
     ) {
-        for (i in iconsNumbersList) {
-            setIconViewPaddings(i, leftPadding, topPadding, rightPadding, bottomPadding)
+        iconsNumbersList.forEach { icon ->
+            setIconViewPaddings(icon, leftPadding, topPadding, rightPadding, bottomPadding)
         }
-        setIconViewPaddings(butIconLeft, leftPadding, topPadding, rightPadding, bottomPadding)
-        setIconViewPaddings(butIconRight, leftPadding, topPadding, rightPadding, bottomPadding)
+        setIconViewPaddings(btnIconLeft, leftPadding, topPadding, rightPadding, bottomPadding)
+        setIconViewPaddings(btnIconRight, leftPadding, topPadding, rightPadding, bottomPadding)
     }
 
     protected open fun setIconViewPaddings(
@@ -254,8 +255,8 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     open fun setIconsSelectableBackground(value: Boolean) {
-        for (i in iconsContainersList) {
-            setContainerSelectableBackground(i, value)
+        iconsContainersList.forEach { container ->
+            setContainerSelectableBackground(container, value)
         }
     }
 
@@ -275,16 +276,16 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     open fun enableNumpadView(){
-        for (i in iconsContainersList){
-            i.isClickable = true
+        iconsContainersList.forEach { container ->
+            container.isClickable = true
         }
         butContainerLeft.isClickable = true
         butContainerRight.isClickable = true
     }
 
     open fun disableNumpadView(){
-        for (i in iconsContainersList){
-            i.isClickable = false
+        iconsContainersList.forEach { container ->
+            container.isClickable = false
         }
         butContainerLeft.isClickable = false
         butContainerRight.isClickable = false
@@ -293,35 +294,42 @@ open class NumPadImageView : ConstraintLayout {
 
     /*region ################### Containers Number Icons ######################*/
     open fun setNumbersClickListener(listener: View.OnClickListener?) {
-        for (i in iconsContainersList) {
-            setIconClickListener(i, listener)
+        iconsContainersList.forEach { container ->
+            setIconClickListener(container, listener)
         }
     }
     /*endregion ################### Containers Number Icons ######################*/
 
     /*region ################### Number Icons ######################*/
     open fun setNumbersIconsColor(color: Int) {
-        for (i in iconsNumbersList) {
-            setNumberIconColor(i, color)
+        if (numbersColor != color) {
+            numbersColor = color
+            updateNumbersColor()
         }
     }
 
-    protected open fun setNumberIconColor(iconImageView: ImageView, color: Int) {
-        val unwrappedIconDrawable = iconImageView.drawable
-        val wrappedDrawable: Drawable = DrawableCompat.wrap(unwrappedIconDrawable)
-        DrawableCompat.setTint(wrappedDrawable, color)
+    protected open fun updateNumbersColor(){
+        iconsNumbersList.forEach { num ->
+            setNumberIconColor(num)
+        }
+    }
+
+    protected open fun setNumberIconColor(iconImageView: ImageView) {
+        ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(numbersColor))
     }
 
     open fun setNumbersIconsDrawable(drawableList: List<Drawable?>) {
-        for (i in drawableList.indices) {
-            setIconDrawable(iconsNumbersList[i], drawableList[i])
+        drawableList.forEachIndexed { index, drawable ->
+            setIconDrawable(iconsNumbersList[index], drawable)
         }
+        updateNumbersColor()
     }
 
     open fun setNumbersIconsImageResources(imageResourcesList: List<Int?>) {
-        for (i in imageResourcesList.indices) {
-            setIconImageResource(iconsNumbersList[i], imageResourcesList[i])
+        imageResourcesList.forEachIndexed { index, image ->
+            setIconImageResource(iconsNumbersList[index], image)
         }
+        updateNumbersColor()
     }
 
     protected open fun setIconDrawable(iconImageView: ImageView, drawable: Drawable?) {
@@ -345,13 +353,9 @@ open class NumPadImageView : ConstraintLayout {
         setIconVisibility(butContainerLeft, value)
     }
 
-    open fun setLeftIconClickListener(listener: OnClickListener?) {
-        setIconClickListener(butContainerLeft, listener)
-    }
-
     open fun setLeftIconImage(drawable: Drawable?) {
         if (drawable != null){
-            butIconLeft.setImageDrawable(drawable)
+            btnIconLeft.setImageDrawable(drawable)
         } else {
             setLeftIconVisibility(false)
         }
@@ -359,7 +363,7 @@ open class NumPadImageView : ConstraintLayout {
 
     open fun setLeftIconImage(imageResource: Int?) {
         if (imageResource != null) {
-            butIconLeft.setImageResource(imageResource)
+            btnIconLeft.setImageResource(imageResource)
         } else {
             setLeftIconVisibility(false)
         }
@@ -371,20 +375,16 @@ open class NumPadImageView : ConstraintLayout {
         setIconVisibility(butContainerRight, value)
     }
 
-    open fun setRightIconClickListener(listener: OnClickListener?) {
-        setIconClickListener(butContainerRight, listener)
-    }
-
     open fun setRightIconImage(drawable: Drawable?) {
         if (drawable != null)
-            butIconRight.setImageDrawable(drawable)
+            btnIconRight.setImageDrawable(drawable)
         else
             setRightIconVisibility(false)
     }
 
     open fun setRightIconImage(resId: Int?) {
         if (resId != null)
-            butIconRight.setImageResource(resId)
+            btnIconRight.setImageResource(resId)
         else
             setRightIconVisibility(false)
     }

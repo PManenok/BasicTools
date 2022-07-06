@@ -26,8 +26,8 @@ open class NumPadTextView : ConstraintLayout {
     val numContainerEight: FrameLayout
     val numContainerNine: FrameLayout
     val numContainerZero: FrameLayout
-    val butContainerLeft: FrameLayout
-    val butContainerRight: FrameLayout
+    val btnContainerLeft: FrameLayout
+    val btnContainerRight: FrameLayout
 
     val numTextOne: MaterialTextView
     val numTextTwo: MaterialTextView
@@ -49,11 +49,8 @@ open class NumPadTextView : ConstraintLayout {
     val defaultIconPadding = 0
     val defaultRightIconImage = R.drawable.ic_backspace
     val defaultLeftIconImage = R.drawable.ic_cancel
-    val defaultHandler = object : INumPadHandler{
-        override fun onNumClick(num: Int) {
-        }
-    }
-    var handler = defaultHandler
+
+    var handler: INumPadHandler? = null
 
     init {
         val view = inflate(context, R.layout.v_num_pad_text, this)
@@ -67,8 +64,8 @@ open class NumPadTextView : ConstraintLayout {
         numContainerEight = view.findViewById(R.id.v_num_pad_text_container_eight)
         numContainerNine = view.findViewById(R.id.v_num_pad_text_container_nine)
         numContainerZero = view.findViewById(R.id.v_num_pad_text_container_zero)
-        butContainerLeft = view.findViewById(R.id.v_num_pad_text_container_left_button)
-        butContainerRight = view.findViewById(R.id.v_num_pad_text_container_right_button)
+        btnContainerLeft = view.findViewById(R.id.v_num_pad_text_container_left_button)
+        btnContainerRight = view.findViewById(R.id.v_num_pad_text_container_right_button)
 
         numTextOne = view.findViewById(R.id.v_num_pad_text_one)
         numTextTwo = view.findViewById(R.id.v_num_pad_text_two)
@@ -134,27 +131,27 @@ open class NumPadTextView : ConstraintLayout {
 
     /*region ################### All Icons Settings ######################*/
     open fun enableNumpadView(){
-        for (i in iconsContainersList){
-            i.isClickable = true
+        iconsContainersList.forEach { container ->
+            container.isClickable = true
         }
-        butContainerLeft.isClickable = true
-        butContainerRight.isClickable = true
+        btnContainerLeft.isClickable = true
+        btnContainerRight.isClickable = true
     }
 
     open fun disableNumpadView(){
-        for (i in iconsContainersList){
-            i.isClickable = false
+        iconsContainersList.forEach { container ->
+            container.isClickable = false
         }
-        butContainerLeft.isClickable = false
-        butContainerRight.isClickable = false
+        btnContainerLeft.isClickable = false
+        btnContainerRight.isClickable = false
     }
 
     open fun setIconsSize(widthValue: Int, heightValue: Int){
-        for (i in iconsContainersList){
-            setIconContainerSize(i, widthValue, heightValue)
+        iconsContainersList.forEach { container ->
+            setIconContainerSize(container, widthValue, heightValue)
         }
-        setIconContainerSize(butContainerLeft, widthValue, heightValue)
-        setIconContainerSize(butContainerRight, widthValue, heightValue)
+        setIconContainerSize(btnContainerLeft, widthValue, heightValue)
+        setIconContainerSize(btnContainerRight, widthValue, heightValue)
     }
 
     protected open fun setIconContainerSize(iconContainer: FrameLayout, widthValue: Int, heightValue: Int){
@@ -166,8 +163,8 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     open fun setIconsPadding(paddingValue: Int){
-        for (i in iconsNumbersList){
-            setIconPadding(i, paddingValue)
+        iconsNumbersList.forEach { icon ->
+            setIconPadding(icon, paddingValue)
         }
         setIconPadding(butIconLeft, paddingValue)
         setIconPadding(butIconRight, paddingValue)
@@ -198,31 +195,31 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     protected open fun setupNumpadHandler(){
-        for (i in iconsContainersList){
-            i.setOnClickListener {
-                handler.onNumClick(iconsContainersList.indexOf(i))
+        iconsContainersList.forEach { container ->
+            container.setOnClickListener {
+                handler?.onNumClick(iconsContainersList.indexOf(container))
             }
         }
-        butContainerLeft.setOnClickListener {
-            handler.onLeftIconClick()
+        btnContainerLeft.setOnClickListener {
+            handler?.onLeftIconClick()
         }
-        butContainerRight.setOnClickListener {
-            handler.onRightClick()
+        btnContainerRight.setOnClickListener {
+            handler?.onRightIconClick()
         }
     }
     /*endregion ################### All Icons Settings ######################*/
 
     /*region ################### Number Text Icons ######################*/
     open fun setNumbersTextSize(size: Int){
-        for (i in iconsNumbersList){
-            i.textSize = size.toFloat()
+        iconsNumbersList.forEach { num ->
+            num.textSize = size.toFloat()
         }
     }
 
     open fun setNumbersTextStyle(styleId: Int){
         if (styleId != -1){
-            for (i in iconsNumbersList){
-                setNumberTextStyle(i, styleId)
+            iconsNumbersList.forEach{ num ->
+                setNumberTextStyle(num, styleId)
             }
         }
     }
@@ -232,8 +229,8 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     open fun setNumbersTextColor(color: Int){
-        for (i in iconsNumbersList){
-            setNumberTextColor(i, color)
+        iconsNumbersList.forEach{ num ->
+            setNumberTextColor(num, color)
         }
     }
 
@@ -268,7 +265,7 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     open fun setLeftButtonVisibility(value: Boolean){
-        setButtonVisibility(butContainerLeft, value)
+        setButtonVisibility(btnContainerLeft, value)
     }
     /*endregion ################### Left Button Icon ######################*/
 
@@ -298,7 +295,7 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     open fun setRightButtonVisibility(value: Boolean){
-        setButtonVisibility(butContainerRight, value)
+        setButtonVisibility(btnContainerRight, value)
     }
 
     /*endregion ################### Right Button Icon ######################*/
