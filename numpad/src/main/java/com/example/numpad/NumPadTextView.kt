@@ -1,15 +1,19 @@
 package com.example.numpad
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
 
@@ -39,8 +43,8 @@ open class NumPadTextView : ConstraintLayout {
     val numTextEight: MaterialTextView
     val numTextNine: MaterialTextView
     val numTextZero: MaterialTextView
-    val butIconLeft: AppCompatImageView
-    val butIconRight: AppCompatImageView
+    val btnIconLeft: AppCompatImageView
+    val btnIconRight: AppCompatImageView
 
     val iconsContainersList = ArrayList<FrameLayout>()
     val iconsNumbersList = ArrayList<MaterialTextView>()
@@ -77,8 +81,8 @@ open class NumPadTextView : ConstraintLayout {
         numTextEight = view.findViewById(R.id.v_num_pad_text_eight)
         numTextNine = view.findViewById(R.id.v_num_pad_text_nine)
         numTextZero = view.findViewById(R.id.v_num_pad_text_zero)
-        butIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
-        butIconRight = view.findViewById(R.id.v_num_pad_icon_right)
+        btnIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
+        btnIconRight = view.findViewById(R.id.v_num_pad_icon_right)
 
         iconsContainersList.addAll(
             listOf(
@@ -166,8 +170,8 @@ open class NumPadTextView : ConstraintLayout {
         iconsNumbersList.forEach { icon ->
             setIconPadding(icon, paddingValue)
         }
-        setIconPadding(butIconLeft, paddingValue)
-        setIconPadding(butIconRight, paddingValue)
+        setIconPadding(btnIconLeft, paddingValue)
+        setIconPadding(btnIconRight, paddingValue)
     }
 
     protected open fun setIconPadding(iconTextView: MaterialTextView, paddingValue: Int){
@@ -242,7 +246,7 @@ open class NumPadTextView : ConstraintLayout {
     /*region ################### Left Button Icon ######################*/
     open fun setLeftButtonIconImage(drawable: Drawable?){
         if (drawable != null){
-            butIconLeft.setImageDrawable(drawable)
+            btnIconLeft.setImageDrawable(drawable)
         } else {
             setLeftButtonVisibility(false)
         }
@@ -250,52 +254,75 @@ open class NumPadTextView : ConstraintLayout {
 
     open fun setLeftButtonIconImage(resId: Int?){
         if (resId != null) {
-            butIconLeft.setImageResource(resId)
+            btnIconLeft.setImageResource(resId)
         } else {
             setLeftButtonVisibility(false)
         }
     }
 
     open fun setLeftButtonIconSize(widthValue: Int, heightValue: Int){
-        butIconLeft.layoutParams.apply {
+        btnIconLeft.layoutParams.apply {
             width = dpToPx(widthValue).toInt()
             height = dpToPx(heightValue).toInt()
         }
-        butIconLeft.requestLayout()
+        btnIconLeft.requestLayout()
     }
 
     open fun setLeftButtonVisibility(value: Boolean){
         setButtonVisibility(btnContainerLeft, value)
+    }
+
+    /**
+     * Set color for left icon. Color is set once and doesn't save.
+     * So at first you should set icon drawable and then change color.
+     */
+    open fun setLeftIconColor(color: Int){
+        if (color != -1)
+            ImageViewCompat.setImageTintList(btnIconLeft, ColorStateList.valueOf(color))
+    }
+
+    open fun setLeftIconColorResource(@ColorRes color: Int){
+        setLeftIconColor(ContextCompat.getColor(context, color))
     }
     /*endregion ################### Left Button Icon ######################*/
 
     /*region ################### Right Button Icon ######################*/
     open fun setRightButtonIconImage(drawable: Drawable?){
         if (drawable != null) {
-            butIconRight.setImageDrawable(drawable)
+            btnIconRight.setImageDrawable(drawable)
         } else {
-            setRightButtonVisibility(false)
+            btnIconRight.setImageResource(defaultRightIconImage)
         }
     }
 
     open fun setRightButtonIconImage(resId: Int?){
-        if (resId != null) {
-            butIconRight.setImageResource(resId)
-        } else {
-            setRightButtonVisibility(false)
-        }
+        val imageRes = resId ?: defaultRightIconImage
+        btnIconRight.setImageResource(imageRes)
     }
 
     open fun setRightButtonIconSize(widthValue: Int, heightValue: Int){
-        butIconRight.layoutParams.apply {
+        btnIconRight.layoutParams.apply {
             width = dpToPx(widthValue).toInt()
             height = dpToPx(heightValue).toInt()
         }
-        butIconRight.requestLayout()
+        btnIconRight.requestLayout()
     }
 
     open fun setRightButtonVisibility(value: Boolean){
         setButtonVisibility(btnContainerRight, value)
+    }
+
+    /**
+     * Set color for right icon. Color is set once and doesn't save.
+     * So at first you should set icon drawable and then change color.
+     */
+    open fun setRightIconColor(color: Int){
+        if (color != -1)
+            ImageViewCompat.setImageTintList(btnIconRight, ColorStateList.valueOf(color))
+    }
+
+    open fun setRightIconColorResource(@ColorRes color: Int){
+        setRightIconColor(ContextCompat.getColor(context, color))
     }
 
     /*endregion ################### Right Button Icon ######################*/
@@ -308,6 +335,7 @@ open class NumPadTextView : ConstraintLayout {
         setLeftButtonIconImage(defaultLeftIconImage)
         setRightButtonIconImage(defaultRightIconImage)
         enableNumpadView()
+        setupNumpadHandler()
     }
 
     fun initAttrs(attrs: AttributeSet?) {
@@ -319,13 +347,17 @@ open class NumPadTextView : ConstraintLayout {
         val iconTextStyle = typedArray.getResourceId(R.styleable.NumPadTextView_numpadTextIconStyle, -1)
 
         val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconLeft)
+        val iconLeftColor = typedArray.getColor(R.styleable.NumPadTextView_numpadTextLeftIconColor, -1)
         val iconRightImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconRight)
+        val iconRightColor = typedArray.getColor(R.styleable.NumPadTextView_numpadTextRightIconColor, -1)
 
         setNumbersTextStyle(iconTextStyle)
         setIconsPadding(iconPadding)
         setIconsSize(iconSize, iconSize)
         setLeftButtonIconImage(iconLeftImage)
+        setLeftIconColor(iconLeftColor)
         setRightButtonIconImage(iconRightImage)
+        setRightIconColor(iconRightColor)
         setupNumpadHandler()
     }
 
