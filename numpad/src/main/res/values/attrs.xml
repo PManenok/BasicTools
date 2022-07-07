@@ -15,6 +15,9 @@
         <attr name="numpadNineDrawable" format="reference" />
         <attr name="numpadLeftDrawable" format="reference"/>
         <attr name="numpadRightDrawable" format="reference"/>
+        <attr name="numpadNumbersIconsColor" format="color"/>
+        <attr name="numpadRightIconColor" format="color"/>
+        <attr name="numpadLeftIconColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="NumPadTextView">
@@ -23,5 +26,7 @@
         <attr name="numpadTextIconSize" format="dimension" />
         <attr name="numpadTextIconLeft" format="reference"/>
         <attr name="numpadTextIconRight" format="reference"/>
+        <attr name="numpadTextRightIconColor" format="color"/>
+        <attr name="numpadTextLeftIconColor" format="color"/>
     </declare-styleable>
 </resources>

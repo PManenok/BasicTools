@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +68,6 @@ open class NumPadImageView : ConstraintLayout {
     val defaultRightIconImage = R.drawable.ic_backspace
     val defaultLeftIconImage = R.drawable.ic_cancel
 
-    var numbersColor: Int = Color.BLACK
     var handler: INumPadHandler? = null
 
     init {
@@ -301,40 +301,40 @@ open class NumPadImageView : ConstraintLayout {
     /*endregion ################### Containers Number Icons ######################*/
 
     /*region ################### Number Icons ######################*/
+    /**
+     * Set color for numbers icons. Color is set once and doesn't save.
+     * So at first you should set icons drawable and then change color.
+     */
     open fun setNumbersIconsColor(color: Int) {
-        if (numbersColor != color) {
-            numbersColor = color
-            updateNumbersColor()
+        if (color != -1) {
+            iconsNumbersList.forEach { num ->
+                setIconColor(num, color)
+            }
         }
     }
 
-    protected open fun updateNumbersColor(){
-        iconsNumbersList.forEach { num ->
-            setNumberIconColor(num)
-        }
-    }
-
-    protected open fun setNumberIconColor(iconImageView: ImageView) {
-        ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(numbersColor))
+    protected open fun setIconColor(iconImageView: ImageView, color: Int) {
+        ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(color))
     }
 
     open fun setNumbersIconsDrawable(drawableList: List<Drawable?>) {
         drawableList.forEachIndexed { index, drawable ->
-            setIconDrawable(iconsNumbersList[index], drawable)
+            if (drawable != null)
+                setIconDrawable(iconsNumbersList[index], drawable)
+            else
+                setIconImageResource(iconsNumbersList[index], defaultNumbersImages[index])
         }
-        updateNumbersColor()
     }
 
     open fun setNumbersIconsImageResources(imageResourcesList: List<Int?>) {
         imageResourcesList.forEachIndexed { index, image ->
-            setIconImageResource(iconsNumbersList[index], image)
+            val imageRes = image ?: defaultNumbersImages[index]
+            setIconImageResource(iconsNumbersList[index], imageRes)
         }
-        updateNumbersColor()
     }
 
-    protected open fun setIconDrawable(iconImageView: ImageView, drawable: Drawable?) {
-        if (drawable != null)
-            iconImageView.setImageDrawable(drawable)
+    protected open fun setIconDrawable(iconImageView: ImageView, drawable: Drawable) {
+        iconImageView.setImageDrawable(drawable)
     }
 
     protected open fun setIconImageResource(iconImageView: ImageView, imageResource: Int?) {
@@ -357,16 +357,26 @@ open class NumPadImageView : ConstraintLayout {
         if (drawable != null){
             btnIconLeft.setImageDrawable(drawable)
         } else {
-            setLeftIconVisibility(false)
+            btnIconLeft.setImageResource(defaultLeftIconImage)
         }
     }
 
-    open fun setLeftIconImage(imageResource: Int?) {
-        if (imageResource != null) {
-            btnIconLeft.setImageResource(imageResource)
-        } else {
-            setLeftIconVisibility(false)
-        }
+    open fun setLeftIconImage(resId: Int?) {
+        val imageRes = resId ?: defaultLeftIconImage
+        btnIconLeft.setImageResource(imageRes)
+    }
+
+    /**
+     * Set color for left icon. Color is set once and doesn't save.
+     * So at first you should set icon drawable and then change color.
+     */
+    open fun setLeftIconColor(color: Int){
+        if (color != -1)
+            setIconColor(btnIconLeft, color)
+    }
+
+    open fun setLeftIconColorResource(@ColorRes color: Int){
+        setLeftIconColor(ContextCompat.getColor(context, color))
     }
     /*endregion ################### Left Image Icons ######################*/
 
@@ -379,14 +389,25 @@ open class NumPadImageView : ConstraintLayout {
         if (drawable != null)
             btnIconRight.setImageDrawable(drawable)
         else
-            setRightIconVisibility(false)
+            btnIconRight.setImageResource(defaultRightIconImage)
     }
 
     open fun setRightIconImage(resId: Int?) {
-        if (resId != null)
-            btnIconRight.setImageResource(resId)
-        else
-            setRightIconVisibility(false)
+        val imageRes = resId ?: defaultRightIconImage
+        btnIconRight.setImageResource(imageRes)
+    }
+
+    /**
+     * Set color for right icon. Color is set once and doesn't save.
+     * So at first you should set icon drawable and then change color.
+     */
+    open fun setRightIconColor(color: Int){
+        if (color != -1)
+            setIconColor(btnIconRight, color)
+    }
+
+    open fun setRightIconColorResource(@ColorRes color: Int){
+        setRightIconColor(ContextCompat.getColor(context, color))
     }
     /*endregion ################### Right Image Icons ######################*/
 
@@ -397,6 +418,7 @@ open class NumPadImageView : ConstraintLayout {
         setIconsPaddings(defaultIconPadding, defaultIconPadding, defaultIconPadding, defaultIconPadding)
         setLeftIconImage(defaultLeftIconImage)
         setRightIconImage(defaultRightIconImage)
+        setupNumpadHandler()
 
         enableNumpadView()
     }
@@ -405,7 +427,7 @@ open class NumPadImageView : ConstraintLayout {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumPadView)
 
         val iconPadding =
-            typedArray.getDimensionPixelSize(R.styleable.NumPadView_numpadIconPadding, 0)
+            typedArray.getDimensionPixelSize(R.styleable.NumPadView_numpadIconPadding, defaultIconPadding)
         val iconSize = typedArray.getDimensionPixelSize(R.styleable.NumPadView_numpadIconSize, defaultIconSize)
 
         val iconZeroImage: Drawable? =
@@ -419,9 +441,12 @@ open class NumPadImageView : ConstraintLayout {
         val iconSevenImage = typedArray.getDrawable(R.styleable.NumPadView_numpadSevenDrawable)
         val iconEightImage = typedArray.getDrawable(R.styleable.NumPadView_numpadEightDrawable)
         val iconNineImage = typedArray.getDrawable(R.styleable.NumPadView_numpadNineDrawable)
+        val iconsNumbersColor = typedArray.getColor(R.styleable.NumPadView_numpadNumbersIconsColor, -1)
 
         val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadView_numpadLeftDrawable)
+        val iconLeftColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
         val iconRightImage = typedArray.getDrawable(R.styleable.NumPadView_numpadRightDrawable)
+        val iconRightColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
 
         typedArray.recycle()
 
@@ -439,11 +464,14 @@ open class NumPadImageView : ConstraintLayout {
         )
 
         setNumbersIconsDrawable(iconsImagesDrawableList)
+        setNumbersIconsColor(iconsNumbersColor)
         setIconsSize(iconSize)
         setIconsPaddings(iconPadding, iconPadding, iconPadding, iconPadding)
 
         setLeftIconImage(iconLeftImage)
+        setLeftIconColor(iconLeftColor)
         setRightIconImage(iconRightImage)
+        setRightIconColor(iconRightColor)
         setupNumpadHandler()
     }
 
