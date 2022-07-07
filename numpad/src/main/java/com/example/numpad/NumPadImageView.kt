@@ -318,18 +318,34 @@ open class NumPadImageView : ConstraintLayout {
     }
 
     open fun setNumbersIconsDrawable(drawableList: List<Drawable?>) {
-        drawableList.forEachIndexed { index, drawable ->
-            if (drawable != null)
-                setIconDrawable(iconsNumbersList[index], drawable)
-            else
-                setIconImageResource(iconsNumbersList[index], defaultNumbersImages[index])
+        try {
+            if (iconsNumbersList.size == drawableList.size){
+                drawableList.forEachIndexed { index, drawable ->
+                    if (drawable != null)
+                        setIconDrawable(iconsNumbersList[index], drawable)
+                    else
+                        setIconImageResource(iconsNumbersList[index], defaultNumbersImages[index])
+                }
+            } else {
+                throw Exception("Amount of drawables is not the same as amount of items in iconsNumbersList (${drawableList.size} instead of ${iconsNumbersList.size}).")
+            }
+        } catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
     open fun setNumbersIconsImageResources(imageResourcesList: List<Int?>) {
-        imageResourcesList.forEachIndexed { index, image ->
-            val imageRes = image ?: defaultNumbersImages[index]
-            setIconImageResource(iconsNumbersList[index], imageRes)
+        try {
+            if (iconsNumbersList.size == imageResourcesList.size){
+                imageResourcesList.forEachIndexed { index, image ->
+                    val imageRes = image ?: defaultNumbersImages[index]
+                    setIconImageResource(iconsNumbersList[index], imageRes)
+                }
+            } else {
+                throw Exception("Amount of images is not the same as amount of items in iconsNumbersList (${imageResourcesList.size} instead of ${iconsNumbersList.size}).")
+            }
+        } catch (e: Exception){
+            e.printStackTrace()
         }
     }
 
