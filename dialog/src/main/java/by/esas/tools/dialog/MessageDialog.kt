@@ -18,7 +18,39 @@ import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import com.google.android.material.button.MaterialButton
 
 /**
+ * This dialog can be used to show some message or to let user pick items.
  *
+ * User can set title, message, positive button, neutral button and negative button,
+ * also items for recycler can be added.
+ *
+ * Title can be set via [setTitle], text can be passed by String or by resource id,
+ * its textAppearance can be passed along with title itself.
+ *
+ * Message can be set via [setMessage], text can be passed by String or by resource id,
+ * its textAppearance can be passed along with title itself.
+ *
+ * Positive button can be set via [setPositiveButton]. Text can be set by String or resource id. Along with text this button can have action,
+ * that will be passed to message [callback] when positive button will be clicked.
+ * To change button appearance user should pass [ButtonAppearance] as argument of [setPositiveButton].
+ * Another way to change button appearance is to override [R.style.MessageDialogButtonStyle] in module
+ * where dialog would be used.
+ *
+ * Neutral button can be set via [setNeutralButton]. Text can be set by String or resource id.
+ * To change button appearance user should pass [ButtonAppearance] as argument of [setNeutralButton].
+ * Another way to change button appearance is to override [R.style.MessageDialogButtonStyle] in module
+ * where dialog would be used.
+ *
+ * Negative button can be set via [setNegativeButton]. Text can be set by String or resource id.
+ * To change button appearance user should pass [ButtonAppearance] as argument of [setNegativeButton].
+ * Another way to change button appearance is to override [R.style.MessageDialogButtonStyle] in module
+ * where dialog would be used.
+ *
+ * This dialog use custom [SimpleItemAdapter] to show list of items. There is only possibility to change
+ * item's text appearance by overriding [R.style.MessageDialogItemStyle], and via setting
+ * text alignment [setTextAlignment].
+ *
+ * @see ButtonAppearance
+ * @see SimpleItemAdapter
  */
 open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<DfMessageBinding, E, EnumT> {
     override val TAG: String = MessageDialog::class.java.simpleName
