@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="main_profile_logout_title">Exit?</string>
-    <string name="main_profile_logout_message">Are you sure, you want to exit this account?</string>
-    <string name="common_cancel">Cancel</string>
-    <string name="main_profile_logout_btn">Exit</string>
-    <string name="common_ok_btn">OK</string>
-</resources>

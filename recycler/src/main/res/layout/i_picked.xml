@@ -11,29 +11,29 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/i_subcategory_background_cl"
+        android:id="@+id/i_picked_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:minHeight="52dp">
+        android:minHeight="@dimen/spacing_64">
 
-        <!--400 17-->
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/i_language_title"
-            android:layout_width="match_parent"
+            android:id="@+id/i_picked_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_8"
             android:text="@{item.name}"
             android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/i_picked_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Русский" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/i_language_icon"
-            android:layout_width="19.50dp"
-            android:layout_height="19.50dp"
+            android:id="@+id/i_picked_icon"
+            android:layout_width="@dimen/spacing_24"
+            android:layout_height="@dimen/spacing_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,10 +41,10 @@
             app:visibilityGone="@{item.isChoosed}" />
 
         <View
-            android:id="@+id/i_language_bottom_divider"
+            android:id="@+id/i_picked_bottom_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#D9E1EE"
+            android:background="@color/colorItemDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:visibilityGone="@{!item.isLast}" />
     </androidx.constraintlayout.widget.ConstraintLayout>

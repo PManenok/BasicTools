@@ -6,17 +6,18 @@ buildscript {
         logger_lib_version = '2.2.0'// independent (6)
         util_lib_version = '2.2.0' // independent (3)
         timeparser_lib_version = '2.2.0'// independent
-        recycler_lib_version = '2.2.0'// independent
         pinview_lib_version = '2.2.0'// independent
         inputfieldview_lib_version = '2.2.0'// independent
         checker_lib_version = '2.2.0' // independent (3)
         listheader_lib_version = '2.2.0'
+        dimen_util_lib_version = '2.2.0' // independent (1)
+        basedaggerui_lib_version = '2.2.0' // independent
 
+        recycler_lib_version = '2.2.0'// dimen_util
         domain_lib_version = '2.2.0' // logger (2)
-        dialog_lib_version = '2.2.0' // logger, util, checker (2)
+        dialog_lib_version = '2.2.0' // logger, util, checker (2), recycler(dimen_util)
         biometric_lib_version = '2.2.0' //logger
-        baseui_lib_version = '2.2.0' //dialog(logger, util, checker), domain(logger)
-        basedaggerui_lib_version = '2.2.0' //dialog(logger, util, checker), domain(logger)
+        baseui_lib_version = '2.2.0' //dialog(logger, util, checker, recycler(dimen_util)), domain(logger)
         accesscontainer_lib_version = '2.2.0' //logger
 
         // dependencies versions

@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +15,12 @@ import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
+import com.google.android.material.button.MaterialButton
 
 /**
  *
  */
-class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<DfMessageBinding, E, EnumT> {
+open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<DfMessageBinding, E, EnumT> {
     override val TAG: String = MessageDialog::class.java.simpleName
 
     constructor(cancellable: Boolean) : super() {
@@ -28,15 +31,27 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         isCancelable = true
     }
 
+    //region settings methods
+
     override fun provideLayoutId(): Int {
         return R.layout.df_message
     }
 
-    fun setDialogCallback(callback: MessageCallback) {
+    override fun provideSwitchableList(): List<View?> {
+        return emptyList()
+    }
+
+    override fun provideValidationList(): List<Checking> {
+        return emptyList()
+    }
+
+    override fun provideVariableId(): Int = BR.handler
+
+    open fun setDialogCallback(callback: MessageCallback) {
         this.callback = callback
     }
 
-    fun provideCallback(): MessageCallback? {
+    open fun provideCallback(): MessageCallback? {
         val frag = targetFragment
         val act = activity
         return when {
@@ -50,17 +65,14 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is MessageCallback) {
-            callback = context
-        }
-    }
+    //endregion settings methods
 
-    private var callback: MessageCallback? = null
-    private var items: List<String> = emptyList()
-    private var textAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
-    private var adapter: SimpleItemAdapter =
+    //region properties
+
+    protected var callback: MessageCallback? = null
+    protected var items: List<String> = emptyList()
+    protected var itemTextAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
+    protected var adapter: SimpleItemAdapter =
         SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java) { position, item ->
             if (btnEnabled.get()) {
                 disableControls()
@@ -70,14 +82,22 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
                 enableControls()
             }
         }
-    private var positiveAction: String? = null
-    private var itemAction: String? = null
+    protected var positiveAction: String? = null
+    protected var itemAction: String? = null
+
+    protected var positiveAppearance: ButtonAppearance? = null
+    protected var neutralAppearance: ButtonAppearance? = null
+    protected var negativeAppearance: ButtonAppearance? = null
+    protected var titleAppearanceResId: Int = R.style.MessageDialogTitleStyle
+    protected var messageAppearanceResId: Int = R.style.MessageDialogTextStyle
 
     var title = ObservableField<String>("")
     var message = ObservableField<String>("")
-    var positiveBtnText = ObservableField<String>(resources.getString(R.string.common_ok_btn))
-    var neutralBtnText = ObservableField<String>(resources.getString(R.string.common_cancel))
-    var negativeBtnText = ObservableField<String>(resources.getString(R.string.common_cancel))
+
+    //At the initiation dialog does not has context yet
+    var positiveBtnText = ObservableField<String>("OK")
+    var neutralBtnText = ObservableField<String>("Cancel")
+    var negativeBtnText = ObservableField<String>("Cancel")
 
     val showTitle = ObservableBoolean(false)
     val showMessage = ObservableBoolean(false)
@@ -89,6 +109,10 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
     val hasButtons = ObservableBoolean(false)
     val showExtraDiv = ObservableBoolean(false)
     val btnEnabled = ObservableBoolean(false)
+
+    //endregion properties
+
+    //region save state methods
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -107,7 +131,12 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         outState.putBoolean("showTitle", showTitle.get())
         outState.putBoolean("showMessage", showMessage.get())
         outState.putStringArray("items", items.toTypedArray())
-        outState.putInt("textAlignment", textAlignment)
+        outState.putInt("textAlignment", itemTextAlignment)
+        outState.putInt("title_textAppearance", titleAppearanceResId)
+        outState.putInt("message_textAppearance", messageAppearanceResId)
+        saveButtonState("positive", positiveAppearance, outState)
+        saveButtonState("neutral", neutralAppearance, outState)
+        saveButtonState("negative", negativeAppearance, outState)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -125,30 +154,59 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
             itemAction = savedInstanceState.getString("itemAction", null)
             title.set(savedInstanceState.getString("title", "") ?: "")
             message.set(savedInstanceState.getString("message", "") ?: "")
-            positiveBtnText.set(
-                savedInstanceState.getString("positiveBtnText", resources.getString(R.string.common_ok_btn))
-                    ?: resources.getString(R.string.common_ok_btn)
-            )
+            positiveBtnText.set(savedInstanceState.getString("positiveBtnText", "") ?: "")
             neutralBtnText.set(savedInstanceState.getString("neutralBtnText", "") ?: "")
-            negativeBtnText.set(
-                savedInstanceState.getString("negativeBtnText", resources.getString(R.string.common_cancel))
-                    ?: resources.getString(R.string.common_cancel)
-            )
+            negativeBtnText.set(savedInstanceState.getString("negativeBtnText", "") ?: "")
             items = savedInstanceState.getStringArray("items").orEmpty().toList()
-            textAlignment = savedInstanceState.getInt("textAlignment", View.TEXT_ALIGNMENT_TEXT_START)
+            itemTextAlignment = savedInstanceState.getInt("textAlignment", View.TEXT_ALIGNMENT_TEXT_START)
+            titleAppearanceResId = savedInstanceState.getInt("title_textAppearance", -1)
+            messageAppearanceResId = savedInstanceState.getInt("message_textAppearance", -1)
+            positiveAppearance = restoreButtonState("positive", savedInstanceState)
+            neutralAppearance = restoreButtonState("neutral", savedInstanceState)
+            negativeAppearance = restoreButtonState("negative", savedInstanceState)
             updateScreen()
             enableControls()
+        }
+    }
+
+    protected open fun saveButtonState(tag: String, appearance: ButtonAppearance?, outState: Bundle) {
+        if (appearance != null) {
+            outState.putBoolean("${tag}_hasAppearance", true)
+            outState.putInt("${tag}_textAppearance", appearance.textAppearanceResId)
+            outState.putInt("${tag}_backgroundColor", appearance.backgroundColorResId)
+            outState.putBoolean("${tag}_textAllCaps", appearance.textAllCaps)
+        } else {
+            outState.putBoolean("${tag}_hasAppearance", false)
+        }
+    }
+
+    protected open fun restoreButtonState(tag: String, savedState: Bundle): ButtonAppearance? {
+        return if (savedState.getBoolean("${tag}_hasAppearance", false)) {
+            ButtonAppearance(
+                textAppearanceResId = savedState.getInt("${tag}_textAppearance", -1),
+                backgroundColorResId = savedState.getInt("${tag}_backgroundColor", -1),
+                textAllCaps = savedState.getBoolean("${tag}_textAllCaps", false)
+            )
+        } else {
+            null
+        }
+    }
+
+
+    //endregion save state methods
+
+    //region lifecycle methods
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MessageCallback) {
+            callback = context
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.MessageDialogStyle)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,9 +221,33 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         enableControls()
     }
 
-    private fun updateScreen() {
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        logger.logOrder("onCancel")
+        afterOk = true
+        provideCallback()?.onCancelled()
+        super.onCancel(dialog)
+    }
+
+    //endregion lifecycle methods
+
+    //region helping methods
+
+    protected open fun updateScreen() {
         logger.logOrder("updateScreen")
         showMessage.set(!message.get().isNullOrBlank())
+        updateAdapter()
+        hasButtons.set(showPositiveBtn.get() || showNegativeBtn.get() || showNeutralBtn.get())
+        showDiv1.set(showNegativeBtn.get() && (showNeutralBtn.get() || showPositiveBtn.get()))
+        showDiv2.set(showNeutralBtn.get() && showPositiveBtn.get())
+        updateAppearance()
+    }
+
+    protected open fun updateAdapter() {
         adapter.cleanItems()
         val lastIndex = items.lastIndex
         if (lastIndex > -1) {
@@ -175,7 +257,7 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
                     name = item,
                     isChoosed = false,
                     isLast = index == lastIndex,
-                    textAlignment = textAlignment
+                    textAlignment = itemTextAlignment
                 )
             })
             adapter.notifyDataSetChanged()
@@ -183,10 +265,43 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         } else {
             showExtraDiv.set(false)
         }
-        hasButtons.set(showPositiveBtn.get() || showNegativeBtn.get() || showNeutralBtn.get())
-        showDiv1.set(showNegativeBtn.get() && (showNeutralBtn.get() || showPositiveBtn.get()))
-        showDiv2.set(showNeutralBtn.get() && showPositiveBtn.get())
     }
+
+    protected open fun updateAppearance() {
+        updateButtonAppearance(binding.dfMessagePositiveButton, positiveAppearance)
+        updateButtonAppearance(binding.dfMessageNeutralBtn, neutralAppearance)
+        updateButtonAppearance(binding.dfMessageNegativeBtn, negativeAppearance)
+        if (titleAppearanceResId != -1)
+            TextViewCompat.setTextAppearance(binding.dfMessageTitle, titleAppearanceResId)
+        if (messageAppearanceResId != -1)
+            TextViewCompat.setTextAppearance(binding.dfMessageMessage, messageAppearanceResId)
+    }
+
+    protected open fun updateButtonAppearance(btnView: MaterialButton, appearance: ButtonAppearance?) {
+        if (appearance != null) {
+            btnView.apply {
+                TextViewCompat.setTextAppearance(this, appearance.textAppearanceResId)
+                isAllCaps = appearance.textAllCaps
+                setBackgroundColor(ContextCompat.getColor(requireContext(), appearance.backgroundColorResId))
+            }
+        }
+    }
+
+    override fun disableControls() {
+        super.disableControls()
+        logger.logOrder("disableControls")
+        btnEnabled.set(false)
+    }
+
+    override fun enableControls() {
+        super.enableControls()
+        logger.logOrder("enableControls")
+        btnEnabled.set(true)
+    }
+
+    //endregion helping methods
+
+    //region clicks
 
     fun onPositiveClick() {
         disableControls()
@@ -215,96 +330,88 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         enableControls()
     }
 
-    override fun disableControls() {
-        super.disableControls()
-        logger.logOrder("disableControls")
-        btnEnabled.set(false)
+    //endregion clicks
+
+    //region setters
+
+    open fun setTextAlignment(alignment: Int) {
+        itemTextAlignment = alignment
     }
 
-    override fun enableControls() {
-        super.enableControls()
-        logger.logOrder("enableControls")
-        btnEnabled.set(true)
-    }
-
-    override fun onCancel(dialog: DialogInterface) {
-        logger.logOrder("onCancel")
-        afterOk = true
-        provideCallback()?.onCancelled()
-        super.onCancel(dialog)
-    }
-
-    fun setTextAlignment(alignment: Int) {
-        textAlignment = alignment
-    }
-
-    fun setTitle(resId: Int) {
-        logger.logOrder("setTitle resId = $resId")
+    open fun setTitle(resId: Int, appearanceResId: Int = -1) {
+        logger.logOrder("setTitle resId = $resId appearanceResId = $appearanceResId")
         if (resId != -1)
-            setTitle(resources.getString(resId))
-        else setTitle("")
+            setTitle(resources.getString(resId), appearanceResId)
+        else setTitle("", appearanceResId)
     }
 
-    fun setTitle(value: String) {
+    open fun setTitle(value: String, appearanceResId: Int = -1) {
         title.set(value)
         showTitle.set(value.isNotBlank())
+        titleAppearanceResId = appearanceResId
     }
 
-    fun setMessage(resId: Int) {
-        logger.logOrder("setMessage resId = $resId")
+    open fun setMessage(resId: Int, appearanceResId: Int = -1) {
+        logger.logOrder("setMessage resId = $resId appearanceResId = $appearanceResId")
         if (resId != -1)
-            setMessage(resources.getString(resId))
-        else setMessage("")
+            setMessage(resources.getString(resId), appearanceResId)
+        else setMessage("", appearanceResId)
     }
 
-    fun setMessage(value: String) {
+    open fun setMessage(value: String, appearanceResId: Int = -1) {
         message.set(value)
         showMessage.set(value.isNotBlank())
+        messageAppearanceResId = appearanceResId
     }
 
-    fun setPositiveButton(resId: Int = R.string.common_ok_btn, actionName: String? = null) {
+    open fun setPositiveButton(resId: Int, actionName: String? = null, appearance: ButtonAppearance? = null) {
         logger.logOrder("setPositiveButton resId = $resId; actionName = $actionName")
         if (resId != -1)
-            setPositiveButton(resources.getString(resId), actionName)
-        else setPositiveButton("", actionName)
+            setPositiveButton(resources.getString(resId), actionName, appearance)
+        else setPositiveButton("", actionName, appearance)
     }
 
-    fun setPositiveButton(value: String, actionName: String? = null) {
+    open fun setPositiveButton(value: String, actionName: String? = null, appearance: ButtonAppearance? = null) {
         positiveAction = actionName
         positiveBtnText.set(value)
         showPositiveBtn.set(value.isNotBlank())
+        positiveAppearance = appearance
     }
 
-    fun setNeutralButton(resId: Int) {
+    open fun setNeutralButton(resId: Int, appearance: ButtonAppearance? = null) {
         logger.logOrder("setNeutralButton resId = $resId")
         if (resId != -1)
-            setNeutralButton(resources.getString(resId))
-        else setNeutralButton("")
+            setNeutralButton(resources.getString(resId), appearance)
+        else setNeutralButton("", appearance)
     }
 
-    fun setNeutralButton(value: String) {
+    open fun setNeutralButton(value: String, appearance: ButtonAppearance? = null) {
         neutralBtnText.set(value)
         showNeutralBtn.set(value.isNotBlank())
+        neutralAppearance = appearance
     }
 
-    fun setNegativeButton(resId: Int = R.string.common_cancel) {
+    open fun setNegativeButton(resId: Int, appearance: ButtonAppearance? = null) {
         logger.logOrder("setNegativeButton resId = $resId")
         if (resId != -1)
-            setNegativeButton(resources.getString(resId))
-        else setNegativeButton("")
+            setNegativeButton(resources.getString(resId), appearance)
+        else setNegativeButton("", appearance)
     }
 
-    fun setNegativeButton(value: String) {
+    open fun setNegativeButton(value: String, appearance: ButtonAppearance? = null) {
         negativeBtnText.set(value)
         showNegativeBtn.set(value.isNotBlank())
+        negativeAppearance = appearance
     }
 
-    fun setItems(list: List<String>, actionName: String? = null, alignment: Int = View.TEXT_ALIGNMENT_TEXT_START) {
-        textAlignment = alignment
+    open fun setItems(list: List<String>, actionName: String? = null, alignment: Int = View.TEXT_ALIGNMENT_TEXT_START) {
+        itemTextAlignment = alignment
         itemAction = actionName
         this.items = list
         updateScreen()
     }
+
+    //endregion setters
 
     interface MessageCallback {
         fun onPositiveClick(actionName: String? = null) {}
@@ -314,13 +421,9 @@ class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<
         fun onItemPicked(position: Int, item: String, actionName: String?) {}
     }
 
-    override fun provideSwitchableList(): List<View?> {
-        return emptyList()
-    }
-
-    override fun provideValidationList(): List<Checking> {
-        return emptyList()
-    }
-
-    override fun provideVariableId(): Int = BR.handler
+    open class ButtonAppearance(
+        val textAppearanceResId: Int,
+        val backgroundColorResId: Int,
+        val textAllCaps: Boolean
+    )
 }

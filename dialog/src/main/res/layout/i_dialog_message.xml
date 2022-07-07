@@ -18,25 +18,26 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/i_language_title"
+            style="@style/MessageDialogItemStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18.20dp"
-            android:layout_marginTop="20.80dp"
-            android:layout_marginEnd="20.80dp"
-            android:layout_marginBottom="20.80dp"
+            android:layout_marginStart="@dimen/spacing_22"
+            android:layout_marginTop="@dimen/spacing_26"
+            android:layout_marginEnd="@dimen/spacing_22"
+            android:layout_marginBottom="@dimen/spacing_26"
             android:text="@{item.name}"
             android:textAlignment="@{item.alignment}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="PIN-code" />
+            tools:text="Item" />
 
         <View
             android:id="@+id/i_language_bottom_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#D9E1EE"
+            android:background="@color/colorDialogDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:visibilityGone="@{!item.isLast}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
