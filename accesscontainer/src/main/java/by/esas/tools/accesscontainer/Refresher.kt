@@ -31,15 +31,15 @@ import java.lang.ref.WeakReference
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 
-open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
-    protected val logger: ILogger<E, M>,
-    protected val executor: IContainerExecutor<E, M>,
+open class Refresher<M : BaseErrorModel>(
+    protected val logger: ILogger<M>,
+    protected val executor: IContainerExecutor<M>,
     protected val typeManager: ITypeManager,
     protected val userInfo: BiometricUserInfo,
-    protected val mapper: IErrorMapper<E, M>,
+    protected val mapper: IErrorMapper<M>,
     protected val dialogProvider: DialogProvider,
-    protected val supporter: Supporter<E, M>
-) : IRefreshContainer<E, M> {
+    protected val supporter: Supporter<M>
+) : IRefreshContainer<M> {
     val TAG: String = Refresher::class.java.simpleName
     protected var accessToken: String = ""
     protected var refreshToken: String = ""
@@ -59,10 +59,10 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         WeakReference(null) // fragment manager for simple dialogs
     protected var activity: WeakReference<FragmentActivity?> = WeakReference(null) // activity for biometric dialog
 
-    protected var result: ContainerRequest<RefreshResult, E, M> =
-        ContainerRequest<RefreshResult, E, M>() // result instance which will get result when it is finished
-    protected var secretResult: ContainerRequest<String, E, M> =
-        ContainerRequest<String, E, M>() // result instance which will get result when it is finished
+    protected var result: ContainerRequest<RefreshResult, M> =
+        ContainerRequest<RefreshResult, M>() // result instance which will get result when it is finished
+    protected var secretResult: ContainerRequest<String, M> =
+        ContainerRequest<String, M>() // result instance which will get result when it is finished
     protected var userIdValue: String = "" // user ID sets from getSecrets or with setUserId method
 
     protected var isBiometricAvailable: Boolean = false // shows if biometric is available
@@ -83,10 +83,10 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
     protected val types: MutableSet<AuthType> = mutableSetOf()// shows which secret types user has
 
-    protected var refresherErrorStatusToCheck: E? = null
+    protected var refresherErrorStatusToCheck: String? = null
     protected var checkRefreshError: Boolean = false
     protected var useExtraCheck: Boolean = false
-    protected var extraRefreshCheck: (BaseErrorModel<E>) -> Unit = {}
+    protected var extraRefreshCheck: (BaseErrorModel) -> Unit = {}
 
     init {
         logger.setTag(TAG)
@@ -115,10 +115,10 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
      * Запуск запроса на восстановление маркера доступа с последующим обновлением
      * данных контейнера и выполнением переданного блока кода
      */
-    override fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel<E>) -> Unit, onCancel: () -> Unit) {
+    override fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel) -> Unit, onCancel: () -> Unit) {
         logger.logOrder("refresh")
         this.refreshExplicitly = true
-        result = ContainerRequest<RefreshResult, E, M>()
+        result = ContainerRequest<RefreshResult, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.logOrder("refresh result.onComplete token != null = ${tokenResponse.token != null}")
@@ -155,12 +155,12 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         containerCancellationCallback.onCancel()
     }
 
-    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, E, M>.() -> Unit) {
+    override fun checkAccess(refreshExplicitly: Boolean, response: ContainerRequest<String, M>.() -> Unit) {
         logger.logOrder("checkAccess refreshExplicitly = $refreshExplicitly")
         this.refreshExplicitly = refreshExplicitly
-        val result = ContainerRequest<String, E, M>().apply(response)
+        val result = ContainerRequest<String, M>().apply(response)
 
-        this.result = ContainerRequest<RefreshResult, E, M>()
+        this.result = ContainerRequest<RefreshResult, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.logOrder("checkAccess result.onComplete hasAccess = ${tokenResponse.hasAccess}")
@@ -190,9 +190,9 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         getSecrets()
     }
 
-    override fun getSecret(response: ContainerRequest<String, E, M>.() -> Unit) {
+    override fun getSecret(response: ContainerRequest<String, M>.() -> Unit) {
         logger.logOrder("getSecret")
-        val result = ContainerRequest<String, E, M>().apply(response)
+        val result = ContainerRequest<String, M>().apply(response)
 
         this.secretResult = result
         logger.logDebug("getSecret needSecret = true, needCheck = false")
@@ -203,10 +203,10 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
         getSecrets()
     }
 
-    override fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit) {
-        val result = ContainerRequest<String, E, M>().apply(response)
+    override fun saveRefresh(refreshToken: String, response: ContainerRequest<String, M>.() -> Unit) {
+        val result = ContainerRequest<String, M>().apply(response)
 
-        this.result = ContainerRequest<RefreshResult, E, M>()
+        this.result = ContainerRequest<RefreshResult, M>()
             .apply {
                 onComplete { tokenResponse ->
                     logger.logOrder("saveRefresh result.onComplete")
@@ -879,14 +879,13 @@ open class Refresher<E : Enum<E>, M : BaseErrorModel<E>>(
 
     open fun setCheckRefreshError(
         check: Boolean = false,
-        errorStatus: E? = null,
+        errorStatus: String? = null,
         useExtraCheck: Boolean = false,
-        extraCheck: (BaseErrorModel<E>) -> Unit = {}
+        extraCheck: (BaseErrorModel) -> Unit = {}
     ) {
         checkRefreshError = check
         refresherErrorStatusToCheck = errorStatus
         this.useExtraCheck = useExtraCheck
         extraRefreshCheck = extraCheck
     }
-
 }

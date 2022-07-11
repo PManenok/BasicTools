@@ -9,84 +9,49 @@ import android.os.Bundle
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-open class ErrorAction<E : Enum<E>, M : BaseErrorModel<E>>(
-    val throwable: Throwable? = null,
-    val model: M? = null,
-    val showType: String,
-    parameters: Bundle? = null
-) : Action(ACTION_ERROR, parameters) {
+open class ErrorAction<M : BaseErrorModel> protected constructor(val model: M?, parameters: Bundle? = null) :
+    Action(ACTION_ERROR, parameters) {
 
     companion object {
         const val ACTION_ERROR: String = "ACTION_ERROR"
         const val ACTION_PARAM_SUB_NAME: String = "ACTION_PARAM_SUB_NAME"
+        const val ACTION_PARAM_SHOW_TYPE: String = "ACTION_PARAM_SHOW_TYPE"
 
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
-            throwable: Throwable?,
-            model: M?,
+        fun <M : BaseErrorModel> create(
+            model: M,
             showType: String,
             actionName: String?,
             parameters: Bundle?
-        ): ErrorAction<E, M> {
+        ): ErrorAction<M> {
             val params: Bundle = parameters ?: Bundle()
             if (!actionName.isNullOrBlank()) {
                 //when action is not null add it to bundle
                 params.putString(ACTION_PARAM_SUB_NAME, actionName)
             }
-            return ErrorAction(
-                throwable = throwable,
-                model = model,
-                showType = showType,
-                parameters = params
-            )
+            params.putAll(model.toBundle())
+            params.putString(ACTION_PARAM_SHOW_TYPE, showType)
+            return ErrorAction(model = model, parameters = params)
         }
 
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
-            model: M,
-            showType: String,
-            actionName: String,
-            parameters: Bundle
-        ): ErrorAction<E, M> {
-            return create(null, model, showType, actionName, parameters)
-        }
-
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
+        fun <M : BaseErrorModel> create(
             model: M,
             showType: String,
             actionName: String
-        ): ErrorAction<E, M> {
-            return create(null, model, showType, actionName, null)
+        ): ErrorAction<M> {
+            return create(model, showType, actionName, null)
         }
 
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
+        fun <M : BaseErrorModel> create(
             model: M,
-            showType: String
-        ): ErrorAction<E, M> {
-            return create(null, model, showType, null, null)
-        }
-
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
-            throwable: Throwable,
             showType: String,
-            actionName: String,
             parameters: Bundle
-        ): ErrorAction<E, M> {
-            return create(throwable, null, showType, actionName, parameters)
+        ): ErrorAction<M> {
+            return create(model, showType, null, parameters)
         }
+    }
 
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
-            throwable: Throwable,
-            showType: String,
-            actionName: String
-        ): ErrorAction<E, M> {
-            return create(throwable, null, showType, actionName, null)
-        }
-
-        fun <E : Enum<E>, M : BaseErrorModel<E>> create(
-            throwable: Throwable,
-            showType: String
-        ): ErrorAction<E, M> {
-            return create(throwable, null, showType, null, null)
-        }
+    fun getShowType(): String {
+        return parameters?.getString(ACTION_PARAM_SHOW_TYPE) ?: ""
     }
 
     fun getSubActionName(): String? {
@@ -104,6 +69,6 @@ open class ErrorAction<E : Enum<E>, M : BaseErrorModel<E>>(
     }
 
     override fun toString(): String {
-        return "ErrorAction(throwable=$throwable, model=$model, showType='$showType') ${super.toString()}"
+        return "ErrorAction(model=$model) ${super.toString()}"
     }
 }

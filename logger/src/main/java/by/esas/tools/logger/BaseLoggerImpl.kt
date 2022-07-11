@@ -12,8 +12,7 @@ import android.widget.Toast
 /**
  * Base logger implementation
  */
-class BaseLoggerImpl<E : Enum<E>, M : BaseErrorModel<E>>(tag: String? = null, private var context: Context? = null) :
-    ILogger<E, M> {
+class BaseLoggerImpl(tag: String? = null, private var context: Context? = null) : ILogger<BaseErrorModel> {
     override var currentTag: String = BaseLoggerImpl::class.java.simpleName
 
     init {
@@ -66,8 +65,8 @@ class BaseLoggerImpl<E : Enum<E>, M : BaseErrorModel<E>>(tag: String? = null, pr
         logError(Log.getStackTraceString(throwable))
     }
 
-    override fun logError(error: M) {
-        logError("ErrorModel{code = ${error.code}, statusEnum = ${error.statusEnum.name}}")
+    override fun logError(error: BaseErrorModel) {
+        logError("ErrorModel{code = ${error.code}, statusEnum = ${error.statusEnum}}")
     }
 
     override fun sendLogs(msg: String) {

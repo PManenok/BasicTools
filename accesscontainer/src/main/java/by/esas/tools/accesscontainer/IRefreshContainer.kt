@@ -11,7 +11,7 @@ import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.support.IContainerCancellationCallback
 import by.esas.tools.logger.BaseErrorModel
 
-interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
+interface IRefreshContainer<M : BaseErrorModel> {
     fun setToken(token: Token)
     fun getToken(): String
     fun getRefresh(): String
@@ -25,26 +25,26 @@ interface IRefreshContainer<E : Enum<E>, M : BaseErrorModel<E>> {
      * This function can refresh token without secret key
      * Access token would be refreshed anyway
      **/
-    fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel<E>) -> Unit, onCancel: () -> Unit)
+    fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel) -> Unit, onCancel: () -> Unit)
 
     /**
      * This function would always invoke dialogs with secrets if it can, because it checks if user can access secret
      * can refresh token or not
      * @see refreshExplicitly
      **/
-    fun checkAccess(refreshExplicitly: Boolean = false, response: ContainerRequest<String, E, M>.() -> Unit)
+    fun checkAccess(refreshExplicitly: Boolean = false, response: ContainerRequest<String, M>.() -> Unit)
 
     /**
      * This function can save refresh token, it invokes only encryption dialogs
      * Should be used only when no secret exist, because it will override old secrets
      **/
-    fun saveRefresh(refreshToken: String, response: ContainerRequest<String, E, M>.() -> Unit)
+    fun saveRefresh(refreshToken: String, response: ContainerRequest<String, M>.() -> Unit)
 
     /**
      * This function can save refresh token, it invokes only encryption dialogs
      * Should be used only when no secret exist, because it will override old secrets
      **/
-    fun getSecret(response: ContainerRequest<String, E, M>.() -> Unit)
+    fun getSecret(response: ContainerRequest<String, M>.() -> Unit)
 
     fun setUserId(userId: String)
 

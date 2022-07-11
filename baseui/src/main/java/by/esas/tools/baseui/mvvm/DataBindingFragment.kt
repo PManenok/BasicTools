@@ -16,8 +16,8 @@ import by.esas.tools.baseui.basic.BaseFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class DataBindingFragment<VM : BaseViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
-    : BaseFragment<E, M>() {
+abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
+    : BaseFragment<M>() {
 
     val TAG: String = DataBindingFragment::class.java.simpleName
 

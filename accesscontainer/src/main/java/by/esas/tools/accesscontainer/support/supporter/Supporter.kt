@@ -7,7 +7,7 @@ package by.esas.tools.accesscontainer.support.supporter
 
 import by.esas.tools.logger.BaseErrorModel
 
-class Supporter<E : Enum<E>, M : BaseErrorModel<E>>(
+class Supporter<M : BaseErrorModel>(
     val resProvider: ResourceStrProvider,
-    val util: IUtil<E, M>
+    val util: IUtil<M>
 )

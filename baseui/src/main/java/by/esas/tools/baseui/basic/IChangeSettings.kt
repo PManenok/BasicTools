@@ -10,7 +10,7 @@ import by.esas.tools.logger.ILogger
 import by.esas.tools.util.LocaleManager
 import by.esas.tools.util.SettingsProvider
 
-interface IChangeSettings<E : Enum<E>> {
+interface IChangeSettings {
 
     fun doWithAttachBaseContext(context: Context): Context {
         return LocaleManager.setLocale(context, provideSetter().getLanguage())
@@ -30,7 +30,7 @@ interface IChangeSettings<E : Enum<E>> {
         }
     }
 
-    fun provideLogger(): ILogger<E, *>
+    fun provideLogger(): ILogger<*>
     fun provideSetter(): SettingsProvider
     fun recreateActivity()
     fun getAppContext(): Context

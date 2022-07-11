@@ -21,8 +21,8 @@ import by.esas.tools.domain.usecase.UseCase
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class StandardViewModel<E : Enum<E>, M : BaseErrorModel<E>>
-    : BaseViewModel<E, M>(), INavigateVM, IExecutingVM, IShowingVM {
+abstract class StandardViewModel<M : BaseErrorModel>
+    : BaseViewModel<M>(), INavigateVM, IExecutingVM, IShowingVM {
 
     companion object {
         const val ACTION_CHECK_FIELDS: String = "ACTION_CHECK_FIELDS"
@@ -30,14 +30,14 @@ abstract class StandardViewModel<E : Enum<E>, M : BaseErrorModel<E>>
         const val PARAM_NEW_LANGUAGE: String = "PARAM_NEW_LANGUAGE"
     }
 
-    override var useCases: MutableList<UseCase<*, *, *>> = mutableListOf<UseCase<*, *, *>>()
+    override var useCases: MutableList<UseCase<*, *>> = mutableListOf<UseCase<*, *>>()
 
-    override val showDialog: MutableLiveData<BaseDialogFragment<*, *>?> = MutableLiveData<BaseDialogFragment<*, *>?>()
+    override val showDialog: MutableLiveData<BaseDialogFragment<*>?> = MutableLiveData<BaseDialogFragment<*>?>()
         .apply {
             value = null
         }
-    override val showBottomDialog: MutableLiveData<BaseBottomDialogFragment<*, *>?> =
-        MutableLiveData<BaseBottomDialogFragment<*, *>?>()
+    override val showBottomDialog: MutableLiveData<BaseBottomDialogFragment<*>?> =
+        MutableLiveData<BaseBottomDialogFragment<*>?>()
             .apply {
                 value = null
             }

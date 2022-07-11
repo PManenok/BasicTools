@@ -1,10 +1,9 @@
 package by.esas.tools.logger
 
 import android.util.Log
-import by.esas.tools.error_mapper.AppErrorStatusEnum
 
-class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
-    override var currentTag: String= "LoggerImpl"
+class LoggerImpl : ILogger<ErrorModel> {
+    override var currentTag: String = "LoggerImpl"
     override fun setTag(tag: String) {
         this.currentTag = tag
     }
@@ -38,7 +37,7 @@ class LoggerImpl : ILogger<AppErrorStatusEnum, ErrorModel> {
     }
 
     override fun logError(error: ErrorModel) {
-        Log.e(currentTag, error.statusEnum.name)
+        Log.e(currentTag, error.statusEnum)
     }
 
 

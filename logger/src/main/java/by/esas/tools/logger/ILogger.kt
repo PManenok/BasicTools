@@ -8,7 +8,7 @@ package by.esas.tools.logger
 import android.util.Log
 import android.widget.Toast
 
-interface ILogger<E : Enum<E>, M : IErrorModel<E>> {
+interface ILogger<M : BaseErrorModel> {
     var currentTag: String
 
     companion object {
@@ -52,9 +52,11 @@ interface ILogger<E : Enum<E>, M : IErrorModel<E>> {
     fun logDebug(msg: String) {
         logCategory(CATEGORY_DEBUG, currentTag, msg)
     }
+
     fun logUserInfo(msg: String) {
         logCategory(CATEGORY_USER, currentTag, msg)
     }
+
     fun logPrivate(msg: String) {
         logCategory(CATEGORY_PRIVATE, currentTag, msg)
     }

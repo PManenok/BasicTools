@@ -13,6 +13,7 @@ import by.esas.tools.domain.mapper.error.HttpErrorStatusEnum
 import by.esas.tools.domain.mapper.error.IdentityErrorEnum
 import by.esas.tools.domain.mapper.response.ErrorCode
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.IErrorMapper
 import by.esas.tools.logger.ILogger
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -24,14 +25,14 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 
-abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(
+abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
     protected val moshi: Moshi,
-    val logger: ILogger<E, Model>
-) {
+    val logger: ILogger<Model>
+) : IErrorMapper<Model> {
     open val TAG: String = BaseErrorMapper::class.java.simpleName
     protected val errorCodeAdapter: JsonAdapter<ErrorCode> = moshi.adapter<ErrorCode>(ErrorCode::class.java)
 
-    open fun mapErrorException(tag: String, throwable: Throwable?): Model {
+    override fun mapErrorException(tag: String, throwable: Throwable?): Model {
         val errorModel: Model = when (throwable) {
             is BaseException -> {
                 createModel(0, mapBaseException(throwable.message))
@@ -40,19 +41,19 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(
                 getHttpError(throwable)
             }
             is SocketTimeoutException -> {
-                createModel(522, mapBaseStatus(BaseStatusEnum.NET_TIMEOUT))
+                createModel(522, BaseStatusEnum.NET_TIMEOUT.name)
             }
             is SSLException -> {
-                createModel(523, mapBaseStatus(BaseStatusEnum.NET_NO_CONNECTION))
+                createModel(523, BaseStatusEnum.NET_NO_CONNECTION.name)
             }
             is IOException -> {
-                createModel(523, mapBaseStatus(BaseStatusEnum.NET_NO_CONNECTION))
+                createModel(523, BaseStatusEnum.NET_NO_CONNECTION.name)
             }
             is UnknownHostException -> {
-                createModel(523, mapBaseStatus(BaseStatusEnum.NET_UNKNOWN_HOST))
+                createModel(523, BaseStatusEnum.NET_UNKNOWN_HOST.name)
             }
             else -> {
-                createModel(0, mapBaseStatus(BaseStatusEnum.UNKNOWN_ERROR))
+                createModel(0, BaseStatusEnum.UNKNOWN_ERROR.name)
             }
         }
         logThrowable(tag, throwable, errorModel.statusEnum)
@@ -79,7 +80,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(
         } catch (e: Throwable) {
             e.printStackTrace()
             logger.logError(e)
-            createModel(code = 0, status = mapBaseStatus(BaseStatusEnum.NOT_SET))
+            createModel(code = 0, status = BaseStatusEnum.NOT_SET.name)
         }
     }
 
@@ -163,19 +164,21 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel<E>>(
         return mapApiErrorToHttpStatus(status).name
     }
 
-    open fun logThrowable(tag: String, throwable: Throwable?, status: Enum<*>? = null) {
+    override fun logThrowable(tag: String, throwable: Throwable?, status: String?) {
         logger.setTag(tag)
         throwable?.let { logger.logError(throwable) }
     }
 
-    open fun logThrowable(throwable: Throwable?, status: Enum<*>? = null) {
+    override fun logThrowable(throwable: Throwable?, status: String?) {
         logThrowable(TAG, throwable, status)
     }
 
-    abstract fun mapBaseException(errorText: String?): E
-    abstract fun mapHttpStatus(httpEnumString: String): E
-    abstract fun mapBaseStatus(enum: BaseStatusEnum): E
-    abstract fun createModel(code: Int, status: E): Model
+    override fun setTagToLogger(tag: String) {
+        logger.setTag(tag)
+    }
+
+    abstract fun mapBaseException(errorText: String?): String
+    abstract fun mapHttpStatus(httpEnumString: String): String
     open fun extraHttpParse(code: Long, errorCode: ErrorCode): String? {
         return null
     }

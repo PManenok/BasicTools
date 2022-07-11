@@ -81,3 +81,11 @@ enum class AppErrorStatusEnum {
     CURRENCY_INFO_NOT_FOUND,
     INVOICES_GET_NOT_FOUND
 }
+
+fun String.getAppErrorStatusEnum(): AppErrorStatusEnum {
+    return try {
+        AppErrorStatusEnum.valueOf(this)
+    } catch (e: IllegalStateException) {
+        AppErrorStatusEnum.NOT_SET
+    }
+}

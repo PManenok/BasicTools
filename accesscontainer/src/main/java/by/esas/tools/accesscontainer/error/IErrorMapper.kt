@@ -7,7 +7,7 @@ package by.esas.tools.accesscontainer.error
 
 import by.esas.tools.logger.BaseErrorModel
 
-interface IErrorMapper<E : Enum<E>, M : BaseErrorModel<E>> {
+interface IErrorMapper<M : BaseErrorModel> {
     fun mapError(e: Exception): M
 
     operator fun invoke(e: Exception): M {

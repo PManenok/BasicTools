@@ -12,7 +12,7 @@ import by.esas.tools.databinding.DfPasswordBinding
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
 
-class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException, BaseStatusEnum>() {
+class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException>() {
     override val TAG: String = GetPasswordDialog::class.java.simpleName
 
     /* override fun provideLogger(): LoggerImpl {

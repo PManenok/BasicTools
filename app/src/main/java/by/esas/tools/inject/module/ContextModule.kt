@@ -35,12 +35,12 @@ class ContextModule {
 
     @Provides
     @Singleton
-    fun provideCrashlyticsMapper(moshi: Moshi, logger: ILogger<AppErrorStatusEnum, ErrorModel>): AppErrorMapper {
+    fun provideErrorMapper(moshi: Moshi, logger: ILogger<ErrorModel>): AppErrorMapper {
         return AppErrorMapper(moshi, logger)
     }
 
     @Provides
-    fun provideLogger(): ILogger<AppErrorStatusEnum, ErrorModel> {
+    fun provideLogger(): ILogger<ErrorModel> {
         return LoggerImpl().apply { setTag("LoggerImpl") }
     }
 }

@@ -3,7 +3,6 @@ package by.esas.tools
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
-import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.handler.ErrorHandler
 import dagger.android.AndroidInjector
@@ -23,7 +22,7 @@ import javax.inject.Inject
  *         super.onAttach(context)
  *     }
  */
-abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<VM, B, AppErrorStatusEnum, ErrorModel>(),
+abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<VM, B, ErrorModel>(),
     HasAndroidInjector {
 
     @Inject
@@ -36,8 +35,8 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
         return androidInjector
     }
 
-    override fun provideErrorHandler(): ErrorHandler<AppErrorStatusEnum, ErrorModel> {
-        return object : ErrorHandler<AppErrorStatusEnum, ErrorModel>() {
+    override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
+        return object : ErrorHandler<ErrorModel>() {
             override fun getErrorMessage(error: ErrorModel): String {
                 TODO("Not yet implemented")
             }

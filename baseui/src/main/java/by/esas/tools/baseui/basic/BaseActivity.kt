@@ -41,15 +41,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  * - [ErrorAction] is handled via [handleError] method, and it use [ShowErrorType]
  *   to choose how to show error to user
  */
-abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActivity(), IChangeSettings<E> {
+abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSettings {
 
-    open val logger: ILogger<E, M> = BaseLoggerImpl(TAGk, null)
+    open val logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
     protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
     abstract fun provideSwitchableViews(): List<View?>
 
-    abstract fun provideErrorHandler(): ErrorHandler<E, M>
+    abstract fun provideErrorHandler(): ErrorHandler<M>
 
     protected open fun provideProgressBar(): View? = null
 
@@ -100,7 +100,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
     protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
-        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*, *>
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*>
             && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
             && !prevWithSameTag.isRemoving
         ) {
@@ -111,14 +111,14 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
         }
     }
 
-    protected open fun onShowDialog(dialog: BaseDialogFragment<*, *>?) {
+    protected open fun onShowDialog(dialog: BaseDialogFragment<*>?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             onShowDialog(dialog, dialog.TAG)
         }
     }
 
-    protected open fun onShowDialog(dialog: BaseBottomDialogFragment<*, *>?) {
+    protected open fun onShowDialog(dialog: BaseBottomDialogFragment<*>?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             onShowDialog(dialog, dialog.TAG)
@@ -165,7 +165,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
     /**
      * @see IChangeSettings
      */
-    override fun provideLogger(): ILogger<E, *> {
+    override fun provideLogger(): ILogger<*> {
         return logger
     }
 
@@ -190,7 +190,7 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
             ErrorAction.ACTION_ERROR -> {
                 // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
                 @Suppress("UNCHECKED_CAST")
-                handleError(action as? ErrorAction<E, M>)
+                handleError(action as? ErrorAction<M>)
             }
             Action.ACTION_FINISH -> {
                 handleFinishAction(action.parameters)
@@ -218,19 +218,18 @@ abstract class BaseActivity<E : Enum<E>, M : BaseErrorModel<E>> : AppCompatActiv
         return true
     }
 
-    open fun handleError(action: ErrorAction<E, M>?) {
+    open fun handleError(action: ErrorAction<M>?) {
         logger.logOrder("handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
             //set action as handled immediately after taking it to work so it wont be handled twice.
             action.handled = true
             //get error message depending on what error data we have. throwable has priority
             val msg = when {
-                action.throwable != null -> provideErrorHandler().getErrorMessage(action.throwable!!)
                 action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
                 else -> "Error"
             }
 
-            showError(msg, action.showType, action.getSubAction())
+            showError(msg, action.getShowType(), action.getSubAction())
         }
     }
 

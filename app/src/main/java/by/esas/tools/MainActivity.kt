@@ -8,9 +8,7 @@ import android.view.View
 import android.view.WindowInsetsController
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.IRequestFocusHandler
 import by.esas.tools.checker.checks.LengthCheck
@@ -28,11 +26,8 @@ import by.esas.tools.util.SettingsProvider
 import by.esas.tools.util.hideSystemUIR
 import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Inject
+
 /**
  * To use HasAndroidInjector with Activity do not forget to add
  *     AndroidInjection.inject(this)
@@ -46,7 +41,7 @@ import javax.inject.Inject
  */
 class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
-    override var logger: ILogger<AppErrorStatusEnum, ErrorModel> = LoggerImpl()
+    override var logger: ILogger<ErrorModel> = LoggerImpl()
 
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
@@ -184,7 +179,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
             }
         }
-        val model = BaseErrorModel(0, AppErrorStatusEnum.APP_UNPREDICTED_ERROR)
+        val model = BaseErrorModel(0, AppErrorStatusEnum.APP_UNPREDICTED_ERROR.name)
         model.statusEnum
     }
 

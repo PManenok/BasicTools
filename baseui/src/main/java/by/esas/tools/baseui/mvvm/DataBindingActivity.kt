@@ -17,8 +17,8 @@ import by.esas.tools.logger.BaseErrorModel
  * Base class for activity that inherits from [BaseActivity] and implements data binding.
  * This class adds observer to view model's activity variable [setupActionObserver]
  */
-abstract class DataBindingActivity<TViewModel : BaseViewModel<E, M>, TBinding : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
-    : BaseActivity<E, M>() {
+abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : ViewDataBinding, M : BaseErrorModel>
+    : BaseActivity<M>() {
 
     protected lateinit var binding: TBinding
     protected lateinit var viewModel: TViewModel

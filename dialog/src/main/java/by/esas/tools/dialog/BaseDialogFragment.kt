@@ -23,7 +23,7 @@ import by.esas.tools.util.SwitchManager
  * To make dialog full screen override [layoutSettings] method and set both params in [android.view.Window.setLayout] as [ViewGroup.LayoutParams.MATCH_PARENT]
  * and don't forget to set [androidx.fragment.app.DialogFragment.STYLE_NO_FRAME] style in the [styleSettings] method to remove extra padding
  * */
-abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>> : DialogFragment() {
+abstract class BaseDialogFragment<E : Exception> : DialogFragment() {
     open val TAG: String = BaseDialogFragment::class.java.simpleName
 
     /**
@@ -49,7 +49,7 @@ abstract class BaseDialogFragment<E : Exception, EnumT : Enum<EnumT>> : DialogFr
      * depends on its interface realisation
      * By default this logger is [BaseLoggerImpl]
      * */
-    protected open var logger: ILogger<EnumT, *> =
+    protected open var logger: ILogger<*> =
         BaseLoggerImpl(BaseDialogFragment::class.java.simpleName, this.context)
 
     /**

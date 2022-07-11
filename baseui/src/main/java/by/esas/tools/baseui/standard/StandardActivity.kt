@@ -13,8 +13,8 @@ import by.esas.tools.baseui.mvvm.DataBindingActivity
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class StandardActivity<VM : StandardViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
-    : DataBindingActivity<VM, B, E, M>(), IHandlePopBackArguments {
+abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
+    : DataBindingActivity<VM, B, M>(), IHandlePopBackArguments {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

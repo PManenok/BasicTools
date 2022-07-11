@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 /**
  * Base bottom dialog fragment with custom state callback, disabling and enabling functions, showing and hiding progress
  * */
-abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : BottomSheetDialogFragment() {
+abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragment() {
     open val TAG: String = BaseBottomDialogFragment::class.java.simpleName
 
     /**
@@ -49,7 +49,7 @@ abstract class BaseBottomDialogFragment<E : Exception, EnumT : Enum<EnumT>> : Bo
      * depends on its interface realisation
      * By default this logger is [BaseLoggerImpl]
      * */
-    protected open var logger: ILogger<EnumT, *> =
+    protected open var logger: ILogger<*> =
         BaseLoggerImpl(BaseBottomDialogFragment::class.java.simpleName, this.context)
 
     /**

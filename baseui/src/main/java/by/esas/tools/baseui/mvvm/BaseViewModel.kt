@@ -8,18 +8,17 @@ package by.esas.tools.baseui.mvvm
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.esas.tools.logger.Action
-import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLoggerImpl
-import by.esas.tools.logger.ILogger
+import by.esas.tools.logger.*
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ShowErrorType
+import by.esas.tools.util.TAGk
 
-abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
+abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
 
     open val TAG: String = BaseViewModel::class.java.simpleName
 
-    open var logger: ILogger<E, M> = BaseLoggerImpl(BaseViewModel::class.java.simpleName)
+    open var logger: ILogger<*> = BaseLoggerImpl(BaseViewModel::class.java.simpleName)
+    abstract fun provideMapper(): IErrorMapper<M>
 
     val progressing = MutableLiveData<Boolean>(false)
     val action: MutableLiveData<Action?> = MutableLiveData<Action?>(null)
@@ -39,7 +38,14 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         parameters: Bundle? = null
     ) {
         logger.logOrder("handleError throwable")
-        action.postValue(ErrorAction.create(error, null, showType, actionName, parameters))
+        action.postValue(
+            ErrorAction.create(
+                provideMapper().mapErrorException(TAGk, error),
+                showType,
+                actionName,
+                parameters
+            )
+        )
     }
 
     open fun handleError(
@@ -49,7 +55,7 @@ abstract class BaseViewModel<E : Enum<E>, M : BaseErrorModel<E>> : ViewModel() {
         parameters: Bundle = Bundle()
     ) {
         logger.logOrder("handleError errorModel")
-        action.postValue(ErrorAction.create(null, error, showType, actionName, parameters))
+        action.postValue(ErrorAction.create(error, showType, actionName, parameters))
     }
 
     open fun requestAction(action: Action) {

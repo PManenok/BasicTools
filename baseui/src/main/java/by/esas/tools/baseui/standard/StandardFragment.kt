@@ -20,8 +20,8 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-abstract class StandardFragment<VM : StandardViewModel<E, M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel<E>>
-    : DataBindingFragment<VM, B, E, M>() {
+abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel>
+    : DataBindingFragment<VM, B, M>() {
 
     protected var navController: NavController? = null
     abstract val fragmentDestinationId: Int
@@ -132,7 +132,7 @@ abstract class StandardFragment<VM : StandardViewModel<E, M>, B : ViewDataBindin
         if (!lang.isNullOrBlank()) {
             logger.logInfo("changeLang to $lang")
             activity?.let {
-                if (it is BaseActivity<*, *>)
+                if (it is BaseActivity<*>)
                     it.setLanguage(lang)
             }
         }

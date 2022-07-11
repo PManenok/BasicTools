@@ -33,12 +33,12 @@ import by.esas.tools.util.SwitchManager
 import by.esas.tools.util.defocusAndHideKeyboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
+abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     companion object {
         val TAG: String = BaseFragment::class.java.simpleName
     }
 
-    protected open var logger: ILogger<E, *> = BaseLoggerImpl(TAG, null)
+    protected open var logger: ILogger<*> = BaseLoggerImpl(TAG, null)
     protected open var hideKeyboardOnStop: Boolean = true
     protected open var switcher: SwitchManager = SwitchManager()
     protected var permissionsLauncher: ActivityResultLauncher<Array<String>>? = null
@@ -52,7 +52,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
 
     abstract fun provideAppContext(): Context
 
-    abstract fun provideErrorHandler(): ErrorHandler<E, M>
+    abstract fun provideErrorHandler(): ErrorHandler<M>
 
     protected open fun provideProgressBar(): View? = null
 
@@ -140,14 +140,14 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
 
     //region dialogs
 
-    protected open fun showDialog(dialog: BaseDialogFragment<*, *>?) {
+    protected open fun showDialog(dialog: BaseDialogFragment<*>?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             showDialog(dialog, dialog.TAG)
         }
     }
 
-    protected open fun showDialog(dialog: BaseBottomDialogFragment<*, *>?) {
+    protected open fun showDialog(dialog: BaseBottomDialogFragment<*>?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             showDialog(dialog, dialog.TAG)
@@ -157,7 +157,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
     protected open fun showDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = childFragmentManager.findFragmentByTag(tag)
-        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*, *>
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*>
             && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
             && !prevWithSameTag.isRemoving
         ) {
@@ -182,7 +182,7 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
             ErrorAction.ACTION_ERROR -> {
                 // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
                 @Suppress("UNCHECKED_CAST")
-                handleError(action as? ErrorAction<E, M>)
+                handleError(action as? ErrorAction<M>)
             }
             Action.ACTION_FINISH -> {
                 handleFinishAction(action.parameters)
@@ -222,17 +222,16 @@ abstract class BaseFragment<E : Enum<E>, M : BaseErrorModel<E>> : Fragment() {
         activity?.finish()
     }
 
-    open fun handleError(action: ErrorAction<E, M>?) {
+    open fun handleError(action: ErrorAction<M>?) {
         logger.logOrder("handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
             val msg = when {
-                action.throwable != null -> provideErrorHandler().getErrorMessage(action.throwable!!)
                 action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
                 else -> "Error"
             }
             action.handled = true
 
-            showError(msg, action.showType, action.getSubAction())
+            showError(msg, action.getShowType(), action.getSubAction())
         }
     }
 
