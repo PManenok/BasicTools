@@ -9,6 +9,7 @@
         <attr name="inputClickViewEnabled" format="boolean" />
         <attr name="inputIsChecked" format="boolean" />
         <attr name="inputIsPasswordChecked" format="boolean" />
+        <attr name="inputIsEnableable" format="boolean" />
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -76,6 +77,8 @@
             <enum name="clear_text" value="2" />
             <!-- The view will display a toggle that displays/hides a check box. -->
             <enum name="checkable" value="3" />
+            <!-- The view will display end icon in error mode. -->
+            <enum name="error" value="4" />
         </attr>
         <attr name="inputEndIconColorWithError" format="boolean"/>
 

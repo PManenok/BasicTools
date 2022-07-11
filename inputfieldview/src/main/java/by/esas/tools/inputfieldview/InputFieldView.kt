@@ -90,6 +90,12 @@ open class InputFieldView : ConstraintLayout {
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
     protected open var hideErrorText: Boolean = true
+    /**
+     * A variable shows whether the [inputText] will be enable or disable all the time.
+     * If [inputIsEnableable] is false, then [inputText] will not be enabled
+     * after the InputFieldView will be enabled in [enableView] method
+     */
+    protected open var inputIsEnableable: Boolean = true
 
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
@@ -118,7 +124,7 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultMinHeight: Int = context.resources
         .getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
     protected open val defaultIconsPadding: Int = dpToPx(4).roundToInt()
-    protected open val defaultInputBoxVisibility: Int = 0
+    protected open val defaultInputBoxVisibility: Int = View.VISIBLE
 
     protected open var errorDrawableRes: Int = R.drawable.ic_input_field_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
@@ -398,6 +404,13 @@ open class InputFieldView : ConstraintLayout {
             endIconView?.visibility = View.INVISIBLE
     }
 
+    open fun setInputIsEnableableValue(value: Boolean){
+        inputIsEnableable = value
+    }
+
+    open fun getInputIsEnableableValue(): Boolean{
+        return inputIsEnableable
+    }
     /**
      * Method shows if inputText field is enabled or not.
      */
@@ -429,7 +442,8 @@ open class InputFieldView : ConstraintLayout {
      * so client can edit text in input text and start and end icons are clickable.
      */
     open fun enableView() {
-        enableInput()
+        if (inputIsEnableable)
+            enableInput()
         startIconEnable()
         endIconEnable()
     }
@@ -596,6 +610,7 @@ open class InputFieldView : ConstraintLayout {
 
     open fun setEndIconColorWithErrorValue(value: Boolean) {
         endIconColorWithError = value
+        updateErrorState()
     }
 
     fun endIconEnable() {
@@ -1084,18 +1099,18 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun inputBoxVisibility(): Int{
-        return inputBox?.visibility ?: 2
+        return inputBox?.visibility ?: View.GONE
     }
 
     open fun inputBoxVisibility(visibility: Int) {
         inputBox?.visibility = visibility
     }
 
-    open fun setInputStrokeColorWithErrorValue(value: Boolean) {
+    open fun setStrokeColorWithErrorValue(value: Boolean) {
         if (strokeColorWithError != value) strokeColorWithError = value
     }
 
-    open fun setupInputStrokeErrorColor(color: Int){
+    open fun setupStrokeErrorColor(color: Int){
         if (strokeErrorColor != color) strokeErrorColor = color
     }
 
@@ -1299,6 +1314,7 @@ open class InputFieldView : ConstraintLayout {
                 R.styleable.InputFieldView_inputEditViewMinHeight,
                 defaultMinHeight
             )
+        inputIsEnableable = typedArray.getBoolean(R.styleable.InputFieldView_inputIsEnableable, true)
 
         /*##########  Prefix  ##########*/
         val prefix = typedArray.getString(R.styleable.InputFieldView_inputPrefix) ?: ""
