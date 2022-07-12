@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="by.esas.tools.dialog.MessageDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="19.50dp"
+            android:background="@drawable/bg_dialog"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/df_message_title"
+                style="@style/MessageDialogTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_24"
+                android:layout_marginTop="@dimen/spacing_32"
+                android:layout_marginEnd="@dimen/spacing_24"
+                android:gravity="center"
+                android:text="@{handler.title}"
+                app:visibilityGone="@{handler.showTitle}"
+                tools:text="Title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/df_message_message"
+                style="@style/MessageDialogTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_24"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:layout_marginEnd="@dimen/spacing_24"
+                android:layout_marginBottom="@dimen/spacing_40"
+                android:gravity="center"
+                android:text="@{handler.message}"
+                app:visibilityGone="@{handler.showMessage}"
+                tools:text="Message" />
+
+            <View
+                android:id="@+id/df_message_extra_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D9E1EE"
+                app:visibilityGone="@{handler.showExtraDiv}"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/df_message_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:itemCount="2"
+                tools:listitem="@layout/i_dialog_message" />
+
+            <View
+                android:id="@+id/df_message_btn_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDialogDivider"
+                app:visibilityGone="@{handler.hasButtons}"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_negative_btn"
+                    style="@style/MessageDialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onNegativeClick()}"
+                    android:text="@{handler.negativeBtnText}"
+                    app:visibilityGone="@{handler.showNegativeBtn}"
+                    tools:text="Negative"
+                    tools:visibility="visible" />
+
+                <View
+                    android:id="@+id/df_message_btn_divider_1"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDialogDivider"
+                    app:visibilityGone="@{handler.showDiv1}"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_neutral_btn"
+                    style="@style/MessageDialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onNeutralClick()}"
+                    android:text="@{handler.neutralBtnText}"
+                    app:visibilityGone="@{handler.showNeutralBtn}"
+                    tools:text="Neutral"
+                    tools:visibility="visible" />
+
+                <View
+                    android:id="@+id/df_message_btn_divider_2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDialogDivider"
+                    app:visibilityGone="@{handler.showDiv2}"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/df_message_positive_button"
+                    style="@style/MessageDialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="@{handler.btnEnabled}"
+                    android:onClick="@{()->handler.onPositiveClick()}"
+                    android:text="@{handler.positiveBtnText}"
+                    app:visibilityGone="@{handler.showPositiveBtn}"
+                    tools:text="Positive"
+                    tools:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

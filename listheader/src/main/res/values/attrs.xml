@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ListHeader">
+        <attr name="listDefaultBehaviorEnabled" format="boolean" />
+        <attr name="listContainerClickable" format="boolean" />
+        <attr name="listContainerPaddingTop" format="dimension" />
+        <attr name="listContainerPaddingBottom" format="dimension" />
+        <attr name="listContainerPaddingStart" format="dimension" />
+        <attr name="listContainerPaddingEnd" format="dimension" />
+        <attr name="listChildrenMarginTop" format="dimension" />
+        <attr name="listChildrenMarginBottom" format="dimension" />
+        <!--Title attrs-->
+        <attr name="listTitle" format="string" />
+        <attr name="listTitleTextAppearance" format="reference" />
+        <!--Action attrs-->
+        <attr name="listAction" format="string" />
+        <attr name="listActionTextAppearance" format="reference" />
+        <!--Icon start attrs-->
+        <attr name="listArrowIcon" format="reference" />
+        <attr name="listArrowSize" format="dimension" />
+        <attr name="listArrowInnerPadding" format="dimension" />
+        <attr name="listArrowTint" format="color" />
+        <attr name="listIsOpen" format="boolean" />
+    </declare-styleable>
+</resources>

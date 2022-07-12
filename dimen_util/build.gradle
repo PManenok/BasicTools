@@ -1,8 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'maven-publish'
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
 
 // Because the components are created only during the afterEvaluate phase, you must
 // configure your publications using the afterEvaluate() lifecycle method.
@@ -20,19 +20,9 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'by.esas.tools'
-                artifactId = 'recycler'
-                version = "$recycler_lib_version"
+                artifactId = 'dimen_util'
+                version = "$dimen_util_lib_version"
             }
-            // Creates a Maven publication called “debug”.
-            /*debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
-
-                groupId = 'com.example.MyLibrary'
-                artifactId = 'final-debug'
-                version = '1.0'
-            }*/
-
         }
         repositories {
             maven {
@@ -54,18 +44,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-
-    // Data binding
-    kapt "com.android.databinding:compiler:$databinding_version"
-
-    // Material Design
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
-
-    //Module
-    api project(path: ':dimen_util')
+    //SSP and SDP
+    api 'com.intuit.sdp:sdp-android:1.0.6'
+    api 'com.intuit.ssp:ssp-android:1.0.6'
 }

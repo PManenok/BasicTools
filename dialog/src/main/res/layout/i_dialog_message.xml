@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="by.esas.tools.recycler.simpleItemAdapter.SimpleItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/i_subcategory_background_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/i_language_title"
+            style="@style/MessageDialogItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_22"
+            android:layout_marginTop="@dimen/spacing_26"
+            android:layout_marginEnd="@dimen/spacing_22"
+            android:layout_marginBottom="@dimen/spacing_26"
+            android:text="@{item.name}"
+            android:textAlignment="@{item.alignment}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Item" />
+
+        <View
+            android:id="@+id/i_language_bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDialogDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:visibilityGone="@{!item.isLast}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

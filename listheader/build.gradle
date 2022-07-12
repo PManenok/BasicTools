@@ -19,8 +19,8 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'by.esas.tools'
-                artifactId = 'dialog'
-                version = "$dialog_lib_version"
+                artifactId = 'listheader'
+                version = "$listheader_lib_version"
             }
             // Creates a Maven publication called “debug”.
             /*debug(MavenPublication) {
@@ -42,31 +42,33 @@ afterEvaluate {
     }
 }
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
+
     buildFeatures {
         dataBinding = true
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         minSdkVersion 16
+        vectorDrawables.useSupportLibrary = true
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "androidx.core:core-ktx:$corektx_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
+
+    // Constraint Layout
+    api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+
     // Material Design
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    api "com.google.android.material:material:$material_version"
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
-
-    //Module
-    api project(path: ':logger')
-    api project(path: ':util')
-    api project(path: ':checker')
-    api project(path: ':recycler')
 }
