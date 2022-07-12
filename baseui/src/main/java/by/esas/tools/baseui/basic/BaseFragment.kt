@@ -19,8 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
 import by.esas.tools.baseui.R
-import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
@@ -51,6 +51,10 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     abstract fun provideSwitchableViews(): List<View?>
 
     abstract fun provideAppContext(): Context
+
+    abstract fun provideRequestKeys(): List<String>
+
+    abstract fun provideFragmentResultListener(requestKey: String): FragmentResultListener?
 
     abstract fun provideErrorHandler(): ErrorHandler<M>
 
@@ -86,6 +90,8 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
             ActivityResultContracts.RequestMultiplePermissions(),
             providePermissionResultCallback()
         )
+
+        setupFragmentResultListeners(provideRequestKeys())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -140,20 +146,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     //region dialogs
 
-    protected open fun showDialog(dialog: BaseDialogFragment?) {
-        logger.logInfo("try to showDialog ${dialog != null}")
-        if (dialog != null) {
-            showDialog(dialog, dialog.TAG)
-        }
-    }
-
-    protected open fun showDialog(dialog: BaseBottomDialogFragment<*>?) {
-        logger.logInfo("try to showDialog ${dialog != null}")
-        if (dialog != null) {
-            showDialog(dialog, dialog.TAG)
-        }
-    }
-
     protected open fun showDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = childFragmentManager.findFragmentByTag(tag)
@@ -168,6 +160,13 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         }
     }
 
+    open fun setupFragmentResultListeners(requestKeys: List<String>) {
+        requestKeys.forEach { key ->
+            provideFragmentResultListener(key)?.let { listener ->
+                childFragmentManager.setFragmentResultListener(key, viewLifecycleOwner, listener)
+            }
+        }
+    }
     //endregion dialogs
 
     //region action

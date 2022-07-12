@@ -1,16 +1,14 @@
 package by.esas.tools.dialog
 
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.checker.Checking
+import by.esas.tools.dialog.MessageDialog.ButtonAppearance
 import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
@@ -52,8 +50,17 @@ import com.google.android.material.button.MaterialButton
  * @see ButtonAppearance
  * @see SimpleItemAdapter
  */
-open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFragment<DfMessageBinding, E, EnumT> {
+open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     override val TAG: String = MessageDialog::class.java.simpleName
+
+    companion object {
+        const val USER_ACTION_POSITIVE_CLICKED: String = "USER_ACTION_POSITIVE_CLICKED"
+        const val USER_ACTION_NEUTRAL_CLICKED: String = "USER_ACTION_NEUTRAL_CLICKED"
+        const val USER_ACTION_NEGATIVE_CLICKED: String = "USER_ACTION_NEGATIVE_CLICKED"
+        const val USER_ACTION_ITEM_PICKED: String = "USER_ACTION_ITEM_PICKED"
+        const val ITEM_POSITION: String = "ITEM_POSITION"
+        const val ITEM_NAME: String = "ITEM_NAME"
+    }
 
     constructor(cancellable: Boolean) : super() {
         isCancelable = cancellable
@@ -79,38 +86,24 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     override fun provideVariableId(): Int = BR.handler
 
-    open fun setDialogCallback(callback: MessageCallback) {
-        this.callback = callback
-    }
-
-    open fun provideCallback(): MessageCallback? {
-        val frag = targetFragment
-        val act = activity
-        return when {
-            frag is MessageCallback -> {
-                frag
-            }
-            act is MessageCallback -> {
-                act
-            }
-            else -> callback
-        }
-    }
-
     //endregion settings methods
 
     //region properties
 
-    protected var callback: MessageCallback? = null
+    protected var titleRes: Int = -1
+    protected var messageRes: Int = -1
+    protected var positiveBtnRes: Int = -1
+    protected var neutralBtnRes: Int = -1
+    protected var negativeBtnRes: Int = -1
+
     protected var items: List<String> = emptyList()
     protected var itemTextAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     protected var adapter: SimpleItemAdapter =
         SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java) { position, item ->
             if (btnEnabled.get()) {
                 disableControls()
-                afterOk = true
+                setItemPickedResult(position, item.name, itemAction)
                 dismiss()
-                provideCallback()?.onItemPicked(position, item.name, itemAction)
                 enableControls()
             }
         }
@@ -127,9 +120,9 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
     var message = ObservableField<String>("")
 
     //At the initiation dialog does not has context yet
-    var positiveBtnText = ObservableField<String>("OK")
-    var neutralBtnText = ObservableField<String>("Cancel")
-    var negativeBtnText = ObservableField<String>("Cancel")
+    var positiveBtnText = ObservableField<String>("")
+    var neutralBtnText = ObservableField<String>("")
+    var negativeBtnText = ObservableField<String>("")
 
     val showTitle = ObservableBoolean(false)
     val showMessage = ObservableBoolean(false)
@@ -152,16 +145,16 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
         outState.putBoolean("btnEnabled", btnEnabled.get())
         outState.putString("positiveAction", positiveAction)
         outState.putString("itemAction", itemAction)
+        outState.putInt("titleRes", titleRes)
+        outState.putInt("messageRes", messageRes)
+        outState.putInt("positiveBtnRes", positiveBtnRes)
+        outState.putInt("neutralBtnRes", neutralBtnRes)
+        outState.putInt("negativeBtnRes", negativeBtnRes)
         outState.putString("title", title.get())
         outState.putString("message", message.get())
         outState.putString("positiveBtnText", positiveBtnText.get())
         outState.putString("neutralBtnText", neutralBtnText.get())
         outState.putString("negativeBtnText", negativeBtnText.get())
-        outState.putBoolean("showPositiveBtn", showPositiveBtn.get())
-        outState.putBoolean("showNeutralBtn", showNeutralBtn.get())
-        outState.putBoolean("showNegativeBtn", showNegativeBtn.get())
-        outState.putBoolean("showTitle", showTitle.get())
-        outState.putBoolean("showMessage", showMessage.get())
         outState.putStringArray("items", items.toTypedArray())
         outState.putInt("textAlignment", itemTextAlignment)
         outState.putInt("title_textAppearance", titleAppearanceResId)
@@ -176,14 +169,13 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
         if (savedInstanceState != null) {
             isCancelable = savedInstanceState.getBoolean("isCancelable", true)
             btnEnabled.set(savedInstanceState.getBoolean("btnEnabled", true))
-            showPositiveBtn.set(savedInstanceState.getBoolean("showPositiveBtn", false))
-            showNeutralBtn.set(savedInstanceState.getBoolean("showNeutralBtn", false))
-            showNegativeBtn.set(savedInstanceState.getBoolean("showNegativeBtn", false))
-            showTitle.set(savedInstanceState.getBoolean("showTitle", false))
-            showMessage.set(savedInstanceState.getBoolean("showMessage", false))
-            showNegativeBtn.set(savedInstanceState.getBoolean("showNegativeBtn", false))
             positiveAction = savedInstanceState.getString("positiveAction", null)
             itemAction = savedInstanceState.getString("itemAction", null)
+            titleRes = savedInstanceState.getInt("titleRes", -1)
+            messageRes = savedInstanceState.getInt("messageRes", -1)
+            positiveBtnRes = savedInstanceState.getInt("positiveBtnRes", -1)
+            neutralBtnRes = savedInstanceState.getInt("neutralBtnRes", -1)
+            negativeBtnRes = savedInstanceState.getInt("negativeBtnRes", -1)
             title.set(savedInstanceState.getString("title", "") ?: "")
             message.set(savedInstanceState.getString("message", "") ?: "")
             positiveBtnText.set(savedInstanceState.getString("positiveBtnText", "") ?: "")
@@ -224,22 +216,9 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
         }
     }
 
-
     //endregion save state methods
 
     //region lifecycle methods
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is MessageCallback) {
-            callback = context
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, R.style.MessageDialogStyle)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -253,25 +232,26 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
         enableControls()
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-    }
-
-    override fun onCancel(dialog: DialogInterface) {
-        logger.logOrder("onCancel")
-        afterOk = true
-        provideCallback()?.onCancelled()
-        super.onCancel(dialog)
-    }
-
     //endregion lifecycle methods
 
     //region helping methods
 
+    override fun styleSettings() {
+        setStyle(STYLE_NO_TITLE, R.style.MessageDialogStyle)
+    }
+
     protected open fun updateScreen() {
         logger.logOrder("updateScreen")
+        if (titleRes != -1) title.set(resources.getString(titleRes))
+        if (messageRes != -1) message.set(resources.getString(messageRes))
+        if (positiveBtnRes != -1) positiveBtnText.set(resources.getString(positiveBtnRes))
+        if (neutralBtnRes != -1) neutralBtnText.set(resources.getString(neutralBtnRes))
+        if (negativeBtnRes != -1) negativeBtnText.set(resources.getString(negativeBtnRes))
+        showTitle.set(!title.get().isNullOrBlank())
         showMessage.set(!message.get().isNullOrBlank())
+        showPositiveBtn.set(!positiveBtnText.get().isNullOrBlank())
+        showNeutralBtn.set(!neutralBtnText.get().isNullOrBlank())
+        showNegativeBtn.set(!negativeBtnText.get().isNullOrBlank())
         updateAdapter()
         hasButtons.set(showPositiveBtn.get() || showNegativeBtn.get() || showNeutralBtn.get())
         showDiv1.set(showNegativeBtn.get() && (showNeutralBtn.get() || showPositiveBtn.get()))
@@ -321,13 +301,11 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     override fun disableControls() {
         super.disableControls()
-        logger.logOrder("disableControls")
         btnEnabled.set(false)
     }
 
     override fun enableControls() {
         super.enableControls()
-        logger.logOrder("enableControls")
         btnEnabled.set(true)
     }
 
@@ -338,27 +316,24 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
     fun onPositiveClick() {
         disableControls()
         logger.logOrder("onPositiveClick")
-        afterOk = true
+        setPositiveClickResult()
         dismiss()
-        provideCallback()?.onPositiveClick(positiveAction)
         enableControls()
     }
 
     fun onNeutralClick() {
         disableControls()
         logger.logOrder("onNeutralClick")
-        afterOk = true
+        setNeutralClickResult()
         dismiss()
-        provideCallback()?.onNeutralClick()
         enableControls()
     }
 
     fun onNegativeClick() {
         disableControls()
         logger.logOrder("onNegativeClick")
-        afterOk = true
+        setNegativeClickResult()
         dismiss()
-        provideCallback()?.onNegativeClick()
         enableControls()
     }
 
@@ -372,9 +347,13 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     open fun setTitle(resId: Int, appearanceResId: Int = -1) {
         logger.logOrder("setTitle resId = $resId appearanceResId = $appearanceResId")
-        if (resId != -1)
-            setTitle(resources.getString(resId), appearanceResId)
-        else setTitle("", appearanceResId)
+        if (resId != -1) {
+            titleRes = resId
+            showTitle.set(true)
+            titleAppearanceResId = appearanceResId
+        } else {
+            setTitle("", appearanceResId)
+        }
     }
 
     open fun setTitle(value: String, appearanceResId: Int = -1) {
@@ -385,9 +364,13 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     open fun setMessage(resId: Int, appearanceResId: Int = -1) {
         logger.logOrder("setMessage resId = $resId appearanceResId = $appearanceResId")
-        if (resId != -1)
-            setMessage(resources.getString(resId), appearanceResId)
-        else setMessage("", appearanceResId)
+        if (resId != -1) {
+            messageRes = resId
+            showMessage.set(true)
+            messageAppearanceResId = appearanceResId
+        } else {
+            setMessage("", appearanceResId)
+        }
     }
 
     open fun setMessage(value: String, appearanceResId: Int = -1) {
@@ -398,9 +381,14 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     open fun setPositiveButton(resId: Int, actionName: String? = null, appearance: ButtonAppearance? = null) {
         logger.logOrder("setPositiveButton resId = $resId; actionName = $actionName")
-        if (resId != -1)
-            setPositiveButton(resources.getString(resId), actionName, appearance)
-        else setPositiveButton("", actionName, appearance)
+        if (resId != -1) {
+            positiveAction = actionName
+            positiveBtnRes = resId
+            showPositiveBtn.set(true)
+            positiveAppearance = appearance
+        } else {
+            setPositiveButton("", actionName, appearance)
+        }
     }
 
     open fun setPositiveButton(value: String, actionName: String? = null, appearance: ButtonAppearance? = null) {
@@ -412,9 +400,13 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     open fun setNeutralButton(resId: Int, appearance: ButtonAppearance? = null) {
         logger.logOrder("setNeutralButton resId = $resId")
-        if (resId != -1)
-            setNeutralButton(resources.getString(resId), appearance)
-        else setNeutralButton("", appearance)
+        if (resId != -1) {
+            neutralBtnRes = resId
+            showNeutralBtn.set(true)
+            neutralAppearance = appearance
+        } else {
+            setNeutralButton("", appearance)
+        }
     }
 
     open fun setNeutralButton(value: String, appearance: ButtonAppearance? = null) {
@@ -425,9 +417,13 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
 
     open fun setNegativeButton(resId: Int, appearance: ButtonAppearance? = null) {
         logger.logOrder("setNegativeButton resId = $resId")
-        if (resId != -1)
-            setNegativeButton(resources.getString(resId), appearance)
-        else setNegativeButton("", appearance)
+        if (resId != -1) {
+            negativeBtnRes = resId
+            showNegativeBtn.set(true)
+            negativeAppearance = appearance
+        } else {
+            setNegativeButton("", appearance)
+        }
     }
 
     open fun setNegativeButton(value: String, appearance: ButtonAppearance? = null) {
@@ -440,18 +436,37 @@ open class MessageDialog<E : Exception, EnumT : Enum<EnumT>> : BindingDialogFrag
         itemTextAlignment = alignment
         itemAction = actionName
         this.items = list
-        updateScreen()
     }
 
     //endregion setters
 
-    interface MessageCallback {
-        fun onPositiveClick(actionName: String? = null) {}
-        fun onNeutralClick() {}
-        fun onNegativeClick() {}
-        fun onCancelled() {}
-        fun onItemPicked(position: Int, item: String, actionName: String?) {}
+    //region result bundle setters
+
+    protected open fun setPositiveClickResult() {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_POSITIVE_CLICKED)
+        positiveAction?.let { resultBundle.putString(DIALOG_ACTION_NAME, it) }
     }
+
+    protected open fun setNeutralClickResult() {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_NEUTRAL_CLICKED)
+    }
+
+    protected open fun setNegativeClickResult() {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_NEGATIVE_CLICKED)
+    }
+
+    protected open fun setItemPickedResult(position: Int, item: String, actionName: String?) {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_ITEM_PICKED)
+        resultBundle.putInt(ITEM_POSITION, position)
+        resultBundle.putString(ITEM_NAME, item)
+        actionName?.let { resultBundle.putString(DIALOG_ACTION_NAME, it) }
+    }
+
+    //endregion result bundle setters
 
     open class ButtonAppearance(
         val textAppearanceResId: Int,

@@ -45,6 +45,8 @@
                     android:id="@+id/f_main_phone_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="@{()->viewModel.onLabelClick()}"
                     android:text="Label"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,6 +85,7 @@
                     android:id="@+id/f_main_add_invoice_currency_click"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:clickable="true"
                     android:onClick="@{()->viewModel.onPhoneCodeClick()}"
                     app:layout_constraintBottom_toBottomOf="@id/f_main_add_invoice_currency_field"
                     app:layout_constraintEnd_toEndOf="@id/f_main_add_invoice_currency_field"
@@ -245,5 +248,15 @@
                     app:inputPrefix="1"
                     app:inputStartDrawable="@drawable/ic_baseline_build_24" />-->
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/a_main_progress"
+            android:layout_width="@dimen/spacing_70"
+            android:layout_height="@dimen/spacing_70"
+            android:visibility="@{viewModel.progressing}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

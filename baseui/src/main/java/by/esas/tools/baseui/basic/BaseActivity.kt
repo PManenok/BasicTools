@@ -18,8 +18,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentResultListener
 import by.esas.tools.baseui.R
-import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
@@ -51,6 +51,16 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
 
     abstract fun provideErrorHandler(): ErrorHandler<M>
 
+    /**
+     * Do not forget to use super call for this method
+     * */
+    abstract fun provideRequestKeys(): List<String>
+
+    /**
+     * You should call super methods for this method to get result listeners from parent classes
+     * */
+    abstract fun provideFragmentResultListener(requestKey: String): FragmentResultListener?
+
     protected open fun provideProgressBar(): View? = null
 
     override fun attachBaseContext(base: Context) {
@@ -64,6 +74,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         logger.setTag(TAGk)
         logger.logInfo("onCreate")
         hideSystemUI()
+        setupFragmentResultListeners(provideRequestKeys())
     }
 
     override fun onStart() {
@@ -97,6 +108,14 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
 
     //region show dialog functionality
 
+    open fun setupFragmentResultListeners(requestKeys: List<String>) {
+        requestKeys.forEach { key ->
+            provideFragmentResultListener(key)?.let { listener ->
+                supportFragmentManager.setFragmentResultListener(key, this, listener)
+            }
+        }
+    }
+
     protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
@@ -108,20 +127,6 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         } else {
             //there is no currently showed dialog fragment with same TAG
             dialog.show(supportFragmentManager, tag)
-        }
-    }
-
-    protected open fun onShowDialog(dialog: BaseDialogFragment?) {
-        logger.logInfo("try to showDialog ${dialog != null}")
-        if (dialog != null) {
-            onShowDialog(dialog, dialog.TAG)
-        }
-    }
-
-    protected open fun onShowDialog(dialog: BaseBottomDialogFragment<*>?) {
-        logger.logInfo("try to showDialog ${dialog != null}")
-        if (dialog != null) {
-            onShowDialog(dialog, dialog.TAG)
         }
     }
 
@@ -276,7 +281,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         logger.showMessage(textId, duration)
     }
 
-    protected open fun enableControls() {
+    protected open fun enableControls(parameters: Bundle? = null) {
         logger.logOrder("enableControls")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null)
@@ -284,7 +289,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         }
     }
 
-    protected open fun disableControls() {
+    protected open fun disableControls(parameters: Bundle? = null) {
         logger.logOrder("disableControls")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null)

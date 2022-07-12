@@ -33,8 +33,8 @@ abstract class StandardViewModel<M : BaseErrorModel>
     override var useCases: MutableList<UseCase<*, *>> = mutableListOf<UseCase<*, *>>()
 
     override val showDialog: MutableLiveData<BaseDialogFragment?> = MutableLiveData<BaseDialogFragment?>(null)
-    override val showBottomDialog: MutableLiveData<BaseBottomDialogFragment<*>?> =
-        MutableLiveData<BaseBottomDialogFragment<*>?>(null)
+    override val showBottomDialog: MutableLiveData<BaseBottomDialogFragment?> =
+        MutableLiveData<BaseBottomDialogFragment?>(null)
 
     abstract fun provideCheckListener(): Checker.CheckListener
 

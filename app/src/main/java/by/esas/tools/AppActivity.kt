@@ -5,6 +5,7 @@ import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.util.TAGk
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -37,18 +38,18 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
 
     override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
         return object : ErrorHandler<ErrorModel>() {
+
             override fun getErrorMessage(error: ErrorModel): String {
-                TODO("Not yet implemented")
+                return "Error message"
             }
 
             override fun getErrorMessage(e: Throwable): String {
-                TODO("Not yet implemented")
+                return "Error message"
             }
 
             override fun mapError(e: Throwable): ErrorModel {
-                TODO("Not yet implemented")
+                return viewModel.provideMapper().mapErrorException(this@AppActivity.TAGk, e)
             }
-
         }
     }
 }

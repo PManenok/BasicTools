@@ -9,11 +9,14 @@ import by.esas.tools.BR
 import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfPasswordBinding
-import by.esas.tools.domain.exception.BaseException
-import by.esas.tools.domain.exception.BaseStatusEnum
 
-class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException>() {
+class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding>() {
     override val TAG: String = GetPasswordDialog::class.java.simpleName
+
+    companion object {
+        const val USER_ACTION_FORGOT_PASSWORD: String = "USER_ACTION_FORGOT_PASSWORD"
+        const val USER_ACTION_COMPLETE_PASSWORD: String = "USER_ACTION_COMPLETE_PASSWORD"
+    }
 
     /* override fun provideLogger(): LoggerImpl {
          return LoggerImpl(TAG)
@@ -38,10 +41,6 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         return null
     }
 
-    fun setPasswordCallback(callback: PasswordCallback) {
-        this.callback = callback
-    }
-
     fun setShowRecreateAuth(value: Boolean) {
         showRecreateView = value
     }
@@ -52,7 +51,6 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
     val password = ObservableField<String>("12345678")
 
     private var showRecreateView: Boolean = false
-    private var callback: PasswordCallback? = null
     private var titleRes: Int = -1
     private var forgotPasswordEnable: Boolean = false
     private var cancelTitleRes: Int = -1
@@ -68,7 +66,7 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
     }
 
     fun onCancelClick() {
-        afterOk = false
+        //resultBundle.putString(DIALOG_USER_ACTION, CANCEL_DIALOG)
         dismiss()
     }
 
@@ -77,8 +75,7 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
     }
 
     fun onForgotPasswordClick() {
-        afterOk = true
-        callback?.onPasswordForgot()
+        setPasswordForgotResult()
         dismiss()
     }
 
@@ -99,6 +96,9 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
                 dismiss()
             }
         }).validate(*validationList.toTypedArray())*/
+        setPasswordCompleteResult(password.get() ?: "", isChecked.get())
+        enableControls()
+        dismiss()
     }
 
     override fun disableControls() {
@@ -125,9 +125,16 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding, BaseException
         //cancelTitleRes = if (resId == -1) R.string.dialog_cancel_btn else resId
     }
 
-    interface PasswordCallback {
-        fun onPasswordComplete(password: String, recreate: Boolean)
-        fun onPasswordForgot()
+    fun setPasswordCompleteResult(password: String, recreate: Boolean) {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_COMPLETE_PASSWORD)
+        resultBundle.putString("PASSWORD", password)
+        resultBundle.putBoolean("RECREATE", recreate)
+    }
+
+    fun setPasswordForgotResult() {
+        resultBundle.clear()
+        resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_FORGOT_PASSWORD)
     }
 
     override fun provideVariableId(): Int {

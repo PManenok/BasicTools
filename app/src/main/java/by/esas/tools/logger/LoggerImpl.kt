@@ -42,6 +42,6 @@ class LoggerImpl : ILogger<ErrorModel> {
 
 
     override fun logCategory(category: String, tag: String, msg: String) {
-        //TODO("Not yet implemented")
+        Log.e(tag, "$category: $msg")
     }
 }

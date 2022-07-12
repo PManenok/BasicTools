@@ -16,8 +16,8 @@ import androidx.databinding.ViewDataBinding
 /**
  * Bottom dialog fragment that uses data binding, with custom state callback, disabling and enabling functions, showing and hiding progress
  * */
-abstract class BindingBottomDialogFragment<B : ViewDataBinding, E : Exception>() :
-    BaseBottomDialogFragment<E>() {
+abstract class BindingBottomDialogFragment<B : ViewDataBinding>() :
+    BaseBottomDialogFragment() {
     /**
      * This property holds [ViewDataBinding] instance for this dialog fragment.
      * It is set in [onCreateView] methods.

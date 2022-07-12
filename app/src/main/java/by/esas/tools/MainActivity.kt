@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowInsetsController
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
+import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.IRequestFocusHandler
@@ -15,6 +16,10 @@ import by.esas.tools.checker.checks.LengthCheck
 import by.esas.tools.checking.AppChecker
 import by.esas.tools.checking.FieldChecking
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog.BaseDialogFragment.Companion.DIALOG_USER_ACTION
+import by.esas.tools.dialog.GetPasswordDialog
+import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.error_mapper.AppErrorStatusEnum
 import by.esas.tools.logger.BaseErrorModel
@@ -23,6 +28,7 @@ import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.usecase.GetDefaultCardUseCase
 import by.esas.tools.util.SettingsProvider
+import by.esas.tools.util.TAGk
 import by.esas.tools.util.hideSystemUIR
 import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjection
@@ -39,7 +45,7 @@ import kotlinx.coroutines.Dispatchers
  *         super.onAttach(context)
  *     }
  */
-class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
+class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultListener {
 
     override var logger: ILogger<ErrorModel> = LoggerImpl()
 
@@ -163,24 +169,9 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         }
     }
 
-    fun testError() {
-        val uc = GetDefaultCardUseCase(
-            AppErrorMapper(Moshi.Builder().build(), LoggerImpl()),
-            Dispatchers.Main
-        )
-        uc.execute {
-            onComplete {
-
-            }
-            onError {
-                it.statusEnum
-            }
-            onCancel {
-
-            }
-        }
-        val model = BaseErrorModel(0, AppErrorStatusEnum.APP_UNPREDICTED_ERROR.name)
-        model.statusEnum
+    override fun onStart() {
+        super.onStart()
+        viewModel.testError()
     }
 
     override fun hideSystemUI() {
@@ -198,5 +189,27 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     override fun provideSwitchableViews(): List<View?> {
         return emptyList()
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        logger.logInfo("onFragmentResult $requestKey, $result")
+        if (result.getBoolean(BaseDialogFragment.ENABLING_ON_DISMISS)) {
+            viewModel.enableControls()
+        }
+    }
+
+    override fun provideRequestKeys(): List<String> {
+        val set = mutableSetOf(MessageDialog::class.TAGk, GetPasswordDialog::class.TAGk)
+        set.addAll(super.provideRequestKeys())
+        return set.toList()
+    }
+
+    override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
+        //here we want to use super.provideFragmentResultListener for request keys from parent this behavior is optional
+        return if (requestKey in super.provideRequestKeys()) {
+            super.provideFragmentResultListener(requestKey)
+        } else {
+            this
+        }
     }
 }

@@ -28,6 +28,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     open val TAG: String = BaseDialogFragment::class.java.simpleName
 
     companion object {
+        const val DIALOG_ACTION_NAME: String = "DIALOG_ACTION_NAME"
         const val ENABLING_ON_DISMISS: String = "ENABLING_ON_DISMISS"
         const val DIALOG_USER_ACTION: String = "DIALOG_USER_ACTION"
         const val CANCEL_DIALOG: String = "CANCEL_DIALOG"
@@ -135,8 +136,8 @@ abstract class BaseDialogFragment : DialogFragment() {
      * Override parent onDismiss method and [setDismissResult]
      * */
     override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
         setDismissResult()
+        super.onDismiss(dialog)
         logger.logInfo("onDismiss")
     }
 
@@ -174,11 +175,19 @@ abstract class BaseDialogFragment : DialogFragment() {
         parentFragmentManager.setFragmentResult(dialogRequestKey, bundle)
     }
 
+    /**
+     * When you use this method be sure that it is called before dialog is sent to showing method in view model
+     * otherwise you will need to additionally set fragment result listener with according request key in activity or fragment
+     * */
     open fun setRequestKey(requestKey: String) {
         logger.logOrder("setRequestKey $requestKey")
         dialogRequestKey = requestKey
     }
 
+    /**
+     * When you use this method be sure that it is called before dialog is sent to showing method in view model
+     * otherwise you will need to additionally set according request
+     * */
     open fun getRequestKey(): String {
         return dialogRequestKey
     }

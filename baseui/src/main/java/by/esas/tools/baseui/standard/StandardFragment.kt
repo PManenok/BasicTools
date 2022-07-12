@@ -8,8 +8,11 @@ package by.esas.tools.baseui.standard
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
+import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseActivity
 import by.esas.tools.baseui.interfaces.navigating.IHandlePopBackArguments
 import by.esas.tools.baseui.interfaces.navigating.NavAction
@@ -17,8 +20,11 @@ import by.esas.tools.baseui.interfaces.navigating.PopBackAction
 import by.esas.tools.baseui.mvvm.DataBindingFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
+import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.handler.ShowErrorType
 
 abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel>
     : DataBindingFragment<VM, B, M>() {
@@ -53,13 +59,38 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
 
     open fun setupDialogsObservers() {
         viewModel.showDialog.observe(viewLifecycleOwner, Observer { dialog ->
-            showDialog(dialog)
-            viewModel.showDialog.postValue(null)
+            logger.logInfo("try to showDialog ${dialog != null}")
+            if (dialog != null) {
+                showDialog(dialog, dialog.TAG)
+                viewModel.showDialog.postValue(null)
+            }
         })
         viewModel.showBottomDialog.observe(viewLifecycleOwner, Observer { dialog ->
-            showDialog(dialog)
-            viewModel.showBottomDialog.postValue(null)
+            logger.logInfo("try to showBottomDialog ${dialog != null}")
+            if (dialog != null) {
+                showDialog(dialog, dialog.TAG)
+                viewModel.showBottomDialog.postValue(null)
+            }
         })
+    }
+
+    override fun provideRequestKeys(): List<String> {
+        return listOf(ERROR_MESSAGE_DIALOG)
+    }
+
+    override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
+        return if (requestKey == ERROR_MESSAGE_DIALOG) {
+            FragmentResultListener { key, result ->
+                val actionName = result.getString(BaseDialogFragment.DIALOG_ACTION_NAME)
+                if (actionName.isNullOrBlank()) {
+                    enableIfNeeded(result)
+                } else {
+                    viewModel.handleAction(Action(actionName, result))
+                }
+            }
+        } else {
+            null
+        }
     }
 
     //endregion setup observers
@@ -86,6 +117,28 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
             }
         }
         return true
+    }
+
+    protected override fun showError(msg: String, showType: String, action: Action?) {
+        hideProgress()
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING.name -> enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
+                val dialog = MessageDialog(false).apply {
+                    setRequestKey(ERROR_MESSAGE_DIALOG)
+                    setTitle(R.string.base_ui_error_title)
+                    setMessage(msg)
+                    setPositiveButton(R.string.base_ui_common_ok_btn, action?.name)
+                }
+                showDialog(dialog, dialog.TAG)
+            }
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
+                showMessage(msg)
+                if (action != null)
+                    handleAction(action)
+                enableControls()
+            }
+        }
     }
 
     protected open fun onCheckFields(params: Bundle?) {
@@ -139,4 +192,10 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     //endregion handle action (navigation, popback, checking fields and language change)
+
+    protected open fun enableIfNeeded(bundle: Bundle) {
+        if (bundle.getBoolean(BaseDialogFragment.ENABLING_ON_DISMISS, false)) {
+            viewModel.enableControls()
+        }
+    }
 }

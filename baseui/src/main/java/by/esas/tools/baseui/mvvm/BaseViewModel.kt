@@ -95,20 +95,22 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
      * Block possibility to interact with UI (buttons, fields end etc. if other is not set)
      * Also shows progress and requests disable action
      */
-    open fun disableControls() {
+    open fun disableControls(sendAction: Boolean = true) {
         logger.logOrder("disableControls")
         showProgress()
         controlsEnabled.postValue(false)
-        action.postValue(Action(Action.ACTION_DISABLE_CONTROLS))
+        if (sendAction)
+            action.postValue(Action(Action.ACTION_DISABLE_CONTROLS))
     }
 
     /**
      * Return possibility to interact with UI (buttons, fields end etc. if other is not set)
      * Also hides progress and requests enable action
      */
-    open fun enableControls() {
+    open fun enableControls(sendAction: Boolean = true) {
         logger.logOrder("enableControls")
-        action.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
+        if (sendAction)
+            action.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
         controlsEnabled.postValue(true)
         hideProgress()
     }

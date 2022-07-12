@@ -64,4 +64,14 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
         }
         return true
     }
+
+    protected override fun enableControls(parameters: Bundle?) {
+        super.enableControls(parameters)
+        viewModel.enableControls(false)
+    }
+
+    protected override fun disableControls(parameters: Bundle?) {
+        viewModel.disableControls(false)
+        super.disableControls(parameters)
+    }
 }

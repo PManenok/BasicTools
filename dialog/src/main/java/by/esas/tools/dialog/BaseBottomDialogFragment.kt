@@ -16,6 +16,7 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
+import by.esas.tools.util.TAGk
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,26 +24,25 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 /**
  * Base bottom dialog fragment with custom state callback, disabling and enabling functions, showing and hiding progress
  * */
-abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragment() {
+abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     open val TAG: String = BaseBottomDialogFragment::class.java.simpleName
 
-    /**
-     * Flag for StateCallback, which means that dialog was dismissed after some dialog actions
-     * For example after another successful callback like anotherCallback.onOkClick()
-     * */
-    protected var afterOk: Boolean = false
+    companion object {
+        const val DIALOG_ACTION_NAME: String = "DIALOG_ACTION_NAME"
+        const val ENABLING_ON_DISMISS: String = "ENABLING_ON_DISMISS"
+        const val DIALOG_USER_ACTION: String = "DIALOG_USER_ACTION"
+        const val CANCEL_DIALOG: String = "CANCEL_DIALOG"
+        const val DISMISS_DIALOG: String = "DISMISS_DIALOG"
+    }
+
+    protected val defaultRequestKey: String = TAGk
+    protected var dialogRequestKey: String = defaultRequestKey
+    protected var resultBundle: Bundle = Bundle()
 
     /**
-     * StateCallback will call after dialog dismiss or which means that dialog was dismissed after some dialog actions
-     * For example after another successful callback like anotherCallback.onOkClick()
+     * Flag that shows if parent should enable controls when user returns from this dialog
      * */
-    protected var stateCallback: StateCallback<E>? = null
-
-    /**
-     * Flag that shows if provided StateCallback should be able to enable controls in this dialog holder
-     * @see StateCallbackProvider
-     * */
-    protected open val enablingStateCallback: Boolean = false
+    protected open var enablingControlsOnDismiss: Boolean = false
 
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
@@ -91,6 +91,8 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
      **/
     abstract fun provideProgressBar(): View?
 
+    //region lifecycle methods
+
     /**
      * Override parents onCreate method
      * Explicitly sets logger tag and invoke [styleSettings] method
@@ -112,15 +114,6 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
             behavior = dialog.behavior
         }
         return dialog
-    }
-
-    /**
-     * Override parents onDismiss method and send dismiss event to [StateCallback]
-     * */
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        provideStateCallback()?.onDismiss(afterOk)
-        logger.logInfo("onDismiss")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -159,8 +152,64 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
         logger.logInfo("onDestroyView")
     }
 
-    fun setCallbackForState(callback: StateCallback<E>?) {
-        this.stateCallback = callback
+    /**
+     * Override parent onDismiss method and [setDismissResult]
+     * */
+    override fun onDismiss(dialog: DialogInterface) {
+        setDismissResult()
+        super.onDismiss(dialog)
+        logger.logInfo("onDismiss")
+    }
+
+    /**
+     * Override parent onCancel method and set [DIALOG_USER_ACTION] in [resultBundle] to [CANCEL_DIALOG]
+     * */
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        resultBundle.putString(DIALOG_USER_ACTION, CANCEL_DIALOG)
+        logger.logInfo("onCancel")
+    }
+
+    //endregion lifecycle methods
+
+    /**
+     * This method prepares bundle for sending result back to fragment manager where this dialog was showed.
+     * [resultBundle] should be already set before [onDismiss] was called, otherwise result will be lost.
+     * Also be careful to set [DIALOG_USER_ACTION] parameter into [resultBundle], if it would not be set,
+     * it will automatically clear resultBundle and set DIALOG_USER_ACTION to [DISMISS_DIALOG] value.
+     * */
+    protected open fun setDismissResult() {
+        logger.logOrder("setDismissResult")
+        val userAction: String = if (resultBundle.containsKey(DIALOG_USER_ACTION)) {
+            resultBundle.getString(DIALOG_USER_ACTION, "")
+        } else {
+            resultBundle.clear()
+            resultBundle.putString(DIALOG_USER_ACTION, DISMISS_DIALOG)
+            DISMISS_DIALOG
+        }
+        logger.logInfo("userAction $userAction; enablingControls $enablingControlsOnDismiss; result size ${resultBundle.size()}")
+
+        val bundle = Bundle()
+        bundle.putAll(resultBundle)
+        bundle.putBoolean(ENABLING_ON_DISMISS, enablingControlsOnDismiss)
+        parentFragmentManager.setFragmentResult(dialogRequestKey, bundle)
+    }
+
+    open fun setRequestKey(requestKey: String) {
+        logger.logOrder("setRequestKey $requestKey")
+        dialogRequestKey = requestKey
+    }
+
+    open fun getRequestKey(): String {
+        return dialogRequestKey
+    }
+
+    /**
+     * Set flag that should be returned along with result to parentFragmentManager
+     * */
+    open fun setEnableControlsOnDismiss(value: Boolean) {
+        logger.logOrder("setEnableControlsOnDismiss $value")
+        enablingControlsOnDismiss = value
     }
 
     /**
@@ -180,27 +229,6 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
     }
 
     /**
-     * Provide [StateCallback]
-     * If it is possible, get callback from [targetFragment][androidx.fragment.app.Fragment.getTargetFragment]
-     * or from [getActivity][androidx.fragment.app.Fragment.getActivity] if one of them is instance of [StateCallbackProvider]
-     * targetFragment has advantage, then goes activity, and if both aren't StateCallbackProvider instances method would provide [stateCallback]
-     * which can be null
-     * */
-    protected open fun provideStateCallback(): StateCallback<out Exception>? {
-        val frag = targetFragment
-        val act = activity
-        return when {
-            frag is StateCallbackProvider<*> -> {
-                frag.provideStateCallback(enablingStateCallback)
-            }
-            act is StateCallbackProvider<*> -> {
-                act.provideStateCallback(enablingStateCallback)
-            }
-            else -> stateCallback
-        }
-    }
-
-    /**
      * Method makes all views provided by [provideSwitchableList] method disabled which means that they ignore interaction
      * @see SwitchManager [switcher] is responsible for views disabling, so it can handle disable action for each view class type in different way
      * For example: button clickable flag can be set to false
@@ -209,6 +237,7 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
      * Should be used in pair with [enableControls] method, otherwise all views would be blocked until enableControls invocation
      */
     protected open fun disableControls() {
+        logger.logOrder("disableControls")
         showProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.disableView(view)
@@ -225,6 +254,7 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
      * otherwise all views would be blocked until enableControls invocation
      * */
     protected open fun enableControls() {
+        logger.logOrder("enableControls")
         hideProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.enableView(view)
@@ -236,6 +266,7 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
      * @see disableControls
      * */
     protected open fun showProgress() {
+        logger.logOrder("showProgress")
         provideProgressBar()?.visibility = View.VISIBLE
     }
 
@@ -244,6 +275,7 @@ abstract class BaseBottomDialogFragment<E : Exception> : BottomSheetDialogFragme
      * @see enableControls
      * */
     protected open fun hideProgress() {
+        logger.logOrder("hideProgress")
         provideProgressBar()?.visibility = View.INVISIBLE
     }
 }
