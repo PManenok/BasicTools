@@ -100,7 +100,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
     protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
-        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*>
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment
             && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
             && !prevWithSameTag.isRemoving
         ) {
@@ -111,7 +111,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         }
     }
 
-    protected open fun onShowDialog(dialog: BaseDialogFragment<*>?) {
+    protected open fun onShowDialog(dialog: BaseDialogFragment?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             onShowDialog(dialog, dialog.TAG)

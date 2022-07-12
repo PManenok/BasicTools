@@ -24,7 +24,7 @@ import by.esas.tools.util.TAGk
  * To make dialog full screen override [layoutSettings] method and set both params in [android.view.Window.setLayout] as [ViewGroup.LayoutParams.MATCH_PARENT]
  * and don't forget to set [androidx.fragment.app.DialogFragment.STYLE_NO_FRAME] style in the [styleSettings] method to remove extra padding
  * */
-abstract class BaseDialogFragment<E : Exception> : DialogFragment() {
+abstract class BaseDialogFragment : DialogFragment() {
     open val TAG: String = BaseDialogFragment::class.java.simpleName
 
     companion object {
@@ -33,13 +33,6 @@ abstract class BaseDialogFragment<E : Exception> : DialogFragment() {
         const val CANCEL_DIALOG: String = "CANCEL_DIALOG"
         const val DISMISS_DIALOG: String = "DISMISS_DIALOG"
     }
-
-    /**
-     * Flag, which means that dialog was dismissed after some functional user actions,
-     * so dialog solved his purpose
-     * For example, after user clicks on "OK" button
-     * */
-    protected var dismissCorrectly: Boolean = true
 
     protected val defaultRequestKey: String = TAGk
     protected var dialogRequestKey: String = defaultRequestKey

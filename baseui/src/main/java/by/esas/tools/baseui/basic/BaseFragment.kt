@@ -140,7 +140,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     //region dialogs
 
-    protected open fun showDialog(dialog: BaseDialogFragment<*>?) {
+    protected open fun showDialog(dialog: BaseDialogFragment?) {
         logger.logInfo("try to showDialog ${dialog != null}")
         if (dialog != null) {
             showDialog(dialog, dialog.TAG)
@@ -157,7 +157,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     protected open fun showDialog(dialog: DialogFragment, tag: String) {
         logger.logInfo("try to showDialog $tag")
         val prevWithSameTag: Fragment? = childFragmentManager.findFragmentByTag(tag)
-        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment<*>
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment
             && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
             && !prevWithSameTag.isRemoving
         ) {
