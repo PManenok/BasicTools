@@ -9,6 +9,7 @@
         <attr name="inputClickViewEnabled" format="boolean" />
         <attr name="inputIsChecked" format="boolean" />
         <attr name="inputIsPasswordChecked" format="boolean" />
+        <attr name="inputIsEnableable" format="boolean" />
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -23,6 +24,7 @@
         <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
+        <attr name="inputLabelColorWithError" format="boolean"/>
 
         <!--Input Text-->
         <attr name="inputEditTextStyle" format="reference" />
@@ -59,6 +61,7 @@
             <!-- The view will display a progress bar. -->
             <enum name="progress" value="3" />
         </attr>
+        <attr name="inputStartIconColorWithError" format="boolean"/>
 
         <!--End Icon-->
         <attr name="inputEndDrawable" format="reference" />
@@ -74,7 +77,10 @@
             <enum name="clear_text" value="2" />
             <!-- The view will display a toggle that displays/hides a check box. -->
             <enum name="checkable" value="3" />
+            <!-- The view will display end icon in error mode. -->
+            <enum name="error" value="4" />
         </attr>
+        <attr name="inputEndIconColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
@@ -87,6 +93,7 @@
         <attr name="inputErrorTextStyle" format="reference" />
         <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
+        <attr name="inputErrorTextColorWithError" format="boolean"/>
 
         <!--Box-->
         <attr name="inputInactiveStrokeColor" format="color" />
@@ -94,6 +101,15 @@
         <attr name="inputBoxBgColor" format="color" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
+        <attr name="inputStrokeErrorColor" format="color"/>
+        <attr name="inputBoxVisibility">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0" />
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1" />
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="BoxView">

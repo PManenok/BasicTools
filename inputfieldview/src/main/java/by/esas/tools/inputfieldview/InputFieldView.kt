@@ -13,7 +13,9 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.KeyListener
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.util.Log
@@ -62,7 +64,7 @@ open class InputFieldView : ConstraintLayout {
         const val LABEL_TYPE_ON_TOP_NO_START: Int = 5
     }
 
-    /*################ Views ################*/
+    /*region ################ Views ################*/
     var inputText: EditText? = null
     var prefixTextView: TextView? = null
     var errorTextView: TextView? = null
@@ -81,22 +83,37 @@ open class InputFieldView : ConstraintLayout {
     protected var startContainer: FrameLayout? = null
     protected var progressBar: ProgressBar? = null
     protected var endContainer: FrameLayout? = null
-    /*################ Views END ################*/
+    /*endregion ################ Views END ################*/
 
-    /*################ Parameters ################*/
+    /*region ################ Parameters ################*/
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
+    protected open var hideErrorText: Boolean = true
+    /**
+     * A variable shows whether the [inputText] will be enable or disable all the time.
+     * If [inputIsEnableable] is false, then [inputText] will not be enabled
+     * after the InputFieldView will be enabled in [enableView] method
+     */
+    protected open var inputIsEnableable: Boolean = true
 
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
-    protected open val defaultErrorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
-    protected open val defaultHelpColor: Int = ContextCompat.getColor(context, R.color.colorInputHelp)
-    protected open val defaultStrokeColor: Int = ContextCompat.getColor(context, R.color.colorTextHint)
-    protected open val defaultFocusedStrokeColor: Int = ContextCompat.getColor(context, R.color.colorStrokeOutline)
+    protected open val defaultErrorColor: Int =
+        ContextCompat.getColor(context, R.color.colorInputError)
+    protected open val defaultHelpColor: Int =
+        ContextCompat.getColor(context, R.color.colorInputHelp)
+    protected open val defaultStrokeColor: Int =
+        ContextCompat.getColor(context, R.color.colorTextHint)
+    protected open val defaultFocusedStrokeColor: Int =
+        ContextCompat.getColor(context, R.color.colorStrokeOutline)
     protected open val defaultBoxBgColor: Int = Color.TRANSPARENT
     protected open val defaultStrokeRadiusInPx: Int = dpToPx(4).toInt()
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
+
+    /**
+     * A variable indicates whether the stroke and error colors will match on error mode by default
+     */
     protected open val defaultPaddingTopInPx: Int = dpToPx(12).toInt()
     protected open val defaultPaddingBottomInPx: Int = dpToPx(12).toInt()
     protected open val defaultIsWrap: Boolean = false
@@ -107,17 +124,25 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultMinHeight: Int = context.resources
         .getDimensionPixelSize(R.dimen.input_edit_text_default_min_height)
     protected open val defaultIconsPadding: Int = dpToPx(4).roundToInt()
+    protected open val defaultInputBoxVisibility: Int = View.VISIBLE
 
     protected open var errorDrawableRes: Int = R.drawable.ic_input_field_error_24
     protected open var errorColor: Int = ContextCompat.getColor(context, R.color.colorInputError)
     protected open var helpColor: Int = ContextCompat.getColor(context, R.color.colorInputHelp)
     protected open var strokeColor: Int = ContextCompat.getColor(context, R.color.colorTextHint)
-    protected open var focusedStrokeColor: Int = ContextCompat.getColor(context, R.color.colorStrokeOutline)
+    protected open var focusedStrokeColor: Int =
+        ContextCompat.getColor(context, R.color.colorStrokeOutline)
     protected open var boxBgColor: Int = Color.TRANSPARENT
     protected open var strokeRadiusInPx: Float = dpToPx(4)
     protected open var strokeWidthInPx: Float = dpToPx(1)
+    protected open var strokeErrorColor: Int = errorColor
+    protected open var strokeColorWithError = true
     protected open var paddingTopInPx: Int = dpToPx(12).toInt()
     protected open var paddingBottomInPx: Int = dpToPx(12).toInt()
+
+    /**
+     * A variable indicates that inputText and editTextContainer have wrap content width
+     */
     protected open var isWrap: Boolean = false
     protected open var hideErrorIcon: Boolean = false
     protected open var checkBoxToggle: Int = R.drawable.selector_input_filed_check_box_toggle
@@ -131,6 +156,15 @@ open class InputFieldView : ConstraintLayout {
     protected var labelMaxLines: Int = Integer.MAX_VALUE
     protected var labelExtraTopMargin: Int = 0
     protected var currentLabelType: Int = LABEL_TYPE_ON_LINE
+    protected val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
+        return@OnPreDrawListener labelOnPreDraw()
+    }
+    protected var labelStyleId: Int = -1
+
+    /**
+     * A variable that indicates whether the label and error colors will match on error mode
+     */
+    protected var labelColorWithError = false
 
     //StartIcon
     var startIconClickListener: IconClickListener? = null
@@ -139,40 +173,44 @@ open class InputFieldView : ConstraintLayout {
     protected var startDrawable: Drawable? = null
     protected open val defaultStartIconMode: Int = START_ICON_NONE
     protected var beforeProgressMode: Int = START_ICON_NONE
-    private var startIconMode: Int = START_ICON_NONE
+    protected var startIconMode: Int = START_ICON_NONE
+
+    /**
+     * A variable that indicates whether the start icon and error colors will match on error mode
+     */
+    protected var startIconColorWithError = false
 
     //End icon
     var endIconClickListener: IconClickListener? = null
     var endCheckedListener: IconCheckedListener? = null
     var passwordCheckedListener: IconCheckedListener? = null
     protected open val defaultEndIconMode: Int = END_ICON_NONE
-    protected open val defaultPasswordToggleRes: Int = R.drawable.selector_input_filed_password_toggle
-    protected var endTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
+    protected open val defaultPasswordToggleRes: Int =
+        R.drawable.selector_input_filed_password_toggle
     protected var endDrawable: Drawable? = null
+    protected var endTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
     protected var passwordToggleRes: Int = R.drawable.selector_input_filed_password_toggle
     protected var previousEndIconMode: Int = END_ICON_NONE
-    private var endIconMode: Int = END_ICON_NONE
+    protected var endIconMode: Int = END_ICON_NONE
+
+    /**
+     * A variable indicates whether the end icon and error colors will match on error mode
+     */
+    protected var endIconColorWithError = false
 
     //Bottom text
     protected open val defaultShowBottomContainer: Boolean = true
     protected var showBottomContainer: Boolean = false
-    private var hasErrorText: Boolean = false
-    private var hasHelpText: Boolean = false
-    /*################ Parameters END ################*/
+    protected var hasErrorText: Boolean = false
 
-    protected val labelPreDrawListener = ViewTreeObserver.OnPreDrawListener {
-        return@OnPreDrawListener labelOnPreDraw()
-    }
+    /**
+     * A variable indicates whether the error text and error colors will match on error mode
+     */
+    protected var errorTextColorWithError = true
+    protected var hasHelpText: Boolean = false
+    /*endregion ################ Parameters END ################*/
 
-    /*############################ Icons Click Listeners ################################*/
-    protected open val clearTextClickListener: IconClickListener = object : IconClickListener {
-        override fun onIconClick() {
-            inputText?.setText("")
-            if (endIconMode == END_ICON_CLEAR_TEXT) {
-                endIconView?.visibility = View.INVISIBLE
-            }
-        }
-    }
+    /*region ############################ Icons Click Listeners ################################*/
     protected open val endCheckClickListener: CompoundButton.OnCheckedChangeListener =
         CompoundButton.OnCheckedChangeListener { _, isChecked ->
             endCheckedListener?.onCheckChanged(isChecked)
@@ -192,15 +230,18 @@ open class InputFieldView : ConstraintLayout {
             }
             passwordCheckedListener?.onCheckChanged(isChecked)
         }
-    /*############################ Icons Click Listeners End ################################*/
 
-    /*############################ TextListener ################################*/
-    protected var textListener: TextListener? = null
+    /*endregion ############################ Icons Click Listeners End ################################*/
+
+    /*region ############################ TextWatcher ################################*/
     protected open val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            textListener?.onTextChanged(s.toString())
+            if (hasErrorText && hideErrorText) {
+                setError(null)
+            }
             if (endIconMode == END_ICON_CLEAR_TEXT) {
-                endIconView?.visibility = if (s?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
+                endIconView?.visibility =
+                    if (s?.isNotEmpty() == true) View.VISIBLE else View.INVISIBLE
             } else if (endIconMode == END_ICON_ERROR && previousEndIconMode == END_ICON_CLEAR_TEXT) {
                 if (s?.isNotEmpty() == true) {
                     setEndIconAsClear()
@@ -216,10 +257,9 @@ open class InputFieldView : ConstraintLayout {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
     }
-    /*############################ TextListener End ################################*/
+    /*endregion ############################ TextWatcher End ################################*/
 
-
-    /*############################ Constructors ################################*/
+    /*region ############################ Constructors ################################*/
     constructor(context: Context) : super(context) {
         initialSetting()
     }
@@ -242,105 +282,9 @@ open class InputFieldView : ConstraintLayout {
         initAttrs(attrs)
     }
 
-    /*############################ Constructors End ################################*/
+    /*endregion ############################ Constructors End ################################*/
 
-    open fun isChecked(value: Boolean) {
-        if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked = value
-        if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isChecked(): Boolean {
-        return when {
-            startIconMode == START_ICON_CHECKABLE -> startCheckBox?.isChecked ?: false
-            endIconMode == END_ICON_CHECKABLE -> endCheckBox?.isChecked ?: false
-            else -> false
-        }
-    }
-
-    open fun isPasswordToggleChecked(value: Boolean) {
-        if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isPasswordToggleChecked(): Boolean {
-        return if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false
-        else false
-    }
-
-    open fun setInputClickViewEnabled(value: Boolean) {
-        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
-    }
-
-    open fun getInputClickViewEnabled(): Boolean {
-        return inputClickView?.visibility == View.VISIBLE
-    }
-
-    open fun setIconsSize(iconsSize: Int, iconsPadding: Int) {
-        val size: Int = if (iconsSize == 0) dpToPx(32).roundToInt() else iconsSize
-        val startParams = startContainer?.layoutParams
-        val endParams = endContainer?.layoutParams
-        if (startParams != null && (startParams.width != size || startParams.height != size)) {
-            startParams.width = iconsSize
-            startParams.height = iconsSize
-            startContainer?.layoutParams = startParams
-        }
-        if (endParams != null && (endParams.width != size || endParams.height != size)) {
-            endParams.width = iconsSize
-            endParams.height = iconsSize
-            endContainer?.layoutParams = endParams
-        }
-        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
-        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
-    }
-
-    open fun setDefaultValues() {
-        isWrap = defaultIsWrap
-        showBottomContainer = defaultShowBottomContainer
-        errorDrawableRes = defaultErrorDrawableRes
-        errorColor = defaultErrorColor
-        strokeColor = defaultStrokeColor
-        focusedStrokeColor = defaultFocusedStrokeColor
-        boxBgColor = defaultBoxBgColor
-        strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
-        strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
-        labelMaxLines = defaultLabelMaxLines
-        editTextMinHeight = defaultMinHeight
-        checkBoxToggle = defaultCheckBoxToggle
-        passwordToggleRes = defaultPasswordToggleRes
-        paddingTopInPx = defaultPaddingTopInPx
-        paddingBottomInPx = defaultPaddingBottomInPx
-        startTint = defaultIconsTint
-        endTint = defaultIconsTint
-        labelExtraTopMargin = defaultLabelExtraTopMargin
-
-        inputClickView?.visibility = View.INVISIBLE
-        inputText?.apply {
-            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
-        }
-        prefixTextView?.apply {
-            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
-        }
-        setIconsSize(0, defaultIconsPadding)
-        setLabelType()
-        setInputLabel("")
-        setInputPrefix("")
-        inputText?.apply {
-            inputType = defaultInputType
-            isEnabled = true
-            setText("")
-            hint = ""
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                textDirection = View.TEXT_DIRECTION_ANY_RTL
-            }
-        }
-        setMaxLines(1)
-        setHelp(null)
-        setError(null)
-        setStartIconMode()
-        setEndIconMode()
-        boxSettings()
-    }
-
-    /*############### Label settings ################*/
+    /*region ############### Label settings ################*/
     open fun hideLabel() {
         labelText?.let { label ->
             label.background = null
@@ -391,13 +335,15 @@ open class InputFieldView : ConstraintLayout {
         labelText?.let { label ->
             when (currentLabelType) {
                 LABEL_TYPE_ON_TOP, LABEL_TYPE_ON_TOP_MULTI, LABEL_TYPE_ON_TOP_NO_START -> {
-                    label.maxLines = if (currentLabelType != LABEL_TYPE_ON_TOP_MULTI) 1 else labelMaxLines
+                    label.maxLines =
+                        if (currentLabelType != LABEL_TYPE_ON_TOP_MULTI) 1 else labelMaxLines
                     label.visibility = View.VISIBLE
                     //label.background = null
                     label.invalidate()
                 }
                 LABEL_TYPE_ON_LINE, LABEL_TYPE_ON_LINE_MULTI -> {
-                    label.maxLines = if (currentLabelType != LABEL_TYPE_ON_LINE_MULTI) 1 else labelMaxLines
+                    label.maxLines =
+                        if (currentLabelType != LABEL_TYPE_ON_LINE_MULTI) 1 else labelMaxLines
                     label.visibility = View.VISIBLE
                     //label.setBackgroundColor(labelBg)
                     label.invalidate()
@@ -409,10 +355,24 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    /*############### Label settings END ################*/
 
+    open fun setLabelColorWithErrorValue(value: Boolean) {
+        labelColorWithError = value
+    }
 
-    /*############### Prefix settings ################*/
+    protected open fun setLabelColor(color: Int) {
+        labelText?.setTextColor(color)
+    }
+
+    open fun setLabelStyle(styleId: Int) {
+        if (styleId != -1) {
+            labelStyleId = styleId
+            labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
+        }
+    }
+    /*endregion ############### Label settings END ################*/
+
+    /*region ############### Prefix settings ################*/
     open fun setInputPrefix(prefix: String) {
         prefixTextView?.text = prefix
     }
@@ -420,10 +380,14 @@ open class InputFieldView : ConstraintLayout {
     open fun getTextWithPrefix(): String {
         return prefixTextView?.text?.toString() ?: "" + inputText?.text?.toString() ?: ""
     }
-    /*############### Prefix settings END ################*/
 
+    open fun setPrefixStyle(styleId: Int) {
+        if (styleId != -1)
+            prefixTextView?.apply { TextViewCompat.setTextAppearance(this, styleId) }
+    }
+    /*endregion ############### Prefix settings END ################*/
 
-    /*############### Input settings ################*/
+    /*region ############### Input settings ################*/
     open fun setText(text: String?) {
         if (!(inputText?.text?.toString() ?: "").equals(text ?: "")) {
             inputText?.setText(text)
@@ -434,16 +398,64 @@ open class InputFieldView : ConstraintLayout {
         return inputText?.text?.toString() ?: ""
     }
 
-    open fun setInputFieldTextListener(listener: TextListener?) {
-        textListener = listener
+    open fun clearInputText(){
+        inputText?.setText("")
+        if (endIconMode == END_ICON_CLEAR_TEXT)
+            endIconView?.visibility = View.INVISIBLE
     }
 
-    open fun isEditable(value: Boolean) {
-        inputText?.isEnabled = value
+    open fun setInputIsEnableableValue(value: Boolean){
+        inputIsEnableable = value
     }
 
-    open fun isEditable(): Boolean {
-        return inputText?.isEnabled ?: false
+    open fun getInputIsEnableableValue(): Boolean{
+        return inputIsEnableable
+    }
+    /**
+     * Method shows if inputText field is enabled or not.
+     */
+    open fun isInputEnabled(): Boolean {
+        return inputText?.keyListener != null
+    }
+
+    /**
+     * Method makes inputText field enabled.
+     */
+    open fun enableInput() {
+        if (inputText?.tag != null)
+            inputText?.keyListener = inputText?.tag as KeyListener
+    }
+
+    /**
+     * Method makes inputText field disabled.
+     */
+    open fun disableInput(){
+        inputText?.setText(inputText?.text.toString().trim())
+        if (inputText?.keyListener != null) {
+            inputText?.tag = inputText?.keyListener
+            inputText?.keyListener = null
+        }
+    }
+
+    /**
+     * Method makes InputFieldView enabled. It means that inputText, start and end icons become enabled,
+     * so client can edit text in input text and start and end icons are clickable.
+     */
+    open fun enableView() {
+        if (inputIsEnableable)
+            enableInput()
+        startIconEnable()
+        endIconEnable()
+    }
+
+    /**
+     * Method makes InputFieldView disabled. It means that inputText, start and end icons become disabled,
+     * so client can't edit text in input text and start and end icons are not clickable.
+     */
+    open fun disableView() {
+        disableInput()
+        startIconDisable()
+        endIconDisable()
     }
 
     open fun setMaxLines(value: Int) {
@@ -453,10 +465,114 @@ open class InputFieldView : ConstraintLayout {
     open fun setInputType(inputType: Int = defaultInputType) {
         inputText?.inputType = inputType
     }
-    /*############### Input settings END ################*/
 
-    /*############### End Icon settings ################*/
-    open fun setEndIconMode(mode: Int = defaultEndIconMode) {
+    open fun setInputStyle(inputStyle: Int) {
+        if (inputStyle != -1)
+            inputText?.apply { TextViewCompat.setTextAppearance(this, inputStyle) }
+    }
+
+    open fun setInputClickViewEnabled(value: Boolean) {
+        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
+    }
+
+    open fun getInputClickViewEnabled(): Boolean {
+        return inputClickView?.visibility == View.VISIBLE
+    }
+
+    /**
+     * Method setups default input field view setting.
+     */
+    open fun setDefaultValues() {
+        isWrap = defaultIsWrap
+        showBottomContainer = defaultShowBottomContainer
+        errorDrawableRes = defaultErrorDrawableRes
+        errorColor = defaultErrorColor
+        strokeColor = defaultStrokeColor
+        focusedStrokeColor = defaultFocusedStrokeColor
+        boxBgColor = defaultBoxBgColor
+        strokeRadiusInPx = defaultStrokeRadiusInPx.toFloat()
+        strokeWidthInPx = defaultStrokeWidthInPx.toFloat()
+        labelMaxLines = defaultLabelMaxLines
+        editTextMinHeight = defaultMinHeight
+        checkBoxToggle = defaultCheckBoxToggle
+        passwordToggleRes = defaultPasswordToggleRes
+        paddingTopInPx = defaultPaddingTopInPx
+        paddingBottomInPx = defaultPaddingBottomInPx
+        startTint = defaultIconsTint
+        endTint = defaultIconsTint
+        labelExtraTopMargin = defaultLabelExtraTopMargin
+        labelColorWithError = false
+        endIconColorWithError = false
+        startIconColorWithError = false
+        errorTextColorWithError = true
+        strokeColorWithError = true
+
+        inputClickView?.visibility = View.INVISIBLE
+        inputText?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        prefixTextView?.apply {
+            setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
+        }
+        setIconsSize(0, defaultIconsPadding)
+        setLabelType()
+        setInputLabel("")
+        setInputPrefix("")
+        inputText?.apply {
+            inputType = defaultInputType
+            isEnabled = true
+            setText("")
+            hint = ""
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                textDirection = View.TEXT_DIRECTION_ANY_RTL
+            }
+        }
+        enableView()
+        setMaxLines(1)
+        setHelp(null)
+        setError(null)
+        setupStartIconMode()
+        setupEndIconMode()
+        boxSettings()
+        inputBoxVisibility(defaultInputBoxVisibility)
+    }
+    /*endregion ############### Input settings END ################*/
+
+    /*region ############### Icons settings ################*/
+    open fun setIconsSize(iconsSize: Int, iconsPadding: Int) {
+        val size: Int = if (iconsSize == 0) dpToPx(32).roundToInt() else iconsSize
+        val startParams = startContainer?.layoutParams
+        val endParams = endContainer?.layoutParams
+        if (startParams != null && (startParams.width != size || startParams.height != size)) {
+            startParams.width = iconsSize
+            startParams.height = iconsSize
+            startContainer?.layoutParams = startParams
+        }
+        if (endParams != null && (endParams.width != size || endParams.height != size)) {
+            endParams.width = iconsSize
+            endParams.height = iconsSize
+            endContainer?.layoutParams = endParams
+        }
+        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+    }
+
+    open fun isChecked(value: Boolean) {
+        if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked = value
+        if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked = value
+    }
+
+    open fun isChecked(): Boolean {
+        return when {
+            startIconMode == START_ICON_CHECKABLE -> startCheckBox?.isChecked ?: false
+            endIconMode == END_ICON_CHECKABLE -> endCheckBox?.isChecked ?: false
+            else -> false
+        }
+    }
+    /*endregion ############### Icons settings ################*/
+
+    /*region ############### End Icon settings ################*/
+    open fun setupEndIconMode(mode: Int = defaultEndIconMode) {
         if (endIconMode != mode) {
             endIconMode = mode
             updateEndIcon()
@@ -492,6 +608,29 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
+    open fun setEndIconColorWithErrorValue(value: Boolean) {
+        endIconColorWithError = value
+        updateErrorState()
+    }
+
+    fun endIconEnable() {
+        endContainer?.isClickable = true
+        endCheckBox?.isClickable = true
+    }
+
+    fun endIconDisable() {
+        endContainer?.isClickable = false
+        endCheckBox?.isClickable = false
+    }
+
+    open fun setInputEndCheckListener(checkedListener: IconCheckedListener) {
+        endCheckedListener = checkedListener
+    }
+
+    /**
+     * Method sets end icon settings such as icons click listener, components visibility,
+     * resources depending on the end icon type.
+     */
     protected open fun updateEndIcon() {
         if (endIconMode != END_ICON_PASSWORD_TOGGLE) {
             inputText?.transformationMethod = null
@@ -503,7 +642,6 @@ open class InputFieldView : ConstraintLayout {
             END_ICON_PASSWORD_TOGGLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
-                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 if (isInputTypePassword(inputText)) {
                     // By default set the input to be disguised.
@@ -516,9 +654,15 @@ open class InputFieldView : ConstraintLayout {
                     setBackgroundResource(passwordToggleRes)
                     //else buttonDrawable = endDrawable
                     if (hasErrorText)
-                        CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(errorColor))
+                        CompoundButtonCompat.setButtonTintList(
+                            this,
+                            ColorStateList.valueOf(getColorError())
+                        )
                     else
-                        CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
+                        CompoundButtonCompat.setButtonTintList(
+                            this,
+                            ColorStateList.valueOf(endTint)
+                        )
                     visibility = View.VISIBLE
                 }
                 endIconView?.visibility = View.INVISIBLE
@@ -527,7 +671,6 @@ open class InputFieldView : ConstraintLayout {
             END_ICON_CHECKABLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
-                    //endCheckedListener?.onCheckChanged(endCheckBox?.isChecked ?: false)
                 }
                 endCheckBox?.apply {
                     //if (endDrawable == null)
@@ -570,7 +713,8 @@ open class InputFieldView : ConstraintLayout {
 
     protected open fun setEndIconAsClear() {
         endContainer?.setOnClickListener {
-            clearTextClickListener.onIconClick()
+            if (isInputEnabled())
+                clearInputText()
         }
         endIconView?.apply {
             if (endDrawable == null)
@@ -584,13 +728,20 @@ open class InputFieldView : ConstraintLayout {
         endContainer?.visibility = View.VISIBLE
     }
 
+    /**
+     * Method sets required icons settings for error mode. If hideErrorIcon value is false
+     * method sets visibility of endIconView, endCheckBox, endContainer and
+     * if argument is true or end icon is invisible sets empty clickListener
+     * and update end icon image and tint.
+     */
     protected open fun setEndIconAsError(forcefully: Boolean = false) {
         if (!hideErrorIcon) {
             if (forcefully || endIconView?.visibility == View.INVISIBLE) {
                 endContainer?.setOnClickListener {}
                 endIconView?.apply {
                     setImageResource(errorDrawableRes)
-                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(errorColor))
+                    val endIconErrorTint = if (endIconColorWithError) getColorError() else endTint
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(endIconErrorTint))
                 }
             }
             endIconView?.visibility = View.VISIBLE
@@ -598,11 +749,19 @@ open class InputFieldView : ConstraintLayout {
             endContainer?.visibility = View.VISIBLE
         }
     }
-    /*############### End Icon settings End ############*/
 
+    open fun isPasswordToggleChecked(value: Boolean) {
+        if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked = value
+    }
 
-    /*############### Start Icon settings ################*/
-    open fun setStartIconMode(startMode: Int = defaultStartIconMode) {
+    open fun isPasswordToggleChecked(): Boolean {
+        return if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false
+        else false
+    }
+    /*endregion ############### End Icon settings End ############*/
+
+    /*region ############### Start Icon settings ################*/
+    open fun setupStartIconMode(startMode: Int = defaultStartIconMode) {
         startIconMode = startMode
         updateStartIcon()
     }
@@ -622,7 +781,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun isStartChecked(): Boolean {
-        return if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked ?: false else false
+        return if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked
+            ?: false else false
     }
 
     open fun isInProgress(value: Boolean) {
@@ -647,17 +807,39 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    open fun setInputStartCheckListener() {
-        startCheckedListener
+    protected open fun setStartIconTintInErrorMode() {
+        if (startIconColorWithError) {
+            startIconView?.apply {
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(getColorError()))
+            }
+        }
     }
 
+    open fun startIconEnable() {
+        startContainer?.isClickable = true
+        startCheckBox?.isClickable = true
+    }
+
+    open fun startIconDisable() {
+        startContainer?.isClickable = false
+        startCheckBox?.isClickable = false
+    }
+
+    open fun setInputStartCheckListener(checkedListener: IconCheckedListener) {
+        startCheckedListener = checkedListener
+    }
+
+    /**
+     * Method sets start icon settings and visibility of startIconView, startCheckBox, progressBar,
+     * startContainer depending on the start icon type.
+     */
     protected open fun updateStartIcon() {
         if (startIconMode != START_ICON_DEFAULT || startIconMode != START_ICON_PROGRESS)
             startContainer?.isClickable = true
         when (startIconMode) {
             START_ICON_CHECKABLE -> {
                 startContainer?.setOnClickListener {
-                    startCheckedListener?.onCheckChanged(startCheckBox?.isChecked ?: false)
+                    startCheckBox?.performClick()
                 }
                 startCheckBox?.apply {
                     //if (startDrawable == null)
@@ -713,7 +895,10 @@ open class InputFieldView : ConstraintLayout {
                         DrawableCompat.setTint(wrapDrawable, startTint)
                         this.indeterminateDrawable = DrawableCompat.unwrap(wrapDrawable)
                     } else {
-                        this.indeterminateDrawable?.setColorFilter(startTint, PorterDuff.Mode.SRC_IN)
+                        this.indeterminateDrawable?.setColorFilter(
+                            startTint,
+                            PorterDuff.Mode.SRC_IN
+                        )
                     }
                     this.visibility = View.VISIBLE
                 }
@@ -729,10 +914,10 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
-    /*############### Start Icon settings End ############*/
 
+    /*endregion ############### Start Icon settings End ############*/
 
-    /*############### Bottom text settings ################*/
+    /*region############### Bottom text settings ################*/
     /* Helper */
     open fun setHelp(text: String?) {
         hasHelpText = !text.isNullOrBlank()
@@ -748,13 +933,45 @@ open class InputFieldView : ConstraintLayout {
             setHelp(null)
         }
     }
+
+    open fun setupHelpColor(color: Int) {
+        if (helpColor != color) {
+            helpColor = color
+            helpTextView?.setTextColor(helpColor)
+        }
+    }
+
+    open fun setupHelpColorResource(@ColorRes color: Int){
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupHelpColor(parsedColor)
+    }
+
+    open fun setHelpStyle(helpId: Int) {
+        if (helpId != -1)
+            helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpId) }
+    }
     /* Helper end */
 
     /* Error */
+    /**
+     * SetError method setup errorText, label and start icon required colors and bottom text
+     * depending on the text argument.
+     */
     open fun setError(text: String?) {
         hasErrorText = !text.isNullOrBlank()
         errorTextView?.text = text
-        errorTextView?.setTextColor(errorColor)
+        updateErrorState()
+    }
+
+    protected open fun updateErrorState(){
+        if (hasErrorText) {
+            if (labelColorWithError) setLabelColor(getColorError())
+            if (errorTextColorWithError) errorTextView?.setTextColor(getColorError())
+            setStartIconTintInErrorMode()
+        } else {
+            setLabelStyle(labelStyleId)
+            setStartIconTint(startTint)
+        }
         updateBottomTextPosition()
     }
 
@@ -769,19 +986,59 @@ open class InputFieldView : ConstraintLayout {
     open fun setErrorException(error: Exception?) {
         setError(error?.message)
     }
+
+    open fun setHideErrorTextMode(value: Boolean) {
+        hideErrorText = value
+    }
+
+    open fun getColorError(): Int {
+        return if (errorColor == -1 || errorColor == 0) defaultErrorColor else errorColor
+    }
+
+    open fun setupErrorColor(color: Int) {
+        if (errorColor != color) {
+            errorColor = color
+            updateErrorState()
+        }
+    }
+
+    open fun setupErrorColorResource(@ColorRes color: Int){
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupErrorColor(parsedColor)
+    }
+
+    open fun setInputErrorTextColorWithErrorValue(value: Boolean) {
+        if (errorTextColorWithError != value){
+            errorTextColorWithError = value
+            updateErrorState()
+        }
+    }
+
+    open fun setErrorStyle(errorStyle: Int) {
+        if (errorStyle != -1)
+            errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyle) }
+    }
     /* Error End*/
 
+    /**
+     * Depending on the bottom text type update stroke color in inputBox,
+     * previous and current end icon mode, visibility of bottom container,
+     * errorTextView and helpTextView.
+     */
     protected open fun updateBottomTextPosition() {
         when {
             hasErrorText -> {
                 inputBox?.apply {
-                    setStrokeColor(errorColor)
+                    if (strokeColorWithError)
+                        setStrokeColor(getColorError())
+                    else
+                        setStrokeColor(strokeErrorColor)
                 }
                 previousEndIconMode = endIconMode
                 if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 else
-                    setEndIconMode(END_ICON_ERROR)
+                    setupEndIconMode(END_ICON_ERROR)
                 bottomContainer?.visibility = View.VISIBLE
                 errorTextView?.visibility = View.VISIBLE
                 helpTextView?.visibility = View.GONE
@@ -791,7 +1048,7 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(if (inputText?.isFocused == true) focusedStrokeColor else strokeColor)
                 }
                 if (endIconMode == END_ICON_ERROR)
-                    setEndIconMode(previousEndIconMode)
+                    setupEndIconMode(previousEndIconMode)
                 else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 bottomContainer?.visibility = View.VISIBLE
@@ -803,16 +1060,36 @@ open class InputFieldView : ConstraintLayout {
                     setStrokeColor(if (inputText?.isFocused == true) focusedStrokeColor else strokeColor)
                 }
                 if (endIconMode == END_ICON_ERROR)
-                    setEndIconMode(previousEndIconMode)
+                    setupEndIconMode(previousEndIconMode)
                 else if (endIconMode == END_ICON_PASSWORD_TOGGLE)
                     updateEndIcon()
                 bottomContainer?.visibility = if (showBottomContainer) View.INVISIBLE else View.GONE
             }
         }
     }
-    /*################### Bottom text settings End ######################*/
+    /*endregion ################### Bottom text settings End ######################*/
 
-    /*################### Other ######################*/
+    /*region ############### TextWatcher settings ################*/
+    open fun addTextWatcher(textWatcher: TextWatcher) {
+        removeTextWatcher(textWatcher)
+        inputText?.addTextChangedListener(textWatcher)
+    }
+
+    open fun removeTextWatcher(textWatcher: TextWatcher) {
+        inputText?.removeTextChangedListener(textWatcher)
+    }
+
+    open fun addDefaultTextWatcher() {
+        removeDefaultTextWatcher()
+        inputText?.addTextChangedListener(textWatcher)
+    }
+
+    open fun removeDefaultTextWatcher() {
+        inputText?.removeTextChangedListener(textWatcher)
+    }
+    /*endregion ############### TextWatcher settings ################*/
+
+    /*region ################### Box View Settings ######################*/
     protected open fun boxSettings() {
         inputBox?.apply {
             setStrokeWidthInPx(strokeWidthInPx)
@@ -821,7 +1098,30 @@ open class InputFieldView : ConstraintLayout {
         }
     }
 
-    protected open fun labelOnPreDraw(): Boolean {
+    open fun inputBoxVisibility(): Int{
+        return inputBox?.visibility ?: View.GONE
+    }
+
+    open fun inputBoxVisibility(visibility: Int) {
+        inputBox?.visibility = visibility
+    }
+
+    open fun setStrokeColorWithErrorValue(value: Boolean) {
+        if (strokeColorWithError != value) strokeColorWithError = value
+    }
+
+    open fun setupStrokeErrorColor(color: Int){
+        if (strokeErrorColor != color) strokeErrorColor = color
+    }
+
+    /*endregion ################### Box View Settings ######################*/
+
+    /*region ################### Other ######################*/
+    /**
+     * Method sets label params depending on the label type. Return Boolean result of setLabelParams method
+     * or return false if current margin top doesn't equal new margin top value.
+     */
+     protected open fun labelOnPreDraw(): Boolean {
         var draw = true
         labelText?.let { label ->
             var topClip = 0
@@ -857,6 +1157,9 @@ open class InputFieldView : ConstraintLayout {
         return draw
     }
 
+    /**
+     * Method sets label margins and paddings depending on the label type.
+     */
     protected open fun setLabelParams(label: TextView): Boolean {
         var draw = true
         val params = (label.layoutParams as LayoutParams)
@@ -881,7 +1184,12 @@ open class InputFieldView : ConstraintLayout {
                 labelStartPadding = label.paddingLeft
             if (label.paddingLeft != labelStartPadding) {
                 draw = false
-                label.setPadding(labelStartPadding, label.paddingTop, label.paddingRight, label.paddingBottom)
+                label.setPadding(
+                    labelStartPadding,
+                    label.paddingTop,
+                    label.paddingRight,
+                    label.paddingBottom
+                )
             }
             if (params.leftMargin != labelStartMargin) {
                 params.apply {
@@ -927,7 +1235,7 @@ open class InputFieldView : ConstraintLayout {
         inputText?.onFocusChangeListener =
             OnFocusChangeListener { _, hasFocus ->
                 inputBox?.setStrokeColor(
-                    if (hasErrorText) errorColor else {
+                    if (hasErrorText) getColorError() else {
                         if (hasFocus) focusedStrokeColor else strokeColor
                     }
                 )
@@ -943,88 +1251,170 @@ open class InputFieldView : ConstraintLayout {
 
         /*##########  Common  ##########*/
         paddingTopInPx =
-            typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputPaddingTop, defaultPaddingTopInPx)
+            typedArray.getDimensionPixelSize(
+                R.styleable.InputFieldView_inputPaddingTop,
+                defaultPaddingTopInPx
+            )
         paddingBottomInPx = typedArray
-            .getDimensionPixelSize(R.styleable.InputFieldView_inputPaddingBottom, defaultPaddingBottomInPx)
+            .getDimensionPixelSize(
+                R.styleable.InputFieldView_inputPaddingBottom,
+                defaultPaddingBottomInPx
+            )
         showBottomContainer = typedArray
-            .getBoolean(R.styleable.InputFieldView_inputShowBottomContainer, defaultShowBottomContainer)
+            .getBoolean(
+                R.styleable.InputFieldView_inputShowBottomContainer,
+                defaultShowBottomContainer
+            )
         //Width style
         isWrap = typedArray.getBoolean(R.styleable.InputFieldView_inputIsWrap, defaultIsWrap)
-        val enableClick = typedArray.getBoolean(R.styleable.InputFieldView_inputClickViewEnabled, false)
+        val enableClick =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputClickViewEnabled, false)
         //set start and end icons to be checked
         val isChecked = typedArray.getBoolean(R.styleable.InputFieldView_inputIsChecked, false)
-        val isPasswordChecked = typedArray.getBoolean(R.styleable.InputFieldView_inputIsPasswordChecked, false)
+        val isPasswordChecked =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputIsPasswordChecked, false)
 
         /*##########  Label  ##########*/
         val label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
-        val labelType = typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
-        val labelStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputLabelTextStyle, -1)
+        val labelType =
+            typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
+        labelStyleId =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputLabelTextStyle, -1)
         labelExtraTopMargin = typedArray
-            .getDimensionPixelSize(R.styleable.InputFieldView_inputLabelExtraTopMargin, defaultLabelExtraTopMargin)
+            .getDimensionPixelSize(
+                R.styleable.InputFieldView_inputLabelExtraTopMargin,
+                defaultLabelExtraTopMargin
+            )
         // Label max lines for multy label type
-        labelMaxLines = typedArray.getResourceId(R.styleable.InputFieldView_inputLabelMaxLines, defaultLabelMaxLines)
+        labelMaxLines = typedArray.getResourceId(
+            R.styleable.InputFieldView_inputLabelMaxLines,
+            defaultLabelMaxLines
+        )
+        labelColorWithError =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputLabelColorWithError, false)
 
         /*##########  Input Text  ##########*/
-        val editStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, -1)
+        val editStyleId: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, -1)
         val hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         val text: String = typedArray.getString(R.styleable.InputFieldView_android_text) ?: ""
-        val inputType = typedArray.getInt(R.styleable.InputFieldView_android_inputType, defaultInputType)
-        val editable: Boolean = typedArray.getBoolean(R.styleable.InputFieldView_inputEditable, true)
+        val inputType =
+            typedArray.getInt(R.styleable.InputFieldView_android_inputType, defaultInputType)
+        val editable: Boolean =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputEditable, true)
         val maxLines: Int = typedArray.getInt(R.styleable.InputFieldView_android_maxLines, 1)
         val textDirection: Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            typedArray.getInt(R.styleable.InputFieldView_android_textDirection, View.TEXT_DIRECTION_ANY_RTL)
+            typedArray.getInt(
+                R.styleable.InputFieldView_android_textDirection,
+                View.TEXT_DIRECTION_ANY_RTL
+            )
         } else 0
         editTextMinHeight = typedArray
-            .getDimensionPixelSize(R.styleable.InputFieldView_inputEditViewMinHeight, defaultMinHeight)
+            .getDimensionPixelSize(
+                R.styleable.InputFieldView_inputEditViewMinHeight,
+                defaultMinHeight
+            )
+        inputIsEnableable = typedArray.getBoolean(R.styleable.InputFieldView_inputIsEnableable, true)
 
         /*##########  Prefix  ##########*/
         val prefix = typedArray.getString(R.styleable.InputFieldView_inputPrefix) ?: ""
-        val prefixStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputPrefixTextStyle, -1)
+        val prefixStyleId: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputPrefixTextStyle, -1)
 
         /*##########  Icons  ##########*/
         passwordToggleRes =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputPasswordToggle, defaultPasswordToggleRes)
-        checkBoxToggle = typedArray.getResourceId(R.styleable.InputFieldView_inputCheckToggle, defaultCheckBoxToggle)
-        val iconsSize = typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputIconsSize, 0)
+            typedArray.getResourceId(
+                R.styleable.InputFieldView_inputPasswordToggle,
+                defaultPasswordToggleRes
+            )
+        checkBoxToggle = typedArray.getResourceId(
+            R.styleable.InputFieldView_inputCheckToggle,
+            defaultCheckBoxToggle
+        )
+        val iconsSize =
+            typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputIconsSize, 0)
         val iconsPadding = typedArray
-            .getDimensionPixelSize(R.styleable.InputFieldView_inputIconsPadding, defaultIconsPadding)
+            .getDimensionPixelSize(
+                R.styleable.InputFieldView_inputIconsPadding,
+                defaultIconsPadding
+            )
 
         /*##########  Start Icon  ##########*/
-        val startDrawableRes: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputStartDrawable, -1)
-        if (startDrawableRes != -1) startDrawable = ContextCompat.getDrawable(context, startDrawableRes)
-        startTint = typedArray.getColor(R.styleable.InputFieldView_inputStartDrawableTint, startTint)
-        startIconMode = typedArray.getInt(R.styleable.InputFieldView_inputStartIconMode, defaultStartIconMode)
+        val startDrawableRes: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputStartDrawable, -1)
+        if (startDrawableRes != -1) startDrawable =
+            ContextCompat.getDrawable(context, startDrawableRes)
+        startTint =
+            typedArray.getColor(R.styleable.InputFieldView_inputStartDrawableTint, startTint)
+        startIconMode =
+            typedArray.getInt(R.styleable.InputFieldView_inputStartIconMode, defaultStartIconMode)
+        startIconColorWithError = typedArray.getBoolean(
+            R.styleable.InputFieldView_inputStartIconColorWithError,
+            startIconColorWithError
+        )
 
         /*##########  End Icon  ##########*/
-        val endDrawableRes: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputEndDrawable, -1)
+        val endDrawableRes: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputEndDrawable, -1)
         if (endDrawableRes != -1) endDrawable = ContextCompat.getDrawable(context, endDrawableRes)
 
         endTint = typedArray.getColor(R.styleable.InputFieldView_inputEndDrawableTint, endTint)
-        endIconMode = typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, defaultEndIconMode)
+        endIconMode =
+            typedArray.getInt(R.styleable.InputFieldView_inputEndIconMode, defaultEndIconMode)
+        endIconColorWithError = typedArray.getBoolean(
+            R.styleable.InputFieldView_inputEndIconColorWithError,
+            endIconColorWithError
+        )
 
         /*##########  Help  ##########*/
         val help = typedArray.getString(R.styleable.InputFieldView_inputHelp) ?: ""
         helpColor = typedArray.getColor(R.styleable.InputFieldView_inputHelpColor, defaultHelpColor)
-        val helpStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputHelpTextStyle, -1)
+        val helpStyleId: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputHelpTextStyle, -1)
 
         /*##########  Error  ##########*/
         val errorText = typedArray.getString(R.styleable.InputFieldView_inputError) ?: ""
-        errorColor = typedArray.getColor(R.styleable.InputFieldView_inputErrorColor, defaultErrorColor)
-        val errorStyleId: Int = typedArray.getResourceId(R.styleable.InputFieldView_inputErrorTextStyle, -1)
-        errorDrawableRes = typedArray.getResourceId(R.styleable.InputFieldView_inputErrorIcon, defaultErrorDrawableRes)
-        hideErrorIcon = typedArray.getBoolean(R.styleable.InputFieldView_inputHideErrorIcon, defaultHideErrorIcon)
+        errorColor =
+            typedArray.getColor(R.styleable.InputFieldView_inputErrorColor, defaultErrorColor)
+        val errorStyleId: Int =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputErrorTextStyle, -1)
+        errorDrawableRes = typedArray.getResourceId(
+            R.styleable.InputFieldView_inputErrorIcon,
+            defaultErrorDrawableRes
+        )
+        hideErrorIcon = typedArray.getBoolean(
+            R.styleable.InputFieldView_inputHideErrorIcon,
+            defaultHideErrorIcon
+        )
+        errorTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputErrorTextColorWithError, true)
 
         /*##########  Box  ##########*/
-        strokeColor = typedArray.getColor(R.styleable.InputFieldView_inputInactiveStrokeColor, defaultStrokeColor)
+        strokeColor = typedArray.getColor(
+            R.styleable.InputFieldView_inputInactiveStrokeColor,
+            defaultStrokeColor
+        )
+        strokeErrorColor =
+            typedArray.getColor(R.styleable.InputFieldView_inputStrokeErrorColor, getColorError())
         focusedStrokeColor =
-            typedArray.getColor(R.styleable.InputFieldView_inputActiveStrokeColor, defaultFocusedStrokeColor)
-        boxBgColor = typedArray.getColor(R.styleable.InputFieldView_inputBoxBgColor, defaultBoxBgColor)
+            typedArray.getColor(
+                R.styleable.InputFieldView_inputActiveStrokeColor,
+                defaultFocusedStrokeColor
+            )
+        boxBgColor =
+            typedArray.getColor(R.styleable.InputFieldView_inputBoxBgColor, defaultBoxBgColor)
         strokeRadiusInPx =
-            typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputStrokeRadius, defaultStrokeRadiusInPx)
+            typedArray.getDimensionPixelSize(
+                R.styleable.InputFieldView_inputStrokeRadius,
+                defaultStrokeRadiusInPx
+            )
                 .toFloat()
         strokeWidthInPx =
-            typedArray.getDimensionPixelSize(R.styleable.InputFieldView_inputStrokeWidth, defaultStrokeWidthInPx)
+            typedArray.getDimensionPixelSize(
+                R.styleable.InputFieldView_inputStrokeWidth,
+                defaultStrokeWidthInPx
+            )
                 .toFloat()
+        val inputBoxVisibility = typedArray.getInt(R.styleable.InputFieldView_inputBoxVisibility, defaultInputBoxVisibility)
 
         typedArray.recycle()
 
@@ -1053,14 +1443,6 @@ open class InputFieldView : ConstraintLayout {
             setPadding(paddingLeft, paddingTopInPx, paddingRight, paddingBottomInPx)
         }
 
-        if (labelStyleId != -1)
-            labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
-        if (helpStyleId != -1)
-            helpTextView?.apply { TextViewCompat.setTextAppearance(this, helpStyleId) }
-        if (errorStyleId != -1)
-            errorTextView?.apply { TextViewCompat.setTextAppearance(this, errorStyleId) }
-        if (editStyleId != -1)
-            inputText?.apply { TextViewCompat.setTextAppearance(this, editStyleId) }
         if (prefixStyleId != -1)
             prefixTextView?.apply { TextViewCompat.setTextAppearance(this, prefixStyleId) }
         else if (editStyleId != -1)
@@ -1068,6 +1450,8 @@ open class InputFieldView : ConstraintLayout {
 
         setInputLabel(label)
         setLabelType(labelType)
+        setLabelStyle(labelStyleId)
+        setInputStyle(editStyleId)
         setInputPrefix(prefix)
         inputText?.apply {
             this.inputType = inputType
@@ -1080,10 +1464,13 @@ open class InputFieldView : ConstraintLayout {
         }
         setMaxLines(maxLines)
         setHelp(help)
+        setHelpStyle(helpStyleId)
         setError(errorText)
+        setErrorStyle(errorStyleId)
         updateStartIcon()
         updateEndIcon()
         boxSettings()
+        inputBoxVisibility(inputBoxVisibility)
         //set start and end icons to be checked
         if (startIconMode == START_ICON_CHECKABLE) {
             startCheckBox?.isChecked = isChecked
@@ -1102,12 +1489,9 @@ open class InputFieldView : ConstraintLayout {
             }
         }
     }
+    /*endregion ################### Other ######################*/
 
-    /*################### Interfaces ######################*/
-    interface TextListener {
-        fun onTextChanged(text: String)
-    }
-
+    /*region ################### Interfaces ######################*/
     interface IconCheckedListener {
         fun onCheckChanged(isChanged: Boolean)
     }
@@ -1115,5 +1499,5 @@ open class InputFieldView : ConstraintLayout {
     interface IconClickListener {
         fun onIconClick()
     }
-    /*################### Interfaces End ######################*/
+    /*endregion ################### Interfaces End ######################*/
 }
