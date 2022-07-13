@@ -9,6 +9,7 @@ import by.esas.tools.BR
 import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfPasswordBinding
+import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
 
 class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding>() {
     override val TAG: String = GetPasswordDialog::class.java.simpleName

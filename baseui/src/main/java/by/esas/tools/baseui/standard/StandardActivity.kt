@@ -9,11 +9,11 @@ import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
-import by.esas.tools.baseui.Config
+import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.baseui.R
 import by.esas.tools.baseui.interfaces.navigating.IHandlePopBackArguments
 import by.esas.tools.baseui.mvvm.DataBindingActivity
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
@@ -53,18 +53,22 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     override fun provideRequestKeys(): List<String> {
-        return listOf(Config.ERROR_MESSAGE_DIALOG)
+        return listOf(ERROR_MESSAGE_DIALOG)
     }
 
+    /**
+     * This is default [ERROR_MESSAGE_DIALOG] fragment result listener, to change handling
+     * of ERROR_MESSAGE_DIALOG override [provideFragmentResultListener] in your activity instance
+     * and add custom listener to this requestKey.
+     * */
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
-        return if (requestKey == Config.ERROR_MESSAGE_DIALOG) {
+        return if (requestKey == ERROR_MESSAGE_DIALOG) {
             FragmentResultListener { key, result ->
-                logger.logInfo("onFragmentResult $requestKey, $result")
-                val actionName = result.getString(BaseDialogFragment.DIALOG_ACTION_NAME)
-                if (actionName.isNullOrBlank()) {
-                    enableIfNeeded(result)
-                } else {
+                val actionName = result.getString(DIALOG_ACTION_NAME)
+                if (!actionName.isNullOrBlank()) {
                     handleAction(Action(actionName, result))
+                } else {
+                    enableControls(result)
                 }
             }
         } else {
@@ -93,11 +97,11 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
             ShowErrorType.SHOW_NOTHING.name -> enableControls()
             ShowErrorType.SHOW_ERROR_DIALOG.name -> {
                 val dialog = MessageDialog(false).apply {
-                    setRequestKey(Config.ERROR_MESSAGE_DIALOG)
-                    setEnableControlsOnDismiss(true)
+                    setRequestKey(ERROR_MESSAGE_DIALOG)
                     setTitle(R.string.base_ui_error_title)
                     setMessage(msg)
                     setPositiveButton(R.string.base_ui_common_ok_btn, action?.name)
+                    action?.parameters?.let { params -> setParams(params) }
                 }
                 onShowDialog(dialog, dialog.TAG)
             }
@@ -115,12 +119,6 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
         if (!lang.isNullOrBlank()) {
             logger.logInfo("changeLang to $lang")
             this.setLanguage(lang)
-        }
-    }
-
-    protected open fun enableIfNeeded(bundle: Bundle) {
-        if (bundle.getBoolean(BaseDialogFragment.ENABLING_ON_DISMISS, false)) {
-            viewModel.enableControls()
         }
     }
 }

@@ -20,7 +20,7 @@ import by.esas.tools.baseui.interfaces.navigating.PopBackAction
 import by.esas.tools.baseui.mvvm.DataBindingFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
@@ -78,14 +78,19 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
         return listOf(ERROR_MESSAGE_DIALOG)
     }
 
+    /**
+     * This is default [ERROR_MESSAGE_DIALOG] fragment result listener, to change handling
+     * of ERROR_MESSAGE_DIALOG override [provideFragmentResultListener] in your fragment instance
+     * and add custom listener to this requestKey.
+     * */
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return if (requestKey == ERROR_MESSAGE_DIALOG) {
             FragmentResultListener { key, result ->
-                val actionName = result.getString(BaseDialogFragment.DIALOG_ACTION_NAME)
-                if (actionName.isNullOrBlank()) {
-                    enableIfNeeded(result)
+                val actionName = result.getString(DIALOG_ACTION_NAME)
+                if (!actionName.isNullOrBlank()) {
+                    handleAction(Action(actionName, result))
                 } else {
-                    viewModel.handleAction(Action(actionName, result))
+                    enableControls(result)
                 }
             }
         } else {
@@ -129,6 +134,7 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
                     setTitle(R.string.base_ui_error_title)
                     setMessage(msg)
                     setPositiveButton(R.string.base_ui_common_ok_btn, action?.name)
+                    action?.parameters?.let { params -> setParams(params) }
                 }
                 showDialog(dialog, dialog.TAG)
             }
@@ -192,10 +198,4 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     //endregion handle action (navigation, popback, checking fields and language change)
-
-    protected open fun enableIfNeeded(bundle: Bundle) {
-        if (bundle.getBoolean(BaseDialogFragment.ENABLING_ON_DISMISS, false)) {
-            viewModel.enableControls()
-        }
-    }
 }

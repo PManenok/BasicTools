@@ -65,7 +65,6 @@ class MainVM @Inject constructor(
     fun onLabelClick() {
         disableControls()
         val dialog = MessageDialog(true)
-        dialog.setEnableControlsOnDismiss(true)
         dialog.setTitle("Title")
         dialog.setMessage("Message")
         dialog.setPositiveButton("OK", "positiveAction")

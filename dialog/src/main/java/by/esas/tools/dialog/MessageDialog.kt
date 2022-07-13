@@ -8,6 +8,8 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.checker.Checking
+import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
+import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog.MessageDialog.ButtonAppearance
 import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding

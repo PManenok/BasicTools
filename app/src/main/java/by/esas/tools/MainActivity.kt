@@ -16,23 +16,15 @@ import by.esas.tools.checker.checks.LengthCheck
 import by.esas.tools.checking.AppChecker
 import by.esas.tools.checking.FieldChecking
 import by.esas.tools.databinding.ActivityMainBinding
-import by.esas.tools.dialog.BaseDialogFragment
-import by.esas.tools.dialog.BaseDialogFragment.Companion.DIALOG_USER_ACTION
 import by.esas.tools.dialog.GetPasswordDialog
 import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.error_mapper.AppErrorMapper
-import by.esas.tools.error_mapper.AppErrorStatusEnum
-import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
-import by.esas.tools.usecase.GetDefaultCardUseCase
 import by.esas.tools.util.SettingsProvider
 import by.esas.tools.util.TAGk
 import by.esas.tools.util.hideSystemUIR
-import com.squareup.moshi.Moshi
 import dagger.android.AndroidInjection
-import kotlinx.coroutines.Dispatchers
 
 /**
  * To use HasAndroidInjector with Activity do not forget to add
@@ -193,9 +185,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
 
     override fun onFragmentResult(requestKey: String, result: Bundle) {
         logger.logInfo("onFragmentResult $requestKey, $result")
-        if (result.getBoolean(BaseDialogFragment.ENABLING_ON_DISMISS)) {
-            viewModel.enableControls()
-        }
+        viewModel.enableControls()
     }
 
     override fun provideRequestKeys(): List<String> {

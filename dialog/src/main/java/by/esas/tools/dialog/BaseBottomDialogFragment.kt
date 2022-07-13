@@ -13,6 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import by.esas.tools.checker.Checking
+import by.esas.tools.dialog.Config.CANCEL_DIALOG
+import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
+import by.esas.tools.dialog.Config.DISMISS_DIALOG
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.util.SwitchManager
@@ -25,32 +28,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * Base bottom dialog fragment with custom state callback, disabling and enabling functions, showing and hiding progress
  * */
 abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
-    open val TAG: String = BaseBottomDialogFragment::class.java.simpleName
-
-    companion object {
-        const val DIALOG_ACTION_NAME: String = "DIALOG_ACTION_NAME"
-        const val ENABLING_ON_DISMISS: String = "ENABLING_ON_DISMISS"
-        const val DIALOG_USER_ACTION: String = "DIALOG_USER_ACTION"
-        const val CANCEL_DIALOG: String = "CANCEL_DIALOG"
-        const val DISMISS_DIALOG: String = "DISMISS_DIALOG"
-    }
+    open val TAG: String = TAGk
 
     protected val defaultRequestKey: String = TAGk
     protected var dialogRequestKey: String = defaultRequestKey
     protected var resultBundle: Bundle = Bundle()
-
-    /**
-     * Flag that shows if parent should enable controls when user returns from this dialog
-     * */
-    protected open var enablingControlsOnDismiss: Boolean = false
+    protected var paramsBundle: Bundle = Bundle()
 
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
      * depends on its interface realisation
      * By default this logger is [BaseLoggerImpl]
      * */
-    protected open var logger: ILogger<*> =
-        BaseLoggerImpl(BaseBottomDialogFragment::class.java.simpleName, this.context)
+    protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, this.context)
 
     /**
      * Manager that provides enabling and disabling views functionality
@@ -92,6 +82,20 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     abstract fun provideProgressBar(): View?
 
     //region lifecycle methods
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle("paramsBundle", paramsBundle)
+        outState.putBundle("resultBundle", resultBundle)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            paramsBundle = savedInstanceState.getBundle("paramsBundle") ?: Bundle()
+            resultBundle = savedInstanceState.getBundle("resultBundle") ?: Bundle()
+        }
+    }
 
     /**
      * Override parents onCreate method
@@ -180,18 +184,18 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * */
     protected open fun setDismissResult() {
         logger.logOrder("setDismissResult")
-        val userAction: String = if (resultBundle.containsKey(DIALOG_USER_ACTION)) {
+        val userAction: String = if (resultBundle.containsKey(Config.DIALOG_USER_ACTION)) {
             resultBundle.getString(DIALOG_USER_ACTION, "")
         } else {
             resultBundle.clear()
             resultBundle.putString(DIALOG_USER_ACTION, DISMISS_DIALOG)
             DISMISS_DIALOG
         }
-        logger.logInfo("userAction $userAction; enablingControls $enablingControlsOnDismiss; result size ${resultBundle.size()}")
+        logger.logInfo("userAction $userAction; result size ${resultBundle.size()}")
 
         val bundle = Bundle()
         bundle.putAll(resultBundle)
-        bundle.putBoolean(ENABLING_ON_DISMISS, enablingControlsOnDismiss)
+        bundle.putAll(paramsBundle)
         parentFragmentManager.setFragmentResult(dialogRequestKey, bundle)
     }
 
@@ -205,11 +209,12 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     /**
-     * Set flag that should be returned along with result to parentFragmentManager
+     * Set bundle of parameters that dialog may use in its work and\or return
+     * along with resultBundle as fragment result
      * */
-    open fun setEnableControlsOnDismiss(value: Boolean) {
-        logger.logOrder("setEnableControlsOnDismiss $value")
-        enablingControlsOnDismiss = value
+    open fun setParams(bundle: Bundle) {
+        logger.logOrder("setParams $bundle")
+        paramsBundle = bundle
     }
 
     /**
