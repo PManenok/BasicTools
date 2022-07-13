@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import by.esas.tools.checker.Checking
 import by.esas.tools.dialog.Config.CANCEL_DIALOG
+import by.esas.tools.dialog.Config.DIALOG_PARAMETERS_BUNDLE
+import by.esas.tools.dialog.Config.DIALOG_RESULT_BUNDLE
 import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog.Config.DISMISS_DIALOG
 import by.esas.tools.logger.BaseLoggerImpl
@@ -85,15 +87,15 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBundle("paramsBundle", paramsBundle)
-        outState.putBundle("resultBundle", resultBundle)
+        outState.putBundle(DIALOG_PARAMETERS_BUNDLE, paramsBundle)
+        outState.putBundle(DIALOG_RESULT_BUNDLE, resultBundle)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         if (savedInstanceState != null) {
-            paramsBundle = savedInstanceState.getBundle("paramsBundle") ?: Bundle()
-            resultBundle = savedInstanceState.getBundle("resultBundle") ?: Bundle()
+            paramsBundle = savedInstanceState.getBundle(DIALOG_PARAMETERS_BUNDLE) ?: Bundle()
+            resultBundle = savedInstanceState.getBundle(DIALOG_RESULT_BUNDLE) ?: Bundle()
         }
     }
 
