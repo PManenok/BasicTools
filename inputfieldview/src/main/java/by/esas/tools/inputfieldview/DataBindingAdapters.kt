@@ -49,14 +49,24 @@ fun getText(view: InputFieldView): String {
     return view.getText()
 }
 
-@BindingAdapter("inputIsChecked")
-fun setChecked(view: InputFieldView, isChecked: Boolean) {
-    return view.isChecked(isChecked)
+@BindingAdapter("inputIsStartChecked")
+fun setStartChecked(view: InputFieldView, isStartChecked: Boolean) {
+    return view.isStartChecked(isStartChecked)
 }
 
-@InverseBindingAdapter(attribute = "inputIsChecked")
-fun getChecked(view: InputFieldView): Boolean {
-    return view.isChecked()
+@InverseBindingAdapter(attribute = "inputIsStartChecked")
+fun getStartChecked(view: InputFieldView): Boolean {
+    return view.isStartChecked()
+}
+
+@BindingAdapter("inputIsEndChecked")
+fun setEndChecked(view: InputFieldView, isStartChecked: Boolean) {
+    return view.isEndChecked(isStartChecked)
+}
+
+@InverseBindingAdapter(attribute = "inputIsEndChecked")
+fun getEndChecked(view: InputFieldView): Boolean {
+    return view.isEndChecked()
 }
 
 @BindingAdapter("inputIsCheckedAttrChanged")
@@ -71,16 +81,6 @@ fun setCheckedListener(view: InputFieldView, attrChange: InverseBindingListener)
             attrChange.onChange()
         }
     }
-}
-
-@BindingAdapter("inputIsPasswordChecked")
-fun setPasswordChecked(view: InputFieldView, isChecked: Boolean) {
-    return view.isPasswordToggleChecked(isChecked)
-}
-
-@InverseBindingAdapter(attribute = "inputIsPasswordChecked")
-fun getPasswordChecked(view: InputFieldView): Boolean {
-    return view.isPasswordToggleChecked()
 }
 
 @BindingAdapter("inputIsPasswordCheckedAttrChanged")

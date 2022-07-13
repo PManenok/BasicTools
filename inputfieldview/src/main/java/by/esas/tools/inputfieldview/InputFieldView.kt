@@ -556,19 +556,6 @@ open class InputFieldView : ConstraintLayout {
         startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
         endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
     }
-
-    open fun isChecked(value: Boolean) {
-        if (startIconMode == START_ICON_CHECKABLE) startCheckBox?.isChecked = value
-        if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isChecked(): Boolean {
-        return when {
-            startIconMode == START_ICON_CHECKABLE -> startCheckBox?.isChecked ?: false
-            endIconMode == END_ICON_CHECKABLE -> endCheckBox?.isChecked ?: false
-            else -> false
-        }
-    }
     /*endregion ############### Icons settings ################*/
 
     /*region ############### End Icon settings ################*/
@@ -589,12 +576,12 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun isEndChecked(checked: Boolean) {
-        if (endIconMode == END_ICON_CHECKABLE)
+        if (endIconMode == END_ICON_CHECKABLE || endIconMode == END_ICON_PASSWORD_TOGGLE)
             endCheckBox?.isChecked = checked
     }
 
     open fun isEndChecked(): Boolean {
-        return if (endIconMode == END_ICON_CHECKABLE) endCheckBox?.isChecked ?: false else false
+        return if (endIconMode == END_ICON_CHECKABLE || endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false else false
     }
 
     open fun setEndIconTintRes(@ColorRes tintColor: Int) {
@@ -748,15 +735,6 @@ open class InputFieldView : ConstraintLayout {
             endCheckBox?.visibility = View.INVISIBLE
             endContainer?.visibility = View.VISIBLE
         }
-    }
-
-    open fun isPasswordToggleChecked(value: Boolean) {
-        if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked = value
-    }
-
-    open fun isPasswordToggleChecked(): Boolean {
-        return if (endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false
-        else false
     }
     /*endregion ############### End Icon settings End ############*/
 
@@ -1270,9 +1248,8 @@ open class InputFieldView : ConstraintLayout {
         val enableClick =
             typedArray.getBoolean(R.styleable.InputFieldView_inputClickViewEnabled, false)
         //set start and end icons to be checked
-        val isChecked = typedArray.getBoolean(R.styleable.InputFieldView_inputIsChecked, false)
-        val isPasswordChecked =
-            typedArray.getBoolean(R.styleable.InputFieldView_inputIsPasswordChecked, false)
+        val isStartCheckedValue = typedArray.getBoolean(R.styleable.InputFieldView_inputIsStartChecked, false)
+        val isEndCheckedValue = typedArray.getBoolean(R.styleable.InputFieldView_inputIsEndChecked, false)
 
         /*##########  Label  ##########*/
         val label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
@@ -1472,16 +1449,11 @@ open class InputFieldView : ConstraintLayout {
         boxSettings()
         inputBoxVisibility(inputBoxVisibility)
         //set start and end icons to be checked
-        if (startIconMode == START_ICON_CHECKABLE) {
-            startCheckBox?.isChecked = isChecked
-        }
-        if (endIconMode == END_ICON_CHECKABLE) {
-            endCheckBox?.isChecked = isChecked
-        }
+        isStartChecked(isStartCheckedValue)
+        isEndChecked(isEndCheckedValue)
         if (endIconMode == END_ICON_PASSWORD_TOGGLE) {
-            endCheckBox?.isChecked = isPasswordChecked
             inputText?.apply {
-                transformationMethod = if (isPasswordChecked) {
+                transformationMethod = if (isEndCheckedValue) {
                     null
                 } else {
                     PasswordTransformationMethod.getInstance()

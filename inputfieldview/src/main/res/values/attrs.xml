@@ -7,8 +7,8 @@
         <attr name="inputShowBottomContainer" format="boolean" />
         <attr name="inputIsWrap" format="boolean" />
         <attr name="inputClickViewEnabled" format="boolean" />
-        <attr name="inputIsChecked" format="boolean" />
-        <attr name="inputIsPasswordChecked" format="boolean" />
+        <attr name="inputIsStartChecked" format="boolean"/>
+        <attr name="inputIsEndChecked" format="boolean"/>
         <attr name="inputIsEnableable" format="boolean" />
 
         <!--Label-->
