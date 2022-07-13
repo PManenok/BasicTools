@@ -79,8 +79,17 @@
             <enum name="checkable" value="3" />
             <!-- The view will display end icon in error mode. -->
             <enum name="error" value="4" />
+            <!-- The view will display end text instead of icon -->
+            <enum name="text" value="5"/>
         </attr>
         <attr name="inputEndIconColorWithError" format="boolean"/>
+
+        <!--End Text-->
+        <attr name="inputEndText" format="string"/>
+        <attr name="inputEndTextColor" format="color"/>
+        <attr name="inputEndTextStyle" format="reference"/>
+        <attr name="inputEndTextErrorColor" format="color"/>
+        <attr name="inputEndTextColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
