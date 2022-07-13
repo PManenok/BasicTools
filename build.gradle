@@ -13,6 +13,7 @@ buildscript {
         listheader_lib_version = '2.2.0'
         dimen_util_lib_version = '2.2.0' // independent (1)
         basedaggerui_lib_version = '2.2.0' // independent
+        cardline_lib_version = '2.2.0'
 
         recycler_lib_version = '2.2.0'// dimen_util
         domain_lib_version = '2.2.0' // logger (2)
