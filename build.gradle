@@ -15,6 +15,7 @@ buildscript {
         basedaggerui_lib_version = '2.2.0' // independent
         cardline_lib_version = '2.2.0'
         topbarview_lib_version = '2.2.0'
+        customswitch_lib_version = '2.2.0'
 
         recycler_lib_version = '2.2.0'// dimen_util
         domain_lib_version = '2.2.0' // logger (2)

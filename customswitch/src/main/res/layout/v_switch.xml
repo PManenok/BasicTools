@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/v_switch_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="Fingerprint"
+        app:thumbTint="@color/design_default_color_background"
+        app:trackTint="@color/design_default_color_primary"
+        tools:checked="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/v_switch_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Basic login method" />
+</LinearLayout>
