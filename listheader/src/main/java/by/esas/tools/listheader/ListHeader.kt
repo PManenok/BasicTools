@@ -11,9 +11,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
@@ -294,11 +296,16 @@ open class ListHeader : LinearLayout {
     }
 
     open fun setListActionText(textRes: Int) {
-        setListActionText(Resources.getSystem().getString(textRes))
+        setListActionText(resources.getString(textRes))
     }
 
     open fun getListActionText(): String {
         return actionText.text.toString()
+    }
+
+    open fun setListActionStyle(styleId: Int){
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(actionText, styleId)
     }
     /*endregion ############### List Action############### */
 
@@ -310,7 +317,7 @@ open class ListHeader : LinearLayout {
     }
 
     open fun setListTitle(textRes: Int) {
-        setListTitle(Resources.getSystem().getString(textRes))
+        setListTitle(resources.getString(textRes))
     }
 
     open fun getListTitle(): String? {
@@ -334,6 +341,15 @@ open class ListHeader : LinearLayout {
 
     open fun setArrowIconSize(iconSize: Int){
         updateIconSize(iconSize, arrowIcon)
+    }
+
+    open fun setArrowIconTint(color: Int){
+        ImageViewCompat.setImageTintList(arrowIcon, ColorStateList.valueOf(color))
+    }
+
+    open fun setArrowIconTintResource(@ColorRes color: Int){
+        val parsedColor = ContextCompat.getColor(context, color)
+        setArrowIconTint(parsedColor)
     }
 
     protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
