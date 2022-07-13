@@ -20,7 +20,7 @@ fun setClearEndIcon(view: InputFieldView, enabled: Boolean) {
 
 @BindingAdapter("inputEditable")
 fun setEditable(view: InputFieldView, editable: Boolean) {
-    view.isEditable(editable)
+    view.setInputIsEnableableValue(editable)
 }
 
 @BindingAdapter("inputStartIconIsCheckable")
