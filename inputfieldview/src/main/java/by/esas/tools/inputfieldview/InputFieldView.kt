@@ -1374,21 +1374,6 @@ open class InputFieldView : ConstraintLayout {
         val prefixStyleId: Int =
             typedArray.getResourceId(R.styleable.InputFieldView_inputPrefixTextStyle, -1)
 
-        /*##########  Error  ##########*/
-        val errorText = typedArray.getString(R.styleable.InputFieldView_inputError) ?: ""
-        errorColor =
-            typedArray.getColor(R.styleable.InputFieldView_inputErrorColor, defaultErrorColor)
-        val errorStyleId: Int =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputErrorTextStyle, -1)
-        errorDrawableRes = typedArray.getResourceId(
-            R.styleable.InputFieldView_inputErrorIcon,
-            defaultErrorDrawableRes
-        )
-        hideErrorIcon = typedArray.getBoolean(
-            R.styleable.InputFieldView_inputHideErrorIcon,
-            defaultHideErrorIcon
-        )
-
         /*##########  Icons  ##########*/
         passwordToggleRes =
             typedArray.getResourceId(
@@ -1461,7 +1446,7 @@ open class InputFieldView : ConstraintLayout {
             defaultHideErrorIcon
         )
         errorTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputErrorTextColorWithError, true)
-
+        
         /*##########  Box  ##########*/
         strokeColor = typedArray.getColor(
             R.styleable.InputFieldView_inputInactiveStrokeColor,
