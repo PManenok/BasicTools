@@ -183,7 +183,6 @@ open class InputFieldView : ConstraintLayout {
     //End icon
     var endIconClickListener: IconClickListener? = null
     var endCheckedListener: IconCheckedListener? = null
-    var passwordCheckedListener: IconCheckedListener? = null
     protected open val defaultEndIconMode: Int = END_ICON_NONE
     protected open val defaultPasswordToggleRes: Int =
         R.drawable.selector_input_filed_password_toggle
@@ -228,7 +227,7 @@ open class InputFieldView : ConstraintLayout {
                     PasswordTransformationMethod.getInstance()
                 }
             }
-            passwordCheckedListener?.onCheckChanged(isChecked)
+            endCheckedListener?.onCheckChanged(isChecked)
         }
 
     /*endregion ############################ Icons Click Listeners End ################################*/

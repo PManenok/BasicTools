@@ -69,23 +69,18 @@ fun getEndChecked(view: InputFieldView): Boolean {
     return view.isEndChecked()
 }
 
-@BindingAdapter("inputIsCheckedAttrChanged")
-fun setCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
+@BindingAdapter("inputIsStartCheckedAttrChanged")
+fun setStartCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
     view.startCheckedListener = object : InputFieldView.IconCheckedListener {
-        override fun onCheckChanged(isChanged: Boolean) {
-            attrChange.onChange()
-        }
-    }
-    view.endCheckedListener = object : InputFieldView.IconCheckedListener {
         override fun onCheckChanged(isChanged: Boolean) {
             attrChange.onChange()
         }
     }
 }
 
-@BindingAdapter("inputIsPasswordCheckedAttrChanged")
-fun setPasswordCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
-    view.passwordCheckedListener = object : InputFieldView.IconCheckedListener {
+@BindingAdapter("inputIsEndCheckedAttrChanged")
+fun setEndCheckedListener(view: InputFieldView, attrChange: InverseBindingListener) {
+    view.endCheckedListener = object : InputFieldView.IconCheckedListener {
         override fun onCheckChanged(isChanged: Boolean) {
             attrChange.onChange()
         }
