@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_four"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_two"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_one"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_1" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_five"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_three"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_one"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_two"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_2" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_six"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_two"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_three"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_3" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_seven"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_five"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_one">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_four"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_4" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_eight"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_six"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_four"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_two">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_five"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_5" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_nine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_five"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_three">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_six"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_6" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_left_button"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_eight"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_four">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_seven"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_7" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_zero"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_nine"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_seven"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_five">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_eight"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_8" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_nine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@id/v_num_pad_container_right_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_eight"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_six">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_nine"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_9" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_left_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_zero"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_seven"
+        android:visibility="invisible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_left"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_cancel"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_zero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_right_button"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_left_button"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_eight">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_zero"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_pin_0" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/v_num_pad_container_right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/v_num_pad_container_zero"
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_nine">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/v_num_pad_icon_right"
+            style="@style/NumPadButtonsStyle"
+            app:srcCompat="@drawable/ic_backspace" />
+    </FrameLayout>
+</merge>

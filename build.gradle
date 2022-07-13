@@ -9,6 +9,7 @@ buildscript {
         pinview_lib_version = '2.2.0'// independent
         inputfieldview_lib_version = '2.2.0'// independent
         checker_lib_version = '2.2.0' // independent (3)
+        numpad_lib_version = '2.2.0'
         listheader_lib_version = '2.2.0'
         dimen_util_lib_version = '2.2.0' // independent (1)
         basedaggerui_lib_version = '2.2.0' // independent
