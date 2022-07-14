@@ -1,4 +1,4 @@
-package by.esas.tools
+package by.esas.tools.simple
 
 import by.esas.tools.baseui.standard.StandardViewModel
 import by.esas.tools.checker.Checker

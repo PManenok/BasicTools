@@ -1,30 +1,21 @@
 package by.esas.tools
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.checker.Checker
-import by.esas.tools.checker.IRequestFocusHandler
-import by.esas.tools.checker.checks.LengthCheck
-import by.esas.tools.checking.AppChecker
-import by.esas.tools.checking.FieldChecking
 import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.dialog.GetPasswordDialog
 import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.logger.ErrorModel
-import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.LoggerImpl
-import by.esas.tools.util.SettingsProvider
 import by.esas.tools.util.TAGk
 import by.esas.tools.util.hideSystemUIR
 import dagger.android.AndroidInjection
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import by.esas.tools.simple.AppActivity
 
 /**
  * To use HasAndroidInjector with Activity do not forget to add
@@ -39,7 +30,8 @@ import dagger.android.AndroidInjection
  */
 class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultListener {
 
-    override var logger: ILogger<ErrorModel> = LoggerImpl()
+    lateinit var navController: NavController
+    private var topDestination = R.id.menuFragment
 
     override fun provideViewModel(): MainVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(MainVM::class.java)
@@ -49,79 +41,49 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
         return R.layout.activity_main
     }
 
-    override fun provideVariableInd(): Int {
-        return BR.viewModel
-    }
-
-    override fun provideSetter(): SettingsProvider {
-        return object : SettingsProvider {
-            override fun getDefaultLanguage(): String {
-                return "en"
-            }
-
-            override fun getLanguage(): String {
-                return "en"
-            }
-
-            override fun setLanguage(lang: String) {
-
-            }
-        }
-    }
-
-    override fun getAppContext(): Context {
-        return App.appContext
-    }
-
-    override fun setAppContext(context: Context) {
-        App.appContext = context
-    }
-
-    override fun handlePopBackArguments(arguments: Bundle?) {
-        TODO("Not yet implemented")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val statusBar = insets.getSystemWindowInsetTop()
-            val navigationBar = insets.getSystemWindowInsetBottom()
-            binding.root.updatePadding(top = statusBar)
-            return@setOnApplyWindowInsetsListener insets
-        }
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+//            val statusBar = insets.getSystemWindowInsetTop()
+//            val navigationBar = insets.getSystemWindowInsetBottom()
+//            binding.root.updatePadding(top = statusBar)
+//            return@setOnApplyWindowInsetsListener insets
+//        }
         /*viewModel.update = {
             binding.fMainAddInvoiceAdditionalContainer.invalidate()
         }*/
 
-        binding.fMainSetErrorPin.setOnClickListener {
-            doCheck()
-            if (!binding.aMainText3.getText().equals("12345678")) {
-                binding.aMainText3.setError("Some error")
-            } else {
-                binding.aMainText3.setError("")
-            }
-        }
+//        binding.fMainSetErrorPin.setOnClickListener {
+//            doCheck()
+//            if (!binding.aMainText3.getText().equals("12345678")) {
+//                binding.aMainText3.setError("Some error")
+//            } else {
+//                binding.aMainText3.setError("")
+//            }
+//        }
+
+        setupNavigation()
     }
 
-    fun doCheck() {
-        AppChecker()
-            .setShowError(true)
-            .setListener(object : Checker.CheckListener {})
-            .validate(
-                listOf(
-                    FieldChecking(binding.aMainText4, true)
-                        .setRequestFocusHandler(object : IRequestFocusHandler {
-                            override fun handleRequestFocus() {
-                                binding.aMainText4.visibility = View.VISIBLE
-                                binding.aMainText4.requestFocus()
-                                //scroll to position
-                            }
-                        })
-                        .addCheck(LengthCheck(0, 4))
-                )
-            )
-    }
+//    fun doCheck() {
+//        AppChecker()
+//            .setShowError(true)
+//            .setListener(object : Checker.CheckListener {})
+//            .validate(
+//                listOf(
+//                    FieldChecking(binding.aMainText4, true)
+//                        .setRequestFocusHandler(object : IRequestFocusHandler {
+//                            override fun handleRequestFocus() {
+//                                binding.aMainText4.visibility = View.VISIBLE
+//                                binding.aMainText4.requestFocus()
+//                                //scroll to position
+//                            }
+//                        })
+//                        .addCheck(LengthCheck(0, 4))
+//                )
+//            )
+//    }
     /*val field = findViewById<InputFieldView>(R.id.a_main_text2)
     field.setInputPrefix("1")*/
     /*val spinner = findViewById<SpinnerFieldView>(R.id.a_main_service_spinner)
@@ -157,7 +119,6 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
                 }
                 statusBarColor = Color.TRANSPARENT
             }
-
         }
     }
 
@@ -200,6 +161,14 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
             super.provideFragmentResultListener(requestKey)
         } else {
             this
+        }
+    }
+
+    private fun setupNavigation(){
+        navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
+            //Set home icon
+            viewModel.hasBackBtn.set(destination.id != topDestination)
         }
     }
 }

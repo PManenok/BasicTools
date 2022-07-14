@@ -26,7 +26,7 @@ import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.handler.ShowErrorType
 
-abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, E : Enum<E>, M : BaseErrorModel>
+abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
     : DataBindingFragment<VM, B, M>() {
 
     protected var navController: NavController? = null

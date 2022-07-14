@@ -10,6 +10,7 @@ import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.IErrorMapper
+import by.esas.tools.simple.AppVM
 import by.esas.tools.usecase.GetDefaultCardUseCase
 import javax.inject.Inject
 
@@ -22,6 +23,8 @@ class MainVM @Inject constructor(
     override fun provideMapper(): IErrorMapper<ErrorModel> {
         return mapper
     }
+
+    val hasBackBtn = ObservableBoolean(false)
 
     var update: () -> Unit = {}
 

@@ -5,6 +5,7 @@ import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.IErrorMapper
+import by.esas.tools.simple.AppVM
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
