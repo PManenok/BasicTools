@@ -8,7 +8,6 @@ package by.esas.tools.baseui.basic
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -28,7 +27,11 @@ import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
-import by.esas.tools.util.*
+import by.esas.tools.util.SwitchManager
+import by.esas.tools.util.TAGk
+import by.esas.tools.util.configs.IChangeSettings
+import by.esas.tools.util.defocusAndHideKeyboard
+import by.esas.tools.util.hideSystemUI
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -170,18 +173,11 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
     /**
      * @see IChangeSettings
      */
-    override fun provideLogger(): ILogger<*> {
-        return logger
+    override fun logInfo(info: String) {
+        logger.logInfo(info)
     }
 
     //endregion IChangeSettings implementation
-
-    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(
-            this,
-            R.style.AppTheme_CustomMaterialDialog
-        ).setCancelable(false)
-    }
 
     //region action
 
@@ -271,6 +267,13 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
 
     //region helping methods
 
+    open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(
+            this,
+            R.style.AppTheme_CustomMaterialDialog
+        ).setCancelable(false)
+    }
+
     open fun showMessage(text: String, duration: Int = Toast.LENGTH_SHORT) {
         logger.logInfo(text)
         logger.showMessage(text, duration)
@@ -314,10 +317,10 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
 
     protected open fun hideSystemUI() {
         logger.logOrder("hideSystemUI")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            hideSystemUIR(this)
-        } else {
-            hideSystemUI(this)
+        if (window?.decorView != null) {
+            val isDark = resources.getBoolean(R.bool.is_dark)
+            logger.logInfo("hideSystemUI decorView != null; isDark = $isDark")
+            hideSystemUI(this, isDark)
         }
     }
 
