@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply from: '../properties.gradle'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion compile_sdk_version
     buildToolsVersion "30.0.3"
 
     buildFeatures {
@@ -18,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "by.esas.tools"
-        minSdkVersion 16
+        minSdkVersion min_sdk_version
         targetSdkVersion 31
         multiDexEnabled true
 

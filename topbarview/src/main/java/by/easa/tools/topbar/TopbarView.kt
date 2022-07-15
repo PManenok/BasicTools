@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.topbarview.R
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
@@ -270,7 +271,7 @@ open class TopbarView : LinearLayout {
         titleView.ellipsize = truncateAt
     }
 
-    fun setDefaultTitleParams(){
+    fun setDefaultTitleParams() {
         titleView.apply {
             setPadding(
                 paddingLeft + defPadding,

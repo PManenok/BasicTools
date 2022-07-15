@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'maven-publish'
+apply from: '../properties.gradle'
 
 // Because the components are created only during the afterEvaluate phase, you must
 // configure your publications using the afterEvaluate() lifecycle method.
@@ -43,7 +43,7 @@ afterEvaluate {
     }
 }
 android {
-    compileSdkVersion 30
+    compileSdkVersion compile_sdk_version
 
     buildFeatures {
         dataBinding = true
@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion min_sdk_version
         vectorDrawables.useSupportLibrary = true
     }
 }
