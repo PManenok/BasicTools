@@ -1,4 +1,4 @@
-package com.example.numpad
+package by.esas.tools.numpad
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -134,7 +134,7 @@ open class NumPadTextView : ConstraintLayout {
     /*endregion ################### Constructors ######################*/
 
     /*region ################### All Icons Settings ######################*/
-    open fun enableNumpadView(){
+    open fun enableNumpadView() {
         iconsContainersList.forEach { container ->
             container.isClickable = true
         }
@@ -142,7 +142,7 @@ open class NumPadTextView : ConstraintLayout {
         btnContainerRight.isClickable = true
     }
 
-    open fun disableNumpadView(){
+    open fun disableNumpadView() {
         iconsContainersList.forEach { container ->
             container.isClickable = false
         }
@@ -150,7 +150,7 @@ open class NumPadTextView : ConstraintLayout {
         btnContainerRight.isClickable = false
     }
 
-    open fun setIconsSize(widthValue: Int, heightValue: Int){
+    open fun setIconsSize(widthValue: Int, heightValue: Int) {
         iconsContainersList.forEach { container ->
             setIconContainerSize(container, widthValue, heightValue)
         }
@@ -158,7 +158,7 @@ open class NumPadTextView : ConstraintLayout {
         setIconContainerSize(btnContainerRight, widthValue, heightValue)
     }
 
-    protected open fun setIconContainerSize(iconContainer: FrameLayout, widthValue: Int, heightValue: Int){
+    protected open fun setIconContainerSize(iconContainer: FrameLayout, widthValue: Int, heightValue: Int) {
         iconContainer.layoutParams.apply {
             width = dpToPx(widthValue).toInt()
             height = dpToPx(heightValue).toInt()
@@ -166,7 +166,7 @@ open class NumPadTextView : ConstraintLayout {
         iconContainer.requestLayout()
     }
 
-    open fun setIconsPadding(paddingValue: Int){
+    open fun setIconsPadding(paddingValue: Int) {
         iconsNumbersList.forEach { icon ->
             setIconPadding(icon, paddingValue)
         }
@@ -174,12 +174,12 @@ open class NumPadTextView : ConstraintLayout {
         setIconPadding(btnIconRight, paddingValue)
     }
 
-    protected open fun setIconPadding(iconTextView: MaterialTextView, paddingValue: Int){
+    protected open fun setIconPadding(iconTextView: MaterialTextView, paddingValue: Int) {
         val padding = dpToPx(paddingValue).toInt()
         iconTextView.setPadding(padding, padding, padding, padding)
     }
 
-    protected open fun setIconPadding(iconButton: AppCompatImageView, paddingValue: Int){
+    protected open fun setIconPadding(iconButton: AppCompatImageView, paddingValue: Int) {
         val padding = dpToPx(paddingValue).toInt()
         iconButton.setPadding(padding, padding, padding, padding)
     }
@@ -194,11 +194,11 @@ open class NumPadTextView : ConstraintLayout {
         }
     }
 
-    open fun setNumpadHandler(numpadHandler: INumPadHandler){
+    open fun setNumpadHandler(numpadHandler: INumPadHandler) {
         handler = numpadHandler
     }
 
-    protected open fun setupNumpadHandler(){
+    protected open fun setupNumpadHandler() {
         iconsContainersList.forEach { container ->
             container.setOnClickListener {
                 handler?.onNumClick(iconsContainersList.indexOf(container))
@@ -214,45 +214,45 @@ open class NumPadTextView : ConstraintLayout {
     /*endregion ################### All Icons Settings ######################*/
 
     /*region ################### Number Text Icons ######################*/
-    open fun setNumbersTextSize(size: Int){
+    open fun setNumbersTextSize(size: Int) {
         iconsNumbersList.forEach { num ->
             num.textSize = size.toFloat()
         }
     }
 
-    open fun setNumbersTextStyle(styleId: Int){
-        if (styleId != -1){
-            iconsNumbersList.forEach{ num ->
+    open fun setNumbersTextStyle(styleId: Int) {
+        if (styleId != -1) {
+            iconsNumbersList.forEach { num ->
                 setNumberTextStyle(num, styleId)
             }
         }
     }
 
-    protected open fun setNumberTextStyle(textView: MaterialTextView, styleId: Int){
+    protected open fun setNumberTextStyle(textView: MaterialTextView, styleId: Int) {
         textView.apply { TextViewCompat.setTextAppearance(this, styleId) }
     }
 
-    open fun setNumbersTextColor(color: Int){
-        iconsNumbersList.forEach{ num ->
+    open fun setNumbersTextColor(color: Int) {
+        iconsNumbersList.forEach { num ->
             setNumberTextColor(num, color)
         }
     }
 
-    protected open fun setNumberTextColor(textView: MaterialTextView, color: Int){
+    protected open fun setNumberTextColor(textView: MaterialTextView, color: Int) {
         textView.setTextColor(color)
     }
     /*endregion ################### Number Text Icons ######################*/
 
     /*region ################### Left Button Icon ######################*/
-    open fun setLeftButtonIconImage(drawable: Drawable?){
-        if (drawable != null){
+    open fun setLeftButtonIconImage(drawable: Drawable?) {
+        if (drawable != null) {
             btnIconLeft.setImageDrawable(drawable)
         } else {
             setLeftButtonVisibility(false)
         }
     }
 
-    open fun setLeftButtonIconImage(resId: Int?){
+    open fun setLeftButtonIconImage(resId: Int?) {
         if (resId != null) {
             btnIconLeft.setImageResource(resId)
         } else {
@@ -260,7 +260,7 @@ open class NumPadTextView : ConstraintLayout {
         }
     }
 
-    open fun setLeftButtonIconSize(widthValue: Int, heightValue: Int){
+    open fun setLeftButtonIconSize(widthValue: Int, heightValue: Int) {
         btnIconLeft.layoutParams.apply {
             width = dpToPx(widthValue).toInt()
             height = dpToPx(heightValue).toInt()
@@ -268,7 +268,7 @@ open class NumPadTextView : ConstraintLayout {
         btnIconLeft.requestLayout()
     }
 
-    open fun setLeftButtonVisibility(value: Boolean){
+    open fun setLeftButtonVisibility(value: Boolean) {
         setButtonVisibility(btnContainerLeft, value)
     }
 
@@ -276,18 +276,18 @@ open class NumPadTextView : ConstraintLayout {
      * Set color for left icon. Color is set once and doesn't save.
      * So at first you should set icon drawable and then change color.
      */
-    open fun setLeftIconColor(color: Int){
+    open fun setLeftIconColor(color: Int) {
         if (color != -1)
             ImageViewCompat.setImageTintList(btnIconLeft, ColorStateList.valueOf(color))
     }
 
-    open fun setLeftIconColorResource(@ColorRes color: Int){
+    open fun setLeftIconColorResource(@ColorRes color: Int) {
         setLeftIconColor(ContextCompat.getColor(context, color))
     }
     /*endregion ################### Left Button Icon ######################*/
 
     /*region ################### Right Button Icon ######################*/
-    open fun setRightButtonIconImage(drawable: Drawable?){
+    open fun setRightButtonIconImage(drawable: Drawable?) {
         if (drawable != null) {
             btnIconRight.setImageDrawable(drawable)
         } else {
@@ -295,12 +295,12 @@ open class NumPadTextView : ConstraintLayout {
         }
     }
 
-    open fun setRightButtonIconImage(resId: Int?){
+    open fun setRightButtonIconImage(resId: Int?) {
         val imageRes = resId ?: defaultRightIconImage
         btnIconRight.setImageResource(imageRes)
     }
 
-    open fun setRightButtonIconSize(widthValue: Int, heightValue: Int){
+    open fun setRightButtonIconSize(widthValue: Int, heightValue: Int) {
         btnIconRight.layoutParams.apply {
             width = dpToPx(widthValue).toInt()
             height = dpToPx(heightValue).toInt()
@@ -308,7 +308,7 @@ open class NumPadTextView : ConstraintLayout {
         btnIconRight.requestLayout()
     }
 
-    open fun setRightButtonVisibility(value: Boolean){
+    open fun setRightButtonVisibility(value: Boolean) {
         setButtonVisibility(btnContainerRight, value)
     }
 
@@ -316,12 +316,12 @@ open class NumPadTextView : ConstraintLayout {
      * Set color for right icon. Color is set once and doesn't save.
      * So at first you should set icon drawable and then change color.
      */
-    open fun setRightIconColor(color: Int){
+    open fun setRightIconColor(color: Int) {
         if (color != -1)
             ImageViewCompat.setImageTintList(btnIconRight, ColorStateList.valueOf(color))
     }
 
-    open fun setRightIconColorResource(@ColorRes color: Int){
+    open fun setRightIconColorResource(@ColorRes color: Int) {
         setRightIconColor(ContextCompat.getColor(context, color))
     }
 
@@ -329,7 +329,7 @@ open class NumPadTextView : ConstraintLayout {
 
     /*region ################### Other ######################*/
 
-    fun setDefault(){
+    fun setDefault() {
         setIconsSize(defaultIconSize, defaultIconSize)
         setIconsPadding(0)
         setLeftButtonIconImage(defaultLeftIconImage)

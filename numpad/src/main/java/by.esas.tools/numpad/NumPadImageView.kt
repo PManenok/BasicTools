@@ -1,4 +1,4 @@
-package com.example.numpad
+package by.esas.tools.numpad
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -16,7 +16,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import kotlin.IndexOutOfBoundsException
 
 open class NumPadImageView : ConstraintLayout {
     open val TAG: String = NumPadImageView::class.java.simpleName

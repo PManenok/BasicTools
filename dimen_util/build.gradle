@@ -5,40 +5,11 @@ plugins {
 }
 apply from: '../properties.gradle'
 
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
-afterEvaluate {
-    task sourceJar(type: Jar) {
-        from android.sourceSets.main.java.srcDirs
-        classifier "sources"
-    }
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = 'by.esas.tools'
-                artifactId = 'dimen_util'
-                version = "$dimen_util_lib_version"
-            }
-        }
-        repositories {
-            maven {
-                // change to point to your repo, e.g. http://my.org/repo
-                url = layout.buildDirectory.dir('https://github.com/PManenok/BasicTools')
-            }
-        }
-    }
-}
-
 android {
+    namespace = "${package_name}.${project.name}"
+
     compileSdkVersion compile_sdk_version
-    buildFeatures {
-        dataBinding = true
-    }
+
     defaultConfig {
         minSdkVersion min_sdk_version
     }
@@ -48,4 +19,18 @@ dependencies {
     //SSP and SDP
     api 'com.intuit.sdp:sdp-android:1.0.6'
     api 'com.intuit.ssp:ssp-android:1.0.6'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = "${package_name}"
+                artifactId = "${project.name}"
+                version = "$dimen_util_lib_version"
+            }
+        }
+    }
 }

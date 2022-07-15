@@ -7,8 +7,6 @@ package by.esas.tools.basedaggerui.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton

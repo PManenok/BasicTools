@@ -12,14 +12,16 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import dagger.Reusable
 import javax.inject.Inject
-import javax.inject.Provider
 
 @Reusable
 class InjectingViewModelFactory @Inject constructor(
     private val assistedFactories: Map<Class<out ViewModel>, @JvmSuppressWildcards AssistedSavedStateViewModelFactory<out ViewModel>>,
     private val simpleFactory: ViewModelFactory
 ) {
-    fun provideFactory(owner: SavedStateRegistryOwner, defaultArgs: Bundle? = null): AbstractSavedStateViewModelFactory {
+    fun provideFactory(
+        owner: SavedStateRegistryOwner,
+        defaultArgs: Bundle? = null
+    ): AbstractSavedStateViewModelFactory {
         return object : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
             @Suppress("UNCHECKED_CAST")

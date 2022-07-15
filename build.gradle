@@ -18,6 +18,8 @@ buildscript {
         dagger2_version = '2.41'
         recyclerview_version = '1.2.1'
         navigation_version = "2.4.2"
+
+        multidex_version = "2.0.1"
     }
     repositories {
         google()

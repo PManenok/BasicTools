@@ -1,53 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'maven-publish'
 apply from: '../properties.gradle'
 
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
-afterEvaluate {
-    task sourceJar(type: Jar) {
-        from android.sourceSets.main.java.srcDirs
-        classifier "sources"
-    }
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = 'by.esas.tools'
-                artifactId = 'basedaggerui'
-                version = "$basedaggerui_lib_version"
-            }
-            // Creates a Maven publication called “debug”.
-            /*debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
-
-                groupId = 'com.example.MyLibrary'
-                artifactId = 'final-debug'
-                version = '1.0'
-            }*/
-
-        }
-        repositories {
-            maven {
-                // change to point to your repo, e.g. http://my.org/repo
-                url = layout.buildDirectory.dir('https://github.com/PManenok/BasicTools')
-            }
-        }
-    }
-}
-
 android {
+    namespace = "${package_name}.${project.name}"
+
     compileSdkVersion compile_sdk_version
-    dataBinding {
-        enabled = true
-    }
+
     defaultConfig {
         minSdkVersion min_sdk_version
     }
@@ -57,31 +17,28 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    // App
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$corektx_version"
-
     /* REMEMBER com.google.dagger:dagger-android-support lib contains lifecycle-viewmodel-ktx lib
         and thus we need to set version otherwise there will be duplicate error */
     // Saved state module for ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    // Data binding
-    kapt "com.android.databinding:compiler:$databinding_version"
-
-    // Material Design
-    implementation "com.google.android.material:material:$material_version"
-
     // Dagger 2
     api "com.google.dagger:dagger:$dagger2_version"
     api "com.google.dagger:dagger-android:$dagger2_version"
     api "com.google.dagger:dagger-android-support:$dagger2_version"
+}
 
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-
-    implementation project(path: ':dialog')
-    implementation project(path: ':domain')
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = "${package_name}"
+                artifactId = "${project.name}"
+                version = "$basedaggerui_lib_version"
+            }
+        }
+    }
 }
