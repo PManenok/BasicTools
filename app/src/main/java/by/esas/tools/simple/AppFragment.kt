@@ -69,32 +69,4 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
         logger.logInfo("provideSwitchableViews")
         return emptyList()
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        logger.logInfo("onCreate")
-
-        viewModel = provideViewModel()
-        viewModel.logger.setTag(viewModel.TAG)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        logger.setTag(TAG)
-        logger.logInfo("onCreateView")
-        binding = DataBindingUtil.inflate(inflater, provideLayoutId(), container, false)
-        binding.setVariable(provideVariableInd(), viewModel)
-        binding.lifecycleOwner = this
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
 }

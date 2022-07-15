@@ -10,6 +10,4 @@ class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
     override fun provideMapper(): IErrorMapper<ErrorModel> {
         return mapper
     }
-
-
 }

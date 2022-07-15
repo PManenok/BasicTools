@@ -1,6 +1,5 @@
 package by.esas.tools.inject.builder
 
-import dagger.Binds
 import dagger.Module
 
 

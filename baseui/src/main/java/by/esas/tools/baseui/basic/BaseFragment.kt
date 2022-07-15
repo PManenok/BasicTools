@@ -90,8 +90,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
             ActivityResultContracts.RequestMultiplePermissions(),
             providePermissionResultCallback()
         )
-
-        setupFragmentResultListeners(provideRequestKeys())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -102,6 +100,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logger.logOrder("onViewCreated")
+        setupFragmentResultListeners(provideRequestKeys())
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

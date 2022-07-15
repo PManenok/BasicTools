@@ -5,6 +5,7 @@ import by.esas.tools.AddInvoiceViewModel
 import by.esas.tools.MainVM
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
+import by.esas.tools.menu.MenuVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,4 +23,9 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(AddInvoiceViewModel::class)
     abstract fun bindVMFactory(f: AddInvoiceViewModel.Factory): AssistedSavedStateViewModelFactory<out ViewModel>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MenuVM::class)
+    abstract fun bindMenuViewModel(menuViewModel: MenuVM): ViewModel
 }
