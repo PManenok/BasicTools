@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import by.esas.tools.inject.component.DaggerAppComponent
-import by.esas.tools.util.LocaleManager
+import by.esas.tools.util.configs.SettingsManager
+import by.esas.tools.util.configs.UiModeType
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
@@ -19,6 +20,8 @@ class App : DaggerApplication() {
     companion object {
         lateinit var instance: App
         lateinit var appContext: Context
+        var uiMode:UiModeType = UiModeType.SYSTEM
+        var language:String = "en"
     }
 
     init {
@@ -43,7 +46,7 @@ class App : DaggerApplication() {
     }
 
     override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base?.let { return@let LocaleManager.setLocale(base, getLocale(base).language) })
+        super.attachBaseContext(base?.let { return@let SettingsManager.updateSettings(base, language, uiMode) })
         MultiDex.install(this)
     }
 

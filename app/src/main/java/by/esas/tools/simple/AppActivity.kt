@@ -18,8 +18,9 @@ import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.logger.handler.ErrorHandler
-import by.esas.tools.util.SettingsProvider
 import by.esas.tools.util.TAGk
+import by.esas.tools.util.configs.SettingsProvider
+import by.esas.tools.util.configs.UiModeType
 import by.esas.tools.util.hideSystemUIR
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -81,11 +82,23 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
             }
 
             override fun getLanguage(): String {
-                return "en"
+                return App.language
             }
 
             override fun setLanguage(lang: String) {
+                App.language = lang
+            }
 
+            override fun getDefaultMode(): UiModeType {
+                return UiModeType.SYSTEM
+            }
+
+            override fun getMode(): UiModeType {
+                return App.uiMode
+            }
+
+            override fun setMode(uiMode: UiModeType) {
+                App.uiMode = uiMode
             }
         }
     }
@@ -124,7 +137,8 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
         //WindowCompat.setDecorFitsSystemWindows(window, false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            window.insetsController?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.apply {
                 //clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
