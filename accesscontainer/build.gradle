@@ -1,54 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'maven-publish'
+apply from: '../properties.gradle'
 
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
-afterEvaluate {
-    task sourceJar(type: Jar) {
-        from android.sourceSets.main.java.srcDirs
-        classifier "sources"
-    }
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = 'by.esas.tools'
-                artifactId = 'accesscontainer'
-                version = "$accesscontainer_lib_version"
-            }
-            // Creates a Maven publication called “debug”.
-            /*debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
-
-                groupId = 'com.example.MyLibrary'
-                artifactId = 'final-debug'
-                version = '1.0'
-            }*/
-
-        }
-        repositories {
-            maven {
-                // change to point to your repo, e.g. http://my.org/repo
-                url = 'https://github.com/PManenok/BasicTools'
-                /*credentials {
-                    username PManenok
-                    password BlackCurrant$25
-                }*/
-            }
-        }
-    }
-}
 android {
-    compileSdkVersion 31
+    namespace = "${package_name}.${project.name}"
+
+    compileSdkVersion compile_sdk_version
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion min_sdk_version
     }
 }
 
@@ -60,4 +21,18 @@ dependencies {
 
     //Module
     implementation project(path: ':logger')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = "${package_name}"
+                artifactId = "${project.name}"
+                version = "$accesscontainer_lib_version"
+            }
+        }
+    }
 }

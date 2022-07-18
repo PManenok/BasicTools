@@ -1,4 +1,4 @@
-package by.easa.tools.topbar
+package by.esas.tools.topbarview
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -270,7 +270,7 @@ open class TopbarView : LinearLayout {
         titleView.ellipsize = truncateAt
     }
 
-    fun setDefaultTitleParams(){
+    fun setDefaultTitleParams() {
         titleView.apply {
             setPadding(
                 paddingLeft + defPadding,

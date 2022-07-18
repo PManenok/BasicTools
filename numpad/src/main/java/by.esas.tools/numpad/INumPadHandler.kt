@@ -1,4 +1,4 @@
-package com.example.numpad
+package by.esas.tools.numpad
 
 interface INumPadHandler {
     fun onNumClick(num: Int)

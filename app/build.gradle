@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply from: '../properties.gradle'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion compile_sdk_version
     buildToolsVersion "30.0.3"
 
     buildFeatures {
@@ -18,8 +19,8 @@ android {
     }
     defaultConfig {
         applicationId "by.esas.tools"
-        minSdkVersion 16
-        targetSdkVersion 31
+        minSdkVersion min_sdk_version
+        targetSdkVersion compile_sdk_version
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,11 +32,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
-    def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
     // Kotlin
