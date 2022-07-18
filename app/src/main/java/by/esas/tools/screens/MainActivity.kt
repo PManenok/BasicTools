@@ -1,22 +1,17 @@
-package by.esas.tools
+package by.esas.tools.screens
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsetsController
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.databinding.ActivityMainBinding
 import by.esas.tools.dialog.GetPasswordDialog
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.util.TAGk
-import by.esas.tools.util.hideSystemUIR
 import dagger.android.AndroidInjection
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import by.esas.tools.R
 import by.esas.tools.simple.AppActivity
 
 /**
@@ -52,7 +47,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
 
     override fun onStart() {
         super.onStart()
-        viewModel.testError()
+//        viewModel.testError()
     }
 
     override fun provideSwitchableViews(): List<View?> {

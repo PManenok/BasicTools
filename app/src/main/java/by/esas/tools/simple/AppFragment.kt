@@ -1,13 +1,8 @@
 package by.esas.tools.simple
 
 import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.navigation.fragment.NavHostFragment
 import by.esas.tools.App
 import by.esas.tools.BR
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
@@ -20,7 +15,6 @@ import by.esas.tools.util.TAGk
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :

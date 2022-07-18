@@ -1,10 +1,11 @@
-package by.esas.tools.menu
+package by.esas.tools.screens.menu
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
@@ -31,6 +32,10 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupCaseRecycler()
+        viewModel.updateAdapter(viewModel.allCases)
+        logger.logInfo("my onViewCreated")
     }
 
     override fun provideChecks(): List<Checking> {
@@ -41,4 +46,11 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
         TODO("Not yet implemented")
     }
 
+    private fun setupCaseRecycler(){
+        binding.fMenuRecycler.apply {
+            adapter = viewModel.caseAdapter
+            layoutManager = LinearLayoutManager(this@MenuFragment.requireContext())
+        }
+        binding.fMenuRecycler.hasFixedSize()
+    }
 }

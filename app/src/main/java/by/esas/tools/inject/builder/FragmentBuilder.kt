@@ -1,6 +1,6 @@
 package by.esas.tools.inject.builder
 
-import by.esas.tools.menu.MenuFragment
+import by.esas.tools.screens.menu.MenuFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

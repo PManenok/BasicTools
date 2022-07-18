@@ -1,6 +1,6 @@
 package by.esas.tools.inject.builder
 
-import by.esas.tools.MainActivity
+import by.esas.tools.screens.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

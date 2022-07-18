@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="by.esas.tools.menu.MenuFragment"
+        android:name="by.esas.tools.screens.menu.MenuFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_menu"
         />

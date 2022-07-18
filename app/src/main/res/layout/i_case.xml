@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="by.esas.tools.screens.menu.recycler.CaseViewModel" />
+    </data>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/i_case_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/spacing_10"
+                android:layout_marginEnd="@dimen/spacing_10"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/card" />
+            <!--
+            android:paddingStart="@dimen/spacing_16"
+            android:paddingTop="@dimen/spacing_16"
+            android:paddingEnd="@dimen/spacing_16"
+            android:paddingBottom="@dimen/spacing_16"
+                        android:paddingStart="@dimen/spacing_30"
+                        android:paddingTop="@dimen/spacing_24"
+                        android:paddingEnd="@dimen/spacing_30"
+                        android:paddingBottom="@dimen/spacing_32"-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_22"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:layout_marginEnd="@dimen/spacing_22"
+                android:layout_marginBottom="@dimen/spacing_20"
+                android:paddingStart="@dimen/spacing_16"
+                android:paddingTop="@dimen/spacing_16"
+                android:paddingEnd="@dimen/spacing_16"
+                android:paddingBottom="@dimen/spacing_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/i_case_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_marginRight="@dimen/spacing_16"
+                android:text="@{item.caseName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Input field view usecase" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/i_case_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_marginRight="@dimen/spacing_16">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:gravity="start"
+                    android:text="Modules: "/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/i_case_modules"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:gravity="start"
+                    android:text="@{item.caseModules}"
+                    tools:text="Dialog, Cardline"/>
+
+            </LinearLayout>
+
+
+            <!--  <LinearLayout
+                  android:id="@+id/i_invoice_info_container"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/spacing_8"
+                  android:orientation="horizontal"
+                  app:layout_constraintTop_toBottomOf="@id/i_invoice_service_name">-->
+            <!--Committed at 08.10.2021-->
+            <!--<com.google.android.material.textview.MaterialTextView
+                android:id="@+id/i_invoice_date"
+                style="@style/TextStyle.Regular14.Gray1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/spacing_6"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="@{item.date}"
+                android:visibility="@{item.showDate}"
+                app:layout_constraintEnd_toStartOf="@id/i_invoice_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/i_invoice_service_name"
+                tools:text="1.12.1930 - 31.12.1930" />-->
+
+            <!--  </LinearLayout>-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

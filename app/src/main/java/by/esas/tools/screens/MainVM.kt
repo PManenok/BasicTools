@@ -1,4 +1,4 @@
-package by.esas.tools
+package by.esas.tools.screens
 
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
