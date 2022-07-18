@@ -20,6 +20,7 @@ import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.domain.usecase.UseCase
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.util.configs.UiModeType
 
 abstract class StandardViewModel<M : BaseErrorModel>
     : BaseViewModel<M>(), INavigateVM, IExecutingVM, IShowingVM {
@@ -27,7 +28,9 @@ abstract class StandardViewModel<M : BaseErrorModel>
     companion object {
         const val ACTION_CHECK_FIELDS: String = "ACTION_CHECK_FIELDS"
         const val ACTION_CHANGE_LANGUAGE: String = "ACTION_CHANGE_LANGUAGE"
+        const val ACTION_CHANGE_NIGHT_MODE: String = "ACTION_CHANGE_THEME"
         const val PARAM_NEW_LANGUAGE: String = "PARAM_NEW_LANGUAGE"
+        const val PARAM_NEW_NIGHT_MODE: String = "PARAM_NEW_THEME"
     }
 
     override var useCases: MutableList<UseCase<*, *>> = mutableListOf<UseCase<*, *>>()
@@ -47,6 +50,13 @@ abstract class StandardViewModel<M : BaseErrorModel>
         val params = Bundle()
         params.putString(PARAM_NEW_LANGUAGE, newLanguage)
         val action = Action(ACTION_CHANGE_LANGUAGE, params)
+        requestAction(action)
+    }
+
+    open fun requestThemeChange(newTheme: UiModeType) {
+        val params = Bundle()
+        params.putString(PARAM_NEW_NIGHT_MODE, newTheme.name)
+        val action = Action(ACTION_CHANGE_NIGHT_MODE, params)
         requestAction(action)
     }
 

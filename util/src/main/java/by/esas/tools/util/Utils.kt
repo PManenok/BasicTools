@@ -19,6 +19,8 @@ val KClass<*>.TAGk: String
         return if (tag.length <= 23) tag else tag.substring(0, 23)
     }
 
+//region string formatting
+
 internal const val UNBREAKABLE_SPACE = "\u00A0"
 fun Double.toFormattedInput(): String {
     val temp = this.toString()
@@ -57,6 +59,10 @@ fun getOnlyNumbers(value: String): String {
     }
     return builder.toString()
 }
+
+//endregion string formatting
+
+//region cards
 
 fun luhnCheck(value: String): Boolean {
     // this only works if you are certain all input will be at least 10 characters
@@ -105,3 +111,5 @@ fun getCardType(mask: String): String {
     }
     return ""
 }
+
+//endregion cards

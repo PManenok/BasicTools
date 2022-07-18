@@ -14,10 +14,19 @@ open class SwitchManager {
      * return true if method handled switch and false if not
      * */
     open fun enableView(view: View): Boolean {
-        return if (view is EditText) {
-            by.esas.tools.util.enableView(view)
-            true
-        } else false
+        return when (view) {
+            is ISwitchView -> {
+                view.switchOn()
+                true
+            }
+            is EditText -> {
+                by.esas.tools.util.enableView(view)
+                true
+            }
+            else -> {
+                false
+            }
+        }
     }
 
     /**
@@ -25,9 +34,23 @@ open class SwitchManager {
      * return true if method handled switch and false if not
      * */
     open fun disableView(view: View): Boolean {
-        return if (view is EditText) {
-            by.esas.tools.util.disableView(view)
-            true
-        } else false
+        return when (view) {
+            is ISwitchView -> {
+                view.switchOff()
+                true
+            }
+            is EditText -> {
+                by.esas.tools.util.disableView(view)
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    interface ISwitchView {
+        fun switchOn()
+        fun switchOff()
     }
 }

@@ -117,6 +117,10 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
                 val lang = action.parameters?.getString(StandardViewModel.PARAM_NEW_LANGUAGE)
                 onChangeLanguage(lang, action.parameters)
             }
+            StandardViewModel.ACTION_CHANGE_NIGHT_MODE -> {
+                val value = action.parameters?.getString(StandardViewModel.PARAM_NEW_NIGHT_MODE)
+                onChangeNightMode(value, action.parameters)
+            }
             else -> {
                 return super.handleAction(action)
             }
@@ -187,12 +191,21 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     protected open fun onChangeLanguage(lang: String?, params: Bundle?) {
-        logger.logInfo("try to changeLang $lang")
+        logger.logOrder("onChangeLanguage $lang $params")
         if (!lang.isNullOrBlank()) {
-            logger.logInfo("changeLang to $lang")
             activity?.let {
                 if (it is BaseActivity<*>)
-                    it.setLanguage(lang)
+                    it.changeLanguage(lang)
+            }
+        }
+    }
+
+    protected open fun onChangeNightMode(mode: String?, params: Bundle?) {
+        logger.logOrder("onChangeNightMode $mode $params")
+        if (mode != null) {
+            activity?.let {
+                if (it is BaseActivity<*>)
+                    it.changeNightMode(mode)
             }
         }
     }

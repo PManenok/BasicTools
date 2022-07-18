@@ -6,5 +6,5 @@
     <color name="colorSpinnerBackground">#FFC107</color>
     <color name="colorStrokeOutline">#FFC107</color>
     <color name="colorCursor" override="true">#03DAC5</color>
-    <color name="colorBackground">#FFF</color>
+    <color name="colorBackground">#000</color>
 </resources>

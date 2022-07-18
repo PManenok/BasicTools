@@ -3,16 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package by.esas.tools.util
-
-import java.util.*
+package by.esas.tools.util.configs
 
 interface SettingsProvider {
     // language methods
     fun getDefaultLanguage(): String
     fun getLanguage(): String
     fun setLanguage(lang: String)
-    fun getCurrentLocale(): Locale {
-        return Locale(getLanguage())
-    }
+
+    fun getDefaultMode(): UiModeType
+    fun getMode(): UiModeType
+    fun setMode(uiMode: UiModeType)
 }
