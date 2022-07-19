@@ -20,6 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/spacing_4"
             android:layout_marginStart="@dimen/spacing_18"
             android:layout_marginEnd="@dimen/spacing_18"
             app:inputLabelType="hide"
@@ -30,7 +31,7 @@
             app:inputStartIconMode="custom"
             app:inputEditTextStyle="@style/EditTextStyle"
             app:inputActiveStrokeColor="@color/main_color_2"
-            android:hint="Search by case name or modules"
+            android:hint="@string/search_hint"
             app:inputBoxBgColor="@color/main_color_4"
             app:inputShowBottomContainer="false"/>
 

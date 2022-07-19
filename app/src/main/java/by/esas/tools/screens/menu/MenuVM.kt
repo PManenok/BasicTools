@@ -47,9 +47,7 @@ class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
             val searchList = splitSearch(value)
             val list = doSearch(allCases, searchList)
             if (list.size != caseAdapter.itemCount) {
-                caseAdapter.cleanItems()
                 caseAdapter.addItems(list)
-                caseAdapter.notifyDataSetChanged()
             }
             enableControls()
         }
@@ -70,12 +68,12 @@ class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
 
     private fun doSearchByModules(case: CaseItemInfo, search: String): Boolean {
         val list = case.modules.filter { module ->
-            module.contains(search)
+            module.contains(search, true)
         }
         return list.isNotEmpty()
     }
 
     private fun splitSearch(search: String): List<String> {
-        return search.split(" ").filter { it != "" }
+        return search.split(" ", ",", ";").filter { it != "" }
     }
 }
