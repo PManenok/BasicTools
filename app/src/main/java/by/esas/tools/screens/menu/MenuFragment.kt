@@ -2,6 +2,8 @@ package by.esas.tools.screens.menu
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +38,15 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
         setupCaseRecycler()
         viewModel.updateAdapter(viewModel.allCases)
         logger.logInfo("my onViewCreated")
+        binding.fMenuCasesSearch.addTextWatcher(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(search: Editable?) {
+                viewModel.onSearchChanged(search.toString())
+            }
+        })
     }
 
     override fun provideChecks(): List<Checking> {

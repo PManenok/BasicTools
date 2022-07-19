@@ -7,4 +7,10 @@
     <color name="colorStrokeOutline">#FFC107</color>
     <color name="colorCursor" override="true">#03DAC5</color>
     <color name="colorBackground">#FFF</color>
+
+    <color name="main_color_1">#0B1F35</color>
+    <color name="main_color_2">#600B1F35</color>
+    <color name="main_color_3">#D9E1EE</color>
+    <color name="main_color_4">#F1F4F9</color>
+    <color name="main_color_5">#FFFFFF</color>
 </resources>

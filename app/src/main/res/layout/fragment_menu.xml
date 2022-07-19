@@ -13,6 +13,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <by.esas.tools.inputfieldview.InputFieldView
+            android:id="@+id/f_menu_cases_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/spacing_18"
+            android:layout_marginEnd="@dimen/spacing_18"
+            app:inputLabelType="hide"
+            android:inputType="text"
+            android:text="@={viewModel.prevSearch}"
+            app:inputStartDrawable="@drawable/ic_search"
+            app:inputStartDrawableTint="@color/main_color_2"
+            app:inputStartIconMode="custom"
+            app:inputEditTextStyle="@style/EditTextStyle"
+            app:inputActiveStrokeColor="@color/main_color_2"
+            android:hint="Search by case name or modules"
+            app:inputBoxBgColor="@color/main_color_4"
+            app:inputShowBottomContainer="false"/>
+
+        <View
+            android:id="@+id/f_menu_cases_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_10"
+            android:background="@color/colorDivider"
+            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_search"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/f_menu_recycler"
             android:layout_width="match_parent"
@@ -21,10 +50,11 @@
             android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider"
             app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/i_case" />
+            tools:listitem="@layout/i_case"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
