@@ -30,15 +30,14 @@ import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
+import by.esas.tools.util.TAGk
 import by.esas.tools.util.defocusAndHideKeyboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
-    companion object {
-        val TAG: String = BaseFragment::class.java.simpleName
-    }
+    val TAG: String = TAGk
 
-    protected open var logger: ILogger<*> = BaseLoggerImpl(TAG, null)
+    protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
     protected open var hideKeyboardOnStop: Boolean = true
     protected open var switcher: SwitchManager = SwitchManager()
     protected var permissionsLauncher: ActivityResultLauncher<Array<String>>? = null

@@ -1,9 +1,9 @@
-package by.esas.tools.usecase
+package by.esas.tools.app_domain.usecase
 
+import by.esas.tools.app_domain.error_mapper.AppErrorMapper
 import by.esas.tools.domain.usecase.IRefresh
 import by.esas.tools.domain.usecase.UseCase
-import by.esas.tools.error_mapper.AppErrorMapper
-import by.esas.tools.logger.ErrorModel
+import by.esas.tools.utils.logger.ErrorModel
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

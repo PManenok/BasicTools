@@ -1,4 +1,4 @@
-package by.esas.tools.error_mapper
+package by.esas.tools.app_domain.error_mapper
 
 enum class AppErrorStatusEnum {
     OK,
@@ -79,13 +79,15 @@ enum class AppErrorStatusEnum {
     EPOS_INVOICE_NUMBER_TAKEN,
     SERVICE_INFO_NOT_FOUND,
     CURRENCY_INFO_NOT_FOUND,
-    INVOICES_GET_NOT_FOUND
-}
+    INVOICES_GET_NOT_FOUND;
 
-fun String.getAppErrorStatusEnum(): AppErrorStatusEnum {
-    return try {
-        AppErrorStatusEnum.valueOf(this)
-    } catch (e: IllegalStateException) {
-        AppErrorStatusEnum.NOT_SET
+    companion object {
+        fun getAppErrorStatusEnum(value: String): AppErrorStatusEnum {
+            return try {
+                valueOf(value)
+            } catch (e: IllegalStateException) {
+                NOT_SET
+            }
+        }
     }
 }

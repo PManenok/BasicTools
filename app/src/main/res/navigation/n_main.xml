@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/n_main"
@@ -11,7 +10,22 @@
         android:id="@+id/menuFragment"
         android:name="by.esas.tools.screens.menu.MenuFragment"
         android:label="Menu"
-        tools:layout="@layout/fragment_menu"
-        />
-
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_pinViewFragment"
+            app:destination="@id/pinViewFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_savedStateFragment"
+            app:destination="@id/savedStateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinViewFragment"
+        android:name="by.esas.tools.screens.pin_view.PinViewFragment"
+        android:label="Check PinView functionality"
+        tools:layout="@layout/f_main_pin_view" />
+    <fragment
+        android:id="@+id/savedStateFragment"
+        android:name="by.esas.tools.screens.saved_state_vm.SavedStateFragment"
+        android:label="Check SavedState view model"
+        tools:layout="@layout/f_main_saved_state" />
 </navigation>

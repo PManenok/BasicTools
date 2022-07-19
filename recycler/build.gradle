@@ -27,8 +27,8 @@ dependencies {
     kapt "com.android.databinding:compiler:$databinding_version"
 
     // Material Design
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    api "com.google.android.material:material:$material_version"
+    api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
     //Module
     api project(path: ':dimen_util')

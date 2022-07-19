@@ -1,28 +1,34 @@
 package by.esas.tools.screens.menu
 
-import android.util.Log
-import by.esas.tools.simple.AppVM
-import by.esas.tools.error_mapper.AppErrorMapper
-import by.esas.tools.logger.ErrorModel
-import by.esas.tools.logger.IErrorMapper
+import by.esas.tools.base.AppVM
 import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.screens.menu.recycler.CaseItemInfo
 import javax.inject.Inject
 
-class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
-    override fun provideMapper(): IErrorMapper<ErrorModel> {
-        return mapper
-    }
+class MenuVM @Inject constructor() : AppVM() {
 
     val allCases = listOf(
+        CaseItemInfo(
+            0,
+            "Check PinView functionality",
+            listOf("pinview"),
+            MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
+        ),
+        CaseItemInfo(
+            1,
+            "Check SavedState view model",
+            listOf("basedaggerui", "baseui"),
+            MenuFragmentDirections.actionMenuFragmentToSavedStateFragment()
+        ),
         CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog")),
         CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog")),
         CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog, ListHeader"))
     )
 
     val caseAdapter = CaseAdapter(
-        onClick = {
-            logger.logInfo("item click")
+        onClick = { item ->
+            logger.logInfo("${item.name} clicked")
+            item.direction?.let { navigate(it) }
         }
     )
 

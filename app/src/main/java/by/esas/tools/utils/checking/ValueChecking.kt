@@ -1,4 +1,4 @@
-package by.esas.tools.checking
+package by.esas.tools.utils.checking
 
 import androidx.lifecycle.MutableLiveData
 import by.esas.tools.checker.BaseCheck

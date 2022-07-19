@@ -20,7 +20,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$corektx_version"
 
     //Module
-    implementation project(path: ':logger')
+    api project(path: ':logger')
 }
 
 afterEvaluate {

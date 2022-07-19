@@ -2,12 +2,11 @@ package by.esas.tools.inject.module
 
 import android.app.Application
 import android.content.Context
-import by.esas.tools.error_mapper.AppErrorMapper
-import by.esas.tools.error_mapper.AppErrorStatusEnum
+import by.esas.tools.app_domain.error_mapper.AppErrorMapper
 import by.esas.tools.inject.builder.ViewModelFactoryBuilder
-import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.LoggerImpl
+import by.esas.tools.utils.logger.ErrorModel
+import by.esas.tools.utils.logger.LoggerImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

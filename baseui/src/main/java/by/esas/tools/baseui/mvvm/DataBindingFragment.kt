@@ -19,8 +19,6 @@ import by.esas.tools.logger.BaseErrorModel
 abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
     : BaseFragment<M>() {
 
-    val TAG: String = DataBindingFragment::class.java.simpleName
-
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
 

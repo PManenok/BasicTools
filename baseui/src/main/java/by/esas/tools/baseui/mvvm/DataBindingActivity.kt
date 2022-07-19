@@ -25,7 +25,6 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
 
     abstract fun provideViewModel(): TViewModel
 
-    abstract fun provideLayoutId(): Int
 
     abstract fun provideVariableInd(): Int
 

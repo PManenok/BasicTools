@@ -24,8 +24,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$corektx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     // Material Design
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    api "com.google.android.material:material:$material_version"
+    api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"

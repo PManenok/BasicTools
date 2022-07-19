@@ -1,4 +1,4 @@
-package by.esas.tools.checking
+package by.esas.tools.utils.checking
 
 import by.esas.tools.checker.BaseCheck
 import by.esas.tools.checker.Checking

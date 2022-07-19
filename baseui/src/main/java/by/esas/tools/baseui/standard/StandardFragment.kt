@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseActivity
@@ -36,9 +37,9 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
 
     abstract fun provideChecks(): List<Checking>
 
-    abstract fun provideChecker(): Checker
+    abstract fun provideChecker(): Checker?
 
-    protected open fun provideCheckListener(): Checker.CheckListener {
+    protected open fun provideCheckListener(): Checker.CheckListener? {
         return viewModel.provideCheckListener()
     }
 
@@ -46,11 +47,26 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupNavController()
+
         //Settings for IExecutingVM
         viewModel.addUseCases()
+
     }
 
-    //region setup observers
+    //region setups
+
+    open fun setupNavController() {
+        try {
+            navController = NavHostFragment.findNavController(this)
+        } catch (e: IllegalStateException) {
+            logger.logInfo(
+                "NavController was not found. Check if there is one along this Fragment's " +
+                        "view hierarchy as specified by Navigation."
+            )
+            e.printStackTrace()
+        }
+    }
 
     override fun setupObservers() {
         super.setupObservers()
@@ -106,20 +122,25 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
         when (action.name) {
             NavAction.ACTION_NAVIGATION -> {
                 onNavigate(action as NavAction)
+                action.handled = true
             }
             PopBackAction.ACTION_POP_BACK -> {
                 onPopBack(action as PopBackAction)
+                action.handled = true
             }
             StandardViewModel.ACTION_CHECK_FIELDS -> {
                 onCheckFields(action.parameters)
+                action.handled = true
             }
             StandardViewModel.ACTION_CHANGE_LANGUAGE -> {
                 val lang = action.parameters?.getString(StandardViewModel.PARAM_NEW_LANGUAGE)
                 onChangeLanguage(lang, action.parameters)
+                action.handled = true
             }
             StandardViewModel.ACTION_CHANGE_NIGHT_MODE -> {
                 val value = action.parameters?.getString(StandardViewModel.PARAM_NEW_NIGHT_MODE)
                 onChangeNightMode(value, action.parameters)
+                action.handled = true
             }
             else -> {
                 return super.handleAction(action)
@@ -153,23 +174,19 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
 
     protected open fun onCheckFields(params: Bundle?) {
         provideChecker()
-            .setListener(provideCheckListener())
-            .setMode(true)
-            .validate(provideChecks())
+            ?.setListener(provideCheckListener())
+            ?.setMode(true)
+            ?.validate(provideChecks())
     }
 
     protected open fun onNavigate(action: NavAction) {
         logger.logInfo("try to navigate")
-        try {
-            if (navController?.currentDestination?.id == fragmentDestinationId) {
-                logger.logInfo("navigate to destination")
+        if (navController?.currentDestination?.id == fragmentDestinationId) {
+            logger.logInfo("navigate to destination")
 
-                activity?.runOnUiThread {
-                    navController?.navigate(action.direction)
-                }
+            activity?.runOnUiThread {
+                navController?.navigate(action.direction)
             }
-        } catch (e: Throwable) {
-            logger.logError(e)
         }
     }
 
@@ -187,7 +204,6 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
             logger.logInfo("navController popBackStack")
             activity?.runOnUiThread { navController?.popBackStack() }
         }
-        action.handled = true
     }
 
     protected open fun onChangeLanguage(lang: String?, params: Bundle?) {

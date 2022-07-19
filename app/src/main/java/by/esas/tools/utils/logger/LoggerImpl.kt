@@ -1,6 +1,7 @@
-package by.esas.tools.logger
+package by.esas.tools.utils.logger
 
 import android.util.Log
+import by.esas.tools.logger.ILogger
 
 class LoggerImpl : ILogger<ErrorModel> {
     override var currentTag: String = "LoggerImpl"

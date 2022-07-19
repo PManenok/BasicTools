@@ -1,8 +1,8 @@
-package by.esas.tools.usecase
+package by.esas.tools.app_domain.usecase
 
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
-import by.esas.tools.error_mapper.AppErrorMapper
+import by.esas.tools.app_domain.error_mapper.AppErrorMapper
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext

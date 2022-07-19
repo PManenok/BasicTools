@@ -1,18 +1,12 @@
 package by.esas.tools.screens
 
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import by.esas.tools.databinding.ActivityMainBinding
-import by.esas.tools.dialog.GetPasswordDialog
-import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.util.TAGk
-import dagger.android.AndroidInjection
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.esas.tools.R
-import by.esas.tools.simple.AppActivity
+import by.esas.tools.base.AppActivity
+import by.esas.tools.databinding.ActivityMainBinding
 
 /**
  * To use HasAndroidInjector with Activity do not forget to add
@@ -25,7 +19,7 @@ import by.esas.tools.simple.AppActivity
  *         super.onAttach(context)
  *     }
  */
-class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultListener {
+class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     lateinit var navController: NavController
     private var topDestination = R.id.menuFragment
@@ -39,42 +33,11 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>(), FragmentResultL
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        handleStatusBar()
         setupNavigation()
     }
 
-    override fun onStart() {
-        super.onStart()
-//        viewModel.testError()
-    }
-
-    override fun provideSwitchableViews(): List<View?> {
-        return emptyList()
-    }
-
-    override fun onFragmentResult(requestKey: String, result: Bundle) {
-        logger.logInfo("onFragmentResult $requestKey, $result")
-        viewModel.enableControls()
-    }
-
-    override fun provideRequestKeys(): List<String> {
-        val set = mutableSetOf(MessageDialog::class.TAGk, GetPasswordDialog::class.TAGk)
-        set.addAll(super.provideRequestKeys())
-        return set.toList()
-    }
-
-    override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
-        //here we want to use super.provideFragmentResultListener for request keys from parent this behavior is optional
-        return if (requestKey in super.provideRequestKeys()) {
-            super.provideFragmentResultListener(requestKey)
-        } else {
-            this
-        }
-    }
-
-    private fun setupNavigation(){
+    private fun setupNavigation() {
         navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, arguments ->
             //Set home icon

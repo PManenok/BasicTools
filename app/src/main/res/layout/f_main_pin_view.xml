@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.pin_view.PinViewVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <by.esas.tools.pinview.PinView
+            android:id="@+id/f_pin_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:pinAmount="6" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_btn"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add pin"
+            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
