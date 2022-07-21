@@ -2,6 +2,7 @@ package by.esas.tools.screens.menu.recycler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import by.esas.tools.entity.CaseItemInfo
 import by.esas.tools.recycler.BaseRecyclerAdapter
 import by.esas.tools.recycler.BaseViewHolder
 

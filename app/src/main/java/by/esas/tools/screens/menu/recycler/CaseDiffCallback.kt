@@ -1,6 +1,7 @@
 package by.esas.tools.screens.menu.recycler
 
 import androidx.recyclerview.widget.DiffUtil
+import by.esas.tools.entity.CaseItemInfo
 
 class CaseDiffCallback(
     private val oldList: List<CaseItemInfo>,

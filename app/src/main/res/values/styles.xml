@@ -9,10 +9,35 @@
         <item name="colorSecondary">@color/colorSecondary</item>
     </style>
 
+    <style name="FieldStyle">
+        <item name="inputEditTextStyle">@style/EditTextStyle</item>
+        <item name="inputStrokeWidth">1dp</item>
+        <item name="inputIconsSize">@dimen/spacing_32</item>
+        <item name="inputIconsPadding">@dimen/spacing_4</item>
+        <item name="inputBoxBgColor">@color/main_color_4</item>
+        <item name="inputShowBottomContainer">false</item>
+        <item name="inputLabelType">hide</item>
+        <item name="inputActiveStrokeColor">@color/main_color_4</item>
+        <item name="inputStartDrawableTint">@color/main_color_2</item>
+        <item name="inputEndDrawableTint">@color/main_color_2</item>
+    </style>
+
     <style name="EditTextStyle" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/main_color_1</item>
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColorHint">@color/main_color_2</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:inputType">text</item>
+        <item name="singleLine">true</item>
+    </style>
+
+    <style name="ProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">@dimen/spacing_80</item>
+        <item name="android:layout_height">@dimen/spacing_80</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 </resources>

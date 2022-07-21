@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BaseTools</string>
     <string name="search_hint">Search by case name or modules</string>
+    <string name="list_is_empty">List is empty</string>
 </resources>

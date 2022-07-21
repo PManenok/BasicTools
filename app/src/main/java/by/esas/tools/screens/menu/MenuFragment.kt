@@ -6,13 +6,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.FragmentMenuBinding
+import by.esas.tools.inputfieldview.InputFieldView
 import by.esas.tools.simple.AppFragment
+import by.esas.tools.util.defocusAndHideKeyboard
 import dagger.android.support.AndroidSupportInjection
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
@@ -36,17 +39,8 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setupCaseRecycler()
+        setupSearchView()
         viewModel.updateAdapter(viewModel.allCases)
-        logger.logInfo("my onViewCreated")
-        binding.fMenuCasesSearch.addTextWatcher(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(search: Editable?) {
-                viewModel.onSearchChanged(search.toString())
-            }
-        })
     }
 
     override fun provideChecks(): List<Checking> {
@@ -55,6 +49,24 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
     override fun provideChecker(): Checker {
         TODO("Not yet implemented")
+    }
+
+    private fun setupSearchView() {
+        binding.fMenuCasesSearch.apply {
+            inputText?.imeOptions = EditorInfo.IME_ACTION_DONE
+            inputText?.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    defocusAndHideKeyboard(activity)
+                    viewModel.onSearchChanged(viewModel.search)
+                    true
+                } else {
+                    false
+                }
+            }
+            startIconView?.setOnClickListener {
+                viewModel.onSearchChanged(viewModel.search)
+            }
+        }
     }
 
     private fun setupCaseRecycler(){

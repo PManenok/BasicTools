@@ -11,10 +11,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_menu_cases_search"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,17 +24,12 @@
             android:layout_marginTop="@dimen/spacing_4"
             android:layout_marginStart="@dimen/spacing_18"
             android:layout_marginEnd="@dimen/spacing_18"
-            app:inputLabelType="hide"
-            android:inputType="text"
-            android:text="@={viewModel.prevSearch}"
+            android:text="@={viewModel.search}"
             app:inputStartDrawable="@drawable/ic_search"
-            app:inputStartDrawableTint="@color/main_color_2"
             app:inputStartIconMode="custom"
-            app:inputEditTextStyle="@style/EditTextStyle"
-            app:inputActiveStrokeColor="@color/main_color_2"
-            android:hint="@string/search_hint"
-            app:inputBoxBgColor="@color/main_color_4"
-            app:inputShowBottomContainer="false"/>
+            app:inputEndDrawable="@drawable/ic_cancel_round"
+            app:inputEndIconMode="clear_text"
+            android:hint="@string/search_hint" />
 
         <View
             android:id="@+id/f_menu_cases_divider"
@@ -41,21 +37,38 @@
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/spacing_10"
             android:background="@color/colorDivider"
-            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_search"/>
+            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/f_menu_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/i_case"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/i_case" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_invoices_empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_20"
+            android:gravity="center"
+            android:text="@string/list_is_empty"
+            app:layout_constraintTop_toTopOf="@id/f_menu_recycler"
+            app:visibilityGone="@{viewModel.isEmpty}"/>
+
+        <ProgressBar
+            android:id="@+id/f_main_invoices_circle_progress"
+            style="@style/ProgressBarStyle"
+            android:visibility="@{viewModel.progressing}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

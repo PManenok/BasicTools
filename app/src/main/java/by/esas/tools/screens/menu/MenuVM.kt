@@ -1,33 +1,31 @@
 package by.esas.tools.screens.menu
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableBoolean
+import androidx.navigation.NavDirections
 import by.esas.tools.simple.AppVM
 import by.esas.tools.error_mapper.AppErrorMapper
 import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.IErrorMapper
 import by.esas.tools.screens.menu.recycler.CaseAdapter
-import by.esas.tools.screens.menu.recycler.CaseItemInfo
+import by.esas.tools.entity.CaseItemInfo
+import by.esas.tools.entity.ModuleEnum
+import by.esas.tools.logger.Action
+import by.esas.tools.usecase.SearchCaseUseCase
 import javax.inject.Inject
 
-class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
+class MenuVM @Inject constructor(
+    val mapper: AppErrorMapper,
+    val searchCase: SearchCaseUseCase
+    ) : AppVM() {
     override fun provideMapper(): IErrorMapper<ErrorModel> {
         return mapper
     }
 
     var prevSearch = ""
+    var search = ""
+    var isEmpty = ObservableBoolean(false)
 
-    val allCases = listOf(
-        CaseItemInfo(0, "case", listOf("case", "hanna")),
-        CaseItemInfo(0, "lase", listOf("Cardline", "Dialog")),
-        CaseItemInfo(0, "hanna", listOf("Cardline", "Dialog, ListHeader")),
-        CaseItemInfo(0, "calee", listOf("Cardline", "case")),
-        CaseItemInfo(0, "honn", listOf("Dialog", "case")),
-        CaseItemInfo(0, "ccase", listOf("Dialog", "Dialog")),
-        CaseItemInfo(0, "lasee", listOf("Cardline", "hanna"))
-    )
+    val allCases: MutableList<CaseItemInfo> = mutableListOf()
 
     val caseAdapter = CaseAdapter(
         onClick = {
@@ -35,45 +33,41 @@ class MenuVM @Inject constructor(val mapper: AppErrorMapper) : AppVM() {
         }
     )
 
+    init {
+        addCaseItem( "Numpad view case", listOf(ModuleEnum.Cardline, ModuleEnum.Listheader))
+        addCaseItem("Case for PinView", listOf(ModuleEnum.Dialog, ModuleEnum.Basedaggerui))
+        addCaseItem( "Case for BaseUi", listOf(ModuleEnum.InputFieldView, ModuleEnum.Dialog))
+        addCaseItem( "Simple case", listOf(ModuleEnum.InputFieldView, ModuleEnum.Basedaggerui))
+        addCaseItem( "Test for dialog module", listOf(ModuleEnum.Dialog, ModuleEnum.Checker))
+        addCaseItem( "Test dialog with errors", listOf(ModuleEnum.Baseui, ModuleEnum.Listheader))
+        addCaseItem( "Change theme case", listOf(ModuleEnum.Logger, ModuleEnum.Basedaggerui))
+        addCaseItem( "Change Language case", listOf(ModuleEnum.Customswitch, ModuleEnum.Basedaggerui))
+    }
+
     fun updateAdapter(list: List<CaseItemInfo>) {
-        caseAdapter.cleanItems()
         caseAdapter.addItems(list)
+        isEmpty.set(list.isEmpty())
     }
 
     fun onSearchChanged(value: String) {
         if (prevSearch != value) {
             disableControls()
             prevSearch = value
-            val searchList = splitSearch(value)
-            val list = doSearch(allCases, searchList)
-            if (list.size != caseAdapter.itemCount) {
-                caseAdapter.addItems(list)
-            }
-            enableControls()
-        }
-    }
-
-    private fun doSearch(list: List<CaseItemInfo>, searchList: List<String>): List<CaseItemInfo> {
-        if (prevSearch.isNotEmpty()) {
-            var filteredList = list
-            for (i in searchList) {
-                filteredList = filteredList.filter { item ->
-                    item.name.contains(i, true) || doSearchByModules(item, i)
+            searchCase.caseItems = allCases
+            searchCase.search = search
+            searchCase.execute{
+                onComplete { itemsList ->
+                    updateAdapter(itemsList)
+                    enableControls()
+                }
+                onError {
+                    handleError(error = it)
                 }
             }
-            return filteredList
         }
-        return list
     }
 
-    private fun doSearchByModules(case: CaseItemInfo, search: String): Boolean {
-        val list = case.modules.filter { module ->
-            module.contains(search, true)
-        }
-        return list.isNotEmpty()
-    }
-
-    private fun splitSearch(search: String): List<String> {
-        return search.split(" ", ",", ";").filter { it != "" }
+    private fun addCaseItem(name: String, modulesList: List<ModuleEnum>, direction: NavDirections? = null){
+        allCases.add(CaseItemInfo(allCases.size, name, modulesList, direction))
     }
 }

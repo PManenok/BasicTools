@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import by.esas.tools.databinding.ICaseBinding
 import by.esas.tools.recycler.BaseViewHolder
 import by.esas.tools.BR
+import by.esas.tools.entity.CaseItemInfo
 
 class CaseViewHolder(binding: ICaseBinding, viewModel: CaseViewModel): BaseViewHolder<CaseItemInfo, CaseViewModel, ICaseBinding>(binding, viewModel) {
     companion object {
