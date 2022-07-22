@@ -13,7 +13,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.KeyListener
 import android.text.method.PasswordTransformationMethod
@@ -169,7 +168,7 @@ open class InputFieldView : ConstraintLayout {
     protected var labelColorWithError = false
 
     //StartIcon
-    var startIconClickListener: IconClickListener? = null
+    protected var startClickListener: IconClickListener? = null
     var startCheckedListener: IconCheckedListener? = null
     protected var startTint: Int = ContextCompat.getColor(context, R.color.colorPrimary)
     protected var startDrawable: Drawable? = null
@@ -183,7 +182,7 @@ open class InputFieldView : ConstraintLayout {
     protected var startIconColorWithError = false
 
     //End icon
-    var endIconClickListener: IconClickListener? = null
+    protected var endClickListener: IconClickListener? = null
     var endCheckedListener: IconCheckedListener? = null
     protected open val defaultEndIconMode: Int = END_ICON_NONE
     protected open val defaultPasswordToggleRes: Int =
@@ -201,7 +200,6 @@ open class InputFieldView : ConstraintLayout {
 
     //End Text
     protected var inputEndTextStyleId = -1
-    protected var inputEndIconColorWithError = false
     protected var inputEndTextErrorColor = errorColor
     protected var inputEndTextColorWithError = false
 
@@ -215,6 +213,10 @@ open class InputFieldView : ConstraintLayout {
      */
     protected var errorTextColorWithError = true
     protected var hasHelpText: Boolean = false
+
+    //ActionEditor
+    protected var editorActionId = EditorInfo.IME_ACTION_DONE
+    protected var editorActionListener: EditorActionListener? = null
     /*endregion ################ Parameters END ################*/
 
     /*region ############################ Icons Click Listeners ################################*/
@@ -531,6 +533,7 @@ open class InputFieldView : ConstraintLayout {
             isEnabled = true
             setText("")
             hint = ""
+            imeOptions = editorActionId
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 textDirection = View.TEXT_DIRECTION_ANY_RTL
             }
@@ -623,8 +626,12 @@ open class InputFieldView : ConstraintLayout {
         endCheckBox?.isClickable = false
     }
 
-    open fun setInputEndCheckListener(checkedListener: IconCheckedListener) {
+    open fun setEndIconCheckListener(checkedListener: IconCheckedListener) {
         endCheckedListener = checkedListener
+    }
+
+    open fun setEndIconClickListener(clickListener: IconClickListener){
+        endClickListener = clickListener
     }
 
     /**
@@ -690,7 +697,7 @@ open class InputFieldView : ConstraintLayout {
                     endContainer?.visibility = View.GONE
                 } else {
                     endContainer?.setOnClickListener {
-                        endIconClickListener?.onIconClick()
+                        endClickListener?.onIconClick()
                     }
                     endIconView?.apply {
                         setImageDrawable(endDrawable)
@@ -717,6 +724,7 @@ open class InputFieldView : ConstraintLayout {
 
     protected open fun setEndIconAsClear() {
         endContainer?.setOnClickListener {
+            endClickListener?.onIconClick()
             if (isInputEnabled())
                 clearInputText()
         }
@@ -734,6 +742,9 @@ open class InputFieldView : ConstraintLayout {
 
     protected open fun setEndIconAsText() {
         setContainerSize(endContainer, -2)
+        endContainer?.setOnClickListener {
+            endClickListener?.onIconClick()
+        }
         if (hasErrorText){
             if (inputEndTextColorWithError) endText?.setTextColor(errorColor)
             else endText?.setTextColor(inputEndTextErrorColor)
@@ -769,10 +780,6 @@ open class InputFieldView : ConstraintLayout {
     /*endregion ############### End Icon settings End ############*/
 
     /*region ############### End Text settings ############*/
-    open fun setEndTextClickListener(clickListener: OnClickListener){
-        endContainer?.setOnClickListener(clickListener)
-    }
-
     open fun setEndText(text: String?) {
         if (!text.isNullOrBlank()) {
             endText?.let { endText ->
@@ -878,8 +885,12 @@ open class InputFieldView : ConstraintLayout {
         startCheckBox?.isClickable = false
     }
 
-    open fun setInputStartCheckListener(checkedListener: IconCheckedListener) {
+    open fun setStartIconCheckListener(checkedListener: IconCheckedListener) {
         startCheckedListener = checkedListener
+    }
+
+    open fun setStartIconClickListener(listener: IconClickListener){
+        startClickListener = listener
     }
 
     /**
@@ -912,7 +923,7 @@ open class InputFieldView : ConstraintLayout {
                     startContainer?.visibility = View.GONE
                 } else {
                     startContainer?.setOnClickListener {
-                        startIconClickListener?.onIconClick()
+                        startClickListener?.onIconClick()
                     }
                     startIconView?.apply {
                         setImageDrawable(startDrawable)
@@ -1169,6 +1180,20 @@ open class InputFieldView : ConstraintLayout {
 
     /*endregion ################### Box View Settings ######################*/
 
+    /*region ################### Editor Action Settings ######################*/
+
+    open fun setOnEditorActionId(actionId: Int){
+        if (actionId != -1){
+            editorActionId = actionId
+            inputText?.imeOptions = actionId
+        }
+    }
+
+    open fun setupEditorActionListener(actionListener: EditorActionListener){
+        editorActionListener = actionListener
+    }
+    /*endregion ################### Editor Action Settings ######################*/
+
     /*region ################### Other ######################*/
     /**
      * Method sets label params depending on the label type. Return Boolean result of setLabelParams method
@@ -1296,6 +1321,14 @@ open class InputFieldView : ConstraintLayout {
             }
 
         inputText?.addTextChangedListener(textWatcher)
+        inputText?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == editorActionId){
+                editorActionListener?.onActionClick()
+                true
+            } else {
+                false
+            }
+        }
         labelText?.viewTreeObserver?.addOnPreDrawListener(labelPreDrawListener)
     }
 
@@ -1475,6 +1508,9 @@ open class InputFieldView : ConstraintLayout {
                 .toFloat()
         val inputBoxVisibility = typedArray.getInt(R.styleable.InputFieldView_inputBoxVisibility, defaultInputBoxVisibility)
 
+        //ActionEditor
+        editorActionId = typedArray.getInt(R.styleable.InputFieldView_android_imeOptions, -1)
+
         typedArray.recycle()
 
         setupIconsSize(iconsSize)
@@ -1519,6 +1555,7 @@ open class InputFieldView : ConstraintLayout {
             isEnabled = editable
             setText(text)
             this.hint = hint
+            imeOptions = editorActionId
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 this.textDirection = textDirection
             }
@@ -1554,6 +1591,10 @@ open class InputFieldView : ConstraintLayout {
 
     interface IconClickListener {
         fun onIconClick()
+    }
+
+    interface EditorActionListener {
+        fun onActionClick()
     }
     /*endregion ################### Interfaces End ######################*/
 }

@@ -35,6 +35,7 @@
         <attr name="android:maxLines" format="integer" />
         <attr name="android:textDirection" format="integer" />
         <attr name="inputEditViewMinHeight" format="dimension" />
+        <attr name="android:imeOptions" format="integer" />
 
         <!--Prefix-->
         <attr name="inputPrefix" format="string" />
