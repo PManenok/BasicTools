@@ -1,21 +1,21 @@
 package by.esas.tools.entity
 
 enum class ModuleEnum {
-    Accesscontainer,
-    Basedaggerui,
-    Baseui,
-    Biometric_decryption,
-    Cardline,
-    Checker,
-    Customswitch,
-    Dialog,
-    Dimen_util,
-    InputFieldView,
-    Listheader,
-    Logger,
-    Numpad,
-    Pinview,
-    Recycler,
-    Timeparser,
-    Topbarview
+    ACCESS_CONTAINER,
+    BASE_DAGGER_UI,
+    BASE_UI,
+    BIOMETRIC_DECRYPTION,
+    CARDLINE,
+    CHECKER,
+    CUSTOMSWITCH,
+    DIALOG,
+    DIMEN_UTIL,
+    INPUTFIELD_VIEW,
+    LISTHEADER,
+    LOGGER,
+    NUMPAD,
+    PIN_VIEW,
+    RECYCLER,
+    TIMEPARSER,
+    TOPBAR_VIEW
 }

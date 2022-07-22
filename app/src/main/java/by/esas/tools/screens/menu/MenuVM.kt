@@ -34,14 +34,14 @@ class MenuVM @Inject constructor(
     )
 
     init {
-        addCaseItem( "Numpad view case", listOf(ModuleEnum.Cardline, ModuleEnum.Listheader))
-        addCaseItem("Case for PinView", listOf(ModuleEnum.Dialog, ModuleEnum.Basedaggerui))
-        addCaseItem( "Case for BaseUi", listOf(ModuleEnum.InputFieldView, ModuleEnum.Dialog))
-        addCaseItem( "Simple case", listOf(ModuleEnum.InputFieldView, ModuleEnum.Basedaggerui))
-        addCaseItem( "Test for dialog module", listOf(ModuleEnum.Dialog, ModuleEnum.Checker))
-        addCaseItem( "Test dialog with errors", listOf(ModuleEnum.Baseui, ModuleEnum.Listheader))
-        addCaseItem( "Change theme case", listOf(ModuleEnum.Logger, ModuleEnum.Basedaggerui))
-        addCaseItem( "Change Language case", listOf(ModuleEnum.Customswitch, ModuleEnum.Basedaggerui))
+        addCaseItem( "Numpad view case", listOf(ModuleEnum.CARDLINE, ModuleEnum.LISTHEADER))
+        addCaseItem("Case for PinView", listOf(ModuleEnum.DIALOG, ModuleEnum.BASE_DAGGER_UI))
+        addCaseItem( "Case for BaseUi", listOf(ModuleEnum.INPUTFIELD_VIEW, ModuleEnum.DIALOG))
+        addCaseItem( "Simple case", listOf(ModuleEnum.INPUTFIELD_VIEW, ModuleEnum.BASE_DAGGER_UI))
+        addCaseItem( "Test for dialog module", listOf(ModuleEnum.DIALOG, ModuleEnum.CHECKER))
+        addCaseItem( "Test dialog with errors", listOf(ModuleEnum.BASE_UI, ModuleEnum.LISTHEADER))
+        addCaseItem( "Change theme case", listOf(ModuleEnum.LOGGER, ModuleEnum.BASE_DAGGER_UI))
+        addCaseItem( "Change Language case", listOf(ModuleEnum.CUSTOMSWITCH, ModuleEnum.BASE_DAGGER_UI))
     }
 
     fun updateAdapter(list: List<CaseItemInfo>) {

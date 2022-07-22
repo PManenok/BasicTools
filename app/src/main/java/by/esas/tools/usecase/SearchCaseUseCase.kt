@@ -9,14 +9,14 @@ import kotlin.coroutines.CoroutineContext
 class SearchCaseUseCase @Inject constructor(
     errorUtil: AppErrorMapper,
     foregroundContext: CoroutineContext
-): BaseUseCase<List<CaseItemInfo>>(errorUtil, foregroundContext) {
+) : BaseUseCase<List<CaseItemInfo>>(errorUtil, foregroundContext) {
     override val TAG: String = SearchCaseUseCase::class.java.simpleName
 
     var caseItems = listOf<CaseItemInfo>()
     var search = ""
 
     override suspend fun executeOnBackground(): List<CaseItemInfo> {
-        if (search != "") {
+        return if (search != "") {
             var filteredList = caseItems
             val searchList = splitSearch(search)
             for (i in searchList) {
@@ -24,25 +24,20 @@ class SearchCaseUseCase @Inject constructor(
                     item.name.contains(i, true) || doSearchByModules(item, i)
                 }
             }
-            return filteredList
+            filteredList
         } else {
-            return caseItems
+            caseItems
         }
     }
 
     private fun splitSearch(search: String): List<String> {
-        val splitList = search.split(";")
-        val searchItemsList = arrayListOf<String>()
-        splitList.forEach { item ->
-            searchItemsList.add(item.trim())
-        }
-        return searchItemsList.filter { it != "" }
+        return search.split(";").mapNotNull { result -> result.trim().takeIf { it.isNotBlank() } }
     }
 
     private fun doSearchByModules(case: CaseItemInfo, search: String): Boolean {
-        val list = case.modules.filter { module ->
-            module.name.lowercase() == search.lowercase()
+        val module = case.modules.find { module ->
+            module.name.equals(search, true)
         }
-        return list.isNotEmpty()
+        return module != null
     }
 }

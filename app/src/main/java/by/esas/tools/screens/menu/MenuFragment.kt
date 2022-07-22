@@ -53,19 +53,22 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
     private fun setupSearchView() {
         binding.fMenuCasesSearch.apply {
-            inputText?.imeOptions = EditorInfo.IME_ACTION_DONE
-            inputText?.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+            setupEditorActionListener(object : InputFieldView.EditorActionListener {
+                override fun onActionClick() {
                     defocusAndHideKeyboard(activity)
                     viewModel.onSearchChanged(viewModel.search)
-                    true
-                } else {
-                    false
                 }
-            }
-            startIconView?.setOnClickListener {
-                viewModel.onSearchChanged(viewModel.search)
-            }
+            })
+            setStartIconClickListener(object : InputFieldView.IconClickListener{
+                override fun onIconClick() {
+                    viewModel.onSearchChanged(viewModel.search)
+                }
+            })
+            setEndIconClickListener(object : InputFieldView.IconClickListener{
+                override fun onIconClick() {
+                    viewModel.updateAdapter(viewModel.allCases)
+                }
+            })
         }
     }
 
