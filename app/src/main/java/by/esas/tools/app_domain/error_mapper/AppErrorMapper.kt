@@ -1,8 +1,8 @@
-package by.esas.tools.error_mapper
+package by.esas.tools.app_domain.error_mapper
 
 import by.esas.tools.domain.mapper.BaseErrorMapper
-import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
+import by.esas.tools.utils.logger.ErrorModel
 import com.squareup.moshi.Moshi
 
 class AppErrorMapper(moshi: Moshi, logger: ILogger<ErrorModel>) :
@@ -11,18 +11,8 @@ class AppErrorMapper(moshi: Moshi, logger: ILogger<ErrorModel>) :
         return AppErrorStatusEnum.APP_UNPREDICTED_ERROR.name
     }
 
-    /*override fun mapErrorException(tag: String, throwable: Throwable?): ErrorModel {
-        val model = super.mapErrorException(tag, throwable)
-        return ErrorModel(model.code, model.getStatusAsEnum())
-    }*/
-
-    /*override fun getHttpError(throwable: HttpException): ErrorModel {
-        val model = super.getHttpError(throwable)
-        return ErrorModel(model.code, model.statusEnum)
-    }*/
-
     override fun createModel(code: Int, status: String): ErrorModel {
-        return ErrorModel(code, status.getAppErrorStatusEnum())
+        return ErrorModel(code, AppErrorStatusEnum.getAppErrorStatusEnum(status))
     }
 
     override fun mapHttpStatus(httpEnumString: String): String {

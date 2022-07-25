@@ -29,7 +29,7 @@ dependencies {
     kapt "com.android.databinding:compiler:$databinding_version"
 
     // Material Design
-    implementation "com.google.android.material:material:$material_version"
+    api "com.google.android.material:material:$material_version"
 
     /* REMEMBER com.google.dagger:dagger-android-support lib contains lifecycle-viewmodel-ktx lib
         and thus we need to set version otherwise there will be duplicate error */
@@ -38,11 +38,11 @@ dependencies {
     //implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    api "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    api "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
-    implementation project(path: ':dialog')
-    implementation project(path: ':domain')
+    api project(path: ':dialog')
+    api project(path: ':domain')
 }
 
 afterEvaluate {

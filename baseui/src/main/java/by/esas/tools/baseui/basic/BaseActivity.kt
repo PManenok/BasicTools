@@ -11,10 +11,14 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
@@ -50,6 +54,8 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
     protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
+    abstract fun provideLayoutId(): Int
+
     abstract fun provideSwitchableViews(): List<View?>
 
     abstract fun provideErrorHandler(): ErrorHandler<M>
@@ -76,6 +82,10 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         super.onCreate(savedInstanceState)
         logger.setTag(TAGk)
         logger.logInfo("onCreate")
+        setContentView(provideLayoutId())
+        val contentView = window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
+
+        handleStatusBar(contentView)
         hideSystemUI()
         setupFragmentResultListeners(provideRequestKeys())
     }
@@ -321,6 +331,18 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
             val isDark = resources.getBoolean(R.bool.is_dark)
             logger.logInfo("hideSystemUI decorView != null; isDark = $isDark")
             hideSystemUI(this, isDark)
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    open fun handleStatusBar(root: View) {
+        logger.logOrder("handleStatusBar")
+        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
+            val statusInset = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val statusBar = statusInset.top.takeIf { it != 0 } ?: insets.systemWindowInsetTop
+            logger.logInfo("insets statusBar = $statusBar")
+            root.updatePadding(top = statusBar)
+            return@setOnApplyWindowInsetsListener insets
         }
     }
 

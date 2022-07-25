@@ -39,7 +39,9 @@ abstract class StandardViewModel<M : BaseErrorModel>
     override val showBottomDialog: MutableLiveData<BaseBottomDialogFragment?> =
         MutableLiveData<BaseBottomDialogFragment?>(null)
 
-    abstract fun provideCheckListener(): Checker.CheckListener
+    fun provideCheckListener(): Checker.CheckListener? {
+        return null
+    }
 
     override fun onCleared() {
         super.onCleared()

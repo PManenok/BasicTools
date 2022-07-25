@@ -1,4 +1,4 @@
-package by.esas.tools.simple
+package by.esas.tools.base
 
 import android.content.Context
 import android.graphics.Color
@@ -14,14 +14,15 @@ import by.esas.tools.BR
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
 import by.esas.tools.hideSystemUIApp
-import by.esas.tools.logger.ErrorModel
 import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.LoggerImpl
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.util.TAGk
 import by.esas.tools.util.configs.SettingsProvider
 import by.esas.tools.util.configs.UiModeType
 import by.esas.tools.util.hideSystemUIR
+import by.esas.tools.utils.logger.ErrorModel
+import by.esas.tools.utils.logger.LoggerImpl
+import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -39,7 +40,8 @@ import javax.inject.Inject
  *         super.onAttach(context)
  *     }
  */
-abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<VM, B, ErrorModel>(),
+abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
+    : StandardActivity<VM, B, ErrorModel>(),
     HasAndroidInjector {
 
     @Inject
@@ -53,6 +55,15 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
     }
 
     override var logger: ILogger<ErrorModel> = LoggerImpl()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun provideSwitchableViews(): List<View?> {
+        return emptyList()
+    }
 
     override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
         return object : ErrorHandler<ErrorModel>() {
@@ -103,7 +114,7 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
         }
     }
 
-    override fun hideSystemUI() {
+   /* override fun hideSystemUI() {
         logger.logInfo("hideSystemUI")
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -114,7 +125,7 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
         } catch (e: NullPointerException) {
             logger.logError(e)
         }
-    }
+    }*/
 
     override fun getAppContext(): Context {
         return App.appContext
@@ -130,38 +141,5 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding> : StandardActivity<V
     override fun handlePopBackArguments(arguments: Bundle?) {
         if (arguments != null)
             intent.putExtras(arguments)
-    }
-
-    //CHECK if should be in base class
-    fun setFullScreen() {
-        //WindowCompat.setDecorFitsSystemWindows(window, false)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.systemBarsBehavior =
-                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.apply {
-                //clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                //addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    decorView.systemUiVisibility =
-                        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-                } else {
-                    decorView.systemUiVisibility =
-                        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-                }
-                statusBarColor = Color.TRANSPARENT
-            }
-        }
-    }
-
-    open fun handleStatusBar() {
-        logger.logInfo("handleStatusBar")
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val statusBar = insets.systemWindowInsetTop
-            logger.logInfo("statusBarHeight $statusBar")
-            binding.root.updatePadding(top = statusBar)
-            return@setOnApplyWindowInsetsListener insets
-        }
     }
 }

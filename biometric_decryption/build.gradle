@@ -22,7 +22,7 @@ dependencies {
     implementation "androidx.biometric:biometric:$biometric_version"
 
     //Module
-    implementation project(path: ':logger')
+    api project(path: ':logger')
 }
 
 afterEvaluate {

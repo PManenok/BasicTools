@@ -27,10 +27,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    api "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
     // Material Design
-    implementation "com.google.android.material:material:$material_version"
+    api "com.google.android.material:material:$material_version"
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"

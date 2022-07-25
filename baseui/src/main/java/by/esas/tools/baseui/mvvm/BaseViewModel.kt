@@ -15,9 +15,9 @@ import by.esas.tools.util.TAGk
 
 abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
 
-    open val TAG: String = BaseViewModel::class.java.simpleName
+    open val TAG: String = TAGk
 
-    open var logger: ILogger<*> = BaseLoggerImpl(BaseViewModel::class.java.simpleName)
+    open var logger: ILogger<*> = BaseLoggerImpl(TAGk)
     abstract fun provideMapper(): IErrorMapper<M>
 
     val progressing = MutableLiveData<Boolean>(false)
