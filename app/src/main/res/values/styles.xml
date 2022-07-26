@@ -38,4 +38,9 @@
         <item name="android:maxHeight">@dimen/spacing_80</item>
         <item name="android:maxWidth">@dimen/spacing_80</item>
     </style>
+
+    <style name="NumpadStyle">
+        <item name="android:minWidth">@dimen/spacing_300</item>
+        <item name="android:minHeight">@dimen/spacing_400</item>
+    </style>
 </resources>

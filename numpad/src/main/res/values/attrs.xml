@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="NumPadView">
         <attr name="numpadIconPadding" format="dimension" />
+        <attr name="numpadIconMargin" format="dimension" />
         <attr name="numpadIconSize" format="dimension" />
         <attr name="numpadZeroDrawable" format="reference" />
         <attr name="numpadOneDrawable" format="reference" />

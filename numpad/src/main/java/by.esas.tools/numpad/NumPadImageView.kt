@@ -50,7 +50,7 @@ open class NumPadImageView : ConstraintLayout {
     val iconsNumbersList = ArrayList<AppCompatImageView>()
 
     val defaultIconSize: Int = 24
-    val defaultIconPadding = 0
+    val defaultIconPadding = 10
     val defaultNumbersImages = listOf(
         R.drawable.ic_pin_0,
         R.drawable.ic_pin_1,
@@ -212,7 +212,7 @@ open class NumPadImageView : ConstraintLayout {
         rightMargin: Int,
         bottomMargin: Int
     ) {
-        (iconImageView.layoutParams as LayoutParams).apply {
+        (iconImageView.layoutParams as MarginLayoutParams).apply {
             setMargins(
                 dpToPx(leftMargin),
                 dpToPx(topMargin),
@@ -243,13 +243,15 @@ open class NumPadImageView : ConstraintLayout {
         bottomPadding: Int
     ) {
         (iconImageView.layoutParams as LayoutParams).apply {
-            setPadding(
+            setMargins(
                 dpToPx(leftPadding),
                 dpToPx(topPadding),
                 dpToPx(rightPadding),
                 dpToPx(bottomPadding)
             )
         }
+
+//        iconImageView.setPadding(dpToPx(leftPadding), dpToPx(topPadding), dpToPx(rightPadding), dpToPx(bottomPadding))
     }
 
     open fun setIconsSelectableBackground(value: Boolean) {
@@ -482,7 +484,7 @@ open class NumPadImageView : ConstraintLayout {
         setNumbersIconsDrawable(iconsImagesDrawableList)
         setNumbersIconsColor(iconsNumbersColor)
         setIconsSize(iconSize)
-        setIconsPaddings(iconPadding, iconPadding, iconPadding, iconPadding)
+        setIconsMargins(iconPadding, iconPadding, iconPadding, iconPadding)
 
         setLeftIconImage(iconLeftImage)
         setLeftIconColor(iconLeftColor)

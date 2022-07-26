@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_menuFragment_to_savedStateFragment"
             app:destination="@id/savedStateFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_numpadImageFragment"
+            app:destination="@id/numpadImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -28,4 +31,9 @@
         android:name="by.esas.tools.screens.saved_state_vm.SavedStateFragment"
         android:label="Check SavedState view model"
         tools:layout="@layout/f_main_saved_state" />
+    <fragment
+        android:id="@+id/numpadImageFragment"
+        android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
+        android:label="Check NumpadImageView functionality"
+        tools:layout="@layout/f_main_numpad_image" />
 </navigation>

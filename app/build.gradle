@@ -76,4 +76,5 @@ dependencies {
     implementation project(path: ':inputfieldview')
     implementation project(path: ':pinview')
     implementation project(path: ':timeparser')
+    implementation project(path: ':numpad')
 }

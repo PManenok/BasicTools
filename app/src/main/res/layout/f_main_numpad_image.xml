@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.numpad.NumpadImageVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_nampad_common_text"
+            android:layout_width="@dimen/spacing_350"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_70"
+            android:gravity="center"
+            android:text="@string/numpad_common_text"
+            android:textColor="@color/main_color_1"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_nampad_input_field"
+            android:layout_width="@dimen/spacing_350"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:background="@drawable/frame_card"
+            android:text="@{viewModel.numText}"
+            android:hint="Numpad test"
+            android:textSize="@dimen/_15ssp"
+            android:ellipsize="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/f_nampad_common_text"
+            android:singleLine="true" />
+
+        <by.esas.tools.numpad.NumPadImageView
+            android:id="@+id/f_numpad_image"
+            style="@style/NumpadStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/f_nampad_input_field"
+            app:layout_constraintBottom_toTopOf="@id/f_numpad_change_size_lay"/>
+
+        <LinearLayout
+            android:id="@+id/f_numpad_change_size_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/f_main_icons_change_button"
+            android:layout_marginBottom="@dimen/spacing_10">
+
+            <ImageButton
+                android:id="@+id/f_main_icons_decrease_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_remove"
+                android:onClick="@{() -> viewModel.decreaseIconsSize()}"
+                android:background="@android:color/transparent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change icons size"
+                android:textColor="@color/main_color_1"
+                android:textSize="@dimen/_15ssp"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_gravity="center"/>
+
+            <ImageButton
+                android:id="@+id/f_main_icons_increase_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_add"
+                android:background="@android:color/transparent"
+                android:onClick="@{() -> viewModel.increaseIconsSize()}" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_icons_change_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_color_5"
+            android:text="Change numpad icons"
+            android:textColor="@color/main_color_1"
+            android:onClick="@{() -> viewModel.updateIconsImages()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/spacing_40"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

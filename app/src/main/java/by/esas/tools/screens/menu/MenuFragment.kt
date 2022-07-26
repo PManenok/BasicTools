@@ -1,20 +1,14 @@
 package by.esas.tools.screens.menu
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FragmentMenuBinding
 import by.esas.tools.inputfieldview.InputFieldView
-import by.esas.tools.simple.AppFragment
 import by.esas.tools.util.defocusAndHideKeyboard
-import dagger.android.support.AndroidSupportInjection
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
