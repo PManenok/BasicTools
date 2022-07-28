@@ -6,6 +6,7 @@ import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
+import by.esas.tools.screens.numpad.numpad_text.NumpadTextVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
 import dagger.Binds
@@ -35,6 +36,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(NumpadImageVM::class)
     abstract fun bindNumpadImageVM(numpadImageVM: NumpadImageVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NumpadTextVM::class)
+    abstract fun bindNumpadTextVM(numpadTextVM: NumpadTextVM): ViewModel
 
     @Binds
     @IntoMap

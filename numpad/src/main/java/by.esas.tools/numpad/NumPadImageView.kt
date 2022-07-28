@@ -148,6 +148,16 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     }
     /*endregion ################### Constructors ######################*/
 
+    /*region ################### ISwitchView interface ######################*/
+    override fun switchOn() {
+        enableNumpadView()
+    }
+
+    override fun switchOff() {
+        disableNumpadView()
+    }
+    /*endregion ################### ISwitchView interface ######################*/
+
     /*region ################### All Icons Settings ######################*/
     protected open fun setIconVisibility(iconContainer: FrameLayout, value: Boolean) {
         if (value) {
@@ -504,14 +514,6 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
 
     private fun dpToPx(dp: Int): Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
-    }
-
-    override fun switchOn() {
-        enableNumpadView()
-    }
-
-    override fun switchOff() {
-        disableNumpadView()
     }
     /*endregion ################### Other ######################*/
 }

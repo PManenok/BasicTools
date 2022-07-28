@@ -52,4 +52,9 @@
         <item name="android:minWidth">@dimen/spacing_300</item>
         <item name="android:minHeight">@dimen/spacing_400</item>
     </style>
+
+    <style name="NumpadTextNumbersStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>

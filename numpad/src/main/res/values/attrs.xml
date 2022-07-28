@@ -31,9 +31,15 @@
         <attr name="numpadTextIconStyle" format="reference"/>
         <attr name="numpadTextIconPadding" format="dimension"/>
         <attr name="numpadTextIconSize" format="dimension" />
+
+        <!--Left icon-->
         <attr name="numpadTextIconLeft" format="reference"/>
+        <attr name="numpadTextLeftIconColor" format="color"/>
+        <attr name="numpadTextLeftIconVisibitity" format="boolean"/>
+
+        <!--Right icon-->
         <attr name="numpadTextIconRight" format="reference"/>
         <attr name="numpadTextRightIconColor" format="color"/>
-        <attr name="numpadTextLeftIconColor" format="color"/>
+        <attr name="numpadTextRightIconVisibitity" format="boolean"/>
     </declare-styleable>
 </resources>

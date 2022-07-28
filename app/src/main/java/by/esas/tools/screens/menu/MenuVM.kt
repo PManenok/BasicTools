@@ -42,6 +42,11 @@ class MenuVM @Inject constructor(
             listOf(ModuleEnum.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
+        addCaseItem(
+            "Check NumpadTextView functionality",
+            listOf(ModuleEnum.NUMPAD),
+            MenuFragmentDirections.actionMenuFragmentToNumpadTextFragment()
+        )
     }
 
     fun updateAdapter(list: List<CaseItemInfo>) {

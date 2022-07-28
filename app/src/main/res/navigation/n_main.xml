@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_numpadTextFragment"
+            app:destination="@id/numpadTextFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -36,4 +39,9 @@
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
+    <fragment
+        android:id="@+id/numpadTextFragment"
+        android:name="by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment"
+        android:label="Check NumpadTextView functionality"
+        tools:layout="@layout/f_main_numpad_text" />
 </navigation>
