@@ -165,8 +165,7 @@
         app:layout_constraintEnd_toStartOf="@id/v_num_pad_container_zero"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_seven"
-        android:visibility="invisible">
+        app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_seven">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/v_num_pad_icon_left"

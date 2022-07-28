@@ -2,5 +2,10 @@
     <string name="app_name">BaseTools</string>
     <string name="search_hint">Search by case name or modules</string>
     <string name="list_is_empty">List is empty</string>
+
+    <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
+    <string name="numpad_common_text_test">Numpad test</string>
+    <string name="numpad_change_icons_image">Change numpad icons</string>
+    <string name="numpad_change_icons_size">Change icons size</string>
 </resources>

@@ -14,11 +14,17 @@
         <attr name="numpadSevenDrawable" format="reference" />
         <attr name="numpadEightDrawable" format="reference" />
         <attr name="numpadNineDrawable" format="reference" />
-        <attr name="numpadLeftDrawable" format="reference"/>
-        <attr name="numpadRightDrawable" format="reference"/>
         <attr name="numpadNumbersIconsColor" format="color"/>
-        <attr name="numpadRightIconColor" format="color"/>
+
+        <!--Left icon-->
+        <attr name="numpadLeftDrawable" format="reference"/>
         <attr name="numpadLeftIconColor" format="color"/>
+        <attr name="numpadLeftIconVisibitity" format="boolean"/>
+
+        <!--Right icon-->
+        <attr name="numpadRightDrawable" format="reference"/>
+        <attr name="numpadRightIconColor" format="color"/>
+        <attr name="numpadRightIconVisibitity" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="NumPadTextView">

@@ -16,42 +16,43 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import by.esas.tools.util.SwitchManager
 
-open class NumPadImageView : ConstraintLayout {
+open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     open val TAG: String = NumPadImageView::class.java.simpleName
 
-    val numContainerZero: FrameLayout
-    val numContainerOne: FrameLayout
-    val numContainerTwo: FrameLayout
-    val numContainerThree: FrameLayout
-    val numContainerFour: FrameLayout
-    val numContainerFive: FrameLayout
-    val numContainerSix: FrameLayout
-    val numContainerSeven: FrameLayout
-    val numContainerEight: FrameLayout
-    val numContainerNine: FrameLayout
-    val butContainerLeft: FrameLayout
-    val butContainerRight: FrameLayout
+    protected val numContainerZero: FrameLayout
+    protected val numContainerOne: FrameLayout
+    protected val numContainerTwo: FrameLayout
+    protected val numContainerThree: FrameLayout
+    protected val numContainerFour: FrameLayout
+    protected val numContainerFive: FrameLayout
+    protected val numContainerSix: FrameLayout
+    protected val numContainerSeven: FrameLayout
+    protected val numContainerEight: FrameLayout
+    protected val numContainerNine: FrameLayout
+    protected val butContainerLeft: FrameLayout
+    protected val butContainerRight: FrameLayout
 
-    val numIconZero: AppCompatImageView
-    val numIconOne: AppCompatImageView
-    val numIconTwo: AppCompatImageView
-    val numIconThree: AppCompatImageView
-    val numIconFour: AppCompatImageView
-    val numIconFive: AppCompatImageView
-    val numIconSix: AppCompatImageView
-    val numIconSeven: AppCompatImageView
-    val numIconEight: AppCompatImageView
-    val numIconNine: AppCompatImageView
-    val btnIconLeft: AppCompatImageView
-    val btnIconRight: AppCompatImageView
+    protected val numIconZero: AppCompatImageView
+    protected val numIconOne: AppCompatImageView
+    protected val numIconTwo: AppCompatImageView
+    protected val numIconThree: AppCompatImageView
+    protected val numIconFour: AppCompatImageView
+    protected val numIconFive: AppCompatImageView
+    protected val numIconSix: AppCompatImageView
+    protected val numIconSeven: AppCompatImageView
+    protected val numIconEight: AppCompatImageView
+    protected val numIconNine: AppCompatImageView
+    protected val btnIconLeft: AppCompatImageView
+    protected val btnIconRight: AppCompatImageView
 
-    val iconsContainersList = ArrayList<FrameLayout>()
-    val iconsNumbersList = ArrayList<AppCompatImageView>()
+    protected val iconsContainersList = ArrayList<FrameLayout>()
+    protected val iconsNumbersList = ArrayList<AppCompatImageView>()
 
-    val defaultIconSize: Int = 24
-    val defaultIconPadding = 10
-    val defaultNumbersImages = listOf(
+    protected val defaultIconSize: Int = 24
+    protected val defaultIconPadding = 10
+    protected val defaultNumbersImages = listOf(
         R.drawable.ic_pin_0,
         R.drawable.ic_pin_1,
         R.drawable.ic_pin_2,
@@ -63,10 +64,11 @@ open class NumPadImageView : ConstraintLayout {
         R.drawable.ic_pin_8,
         R.drawable.ic_pin_9
     )
-    val defaultRightIconImage = R.drawable.ic_backspace
-    val defaultLeftIconImage = R.drawable.ic_cancel
 
-    var handler: INumPadHandler? = null
+    protected val defaultRightIconImage = R.drawable.ic_backspace
+    protected val defaultLeftIconImage = R.drawable.ic_cancel
+
+    protected var handler: INumPadHandler? = null
 
     init {
         val view = inflate(context, R.layout.v_num_pad_image, this)
@@ -156,24 +158,6 @@ open class NumPadImageView : ConstraintLayout {
         }
     }
 
-    open fun setNumpadHandler(numpadHandler: INumPadHandler) {
-        handler = numpadHandler
-    }
-
-    protected open fun setupNumpadHandler() {
-        iconsContainersList.forEach { container ->
-            container.setOnClickListener {
-                handler?.onNumClick(iconsContainersList.indexOf(container))
-            }
-        }
-        butContainerLeft.setOnClickListener {
-            handler?.onLeftIconClick()
-        }
-        butContainerRight.setOnClickListener {
-            handler?.onRightIconClick()
-        }
-    }
-
     protected open fun setIconClickListener(
         iconContainer: FrameLayout,
         listener: OnClickListener?
@@ -242,16 +226,12 @@ open class NumPadImageView : ConstraintLayout {
         rightPadding: Int,
         bottomPadding: Int
     ) {
-        (iconImageView.layoutParams as LayoutParams).apply {
-            setMargins(
-                dpToPx(leftPadding),
-                dpToPx(topPadding),
-                dpToPx(rightPadding),
-                dpToPx(bottomPadding)
-            )
-        }
-
-//        iconImageView.setPadding(dpToPx(leftPadding), dpToPx(topPadding), dpToPx(rightPadding), dpToPx(bottomPadding))
+        iconImageView.setPadding(
+            dpToPx(leftPadding),
+            dpToPx(topPadding),
+            dpToPx(rightPadding),
+            dpToPx(bottomPadding)
+        )
     }
 
     open fun setIconsSelectableBackground(value: Boolean) {
@@ -351,8 +331,10 @@ open class NumPadImageView : ConstraintLayout {
         }
     }
 
-    protected open fun setDefaultNumbersIconsImages() {
+    open fun setDefaultNumpadIcons() {
         setNumbersIconsImageResources(defaultNumbersImages)
+        setLeftIconImageResource(defaultLeftIconImage)
+        setRightIconImageResource(defaultRightIconImage)
     }
     /*endregion ################### Number Icons ######################*/
 
@@ -361,7 +343,7 @@ open class NumPadImageView : ConstraintLayout {
         setIconVisibility(butContainerLeft, value)
     }
 
-    open fun setLeftIconImage(drawable: Drawable?) {
+    open fun setLeftIconDrawable(drawable: Drawable?) {
         if (drawable != null) {
             btnIconLeft.setImageDrawable(drawable)
         } else {
@@ -369,7 +351,7 @@ open class NumPadImageView : ConstraintLayout {
         }
     }
 
-    open fun setLeftIconImage(resId: Int?) {
+    open fun setLeftIconImageResource(resId: Int?) {
         val imageRes = resId ?: defaultLeftIconImage
         btnIconLeft.setImageResource(imageRes)
     }
@@ -393,14 +375,14 @@ open class NumPadImageView : ConstraintLayout {
         setIconVisibility(butContainerRight, value)
     }
 
-    open fun setRightIconImage(drawable: Drawable?) {
+    open fun setRightIconDrawable(drawable: Drawable?) {
         if (drawable != null)
             btnIconRight.setImageDrawable(drawable)
         else
             btnIconRight.setImageResource(defaultRightIconImage)
     }
 
-    open fun setRightIconImage(resId: Int?) {
+    open fun setRightIconImageResource(resId: Int?) {
         val imageRes = resId ?: defaultRightIconImage
         btnIconRight.setImageResource(imageRes)
     }
@@ -419,9 +401,31 @@ open class NumPadImageView : ConstraintLayout {
     }
     /*endregion ################### Right Image Icons ######################*/
 
+    /*region ################### Handler ######################*/
+    open fun setNumpadHandler(numpadHandler: INumPadHandler) {
+        handler = numpadHandler
+    }
+
+    protected open fun setupNumpadHandler() {
+        iconsContainersList.forEach { container ->
+            container.setOnClickListener {
+                handler?.onNumClick(iconsContainersList.indexOf(container))
+            }
+        }
+        butContainerLeft.setOnClickListener {
+            handler?.onLeftIconClick()
+        }
+        butContainerRight.setOnClickListener {
+            handler?.onRightIconClick()
+        }
+    }
+    /*endregion ################### Handler ######################*/
+
     /*region ################### Other ######################*/
     fun setDefaults() {
-        setDefaultNumbersIconsImages()
+        setDefaultNumpadIcons()
+        setLeftIconVisibility(true)
+        setRightIconVisibility(true)
         setIconsSize(defaultIconSize)
         setIconsPaddings(
             defaultIconPadding,
@@ -429,10 +433,7 @@ open class NumPadImageView : ConstraintLayout {
             defaultIconPadding,
             defaultIconPadding
         )
-        setLeftIconImage(defaultLeftIconImage)
-        setRightIconImage(defaultRightIconImage)
         setupNumpadHandler()
-
         enableNumpadView()
     }
 
@@ -463,8 +464,13 @@ open class NumPadImageView : ConstraintLayout {
 
         val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadView_numpadLeftDrawable)
         val iconLeftColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
+        val iconLeftVisibility =
+            typedArray.getBoolean(R.styleable.NumPadView_numpadLeftIconVisibitity, true)
+
         val iconRightImage = typedArray.getDrawable(R.styleable.NumPadView_numpadRightDrawable)
         val iconRightColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
+        val iconRightVisibility =
+            typedArray.getBoolean(R.styleable.NumPadView_numpadRightIconVisibitity, true)
 
         typedArray.recycle()
 
@@ -486,16 +492,26 @@ open class NumPadImageView : ConstraintLayout {
         setIconsSize(iconSize)
         setIconsMargins(iconPadding, iconPadding, iconPadding, iconPadding)
 
-        setLeftIconImage(iconLeftImage)
+        setLeftIconDrawable(iconLeftImage)
         setLeftIconColor(iconLeftColor)
-        setRightIconImage(iconRightImage)
+        setLeftIconVisibility(iconLeftVisibility)
+
+        setRightIconDrawable(iconRightImage)
         setRightIconColor(iconRightColor)
+        setRightIconVisibility(iconRightVisibility)
         setupNumpadHandler()
     }
 
     private fun dpToPx(dp: Int): Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
+
+    override fun switchOn() {
+        enableNumpadView()
+    }
+
+    override fun switchOff() {
+        disableNumpadView()
+    }
     /*endregion ################### Other ######################*/
 }
-

@@ -1,12 +1,14 @@
 package by.esas.tools.screens.numpad
 
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import by.esas.tools.R
 import by.esas.tools.base.AppVM
 import javax.inject.Inject
+
+private const val SMALLEST_ICON_SIZE = 20
+private const val LARGEST_ICON_SIZE = 80
 
 class NumpadImageVM @Inject constructor(): AppVM() {
 
@@ -16,10 +18,10 @@ class NumpadImageVM @Inject constructor(): AppVM() {
     private val _iconsSizeLive = MutableLiveData<Int>(50)
     val iconsSizeLive: LiveData<Int> = _iconsSizeLive
 
-    private val _iconsUpdateLive = MutableLiveData(false)
-    val iconsUpdateLive: LiveData<Boolean> = _iconsUpdateLive
+    private val _iconsIsDefaultLive = MutableLiveData(true)
+    val iconsIsDefaultLive: LiveData<Boolean> = _iconsIsDefaultLive
 
-    val iconsList = listOf(
+    val numpadIconsList = listOf(
         R.drawable.number_0,
         R.drawable.number_1,
         R.drawable.number_2,
@@ -33,6 +35,7 @@ class NumpadImageVM @Inject constructor(): AppVM() {
     )
 
     val numpadRightIconImage = R.drawable.numpad_backspace
+    val numpadLeftIconImage = R.drawable.numpad_cancel
 
     fun onRestoreClick(){
         disableControls()
@@ -50,10 +53,17 @@ class NumpadImageVM @Inject constructor(): AppVM() {
         enableControls()
     }
 
+    fun onCancelClick(){
+        disableControls()
+        builder.clear()
+        numText.set("")
+        enableControls()
+    }
+
     fun decreaseIconsSize(){
         _iconsSizeLive.value?.let { size ->
             var iconsSize = size
-            if (iconsSize != 20){
+            if (iconsSize != SMALLEST_ICON_SIZE){
                 iconsSize -= 10
                 _iconsSizeLive.value = iconsSize
             }
@@ -63,7 +73,7 @@ class NumpadImageVM @Inject constructor(): AppVM() {
     fun increaseIconsSize(){
         _iconsSizeLive.value?.let { size ->
             var iconsSize = size
-            if (iconsSize != 80){
+            if (iconsSize != LARGEST_ICON_SIZE){
                 iconsSize += 10
                 _iconsSizeLive.value = iconsSize
             }
@@ -71,6 +81,6 @@ class NumpadImageVM @Inject constructor(): AppVM() {
     }
 
     fun updateIconsImages(){
-        _iconsUpdateLive.value = !_iconsUpdateLive.value!!
+        _iconsIsDefaultLive.value = !iconsIsDefaultLive.value!!
     }
 }

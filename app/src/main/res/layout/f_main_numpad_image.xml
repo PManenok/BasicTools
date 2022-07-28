@@ -15,92 +15,88 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/f_nampad_common_text"
+            android:id="@+id/f_main_numpad_common_text"
+            style="@style/TextStyle.Center"
             android:layout_width="@dimen/spacing_350"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_70"
-            android:gravity="center"
             android:text="@string/numpad_common_text"
-            android:textColor="@color/main_color_1"
-            android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/f_nampad_input_field"
+            android:id="@+id/f_main_numpad_input_field"
+            style="@style/TextStyle"
             android:layout_width="@dimen/spacing_350"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8"
             android:background="@drawable/frame_card"
-            android:text="@{viewModel.numText}"
-            android:hint="Numpad test"
-            android:textSize="@dimen/_15ssp"
             android:ellipsize="start"
+            android:hint="@string/numpad_common_text_test"
+            android:singleLine="true"
+            android:text="@{viewModel.numText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/f_nampad_common_text"
-            android:singleLine="true" />
+            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_common_text" />
 
         <by.esas.tools.numpad.NumPadImageView
-            android:id="@+id/f_numpad_image"
-            style="@style/NumpadStyle"
+            android:id="@+id/f_main_numpad_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_30"
+            app:layout_constraintBottom_toTopOf="@id/f_main_numpad_change_size_lay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/f_nampad_input_field"
-            app:layout_constraintBottom_toTopOf="@id/f_numpad_change_size_lay"/>
+            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_input_field" />
 
         <LinearLayout
-            android:id="@+id/f_numpad_change_size_lay"
+            android:id="@+id/f_main_numpad_change_size_lay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/spacing_10"
+            app:layout_constraintBottom_toTopOf="@id/f_main_numpad_icons_change_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/f_main_icons_change_button"
-            android:layout_marginBottom="@dimen/spacing_10">
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageButton
-                android:id="@+id/f_main_icons_decrease_button"
+                android:id="@+id/f_main_numpad_icons_decrease_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_remove"
+                android:background="@android:color/transparent"
                 android:onClick="@{() -> viewModel.decreaseIconsSize()}"
-                android:background="@android:color/transparent"/>
+                android:src="@drawable/ic_remove" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Change icons size"
-                android:textColor="@color/main_color_1"
-                android:textSize="@dimen/_15ssp"
+                style="@style/TextStyle"
+                android:layout_gravity="center"
                 android:layout_marginStart="@dimen/spacing_8"
                 android:layout_marginEnd="@dimen/spacing_8"
-                android:layout_gravity="center"/>
+                android:text="@string/numpad_change_icons_size"/>
 
             <ImageButton
-                android:id="@+id/f_main_icons_increase_button"
+                android:id="@+id/f_main_numpad_icons_increase_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_add"
                 android:background="@android:color/transparent"
-                android:onClick="@{() -> viewModel.increaseIconsSize()}" />
+                android:onClick="@{() -> viewModel.increaseIconsSize()}"
+                android:src="@drawable/ic_add" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/f_main_icons_change_button"
+            android:id="@+id/f_main_numpad_icons_change_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_40"
             android:backgroundTint="@color/main_color_5"
-            android:text="Change numpad icons"
-            android:textColor="@color/main_color_1"
             android:onClick="@{() -> viewModel.updateIconsImages()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/numpad_change_icons_image"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/spacing_40"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
