@@ -5,7 +5,7 @@ import androidx.navigation.NavDirections
 import by.esas.tools.base.AppVM
 import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.entity.CaseItemInfo
-import by.esas.tools.entity.ModuleEnum
+import by.esas.tools.entity.Modules
 import by.esas.tools.usecase.SearchCaseUseCase
 import javax.inject.Inject
 
@@ -29,24 +29,20 @@ class MenuVM @Inject constructor(
     init {
         addCaseItem(
             "Check PinView functionality",
-            listOf(ModuleEnum.PIN_VIEW, ModuleEnum.LISTHEADER),
+            listOf(Modules.PIN_VIEW, Modules.LISTHEADER),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
         )
         addCaseItem(
             "Check SavedState view model",
-            listOf(ModuleEnum.BASE_DAGGER_UI, ModuleEnum.BASE_UI),
+            listOf(Modules.BASE_DAGGER_UI, Modules.BASE_UI),
             MenuFragmentDirections.actionMenuFragmentToSavedStateFragment()
         )
         addCaseItem(
             "Check NumpadImageView functionality",
-            listOf(ModuleEnum.NUMPAD),
+            listOf(Modules.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
-    }
-
-    fun updateAdapter(list: List<CaseItemInfo>) {
-        caseAdapter.addItems(list)
-        isEmpty.set(list.isEmpty())
+        updateAdapter(allCases)
     }
 
     fun onSearchChanged(value: String) {
@@ -67,11 +63,21 @@ class MenuVM @Inject constructor(
         }
     }
 
+    fun clearSearch(){
+        updateAdapter(allCases)
+        prevSearch = ""
+    }
+
     private fun addCaseItem(
         name: String,
-        modulesList: List<ModuleEnum>,
+        modulesList: List<String>,
         direction: NavDirections? = null
     ) {
         allCases.add(CaseItemInfo(allCases.size, name, modulesList, direction))
+    }
+
+    private fun updateAdapter(list: List<CaseItemInfo>) {
+        caseAdapter.addItems(list)
+        isEmpty.set(list.isEmpty())
     }
 }

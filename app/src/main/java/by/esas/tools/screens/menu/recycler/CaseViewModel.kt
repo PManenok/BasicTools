@@ -11,6 +11,6 @@ class CaseViewModel: BaseItemViewModel<CaseItemInfo>() {
     override fun bindItem(item: CaseItemInfo, position: Int) {
         this.position.set(position)
         caseName.set(item.name)
-        caseModules.set(item.modules.joinToString().lowercase())
+        caseModules.set(item.modules.joinToString())
     }
 }

@@ -36,7 +36,7 @@ class SearchCaseUseCase @Inject constructor(
 
     private fun doSearchByModules(case: CaseItemInfo, search: String): Boolean {
         val module = case.modules.find { module ->
-            module.name.equals(search, true)
+            module == search
         }
         return module != null
     }

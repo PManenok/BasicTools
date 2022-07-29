@@ -5,6 +5,6 @@ import androidx.navigation.NavDirections
 data class CaseItemInfo(
     val id: Int,
     val name: String,
-    val modules: List<ModuleEnum>,
+    val modules: List<String>,
     val direction: NavDirections? = null
 )
