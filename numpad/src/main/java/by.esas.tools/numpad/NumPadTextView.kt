@@ -6,9 +6,9 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
@@ -48,8 +48,9 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
     protected val btnIconLeft: AppCompatImageView
     protected val btnIconRight: AppCompatImageView
 
-    protected val iconsContainersList = ArrayList<FrameLayout>()
-    protected val iconsNumbersList = ArrayList<MaterialTextView>()
+    protected val iconsContainers = ArrayList<FrameLayout>()
+    protected val iconsNumbers = ArrayList<MaterialTextView>()
+    protected val iconsNumbersContainers = ArrayList<FrameLayout>()
 
     protected val defaultIconSize = 32
     protected val defaultIconPadding = 0
@@ -86,7 +87,7 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         btnIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
         btnIconRight = view.findViewById(R.id.v_num_pad_icon_right)
 
-        iconsContainersList.addAll(
+        iconsNumbersContainers.addAll(
             listOf(
                 numContainerZero,
                 numContainerOne,
@@ -101,7 +102,7 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
             )
         )
 
-        iconsNumbersList.addAll(
+        iconsNumbers.addAll(
             listOf(
                 numTextOne,
                 numTextTwo,
@@ -115,6 +116,9 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
                 numTextZero
             )
         )
+
+        iconsContainers.addAll(iconsNumbersContainers)
+        iconsContainers.addAll(listOf(btnContainerLeft, btnContainerRight))
     }
 
     /*region ################### Constructors ######################*/
@@ -147,30 +151,24 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
 
     /*region ################### All Icons Settings ######################*/
     open fun enableNumpadView() {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             container.isClickable = true
         }
-        btnContainerLeft.isClickable = true
-        btnContainerRight.isClickable = true
     }
 
     open fun disableNumpadView() {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             container.isClickable = false
         }
-        btnContainerLeft.isClickable = false
-        btnContainerRight.isClickable = false
     }
 
     /**
      * Set size for all icons containers.
      */
     open fun setIconsSize(widthValue: Int, heightValue: Int) {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             setIconContainerSize(container, widthValue, heightValue)
         }
-        setIconContainerSize(btnContainerLeft, widthValue, heightValue)
-        setIconContainerSize(btnContainerRight, widthValue, heightValue)
     }
 
     protected open fun setIconContainerSize(
@@ -191,11 +189,9 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         rightPadding: Int,
         bottomPadding: Int
     ) {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             setIconContainerPadding(container, leftPadding, topPadding, rightPadding, bottomPadding)
         }
-        setIconContainerPadding(btnContainerRight, leftPadding, topPadding, rightPadding, bottomPadding)
-        setIconContainerPadding(btnContainerLeft, leftPadding, topPadding, rightPadding, bottomPadding)
     }
 
     protected open fun setIconContainerPadding(
@@ -214,11 +210,9 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setIconsMargin(leftMargin: Int, topMargin: Int, rightMargin: Int, bottomMargin: Int) {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             setIconContainerMargin(container, leftMargin, topMargin, rightMargin, bottomMargin)
         }
-        setIconContainerMargin(btnContainerRight, leftMargin, topMargin, rightMargin, bottomMargin)
-        setIconContainerMargin(btnContainerLeft, leftMargin, topMargin, rightMargin, bottomMargin)
     }
 
     protected open fun setIconContainerMargin(
@@ -248,14 +242,35 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
+    open fun setIconsSelectableBackground(value: Boolean) {
+        iconsContainers.forEach { container ->
+            setContainerSelectableBackground(container, value)
+        }
+    }
+
+    protected open fun setContainerSelectableBackground(container: FrameLayout, value: Boolean) {
+        container.apply {
+            background = if (value) {
+                with(TypedValue()) {
+                    context.theme.resolveAttribute(
+                        R.attr.selectableItemBackground, this, value
+                    )
+                    ContextCompat.getDrawable(context, resourceId)
+                }
+            } else {
+                null
+            }
+        }
+    }
+
     open fun setNumpadHandler(numpadHandler: INumPadHandler) {
         handler = numpadHandler
     }
 
     protected open fun setupNumpadHandler() {
-        iconsContainersList.forEach { container ->
+        iconsNumbersContainers.forEach { container ->
             container.setOnClickListener {
-                handler?.onNumClick(iconsContainersList.indexOf(container))
+                handler?.onNumClick(iconsNumbersContainers.indexOf(container))
             }
         }
         btnContainerLeft.setOnClickListener {
@@ -277,23 +292,21 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
      * @see [setIconsSize].
      */
     open fun setNumbersTextSize(size: Int) {
-        iconsNumbersList.forEach { num ->
+        iconsNumbers.forEach { num ->
             num.textSize = size.toFloat()
         }
     }
 
     open fun setNumbersTextStyle(styleId: Int) {
         if (styleId != -1) {
-            iconsNumbersList.forEach { num ->
+            iconsNumbers.forEach { num ->
                 setNumberTextStyle(num, styleId)
             }
-        } else {
-
         }
     }
 
     open fun setNumbersDefaultStyle(){
-        iconsNumbersList.forEach { num ->
+        iconsNumbers.forEach { num ->
             setNumberTextStyle(num, R.style.NumPadTextIconsStyle)
         }
     }
@@ -303,7 +316,7 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setNumbersTextColor(color: Int) {
-        iconsNumbersList.forEach { num ->
+        iconsNumbers.forEach { num ->
             setNumberTextColor(num, color)
         }
     }
@@ -402,6 +415,7 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
     fun setDefault() {
         setIconsSize(defaultIconSize, defaultIconSize)
         setIconsPadding(defaultIconPadding, defaultIconPadding, defaultIconPadding, defaultIconPadding)
+        setNumbersDefaultStyle()
 
         setLeftIconImageResource(defaultLeftIconImage)
         setLeftIconVisibility(true)
