@@ -27,7 +27,6 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
         setupCaseRecycler()
         setupSearchView()
-        viewModel.updateAdapter(viewModel.allCases)
     }
 
     private fun setupSearchView() {
@@ -45,7 +44,7 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
             })
             setEndIconClickListener(object : InputFieldView.IconClickListener{
                 override fun onIconClick() {
-                    viewModel.updateAdapter(viewModel.allCases)
+                    viewModel.clearSearch()
                 }
             })
         }
