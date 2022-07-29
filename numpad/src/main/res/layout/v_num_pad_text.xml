@@ -194,12 +194,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_num_pad_text_container_seven">
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/v_num_pad_icon_left"
             style="@style/NumPadButtonsStyle"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_cancel" />
+            app:srcCompat="@drawable/ic_cancel"/>
     </FrameLayout>
 
     <FrameLayout
@@ -235,6 +234,6 @@
             android:id="@+id/v_num_pad_icon_right"
             style="@style/NumPadButtonsStyle"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_backspace" />
+            app:srcCompat="@drawable/ic_backspace"/>
     </FrameLayout>
 </merge>

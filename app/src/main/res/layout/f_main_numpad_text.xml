@@ -65,7 +65,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_remove" />
+                android:src="@drawable/ic_remove"
+                android:onClick="@{() -> viewModel.decreaseIconsSize()}"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -81,7 +82,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_add" />
+                android:src="@drawable/ic_add"
+                android:onClick="@{() -> viewModel.increaseIconsSize()}"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton

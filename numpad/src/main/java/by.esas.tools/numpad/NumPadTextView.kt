@@ -305,7 +305,7 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setNumbersDefaultStyle(){
+    open fun setNumbersDefaultStyle() {
         iconsNumbers.forEach { num ->
             setNumberTextStyle(num, R.style.NumPadTextIconsStyle)
         }
@@ -414,7 +414,12 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
 
     fun setDefault() {
         setIconsSize(defaultIconSize, defaultIconSize)
-        setIconsPadding(defaultIconPadding, defaultIconPadding, defaultIconPadding, defaultIconPadding)
+        setIconsPadding(
+            defaultIconPadding,
+            defaultIconPadding,
+            defaultIconPadding,
+            defaultIconPadding
+        )
         setNumbersDefaultStyle()
 
         setLeftIconImageResource(defaultLeftIconImage)
@@ -441,13 +446,19 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         val iconTextStyle =
             typedArray.getResourceId(R.styleable.NumPadTextView_numpadTextIconStyle, -1)
 
-        val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconLeft)
+        val iconLeftImage =
+            typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextLeftIconImage)
+        val iconLeftSize =
+            typedArray.getInt(R.styleable.NumPadTextView_numpadTextLeftIconSize, defaultIconSize)
         val iconLeftColor =
             typedArray.getColor(R.styleable.NumPadTextView_numpadTextLeftIconColor, -1)
         val iconLeftVisibility =
             typedArray.getBoolean(R.styleable.NumPadTextView_numpadTextLeftIconVisibitity, true)
 
-        val iconRightImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconRight)
+        val iconRightImage =
+            typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextRightIconImage)
+        val iconRightSize =
+            typedArray.getInt(R.styleable.NumPadTextView_numpadTextRightIconSize, defaultIconSize)
         val iconRightColor =
             typedArray.getColor(R.styleable.NumPadTextView_numpadTextRightIconColor, -1)
         val iconRightVisibility =
@@ -460,11 +471,15 @@ open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
         setIconsSize(iconSize, iconSize)
 
         setLeftIconImage(iconLeftImage)
+        setLeftIconSize(iconLeftSize, iconLeftSize)
         setLeftIconColor(iconLeftColor)
         setLeftIconVisibility(iconLeftVisibility)
+
         setRightIconImage(iconRightImage)
         setRightIconColor(iconRightColor)
         setRightIconVisibility(iconRightVisibility)
+        setRightIconSize(iconRightSize, iconRightSize)
+
         setupNumpadHandler()
     }
 

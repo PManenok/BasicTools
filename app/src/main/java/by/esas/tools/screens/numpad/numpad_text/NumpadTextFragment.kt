@@ -40,8 +40,13 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
 
     override fun setupObservers() {
         super.setupObservers()
-        viewModel.iconsTextSizeLive.observe(this) { size ->
-//            binding.fMainNumpadText.setNumbersTextSize(20)
+        viewModel.iconsParamsLive.observe(this) { params ->
+            binding.fMainNumpadText.apply {
+                setIconsSize(params.iconSize, params.iconSize)
+                setNumbersTextSize(params.numTextSize)
+                setLeftIconSize(params.imageSize, params.imageSize)
+                setRightIconSize(params.imageSize, params.imageSize)
+            }
         }
         viewModel.iconsIsDefaultLive.observe(this) { isDefault ->
             if (isDefault)
