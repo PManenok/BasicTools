@@ -44,15 +44,10 @@ class MenuVM @Inject constructor(
         )
         addCaseItem(
             "Check NumpadTextView functionality",
-            listOf(ModuleEnum.NUMPAD),
+            listOf(Modules.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadTextFragment()
         )
         updateAdapter(allCases)
-    }
-
-    fun updateAdapter(list: List<CaseItemInfo>) {
-        caseAdapter.addItems(list)
-        isEmpty.set(list.isEmpty())
     }
 
     fun onSearchChanged(value: String) {
