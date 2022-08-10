@@ -20,6 +20,12 @@
         <action
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_utilModuleFragment"
+            app:destination="@id/utilModuleFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_utilAndCustomSwitchFragment"
+            app:destination="@id/utilAndCustomSwitchFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -36,4 +42,14 @@
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
+    <fragment
+        android:id="@+id/utilModuleFragment"
+        android:name="by.esas.tools.screens.util.UtilModuleFragment"
+        android:label="Check Util module functionality"
+        tools:layout="@layout/f_main_util_module" />
+    <fragment
+        android:id="@+id/utilAndCustomSwitchFragment"
+        android:name="by.esas.tools.screens.util.util_customSwitch.UtilAndCustomSwitchFragment"
+        android:label="Check switch manager in util module and custom switch functionality"
+        tools:layout="@layout/f_main_util_custom_switch" />
 </navigation>
