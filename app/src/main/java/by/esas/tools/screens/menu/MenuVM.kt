@@ -42,6 +42,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
+        addCaseItem(
+            "Check CustomSwitch functionality",
+            listOf(Modules.CUSTOMSWITCH),
+            MenuFragmentDirections.actionMenuFragmentToCustomSwitchFragment()
+        )
         updateAdapter(allCases)
     }
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.custom_switch.CustomSwitchVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/spacing_16"
+        android:paddingStart="@dimen/spacing_16"
+        android:paddingEnd="@dimen/spacing_16"
+        android:orientation="vertical">
+
+        <by.esas.tools.customswitch.CustomSwitch
+            android:id="@+id/f_main_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:switchTitle="Custom Switcher"
+            app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfo="@string/custom_switch_instruction"/>
+
+        <EditText
+            android:id="@+id/f_main_switcher_edit_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add something"
+            android:inputType="text"
+            android:layout_marginTop="@dimen/spacing_8" />
+
+        <by.esas.tools.customswitch.CustomSwitch
+            android:id="@+id/f_main_switcher_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:switchTitle="Custom Switcher Style"
+            app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfo="Switcher Info"
+            android:layout_marginTop="@dimen/spacing_30"/>
+
+        <EditText
+            android:id="@+id/f_main_switcher_edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add switcher title"
+            android:inputType="text"
+            android:layout_marginTop="@dimen/spacing_8" />
+
+        <EditText
+            android:id="@+id/f_main_switcher_edit_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add switcher info"
+            android:inputType="text"
+            android:layout_marginTop="@dimen/spacing_8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_switcher_change_style_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_color_5"
+            android:text="Change switcher style"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_12"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_switcher_disable_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/main_color_5"
+            android:text="Disable views"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_70"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disable and enable all views on the screen"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</layout>

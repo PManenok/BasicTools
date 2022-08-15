@@ -5,12 +5,16 @@
         <attr name="switchTitle" format="string" />
         <attr name="switchTitleTextAppearance" format="reference" />
         <attr name="switchTitlePaddingStart" format="dimension" />
+        <attr name="switchTitlePaddingTop" format="dimension" />
         <attr name="switchTitlePaddingEnd" format="dimension" />
+        <attr name="switchTitlePaddingBottom" format="dimension" />
         <!--Value attrs-->
         <attr name="switchInfo" format="string" />
         <attr name="switchInfoTextAppearance" format="reference" />
         <attr name="switchInfoPaddingStart" format="dimension" />
+        <attr name="switchInfoPaddingTop" format="dimension" />
         <attr name="switchInfoPaddingEnd" format="dimension" />
+        <attr name="switchInfoPaddingBottom" format="dimension" />
         <attr name="switchInfoAlignment" format="integer">
             <!-- Default. -->
             <enum name="inherit" value="0" />
@@ -32,7 +36,7 @@
             <enum name="viewEnd" value="6" />
         </attr>
         <!--Switcher attrs-->
-        <attr name="thumbTint" />
-        <attr name="trackTint" />
+        <attr name="thumbTint" format="color"/>
+        <attr name="trackTint" format="color"/>
     </declare-styleable>
 </resources>

@@ -8,4 +8,8 @@
     <string name="numpad_common_text_test">Numpad test</string>
     <string name="numpad_change_icons_image">Change numpad icons</string>
     <string name="numpad_change_icons_size">Change icons size</string>
+
+    <!--Custom switch-->
+    <string name="custom_switch_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
+
 </resources>

@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_customSwitchFragment"
+            app:destination="@id/customSwitchFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -36,4 +39,9 @@
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
+    <fragment
+        android:id="@+id/customSwitchFragment"
+        android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
+        android:label="Check CustomSwitch functionality"
+        tools:layout="@layout/f_main_custom_switch" />
 </navigation>
