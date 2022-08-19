@@ -17,19 +17,25 @@
         android:paddingEnd="@dimen/spacing_16"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:id="@+id/f_main_switcher_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/spacing_42"/>
+
         <by.esas.tools.customswitch.CustomSwitch
-            android:id="@+id/f_main_switcher"
+            android:id="@+id/f_main_switcher_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:switchTitle="Custom Switcher"
             app:switchTitleTextAppearance="@style/TextStyle"
-            app:switchInfo="@string/custom_switch_instruction"/>
+            app:switchInfo="@string/custom_switch_check_instruction"/>
 
         <EditText
-            android:id="@+id/f_main_switcher_edit_field"
+            android:id="@+id/f_main_switcher_check_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add something"
+            android:hint="@string/add_something"
             android:inputType="text"
             android:layout_marginTop="@dimen/spacing_8" />
 
@@ -40,22 +46,24 @@
             app:switchTitle="Custom Switcher Style"
             app:switchTitleTextAppearance="@style/TextStyle"
             app:switchInfo="Switcher Info"
-            android:layout_marginTop="@dimen/spacing_30"/>
+            android:layout_marginTop="@dimen/spacing_42"/>
 
         <EditText
             android:id="@+id/f_main_switcher_edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add switcher title"
+            android:hint="@string/custom_switch_add_title_hint"
             android:inputType="text"
+            android:imeOptions="actionDone"
             android:layout_marginTop="@dimen/spacing_8" />
 
         <EditText
             android:id="@+id/f_main_switcher_edit_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add switcher info"
+            android:hint="@string/custom_switch_add_info_hint"
             android:inputType="text"
+            android:imeOptions="actionDone"
             android:layout_marginTop="@dimen/spacing_8" />
 
         <com.google.android.material.button.MaterialButton
@@ -63,32 +71,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/main_color_5"
-            android:text="Change switcher style"
+            android:text="@string/custom_switch_change_style"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_12"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:visibility="invisible"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/f_main_switcher_disable_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/main_color_5"
-            android:text="Disable views"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_70"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Disable and enable all views on the screen"
-            android:layout_gravity="center"/>
 
     </LinearLayout>
 
