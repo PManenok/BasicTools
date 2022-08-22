@@ -42,6 +42,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
+        addCaseItem(
+            "Check Cardline functionality",
+            listOf(Modules.CARDLINE),
+            MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
+        )
         updateAdapter(allCases)
     }
 

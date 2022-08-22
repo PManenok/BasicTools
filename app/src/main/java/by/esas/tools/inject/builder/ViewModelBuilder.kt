@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
+import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -35,6 +36,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(NumpadImageVM::class)
     abstract fun bindNumpadImageVM(numpadImageVM: NumpadImageVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CardlineVM::class)
+    abstract fun bindCardlineVM(cardlineVM: CardlineVM): ViewModel
 
     @Binds
     @IntoMap

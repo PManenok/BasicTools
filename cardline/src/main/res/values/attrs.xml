@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CardLine">
-        <attr name="cardStartIconAlignTop" format="boolean" />
-        <attr name="cardEndIconAlignTop" format="boolean" />
-        <attr name="cardTextAlignTop" format="boolean" />
+        <attr name="cardStartIconAlignVertical" format="float" />
+        <attr name="cardEndIconAlignVertical" format="float" />
+        <attr name="cardTextAlignVertical" format="float" />
         <!--Title attrs-->
         <attr name="cardTitle" format="string" />
         <attr name="cardTitleTextAppearance" format="reference" />

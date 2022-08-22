@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_cardlineFragment"
+            app:destination="@id/cardlineFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -36,4 +39,9 @@
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
+    <fragment
+        android:id="@+id/cardlineFragment"
+        android:name="by.esas.tools.screens.cardline.CardlineFragment"
+        android:label="Check Cardline functionality"
+        tools:layout="@layout/f_main_cardline" />
 </navigation>

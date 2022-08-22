@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Electronic Systems And Services Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package by.esas.tools.cardline
+
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
@@ -12,22 +19,20 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.ImageViewCompat.setImageTintList
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.cardline.R
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
 open class CardLine : LinearLayout {
     val TAG: String = CardLine::class.java.simpleName
-    val container: ConstraintLayout
-    val titleText: MaterialTextView
-    val valueText: MaterialTextView
-    val topDividerView: View
-    val bottomDividerView: View
-    val startIcon: AppCompatImageView
-    val endIcon: AppCompatImageView
+    protected val container: ConstraintLayout
+    protected val titleText: MaterialTextView
+    protected val valueText: MaterialTextView
+    protected val topDividerView: View
+    protected val bottomDividerView: View
+    protected val startIcon: AppCompatImageView
+    protected val endIcon: AppCompatImageView
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -54,14 +59,15 @@ open class CardLine : LinearLayout {
         endIcon = view.findViewById(R.id.v_card_line_icon_end)
         topDividerView = view.findViewById(R.id.v_card_line_divider_top)
         bottomDividerView = view.findViewById(R.id.v_card_line_divider_bottom)
+        orientation = VERTICAL
     }
 
     protected val defDividerHeight = dpToPx(1)
     protected val defDividerColor = Color.parseColor("#D9E1EE")
-    protected val defIconColor = Color.parseColor("#EC3E37")
-    protected val defStartIconAlignTop: Boolean = false
-    protected val defEndIconAlignTop: Boolean = false
-    protected val defTextAlignTop: Boolean = false
+    protected val defIconColor = Color.parseColor("#D9E1EE")
+    protected val defStartIconAlignVertical = 0.5f
+    protected val defEndIconAlignVertical = 0.5f
+    protected val defTextAlignVertical = 0.5f
     protected val defShowTopDiv = false
     protected val defShowBottomDiv = false
     protected val defPadding = 0
@@ -69,9 +75,9 @@ open class CardLine : LinearLayout {
     protected val defSingleLine = false
     protected val defValueAlignment = 0
 
-    protected var startIconAlignTop: Boolean = false
-    protected var endIconAlignTop: Boolean = false
-    protected var textAlignTop: Boolean = false
+    protected var startIconAlignVertical = 0.5f
+    protected var endIconAlignVertical = 0.5f
+    protected var textAlignVertical = 0.5f
     protected var showTopDiv = false
     protected var showBottomDiv = false
     protected var titleWidthPercent = 0.35f
@@ -82,11 +88,11 @@ open class CardLine : LinearLayout {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CardLine)
 
-        startIconAlignTop =
-            typedArray.getBoolean(R.styleable.CardLine_cardStartIconAlignTop, defStartIconAlignTop)
-        endIconAlignTop =
-            typedArray.getBoolean(R.styleable.CardLine_cardEndIconAlignTop, defEndIconAlignTop)
-        textAlignTop = typedArray.getBoolean(R.styleable.CardLine_cardTextAlignTop, defTextAlignTop)
+        startIconAlignVertical =
+            typedArray.getFloat(R.styleable.CardLine_cardStartIconAlignVertical, defStartIconAlignVertical)
+        endIconAlignVertical =
+            typedArray.getFloat(R.styleable.CardLine_cardEndIconAlignVertical, defEndIconAlignVertical)
+        textAlignVertical = typedArray.getFloat(R.styleable.CardLine_cardTextAlignVertical, defTextAlignVertical)
 
         val title = typedArray.getString(R.styleable.CardLine_cardTitle)
         val titleStyleId: Int =
@@ -159,9 +165,9 @@ open class CardLine : LinearLayout {
 
         typedArray.recycle()
 
-        setAlignTop(startIconAlignTop, listOf(startIcon))
-        setAlignTop(endIconAlignTop, listOf(endIcon))
-        setupTextAlignTop(textAlignTop)
+        setAlignVertical(startIconAlignVertical, listOf(startIcon))
+        setAlignVertical(endIconAlignVertical, listOf(endIcon))
+        setupTextAlignVertical(textAlignVertical)
 
         setContainerPaddings(startPadding, topPadding, endPadding, bottomPadding)
 
@@ -224,8 +230,8 @@ open class CardLine : LinearLayout {
 
     /*region ####################### Card Text ############################*/
 
-    open fun setupTextAlignTop(alignTop: Boolean) {
-        setAlignTop(alignTop, listOf(titleText, valueText))
+    open fun setupTextAlignVertical(bias: Float) {
+        setAlignVertical(bias, listOf(titleText, valueText))
     }
 
     /* ####################### Card Title ############################*/
@@ -407,10 +413,8 @@ open class CardLine : LinearLayout {
     /*######################## Bottom divider ############################*/
 
     open fun setBottomDividerVisibility(value: Boolean) {
-        if (showBottomDiv != value){
-            showBottomDiv = value
-            bottomDividerView.visibility = if (value) View.VISIBLE else View.GONE
-        }
+        showBottomDiv = value
+        bottomDividerView.visibility = if (value) View.VISIBLE else View.GONE
     }
 
     open fun setBottomDividerColor(color: Int) {
@@ -435,16 +439,16 @@ open class CardLine : LinearLayout {
 
     /*region ############################ Other ################################*/
     fun setDefaultValues() {
-        startIconAlignTop = defStartIconAlignTop
-        endIconAlignTop = defEndIconAlignTop
-        textAlignTop = defTextAlignTop
+        startIconAlignVertical = defStartIconAlignVertical
+        endIconAlignVertical = defEndIconAlignVertical
+        textAlignVertical = defTextAlignVertical
         valueAlignment = defValueAlignment
 
         setupTitleWidthPercent(defTitleWidthPercent)
 
-        setAlignTop(defStartIconAlignTop, listOf(startIcon))
-        setAlignTop(defEndIconAlignTop, listOf(endIcon))
-        setupTextAlignTop(defTextAlignTop)
+        setAlignVertical(defStartIconAlignVertical, listOf(startIcon))
+        setAlignVertical(defEndIconAlignVertical, listOf(endIcon))
+        setupTextAlignVertical(defTextAlignVertical)
 
         setContainerPaddings(
             defPadding,
@@ -496,12 +500,11 @@ open class CardLine : LinearLayout {
         )
     }
 
-    open fun setAllAlignTop(alignTop: Boolean) {
-        setAlignTop(alignTop, listOf(startIcon, titleText, valueText, endIcon))
+    open fun setAllAlignVertical(bias: Float) {
+        setAlignVertical(bias, listOf(startIcon, titleText, valueText, endIcon))
     }
 
-    open fun setAlignTop(alignTop: Boolean, views: List<View>) {
-        val bias = if (alignTop) 0f else 0.5f
+    open fun setAlignVertical(bias: Float, views: List<View>) {
         views.forEach { view ->
             (view.layoutParams as ConstraintLayout.LayoutParams).apply { verticalBias = bias }
         }
