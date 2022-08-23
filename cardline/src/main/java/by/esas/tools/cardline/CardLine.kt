@@ -21,10 +21,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat.setImageTintList
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.util.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
-open class CardLine : LinearLayout {
+open class CardLine : LinearLayout, SwitchManager.ISwitchView {
     val TAG: String = CardLine::class.java.simpleName
     protected val container: ConstraintLayout
     protected val titleText: MaterialTextView
@@ -61,6 +62,16 @@ open class CardLine : LinearLayout {
         bottomDividerView = view.findViewById(R.id.v_card_line_divider_bottom)
         orientation = VERTICAL
     }
+
+    /*region ####################### ISwitchView interface ############################*/
+    override fun switchOn() {
+        super.setEnabled(true)
+    }
+
+    override fun switchOff() {
+        super.setEnabled(false)
+    }
+    /*endregion ####################### ISwitchView interface ############################*/
 
     protected val defDividerHeight = dpToPx(1)
     protected val defDividerColor = Color.parseColor("#D9E1EE")
@@ -513,6 +524,5 @@ open class CardLine : LinearLayout {
     fun dpToPx(dp: Int): Float {
         return (dp * Resources.getSystem().displayMetrics.density)
     }
-
     /*endregion ############################ Other ################################*/
 }

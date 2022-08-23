@@ -14,7 +14,7 @@
     <string name="cardline_case_2">Case 2. Card with end icon, cardValueAlignment center, two dividers, text style and title width percent 0.1</string>
     <string name="cardline_case_3">Case 3. Card value without title, icons, top divider and with long text, cardValueAlignment textEnd</string>
     <string name="cardline_case_4">Case 4. Just title with long text, no dividers</string>
-    <string name="cardline_case_5">Case 5. Card value with fixed height, dividers and all parts have different vertical bias</string>
+    <string name="cardline_case_5">Case 5. Card value with fixed height, dividers and all parts have different vertical bias. You can use button below to change cardline style</string>
     <string name="cardline_title">title</string>
     <string name="cardline_title_long">loooooooooooooooooooooooong title</string>
     <string name="cardline_value">Card with text</string>

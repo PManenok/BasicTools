@@ -97,6 +97,7 @@
             android:text="@string/cardline_case_5"/>
 
         <by.esas.tools.cardline.CardLine
+            android:id="@+id/f_main_cardline_style"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:cardTitle="@string/cardline_title"
@@ -118,10 +119,7 @@
             android:backgroundTint="@color/main_color_5"
             android:text="@string/numpad_change_icons_image"
             android:textColor="@color/black"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 </layout>
