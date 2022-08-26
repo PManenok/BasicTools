@@ -8,6 +8,7 @@ import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
+import by.esas.tools.screens.topbar.TopbarVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -35,6 +36,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(NumpadImageVM::class)
     abstract fun bindNumpadImageVM(numpadImageVM: NumpadImageVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TopbarVM::class)
+    abstract fun bindTopbarVM(topbarVM: TopbarVM): ViewModel
 
     @Binds
     @IntoMap

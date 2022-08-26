@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Electronic Systems And Services Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package by.esas.tools.topbarview
 
 import android.content.Context
@@ -10,9 +15,12 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
+import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
 import com.google.android.material.textview.MaterialTextView
@@ -20,13 +28,13 @@ import kotlin.math.roundToInt
 
 open class TopbarView : LinearLayout {
     val TAG: String = TopbarView::class.java.simpleName
-    val dividerView: View
-    val containerView: ConstraintLayout
-    val navIconView: AppCompatImageView
-    val actionIconView: AppCompatImageView
-    val startActionView: MaterialTextView
-    val endActionView: MaterialTextView
-    val titleView: MaterialTextView
+    protected val dividerView: View
+    protected val containerView: ConstraintLayout
+    protected val navIconView: AppCompatImageView
+    protected val actionIconView: AppCompatImageView
+    protected val startActionView: MaterialTextView
+    protected val endActionView: MaterialTextView
+    protected val titleView: MaterialTextView
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -53,12 +61,13 @@ open class TopbarView : LinearLayout {
         titleView = view.findViewById(R.id.v_top_bar_title)
         endActionView = view.findViewById(R.id.v_top_bar_right_action)
         actionIconView = view.findViewById(R.id.v_top_bar_right_action_icon)
+        orientation = VERTICAL
     }
 
     protected val defDividerHeight = dpToPx(1)
     protected val defContainerHeight = dpToPx(35)
     protected val defDividerColor = Color.parseColor("#D9E1EE")
-    protected val defIconColor = Color.RED
+    protected val defIconColor = Color.parseColor("#D9E1EE")
     protected val defIconsPadding = dpToPx(5).toInt()
     protected val defPadding: Int = 0
 
@@ -77,7 +86,7 @@ open class TopbarView : LinearLayout {
 
     //заменила в названиях showEndIcon, endIconRes, endIconSize, endIconTint, endIconPadding - end на Action.
     // Т.к. у нас есть navIcon и ActionIcon, а start и end относятся к текстовым полям.
-    // и в сочетании endIcon созвалась путаница - это название относится к текстовому полю или к icon
+    // и в сочетании endIcon создавалась путаница - это название относится к текстовому полю или к icon
     protected var showActionIcon: Boolean = false
     protected var actionIconRes: Int = -1
     protected var actionIconSize: Int = 0
@@ -176,8 +185,6 @@ open class TopbarView : LinearLayout {
 
         typedArray.recycle()
 
-        val titleWidthIsWrap = !startActionText.isNullOrBlank() || !endActionText.isNullOrBlank()
-
         setContainerPaddings(startPadding, topPadding, endPadding, bottomPadding)
 
         setContainerHeight(containerHeight)
@@ -230,12 +237,6 @@ open class TopbarView : LinearLayout {
             )
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
-            val params = layoutParams as ConstraintLayout.LayoutParams
-            if (titleWidthIsWrap)
-                getLayoutParamsForWrappingWidth(params)
-            else
-                getLayoutParamsForZeroWidth(params)
-            layoutParams = params
         }
 
         dividerView.setBackgroundColor(dividerColor)
@@ -244,20 +245,25 @@ open class TopbarView : LinearLayout {
     }
 
     /*region ############################ Title ################################*/
-    fun setTitle(text: String?) {
+    open fun setTitle(text: String?) {
         titleView.text = text
     }
 
-    fun setTitle(textRes: Int?) {
+    open fun setTitle(textRes: Int?) {
         if (textRes != null)
             titleView.setText(textRes)
     }
 
-    fun isTitleSingleLine(value: Boolean) {
+    open fun setTitleStyle(styleId: Int) {
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(titleView, styleId)
+    }
+
+    open fun isTitleSingleLine(value: Boolean) {
         titleView.isSingleLine = value
     }
 
-    fun setTitlePaddings(paddingStart: Int, paddingEnd: Int) {
+    open fun setTitlePaddings(paddingStart: Int, paddingEnd: Int) {
         titleView.setPadding(
             paddingLeft + paddingStart,
             paddingTop,
@@ -266,11 +272,11 @@ open class TopbarView : LinearLayout {
         )
     }
 
-    fun setEllipsize(truncateAt: TextUtils.TruncateAt) {
+    open fun setEllipsize(truncateAt: TextUtils.TruncateAt) {
         titleView.ellipsize = truncateAt
     }
 
-    fun setDefaultTitleParams() {
+    open fun setDefaultTitleParams() {
         titleView.apply {
             setPadding(
                 paddingLeft + defPadding,
@@ -280,9 +286,6 @@ open class TopbarView : LinearLayout {
             )
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
-            val params = layoutParams as ConstraintLayout.LayoutParams
-            getLayoutParamsForZeroWidth(params)
-            layoutParams = params
         }
     }
 
@@ -310,18 +313,22 @@ open class TopbarView : LinearLayout {
     /*endregion ############################ Title ################################*/
 
     /*region ############################ Divider ################################*/
-    fun setDividerVisibility(value: Boolean) {
+    open fun setDividerVisibility(value: Boolean) {
         dividerView.visibility = if (value) View.VISIBLE else View.GONE
     }
 
-    fun setDividerHeight(dividerHeight: Int) {
+    open fun setDividerHeight(dividerHeight: Int) {
         dividerView.layoutParams.apply {
             height = dividerHeight
         }
     }
 
-    fun setDividerColor(color: Int) {
+    open fun setDividerColor(color: Int) {
         dividerView.setBackgroundColor(color)
+    }
+
+    open fun setDividerColorRes(@ColorRes colorRes: Int) {
+        dividerView.setBackgroundColor(ContextCompat.getColor(context, colorRes))
     }
     /*endregion ############################ Divider ################################*/
 
@@ -351,36 +358,69 @@ open class TopbarView : LinearLayout {
         endActionView.isClickable = value
     }
 
-    /*############################ Start Action View ################################*/
+    /*region ############################ Start Action View ################################*/
+    open fun setStartActionTitle(title: String) {
+        startActionView.text = title
+        setStartActionViewVisibility(true)
+    }
+
+    open fun setStartActionTitle(titleId: Int) {
+        startActionView.setText(titleId)
+        setStartActionViewVisibility(true)
+    }
+
     open fun setStartActionListener(listener: OnClickListener) {
         navIconView.setOnClickListener(listener)
         startActionView.setOnClickListener(listener)
     }
 
-    fun setStartActionViewVisibility(value: Boolean) {
+    open fun setStartActionViewVisibility(value: Boolean) {
         if (value) {
             startActionView.visibility = View.VISIBLE
         } else {
             startActionView.visibility = View.GONE
         }
+        updateNavigationIcon()
     }
 
-    /*############################ End Action View ################################*/
+    open fun setStartActionViewStyle(styleId: Int){
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(startActionView, styleId)
+    }
+    /*endregion ############################ Start Action View ################################*/
+
+    /*region ############################ End Action View ################################*/
+    open fun setEndActionTitle(title: String) {
+        endActionView.text = title
+        setEndActionViewVisibility(true)
+    }
+
     open fun setEndActionListener(listener: OnClickListener) {
         actionIconView.setOnClickListener(listener)
         endActionView.setOnClickListener(listener)
     }
 
-    fun setEndActionViewVisibility(value: Boolean) {
+    open fun setEndActionViewVisibility(value: Boolean) {
         if (value) {
             endActionView.visibility = View.VISIBLE
         } else {
             endActionView.visibility = View.GONE
         }
+        updateActionIcon()
     }
 
-    /*############################ Navigation Icon ################################*/
-    fun setNavIconImage(resId: Int) {
+    open fun setEndActionViewStyle(styleId: Int){
+        if (styleId != -1)
+            TextViewCompat.setTextAppearance(endActionView, styleId)
+    }
+    /*endregion ############################ End Action View ################################*/
+
+    /*region ############################ Navigation Icon ################################*/
+    /**
+     * When you add navigation icon image make sure that icon is visible.
+     * To set navigation icon visibility use method [setNavIconVisibility].
+     */
+    open fun setNavIconImage(resId: Int) {
         navIconRes = resId
         updateNavigationIcon()
     }
@@ -404,9 +444,10 @@ open class TopbarView : LinearLayout {
             }
         }
     }
+    /*endregion ############################ Navigation Icon ################################*/
 
-    /*############################ Action Icon ################################*/
-    fun setActionIconImage(resId: Int) {
+    /*region ############################ Action Icon ################################*/
+    open fun setActionIconImage(resId: Int) {
         actionIconRes = resId
         updateActionIcon()
     }
@@ -430,11 +471,13 @@ open class TopbarView : LinearLayout {
             }
         }
     }
+    /*endregion ############################ Action Icon ################################*/
+
     /*endregion ############################ Icons ################################*/
 
     /*region ############################ Container ################################*/
 
-    fun setContainerPaddings(
+    open fun setContainerPaddings(
         startPadding: Int,
         topPadding: Int,
         endPadding: Int,
@@ -448,7 +491,7 @@ open class TopbarView : LinearLayout {
         )
     }
 
-    fun setContainerHeight(containerHeight: Int) {
+    open fun setContainerHeight(containerHeight: Int) {
         containerView.layoutParams.apply {
             height = containerHeight
         }

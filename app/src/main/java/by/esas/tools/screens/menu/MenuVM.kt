@@ -42,6 +42,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.NUMPAD),
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
+        addCaseItem(
+            "Check Topbar view functionality",
+            listOf(Modules.TOPBAR_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToTopbarFragment()
+        )
         updateAdapter(allCases)
     }
 
