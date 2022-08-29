@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainTopbarBinding
+import by.esas.tools.topbarview.ITopbarHandler
 
 class TopbarFragment: AppFragment<TopbarVM, FMainTopbarBinding>() {
     override val fragmentDestinationId = R.id.topbarFragment
@@ -36,6 +38,21 @@ class TopbarFragment: AppFragment<TopbarVM, FMainTopbarBinding>() {
                 setDividerVisibility(true)
                 setDividerColor(R.color.main_color_2)
             }
+        }
+
+        binding.fMainTopbarCase3.setupHandler(getTopbarHandler())
+        binding.fMainTopbarCase6.setupHandler(getTopbarHandler())
+        binding.fMainTopbarCase9.setupHandler(getTopbarHandler())
+        binding.fMainTopbarCase10.setupHandler(getTopbarHandler())
+    }
+
+    private fun getTopbarHandler(): ITopbarHandler = object : ITopbarHandler {
+        override fun onNavigationClick() {
+            Toast.makeText(requireContext(), resources.getString(R.string.topbar_nav_click), Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onActionClick() {
+            Toast.makeText(requireContext(), resources.getString(R.string.topbar_action_click), Toast.LENGTH_SHORT).show()
         }
     }
 }

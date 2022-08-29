@@ -62,6 +62,7 @@
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title"
@@ -174,6 +175,7 @@
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title"
@@ -193,6 +195,7 @@
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title_long"

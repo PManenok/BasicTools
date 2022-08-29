@@ -93,6 +93,8 @@ open class TopbarView : LinearLayout {
     protected var actionIconTint: Int = defIconColor
     protected var actionIconPadding: Int = defIconsPadding
 
+    protected var handler: ITopbarHandler? = null
+
     protected fun initAttrs(attrs: AttributeSet?) {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TopbarView)
@@ -242,6 +244,8 @@ open class TopbarView : LinearLayout {
         dividerView.setBackgroundColor(dividerColor)
         setDividerHeight(divHeight.toInt())
         dividerView.visibility = if (showDiv) View.VISIBLE else View.GONE
+
+        setupActionsHandler()
     }
 
     /*region ############################ Title ################################*/
@@ -499,6 +503,29 @@ open class TopbarView : LinearLayout {
 
     /*endregion ############################ Container ################################*/
 
+    /*region ############################ Topbar handler ################################*/
+
+    open fun setupHandler(topbarHandler: ITopbarHandler) {
+        handler = topbarHandler
+    }
+
+    protected open fun setupActionsHandler() {
+        navIconView.setOnClickListener {
+            handler?.onNavigationClick()
+        }
+        startActionView.setOnClickListener {
+            handler?.onNavigationClick()
+        }
+        actionIconView.setOnClickListener {
+            handler?.onActionClick()
+        }
+        endActionView.setOnClickListener {
+            handler?.onActionClick()
+        }
+    }
+
+    /*endregion ############################ Topbar handler ################################*/
+
     /*region ############################ Other ################################*/
     open fun setDefaultValues() {
         navIconRes = defNavIconRes
@@ -528,6 +555,8 @@ open class TopbarView : LinearLayout {
         dividerView.setBackgroundColor(defDividerColor)
         setDividerHeight(defDividerHeight.toInt())
         setDividerVisibility(false)
+
+        setupActionsHandler()
     }
 
     private fun dpToPx(dp: Int): Float {

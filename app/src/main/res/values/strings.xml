@@ -18,12 +18,14 @@
     <string name="topbar_change_icons">Change icons</string>
     <string name="topbar_case_1">Case 1. Topbar without any icons, but with divider</string>
     <string name="topbar_case_2">Case 2. Topbar with navigation icon</string>
-    <string name="topbar_case_3">Case 3. Topbar with navigation icon and actionView on the right</string>
+    <string name="topbar_case_3">Case 3. Topbar with navigation icon and actionView on the right, with handler for handling clicks</string>
     <string name="topbar_case_4">Case 4. Topbar with action icon on the right</string>
     <string name="topbar_case_5">Case 5. Topbar with actionView on the left</string>
-    <string name="topbar_case_6">Case 6. Topbar with actionView on the left and actionIcon on the right. Use button below to change title, actionView and action icon</string>
+    <string name="topbar_case_6">Case 6. Topbar with actionView on the left and actionIcon on the right. Use button below to change title, actionView and action icon, with handler for handling clicks</string>
     <string name="topbar_case_7">Case 7. Topbar with actionViews. Use button below to change style of topbar</string>
     <string name="topbar_case_8">Case 8. Topbar with actionView on the right</string>
-    <string name="topbar_case_9">Case 9. Topbar with two icons and two actionViews, but icons are not visible cause actionViews are in priority</string>
-    <string name="topbar_case_10">Case 10. Topbar with two icons</string>
+    <string name="topbar_case_9">Case 9. Topbar with two icons and two actionViews, but icons are not visible cause actionViews are in priority, with handler for handling clicks</string>
+    <string name="topbar_case_10">Case 10. Topbar with two icons, with handler for handling clicks</string>
+    <string name="topbar_nav_click">onNavigationClick</string>
+    <string name="topbar_action_click">onActionClick</string>
 </resources>
