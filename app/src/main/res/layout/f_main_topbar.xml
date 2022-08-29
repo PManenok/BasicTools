@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title"
+            app:barTitleTextAppearance="@style/TextStyle"
             app:barShowDivider="true"
             app:barDividerColor="@color/black"
             android:layout_marginTop="@dimen/spacing_4"/>
@@ -164,7 +165,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title"
+            app:barTitleTextAppearance="@style/TopbarTextStyle"
             app:barEndActionText="@string/topbar_action_cancel"
+            app:barEndActionTextAppearance="@style/TopbarTextStyle.Red"
+            app:barShowDivider="true"
             android:layout_marginTop="@dimen/spacing_4"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -200,8 +204,10 @@
             android:layout_height="wrap_content"
             app:barTitleText="@string/topbar_title_long"
             app:barNavIcon="@drawable/ic_remove"
+            app:barNavIconTint="@color/colorPrimary"
             app:barShowNavIcon="true"
             app:barActionIcon="@drawable/ic_add"
+            app:barActionIconTint="@color/red"
             app:barShowActionIcon="true"
             android:layout_marginTop="@dimen/spacing_4"/>
 

@@ -52,4 +52,14 @@
         <item name="android:minWidth">@dimen/spacing_300</item>
         <item name="android:minHeight">@dimen/spacing_400</item>
     </style>
+
+    <style name="TopbarTextStyle">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TopbarTextStyle.Red" parent="TopbarTextStyle">
+        <item name="android:textColor">@color/red</item>
+    </style>
 </resources>
