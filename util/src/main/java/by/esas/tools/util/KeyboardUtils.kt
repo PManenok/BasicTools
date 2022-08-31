@@ -28,11 +28,11 @@ fun hideKeyboard(activity: Activity?) {
 
 fun focusAndShowKeyboard(activity: Activity?, view: View) {
     if (activity == null) return
-    if (view.isFocusable) {
-        view.requestFocus()
-    }
     if (view is EditText) {
         showKeyboard(activity)
+    }
+    if (view.isFocusable) {
+        view.requestFocus()
     }
 }
 

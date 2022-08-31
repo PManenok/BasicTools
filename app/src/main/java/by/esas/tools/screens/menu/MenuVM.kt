@@ -43,14 +43,9 @@ class MenuVM @Inject constructor(
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
         addCaseItem(
-            "Check Util module functionality",
+            "Check Keyboard functionality in Util module",
             listOf(Modules.UTIL),
             MenuFragmentDirections.actionMenuFragmentToUtilModuleFragment()
-        )
-        addCaseItem(
-            "Check switch manager in util module and custom switch functionality",
-            listOf(Modules.UTIL, Modules.CUSTOMSWITCH),
-            MenuFragmentDirections.actionMenuFragmentToUtilAndCustomSwitchFragment()
         )
         updateAdapter(allCases)
     }
