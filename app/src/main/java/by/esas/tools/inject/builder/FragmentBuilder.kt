@@ -4,7 +4,8 @@ import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
-import by.esas.tools.screens.util.UtilModuleFragment
+import by.esas.tools.screens.util.UtilKeyboardFragment
+import by.esas.tools.screens.util.utils.UtilsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -24,6 +25,9 @@ abstract class FragmentBuilder {
     abstract fun bindNumpadImageFragment(): NumpadImageFragment
 
     @ContributesAndroidInjector
-    abstract fun bindUtilModuleFragment(): UtilModuleFragment
+    abstract fun bindUtilKeyboardFragment(): UtilKeyboardFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindUtilsFragment(): UtilsFragment
 
 }

@@ -21,8 +21,11 @@
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_utilModuleFragment"
-            app:destination="@id/utilModuleFragment" />
+            android:id="@+id/action_menuFragment_to_utilKeyboardFragment"
+            app:destination="@id/utilKeyboardFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_utilUtilsFragment"
+            app:destination="@id/utilUtilsFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -40,8 +43,13 @@
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
     <fragment
-        android:id="@+id/utilModuleFragment"
-        android:name="by.esas.tools.screens.util.UtilModuleFragment"
-        android:label="Check Util module functionality"
-        tools:layout="@layout/f_main_util_module" />
+        android:id="@+id/utilKeyboardFragment"
+        android:name="by.esas.tools.screens.util.UtilKeyboardFragment"
+        android:label="Check Util keyboard functionality"
+        tools:layout="@layout/f_main_util_keyboard" />
+    <fragment
+        android:id="@+id/utilUtilsFragment"
+        android:name="by.esas.tools.screens.util.utils.UtilsFragment"
+        android:label="Check Utils functionality in Util module"
+        tools:layout="@layout/f_main_util_utils" />
 </navigation>

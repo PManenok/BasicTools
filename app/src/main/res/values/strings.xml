@@ -8,6 +8,23 @@
     <string name="numpad_common_text_test">Numpad test</string>
     <string name="numpad_change_icons_image">Change numpad icons</string>
     <string name="numpad_change_icons_size">Change icons size</string>
+
+    <!--Util module-->
     <string name="util_title_case_1">Case 1. When you open this screen, the keyboard are immediately shown and EditText view below has focus. Use button on the right side to defocus view and hide keyboard</string>
     <string name="util_title_case_2">Case 2. Use Show button to show keybord, but EditText view on the center will not have focus. Use Hide button to hide keyboard. If EditText view will have focus and you will use Hide button, keyboard will be hidden, but EditText will have focus</string>
+
+    <string name="utils_title_case_1">Case 1: Add number in EditText view below, and format number to formated input using Format button</string>
+    <string name="utils_title_case_2">Case 2: Add number in EditText view below, and format it to formated string using Format button</string>
+    <string name="utils_title_case_3">Case 3: Add something in EditText view below, and get only numbers from string you added using Get numbers button</string>
+    <string name="utils_title_case_4">Case 4: Luhn algorithm check. This only works if you are certain all input will be at least 10 characters</string>
+    <string name="utils_title_case_5">Case 5: Add card number and get card type using Card type button</string>
+    <string name="utils_format">Format</string>
+    <string name="utils_get_numbers">Get numbers</string>
+    <string name="utils_check">Check</string>
+    <string name="utils_card_type">Card type</string>
+    <string name="utils_add_number">Add number</string>
+    <string name="utils_add_something">Add something</string>
+    <string name="utils_add_card_type">Add card type</string>
+    <string name="utils_result">Result: </string>
+
 </resources>

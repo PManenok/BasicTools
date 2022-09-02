@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="by.esas.tools.screens.util.UtilModuleVM" />
+            type="by.esas.tools.screens.util.UtilKeyboardVM" />
     </data>
 
     <LinearLayout

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.util.utils.UtilsVM" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_12">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_title_case_1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/f_main_utils_case_1_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/utils_add_number"
+                android:inputType="numberDecimal"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_main_utils_case_1_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/utils_format"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_utils_case_1_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_result"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_title_case_2"
+            android:layout_marginTop="@dimen/spacing_12"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/f_main_utils_case_2_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/utils_add_number"
+                android:inputType="numberDecimal"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_main_utils_case_2_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/utils_format"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_utils_case_2_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_result"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_title_case_3"
+            android:layout_marginTop="@dimen/spacing_12"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/f_main_utils_case_3_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/utils_add_something"
+                android:inputType="text"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_main_utils_case_3_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/utils_get_numbers" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_utils_case_3_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_result"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="@string/utils_title_case_4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/f_main_utils_case_4_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/utils_add_something"
+                android:inputType="text"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_main_utils_case_4_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/utils_check" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_utils_case_4_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_result"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_title_case_5"
+            android:layout_marginTop="@dimen/spacing_12"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/f_main_utils_case_5_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/utils_add_card_type"
+                android:inputType="number"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_main_utils_case_5_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/utils_card_type"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_main_utils_case_5_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/utils_result"/>
+
+    </LinearLayout>
+</layout>

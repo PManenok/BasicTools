@@ -45,7 +45,12 @@ class MenuVM @Inject constructor(
         addCaseItem(
             "Check Keyboard functionality in Util module",
             listOf(Modules.UTIL),
-            MenuFragmentDirections.actionMenuFragmentToUtilModuleFragment()
+            MenuFragmentDirections.actionMenuFragmentToUtilKeyboardFragment()
+        )
+        addCaseItem(
+            "Check Utils functionality in Util module",
+            listOf(Modules.UTIL),
+            MenuFragmentDirections.actionMenuFragmentToUtilUtilsFragment()
         )
         updateAdapter(allCases)
     }
