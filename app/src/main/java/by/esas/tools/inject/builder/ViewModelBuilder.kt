@@ -9,6 +9,7 @@ import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
 import by.esas.tools.screens.util.UtilKeyboardVM
+import by.esas.tools.screens.util.switchManager.UtilSwitchManagerVM
 import by.esas.tools.screens.util.utils.UtilsVM
 import dagger.Binds
 import dagger.Module
@@ -47,6 +48,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(UtilsVM::class)
     abstract fun bindUtilsVM(utilsVM: UtilsVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UtilSwitchManagerVM::class)
+    abstract fun bindUtilSwitchManagerVM(utilSwitchManagerVM: UtilSwitchManagerVM): ViewModel
 
     @Binds
     @IntoMap

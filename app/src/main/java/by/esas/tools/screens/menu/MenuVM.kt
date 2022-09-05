@@ -52,6 +52,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.UTIL),
             MenuFragmentDirections.actionMenuFragmentToUtilUtilsFragment()
         )
+        addCaseItem(
+            "Check SwitchManager functionality in Util module",
+            listOf(Modules.UTIL),
+            MenuFragmentDirections.actionMenuFragmentToUtilSwitchManagerFragment()
+        )
         updateAdapter(allCases)
     }
 

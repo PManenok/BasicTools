@@ -5,6 +5,7 @@ import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
 import by.esas.tools.screens.util.UtilKeyboardFragment
+import by.esas.tools.screens.util.switchManager.UtilSwitchManagerFragment
 import by.esas.tools.screens.util.utils.UtilsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -29,5 +30,8 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindUtilsFragment(): UtilsFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindUtilSwitchManagerFragment(): UtilSwitchManagerFragment
 
 }
