@@ -57,6 +57,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.UTIL),
             MenuFragmentDirections.actionMenuFragmentToUtilSwitchManagerFragment()
         )
+        addCaseItem(
+            "Check CustomSwitch functionality",
+            listOf(Modules.CUSTOMSWITCH),
+            MenuFragmentDirections.actionMenuFragmentToCustomSwitchFragment()
+        )
         updateAdapter(allCases)
     }
 

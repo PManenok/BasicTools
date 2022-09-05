@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_menuFragment_to_utilSwitchManagerFragment"
             app:destination="@id/utilSwitchManagerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_customSwitchFragment"
+            app:destination="@id/customSwitchFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -60,4 +63,9 @@
         android:name="by.esas.tools.screens.util.switchManager.UtilSwitchManagerFragment"
         android:label="Check SwitchManager functionality in Util module"
         tools:layout="@layout/f_main_util_switch_manager" />
+    <fragment
+        android:id="@+id/customSwitchFragment"
+        android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
+        android:label="Check CustomSwitch functionality"
+        tools:layout="@layout/f_main_custom_switch" />
 </navigation>

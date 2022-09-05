@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
+import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -53,6 +54,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(UtilSwitchManagerVM::class)
     abstract fun bindUtilSwitchManagerVM(utilSwitchManagerVM: UtilSwitchManagerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CustomSwitchVM::class)
+    abstract fun bindCustomSwitchVM(customSwitchVM: CustomSwitchVM): ViewModel
 
     @Binds
     @IntoMap

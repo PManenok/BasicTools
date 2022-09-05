@@ -2,6 +2,7 @@
     <string name="app_name">BaseTools</string>
     <string name="search_hint">Search by case name or modules</string>
     <string name="list_is_empty">List is empty</string>
+    <string name="add_something">Add something</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -26,5 +27,14 @@
     <string name="utils_add_something">Add something</string>
     <string name="utils_add_card_type">Add card type</string>
     <string name="utils_result">Result: </string>
+
+
+    <!--Custom switch-->
+    <string name="custom_switch_check_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
+    <string name="custom_switch_add_title_hint">Add switcher title</string>
+    <string name="custom_switch_add_info_hint">Add switcher info</string>
+    <string name="custom_switch_change_style">Change switcher style</string>
+    <string name="custom_switch_disable_instruction">Use this switcher for enabling and disabling views on the screen. Switcher is on - enable views, off - disable</string>
+    <string name="custom_switch_disable_title">Enable/disable switcher</string>
 
 </resources>

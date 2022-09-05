@@ -52,4 +52,15 @@
         <item name="android:minWidth">@dimen/spacing_300</item>
         <item name="android:minHeight">@dimen/spacing_400</item>
     </style>
+
+    <style name="CustomSwitcherTitleTextStyle">
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="CustomSwitcherInfoTextStyle">
+        <item name="android:textColor">@color/purple_light</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>
