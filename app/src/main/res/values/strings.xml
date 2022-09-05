@@ -28,6 +28,13 @@
     <string name="utils_add_card_type">Add card type</string>
     <string name="utils_result">Result: </string>
 
+    <string name="util_manager_title">Switch manager from the Util module is created for handling enabling and disabling views. With the first custom switcher you can enable/disable views using the basic SwitchManager from the module, with the second one you can do the same but with the overridden SwitchManager.</string>
+    <string name="util_manager_base_title">Custom switcher for base SwitchManager</string>
+    <string name="util_manager_base_info">Base SwitchManager can enable/disable view if it implements ISwitchView interface or if it is an EditText</string>
+    <string name="util_manager_custom_title">Custom switcher for overriding SwitchManager</string>
+    <string name="util_manager_custom_info">Custom SwitchManager overriding base SwitchManager and also can enable/disable view if it is a Button ot SwitchMaterial</string>
+    <string name="util_manager_test_hint">Test text</string>
+    <string name="util_manager_test_hint_switcher">Test title</string>
 
     <!--Custom switch-->
     <string name="custom_switch_check_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
@@ -36,5 +43,6 @@
     <string name="custom_switch_change_style">Change switcher style</string>
     <string name="custom_switch_disable_instruction">Use this switcher for enabling and disabling views on the screen. Switcher is on - enable views, off - disable</string>
     <string name="custom_switch_disable_title">Enable/disable switcher</string>
+    <string name="util_manager_click">Click</string>
 
 </resources>
