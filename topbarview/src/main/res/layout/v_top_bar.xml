@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:parentTag="android.widget.LinearLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/v_top_bar_container"
@@ -14,8 +15,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/v_top_bar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="?attr/selectableItemBackground"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +29,10 @@
             android:id="@+id/v_top_bar_left_action"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_marginTop="1dp"
             android:gravity="center"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@id/v_top_bar_title"
             app:layout_constraintEnd_toStartOf="@id/v_top_bar_title"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,12 +41,12 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/v_top_bar_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/v_top_bar_right_action_icon"
-            app:layout_constraintStart_toEndOf="@id/v_top_bar_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Some loooooooooooong text" />
 
@@ -51,6 +54,7 @@
             android:id="@+id/v_top_bar_right_action"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:background="?attr/selectableItemBackground"
             android:layout_marginTop="1dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="@id/v_top_bar_title"
@@ -70,7 +74,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:padding="8dp"
             tools:srcCompat="@drawable/ic_language"/>
-        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -78,4 +81,4 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         />
-</LinearLayout>
+</merge>

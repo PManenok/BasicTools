@@ -80,4 +80,5 @@ dependencies {
     implementation project(path: ':util')
     implementation project(path: ':listheader')
     implementation project(path: ':customswitch')
+    implementation project(path: ':topbarview')
 }

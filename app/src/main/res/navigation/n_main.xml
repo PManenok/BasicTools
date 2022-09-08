@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_menuFragment_to_customSwitchFragment"
             app:destination="@id/customSwitchFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_topbarFragment"
+            app:destination="@id/topbarFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -76,4 +79,9 @@
         android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
         android:label="Check CustomSwitch functionality"
         tools:layout="@layout/f_main_custom_switch" />
+    <fragment
+        android:id="@+id/topbarFragment"
+        android:name="by.esas.tools.screens.topbar.TopbarFragment"
+        android:label="Check Topbar view functionality"
+        tools:layout="@layout/f_main_topbar" />
 </navigation>

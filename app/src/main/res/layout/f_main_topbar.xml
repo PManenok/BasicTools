@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.topbar.TopbarVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_12"
+        android:paddingTop="@dimen/spacing_12">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_1"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barTitleTextAppearance="@style/TextStyle"
+            app:barShowDivider="true"
+            app:barDividerColor="@color/black"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_2"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barNavIcon="@drawable/ic_add"
+            app:barShowNavIcon="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="Title"
+            android:text="@string/topbar_case_3"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barNavIcon="@drawable/ic_add"
+            app:barShowNavIcon="true"
+            app:barEndActionText="@string/topbar_action_cancel"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_4"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barActionIcon="@drawable/ic_add"
+            app:barShowActionIcon="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_5"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barStartActionText="@string/topbar_action_start"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_6"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title_long"
+            app:barStartActionText="@string/topbar_action_start"
+            app:barActionIcon="@drawable/ic_add"
+            app:barShowActionIcon="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_topbar_button_change_icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_4"
+            android:backgroundTint="@color/main_color_5"
+            android:text="@string/topbar_change_icons"
+            android:layout_gravity="center"
+            android:textColor="@color/black"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_7"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_4"
+            app:barEndActionText="@string/topbar_action_cancel"
+            app:barStartActionText="@string/topbar_action_start"
+            app:barTitleText="@string/topbar_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_topbar_button_change_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_4"
+            android:backgroundTint="@color/main_color_5"
+            android:text="@string/topbar_change_style"
+            android:layout_gravity="center"
+            android:textColor="@color/black"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_8"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barTitleTextAppearance="@style/TopbarTextStyle"
+            app:barEndActionText="@string/topbar_action_cancel"
+            app:barEndActionTextAppearance="@style/TopbarTextStyle.Red"
+            app:barShowDivider="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_9"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title"
+            app:barEndActionText="@string/topbar_action_cancel"
+            app:barStartActionText="@string/topbar_action_start"
+            app:barNavIcon="@drawable/ic_remove"
+            app:barShowNavIcon="true"
+            app:barActionIcon="@drawable/ic_add"
+            app:barShowActionIcon="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topbar_case_10"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/f_main_topbar_case_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barTitleText="@string/topbar_title_long"
+            app:barNavIcon="@drawable/ic_remove"
+            app:barNavIconTint="@color/colorPrimary"
+            app:barShowNavIcon="true"
+            app:barActionIcon="@drawable/ic_add"
+            app:barActionIconTint="@color/red"
+            app:barShowActionIcon="true"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
+    </LinearLayout>
+    </ScrollView>
+
+</layout>

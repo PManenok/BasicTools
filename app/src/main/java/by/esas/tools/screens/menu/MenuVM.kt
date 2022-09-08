@@ -67,6 +67,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.LISTHEADER, Modules.CUSTOMSWITCH),
             MenuFragmentDirections.actionMenuFragmentToListheaderFragment()
         )
+        addCaseItem(
+            "Check Topbar view functionality",
+            listOf(Modules.TOPBAR_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToTopbarFragment()
+        )
         updateAdapter(allCases)
     }
 
