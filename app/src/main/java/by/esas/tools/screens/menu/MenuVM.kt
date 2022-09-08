@@ -72,6 +72,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.TOPBAR_VIEW),
             MenuFragmentDirections.actionMenuFragmentToTopbarFragment()
         )
+        addCaseItem(
+            "Check Cardline functionality",
+            listOf(Modules.CARDLINE),
+            MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
+        )
         updateAdapter(allCases)
     }
 

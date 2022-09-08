@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.cardline.CardlineVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/spacing_12"
+        android:paddingStart="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_12">
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cardline_case_1"/>
+        
+        <by.esas.tools.cardline.CardLine
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardTitle="@string/cardline_title"
+            app:cardValue="@string/cardline_value"
+            app:cardShowDividerTop="true"
+            app:cardShowDividerBottom="true"
+            app:cardIconStart="@drawable/ic_add"
+            app:cardIconEnd="@drawable/ic_remove"
+            app:cardContainerPaddingStart="@dimen/spacing_4"
+            app:cardContainerPaddingTop="@dimen/spacing_4"
+            app:cardContainerPaddingEnd="@dimen/spacing_4"
+            app:cardContainerPaddingBottom="@dimen/spacing_4"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/cardline_case_2"/>
+
+        <by.esas.tools.cardline.CardLine
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardTitle="@string/cardline_title"
+            app:cardValue="@string/cardline_value"
+            app:cardShowDividerTop="true"
+            app:cardShowDividerBottom="true"
+            app:cardValueAlignment="center"
+            app:cardIconEnd="@drawable/ic_remove"
+            app:cardTitleTextAppearance="@style/TextStyle"
+            app:cardValueTextAppearance="@style/TextStyle"
+            app:cardTopDividerColor="@color/black"
+            app:cardBottomDividerColor="@color/black"
+            app:cardTitleWidthPercent="0.1"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/cardline_case_3"/>
+
+        <by.esas.tools.cardline.CardLine
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardValue="@string/cardline_value_long"
+            app:cardShowDividerBottom="true"
+            app:cardValueAlignment="textEnd"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/cardline_case_4"/>
+
+        <by.esas.tools.cardline.CardLine
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardTitle="@string/cardline_title_long"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="@string/cardline_case_5"/>
+
+        <by.esas.tools.cardline.CardLine
+            android:id="@+id/f_main_cardline_style"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cardTitle="@string/cardline_title"
+            app:cardValue="@string/cardline_value"
+            app:cardShowDividerTop="true"
+            app:cardShowDividerBottom="true"
+            app:cardIconStart="@drawable/ic_add"
+            app:cardIconEnd="@drawable/ic_remove"
+            app:cardStartIconAlignVertical="0"
+            app:cardEndIconAlignVertical="1"
+            app:cardTextAlignVertical="0.4"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_cardline_change_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_40"
+            android:backgroundTint="@color/main_color_5"
+            android:text="@string/numpad_change_icons_image"
+            android:textColor="@color/black"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</layout>

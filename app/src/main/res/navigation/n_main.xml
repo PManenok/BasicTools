@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_menuFragment_to_topbarFragment"
             app:destination="@id/topbarFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_cardlineFragment"
+            app:destination="@id/cardlineFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -84,4 +87,9 @@
         android:name="by.esas.tools.screens.topbar.TopbarFragment"
         android:label="Check Topbar view functionality"
         tools:layout="@layout/f_main_topbar" />
+    <fragment
+        android:id="@+id/cardlineFragment"
+        android:name="by.esas.tools.screens.cardline.CardlineFragment"
+        android:label="Check Cardline functionality"
+        tools:layout="@layout/f_main_cardline" />
 </navigation>
