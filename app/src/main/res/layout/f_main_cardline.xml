@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_40"
             android:backgroundTint="@color/main_color_5"
-            android:text="@string/numpad_change_icons_image"
+            android:text="@string/cardline_change_style"
             android:textColor="@color/black"
             android:layout_gravity="center"/>
     </LinearLayout>

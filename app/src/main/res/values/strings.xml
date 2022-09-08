@@ -19,5 +19,6 @@
     <string name="cardline_title_long">loooooooooooooooooooooooong title</string>
     <string name="cardline_value">Card with text</string>
     <string name="cardline_value_long">Card with loooooooooooooooooooooooooooooooooong text</string>
+    <string name="cardline_change_style">Change cardline style</string>
 
 </resources>
