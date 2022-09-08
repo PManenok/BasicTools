@@ -21,6 +21,9 @@
             android:id="@+id/action_menuFragment_to_numpadImageFragment"
             app:destination="@id/numpadImageFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_listheaderFragment"
+            app:destination="@id/listheaderFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_customSwitchFragment"
             app:destination="@id/customSwitchFragment" />
     </fragment>
@@ -39,6 +42,11 @@
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
         android:label="Check NumpadImageView functionality"
         tools:layout="@layout/f_main_numpad_image" />
+    <fragment
+        android:id="@+id/listheaderFragment"
+        android:name="by.esas.tools.screens.listheader.ListheaderFragment"
+        android:label="Check Listheader functionality"
+        tools:layout="@layout/f_main_listheader" />
     <fragment
         android:id="@+id/customSwitchFragment"
         android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
