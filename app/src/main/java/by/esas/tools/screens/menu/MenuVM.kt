@@ -62,6 +62,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.CUSTOMSWITCH),
             MenuFragmentDirections.actionMenuFragmentToCustomSwitchFragment()
         )
+        addCaseItem(
+            "Check Listheader functionality",
+            listOf(Modules.LISTHEADER, Modules.CUSTOMSWITCH),
+            MenuFragmentDirections.actionMenuFragmentToListheaderFragment()
+        )
         updateAdapter(allCases)
     }
 

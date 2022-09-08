@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.util.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
@@ -38,8 +39,8 @@ import kotlin.math.roundToInt
  *    default behavior and only this top container's visibility will be managed by ListHeader
  *
  */
-open class ListHeader : LinearLayout {
-    val TAG: String = ListHeader::class.java.simpleName
+open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
+    protected val TAG: String = ListHeader::class.java.simpleName
     protected val container: ConstraintLayout
     protected val actionContainer: FrameLayout
     protected val titleText: MaterialTextView
@@ -198,6 +199,22 @@ open class ListHeader : LinearLayout {
     /*endregion ############### setups ###############*/
 
     /*region ############### Setting functions ###############*/
+    open fun enableView() {
+        super.setEnabled(true)
+
+        container.isEnabled = true
+        actionText.isEnabled = true
+        arrowIcon.isEnabled = true
+    }
+
+    open fun disableView() {
+        super.setEnabled(false)
+
+        container.isEnabled = false
+        actionText.isEnabled = false
+        arrowIcon.isEnabled = false
+    }
+
     open fun setListState(isOpen: Boolean) {
         updateChildrenVisibility(isOpen, false)
     }
@@ -331,6 +348,14 @@ open class ListHeader : LinearLayout {
     /*endregion ############### List Title ############### */
 
     /*region ############### Arrow Icon ############### */
+    open fun setArrowClickable(isClickable: Boolean) {
+        arrowIcon.isClickable = isClickable
+    }
+
+    open fun setArrowListener(listener: OnClickListener?) {
+        arrowIcon.setOnClickListener(listener)
+    }
+
     open fun setArrowIconImage(drawable: Drawable){
         arrowIcon.setImageDrawable(drawable)
     }
@@ -378,7 +403,7 @@ open class ListHeader : LinearLayout {
     }
     /*endregion ############### Arrow Icon ############### */
 
-    /*region List Opened Listener*/
+    /*region ############### List Opened Listener ############### */
     open fun notifyListeners(isOpened: Boolean) {
         openedListeners.forEach { it.onListStateChanged(isOpened) }
     }
@@ -397,6 +422,16 @@ open class ListHeader : LinearLayout {
         fun onListStateChanged(isOpen: Boolean)
     }
     /*endregion ############### List Opened Listener ############### */
+
+    /*region ############### ISwitchView Interface ############### */
+    override fun switchOn() {
+        enableView()
+    }
+
+    override fun switchOff() {
+        disableView()
+    }
+    /*endregion ############### ISwitchView Interface ############### */
 
     fun dpToPx(dp: Int): Float {
         return (dp * Resources.getSystem().displayMetrics.density)

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
+import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
@@ -54,6 +55,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(UtilSwitchManagerVM::class)
     abstract fun bindUtilSwitchManagerVM(utilSwitchManagerVM: UtilSwitchManagerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ListheaderVM::class)
+    abstract fun bindListheaderVM(listheaderVM: ListheaderVM): ViewModel
 
     @Binds
     @IntoMap

@@ -1,5 +1,6 @@
 package by.esas.tools.inject.builder
 
+import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
@@ -35,6 +36,9 @@ abstract class FragmentBuilder {
     @ContributesAndroidInjector
     abstract fun bindUtilSwitchManagerFragment(): UtilSwitchManagerFragment
 
+
+    @ContributesAndroidInjector
+    abstract fun bindListheaderFragment(): ListheaderFragment
 
     @ContributesAndroidInjector
     abstract fun bindCustomSwitchFragment(): CustomSwitchFragment

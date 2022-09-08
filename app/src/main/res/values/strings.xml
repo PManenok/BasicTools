@@ -45,4 +45,16 @@
     <string name="custom_switch_disable_title">Enable/disable switcher</string>
     <string name="util_manager_click">Click</string>
 
+    <!--Listheader-->
+    <string name="listheader_switcher">Enable/disable views</string>
+    <string name="listheader_switcher_info">Use this switcher to enable/disable views on the screen</string>
+    <string name="listheader_case_1">Case 1: Listheader view with title, icon on the right and ListOpenedListener. Click on container to open/close list below</string>
+    <string name="listheader_case_2">Case 2: Listheader view without title, icon on the right is clickable</string>
+    <string name="listheader_case_3">Case 3: Listheader view with title, clickable action text on the right and clickable container</string>
+    <string name="listheader_title">List title</string>
+    <string name="listheader_test_text">Test text</string>
+    <string name="listheader_click">click</string>
+    <string name="listheader_icon_click">Icon click</string>
+    <string name="listheader_action_click">Action click</string>
+
 </resources>

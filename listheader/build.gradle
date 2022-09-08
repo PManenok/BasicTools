@@ -24,6 +24,8 @@ dependencies {
 
     // Material Design
     api "com.google.android.material:material:$material_version"
+
+    implementation project(path: ':util')
 }
 
 afterEvaluate {
