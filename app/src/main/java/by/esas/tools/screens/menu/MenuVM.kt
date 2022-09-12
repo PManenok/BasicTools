@@ -13,16 +13,7 @@ class MenuVM @Inject constructor() : AppVM() {
             "Check PinView functionality",
             listOf("pinview"),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
-        ),
-        CaseItemInfo(
-            1,
-            "Check SavedState view model",
-            listOf("basedaggerui", "baseui"),
-            MenuFragmentDirections.actionMenuFragmentToSavedStateFragment()
-        ),
-        CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog")),
-        CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog")),
-        CaseItemInfo(0, "Case1", listOf("Cardline", "Dialog, ListHeader"))
+        )
     )
 
     val caseAdapter = CaseAdapter(

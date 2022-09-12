@@ -82,7 +82,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         super.onCreate(savedInstanceState)
         logger.setTag(TAGk)
         logger.logInfo("onCreate")
-        setContentView(provideLayoutId())
+        setupRootView()
         val contentView = window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
 
         handleStatusBar(contentView)
@@ -347,5 +347,11 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
     }
 
     //endregion  helping methods
+
+    //region settings methods
+    open fun setupRootView(){
+        setContentView(provideLayoutId())
+    }
+    //endregion settings methods
 }
 

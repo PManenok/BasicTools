@@ -173,13 +173,17 @@ open class PinView : LinearLayout {
     }
 
     open fun fillPin() {
-        animate(listImages[lastUnFilledIndex], filledRes, filledPadding, filledTint)
-        lastUnFilledIndex++
+        if (lastUnFilledIndex != pinsAmount) {
+            animate(listImages[lastUnFilledIndex], filledRes, filledPadding, filledTint)
+            lastUnFilledIndex++
+        }
     }
 
     open fun unFillPin() {
-        lastUnFilledIndex--
-        animate(listImages[lastUnFilledIndex], unfilledRes, unfilledPadding, unfilledTint)
+        if (lastUnFilledIndex != 0) {
+            lastUnFilledIndex--
+            animate(listImages[lastUnFilledIndex], unfilledRes, unfilledPadding, unfilledTint)
+        }
     }
 
     open fun clearPins() {

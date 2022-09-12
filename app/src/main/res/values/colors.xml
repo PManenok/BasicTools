@@ -7,4 +7,5 @@
     <color name="colorStrokeOutline">#FFC107</color>
     <color name="colorCursor" override="true">#03DAC5</color>
     <color name="colorBackground">#FFF</color>
+    <color name="black">#000000</color>
 </resources>

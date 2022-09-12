@@ -31,11 +31,6 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
-
-        binding = DataBindingUtil.setContentView(this, provideLayoutId())
-        binding.setVariable(provideVariableInd(), viewModel)
-        binding.lifecycleOwner = this
-
         setupObservers()
     }
 
@@ -48,6 +43,14 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
             if (action != null)
                 handleAction(action)
         })
+    }
+
+    override fun setupRootView(){
+        viewModel = provideViewModel()
+
+        binding = DataBindingUtil.setContentView(this, provideLayoutId())
+        binding.setVariable(provideVariableInd(), viewModel)
+        binding.lifecycleOwner = this
     }
 
     /**
