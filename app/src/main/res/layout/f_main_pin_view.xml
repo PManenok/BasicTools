@@ -10,24 +10,86 @@
             type="by.esas.tools.screens.pin_view.PinViewVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_12"
+        android:paddingTop="@dimen/spacing_8"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextStyle"
+            android:text="@string/pinView_case_1"/>
 
         <by.esas.tools.pinview.PinView
             android:id="@+id/f_pin_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:pinAmount="6" />
+            app:pinAmount="6"
+            android:layout_marginTop="@dimen/spacing_8"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/f_pin_view_btn"
+            android:id="@+id/f_pin_view_btn_add"
             style="@style/MessageDialogButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add pin"
+            android:text="@string/pinView_add_pin"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_btn_restore"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_restore_pin"
             app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_clear"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_clear_all"
+            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_case_2"
+            android:layout_marginTop="@dimen/spacing_30"/>
+
+        <by.esas.tools.pinview.PinView
+            style="@style/PinStyle"
+            android:id="@+id/f_pin_view_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_custom_btn_add"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_add_pin"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_custom_btn_restore"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_restore_pin"
+            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_pin_view_custom_clear"
+            style="@style/MessageDialogButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pinView_clear_all"
+            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+
+    </LinearLayout>
 </layout>

@@ -22,5 +22,28 @@ class PinViewFragment : AppFragment<PinViewVM, FMainPinViewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fPinViewBtnAdd.setOnClickListener {
+            binding.fPinView.fillPin()
+        }
+
+        binding.fPinViewBtnRestore.setOnClickListener {
+            binding.fPinView.unFillPin()
+        }
+
+        binding.fPinViewClear.setOnClickListener {
+            binding.fPinView.clearPins()
+        }
+
+        binding.fPinViewCustomBtnAdd.setOnClickListener {
+            binding.fPinViewCustom.fillPin()
+        }
+
+        binding.fPinViewCustomBtnRestore.setOnClickListener {
+            binding.fPinViewCustom.unFillPin()
+        }
+
+        binding.fPinViewCustomClear.setOnClickListener {
+            binding.fPinViewCustom.clearPins()
+        }
     }
 }

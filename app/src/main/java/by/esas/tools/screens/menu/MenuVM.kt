@@ -77,6 +77,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.CARDLINE),
             MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
         )
+        addCaseItem(
+            "Check PinView functionality",
+            listOf(Modules.PIN_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
+        )
         updateAdapter(allCases)
     }
 

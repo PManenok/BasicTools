@@ -90,4 +90,11 @@
     <string name="cardline_value_long">Card with loooooooooooooooooooooooooooooooooong text</string>
     <string name="cardline_change_style">Change cardline style</string>
 
+
+    <!--PinView-->
+    <string name="pinView_case_1">Case 1: Pin view with a base style. Use button below to add/restore pin items or clear all added pins.</string>
+    <string name="pinView_case_2">Case 2: Pin view with a custom style. Use button below to add/restore pin items or clear all added pins.</string>
+    <string name="pinView_add_pin">Add pin</string>
+    <string name="pinView_restore_pin">Restore pin</string>
+    <string name="pinView_clear_all">Clear all</string>
 </resources>
