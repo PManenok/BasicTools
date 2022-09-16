@@ -87,7 +87,6 @@
 
         <!--End Text-->
         <attr name="inputEndText" format="string"/>
-        <attr name="inputEndTextColor" format="color"/>
         <attr name="inputEndTextStyle" format="reference"/>
         <attr name="inputEndTextErrorColor" format="color"/>
         <attr name="inputEndTextColorWithError" format="boolean"/>

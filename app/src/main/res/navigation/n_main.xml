@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_inputfieldFragment"
+            app:destination="@id/inputfieldFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -92,4 +95,9 @@
         android:name="by.esas.tools.screens.cardline.CardlineFragment"
         android:label="Check Cardline functionality"
         tools:layout="@layout/f_main_cardline" />
+    <fragment
+        android:id="@+id/inputfieldFragment"
+        android:name="by.esas.tools.screens.inputfieldview.InputFieldViewFragment"
+        android:label="Check InputField view functionality"
+        tools:layout="@layout/f_main_inputfieldview" />
 </navigation>

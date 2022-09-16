@@ -82,6 +82,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
         )
+        addCaseItem(
+            "Check InputFiewldView functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldFragment()
+        )
         updateAdapter(allCases)
     }
 

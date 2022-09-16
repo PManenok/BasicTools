@@ -13,6 +13,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.text.method.KeyListener
 import android.text.method.PasswordTransformationMethod
@@ -36,9 +37,10 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.util.SwitchManager
 import kotlin.math.roundToInt
 
-open class InputFieldView : ConstraintLayout {
+open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     open val TAG: String = InputFieldView::class.java.simpleName
 
     companion object {
@@ -111,6 +113,8 @@ open class InputFieldView : ConstraintLayout {
     protected open val defaultBoxBgColor: Int = Color.TRANSPARENT
     protected open val defaultStrokeRadiusInPx: Int = dpToPx(4).toInt()
     protected open val defaultStrokeWidthInPx: Int = dpToPx(1).toInt()
+    protected open val defaultTextStyle = R.style.AppTheme_TextAppearance
+    protected open val defaultInputTextStyle = R.style.AppTheme_TextInputLayout_Default
 
     /**
      * A variable indicates whether the stroke and error colors will match on error mode by default
@@ -199,7 +203,7 @@ open class InputFieldView : ConstraintLayout {
     protected var endIconColorWithError = false
 
     //End Text
-    protected var inputEndTextStyleId = -1
+    protected var inputEndTextStyleId = R.style.AppTheme_TextInputLayout_Default
     protected var inputEndTextErrorColor = errorColor
     protected var inputEndTextColorWithError = false
 
@@ -292,6 +296,18 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /*endregion ############################ Constructors End ################################*/
+
+    /*region ################### ISwitchView interface ######################*/
+
+    override fun switchOn() {
+        enableView()
+    }
+
+    override fun switchOff() {
+        disableView()
+    }
+
+    /*endregion ################### ISwitchView interface ######################*/
 
     /*region ############### Label settings ################*/
     open fun hideLabel() {
@@ -471,6 +487,10 @@ open class InputFieldView : ConstraintLayout {
         inputText?.maxLines = value
     }
 
+    open fun setInputMaxLength(length: Int){
+        inputText?.filters = arrayOf(InputFilter.LengthFilter(length))
+    }
+
     open fun setInputType(inputType: Int = defaultInputType) {
         inputText?.inputType = inputType
     }
@@ -576,10 +596,8 @@ open class InputFieldView : ConstraintLayout {
 
     /*region ############### End Icon settings ################*/
     open fun setupEndIconMode(mode: Int = defaultEndIconMode) {
-        if (endIconMode != mode) {
-            endIconMode = mode
-            updateEndIcon()
-        }
+        endIconMode = mode
+        updateEndIcon()
     }
 
     open fun setEndIconDrawable(@DrawableRes endIcon: Int) {
@@ -608,6 +626,14 @@ open class InputFieldView : ConstraintLayout {
         if (startTint != tintColor) {
             startTint = tintColor
             updateEndIcon()
+        }
+    }
+
+    protected open fun setEndIconTintInErrorMode() {
+        if (endIconColorWithError) {
+            endIconView?.apply {
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(getColorError()))
+            }
         }
     }
 
@@ -773,6 +799,7 @@ open class InputFieldView : ConstraintLayout {
                 }
             }
             endIconView?.visibility = View.VISIBLE
+            setEndIconTintInErrorMode()
             endCheckBox?.visibility = View.INVISIBLE
             endContainer?.visibility = View.VISIBLE
         }
@@ -796,13 +823,13 @@ open class InputFieldView : ConstraintLayout {
     open fun setEndTextStyle(styleId: Int) {
         if (styleId != -1) {
             inputEndTextStyleId = styleId
-            endText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
+            endText?.apply { TextViewCompat.setTextAppearance(this, inputEndTextStyleId) }
         }
     }
 
-    open fun setEndTextColor(color: Int){
-        endText?.setTextColor(color)
-    }
+//    open fun setEndTextColor(color: Int){
+//        endText?.setTextColor(color)
+//    }
 
     open fun setEndTextErrorColor(color: Int){
         if (inputEndTextErrorColor != color) inputEndTextErrorColor = color
@@ -861,10 +888,8 @@ open class InputFieldView : ConstraintLayout {
     }
 
     open fun setStartIconTint(tintColor: Int) {
-        if (startTint != tintColor) {
-            startTint = tintColor
-            updateStartIcon()
-        }
+        startTint = tintColor
+        updateStartIcon()
     }
 
     protected open fun setStartIconTintInErrorMode() {
@@ -1365,7 +1390,7 @@ open class InputFieldView : ConstraintLayout {
         val labelType =
             typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
         labelStyleId =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputLabelTextStyle, -1)
+            typedArray.getResourceId(R.styleable.InputFieldView_inputLabelTextStyle, defaultTextStyle)
         labelExtraTopMargin = typedArray
             .getDimensionPixelSize(
                 R.styleable.InputFieldView_inputLabelExtraTopMargin,
@@ -1381,7 +1406,7 @@ open class InputFieldView : ConstraintLayout {
 
         /*##########  Input Text  ##########*/
         val editStyleId: Int =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, -1)
+            typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, defaultInputTextStyle)
         val hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         val text: String = typedArray.getString(R.styleable.InputFieldView_android_text) ?: ""
         val inputType =
@@ -1454,7 +1479,7 @@ open class InputFieldView : ConstraintLayout {
 
         /*##########  End Text  ##########*/
         val endText = typedArray.getString(R.styleable.InputFieldView_inputEndText) ?: ""
-        inputEndTextStyleId = typedArray.getResourceId(R.styleable.InputFieldView_inputEndTextStyle, -1)
+        inputEndTextStyleId = typedArray.getResourceId(R.styleable.InputFieldView_inputEndTextStyle, defaultTextStyle)
         inputEndTextErrorColor = typedArray.getColor(R.styleable.InputFieldView_inputEndTextErrorColor, errorColor)
         inputEndTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputEndTextColorWithError, true)
 
@@ -1462,7 +1487,7 @@ open class InputFieldView : ConstraintLayout {
         val help = typedArray.getString(R.styleable.InputFieldView_inputHelp) ?: ""
         helpColor = typedArray.getColor(R.styleable.InputFieldView_inputHelpColor, defaultHelpColor)
         val helpStyleId: Int =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputHelpTextStyle, -1)
+            typedArray.getResourceId(R.styleable.InputFieldView_inputHelpTextStyle, defaultTextStyle)
 
         /*##########  Error  ##########*/
         val errorText = typedArray.getString(R.styleable.InputFieldView_inputError) ?: ""
