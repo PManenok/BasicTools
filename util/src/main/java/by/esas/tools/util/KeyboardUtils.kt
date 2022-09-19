@@ -9,13 +9,19 @@ import android.app.Activity
 import android.content.Context
 import android.os.IBinder
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
-fun showKeyboard(activity: Activity?) {
-    if (activity == null) return
-    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
+fun showKeyboard(activity: Activity?, requestFocus: Boolean = true) {
+    activity?.apply {
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS)
+        if (requestFocus) {
+            val contentView = window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
+            contentView.requestFocus()
+        }
+    }
 }
 
 fun hideKeyboard(activity: Activity?) {
@@ -29,7 +35,7 @@ fun hideKeyboard(activity: Activity?) {
 fun focusAndShowKeyboard(activity: Activity?, view: View) {
     if (activity == null) return
     if (view is EditText) {
-        showKeyboard(activity)
+        showKeyboard(activity, false)
     }
     if (view.isFocusable) {
         view.requestFocus()

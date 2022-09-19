@@ -1,6 +1,7 @@
 package by.esas.tools.screens
 
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -35,6 +36,12 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupNavigation()
+    }
+
+    override fun handleTouchOutOfInputField(event: MotionEvent) {
+        if (event.action == MotionEvent.ACTION_DOWN && navController.currentDestination?.id != R.id.utilKeyboardFragment) {
+            super.handleTouchOutOfInputField(event)
+        }
     }
 
     private fun setupNavigation() {
