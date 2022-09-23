@@ -6,7 +6,9 @@ import android.widget.ImageButton
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
+import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainNumpadImageBinding
+import by.esas.tools.dpToPx
 import by.esas.tools.numpad.INumPadHandler
 import by.esas.tools.util.SwitchManager
 import com.google.android.material.button.MaterialButton
@@ -55,6 +57,15 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fMainNumpadSwitcher.switcherIsChecked(true)
+        binding.fMainNumpadSwitcher.setSwitchHandler(object : ISwitchHandler{
+            override fun onSwitchChange(isChecked: Boolean) {
+                if (isChecked)
+                    enableControls()
+                else
+                    disableControls()
+            }
+        })
         binding.fMainNumpadImage.setNumpadHandler(object : INumPadHandler {
             override fun onNumClick(num: Int) {
                 viewModel.onIconClick(num)
@@ -68,12 +79,15 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
                 viewModel.onCancelClick()
             }
         })
+        binding.fMainNumpadImage.setIconsContainersPaddings(
+            dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10)
+        )
     }
 
     override fun setupObservers() {
         super.setupObservers()
         viewModel.iconsSizeLive.observe(this) { size ->
-            binding.fMainNumpadImage.setIconsSize(size)
+            binding.fMainNumpadImage.setIconsSize(dpToPx(size))
         }
         viewModel.iconsIsDefaultLive.observe(this) { isDefault ->
             if (isDefault) {

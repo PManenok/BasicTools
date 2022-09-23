@@ -14,16 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <by.esas.tools.customswitch.CustomSwitch
+            android:id="@+id/f_main_numpad_text_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchTitle="@string/custom_switch_disable_title"
+            app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfo="@string/custom_switch_disable_instruction"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:layout_marginEnd="@dimen/spacing_12"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_numpad_text_common_text"
             style="@style/TextStyle.Center"
             android:layout_width="@dimen/spacing_350"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_70"
+            android:layout_marginTop="@dimen/spacing_32"
             android:text="@string/numpad_common_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_text_switcher" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_numpad_text_input_field"
@@ -42,7 +55,6 @@
 
         <by.esas.tools.numpad.NumPadTextView
             android:id="@+id/f_main_numpad_text"
-            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_30"
@@ -92,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_40"
             android:backgroundTint="@color/main_color_5"
-            android:text="@string/numpad_change_icons_image"
+            android:text="@string/numpad_change_icons_style"
             android:textColor="@color/black"
             android:onClick="@{() -> viewModel.updateIconsStyle()}"
             app:layout_constraintBottom_toBottomOf="parent"

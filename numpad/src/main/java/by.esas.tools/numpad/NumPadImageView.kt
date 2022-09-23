@@ -50,8 +50,8 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     protected val iconsContainers = ArrayList<FrameLayout>()
     protected val iconsNumbers = ArrayList<AppCompatImageView>()
 
-    protected val defaultIconSize: Int = 24
-    protected val defaultIconPadding = 10
+    protected val defaultIconSize: Int = dpToPx(24)
+    protected val defaultIconPadding = 0
     protected val defaultNumbersImages = listOf(
         R.drawable.ic_pin_0,
         R.drawable.ic_pin_1,
@@ -130,6 +130,7 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     /*region ################### Constructors ######################*/
+
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -146,9 +147,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
     }
+
     /*endregion ################### Constructors ######################*/
 
     /*region ################### ISwitchView interface ######################*/
+
     override fun switchOn() {
         enableNumpadView()
     }
@@ -156,9 +159,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     override fun switchOff() {
         disableNumpadView()
     }
+
     /*endregion ################### ISwitchView interface ######################*/
 
     /*region ################### All Icons Settings ######################*/
+
     protected open fun setIconVisibility(iconContainer: FrameLayout, value: Boolean) {
         if (value) {
             iconContainer.visibility = View.VISIBLE
@@ -168,6 +173,9 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
+    /**
+     * Set icons size in pixels.
+     */
     open fun setIconsSize(iconSize: Int) {
         iconsNumbers.forEach { icon ->
             setIconSize(icon, iconSize)
@@ -178,8 +186,8 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
 
     protected open fun setIconSize(iconImageView: ImageView, iconSize: Int) {
         iconImageView.layoutParams.apply {
-            width = dpToPx(iconSize)
-            height = dpToPx(iconSize)
+            width = iconSize
+            height = iconSize
         }
         iconImageView.requestLayout()
     }
@@ -201,10 +209,10 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     ) {
         (iconImageView.layoutParams as MarginLayoutParams).apply {
             setMargins(
-                dpToPx(leftMargin),
-                dpToPx(topMargin),
-                dpToPx(rightMargin),
-                dpToPx(bottomMargin)
+                leftMargin,
+                topMargin,
+                rightMargin,
+                bottomMargin
             )
         }
     }
@@ -230,10 +238,57 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         bottomPadding: Int
     ) {
         iconImageView.setPadding(
-            dpToPx(leftPadding),
-            dpToPx(topPadding),
-            dpToPx(rightPadding),
-            dpToPx(bottomPadding)
+            leftPadding,
+            topPadding,
+            rightPadding,
+            bottomPadding
+        )
+    }
+
+    /**
+     * Set icons containers size in pixels.
+     */
+    open fun setIconsContainersSize(size: Int) {
+        iconsContainers.forEach { container ->
+            setIconContainerSize(container, size)
+        }
+        setIconContainerSize(btnContainerLeft, size)
+        setIconContainerSize(btnContainerRight, size)
+    }
+
+    protected open fun setIconContainerSize(container: FrameLayout, containerSize: Int) {
+        container.layoutParams.apply {
+            width = containerSize
+            height = containerSize
+        }
+        container.requestLayout()
+    }
+
+    open fun setIconsContainersPaddings(
+        leftPadding: Int,
+        topPadding: Int,
+        rightPadding: Int,
+        bottomPadding: Int
+    ) {
+        iconsContainers.forEach { container ->
+            setIconContainerPaddings(container, leftPadding, topPadding, rightPadding, bottomPadding)
+        }
+        setIconContainerPaddings(btnContainerLeft, leftPadding, topPadding, rightPadding, bottomPadding)
+        setIconContainerPaddings(btnContainerRight, leftPadding, topPadding, rightPadding, bottomPadding)
+    }
+
+    protected open fun setIconContainerPaddings(
+        iconContainer: FrameLayout,
+        leftPadding: Int,
+        topPadding: Int,
+        rightPadding: Int,
+        bottomPadding: Int
+    ) {
+        iconContainer.setPadding(
+            leftPadding,
+            topPadding,
+            rightPadding,
+            bottomPadding
         )
     }
 
@@ -275,9 +330,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         btnContainerLeft.isClickable = false
         btnContainerRight.isClickable = false
     }
+
     /*endregion ################### All Icons ######################*/
 
     /*region ################### Number Icons ######################*/
+
     /**
      * Set color for numbers icons. Color is set once and doesn't save.
      * So at first you should set icons drawable and then change color.
@@ -333,9 +390,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         setLeftIconImageResource(defaultLeftIconImage)
         setRightIconImageResource(defaultRightIconImage)
     }
+
     /*endregion ################### Number Icons ######################*/
 
     /*region ################### Left Image Icons ######################*/
+
     open fun setLeftIconVisibility(value: Boolean) {
         setIconVisibility(btnContainerLeft, value)
     }
@@ -365,9 +424,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     open fun setLeftIconColorResource(@ColorRes color: Int) {
         setLeftIconColor(ContextCompat.getColor(context, color))
     }
+
     /*endregion ################### Left Image Icons ######################*/
 
     /*region ################### Right Image Icons ######################*/
+
     open fun setRightIconVisibility(value: Boolean) {
         setIconVisibility(btnContainerRight, value)
     }
@@ -396,9 +457,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     open fun setRightIconColorResource(@ColorRes color: Int) {
         setRightIconColor(ContextCompat.getColor(context, color))
     }
+
     /*endregion ################### Right Image Icons ######################*/
 
     /*region ################### Handler ######################*/
+
     open fun setNumpadHandler(numpadHandler: INumPadHandler) {
         handler = numpadHandler
     }
@@ -416,9 +479,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
             handler?.onRightIconClick()
         }
     }
+
     /*endregion ################### Handler ######################*/
 
     /*region ################### Other ######################*/
+
     fun setDefaults() {
         setDefaultNumpadIcons()
         setLeftIconVisibility(true)
@@ -502,5 +567,6 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     private fun dpToPx(dp: Int): Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
+
     /*endregion ################### Other ######################*/
 }

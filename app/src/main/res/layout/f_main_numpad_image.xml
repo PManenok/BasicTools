@@ -14,16 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <by.esas.tools.customswitch.CustomSwitch
+            android:id="@+id/f_main_numpad_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchTitle="@string/custom_switch_disable_title"
+            app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfo="@string/custom_switch_disable_instruction"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:layout_marginEnd="@dimen/spacing_12"
+            android:layout_marginTop="@dimen/spacing_4"/>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_numpad_common_text"
             style="@style/TextStyle.Center"
             android:layout_width="@dimen/spacing_350"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_70"
+            android:layout_marginTop="@dimen/spacing_32"
             android:text="@string/numpad_common_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_switcher" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_numpad_input_field"

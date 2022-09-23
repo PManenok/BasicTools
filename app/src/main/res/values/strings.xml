@@ -9,6 +9,7 @@
     <string name="numpad_common_text_test">Numpad test</string>
     <string name="numpad_change_icons_image">Change numpad icons</string>
     <string name="numpad_change_icons_size">Change icons size</string>
+    <string name="numpad_change_icons_style">Change icons style</string>
 
     <!--Util module-->
     <string name="util_title_case_1">Case 1. When you open this screen, the keyboard are immediately shown and EditText view below has focus. Use button on the right side to defocus view and hide keyboard</string>
