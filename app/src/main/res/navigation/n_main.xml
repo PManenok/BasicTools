@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_numpadTextFragment"
+            app:destination="@id/numpadTextFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -92,4 +95,9 @@
         android:name="by.esas.tools.screens.cardline.CardlineFragment"
         android:label="Check Cardline functionality"
         tools:layout="@layout/f_main_cardline" />
+    <fragment
+        android:id="@+id/numpadTextFragment"
+        android:name="by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment"
+        android:label="Check NumpadTextView functionality"
+        tools:layout="@layout/f_main_numpad_text" />
 </navigation>

@@ -199,7 +199,6 @@
         app:layout_constraintStart_toEndOf="@id/v_num_pad_container_zero"
         app:layout_constraintTop_toBottomOf="@id/v_num_pad_container_nine">
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/v_num_pad_icon_right"
             style="@style/NumPadButtonsStyle"

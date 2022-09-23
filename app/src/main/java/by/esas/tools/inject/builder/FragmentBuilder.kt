@@ -5,6 +5,7 @@ import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
+import by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
 import by.esas.tools.screens.util.UtilKeyboardFragment
@@ -50,4 +51,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindCardlineFragment(): CardlineFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindNumpadTextFragment(): NumpadTextFragment
 }

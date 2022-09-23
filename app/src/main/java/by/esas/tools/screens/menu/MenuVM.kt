@@ -82,6 +82,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
         )
+        addCaseItem(
+            "Check NumpadTextView functionality",
+            listOf(Modules.NUMPAD),
+            MenuFragmentDirections.actionMenuFragmentToNumpadTextFragment()
+        )
         updateAdapter(allCases)
     }
 

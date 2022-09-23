@@ -84,4 +84,9 @@
         <item name="pinFilledTint">@color/colorStrokeOutline</item>
         <item name="pinUnfilledTint">@color/colorStrokeOutline</item>
     </style>
+
+    <style name="NumpadTextNumbersStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>
