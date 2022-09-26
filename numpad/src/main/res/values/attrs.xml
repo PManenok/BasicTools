@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="NumPadView">
-        <attr name="numpadIconPadding" format="dimension" />
+        <attr name="numpadContainerPadding" format="dimension" />
         <attr name="numpadIconMargin" format="dimension" />
         <attr name="numpadIconSize" format="dimension" />
         <attr name="numpadZeroDrawable" format="reference" />

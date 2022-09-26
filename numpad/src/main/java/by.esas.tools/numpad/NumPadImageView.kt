@@ -18,6 +18,41 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import by.esas.tools.util.SwitchManager
 
+/**
+ * This custom view is Numpad for entering numbers. It consists of 9 clickable icons for numbers
+ * and two buttons in the lower left and right corners. All icons are images and each of them
+ * has its own container.
+ *
+ * Icons for numbers are images which you can set by adding them in XML or
+ * programmatically using methods [setNumbersIconsDrawable] or [setNumbersIconsImageResources].
+ * Also you can change color of numbers using [setNumbersIconsColor] or
+ * [setNumbersIconsColorResource] method.
+ *
+ * By default bottom left and right buttons are visible. You can change their visibility
+ * via [setLeftIconVisibility] and [setRightIconVisibility]. If these buttons are not visible
+ * they also become not clickable. For these buttons you also can set your own images
+ * with [setLeftIconDrawable]/[setLeftIconImageResource] and
+ * [setRightIconDrawable]/[setRightIconImageResource] methods,
+ * set their colors [setLeftIconColor] and [setRightIconColor].
+ * If you didn't set your images for numbers and buttons Numpad will use default icons,
+ * but also you can set default icons using [setDefaultNumpadIcons] method.
+ *
+ * All icons by default have the same size in 24dp and you can change it in XML or
+ * use [setIconsSize] method. All image icons have their own containers which are FrameLayouts
+ * and their size is wrap_content. These containers have selectable background and
+ * you can turn on and off it using [setIconsSelectableBackground] method. For all icons containers
+ * you can set paddings via [setIconsContainersPaddings].
+ * To use all default characteristics for Numpad use [setDefaults] method.
+ *
+ * For handling Numpad clicks use [INumPadHandler]. Override this handler methods to
+ * handle clicks on number icons and bottom left and right buttons.
+ *
+ * Numpad view implements ISwitchView view interface. On switchOn method
+ * Numpad is enabled(see [enableNumpadView]) and on switchOff Numpad is disabled(see [disableNumpadView]).
+ *
+ * @see NumPadTextView
+ */
+
 open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     open val TAG: String = NumPadImageView::class.java.simpleName
 
@@ -51,7 +86,7 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     protected val iconsNumbers = ArrayList<AppCompatImageView>()
 
     protected val defaultIconSize: Int = dpToPx(24)
-    protected val defaultIconPadding = 0
+    protected val defaultContainerPadding = 0
     protected val defaultNumbersImages = listOf(
         R.drawable.ic_pin_0,
         R.drawable.ic_pin_1,
@@ -192,78 +227,6 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         iconImageView.requestLayout()
     }
 
-    open fun setIconsMargins(leftMargin: Int, topMargin: Int, rightMargin: Int, bottomMargin: Int) {
-        iconsNumbers.forEach { num ->
-            setIconViewMargins(num, leftMargin, topMargin, rightMargin, bottomMargin)
-        }
-        setIconViewMargins(btnIconLeft, leftMargin, topMargin, rightMargin, bottomMargin)
-        setIconViewMargins(btnIconRight, leftMargin, topMargin, rightMargin, bottomMargin)
-    }
-
-    protected open fun setIconViewMargins(
-        iconImageView: ImageView,
-        leftMargin: Int,
-        topMargin: Int,
-        rightMargin: Int,
-        bottomMargin: Int
-    ) {
-        (iconImageView.layoutParams as MarginLayoutParams).apply {
-            setMargins(
-                leftMargin,
-                topMargin,
-                rightMargin,
-                bottomMargin
-            )
-        }
-    }
-
-    open fun setIconsPaddings(
-        leftPadding: Int,
-        topPadding: Int,
-        rightPadding: Int,
-        bottomPadding: Int
-    ) {
-        iconsNumbers.forEach { icon ->
-            setIconViewPaddings(icon, leftPadding, topPadding, rightPadding, bottomPadding)
-        }
-        setIconViewPaddings(btnIconLeft, leftPadding, topPadding, rightPadding, bottomPadding)
-        setIconViewPaddings(btnIconRight, leftPadding, topPadding, rightPadding, bottomPadding)
-    }
-
-    protected open fun setIconViewPaddings(
-        iconImageView: ImageView,
-        leftPadding: Int,
-        topPadding: Int,
-        rightPadding: Int,
-        bottomPadding: Int
-    ) {
-        iconImageView.setPadding(
-            leftPadding,
-            topPadding,
-            rightPadding,
-            bottomPadding
-        )
-    }
-
-    /**
-     * Set icons containers size in pixels.
-     */
-    open fun setIconsContainersSize(size: Int) {
-        iconsContainers.forEach { container ->
-            setIconContainerSize(container, size)
-        }
-        setIconContainerSize(btnContainerLeft, size)
-        setIconContainerSize(btnContainerRight, size)
-    }
-
-    protected open fun setIconContainerSize(container: FrameLayout, containerSize: Int) {
-        container.layoutParams.apply {
-            width = containerSize
-            height = containerSize
-        }
-        container.requestLayout()
-    }
-
     open fun setIconsContainersPaddings(
         leftPadding: Int,
         topPadding: Int,
@@ -315,6 +278,12 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
+    open fun setDefaultNumpadIcons() {
+        setNumbersIconsImageResources(defaultNumbersImages)
+        setLeftIconImageResource(defaultLeftIconImage)
+        setRightIconImageResource(defaultRightIconImage)
+    }
+
     open fun enableNumpadView() {
         iconsContainers.forEach { container ->
             container.isClickable = true
@@ -345,6 +314,10 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
                 setIconColor(num, color)
             }
         }
+    }
+
+    open fun setNumbersIconsColorResource(@ColorRes color: Int) {
+        setNumbersIconsColor(ContextCompat.getColor(context, color))
     }
 
     protected open fun setIconColor(iconImageView: ImageView, color: Int) {
@@ -383,12 +356,6 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         if (imageResource != null) {
             iconImageView.setImageResource(imageResource)
         }
-    }
-
-    open fun setDefaultNumpadIcons() {
-        setNumbersIconsImageResources(defaultNumbersImages)
-        setLeftIconImageResource(defaultLeftIconImage)
-        setRightIconImageResource(defaultRightIconImage)
     }
 
     /*endregion ################### Number Icons ######################*/
@@ -489,11 +456,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         setLeftIconVisibility(true)
         setRightIconVisibility(true)
         setIconsSize(defaultIconSize)
-        setIconsPaddings(
-            defaultIconPadding,
-            defaultIconPadding,
-            defaultIconPadding,
-            defaultIconPadding
+        setIconsContainersPaddings(
+            defaultContainerPadding,
+            defaultContainerPadding,
+            defaultContainerPadding,
+            defaultContainerPadding
         )
         setupNumpadHandler()
         enableNumpadView()
@@ -502,10 +469,10 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumPadView)
 
-        val iconPadding =
+        val containerPadding =
             typedArray.getDimensionPixelSize(
-                R.styleable.NumPadView_numpadIconPadding,
-                defaultIconPadding
+                R.styleable.NumPadView_numpadContainerPadding,
+                defaultContainerPadding
             )
         val iconSize =
             typedArray.getDimensionPixelSize(R.styleable.NumPadView_numpadIconSize, defaultIconSize)
@@ -552,7 +519,12 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         setNumbersIconsDrawable(iconsImagesDrawableList)
         setNumbersIconsColor(iconsNumbersColor)
         setIconsSize(iconSize)
-        setIconsMargins(iconPadding, iconPadding, iconPadding, iconPadding)
+        setIconsContainersPaddings(
+            containerPadding,
+            containerPadding,
+            containerPadding,
+            containerPadding
+        )
 
         setLeftIconDrawable(iconLeftImage)
         setLeftIconColor(iconLeftColor)
