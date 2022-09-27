@@ -13,8 +13,36 @@ import by.esas.tools.util.SwitchManager
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
 
+/**
+ * This CustomSwitch view is used when it is necessary to switch to the
+ * opposite state - yes/no, on/off, open/close.
+ * It consists of [switcher] (android SwitchMaterial) and [textInfoView] (MaterialTextView)
+ * for showing more information about switcher and its functionality.
+ *
+ * You can change switcher style in XML or programmatically. To change switcher's style in XML
+ * override [R.styleable.CustomSwitch] attributes.
+ *
+ * For changing switcher title programmatically use [setTitle] method. Also you can set
+ * your title style via [setTitleStyle].
+ *
+ * Use [setSwitchThumbTint] and [setSwitchTrackTint] methods to change thumb and track
+ * switcher's color. If you don't add your color CustomSwitch will use
+ * default colors([defaultThumbColor], [defaultTrackColor]). You can set paddings for switcher
+ * via [setSwitchPaddings], by default paddings are 0dp. Also you can
+ * get/set switcher's isChecked state via [switcherIsChecked] methods.
+ *
+ * To set text to [textInfoView] use [setInfo] method. You can change the style of this text
+ * via [setInfoStyle], alignment via [setInfoAlignment], paddings via [setInfoPaddings].
+ *
+ * Also this view has a [ISwitchHandler] for handling changing status of switcher. Set [handler]
+ * via [setSwitchHandler] by default [handler] is null.
+ *
+ * CustomSwitch implements [SwitchManager.ISwitchView] interface. On switchOn method
+ * CustomSwitch becomes enabled and on switchOff becomes disabled(see [setEnabled]).
+ */
+
 open class CustomSwitch : LinearLayout, SwitchManager.ISwitchView {
-    protected val TAG: String = CustomSwitch::class.java.simpleName
+    val TAG: String = CustomSwitch::class.java.simpleName
     protected val switcher: SwitchMaterial
     protected val textInfoView: MaterialTextView
 

@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
-        android:text="Fingerprint"
+        tools:text="Fingerprint"
         tools:checked="true"
-        android:enabled="true"
-        app:thumbTint="#FFFFFF" />
+        tools:enabled="true"
+        tools:thumbTint="#FFFFFF" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/v_switch_info"
