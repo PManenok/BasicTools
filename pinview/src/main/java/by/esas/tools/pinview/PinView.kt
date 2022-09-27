@@ -16,6 +16,24 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 
+/**
+ * PinView is a custom view for showing process of adding/deleting/clearing values entered by
+ * the user. The most common use case is entering a pincode. User sees unfilled cells on the screen,
+ * the number of which means how many numbers he needs to enter
+ * and when he enters a numbers cells become filled.
+ *
+ * This PinView is a LinearLayout with image cells which are horizontally arranged.
+ *
+ * Use [setPinAmount] method to set amount of cells programmatically or set it in XML,
+ * by default this amount is 0. One cell can be in 2 states - filled and unfilled.
+ * For each state you can set your drawable resource in xml. If you don't set your images the view
+ * will set default images: [filledRes], [unfilledRes]. Also you can change color, paddings,
+ * size of filled and unfilled images and margins between them.
+ *
+ * Use [fillPin] method to make one cell filled, [unFillPin] to make one cell unfilled,
+ * [clearPins] to make all cells unfilled. You can set/change animation time of making cells
+ * filled/unfilled via [setAnimInDuration]/[setAnimOutDuration].
+ */
 
 open class PinView : LinearLayout {
     val TAG: String = PinView::class.java.simpleName
