@@ -36,6 +36,9 @@
             android:id="@+id/action_menuFragment_to_customSwitchFragment"
             app:destination="@id/customSwitchFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_customSwitchProgramFragment"
+            app:destination="@id/customSwitchProgramFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_topbarFragment"
             app:destination="@id/topbarFragment" />
         <action
@@ -82,6 +85,11 @@
         android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
         android:label="Check CustomSwitch functionality"
         tools:layout="@layout/f_main_custom_switch" />
+    <fragment
+        android:id="@+id/customSwitchProgramFragment"
+        android:name="by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment"
+        android:label="Check Cardline functionality"
+        tools:layout="@layout/f_main_cardline" />
     <fragment
         android:id="@+id/topbarFragment"
         android:name="by.esas.tools.screens.topbar.TopbarFragment"

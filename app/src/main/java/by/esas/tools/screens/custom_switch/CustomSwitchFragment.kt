@@ -12,7 +12,6 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.customswitch.CustomSwitch
 import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainCustomSwitchBinding
-import by.esas.tools.logger.Action
 import by.esas.tools.util.defocusAndHideKeyboard
 
 class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding>() {

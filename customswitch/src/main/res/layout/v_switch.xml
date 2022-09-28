@@ -21,6 +21,6 @@
         android:id="@+id/v_switch_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Basic login method" />
+        tools:text="Basic login method" />
 
 </merge>
