@@ -14,12 +14,15 @@ import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainCustomSwitchBinding
 import by.esas.tools.util.defocusAndHideKeyboard
 
-class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding>() {
+class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBinding>() {
     override val fragmentDestinationId = R.id.customSwitchFragment
     override fun provideLayoutId() = R.layout.f_main_custom_switch
 
     override fun provideViewModel(): CustomSwitchVM {
-        return ViewModelProvider(this, viewModelFactory.provideFactory()).get(CustomSwitchVM::class.java)
+        return ViewModelProvider(
+            this,
+            viewModelFactory.provideFactory()
+        ).get(CustomSwitchVM::class.java)
     }
 
     override fun provideSwitchableViews(): List<View?> {
@@ -35,12 +38,11 @@ class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fMainSwitcherCheck.setSwitchHandler(object : ISwitchHandler{
+        binding.fMainSwitcherCheck.setSwitchHandler(object : ISwitchHandler {
             override fun onSwitchChange(isChecked: Boolean) {
-                if (isChecked)
-                    Toast.makeText(context, "Switcher is on", Toast.LENGTH_SHORT).show()
-                else
-                    Toast.makeText(context, "Switcher is off", Toast.LENGTH_SHORT).show()
+                val message = if (isChecked) resources.getString(R.string.custom_switch_status_on)
+                else resources.getString(R.string.custom_switch_status_off)
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
             override fun prepareToSwitchOn(): Boolean {
@@ -49,7 +51,7 @@ class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding
         })
 
         binding.fMainSwitcherEditTitle.setOnEditorActionListener { titleView, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.fMainSwitcherStyle.setTitle(titleView.text.toString())
                 defocusAndHideKeyboard(activity)
                 true
@@ -58,7 +60,7 @@ class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding
         }
 
         binding.fMainSwitcherEditInfo.setOnEditorActionListener { titleView, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.fMainSwitcherStyle.setInfo(titleView.text.toString())
                 true
             } else
@@ -93,7 +95,7 @@ class CustomSwitchFragment: AppFragment<CustomSwitchVM, FMainCustomSwitchBinding
         return newSwitcher
     }
 
-    private fun setCustomSwitcherStyle(){
+    private fun setCustomSwitcherStyle() {
         binding.fMainSwitcherStyle.apply {
             setSwitchTrackTint(R.color.switcher_selector)
             setSwitchThumbTint(R.color.switcher_thumb_selector)

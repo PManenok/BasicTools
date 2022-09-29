@@ -19,6 +19,8 @@
     <color name="purple_light">#ff7dfc</color>
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>
+    <color name="green_light">#B6EB7A</color>
     <color name="yellow">#FFEB2A</color>
-    <color name="blue">#0000FF</color>
+    <color name="orange">#F87217</color>
+    <color name="orange_light">#F88158</color>
 </resources>

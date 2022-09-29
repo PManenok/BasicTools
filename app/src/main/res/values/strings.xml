@@ -4,7 +4,7 @@
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
     <string name="title">Title</string>
-    <string name="info">Infor</string>
+    <string name="info">Info</string>
     <string name="create">Create</string>
 
     <!--Numpad-->
@@ -53,15 +53,28 @@
     <string name="custom_switch_choose_track_color">Choose track color</string>
     <string name="custom_switch_program_case">Create your own CustomSwitcher. Use functional below to add characteristics and style to your view.</string>
     <string name="custom_switch_container_hint">Here will be your CustomSwitch</string>
+    <string name="custom_switch_status_on">Switcher is on</string>
+    <string name="custom_switch_status_off">Switcher is off</string>
+    <string name="custom_switcher">Switcher</string>
 
     <string name="style_1">Style 1</string>
     <string name="style_2">Style 2</string>
     <string name="style_3">Style 3</string>
 
+    <string name="alignment_left">Left</string>
+    <string name="alignment_center">Center</string>
+    <string name="alignment_right">Right</string>
+
     <string-array name="title_styles">
         <item>@string/style_1</item>
         <item>@string/style_2</item>
         <item>@string/style_3</item>
+    </string-array>
+
+    <string-array name="switcher_info_alignment">
+        <item>@string/alignment_left</item>
+        <item>@string/alignment_center</item>
+        <item>@string/alignment_right</item>
     </string-array>
     
     <!--Listheader-->
@@ -116,4 +129,7 @@
     <string name="pinView_add_pin">Add pin</string>
     <string name="pinView_restore_pin">Restore pin</string>
     <string name="pinView_clear_all">Clear all</string>
+    <string name="hint_add_value">Add value</string>
+    <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
+    <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
 </resources>

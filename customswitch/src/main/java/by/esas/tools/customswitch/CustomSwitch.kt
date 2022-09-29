@@ -157,7 +157,7 @@ open class CustomSwitch : LinearLayout, SwitchManager.ISwitchView {
     }
 
     open fun setInfoAlignment(infoAlignment: Int) {
-        textInfoView.textAlignment = textAlignment
+        textInfoView.textAlignment = infoAlignment
     }
 
     open fun setInfoPaddings(

@@ -106,7 +106,7 @@
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="37dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:text="@string/custom_switch_choose_info_style" />
 
@@ -116,6 +116,75 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/title_styles"
                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_16">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:text="@string/custom_switch_choose_alignment" />
+
+            <Spinner
+                android:id="@+id/f_switcher_program_spinner_alignment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/switcher_info_alignment"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:text="@string/custom_switch_add_padding" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_gravity="center"
+                android:text="@string/custom_switcher" />
+
+            <EditText
+                android:id="@+id/f_switcher_program_paddings_switcher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:hint="@string/hint_add_value"
+                android:inputType="numberDecimal"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:text="@string/info" />
+
+            <EditText
+                android:id="@+id/f_switcher_program_paddings_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_add_value"
+                android:inputType="number"/>
 
         </LinearLayout>
 
@@ -144,7 +213,7 @@
                     android:id="@+id/f_switcher_program_thumb_radio_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/gray"
+                    android:buttonTint="@color/orange"
                     />
 
                 <RadioButton
@@ -172,7 +241,7 @@
                     android:id="@+id/f_switcher_program_thumb_radio_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/yellow"
+                    android:buttonTint="@color/colorStrokeOutline"
                     />
 
             </RadioGroup>
@@ -203,7 +272,7 @@
                     android:id="@+id/f_switcher_program_track_radio_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorCursor"
+                    android:buttonTint="@color/orange_light"
                     />
 
                 <RadioButton
@@ -217,21 +286,21 @@
                     android:id="@+id/f_switcher_program_track_radio_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/blue"
+                    android:buttonTint="@android:color/holo_red_dark"
                     />
 
                 <RadioButton
                     android:id="@+id/f_switcher_program_track_radio_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/black"
+                    android:buttonTint="@color/green_light"
                     />
 
                 <RadioButton
                     android:id="@+id/f_switcher_program_track_radio_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorStrokeOutline"
+                    android:buttonTint="@color/yellow"
                     />
 
             </RadioGroup>
