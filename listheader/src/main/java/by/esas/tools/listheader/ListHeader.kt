@@ -37,10 +37,9 @@ import kotlin.math.roundToInt
  *    default behavior anyway, so you should not use it.
  * 2. Add a container as top view, that will contain all other views, then you can still use
  *    default behavior and only this top container's visibility will be managed by ListHeader
- *
  */
 open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
-    protected val TAG: String = ListHeader::class.java.simpleName
+    val TAG: String = ListHeader::class.java.simpleName
     protected val container: ConstraintLayout
     protected val actionContainer: FrameLayout
     protected val titleText: MaterialTextView
@@ -66,7 +65,6 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     protected open val containerListener: OnClickListener = OnClickListener {
         setListContainerClickable(false)
         updateChildrenVisibility(!opened, true)
-
         setListContainerClickable(true)
     }
 
@@ -91,7 +89,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     /*endregion ############### Constructors ###############*/
 
     init {
-        this.orientation = LinearLayout.VERTICAL
+        this.orientation = VERTICAL
         val view = inflate(context, R.layout.v_list_header, this)
         container = view.findViewById(R.id.v_list_header_container)
         titleText = view.findViewById(R.id.v_list_header_title)
@@ -199,6 +197,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     /*endregion ############### setups ###############*/
 
     /*region ############### Setting functions ###############*/
+
     open fun enableView() {
         super.setEnabled(true)
 
@@ -213,6 +212,10 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         container.isEnabled = false
         actionText.isEnabled = false
         arrowIcon.isEnabled = false
+    }
+
+    open fun addChild(view: View) {
+        super.addView(view)
     }
 
     open fun setListState(isOpen: Boolean) {
@@ -280,9 +283,11 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         setupActionVisibility("", defIconDrawableRes)
         addOnPreDrawListener()
     }
+
     /*endregion ############### Setting functions ###############*/
 
     /*region ############### List Container ################*/
+
     open fun setListContainerClickable(isClickable: Boolean) {
         container.isClickable = isClickable
     }
@@ -294,9 +299,11 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     open fun setDefaultContainerListener() {
         container.setOnClickListener(containerListener)
     }
+
     /*endregion ############### List Container ################*/
 
     /*region ############### List Action ###############*/
+
     open fun setListActionClickable(isClickable: Boolean) {
         actionText.isClickable = isClickable
     }
@@ -327,6 +334,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     /*endregion ############### List Action############### */
 
     /*region ############### List Title ############### */
+
     open fun setListTitle(text: String) {
         if (titleText.text.toString() != text) {
             titleText.text = text
@@ -348,6 +356,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     /*endregion ############### List Title ############### */
 
     /*region ############### Arrow Icon ############### */
+
     open fun setArrowClickable(isClickable: Boolean) {
         arrowIcon.isClickable = isClickable
     }

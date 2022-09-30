@@ -3,6 +3,7 @@
     <string name="search_hint">Search by case name or modules</string>
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
+    <string name="add">Add</string>
     <string name="title">Title</string>
     <string name="info">Info</string>
     <string name="create">Create</string>
@@ -80,7 +81,7 @@
     <!--Listheader-->
     <string name="listheader_switcher">Enable/disable views</string>
     <string name="listheader_switcher_info">Use this switcher to enable/disable views on the screen</string>
-    <string name="listheader_case_1">Case 1: Listheader view with title, icon on the right and ListOpenedListener. Click on container to open/close list below</string>
+    <string name="listheader_case_1">Case 1: Listheader view with title, icon on the right. Click on container to open/close list below. Use Add button below to add more text view to Listheader</string>
     <string name="listheader_case_2">Case 2: Listheader view without title, icon on the right is clickable</string>
     <string name="listheader_case_3">Case 3: Listheader view with title, clickable action text on the right and clickable container</string>
     <string name="listheader_title">List title</string>
@@ -88,7 +89,6 @@
     <string name="listheader_click">click</string>
     <string name="listheader_icon_click">Icon click</string>
     <string name="listheader_action_click">Action click</string>
-
 
     <!--Topbar-->
     <string name="topbar_title">Title</string>
