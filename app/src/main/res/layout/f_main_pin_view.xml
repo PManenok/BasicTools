@@ -66,6 +66,8 @@
             android:id="@+id/f_pin_view_custom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:pinInAnimationDuration="1000"
+            app:pinOutAnimationDuration="500"
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <com.google.android.material.button.MaterialButton
