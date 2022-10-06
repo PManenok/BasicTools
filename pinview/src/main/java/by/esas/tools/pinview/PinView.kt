@@ -1,16 +1,19 @@
 /*
- * Copyright 2021 Electronic Systems And Services Ltd.
+ * Copyright 2022 Electronic Systems And Services Ltd.
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package by.esas.tools.pinview
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -26,8 +29,9 @@ import androidx.core.widget.ImageViewCompat
  *
  * Use [setPinAmount] method to set amount of cells programmatically or set it in XML,
  * by default this amount is 0. One cell can be in 2 states - filled and unfilled.
- * For each state you can set your drawable resource in xml. If you don't set your images the view
- * will set default images: [filledRes], [unfilledRes]. Also you can change color, paddings,
+ * For each state you can set your drawable resource in xml or programmatically via [setFilledImage]
+ * and [setUnfilledImage]. If you don't set your images the view will set
+ * default images: [filledRes], [unfilledRes]. Also you can change color, paddings,
  * size of filled and unfilled images and margins between them.
  *
  * Use [fillPin] method to make one cell filled, [unFillPin] to make one cell unfilled,
@@ -68,7 +72,7 @@ open class PinView : LinearLayout {
     }
 
     init {
-        orientation = LinearLayout.HORIZONTAL
+        orientation = HORIZONTAL
         gravity = Gravity.CENTER
     }
 
@@ -102,6 +106,28 @@ open class PinView : LinearLayout {
         setPinWithoutAnimation(filledAmount)
     }
 
+    open fun setDefaults() {
+        pinsAmount = 0
+        val filledAmount = 0
+        animInDurationMillis = 200.toLong()
+        animOutDurationMillis = 200.toLong()
+
+        filledRes = R.drawable.ic_pin_filled_24dp
+        unfilledRes = R.drawable.ic_pin_unfilled_24dp
+
+        filledTint = R.color.colorPrimary
+        unfilledTint = R.color.colorPrimary
+
+        filledPadding = context.resources.getDimensionPixelSize(R.dimen.pin_filled_padding)
+        unfilledPadding = context.resources.getDimensionPixelSize(R.dimen.pin_unfilled_padding)
+        betweenMargin = context.resources.getDimensionPixelSize(R.dimen.pin_icon_margin)
+
+        iconSize = ViewGroup.LayoutParams.WRAP_CONTENT
+
+        addPins()
+        setPinWithoutAnimation(filledAmount)
+    }
+
     open fun setPinAmount(pinsAmount: Int, filledAmount: Int = 0) {
         this.pinsAmount = pinsAmount
         addPins()
@@ -109,6 +135,7 @@ open class PinView : LinearLayout {
     }
 
     protected open fun addPins() {
+        listImages.clear()
         for (ind in 0 until pinsAmount) {
             val pin = AppCompatImageView(context)
             pin.setImageResource(unfilledRes)
@@ -172,6 +199,61 @@ open class PinView : LinearLayout {
             ImageViewCompat.setImageTintList(pin, ContextCompat.getColorStateList(context, unfilledTint))
             pin.setPadding(0, unfilledPadding, 0, unfilledPadding)
         }
+    }
+
+    open fun setUnfilledImage(resId: Int) {
+        unfilledRes = resId
+        listImages.forEach {
+            it.setImageResource(resId)
+        }
+    }
+
+    open fun setFilledImage(resId: Int) {
+        filledRes = resId
+        updateFilledPins(lastUnFilledIndex)
+    }
+
+    open fun setUnfilledTintRes(resId: Int) {
+        unfilledTint = resId
+        listImages.forEach { image ->
+            ImageViewCompat.setImageTintList(image, ContextCompat.getColorStateList(context, resId))
+        }
+    }
+
+    open fun setFilledTintRes(resId: Int) {
+        filledTint = resId
+        updateFilledPins(lastUnFilledIndex)
+    }
+
+    open fun setPinSize(size: Int) {
+        listImages.forEach { image ->
+            image.layoutParams.height = size
+            image.layoutParams.width = size
+            image.requestLayout()
+        }
+        updateFilledPins(lastUnFilledIndex)
+    }
+
+    open fun setPinSize(size: Float) {
+        setPinSize(size.toInt())
+    }
+
+    open fun setPinMargins(margin: Int) {
+        betweenMargin = margin/2
+        listImages.forEach { image ->
+            (image.layoutParams as MarginLayoutParams).setMargins(
+                betweenMargin, 0, betweenMargin, 0
+            )
+        }
+    }
+
+    open fun setPinMargins(margin: Float) {
+        setPinMargins(margin.toInt())
+    }
+
+    private fun updateFilledPins(filledAmount: Int) {
+        clearPins()
+        setPin(filledAmount)
     }
 
     open fun setAnimInDuration(value: Long) {

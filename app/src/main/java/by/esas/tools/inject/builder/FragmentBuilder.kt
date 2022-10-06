@@ -7,6 +7,7 @@ import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
+import by.esas.tools.screens.pin_view.dynamic.DynamicPinViewFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
 import by.esas.tools.screens.util.UtilKeyboardFragment
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerFragment
@@ -23,6 +24,9 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindPinViewFragment(): PinViewFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindDynamicPinViewFragment(): DynamicPinViewFragment
 
     @ContributesAndroidInjector
     abstract fun bindSavedStateFragment(): SavedStateFragment

@@ -29,8 +29,13 @@ class MenuVM @Inject constructor(
     init {
         addCaseItem(
             "Check PinView functionality",
-            listOf(Modules.PIN_VIEW, Modules.LISTHEADER),
+            listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
+        )
+        addCaseItem(
+            "Create your Pin view",
+            listOf(Modules.PIN_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToDynamicPinViewFragment()
         )
         addCaseItem(
             "Check SavedState view model",
@@ -81,11 +86,6 @@ class MenuVM @Inject constructor(
             "Check Cardline functionality",
             listOf(Modules.CARDLINE),
             MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
-        )
-        addCaseItem(
-            "Check PinView functionality",
-            listOf(Modules.PIN_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
         )
         updateAdapter(allCases)
     }

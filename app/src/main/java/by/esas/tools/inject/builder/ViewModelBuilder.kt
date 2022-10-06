@@ -11,6 +11,7 @@ import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
+import by.esas.tools.screens.pin_view.dynamic.DynamicPinViewVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
 import by.esas.tools.screens.util.UtilKeyboardVM
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerVM
@@ -38,6 +39,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(PinViewVM::class)
     abstract fun bindPinViewVM(pinViewVM: PinViewVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DynamicPinViewVM::class)
+    abstract fun bindDynamicPinViewVM(dynamicPinViewVM: DynamicPinViewVM): ViewModel
 
     @Binds
     @IntoMap
