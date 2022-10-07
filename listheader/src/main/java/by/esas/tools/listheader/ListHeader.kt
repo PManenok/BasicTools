@@ -141,7 +141,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
 
         setupArrowIcon(iconDrawableRes, iconTint, iconSize, iconInnerPadding)
 
-        setupActionVisibility(action, iconDrawableRes)
+        setupActionVisibility()
 
         if (defaultBehaviorEnabled)
             addOnPreDrawListener()
@@ -184,8 +184,8 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         }
     }
 
-    protected open fun setupActionVisibility(action: String?, iconDrawableRes: Int?) {
-        if (action.isNullOrBlank()) {
+    protected open fun setupActionVisibility() {
+        if (actionText.text.isNullOrBlank()) {
             arrowIcon.visibility = if (iconDrawableRes != null) View.VISIBLE else View.GONE
             actionText.visibility = View.GONE
         } else {
@@ -280,7 +280,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
 
         setupArrowIcon(defIconDrawableRes, defIconColor, 0, defIconInnerPadding.toInt())
 
-        setupActionVisibility("", defIconDrawableRes)
+        setupActionVisibility()
         addOnPreDrawListener()
     }
 
@@ -315,7 +315,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     open fun setListActionText(text: String?) {
         if (actionText.text.toString() != text) {
             actionText.text = text
-            setupActionVisibility(text, iconDrawableRes)
+            setupActionVisibility()
         }
     }
 
@@ -365,12 +365,10 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         arrowIcon.setOnClickListener(listener)
     }
 
-    open fun setArrowIconImage(drawable: Drawable){
-        arrowIcon.setImageDrawable(drawable)
-    }
-
     open fun setArrowIconImage(imageRes: Int){
+        iconDrawableRes = imageRes
         arrowIcon.setImageResource(imageRes)
+        setupActionVisibility()
     }
 
     open fun setArrowIconSize(iconSize: Int){

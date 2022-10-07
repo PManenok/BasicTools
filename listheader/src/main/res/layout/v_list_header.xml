@@ -41,6 +41,6 @@
             android:layout_marginTop="1dp"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="Add product" />
+            tools:text="Add product" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

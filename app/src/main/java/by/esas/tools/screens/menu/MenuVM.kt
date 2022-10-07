@@ -73,6 +73,11 @@ class MenuVM @Inject constructor(
             MenuFragmentDirections.actionMenuFragmentToListheaderFragment()
         )
         addCaseItem(
+            "Create custom Listheader",
+            listOf(Modules.LISTHEADER),
+            MenuFragmentDirections.actionMenuFragmentToDynamicListheaderFragment()
+        )
+        addCaseItem(
             "Check Topbar view functionality",
             listOf(Modules.TOPBAR_VIEW),
             MenuFragmentDirections.actionMenuFragmentToTopbarFragment()
