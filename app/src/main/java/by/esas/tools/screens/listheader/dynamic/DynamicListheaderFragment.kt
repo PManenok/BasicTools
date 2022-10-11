@@ -2,6 +2,7 @@ package by.esas.tools.screens.listheader.dynamic
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainDynamicListheaderBinding
+import by.esas.tools.inputfieldview.dpToPx
 import by.esas.tools.listheader.ListHeader
 
 class DynamicListheaderFragment() :
@@ -31,6 +33,11 @@ class DynamicListheaderFragment() :
             binding.fDynamicListheaderContainer.removeAllViews()
             binding.fDynamicListheaderContainer.addView(createListheader())
         }
+
+        binding.fDynamicListheaderButtonCreateDefault.setOnClickListener {
+            binding.fDynamicListheaderContainer.removeAllViews()
+            binding.fDynamicListheaderContainer.addView(createDefaultListheader())
+        }
     }
 
     private fun createListheader(): ListHeader {
@@ -40,7 +47,10 @@ class DynamicListheaderFragment() :
         listHeader.setListTitleStyle(getStyle(binding.fDynamicListheaderSpinnerTitle.selectedItem.toString()))
         listHeader.setListActionStyle(getStyle(binding.fDynamicListheaderSpinnerActionText.selectedItem.toString()))
         listHeader.setArrowIconImage(getActionImage())
+        listHeader.setArrowIconSize(getDimensInDp(binding.fDynamicListheaderImageSize))
         listHeader.setArrowIconTintResource(getActionImageTint())
+        setListheaderPaddings(listHeader)
+        setListheaderMargins(listHeader)
 
         listHeader.setDefaultContainerListener()
         listHeader.setArrowClickable(true)
@@ -49,8 +59,19 @@ class DynamicListheaderFragment() :
         }
 
         listHeader.addChild(createTestTextView())
+        listHeader.addChild(createTestTextView())
+        listHeader.addChild(createTestTextView())
 
         return listHeader
+    }
+
+    private fun createDefaultListheader(): ListHeader {
+        return ListHeader(requireContext()).apply {
+            this.setDefaultValues()
+            this.addChild(createTestTextView())
+            this.addChild(createTestTextView())
+            this.addChild(createTestTextView())
+        }
     }
 
     private fun getStyle(style: String): Int {
@@ -85,9 +106,31 @@ class DynamicListheaderFragment() :
         }
     }
 
+    private fun setListheaderPaddings(listHeader: ListHeader) {
+        listHeader.setupPaddings(
+            getDimensInDp(binding.fDynamicListheaderPaddingLeft),
+            getDimensInDp(binding.fDynamicListheaderPaddingTop),
+            getDimensInDp(binding.fDynamicListheaderPaddingRight),
+            getDimensInDp(binding.fDynamicListheaderPaddingBottom)
+        )
+    }
+
+    private fun setListheaderMargins(listHeader: ListHeader) {
+        listHeader.setChildrenMargins(
+            getDimensInDp(binding.fDynamicListheaderMarginTop),
+            getDimensInDp(binding.fDynamicListheaderPaddingBottom)
+        )
+    }
+
     private fun createTestTextView(): TextView {
         return TextView(requireContext()).apply {
             text = resources.getString(R.string.listheader_test_text)
         }
     }
+
+    private fun getDimensInDp(editField: EditText): Int {
+        val text = editField.text.toString()
+        return if (text.isNullOrEmpty()) 0 else dpToPx(text.toInt()).toInt()
+    }
+
 }

@@ -8,9 +8,13 @@
             type="by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingStart="@dimen/spacing_12"
         android:paddingEnd="@dimen/spacing_12"
         android:paddingTop="@dimen/spacing_8"
@@ -59,8 +63,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -94,8 +97,7 @@
                 android:id="@+id/f_dynamic_listheader_spinner_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/title_styles"
-                />
+                android:entries="@array/title_styles"/>
 
         </LinearLayout>
 
@@ -103,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_8">
+            android:layout_marginTop="@dimen/spacing_4">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -116,8 +118,7 @@
                 android:id="@+id/f_dynamic_listheader_spinner_action_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/title_styles"
-                />
+                android:entries="@array/title_styles"/>
         </LinearLayout>
 
         <LinearLayout
@@ -147,6 +148,7 @@
                     android:layout_height="@dimen/spacing_32"
                     android:background="@drawable/radio_background"
                     android:button="@drawable/ic_arrow_down"
+                    android:checked="true"
                     android:layout_marginEnd="@dimen/spacing_8"/>
 
                 <RadioButton
@@ -170,8 +172,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add icon size"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_image_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_add_value"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -192,6 +214,7 @@
                     android:id="@+id/f_dynamic_listheader_tint_radio_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:buttonTint="@color/orange"/>
 
                 <RadioButton
@@ -221,14 +244,165 @@
             </RadioGroup>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/f_dynamic_listheader_button_create"
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:text="Add padding to Listheader"
+            android:layout_marginTop="@dimen/spacing_12"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_padding_top"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottom"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_padding_bottom"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Left"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_padding_left"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Right"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_padding_right"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add top and bottom margins"
+            android:layout_marginTop="@dimen/spacing_8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_margin_top"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <TextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottom"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <EditText
+                android:id="@+id/f_dynamic_listheader_margin_bottom"
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:hint="@string/hint_add_value"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="@dimen/spacing_30"
-            android:text="@string/create"/>
+            android:layout_marginBottom="@dimen/spacing_24">
+
+            <Button
+                android:id="@+id/f_dynamic_listheader_button_create_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Create default"
+                android:layout_marginEnd="@dimen/spacing_30"/>
+
+            <Button
+                android:id="@+id/f_dynamic_listheader_button_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/create"/>
+        </LinearLayout>
 
     </LinearLayout>
 
+    </ScrollView>
 </layout>

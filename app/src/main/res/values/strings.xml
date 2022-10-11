@@ -132,7 +132,7 @@
     <string name="hint_add_value">Add value</string>
     <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
     <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
-    <string name="f_dynamic_listheader_add_case_title">Create ListHeader with functional below. Remember: when you add action text action icon becomes invisible</string>
+    <string name="f_dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
     <string name="f_dynamic_listheader_container">Here will be your Listheader</string>
     <string name="f_dynamic_listheader_action_text">Action text</string>
     <string name="f_dynamic_listheader_choose_title_style">Choose title style</string>
