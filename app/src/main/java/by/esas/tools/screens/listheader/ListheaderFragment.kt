@@ -65,9 +65,9 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
         binding.fMainListheader1.addOpenedListener(object : ListHeader.ListOpenedListener {
             override fun onListStateChanged(isOpen: Boolean) {
                 if (isOpen)
-                    binding.fMainListheader1.setArrowIconImage(R.drawable.ic_arrow_up)
+                    binding.fMainListheader1.setArrowIcon(R.drawable.ic_arrow_up)
                 else
-                    binding.fMainListheader1.setArrowIconImage(R.drawable.ic_arrow_down)
+                    binding.fMainListheader1.setArrowIcon(R.drawable.ic_arrow_down)
             }
         })
         binding.fMainListheaderAddButton.setOnClickListener {

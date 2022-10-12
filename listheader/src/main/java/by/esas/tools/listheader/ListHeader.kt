@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -376,7 +375,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         arrowIcon.setOnClickListener(listener)
     }
 
-    open fun setArrowIconImage(imageRes: Int){
+    open fun setArrowIcon(imageRes: Int){
         iconDrawableRes = imageRes
         arrowIcon.setImageResource(imageRes)
         setupActionVisibility()

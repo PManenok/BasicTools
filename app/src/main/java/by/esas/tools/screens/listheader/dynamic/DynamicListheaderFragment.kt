@@ -46,9 +46,17 @@ class DynamicListheaderFragment() :
         listHeader.setListActionText(binding.fDynamicListheaderActionText.text.toString())
         listHeader.setListTitleStyle(getStyle(binding.fDynamicListheaderSpinnerTitle.selectedItem.toString()))
         listHeader.setListActionStyle(getStyle(binding.fDynamicListheaderSpinnerActionText.selectedItem.toString()))
-        listHeader.setArrowIconImage(getActionImage())
+        listHeader.setArrowIcon(getActionImages().first)
         listHeader.setArrowIconSize(getDimensInDp(binding.fDynamicListheaderImageSize))
         listHeader.setArrowIconTintResource(getActionImageTint())
+        listHeader.addOpenedListener(object : ListHeader.ListOpenedListener {
+            override fun onListStateChanged(isOpen: Boolean) {
+                when(isOpen) {
+                    true -> listHeader.setArrowIcon(getActionImages().first)
+                    false -> listHeader.setArrowIcon(getActionImages().second)
+                }
+            }
+        })
         setListheaderPaddings(listHeader)
         setListheaderMargins(listHeader)
 
@@ -82,14 +90,14 @@ class DynamicListheaderFragment() :
         }
     }
 
-    private fun getActionImage(): Int {
+    private fun getActionImages(): Pair<Int, Int> {
         val checkedButtonId = binding.fDynamicListheaderActionImage.checkedRadioButtonId
         val checkedButton = binding.fDynamicListheaderActionImage.findViewById<RadioButton>(checkedButtonId)
 
         return when(checkedButton) {
-            binding.fDynamicListheaderImageRadio1 -> R.drawable.ic_arrow_down
-            binding.fDynamicListheaderImageRadio2 -> R.drawable.ic_add
-            else -> R.drawable.ic_arrow_drop_down
+            binding.fDynamicListheaderImageRadio1 -> Pair(R.drawable.ic_arrow_upward,  R.drawable.ic_arrow_downward)
+            binding.fDynamicListheaderImageRadio2 -> Pair(R.drawable.ic_remove, R.drawable.ic_add)
+            else -> Pair(R.drawable.ic_arrow_drop_up, R.drawable.ic_arrow_drop_down)
         }
     }
 

@@ -147,7 +147,7 @@
                     android:layout_width="@dimen/spacing_32"
                     android:layout_height="@dimen/spacing_32"
                     android:background="@drawable/radio_background"
-                    android:button="@drawable/ic_arrow_down"
+                    android:button="@drawable/ic_arrow_downward"
                     android:checked="true"
                     android:layout_marginEnd="@dimen/spacing_8"/>
 
