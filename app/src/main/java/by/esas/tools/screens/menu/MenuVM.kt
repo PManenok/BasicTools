@@ -83,6 +83,11 @@ class MenuVM @Inject constructor(
             MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
         )
         addCaseItem(
+            "Create custom Cardline",
+            listOf(Modules.CARDLINE),
+            MenuFragmentDirections.actionMenuFragmentToDynamicCardlineFragment()
+        )
+        addCaseItem(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()

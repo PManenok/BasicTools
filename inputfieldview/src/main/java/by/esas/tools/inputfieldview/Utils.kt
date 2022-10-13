@@ -34,6 +34,7 @@ fun dpToPx(dp: Int): Float {
 fun pxToDp(px: Int): Float {
     return (px / Resources.getSystem().displayMetrics.density)
 }
+
 fun isInputTypePassword(editText: EditText?): Boolean {
     return (editText != null
             && (editText.inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD

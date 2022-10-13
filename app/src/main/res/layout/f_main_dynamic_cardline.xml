@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_18">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_switch_program_case" />
+
+        <FrameLayout
+            android:id="@+id/f_dynamic_cardline_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_18">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Here will be your Cardline" />
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_30"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/title" />
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_add_value" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Value text" />
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_add_value" />
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="Choose for title:" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Title" />
+
+                    <Spinner
+                        android:id="@+id/f_dynamic_cardline_spinner_title_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/title_styles" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Is single line" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_cardline_title_single_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Add width percent from 0 till 1" />
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_title_width_percent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="Choose for value text:" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Value" />
+
+                    <Spinner
+                        android:id="@+id/f_dynamic_cardline_spinner_value_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/title_styles" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Is single line" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_cardline_value_single_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Add top divider" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_cardline_div_top_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/f_dynamic_cardline_div_top_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Width" />
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_div_top_height"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Color" />
+
+                    <RadioGroup
+                        android:id="@+id/f_dynamic_cardline_div_top_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_top_radio_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/orange" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_top_radio_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_top_radio_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/red" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Add bottom divider" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_cardline_div_bottom_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/f_dynamic_cardline_div_bottom_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Width" />
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_div_bottom_height"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Color" />
+
+                    <RadioGroup
+                        android:id="@+id/f_dynamic_cardline_div_bottom_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_bottom_radio_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/orange" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_bottom_radio_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardline_div_bottom_radio_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/red" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add paddings for Cardline container"
+                    android:layout_marginTop="@dimen/spacing_12"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Top"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_padding_top"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <TextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bottom"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_padding_bottom"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Left"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_padding_left"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <TextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Right"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
+
+                    <EditText
+                        android:id="@+id/f_dynamic_cardline_padding_right"
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_add_value"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Add top divider" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_cardline_start_icon_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/f_dynamic_cardline_start_icon_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Image" />
+
+                    <RadioGroup
+                        android:id="@+id/f_dynamic_cardlina_start_image_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_radio_1"
+                            android:layout_width="@dimen/spacing_32"
+                            android:layout_height="@dimen/spacing_32"
+                            android:background="@drawable/radio_background"
+                            android:button="@drawable/ic_star"
+                            android:checked="true"
+                            android:layout_marginEnd="@dimen/spacing_8"/>
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_radio_2"
+                            android:layout_width="@dimen/spacing_32"
+                            android:layout_height="@dimen/spacing_32"
+                            android:background="@drawable/radio_background"
+                            android:button="@drawable/ic_add"
+                            android:layout_marginEnd="@dimen/spacing_8"/>
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_radio_3"
+                            android:layout_width="@dimen/spacing_32"
+                            android:layout_height="@dimen/spacing_32"
+                            android:background="@drawable/radio_background"
+                            android:button="@drawable/ic_remove"/>
+
+                    </RadioGroup>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="Color" />
+
+                    <RadioGroup
+                        android:id="@+id/f_dynamic_cardlina_start_image_color_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_color_radio_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/orange" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_color_radio_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple" />
+
+                        <RadioButton
+                            android:id="@+id/f_dynamic_cardlina_start_image_color_radio_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/red" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_30"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/f_dynamic_cardline_button_create_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_30"
+                android:text="Create default" />
+
+            <Button
+                android:id="@+id/f_dynamic_cardline_button_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/create" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

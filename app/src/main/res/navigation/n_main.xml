@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_dynamicCardlineFragment"
+            app:destination="@id/dynamicCardlineFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -100,4 +103,9 @@
         android:name="by.esas.tools.screens.cardline.CardlineFragment"
         android:label="Check Cardline functionality"
         tools:layout="@layout/f_main_cardline" />
+    <fragment
+        android:id="@+id/dynamicCardlineFragment"
+        android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
+        android:label="Create custom Cardline"
+        tools:layout="@layout/f_main_dynamic_cardline" />
 </navigation>

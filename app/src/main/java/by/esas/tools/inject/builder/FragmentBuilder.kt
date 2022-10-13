@@ -3,6 +3,7 @@ package by.esas.tools.inject.builder
 import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
+import by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
@@ -53,4 +54,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindCardlineFragment(): CardlineFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindDynamicCardlineFragment(): DynamicCardlineFragment
 }

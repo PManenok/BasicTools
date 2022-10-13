@@ -56,8 +56,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_navigate_forward"
-            app:tint="@color/cardview_shadow_start_color" />
+            tools:srcCompat="@drawable/ic_navigate_forward"
+            tools:tint="@color/cardview_shadow_start_color" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
