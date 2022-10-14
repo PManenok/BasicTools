@@ -86,8 +86,8 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
     protected val defSingleLine = false
     protected val defValueAlignment = 0
 
-    protected var startIconAlignVertical = 0.5f
-    protected var endIconAlignVertical = 0.5f
+    protected var startIconVerticalBias = 0.5f
+    protected var endIconVerticalBias = 0.5f
     protected var textAlignVertical = 0.5f
     protected var showTopDiv = false
     protected var showBottomDiv = false
@@ -99,9 +99,9 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CardLine)
 
-        startIconAlignVertical =
+        startIconVerticalBias =
             typedArray.getFloat(R.styleable.CardLine_cardStartIconAlignVertical, defStartIconAlignVertical)
-        endIconAlignVertical =
+        endIconVerticalBias =
             typedArray.getFloat(R.styleable.CardLine_cardEndIconAlignVertical, defEndIconAlignVertical)
         textAlignVertical = typedArray.getFloat(R.styleable.CardLine_cardTextAlignVertical, defTextAlignVertical)
 
@@ -176,8 +176,8 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
         typedArray.recycle()
 
-        setAlignVertical(startIconAlignVertical, listOf(startIcon))
-        setAlignVertical(endIconAlignVertical, listOf(endIcon))
+        setAlignVertical(startIconVerticalBias, listOf(startIcon))
+        setAlignVertical(endIconVerticalBias, listOf(endIcon))
         setupTextAlignVertical(textAlignVertical)
 
         setContainerPaddings(startPadding, topPadding, endPadding, bottomPadding)
@@ -210,7 +210,7 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
         startIcon.apply {
             if (startDrawableRes != -1) {
-                updateStartIconSize(startIconSize)
+                setStartIconSize(startIconSize)
                 setImageResource(startDrawableRes)
                 setImageTintList(this, ColorStateList.valueOf(startTint))
                 setPadding(iconStartPadding, iconStartPadding, iconStartPadding, iconStartPadding)
@@ -222,7 +222,7 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
         endIcon.apply {
             if (endDrawableRes != -1) {
-                updateEndIconSize(endIconSize)
+                setEndIconSize(endIconSize)
                 setImageResource(endDrawableRes)
                 setImageTintList(this, ColorStateList.valueOf(endTint))
                 setPadding(iconEndPadding, iconStartPadding, iconStartPadding, iconStartPadding)
@@ -347,8 +347,22 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun updateStartIconSize(size: Int) {
+    open fun setStartIconSize(size: Int) {
         updateIconSize(size, startIcon)
+    }
+
+    open fun setStartIconAlignVertical(bias: Float) {
+        startIconVerticalBias = bias
+        setAlignVertical(bias, listOf(startIcon))
+    }
+
+    open fun setStartIconPadding(leftPadding: Int, topPadding: Int, rightPadding: Int, bottomPadding: Int) {
+        startIcon.setPadding(
+            leftPadding,
+            topPadding,
+            rightPadding,
+            bottomPadding
+        )
     }
 
     /*####################### End Icon ############################*/
@@ -369,7 +383,7 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun updateEndIconSize(size: Int) {
+    open fun setEndIconSize(size: Int) {
         updateIconSize(size, endIcon)
     }
 
@@ -379,6 +393,20 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
     open fun setEndIconColorRes(@ColorRes colorRes: Int){
         setEndIconColor(ContextCompat.getColor(context, colorRes))
+    }
+
+    open fun setEndIconAlignVertical(bias: Float) {
+        endIconVerticalBias = bias
+        setAlignVertical(bias, listOf(endIcon))
+    }
+
+    open fun setEndIconPadding(leftPadding: Int, topPadding: Int, rightPadding: Int, bottomPadding: Int) {
+        endIcon.setPadding(
+            leftPadding,
+            topPadding,
+            rightPadding,
+            bottomPadding
+        )
     }
 
     protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
@@ -450,8 +478,8 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
     /*region ############################ Other ################################*/
     fun setDefaultValues() {
-        startIconAlignVertical = defStartIconAlignVertical
-        endIconAlignVertical = defEndIconAlignVertical
+        startIconVerticalBias = defStartIconAlignVertical
+        endIconVerticalBias = defEndIconAlignVertical
         textAlignVertical = defTextAlignVertical
         valueAlignment = defValueAlignment
 
@@ -515,7 +543,7 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         setAlignVertical(bias, listOf(startIcon, titleText, valueText, endIcon))
     }
 
-    open fun setAlignVertical(bias: Float, views: List<View>) {
+    protected open fun setAlignVertical(bias: Float, views: List<View>) {
         views.forEach { view ->
             (view.layoutParams as ConstraintLayout.LayoutParams).apply { verticalBias = bias }
         }

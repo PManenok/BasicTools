@@ -7,3 +7,8 @@ fun getDimensInDp(editField: EditText): Int {
     val text = editField.text.toString()
     return if (text.isEmpty()) 0 else dpToPx(text.toInt()).toInt()
 }
+
+fun EditText.getFloatValue(): Float {
+    val text = this.text.toString()
+    return if (text.isEmpty()) 0f else text.toFloat()
+}

@@ -1,24 +1,27 @@
 package by.esas.tools.screens.cardline.dynamic
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
-import androidx.annotation.RequiresApi
+import android.widget.RadioGroup
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.cardline.CardLine
 import by.esas.tools.databinding.FMainDynamicCardlineBinding
 import by.esas.tools.utils.getDimensInDp
+import by.esas.tools.utils.getFloatValue
 
-class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardlineBinding>() {
+class DynamicCardlineFragment : AppFragment<DynamicCardlineVM, FMainDynamicCardlineBinding>() {
     override val fragmentDestinationId = R.id.dynamicCardlineFragment
 
     override fun provideLayoutId() = R.layout.f_main_dynamic_cardline
 
     override fun provideViewModel(): DynamicCardlineVM {
-        return ViewModelProvider(this, viewModelFactory.provideFactory()).get(DynamicCardlineVM::class.java)
+        return ViewModelProvider(
+            this,
+            viewModelFactory.provideFactory()
+        ).get(DynamicCardlineVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,6 +30,7 @@ class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardli
         setTopDividerSettingsLay()
         setBottomDividerSettingsLay()
         setStartIconSettingsLay()
+        setEndIconSettingsLay()
 
         binding.fDynamicCardlineButtonCreate.setOnClickListener {
             binding.fDynamicCardlineContainer.removeAllViews()
@@ -50,18 +54,24 @@ class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardli
         val cardLine = CardLine(requireContext())
 
         cardLine.setCardTitle(binding.fDynamicCardlineTitle.text.toString())
-        val titleStyle = getTextStyle(binding.fDynamicCardlineSpinnerTitleStyle.selectedItem.toString())
+        val titleStyle =
+            getTextStyle(binding.fDynamicCardlineSpinnerTitleStyle.selectedItem.toString())
         cardLine.setCardTitleStyle(titleStyle)
         cardLine.isTitleSingleLine(binding.fDynamicCardlineTitleSingleCheck.isChecked)
         setTitleWidthPercent(cardLine)
 
         cardLine.setCardValue(binding.fDynamicCardlineValue.text.toString())
-        val valueStyle = getTextStyle(binding.fDynamicCardlineSpinnerValueStyle.selectedItem.toString())
+        val valueStyle =
+            getTextStyle(binding.fDynamicCardlineSpinnerValueStyle.selectedItem.toString())
         cardLine.setCardValueStyle(valueStyle)
         cardLine.isTitleSingleLine(binding.fDynamicCardlineValueSingleCheck.isChecked)
+        cardLine.setupTextAlignVertical(binding.fDynamicCardlineTitleValueBias.getFloatValue())
 
         setTopDivider(cardLine)
         setBottomDivider(cardLine)
+
+        setStartIcon(cardLine)
+        setEndIcon(cardLine)
 
         setCardlineContainerPaddings(cardLine)
         return cardLine
@@ -82,7 +92,7 @@ class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardli
     }
 
     private fun getTextStyle(style: String): Int {
-        return when(style){
+        return when (style) {
             resources.getString(R.string.style_1) -> R.style.CustomSwitcherTitleTextStyle
             resources.getString(R.string.style_2) -> R.style.CustomSwitcherTextStyleBold
             else -> R.style.CustomSwitcherTextStyleNormal
@@ -92,36 +102,16 @@ class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardli
     private fun setTopDivider(cardLine: CardLine) {
         if (binding.fDynamicCardlineDivTopCheck.isChecked) {
             cardLine.setTopDividerHeight(getDimensInDp(binding.fDynamicCardlineDivTopHeight))
-            cardLine.setTopDividerColorRes(getTopDividerColor())
+            val divColor = getColorFromRadioGroup(binding.fDynamicCardlineDivTopRadioGroup as RadioGroup)
+            cardLine.setTopDividerColorRes(divColor)
         }
     }
 
     private fun setBottomDivider(cardLine: CardLine) {
         if (binding.fDynamicCardlineDivBottomCheck.isChecked) {
             cardLine.setBottomDividerHeight(getDimensInDp(binding.fDynamicCardlineDivBottomHeight))
-            cardLine.setBottomDividerColorRes(getBottomDividerColor())
-        }
-    }
-
-    private fun getTopDividerColor(): Int {
-        val checkedButtonId = binding.fDynamicCardlineDivTopRadioGroup.checkedRadioButtonId
-        val checkedButton = binding.fDynamicCardlineDivTopRadioGroup.findViewById<RadioButton>(checkedButtonId)
-
-        return when(checkedButton) {
-            binding.fDynamicCardlineDivTopRadio1 -> R.color.orange
-            binding.fDynamicCardlineDivTopRadio2 -> R.color.purple
-            else -> R.color.red
-        }
-    }
-
-    private fun getBottomDividerColor(): Int {
-        val checkedButtonId = binding.fDynamicCardlineDivBottomRadioGroup.checkedRadioButtonId
-        val checkedButton = binding.fDynamicCardlineDivBottomRadioGroup.findViewById<RadioButton>(checkedButtonId)
-
-        return when(checkedButton) {
-            binding.fDynamicCardlineDivBottomRadio1 -> R.color.orange
-            binding.fDynamicCardlineDivBottomRadio2 -> R.color.purple
-            else -> R.color.red
+            val divColor = getColorFromRadioGroup(binding.fDynamicCardlineDivBottomRadioGroup as RadioGroup)
+            cardLine.setBottomDividerColorRes(divColor)
         }
     }
 
@@ -144,17 +134,86 @@ class DynamicCardlineFragment: AppFragment<DynamicCardlineVM, FMainDynamicCardli
         binding.fDynamicCardlineStartIconCheck.setOnCheckedChangeListener { _, isChecked ->
             val layVisibility = if (isChecked) View.VISIBLE else View.GONE
             binding.fDynamicCardlineStartIconLay.visibility = layVisibility
+            binding.fDynamicCardlineStartImagePaddingsLay1.visibility = layVisibility
+            binding.fDynamicCardlineStartImagePaddingsLay2.visibility = layVisibility
+            binding.fDynamicCardlineStartImageSizeLay.visibility = layVisibility
+            binding.fDynamicCardlineStartImagePaddingsText.visibility = layVisibility
         }
     }
 
     private fun getStartIconImage(): Int {
-        val checkedButtonId = binding.fDynamicCardlinaStartImageGroup.checkedRadioButtonId
-        val checkedButton = binding.fDynamicCardlinaStartImageGroup.findViewById<RadioButton>(checkedButtonId)
+        val checkedButtonId = binding.fDynamicCardlineStartImageGroup.checkedRadioButtonId
+        val checkedButton =
+            binding.fDynamicCardlineStartImageGroup.findViewById<RadioButton>(checkedButtonId)
 
         return when (checkedButton) {
-            binding.fDynamicCardlinaStartImageRadio1 -> R.drawable.ic_star
-            binding.fDynamicCardlinaStartImageRadio2 -> R.drawable.ic_add
+            binding.fDynamicCardlineStartImageRadio1 -> R.drawable.ic_star
+            binding.fDynamicCardlineStartImageRadio2 -> R.drawable.ic_add
             else -> R.drawable.ic_remove
+        }
+    }
+
+    private fun setStartIcon(cardLine: CardLine) {
+        if (binding.fDynamicCardlineStartIconCheck.isChecked) {
+            cardLine.setStartIcon(getStartIconImage())
+            cardLine.setStartIconColorRes(getColorFromRadioGroup(binding.fDynamicCardlineStartImageColorGroup as RadioGroup))
+            cardLine.setStartIconPadding(
+                getDimensInDp(binding.fDynamicCardlineStartImagePaddingLeft),
+                getDimensInDp(binding.fDynamicCardlineStartImagePaddingTop),
+                getDimensInDp(binding.fDynamicCardlineStartImagePaddingRight),
+                getDimensInDp(binding.fDynamicCardlineStartImagePaddingBottom)
+            )
+            cardLine.setStartIconSize(getDimensInDp(binding.fDynamicCardlineStartImageSize))
+            cardLine.setStartIconAlignVertical(binding.fDynamicCardlineStartImageVerticalBias.getFloatValue())
+        }
+    }
+
+    private fun setEndIconSettingsLay() {
+        binding.fDynamicCardlineEndIconCheck.setOnCheckedChangeListener { _, isChecked ->
+            val layVisibility = if (isChecked) View.VISIBLE else View.GONE
+            binding.fDynamicCardlineEndIconLay.visibility = layVisibility
+            binding.fDynamicCardlineEndImagePaddingsLay1.visibility = layVisibility
+            binding.fDynamicCardlineEndImagePaddingsLay2.visibility = layVisibility
+            binding.fDynamicCardlineEndImageSizeLay.visibility = layVisibility
+            binding.fDynamicCardlineEndImagePaddingsText.visibility = layVisibility
+        }
+    }
+
+    private fun getEndIconImage(): Int {
+        val checkedButtonId = binding.fDynamicCardlineEndImageGroup.checkedRadioButtonId
+        val checkedButton =
+            binding.fDynamicCardlineEndImageGroup.findViewById<RadioButton>(checkedButtonId)
+
+        return when (checkedButton) {
+            binding.fDynamicCardlineEndImageRadio1 -> R.drawable.ic_star
+            binding.fDynamicCardlineEndImageRadio2 -> R.drawable.ic_add
+            else -> R.drawable.ic_remove
+        }
+    }
+
+    private fun setEndIcon(cardLine: CardLine) {
+        if (binding.fDynamicCardlineEndIconCheck.isChecked) {
+            cardLine.setEndIcon(getEndIconImage())
+            cardLine.setEndIconColorRes(getColorFromRadioGroup(binding.fDynamicCardlineEndImageColorGroup as RadioGroup))
+            cardLine.setEndIconPadding(
+                getDimensInDp(binding.fDynamicCardlineEndImagePaddingLeft),
+                getDimensInDp(binding.fDynamicCardlineEndImagePaddingTop),
+                getDimensInDp(binding.fDynamicCardlineEndImagePaddingRight),
+                getDimensInDp(binding.fDynamicCardlineEndImagePaddingBottom)
+            )
+            cardLine.setEndIconSize(getDimensInDp(binding.fDynamicCardlineEndImageSize))
+            cardLine.setEndIconAlignVertical(binding.fDynamicCardlineEndImageVerticalBias.getFloatValue())
+        }
+    }
+
+    private fun getColorFromRadioGroup(radioGroup: RadioGroup): Int {
+        val checkedButtonId = radioGroup.checkedRadioButtonId
+        val checkedButton = radioGroup.findViewById<RadioButton>(checkedButtonId)
+
+        return when (radioGroup.indexOfChild(checkedButton)) {
+            0 -> R.color.orange
+            1 -> R.color.purple
+            else -> R.color.red
         }
     }
 }
