@@ -6,6 +6,17 @@
     <string name="title">Title</string>
     <string name="info">Info</string>
     <string name="create">Create</string>
+    <string name="create_default">Create default</string>
+    <string name="value">Value</string>
+    <string name="value_text">Value text</string>
+    <string name="size">Size</string>
+    <string name="image">Image</string>
+    <string name="top">Top</string>
+    <string name="bottom">Bottom</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="width">Width</string>
+    <string name="color">Color</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -121,6 +132,22 @@
     <string name="cardline_value">Card with text</string>
     <string name="cardline_value_long">Card with loooooooooooooooooooooooooooooooooong text</string>
     <string name="cardline_change_style">Change cardline style</string>
+
+    <string name="cardline_dynamic_case">Create your own Cardline. Use functional below to add characteristics and style to your view.</string>
+    <string name="cardline_dynamic_container">Here will be your Cardline</string>
+    <string name="cardline_dynamic_choose_for_title">Choose for title:</string>
+    <string name="cardline_dynamic_is_single_line">Is single line</string>
+    <string name="cardline_dynamic_add_width_percent">Add width percent from 0 till 1</string>
+    <string name="cardline_dynamic_choose_for_value_text">Choose for value text:</string>
+    <string name="cardline_dynamic_add_vertical_bias">Add vertical bias for title and value text:</string>
+    <string name="cardline_dynamic_add_top_divider">Add top divider</string>
+    <string name="cardline_dynamic_add_bottom_divider">Add bottom divider</string>
+    <string name="cardline_dynamic_add_paddings_for_container">Add paddings for Cardline container</string>
+    <string name="cardline_dynamic_add_start_icon">Add start icon</string>
+    <string name="cardline_dynamic_add_paddings_for_start_icon">Add paddings for start icon</string>
+    <string name="cardline_dynamic_vertical_bias">Vertical bias</string>
+    <string name="cardline_dynamic_add_end_icon">Add end icon</string>
+    <string name="cardline_dynamic_add_paddings_for_end_icon">Add paddings for end icon</string>
 
 
     <!--PinView-->

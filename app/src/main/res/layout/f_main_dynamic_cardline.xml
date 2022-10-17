@@ -19,19 +19,20 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/custom_switch_program_case" />
+            android:text="@string/cardline_dynamic_case" />
 
         <FrameLayout
             android:id="@+id/f_dynamic_cardline_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_18">
+            android:layout_marginTop="@dimen/spacing_18"
+            android:layout_marginBottom="@dimen/spacing_30">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Here will be your Cardline" />
+                android:text="@string/cardline_dynamic_container" />
         </FrameLayout>
 
         <ScrollView
@@ -41,13 +42,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_30"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Value text" />
+                        android:text="@string/value_text" />
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_value"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_12"
                     android:layout_marginEnd="@dimen/spacing_8"
-                    android:text="Choose for title:" />
+                    android:text="@string/cardline_dynamic_choose_for_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Title" />
+                        android:text="@string/title" />
 
                     <Spinner
                         android:id="@+id/f_dynamic_cardline_spinner_title_style"
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Is single line" />
+                        android:text="@string/cardline_dynamic_is_single_line" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_title_single_check"
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Add width percent from 0 till 1" />
+                        android:text="@string/cardline_dynamic_add_width_percent" />
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_title_width_percent"
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_8"
                     android:layout_marginEnd="@dimen/spacing_8"
-                    android:text="Choose for value text:" />
+                    android:text="@string/cardline_dynamic_choose_for_value_text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Value" />
+                        android:text="@string/value" />
 
                     <Spinner
                         android:id="@+id/f_dynamic_cardline_spinner_value_style"
@@ -178,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Is single line" />
+                        android:text="@string/cardline_dynamic_is_single_line" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_value_single_check"
@@ -197,7 +197,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Add vertical bias for title and value text:" />
+                    android:text="@string/cardline_dynamic_add_vertical_bias" />
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_title_value_bias"
@@ -218,7 +218,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Add top divider" />
+                        android:text="@string/cardline_dynamic_add_top_divider" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_div_top_check"
@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Width" />
+                        android:text="@string/width" />
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_div_top_height"
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Color" />
+                        android:text="@string/color" />
 
                     <include
                         android:id="@+id/f_dynamic_cardline_div_top_radio_group"
@@ -275,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Add bottom divider" />
+                        android:text="@string/cardline_dynamic_add_bottom_divider" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_div_bottom_check"
@@ -296,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Width" />
+                        android:text="@string/width" />
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_div_bottom_height"
@@ -315,7 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Color" />
+                        android:text="@string/color" />
 
                     <include
                         android:id="@+id/f_dynamic_cardline_div_bottom_radio_group"
@@ -326,7 +326,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add paddings for Cardline container"
+                    android:text="@string/cardline_dynamic_add_paddings_for_container"
                     android:layout_marginTop="@dimen/spacing_12"/>
 
                 <LinearLayout
@@ -338,7 +338,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top"
+                        android:text="@string/top"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -355,7 +355,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bottom"
+                        android:text="@string/bottom"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -378,7 +378,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Left"
+                        android:text="@string/left"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -395,7 +395,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Right"
+                        android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -419,7 +419,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Add start icon" />
+                        android:text="@string/cardline_dynamic_add_start_icon" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_start_icon_check"
@@ -440,7 +440,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:text="Image" />
+                        android:text="@string/image" />
 
                     <RadioGroup
                         android:id="@+id/f_dynamic_cardline_start_image_group"
@@ -482,7 +482,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:text="Color" />
+                        android:text="@string/color" />
 
                     <include
                         android:id="@+id/f_dynamic_cardline_start_image_color_group"
@@ -495,7 +495,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:text="Add paddings for start icon" />
+                    android:text="@string/cardline_dynamic_add_paddings_for_start_icon" />
 
                 <LinearLayout
                     android:id="@+id/f_dynamic_cardline_start_image_paddings_lay_1"
@@ -508,7 +508,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top"
+                        android:text="@string/top"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -525,7 +525,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bottom"
+                        android:text="@string/bottom"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -550,7 +550,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Left"
+                        android:text="@string/left"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -567,7 +567,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Right"
+                        android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -593,7 +593,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Size"/>
+                        android:text="@string/size"/>
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_start_image_size"
@@ -608,7 +608,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Vertical bias"/>
+                        android:text="@string/cardline_dynamic_vertical_bias"/>
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_start_image_vertical_bias"
@@ -629,7 +629,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Add end icon" />
+                        android:text="@string/cardline_dynamic_add_end_icon" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_cardline_end_icon_check"
@@ -650,7 +650,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:text="Image" />
+                        android:text="@string/image" />
 
                     <RadioGroup
                         android:id="@+id/f_dynamic_cardline_end_image_group"
@@ -692,7 +692,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:text="Color" />
+                        android:text="@string/color" />
 
                     <include
                         android:id="@+id/f_dynamic_cardline_end_image_color_group"
@@ -704,7 +704,7 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add paddings for end icon"
+                    android:text="@string/cardline_dynamic_add_paddings_for_end_icon"
                     android:visibility="gone"/>
 
                 <LinearLayout
@@ -718,7 +718,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Top"
+                        android:text="@string/top"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -735,7 +735,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bottom"
+                        android:text="@string/bottom"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -760,7 +760,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Left"
+                        android:text="@string/left"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -777,7 +777,7 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Right"
+                        android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <EditText
@@ -802,7 +802,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Size"/>
+                        android:text="@string/size"/>
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_end_image_size"
@@ -817,7 +817,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="Vertical bias"/>
+                        android:text="@string/cardline_dynamic_add_vertical_bias"/>
 
                     <EditText
                         android:id="@+id/f_dynamic_cardline_end_image_vertical_bias"
@@ -845,7 +845,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/spacing_30"
-                android:text="Create default" />
+                android:text="@string/create_default" />
 
             <Button
                 android:id="@+id/f_dynamic_cardline_button_create"
