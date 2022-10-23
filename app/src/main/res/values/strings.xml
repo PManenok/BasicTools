@@ -8,6 +8,7 @@
     <string name="info">Info</string>
     <string name="create">Create</string>
     <string name="create_default">Create default</string>
+    <string name="send">Send</string>
     <string name="value">Value</string>
     <string name="value_text">Value text</string>
     <string name="size">Size</string>
@@ -21,6 +22,8 @@
     <string name="item_1">Item 1</string>
     <string name="item_2">Item 2</string>
     <string name="item_3">Item 3</string>
+
+    <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -183,5 +186,12 @@
     <string name="message_dialog_dynamic_neutral_button">Neutral button text</string>
     <string name="message_dialog_dynamic_neutral_button_appearance">Add neutral button appearance</string>
     <string name="message_dialog_dynamic_show_dialog">Show dialog</string>
+
+
+    <!--Bottom Dialog-->
+    <string name="custom_bottom_dialog_input_conditions">Add something with the length from 1 to 20</string>
+    <string name="custom_bottom_dialog_case">Use this bottom dialog to send entered data to Fragment. If you click on Send button and entered data is correct the dialog will be closed and you will see Toast message with entered data.</string>
+    <string name="custom_bottom_dialog_enable_disable_views">Enable/Disable views on this dialog</string>
+    <string name="custom_bottom_dialog_fragment_case">Re-open this case to see Bottom Dialog again</string>
 
 </resources>

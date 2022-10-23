@@ -10,6 +10,7 @@ import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
+import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -95,6 +96,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(DynamicMessageDialogVM::class)
     abstract fun bindDynamicMessageDialogVM(dynamicMessageDialogVM: DynamicMessageDialogVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BottomDialogVM::class)
+    abstract fun bindBottomDialogVM(bottomDialogVM: BottomDialogVM): ViewModel
 
     @Binds
     @IntoMap

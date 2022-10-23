@@ -36,9 +36,10 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.util.SwitchManager
 import kotlin.math.roundToInt
 
-open class InputFieldView : ConstraintLayout {
+open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     open val TAG: String = InputFieldView::class.java.simpleName
 
     companion object {
@@ -292,6 +293,17 @@ open class InputFieldView : ConstraintLayout {
     }
 
     /*endregion ############################ Constructors End ################################*/
+
+    /*region ############### ISwitchView interface methods ################*/
+
+    override fun switchOn() {
+        enableView()
+    }
+
+    override fun switchOff() {
+        disableView()
+    }
+    /*endregion ############### ISwitchView interface methods ################*/
 
     /*region ############### Label settings ################*/
     open fun hideLabel() {
