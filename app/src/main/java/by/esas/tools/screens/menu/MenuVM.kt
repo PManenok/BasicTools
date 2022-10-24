@@ -29,7 +29,7 @@ class MenuVM @Inject constructor(
     init {
         addCaseItem(
             "Check Bottom Dialog Functionality",
-            listOf(Modules.DIALOG),
+            listOf(Modules.DIALOG, Modules.INPUTFIELD_VIEW),
             MenuFragmentDirections.actionMenuFragmentToBottomDialogFragment()
         )
         addCaseItem(
