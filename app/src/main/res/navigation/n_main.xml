@@ -45,6 +45,9 @@
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_inputfieldFragment"
+            app:destination="@id/inputfieldFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_dynamicCardlineFragment"
             app:destination="@id/dynamicCardlineFragment" />
     </fragment>
@@ -108,4 +111,9 @@
         android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
         android:label="Create custom Cardline"
         tools:layout="@layout/f_main_dynamic_cardline" />
+    <fragment
+        android:id="@+id/inputfieldFragment"
+        android:name="by.esas.tools.screens.inputfieldview.InputFieldViewFragment"
+        android:label="Check InputField view functionality"
+        tools:layout="@layout/f_main_inputfieldview" />
 </navigation>
