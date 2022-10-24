@@ -9,7 +9,7 @@ import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
-import by.esas.tools.screens.inputfieldview.InputFieldViewVM
+import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -93,8 +93,8 @@ abstract class ViewModelBuilder {
 
     @Binds
     @IntoMap
-    @ViewModelKey(InputFieldViewVM::class)
-    abstract fun bindInputFieldViewVM(inputFieldViewVM: InputFieldViewVM): ViewModel
+    @ViewModelKey(InputfieldViewEndIconVM::class)
+    abstract fun bindInputfieldViewEndIconVM(inputfieldViewEndIconVM: InputfieldViewEndIconVM): ViewModel
 
     @Binds
     @IntoMap

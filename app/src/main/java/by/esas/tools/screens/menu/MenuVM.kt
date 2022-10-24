@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check InputfieldView end icon functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldViewEndIconFragment()
+        )
+        addCaseItem(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW, Modules.LISTHEADER),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
@@ -91,11 +96,6 @@ class MenuVM @Inject constructor(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
-        )
-        addCaseItem(
-            "Check InputFiewldView functionality",
-            listOf(Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToInputfieldFragment()
         )
         updateAdapter(allCases)
     }

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_12">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inputfieldview_end_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_1" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                android:inputType="text|textPassword|textNoSuggestions"
+                app:inputEndIconMode="none" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_2" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                app:inputEndDrawable="@drawable/ic_cancel"
+                app:inputEndIconMode="clear_text"
+                app:inputIconsSize="@dimen/spacing_32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_3" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                android:inputType="text|textPassword|textNoSuggestions"
+                app:inputEndIconMode="password_toggle"
+                app:inputIconsSize="@dimen/spacing_32"
+                app:inputPasswordToggle="@drawable/selector_password_toggle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_4" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_inputfieldview_end_case_4_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                android:inputType="text|textPassword|textNoSuggestions"
+                app:inputEndDrawable="@drawable/ic_star"
+                app:inputEndIconMode="custom"
+                app:inputIconsSize="@dimen/spacing_32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_5" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_inputfieldview_end_case_5_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                android:inputType="text|textPassword|textNoSuggestions"
+                app:inputEndIconMode="text"
+                app:inputEndText="click"
+                app:inputIconsSize="@dimen/spacing_32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_6" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_inputfieldview_end_case_6_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value"
+                android:inputType="text|textPassword|textNoSuggestions"
+                app:inputEndIconMode="checkable"
+                app:inputIconsSize="@dimen/spacing_32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/inputfieldview_end_case_7" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_end_case_7_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="text|textPassword|textNoSuggestions"
+                    app:inputEndIconColorWithError="true"
+                    app:inputIconsSize="@dimen/spacing_32" />
+
+                <Button
+                    android:id="@+id/f_inputfieldview_end_error_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_error" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

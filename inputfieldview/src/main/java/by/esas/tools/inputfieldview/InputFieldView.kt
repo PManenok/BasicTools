@@ -768,7 +768,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
     protected open fun setEndIconAsText() {
         setContainerSize(endContainer, -2)
-        endContainer?.setOnClickListener {
+        endText?.setOnClickListener {
             endClickListener?.onIconClick()
         }
         if (hasErrorText){
