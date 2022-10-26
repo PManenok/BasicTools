@@ -3,6 +3,7 @@
     <string name="search_hint">Search by case name or modules</string>
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
+    <string name="action">Action</string>
     <string name="title">Title</string>
     <string name="info">Info</string>
     <string name="create">Create</string>
@@ -176,5 +177,23 @@
     <string name="inputfieldview_end_icon_click">End icon click</string>
     <string name="inputfieldview_end_icon_is_checked">Is checked</string>
     <string name="inputfieldview_end_icon_is_unchecked">Is unchecked</string>
+    <string name="inputfieldview_end_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
+    <string name="inputfieldview_end_change_style">Use this button to change end icons styles for all Inputfield views</string>
+
+    <!--InputfieldView start icon-->
+    <string name="inputfieldview_start_title">On this screen you can check functional of InputfieldView start icon.</string>
+    <string name="inputfieldview_start_case_1">Case 1. InputfieldView without start icon</string>
+    <string name="inputfieldview_start_case_2">Case 2. InputfieldView with start icon in Checkable mode</string>
+    <string name="inputfieldview_start_case_3">Case 3. InputfieldView with start icon in Custom mode</string>
+    <string name="inputfieldview_start_case_4">Case 4. InputfieldView with start icon in Default mode</string>
+    <string name="inputfieldview_start_case_5">Case 5. InputfieldView with start icon in Progress mode</string>
+    <string name="inputfieldview_start_icon_click">End icon click</string>
+    <string name="inputfieldview_start_icon_is_checked">Is checked</string>
+    <string name="inputfieldview_start_icon_is_unchecked">Is unchecked</string>
+    <string name="inputfieldview_start_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
+    <string name="inputfieldview_start_change_style">Use this button to change start icons styles for all Inputfield views</string>
+    <string name="set">Set</string>
+    <string name="reset">Reset</string>
+    <string name="change_style">Change style</string>
 
 </resources>

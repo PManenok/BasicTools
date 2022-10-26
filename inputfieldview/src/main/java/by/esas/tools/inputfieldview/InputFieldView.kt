@@ -93,6 +93,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
     protected open var hideErrorText: Boolean = true
+
     /**
      * A variable shows whether the [inputText] will be enable or disable all the time.
      * If [inputIsEnableable] is false, then [inputText] will not be enabled
@@ -100,6 +101,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
      */
     protected open var inputIsEnableable: Boolean = true
     protected open var iconsSize: Int = 0
+
     //Default
     protected open val defaultErrorDrawableRes: Int = R.drawable.ic_input_field_error_24
     protected open val defaultErrorColor: Int =
@@ -423,19 +425,20 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         return inputText?.text?.toString() ?: ""
     }
 
-    open fun clearInputText(){
+    open fun clearInputText() {
         inputText?.setText("")
         if (endIconMode == END_ICON_CLEAR_TEXT)
             endIconView?.visibility = View.INVISIBLE
     }
 
-    open fun setInputIsEnableableValue(value: Boolean){
+    open fun setInputIsEnableableValue(value: Boolean) {
         inputIsEnableable = value
     }
 
-    open fun getInputIsEnableableValue(): Boolean{
+    open fun getInputIsEnableableValue(): Boolean {
         return inputIsEnableable
     }
+
     /**
      * Method shows if inputText field is enabled or not.
      */
@@ -454,7 +457,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     /**
      * Method makes inputText field disabled.
      */
-    open fun disableInput(){
+    open fun disableInput() {
         inputText?.setText(inputText?.text.toString().trim())
         if (inputText?.keyListener != null) {
             inputText?.tag = inputText?.keyListener
@@ -487,7 +490,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         inputText?.maxLines = value
     }
 
-    open fun setInputMaxLength(length: Int){
+    open fun setInputMaxLength(length: Int) {
         inputText?.filters = arrayOf(InputFilter.LengthFilter(length))
     }
 
@@ -570,8 +573,13 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     /*endregion ############### Input settings END ################*/
 
     /*region ############### Icons settings ################*/
+    open fun setIconsPaddings(iconsPadding: Int) {
+        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+    }
+
     open fun setupIconsSize(iconsSizeValue: Int) {
-        if (iconsSize != iconsSizeValue){
+        if (iconsSize != iconsSizeValue) {
             iconsSize = iconsSizeValue
             setContainerSize(startContainer, iconsSize)
             setContainerSize(endContainer, iconsSize)
@@ -588,9 +596,12 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setIconsPaddings(iconsPadding: Int){
-        startContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
-        endContainer?.setPadding(iconsPadding, iconsPadding, iconsPadding, iconsPadding)
+    protected open fun setCheckBoxTint(checkBox: AppCompatCheckBox, tintColor: Int) {
+        if (Build.VERSION.SDK_INT < 21) {
+            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(tintColor))
+        } else {
+            checkBox.backgroundTintList = ColorStateList.valueOf(tintColor)
+        }
     }
     /*endregion ############### Icons settings ################*/
 
@@ -615,7 +626,8 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun isEndChecked(): Boolean {
-        return if (endIconMode == END_ICON_CHECKABLE || endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked ?: false else false
+        return if (endIconMode == END_ICON_CHECKABLE || endIconMode == END_ICON_PASSWORD_TOGGLE) endCheckBox?.isChecked
+            ?: false else false
     }
 
     open fun setEndIconTintRes(@ColorRes tintColor: Int) {
@@ -623,8 +635,8 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setEndIconTint(tintColor: Int) {
-        if (startTint != tintColor) {
-            startTint = tintColor
+        if (endTint != tintColor) {
+            endTint = tintColor
             updateEndIcon()
         }
     }
@@ -656,7 +668,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         endCheckedListener = checkedListener
     }
 
-    open fun setEndIconClickListener(clickListener: IconClickListener){
+    open fun setEndIconClickListener(clickListener: IconClickListener) {
         endClickListener = clickListener
     }
 
@@ -687,16 +699,10 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     //if (endDrawable == null)
                     setBackgroundResource(passwordToggleRes)
                     //else buttonDrawable = endDrawable
-                    if (hasErrorText)
-                        CompoundButtonCompat.setButtonTintList(
-                            this,
-                            ColorStateList.valueOf(getColorError())
-                        )
+                    if (hasErrorText && endIconColorWithError)
+                        setCheckBoxTint(this, getColorError())
                     else
-                        CompoundButtonCompat.setButtonTintList(
-                            this,
-                            ColorStateList.valueOf(endTint)
-                        )
+                        setCheckBoxTint(this, endTint)
                     visibility = View.VISIBLE
                 }
                 endIconView?.visibility = View.INVISIBLE
@@ -712,7 +718,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     //else buttonDrawable = endDrawable
 
                     setOnCheckedChangeListener(endCheckClickListener)
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(endTint))
+                    setCheckBoxTint(this, endTint)
                     visibility = View.VISIBLE
                 }
                 endIconView?.visibility = View.INVISIBLE
@@ -771,7 +777,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         endText?.setOnClickListener {
             endClickListener?.onIconClick()
         }
-        if (hasErrorText){
+        if (hasErrorText) {
             if (inputEndTextColorWithError) endText?.setTextColor(errorColor)
             else endText?.setTextColor(inputEndTextErrorColor)
         } else {
@@ -827,15 +833,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-//    open fun setEndTextColor(color: Int){
-//        endText?.setTextColor(color)
-//    }
-
-    open fun setEndTextErrorColor(color: Int){
+    open fun setEndTextErrorColor(color: Int) {
         if (inputEndTextErrorColor != color) inputEndTextErrorColor = color
     }
 
-    open fun setInputEndTextColorWithErrorValue(value: Boolean){
+    open fun setInputEndTextColorWithErrorValue(value: Boolean) {
         if (errorTextColorWithError != value) inputEndTextColorWithError = value
     }
 
@@ -892,14 +894,6 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         updateStartIcon()
     }
 
-    protected open fun setStartIconTintInErrorMode() {
-        if (startIconColorWithError) {
-            startIconView?.apply {
-                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(getColorError()))
-            }
-        }
-    }
-
     open fun startIconEnable() {
         startContainer?.isClickable = true
         startCheckBox?.isClickable = true
@@ -914,8 +908,45 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         startCheckedListener = checkedListener
     }
 
-    open fun setStartIconClickListener(listener: IconClickListener){
+    open fun setStartIconClickListener(listener: IconClickListener) {
         startClickListener = listener
+    }
+
+    protected open fun setStartProgressBarTint(progressBar: ProgressBar, color: Int) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            val wrapDrawable: Drawable = DrawableCompat.wrap(progressBar.indeterminateDrawable)
+            DrawableCompat.setTint(wrapDrawable, color)
+            progressBar.indeterminateDrawable = DrawableCompat.unwrap(wrapDrawable)
+        } else {
+            progressBar.indeterminateDrawable?.setColorFilter(
+                color,
+                PorterDuff.Mode.SRC_IN
+            )
+        }
+    }
+
+    protected open fun setStartIconTintInErrorMode() {
+        if (startIconColorWithError) {
+            if (startIconMode == START_ICON_CUSTOM)
+                startIconView?.apply {
+                    ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(getColorError()))
+                }
+            else if (startIconMode == START_ICON_CHECKABLE)
+                startCheckBox?.let { setCheckBoxTint(it, getColorError()) }
+            else if (startIconMode == START_ICON_PROGRESS)
+                progressBar?.let { setStartProgressBarTint(it, getColorError()) }
+        }
+    }
+
+    protected open fun resetStartIconErrorMode() {
+        if (startIconMode == START_ICON_CUSTOM)
+            startIconView?.apply {
+                ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(startTint))
+            }
+        else if (startIconMode == START_ICON_CHECKABLE)
+            startCheckBox?.let { setCheckBoxTint(it, startTint) }
+        else if (startIconMode == START_ICON_PROGRESS)
+            progressBar?.let { setStartProgressBarTint(it, startTint) }
     }
 
     /**
@@ -935,7 +966,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     setBackgroundResource(checkBoxToggle)
                     //else buttonDrawable = startDrawable
                     setOnCheckedChangeListener(startCheckClickListener)
-                    CompoundButtonCompat.setButtonTintList(this, ColorStateList.valueOf(startTint))
+                    setCheckBoxTint(this, startTint)
                     visibility = View.VISIBLE
                 }
 
@@ -979,16 +1010,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
             START_ICON_PROGRESS -> {
                 startContainer?.isClickable = false
                 progressBar?.apply {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                        val wrapDrawable: Drawable = DrawableCompat.wrap(this.indeterminateDrawable)
-                        DrawableCompat.setTint(wrapDrawable, startTint)
-                        this.indeterminateDrawable = DrawableCompat.unwrap(wrapDrawable)
-                    } else {
-                        this.indeterminateDrawable?.setColorFilter(
-                            startTint,
-                            PorterDuff.Mode.SRC_IN
-                        )
-                    }
+                    setStartProgressBarTint(this, startTint)
                     this.visibility = View.VISIBLE
                 }
                 startIconView?.visibility = View.INVISIBLE
@@ -1030,7 +1052,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setupHelpColorResource(@ColorRes color: Int){
+    open fun setupHelpColorResource(@ColorRes color: Int) {
         val parsedColor = ContextCompat.getColor(context, color)
         setupHelpColor(parsedColor)
     }
@@ -1052,14 +1074,14 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         updateErrorState()
     }
 
-    protected open fun updateErrorState(){
+    protected open fun updateErrorState() {
         if (hasErrorText) {
             if (labelColorWithError) setLabelColor(getColorError())
             if (errorTextColorWithError) errorTextView?.setTextColor(getColorError())
             setStartIconTintInErrorMode()
         } else {
             setLabelStyle(labelStyleId)
-            setStartIconTint(startTint)
+            resetStartIconErrorMode()
         }
         updateBottomTextPosition()
     }
@@ -1091,13 +1113,13 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setupErrorColorResource(@ColorRes color: Int){
+    open fun setupErrorColorResource(@ColorRes color: Int) {
         val parsedColor = ContextCompat.getColor(context, color)
         setupErrorColor(parsedColor)
     }
 
     open fun setInputErrorTextColorWithErrorValue(value: Boolean) {
-        if (errorTextColorWithError != value){
+        if (errorTextColorWithError != value) {
             errorTextColorWithError = value
             updateErrorState()
         }
@@ -1123,11 +1145,12 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     else
                         setStrokeColor(strokeErrorColor)
                 }
-                previousEndIconMode = endIconMode
                 if (endIconMode == END_ICON_PASSWORD_TOGGLE || endIconMode == END_ICON_TEXT)
                     updateEndIcon()
-                else
+                else if (endIconMode != END_ICON_ERROR) {
+                    previousEndIconMode = endIconMode
                     setupEndIconMode(END_ICON_ERROR)
+                }
                 bottomContainer?.visibility = View.VISIBLE
                 errorTextView?.visibility = View.VISIBLE
                 helpTextView?.visibility = View.GONE
@@ -1187,7 +1210,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun inputBoxVisibility(): Int{
+    open fun inputBoxVisibility(): Int {
         return inputBox?.visibility ?: View.GONE
     }
 
@@ -1199,7 +1222,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         if (strokeColorWithError != value) strokeColorWithError = value
     }
 
-    open fun setupStrokeErrorColor(color: Int){
+    open fun setupStrokeErrorColor(color: Int) {
         if (strokeErrorColor != color) strokeErrorColor = color
     }
 
@@ -1207,14 +1230,14 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
     /*region ################### Editor Action Settings ######################*/
 
-    open fun setOnEditorActionId(actionId: Int){
-        if (actionId != -1){
+    open fun setOnEditorActionId(actionId: Int) {
+        if (actionId != -1) {
             editorActionId = actionId
             inputText?.imeOptions = actionId
         }
     }
 
-    open fun setupEditorActionListener(actionListener: EditorActionListener){
+    open fun setupEditorActionListener(actionListener: EditorActionListener) {
         editorActionListener = actionListener
     }
     /*endregion ################### Editor Action Settings ######################*/
@@ -1224,7 +1247,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
      * Method sets label params depending on the label type. Return Boolean result of setLabelParams method
      * or return false if current margin top doesn't equal new margin top value.
      */
-     protected open fun labelOnPreDraw(): Boolean {
+    protected open fun labelOnPreDraw(): Boolean {
         var draw = true
         labelText?.let { label ->
             var topClip = 0
@@ -1347,7 +1370,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
         inputText?.addTextChangedListener(textWatcher)
         inputText?.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == editorActionId){
+            if (actionId == editorActionId) {
                 editorActionListener?.onActionClick()
                 true
             } else {
@@ -1382,15 +1405,20 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         val enableClick =
             typedArray.getBoolean(R.styleable.InputFieldView_inputClickViewEnabled, false)
         //set start and end icons to be checked
-        val isStartCheckedValue = typedArray.getBoolean(R.styleable.InputFieldView_inputIsStartChecked, false)
-        val isEndCheckedValue = typedArray.getBoolean(R.styleable.InputFieldView_inputIsEndChecked, false)
+        val isStartCheckedValue =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputIsStartChecked, false)
+        val isEndCheckedValue =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputIsEndChecked, false)
 
         /*##########  Label  ##########*/
         val label = typedArray.getString(R.styleable.InputFieldView_inputLabel) ?: ""
         val labelType =
             typedArray.getInt(R.styleable.InputFieldView_inputLabelType, defaultLabelType)
         labelStyleId =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputLabelTextStyle, defaultTextStyle)
+            typedArray.getResourceId(
+                R.styleable.InputFieldView_inputLabelTextStyle,
+                defaultTextStyle
+            )
         labelExtraTopMargin = typedArray
             .getDimensionPixelSize(
                 R.styleable.InputFieldView_inputLabelExtraTopMargin,
@@ -1406,7 +1434,10 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
         /*##########  Input Text  ##########*/
         val editStyleId: Int =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputEditTextStyle, defaultInputTextStyle)
+            typedArray.getResourceId(
+                R.styleable.InputFieldView_inputEditTextStyle,
+                defaultInputTextStyle
+            )
         val hint = typedArray.getString(R.styleable.InputFieldView_android_hint) ?: ""
         val text: String = typedArray.getString(R.styleable.InputFieldView_android_text) ?: ""
         val inputType =
@@ -1425,7 +1456,8 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 R.styleable.InputFieldView_inputEditViewMinHeight,
                 defaultMinHeight
             )
-        inputIsEnableable = typedArray.getBoolean(R.styleable.InputFieldView_inputIsEnableable, true)
+        inputIsEnableable =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputIsEnableable, true)
 
         /*##########  Prefix  ##########*/
         val prefix = typedArray.getString(R.styleable.InputFieldView_inputPrefix) ?: ""
@@ -1479,15 +1511,21 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
         /*##########  End Text  ##########*/
         val endText = typedArray.getString(R.styleable.InputFieldView_inputEndText) ?: ""
-        inputEndTextStyleId = typedArray.getResourceId(R.styleable.InputFieldView_inputEndTextStyle, defaultTextStyle)
-        inputEndTextErrorColor = typedArray.getColor(R.styleable.InputFieldView_inputEndTextErrorColor, errorColor)
-        inputEndTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputEndTextColorWithError, true)
+        inputEndTextStyleId =
+            typedArray.getResourceId(R.styleable.InputFieldView_inputEndTextStyle, defaultTextStyle)
+        inputEndTextErrorColor =
+            typedArray.getColor(R.styleable.InputFieldView_inputEndTextErrorColor, errorColor)
+        inputEndTextColorWithError =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputEndTextColorWithError, true)
 
         /*##########  Help  ##########*/
         val help = typedArray.getString(R.styleable.InputFieldView_inputHelp) ?: ""
         helpColor = typedArray.getColor(R.styleable.InputFieldView_inputHelpColor, defaultHelpColor)
         val helpStyleId: Int =
-            typedArray.getResourceId(R.styleable.InputFieldView_inputHelpTextStyle, defaultTextStyle)
+            typedArray.getResourceId(
+                R.styleable.InputFieldView_inputHelpTextStyle,
+                defaultTextStyle
+            )
 
         /*##########  Error  ##########*/
         val errorText = typedArray.getString(R.styleable.InputFieldView_inputError) ?: ""
@@ -1503,8 +1541,9 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
             R.styleable.InputFieldView_inputHideErrorIcon,
             defaultHideErrorIcon
         )
-        errorTextColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputErrorTextColorWithError, true)
-        
+        errorTextColorWithError =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputErrorTextColorWithError, true)
+
         /*##########  Box  ##########*/
         strokeColor = typedArray.getColor(
             R.styleable.InputFieldView_inputInactiveStrokeColor,
@@ -1531,7 +1570,10 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 defaultStrokeWidthInPx
             )
                 .toFloat()
-        val inputBoxVisibility = typedArray.getInt(R.styleable.InputFieldView_inputBoxVisibility, defaultInputBoxVisibility)
+        val inputBoxVisibility = typedArray.getInt(
+            R.styleable.InputFieldView_inputBoxVisibility,
+            defaultInputBoxVisibility
+        )
 
         //ActionEditor
         editorActionId = typedArray.getInt(R.styleable.InputFieldView_android_imeOptions, -1)

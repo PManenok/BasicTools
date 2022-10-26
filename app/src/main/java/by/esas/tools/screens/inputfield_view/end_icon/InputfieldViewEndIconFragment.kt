@@ -56,8 +56,55 @@ class InputfieldViewEndIconFragment :
             }
         })
 
-        binding.fInputfieldviewEndErrorButton.setOnClickListener {
-            binding.fInputfieldviewEndCase7Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndSetErrorButton.setOnClickListener {
+            setErrors()
+        }
+        binding.fInputfieldviewEndResetErrorButton.setOnClickListener {
+            resetErrors()
+        }
+        binding.fInputfieldviewEndChangeStyleButton.setOnClickListener {
+            changeStyles()
+        }
+    }
+
+    private fun setErrors() {
+        binding.fInputfieldviewEndCase1Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndCase2Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndCase3Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndCase4Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndCase5Input.setError(resources.getString(R.string.error_text))
+        binding.fInputfieldviewEndCase6Input.setError(resources.getString(R.string.error_text))
+    }
+
+    private fun resetErrors() {
+        binding.fInputfieldviewEndCase1Input.setError(null)
+        binding.fInputfieldviewEndCase2Input.setError(null)
+        binding.fInputfieldviewEndCase3Input.setError(null)
+        binding.fInputfieldviewEndCase4Input.setError(null)
+        binding.fInputfieldviewEndCase5Input.setError(null)
+        binding.fInputfieldviewEndCase6Input.setError(null)
+    }
+
+    private fun changeStyles() {
+        binding.fInputfieldviewEndCase2Input.apply {
+            setEndIconDrawable(R.drawable.ic_close)
+            setEndIconTintRes(R.color.yellow)
+        }
+        binding.fInputfieldviewEndCase3Input.apply {
+            setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
+            setEndIconTintRes(R.color.purple)
+        }
+        binding.fInputfieldviewEndCase4Input.apply {
+            setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
+            setEndIconDrawable(R.drawable.ic_search)
+            setEndIconTintRes(R.color.orange)
+        }
+        binding.fInputfieldviewEndCase5Input.apply {
+            setEndTextStyle(R.style.CustomSwitcherInfoTextStyle)
+            setEndText(resources.getString(R.string.action))
+        }
+        binding.fInputfieldviewEndCase6Input.apply {
+            setEndIconTintRes(R.color.purple)
         }
     }
 }

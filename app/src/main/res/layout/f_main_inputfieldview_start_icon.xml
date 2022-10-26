@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/inputfieldview_end_title" />
+            android:text="@string/inputfieldview_start_title" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -29,141 +31,111 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_1" />
+                    android:text="@string/inputfieldview_start_case_1" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_1_input"
+                    android:id="@+id/f_inputfieldview_start_case_1_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
-                    android:inputType="text|textPassword|textNoSuggestions"
-                    app:inputEndIconMode="none" />
+                    app:inputStartIconMode="none" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_2" />
+                    android:text="@string/inputfieldview_start_case_2" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_2_input"
+                    android:id="@+id/f_inputfieldview_start_case_2_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
-                    app:inputEndDrawable="@drawable/ic_cancel"
-                    app:inputEndIconColorWithError="true"
-                    app:inputEndIconMode="clear_text"
-                    app:inputIconsSize="@dimen/spacing_32" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_3" />
-
-                <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_3_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_4"
-                    android:hint="@string/hint_add_value"
-                    android:inputType="text|textPassword|textNoSuggestions"
-                    app:inputEndIconColorWithError="true"
-                    app:inputEndIconMode="password_toggle"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputPasswordToggle="@drawable/selector_password_toggle"
-                    app:inputEndDrawableTint="@color/main_color_2"/>
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="checkable" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_4" />
+                    android:text="@string/inputfieldview_start_case_3" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_4_input"
+                    android:id="@+id/f_inputfieldview_start_case_3_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_4"
+                    android:layout_marginEnd="@dimen/spacing_8"
                     android:hint="@string/hint_add_value"
-                    android:inputType="text|textPassword|textNoSuggestions"
-                    app:inputEndDrawable="@drawable/ic_star"
-                    app:inputEndIconColorWithError="true"
-                    app:inputEndIconMode="custom"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartDrawable="@drawable/ic_star"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="custom" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_5" />
+                    android:text="@string/inputfieldview_start_case_4" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_5_input"
+                    android:id="@+id/f_inputfieldview_start_case_4_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
-                    android:inputType="text|textPassword|textNoSuggestions"
-                    app:inputEndIconMode="text"
-                    app:inputEndText="click"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="default_mode" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:text="@string/inputfieldview_end_case_6" />
+                    android:text="@string/inputfieldview_start_case_5" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_inputfieldview_end_case_6_input"
+                    android:id="@+id/f_inputfieldview_start_case_5_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
                     android:inputType="text|textPassword|textNoSuggestions"
-                    app:inputEndIconColorWithError="true"
-                    app:inputEndIconMode="checkable"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="progress" />
 
             </LinearLayout>
-
         </ScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spacing_1"
-            android:background="@color/main_color_2"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/inputfieldview_end_set_reset_errors_title" />
+                android:text="@string/inputfieldview_start_set_reset_errors_title" />
 
             <Button
-                android:id="@+id/f_inputfieldview_end_set_error_button"
+                android:id="@+id/f_inputfieldview_start_set_error_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:text="@string/set" />
 
             <Button
-                android:id="@+id/f_inputfieldview_end_reset_error_button"
+                android:id="@+id/f_inputfieldview_start_reset_error_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reset" />
@@ -173,18 +145,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_8">
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/inputfieldview_end_change_style" />
+                android:text="@string/inputfieldview_start_change_style" />
 
             <Button
-                android:id="@+id/f_inputfieldview_end_change_style_button"
+                android:id="@+id/f_inputfieldview_start_change_style_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_style" />
