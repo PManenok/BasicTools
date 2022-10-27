@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_menuFragment_to_inputfieldViewStartIconFragment"
             app:destination="@id/inputfieldViewStartIconFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_inputfieldViewFragment"
+            app:destination="@id/inputfieldViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -124,4 +127,9 @@
         android:name="by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment"
         android:label="Check InputfieldView start icon functionality"
         tools:layout="@layout/f_main_inputfieldview_start_icon" />
+    <fragment
+        android:id="@+id/inputfieldViewFragment"
+        android:name="by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment"
+        android:label="Check InputfieldView styles"
+        tools:layout="@layout/f_main_inputfieldview" />
 </navigation>

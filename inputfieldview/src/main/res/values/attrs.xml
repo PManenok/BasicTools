@@ -111,6 +111,7 @@
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
         <attr name="inputStrokeErrorColor" format="color"/>
+        <attr name="inputStrokeErrorColorWithError" format="boolean"/>
         <attr name="inputBoxVisibility">
             <!-- Visible on screen; the default value. -->
             <enum name="visible" value="0" />

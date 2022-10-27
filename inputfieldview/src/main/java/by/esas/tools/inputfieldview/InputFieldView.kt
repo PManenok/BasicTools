@@ -1077,7 +1077,6 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     protected open fun updateErrorState() {
         if (hasErrorText) {
             if (labelColorWithError) setLabelColor(getColorError())
-            if (errorTextColorWithError) errorTextView?.setTextColor(getColorError())
             setStartIconTintInErrorMode()
         } else {
             setLabelStyle(labelStyleId)
@@ -1223,7 +1222,15 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setupStrokeErrorColor(color: Int) {
-        if (strokeErrorColor != color) strokeErrorColor = color
+        if (strokeErrorColor != color) {
+            strokeErrorColor = color
+            updateErrorState()
+        }
+    }
+
+    open fun setupStrokeErrorColorRes(@ColorRes color: Int) {
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupStrokeErrorColor(parsedColor)
     }
 
     /*endregion ################### Box View Settings ######################*/
@@ -1551,6 +1558,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         )
         strokeErrorColor =
             typedArray.getColor(R.styleable.InputFieldView_inputStrokeErrorColor, getColorError())
+        strokeColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputStrokeErrorColorWithError, true)
         focusedStrokeColor =
             typedArray.getColor(
                 R.styleable.InputFieldView_inputActiveStrokeColor,

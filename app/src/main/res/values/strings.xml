@@ -22,6 +22,9 @@
     <string name="set_error">Set error</string>
     <string name="error_text">Error text!</string>
     <string name="reset_error">Reset error</string>
+    <string name="set">Set</string>
+    <string name="reset">Reset</string>
+    <string name="change_style">Change style</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -165,6 +168,17 @@
     <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
     <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
 
+    <!--InputfieldView start icon-->
+    <string name="inputfieldview_title">On this screen you can check functional of InputfieldView and see different styles of views.</string>
+    <string name="inputfieldview_case_1">Case 1: Base InputFieldView</string>
+    <string name="inputfieldview_case_2">Case 2: Custom InputFieldView with two icons, label, help text. When you set error box stroke, label and start icon will have error color</string>
+    <string name="inputfieldview_case_3">Case 3: Custom InputFieldView with styled box, start icon mode checkable and end icon mode custom. When you set error only box stroke will have error color</string>
+    <string name="inputfieldview_case_4">Case 4: InputFieldView with start icon mode progress and end icon mode text. When you set error box stroke and end text will have error color</string>
+    <string name="inputfieldview_case_5">Case 5: InputFieldView with icons. Error color will be the same for each parts of view</string>
+    <string name="inputfieldview_case_6">Case 6: InputFieldView without icons. When you set error only box stroke will have own error color</string>
+    <string name="inputfieldview_set_reset_error_title">Click this buttons to set/reset errors to all inputField views</string>
+    <string name="inputfieldview_new_label">New label</string>
+
     <!--InputfieldView end icon-->
     <string name="inputfieldview_end_title">On this screen you can check functional of InputfieldView end icon.</string>
     <string name="inputfieldview_end_case_1">Case 1. InputfieldView without end icon</string>
@@ -187,13 +201,10 @@
     <string name="inputfieldview_start_case_3">Case 3. InputfieldView with start icon in Custom mode</string>
     <string name="inputfieldview_start_case_4">Case 4. InputfieldView with start icon in Default mode</string>
     <string name="inputfieldview_start_case_5">Case 5. InputfieldView with start icon in Progress mode</string>
-    <string name="inputfieldview_start_icon_click">End icon click</string>
+    <string name="inputfieldview_start_icon_click">Start icon click</string>
     <string name="inputfieldview_start_icon_is_checked">Is checked</string>
     <string name="inputfieldview_start_icon_is_unchecked">Is unchecked</string>
     <string name="inputfieldview_start_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
     <string name="inputfieldview_start_change_style">Use this button to change start icons styles for all Inputfield views</string>
-    <string name="set">Set</string>
-    <string name="reset">Reset</string>
-    <string name="change_style">Change style</string>
 
 </resources>

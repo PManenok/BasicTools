@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check InputfieldView functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldViewFragment()
+        )
+        addCaseItem(
             "Check InputfieldView start icon functionality",
             listOf(Modules.INPUTFIELD_VIEW),
             MenuFragmentDirections.actionMenuFragmentToInputfieldViewStartIconFragment()

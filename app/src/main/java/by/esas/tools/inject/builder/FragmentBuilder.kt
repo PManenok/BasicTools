@@ -6,6 +6,7 @@ import by.esas.tools.screens.cardline.CardlineFragment
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment
+import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
@@ -59,6 +60,9 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindDynamicCardlineFragment(): DynamicCardlineFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindInputfieldViewFragment(): InputfieldViewFragment
 
     @ContributesAndroidInjector
     abstract fun bindInputfieldViewEndIconFragment(): InputfieldViewEndIconFragment
