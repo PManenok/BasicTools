@@ -18,8 +18,6 @@
         <item name="inputShowBottomContainer">false</item>
         <item name="inputLabelType">hide</item>
         <item name="inputActiveStrokeColor">@color/main_color_4</item>
-        <item name="inputStartDrawableTint">@color/main_color_2</item>
-        <item name="inputEndDrawableTint">@color/main_color_2</item>
     </style>
 
     <style name="TextStyle">

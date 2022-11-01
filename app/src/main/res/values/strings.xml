@@ -174,7 +174,7 @@
     <string name="inputfieldview_case_2">Case 2: Custom InputFieldView with two icons, label, help text. When you set error box stroke, label and start icon will have error color</string>
     <string name="inputfieldview_case_3">Case 3: Custom InputFieldView with styled box, start icon mode checkable and end icon mode custom. When you set error only box stroke will have error color</string>
     <string name="inputfieldview_case_4">Case 4: InputFieldView with start icon mode progress and end icon mode text. When you set error box stroke and end text will have error color</string>
-    <string name="inputfieldview_case_5">Case 5: InputFieldView with icons. Error color will be the same for each parts of view</string>
+    <string name="inputfieldview_case_5">Case 5: InputFieldView with icons. Error color will be the same for each parts of view but icons will have default color.</string>
     <string name="inputfieldview_case_6">Case 6: InputFieldView without icons. When you set error only box stroke will have own error color</string>
     <string name="inputfieldview_set_reset_error_title">Click this buttons to set/reset errors to all inputField views</string>
     <string name="inputfieldview_new_label">New label</string>

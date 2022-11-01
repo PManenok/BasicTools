@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!--    <declare-styleable name="ErrorState">-->
+<!--        <attr name="state_error" format="boolean"/>-->
+<!--    </declare-styleable>-->
+
     <declare-styleable name="InputFieldView">
         <!--Common-->
         <attr name="inputPaddingTop" format="dimension" />
@@ -10,6 +15,7 @@
         <attr name="inputIsStartChecked" format="boolean"/>
         <attr name="inputIsEndChecked" format="boolean"/>
         <attr name="inputIsEnableable" format="boolean" />
+        <attr name="state_error" format="boolean"/>
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -49,7 +55,7 @@
 
         <!--Start Icon-->
         <attr name="inputStartDrawable" format="reference" />
-        <attr name="inputStartDrawableTint" format="color" />
+        <attr name="inputStartDrawableTint" format="reference" />
         <attr name="inputStartIconMode">
             <!-- The view will display a custom icon specified by the user. -->
             <enum name="custom" value="-1" />
@@ -62,7 +68,6 @@
             <!-- The view will display a progress bar. -->
             <enum name="progress" value="3" />
         </attr>
-        <attr name="inputStartIconColorWithError" format="boolean"/>
 
         <!--End Icon-->
         <attr name="inputEndDrawable" format="reference" />
@@ -83,7 +88,6 @@
             <!-- The view will display end text instead of icon -->
             <enum name="text" value="5"/>
         </attr>
-        <attr name="inputEndIconColorWithError" format="boolean"/>
 
         <!--End Text-->
         <attr name="inputEndText" format="string"/>

@@ -14,10 +14,10 @@
     <color name="colorTextHint">#DDDDDD</color>
     <!-- Text colors end-->
 
-    <color name="colorStrokeOutline">#B3B3B3</color>
-    <color name="colorTextButton">#FFFFFF</color>
-    <color name="colorSpinnerBackground">#FFFFFF</color>
-    <color name="colorInputError">#FF4E3E</color>
-    <color name="colorInputHelp">#DDDDDD</color>
+    <color name="colorStrokeOutlineDefault">#B3B3B3</color>
+    <color name="colorTextButtonDefault">#FFFFFF</color>
+    <color name="colorSpinnerBackgroundDefault">#FFFFFF</color>
+    <color name="colorInputErrorDefault">#FF4E3E</color>
+    <color name="colorInputHelpDefault">#DDDDDD</color>
 
 </resources>

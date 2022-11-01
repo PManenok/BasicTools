@@ -55,7 +55,6 @@
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputStartIconColorWithError="true"
                     app:inputStartIconMode="checkable" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -69,11 +68,9 @@
                     android:id="@+id/f_inputfieldview_start_case_3_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_8"
                     android:hint="@string/hint_add_value"
                     app:inputIconsSize="@dimen/spacing_32"
                     app:inputStartDrawable="@drawable/ic_star"
-                    app:inputStartIconColorWithError="true"
                     app:inputStartIconMode="custom" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -90,7 +87,6 @@
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputStartIconColorWithError="true"
                     app:inputStartIconMode="default_mode" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -108,7 +104,6 @@
                     android:hint="@string/hint_add_value"
                     android:inputType="text|textPassword|textNoSuggestions"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputStartIconColorWithError="true"
                     app:inputStartIconMode="progress" />
 
             </LinearLayout>

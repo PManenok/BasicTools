@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-
     <by.esas.tools.inputfieldview.BoxView
         android:id="@+id/v_input_field_layout_box"
         android:layout_width="0dp"
@@ -16,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="@id/v_input_field_layout_container"
         app:layout_constraintEnd_toEndOf="@id/v_input_field_layout_container"
         app:layout_constraintStart_toStartOf="@id/v_input_field_layout_container"
-        app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container" />
+        app:layout_constraintTop_toTopOf="@id/v_input_field_layout_container"
+        android:duplicateParentState="true"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/v_input_field_layout_container"
@@ -28,7 +28,8 @@
         android:paddingEnd="8dp"
         android:paddingRight="8dp"
         app:layout_constraintBottom_toTopOf="@id/v_input_field_bottom_text_container"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:duplicateParentState="true">
 
         <FrameLayout
             android:id="@+id/v_input_field_start_container"
@@ -43,7 +44,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            android:duplicateParentState="true">
 
             <ProgressBar
                 android:id="@+id/v_input_field_progress_bar"
@@ -53,7 +55,8 @@
                 android:layout_gravity="center"
                 android:indeterminate="true"
                 android:visibility="gone"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:duplicateParentState="true" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/v_input_field_start_drawable"
@@ -61,8 +64,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:visibility="invisible"
-                app:tint="@color/colorStrokeOutline"
-                tools:visibility="visible" />
+                app:tint="@color/colorStrokeOutlineDefault"
+                tools:visibility="visible"
+                android:duplicateParentState="true" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_start_checkbox"
@@ -73,7 +77,9 @@
                 android:background="@drawable/selector_input_filed_check_box_toggle"
                 android:button="@null"
                 android:visibility="invisible"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:duplicateParentState="true"
+                />
         </FrameLayout>
 
         <LinearLayout
@@ -86,11 +92,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/v_input_field_end_container"
             app:layout_constraintStart_toEndOf="@id/v_input_field_start_container"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true">
 
                 <TextView
                     android:id="@+id/v_input_field_prefix"
@@ -104,7 +112,8 @@
                     app:layout_constraintEnd_toStartOf="@id/v_input_field_edit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/v_input_field_edit"
-                    tools:text="1234" />
+                    tools:text="1234"
+                    android:duplicateParentState="true"/>
 
                 <EditText
                     android:id="@+id/v_input_field_edit"
@@ -127,7 +136,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/v_input_field_prefix"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="12345" />
+                    tools:text="12345"
+                    android:duplicateParentState="true"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -144,7 +154,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="visible"
+            android:duplicateParentState="true">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/v_input_field_end_drawable"
@@ -152,9 +163,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                app:tint="@color/colorStrokeOutline"
+                app:tint="@color/selector_color"
                 tools:srcCompat="@drawable/ic_input_field_clear_default_24"
-                tools:visibility="gone" />
+                tools:visibility="gone"
+                android:duplicateParentState="true"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_password_toggle"
@@ -166,7 +178,8 @@
                 android:checked="true"
                 android:gravity="center"
                 android:visibility="gone"
-                tools:visibility="gone" />
+                tools:visibility="gone"
+                android:duplicateParentState="true"/>
 
             <TextView
                 android:id="@+id/v_input_field_end_text"
@@ -178,7 +191,8 @@
                 android:maxLines="1"
                 android:text="close"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:duplicateParentState="true"/>
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -214,7 +228,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Label" />
+        tools:text="Label"
+        android:duplicateParentState="true"/>
 
     <FrameLayout
         android:id="@+id/v_input_field_bottom_text_container"
@@ -226,22 +241,25 @@
         android:paddingRight="12dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_input_field_layout_container">
+        app:layout_constraintTop_toBottomOf="@id/v_input_field_layout_container"
+        android:duplicateParentState="true">
 
         <TextView
             android:id="@+id/v_input_field_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorInputError"
+            android:textColor="@color/colorInputErrorDefault"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:duplicateParentState="true"/>
 
         <TextView
             android:id="@+id/v_input_field_help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorInputHelp"
+            android:textColor="@color/colorInputHelpDefault"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:duplicateParentState="true"/>
     </FrameLayout>
 </merge>

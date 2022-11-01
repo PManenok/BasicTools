@@ -14,11 +14,11 @@
     <!--Custom input text styles-->
     <style name="AppTheme.TextInputLayout.Default" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/color_box_stroke_selector</item>
-        <item name="colorControlNormal">@color/colorStrokeOutline</item>
+        <item name="colorControlNormal">@color/colorStrokeOutlineDefault</item>
         <item name="colorControlActivated">@color/colorTextHint</item>
-        <item name="colorControlHighlight">@color/colorStrokeOutline</item>
+        <item name="colorControlHighlight">@color/colorStrokeOutlineDefault</item>
         <item name="android:textColorHint">@color/colorTextHint</item>
-        <item name="colorOnSurface">@color/colorStrokeOutline</item>
+        <item name="colorOnSurface">@color/colorStrokeOutlineDefault</item>
         <item name="android:textColor">@color/colorTextDefault</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:gravity">start</item>
@@ -36,11 +36,11 @@
     <!--Custom spinner text styles-->
     <style name="AppTheme.SpinnerInputLayout.Default" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="boxStrokeColor">@color/color_box_stroke_selector</item>
-        <item name="colorControlNormal">@color/colorStrokeOutline</item>
+        <item name="colorControlNormal">@color/colorStrokeOutlineDefault</item>
         <item name="colorControlActivated">@color/colorTextHint</item>
-        <item name="colorControlHighlight">@color/colorStrokeOutline</item>
+        <item name="colorControlHighlight">@color/colorStrokeOutlineDefault</item>
         <item name="android:textColorHint">@color/colorTextHint</item>
-        <item name="colorOnSurface">@color/colorStrokeOutline</item>
+        <item name="colorOnSurface">@color/colorStrokeOutlineDefault</item>
         <item name="android:textColor">@color/colorTextDefault</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:gravity">start</item>
