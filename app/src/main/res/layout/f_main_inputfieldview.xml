@@ -47,14 +47,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
                     app:inputLabel="Label"
-                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelTextStyle="@style/InputfieldViewTextStyle"
                     app:inputEditTextStyle="@style/TextStyle"
                     app:inputStartDrawable="@drawable/ic_star"
                     app:inputStartIconMode="custom"
                     app:inputIconsSize="@dimen/spacing_32"
                     app:inputEndIconMode="clear_text"
                     app:inputEndDrawable="@drawable/ic_cancel"
-                    app:inputLabelColorWithError="true"
                     app:inputHelp="Icons are clickable"
                     android:hint="@string/test_text"/>
 
@@ -106,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/test_text"
                     app:inputLabel="Label"
-                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelTextStyle="@style/InputfieldViewTextStyle"
                     app:inputIconsSize="@dimen/spacing_32"
                     app:inputStartIconMode="custom"
                     app:inputStartDrawable="@drawable/ic_star"
@@ -114,8 +113,6 @@
                     app:inputEndIconMode="custom"
                     app:inputEndDrawable="@drawable/ic_star"
                     app:inputEndDrawableTint="@color/purple"
-                    app:inputErrorTextColorWithError="true"
-                    app:inputLabelColorWithError="true"
                     app:inputErrorIcon="@drawable/ic_done"
                     android:layout_marginTop="@dimen/spacing_4"/>
 
@@ -133,7 +130,6 @@
                     android:hint="@string/test_text"
                     app:inputLabel="Label"
                     app:inputErrorColor="@color/yellow"
-                    app:inputStrokeErrorColor="@android:color/holo_red_dark"
                     app:inputErrorIcon="@drawable/ic_done"
                     android:layout_marginTop="@dimen/spacing_4"/>
 

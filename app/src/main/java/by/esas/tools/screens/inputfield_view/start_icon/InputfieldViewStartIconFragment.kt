@@ -32,15 +32,15 @@ class InputfieldViewStartIconFragment: AppFragment<InputfieldViewStartIconVM, FM
 
     private fun changeStyles() {
         binding.fInputfieldviewStartCase2Input.apply {
-            setStartIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setStartIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
         binding.fInputfieldviewStartCase3Input.apply {
             setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
-            setStartIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setStartIconTintRes(R.color.inputfieldview_selector_icon_color)
             setStartIconDrawable(R.drawable.ic_search)
         }
         binding.fInputfieldviewStartCase5Input.apply {
-            setStartIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setStartIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
     }
 

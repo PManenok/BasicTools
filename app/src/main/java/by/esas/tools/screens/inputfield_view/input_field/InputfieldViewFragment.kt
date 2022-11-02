@@ -89,7 +89,7 @@ class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewB
             inputBox?.setStrokeColorRes(R.color.purple)
         }
         binding.fInputfieldviewCase6.apply {
-            setupStrokeErrorColorRes(R.color.yellow)
+
         }
     }
 }

@@ -19,5 +19,6 @@
     <color name="colorSpinnerBackgroundDefault">#FFFFFF</color>
     <color name="colorInputErrorDefault">#FF4E3E</color>
     <color name="colorInputHelpDefault">#DDDDDD</color>
+    <color name="colorInputStrokeFocused">#FFFF00</color>
 
 </resources>

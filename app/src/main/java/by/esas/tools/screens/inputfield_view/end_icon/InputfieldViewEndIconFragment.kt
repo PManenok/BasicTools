@@ -88,23 +88,23 @@ class InputfieldViewEndIconFragment :
     private fun changeStyles() {
         binding.fInputfieldviewEndCase2Input.apply {
             setEndIconDrawable(R.drawable.ic_close)
-            setEndIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setEndIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
         binding.fInputfieldviewEndCase3Input.apply {
             setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
-            setEndIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setEndIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
         binding.fInputfieldviewEndCase4Input.apply {
             setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
             setEndIconDrawable(R.drawable.ic_search)
-            setEndIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setEndIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
         binding.fInputfieldviewEndCase5Input.apply {
             setEndTextStyle(R.style.CustomSwitcherInfoTextStyle)
             setEndText(resources.getString(R.string.action))
         }
         binding.fInputfieldviewEndCase6Input.apply {
-            setEndIconTintRes(R.color.selector_inputfieldview_icon_color)
+            setEndIconTintRes(R.color.inputfieldview_selector_icon_color)
         }
     }
 }

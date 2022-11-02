@@ -15,7 +15,9 @@
         <attr name="inputIsStartChecked" format="boolean"/>
         <attr name="inputIsEndChecked" format="boolean"/>
         <attr name="inputIsEnableable" format="boolean" />
+
         <attr name="state_error" format="boolean"/>
+        <attr name="state_focus" format="boolean"/>
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -30,7 +32,6 @@
         <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
-        <attr name="inputLabelColorWithError" format="boolean"/>
 
         <!--Input Text-->
         <attr name="inputEditTextStyle" format="reference" />
@@ -92,8 +93,6 @@
         <!--End Text-->
         <attr name="inputEndText" format="string"/>
         <attr name="inputEndTextStyle" format="reference"/>
-        <attr name="inputEndTextErrorColor" format="color"/>
-        <attr name="inputEndTextColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
@@ -106,16 +105,12 @@
         <attr name="inputErrorTextStyle" format="reference" />
         <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
-        <attr name="inputErrorTextColorWithError" format="boolean"/>
 
         <!--Box-->
-        <attr name="inputInactiveStrokeColor" format="color" />
-        <attr name="inputActiveStrokeColor" format="color" />
+        <attr name="inputStrokeColor" format="reference" />
         <attr name="inputBoxBgColor" format="color" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
-        <attr name="inputStrokeErrorColor" format="color"/>
-        <attr name="inputStrokeErrorColorWithError" format="boolean"/>
         <attr name="inputBoxVisibility">
             <!-- Visible on screen; the default value. -->
             <enum name="visible" value="0" />

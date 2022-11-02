@@ -163,7 +163,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                app:tint="@color/selector_color"
+                app:tint="@color/default_selector_color"
                 tools:srcCompat="@drawable/ic_input_field_clear_default_24"
                 tools:visibility="gone"
                 android:duplicateParentState="true"/>
@@ -221,7 +221,7 @@
         android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
-        android:textColor="@color/colorTextHint"
+        android:textColor="@color/default_selector_text_color"
         android:textSize="12sp"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
