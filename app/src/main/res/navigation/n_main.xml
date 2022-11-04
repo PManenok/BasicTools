@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_menuFragment_to_dynamicCardlineFragment"
             app:destination="@id/dynamicCardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_checkerFragment"
+            app:destination="@id/checkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -91,7 +94,7 @@
     <fragment
         android:id="@+id/customSwitchProgramFragment"
         android:name="by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment"
-        android:label="Check Cardline functionality"
+        android:label="Create Custom Switcher"
         tools:layout="@layout/f_main_cardline" />
     <fragment
         android:id="@+id/topbarFragment"
@@ -108,4 +111,9 @@
         android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
         android:label="Create custom Cardline"
         tools:layout="@layout/f_main_dynamic_cardline" />
+    <fragment
+        android:id="@+id/checkerFragment"
+        android:name="by.esas.tools.screens.checker.CheckerInputFieldFragment"
+        android:label="Check checker functionality"
+        tools:layout="@layout/f_main_checker" />
 </navigation>

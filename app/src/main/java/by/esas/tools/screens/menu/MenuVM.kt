@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check Checker functionality",
+            listOf(Modules.CHECKER, Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToCheckerFragment()
+        )
+        addCaseItem(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW, Modules.LISTHEADER),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()

@@ -29,12 +29,12 @@ open class AppChecker : Checker() {
                 result = tempResult
             }
         } else {
-            checks.forEach {
+            for(it in checks) {
                 result = it.checkField(showError, getter) && result
                 if (!result) {
                     if (focusOnFirstError && it is IFocusableChecking)
                         it.requestFocus()
-                    return@forEach
+                    break
                 }
             }
         }

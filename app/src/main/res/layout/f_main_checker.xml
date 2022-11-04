@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_12">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_checker_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check all fields at once"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: field can't be empty" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_not_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value should be from 1 to 999" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_range"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value can't contain symbols ......" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_regex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value can't contain more than 20 symbols" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_length"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value should be bigger than 10" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_bigger"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value length shouldn't be smaller than 5 symbols" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_min_length"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value should be the same as in field above" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:text="Rule: value should be the same as in field above" />
+
+                <DatePicker
+                    android:id="@+id/f_checker_calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_6"/>
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_checker_input_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputEditable="false"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/f_checker_check_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_24"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="Check" />
+    </LinearLayout>
+
+</layout>
