@@ -1217,6 +1217,38 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         inputBox?.visibility = visibility
     }
 
+    open fun setupBoxBackgroundColor(color: Int) {
+        boxBgColor = color
+        inputBox?.setBgColor(boxBgColor)
+    }
+
+    open fun setupBoxBackgroundColorRes(@ColorRes color: Int) {
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupBoxBackgroundColor(parsedColor)
+    }
+
+    open fun setupStrokeColor(color: Int) {
+        strokeColor = color
+        if (!hasErrorText && inputText?.isFocused == false)
+            inputBox?.setStrokeColor(strokeColor)
+    }
+
+    open fun setupStrokeColorRes(@ColorRes color: Int) {
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupStrokeColor(parsedColor)
+    }
+
+    open fun setupFocusedStrokeColor(color: Int) {
+        focusedStrokeColor = color
+        if (!hasErrorText && inputText?.isFocused == true)
+            inputBox?.setStrokeColor(focusedStrokeColor)
+    }
+
+    open fun setupFocusedStrokeColorRes(@ColorRes color: Int) {
+        val parsedColor = ContextCompat.getColor(context, color)
+        setupFocusedStrokeColor(parsedColor)
+    }
+
     open fun setStrokeColorWithErrorValue(value: Boolean) {
         if (strokeColorWithError != value) strokeColorWithError = value
     }
@@ -1558,7 +1590,8 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         )
         strokeErrorColor =
             typedArray.getColor(R.styleable.InputFieldView_inputStrokeErrorColor, getColorError())
-        strokeColorWithError = typedArray.getBoolean(R.styleable.InputFieldView_inputStrokeErrorColorWithError, true)
+        strokeColorWithError =
+            typedArray.getBoolean(R.styleable.InputFieldView_inputStrokeErrorColorWithError, true)
         focusedStrokeColor =
             typedArray.getColor(
                 R.styleable.InputFieldView_inputActiveStrokeColor,

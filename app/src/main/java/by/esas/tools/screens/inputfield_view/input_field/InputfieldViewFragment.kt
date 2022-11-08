@@ -69,10 +69,10 @@ class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewB
             setEndIconDrawable(R.drawable.ic_close)
             setEndIconTintRes(R.color.yellow)
             setHelpStyle(R.style.CustomSwitcherInfoTextStyle)
-            inputBox?.setBgColorRes(R.color.orange_light)
+            setupBoxBackgroundColorRes(R.color.orange_light)
         }
         binding.fInputfieldviewCase3.apply {
-            inputBox?.setStrokeColorRes(R.color.yellow)
+            setupStrokeColorRes(R.color.yellow)
             setStartIconTintRes(R.color.yellow)
             setEndIconDrawable(R.drawable.ic_search)
             setEndIconTintRes(R.color.yellow)
@@ -86,10 +86,10 @@ class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewB
         binding.fInputfieldviewCase5.apply {
             setInputLabel(R.string.inputfieldview_new_label)
             setupIconsSize(by.esas.tools.inputfieldview.dpToPx(36).toInt())
-            inputBox?.setStrokeColorRes(R.color.purple)
+            setupStrokeColorRes(R.color.purple)
         }
         binding.fInputfieldviewCase6.apply {
-            setupStrokeErrorColorRes(R.color.yellow)
+            setupStrokeErrorColorRes(R.color.orange)
         }
     }
 }
