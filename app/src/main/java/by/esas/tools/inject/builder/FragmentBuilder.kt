@@ -13,6 +13,7 @@ import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
+import by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
 import by.esas.tools.screens.pin_view.dynamic.DynamicPinViewFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
@@ -85,4 +86,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindInputfieldViewStartIconFragment(): InputfieldViewStartIconFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindNumpadTextFragment(): NumpadTextFragment
 }

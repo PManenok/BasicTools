@@ -51,6 +51,9 @@
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_numpadTextFragment"
+            app:destination="@id/numpadTextFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_dynamicCardlineFragment"
             app:destination="@id/dynamicCardlineFragment" />
         <action
@@ -164,4 +167,9 @@
         android:name="by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment"
         android:label="Check InputfieldView styles"
         tools:layout="@layout/f_main_inputfieldview" />
+    <fragment
+        android:id="@+id/numpadTextFragment"
+        android:name="by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment"
+        android:label="Check NumpadTextView functionality"
+        tools:layout="@layout/f_main_numpad_text" />
 </navigation>

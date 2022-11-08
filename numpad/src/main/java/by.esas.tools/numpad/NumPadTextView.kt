@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorRes
@@ -15,46 +16,48 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
+import by.esas.tools.util.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 
-open class NumPadTextView : ConstraintLayout {
+open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
     open val TAG: String = NumPadTextView::class.java.simpleName
 
-    val numContainerOne: FrameLayout
-    val numContainerTwo: FrameLayout
-    val numContainerThree: FrameLayout
-    val numContainerFour: FrameLayout
-    val numContainerFive: FrameLayout
-    val numContainerSix: FrameLayout
-    val numContainerSeven: FrameLayout
-    val numContainerEight: FrameLayout
-    val numContainerNine: FrameLayout
-    val numContainerZero: FrameLayout
-    val btnContainerLeft: FrameLayout
-    val btnContainerRight: FrameLayout
+    protected val numContainerOne: FrameLayout
+    protected val numContainerTwo: FrameLayout
+    protected val numContainerThree: FrameLayout
+    protected val numContainerFour: FrameLayout
+    protected val numContainerFive: FrameLayout
+    protected val numContainerSix: FrameLayout
+    protected val numContainerSeven: FrameLayout
+    protected val numContainerEight: FrameLayout
+    protected val numContainerNine: FrameLayout
+    protected val numContainerZero: FrameLayout
+    protected val btnContainerLeft: FrameLayout
+    protected val btnContainerRight: FrameLayout
 
-    val numTextOne: MaterialTextView
-    val numTextTwo: MaterialTextView
-    val numTextThree: MaterialTextView
-    val numTextFour: MaterialTextView
-    val numTextFive: MaterialTextView
-    val numTextSix: MaterialTextView
-    val numTextSeven: MaterialTextView
-    val numTextEight: MaterialTextView
-    val numTextNine: MaterialTextView
-    val numTextZero: MaterialTextView
-    val btnIconLeft: AppCompatImageView
-    val btnIconRight: AppCompatImageView
+    protected val numTextOne: MaterialTextView
+    protected val numTextTwo: MaterialTextView
+    protected val numTextThree: MaterialTextView
+    protected val numTextFour: MaterialTextView
+    protected val numTextFive: MaterialTextView
+    protected val numTextSix: MaterialTextView
+    protected val numTextSeven: MaterialTextView
+    protected val numTextEight: MaterialTextView
+    protected val numTextNine: MaterialTextView
+    protected val numTextZero: MaterialTextView
+    protected val btnIconLeft: AppCompatImageView
+    protected val btnIconRight: AppCompatImageView
 
-    val iconsContainersList = ArrayList<FrameLayout>()
-    val iconsNumbersList = ArrayList<MaterialTextView>()
+    protected val iconsContainers = ArrayList<FrameLayout>()
+    protected val iconsNumbers = ArrayList<MaterialTextView>()
+    protected val iconsNumbersContainers = ArrayList<FrameLayout>()
 
-    val defaultIconSize = 32
-    val defaultIconPadding = 0
-    val defaultRightIconImage = R.drawable.ic_backspace
-    val defaultLeftIconImage = R.drawable.ic_cancel
+    protected val defaultIconSize = dpToPx(32)
+    protected val defaultIconPadding = 0
+    protected val defaultRightIconImage = R.drawable.ic_backspace
+    protected val defaultLeftIconImage = R.drawable.ic_cancel
 
-    var handler: INumPadHandler? = null
+    protected var handler: INumPadHandler? = null
 
     init {
         val view = inflate(context, R.layout.v_num_pad_text, this)
@@ -84,7 +87,7 @@ open class NumPadTextView : ConstraintLayout {
         btnIconLeft = view.findViewById(R.id.v_num_pad_icon_left)
         btnIconRight = view.findViewById(R.id.v_num_pad_icon_right)
 
-        iconsContainersList.addAll(
+        iconsNumbersContainers.addAll(
             listOf(
                 numContainerZero,
                 numContainerOne,
@@ -99,7 +102,7 @@ open class NumPadTextView : ConstraintLayout {
             )
         )
 
-        iconsNumbersList.addAll(
+        iconsNumbers.addAll(
             listOf(
                 numTextOne,
                 numTextTwo,
@@ -113,9 +116,13 @@ open class NumPadTextView : ConstraintLayout {
                 numTextZero
             )
         )
+
+        iconsContainers.addAll(iconsNumbersContainers)
+        iconsContainers.addAll(listOf(btnContainerLeft, btnContainerRight))
     }
 
     /*region ################### Constructors ######################*/
+
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttrs(attrs)
@@ -131,57 +138,103 @@ open class NumPadTextView : ConstraintLayout {
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)
     }
+
     /*endregion ################### Constructors ######################*/
 
+    /*region ################### ISwitchView interface ######################*/
+
+    override fun switchOn() {
+        enableNumpadView()
+    }
+
+    override fun switchOff() {
+        disableNumpadView()
+    }
+
+    /*endregion ################### ISwitchView interface ######################*/
+
     /*region ################### All Icons Settings ######################*/
+
     open fun enableNumpadView() {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             container.isClickable = true
         }
-        btnContainerLeft.isClickable = true
-        btnContainerRight.isClickable = true
     }
 
     open fun disableNumpadView() {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             container.isClickable = false
         }
-        btnContainerLeft.isClickable = false
-        btnContainerRight.isClickable = false
     }
 
+    /**
+     * Set size for all icons containers.
+     */
     open fun setIconsSize(widthValue: Int, heightValue: Int) {
-        iconsContainersList.forEach { container ->
+        iconsContainers.forEach { container ->
             setIconContainerSize(container, widthValue, heightValue)
         }
-        setIconContainerSize(btnContainerLeft, widthValue, heightValue)
-        setIconContainerSize(btnContainerRight, widthValue, heightValue)
     }
 
-    protected open fun setIconContainerSize(iconContainer: FrameLayout, widthValue: Int, heightValue: Int) {
+    protected open fun setIconContainerSize(
+        iconContainer: FrameLayout,
+        widthValue: Int,
+        heightValue: Int
+    ) {
         iconContainer.layoutParams.apply {
-            width = dpToPx(widthValue).toInt()
-            height = dpToPx(heightValue).toInt()
+            width = widthValue
+            height = heightValue
         }
         iconContainer.requestLayout()
     }
 
-    open fun setIconsPadding(paddingValue: Int) {
-        iconsNumbersList.forEach { icon ->
-            setIconPadding(icon, paddingValue)
+    open fun setIconsPadding(
+        leftPadding: Int,
+        topPadding: Int,
+        rightPadding: Int,
+        bottomPadding: Int
+    ) {
+        iconsContainers.forEach { container ->
+            setIconContainerPadding(container, leftPadding, topPadding, rightPadding, bottomPadding)
         }
-        setIconPadding(btnIconLeft, paddingValue)
-        setIconPadding(btnIconRight, paddingValue)
     }
 
-    protected open fun setIconPadding(iconTextView: MaterialTextView, paddingValue: Int) {
-        val padding = dpToPx(paddingValue).toInt()
-        iconTextView.setPadding(padding, padding, padding, padding)
+    protected open fun setIconContainerPadding(
+        iconContainer: FrameLayout,
+        leftPadding: Int,
+        topPadding: Int,
+        rightPadding: Int,
+        bottomPadding: Int
+    ) {
+        iconContainer.setPadding(
+            leftPadding,
+            topPadding,
+            rightPadding,
+            bottomPadding
+        )
     }
 
-    protected open fun setIconPadding(iconButton: AppCompatImageView, paddingValue: Int) {
-        val padding = dpToPx(paddingValue).toInt()
-        iconButton.setPadding(padding, padding, padding, padding)
+    open fun setIconsMargin(leftMargin: Int, topMargin: Int, rightMargin: Int, bottomMargin: Int) {
+        iconsContainers.forEach { container ->
+            setIconContainerMargin(container, leftMargin, topMargin, rightMargin, bottomMargin)
+        }
+    }
+
+    protected open fun setIconContainerMargin(
+        iconContainer: FrameLayout,
+        leftMargin: Int,
+        topMargin: Int,
+        rightMargin: Int,
+        bottomMargin: Int
+    ) {
+        (iconContainer.layoutParams as MarginLayoutParams).apply {
+            setMargins(
+                leftMargin,
+                topMargin,
+                rightMargin,
+                bottomMargin
+            )
+        }
     }
 
     protected open fun setButtonVisibility(iconContainer: FrameLayout, value: Boolean) {
@@ -194,14 +247,35 @@ open class NumPadTextView : ConstraintLayout {
         }
     }
 
+    open fun setIconsSelectableBackground(value: Boolean) {
+        iconsContainers.forEach { container ->
+            setContainerSelectableBackground(container, value)
+        }
+    }
+
+    protected open fun setContainerSelectableBackground(container: FrameLayout, value: Boolean) {
+        container.apply {
+            background = if (value) {
+                with(TypedValue()) {
+                    context.theme.resolveAttribute(
+                        R.attr.selectableItemBackground, this, value
+                    )
+                    ContextCompat.getDrawable(context, resourceId)
+                }
+            } else {
+                null
+            }
+        }
+    }
+
     open fun setNumpadHandler(numpadHandler: INumPadHandler) {
         handler = numpadHandler
     }
 
     protected open fun setupNumpadHandler() {
-        iconsContainersList.forEach { container ->
+        iconsNumbersContainers.forEach { container ->
             container.setOnClickListener {
-                handler?.onNumClick(iconsContainersList.indexOf(container))
+                handler?.onNumClick(iconsNumbersContainers.indexOf(container))
             }
         }
         btnContainerLeft.setOnClickListener {
@@ -211,20 +285,36 @@ open class NumPadTextView : ConstraintLayout {
             handler?.onRightIconClick()
         }
     }
+
     /*endregion ################### All Icons Settings ######################*/
 
     /*region ################### Number Text Icons ######################*/
+
+    /**
+     * Set textSize for number icons.
+     * Remember, that containers for numbers icons have height and width fixed size(not wrap_content).
+     * So when you want to change numbers textSize you should change size of containers too.
+     * And size of left and right icon button should change in relevant methods
+     * [setLeftIconSize] and [setRightIconSize].
+     * @see [setIconsSize].
+     */
     open fun setNumbersTextSize(size: Int) {
-        iconsNumbersList.forEach { num ->
+        iconsNumbers.forEach { num ->
             num.textSize = size.toFloat()
         }
     }
 
     open fun setNumbersTextStyle(styleId: Int) {
         if (styleId != -1) {
-            iconsNumbersList.forEach { num ->
+            iconsNumbers.forEach { num ->
                 setNumberTextStyle(num, styleId)
             }
+        }
+    }
+
+    open fun setNumbersDefaultStyle() {
+        iconsNumbers.forEach { num ->
+            setNumberTextStyle(num, R.style.NumPadTextIconsStyle)
         }
     }
 
@@ -233,7 +323,7 @@ open class NumPadTextView : ConstraintLayout {
     }
 
     open fun setNumbersTextColor(color: Int) {
-        iconsNumbersList.forEach { num ->
+        iconsNumbers.forEach { num ->
             setNumberTextColor(num, color)
         }
     }
@@ -241,34 +331,36 @@ open class NumPadTextView : ConstraintLayout {
     protected open fun setNumberTextColor(textView: MaterialTextView, color: Int) {
         textView.setTextColor(color)
     }
+
     /*endregion ################### Number Text Icons ######################*/
 
     /*region ################### Left Button Icon ######################*/
-    open fun setLeftButtonIconImage(drawable: Drawable?) {
+
+    open fun setLeftIconImage(drawable: Drawable?) {
         if (drawable != null) {
             btnIconLeft.setImageDrawable(drawable)
         } else {
-            setLeftButtonVisibility(false)
+            setLeftIconVisibility(false)
         }
     }
 
-    open fun setLeftButtonIconImage(resId: Int?) {
+    open fun setLeftIconImageResource(resId: Int?) {
         if (resId != null) {
             btnIconLeft.setImageResource(resId)
         } else {
-            setLeftButtonVisibility(false)
+            setLeftIconVisibility(false)
         }
     }
 
-    open fun setLeftButtonIconSize(widthValue: Int, heightValue: Int) {
+    open fun setLeftIconSize(widthValue: Int, heightValue: Int) {
         btnIconLeft.layoutParams.apply {
-            width = dpToPx(widthValue).toInt()
-            height = dpToPx(heightValue).toInt()
+            width = widthValue
+            height = heightValue
         }
         btnIconLeft.requestLayout()
     }
 
-    open fun setLeftButtonVisibility(value: Boolean) {
+    open fun setLeftIconVisibility(value: Boolean) {
         setButtonVisibility(btnContainerLeft, value)
     }
 
@@ -284,10 +376,12 @@ open class NumPadTextView : ConstraintLayout {
     open fun setLeftIconColorResource(@ColorRes color: Int) {
         setLeftIconColor(ContextCompat.getColor(context, color))
     }
+
     /*endregion ################### Left Button Icon ######################*/
 
     /*region ################### Right Button Icon ######################*/
-    open fun setRightButtonIconImage(drawable: Drawable?) {
+
+    open fun setRightIconImage(drawable: Drawable?) {
         if (drawable != null) {
             btnIconRight.setImageDrawable(drawable)
         } else {
@@ -295,20 +389,20 @@ open class NumPadTextView : ConstraintLayout {
         }
     }
 
-    open fun setRightButtonIconImage(resId: Int?) {
+    open fun setRightIconImageResource(resId: Int?) {
         val imageRes = resId ?: defaultRightIconImage
         btnIconRight.setImageResource(imageRes)
     }
 
-    open fun setRightButtonIconSize(widthValue: Int, heightValue: Int) {
+    open fun setRightIconSize(widthValue: Int, heightValue: Int) {
         btnIconRight.layoutParams.apply {
-            width = dpToPx(widthValue).toInt()
-            height = dpToPx(heightValue).toInt()
+            width = widthValue
+            height = heightValue
         }
         btnIconRight.requestLayout()
     }
 
-    open fun setRightButtonVisibility(value: Boolean) {
+    open fun setRightIconVisibility(value: Boolean) {
         setButtonVisibility(btnContainerRight, value)
     }
 
@@ -331,9 +425,19 @@ open class NumPadTextView : ConstraintLayout {
 
     fun setDefault() {
         setIconsSize(defaultIconSize, defaultIconSize)
-        setIconsPadding(0)
-        setLeftButtonIconImage(defaultLeftIconImage)
-        setRightButtonIconImage(defaultRightIconImage)
+        setIconsPadding(
+            defaultIconPadding,
+            defaultIconPadding,
+            defaultIconPadding,
+            defaultIconPadding
+        )
+        setNumbersDefaultStyle()
+
+        setLeftIconImageResource(defaultLeftIconImage)
+        setLeftIconVisibility(true)
+        setRightIconImageResource(defaultRightIconImage)
+        setRightIconVisibility(true)
+
         enableNumpadView()
         setupNumpadHandler()
     }
@@ -342,27 +446,57 @@ open class NumPadTextView : ConstraintLayout {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.NumPadTextView)
 
         val iconPadding =
-            typedArray.getDimensionPixelSize(R.styleable.NumPadTextView_numpadTextIconPadding, defaultIconPadding)
-        val iconSize = typedArray.getDimensionPixelSize(R.styleable.NumPadTextView_numpadTextIconSize, defaultIconSize)
-        val iconTextStyle = typedArray.getResourceId(R.styleable.NumPadTextView_numpadTextIconStyle, -1)
+            typedArray.getDimensionPixelSize(
+                R.styleable.NumPadTextView_numpadTextIconPadding,
+                defaultIconPadding
+            )
+        val iconSize = typedArray.getDimensionPixelSize(
+            R.styleable.NumPadTextView_numpadTextIconSize,
+            defaultIconSize
+        )
+        val iconTextStyle =
+            typedArray.getResourceId(R.styleable.NumPadTextView_numpadTextIconStyle, -1)
 
-        val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconLeft)
-        val iconLeftColor = typedArray.getColor(R.styleable.NumPadTextView_numpadTextLeftIconColor, -1)
-        val iconRightImage = typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextIconRight)
-        val iconRightColor = typedArray.getColor(R.styleable.NumPadTextView_numpadTextRightIconColor, -1)
+        val iconLeftImage =
+            typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextLeftIconImage)
+        val iconLeftSize =
+            typedArray.getInt(R.styleable.NumPadTextView_numpadTextLeftIconSize, defaultIconSize)
+        val iconLeftColor =
+            typedArray.getColor(R.styleable.NumPadTextView_numpadTextLeftIconColor, -1)
+        val iconLeftVisibility =
+            typedArray.getBoolean(R.styleable.NumPadTextView_numpadTextLeftIconVisibitity, true)
+
+        val iconRightImage =
+            typedArray.getDrawable(R.styleable.NumPadTextView_numpadTextRightIconImage)
+        val iconRightSize =
+            typedArray.getInt(R.styleable.NumPadTextView_numpadTextRightIconSize, defaultIconSize)
+        val iconRightColor =
+            typedArray.getColor(R.styleable.NumPadTextView_numpadTextRightIconColor, -1)
+        val iconRightVisibility =
+            typedArray.getBoolean(R.styleable.NumPadTextView_numpadTextRightIconVisibitity, true)
+
+        typedArray.recycle()
 
         setNumbersTextStyle(iconTextStyle)
-        setIconsPadding(iconPadding)
+        setIconsPadding(iconPadding, iconPadding, iconPadding, iconPadding)
         setIconsSize(iconSize, iconSize)
-        setLeftButtonIconImage(iconLeftImage)
+
+        setLeftIconImage(iconLeftImage)
+        setLeftIconSize(iconLeftSize, iconLeftSize)
         setLeftIconColor(iconLeftColor)
-        setRightButtonIconImage(iconRightImage)
+        setLeftIconVisibility(iconLeftVisibility)
+
+        setRightIconImage(iconRightImage)
         setRightIconColor(iconRightColor)
+        setRightIconVisibility(iconRightVisibility)
+        setRightIconSize(iconRightSize, iconRightSize)
+
         setupNumpadHandler()
     }
 
-    private fun dpToPx(dp: Int): Float {
-        return (dp * Resources.getSystem().displayMetrics.density)
+    private fun dpToPx(dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
+
     /*endregion ################### Other ######################*/
 }

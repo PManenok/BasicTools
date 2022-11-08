@@ -73,6 +73,11 @@ class MenuVM @Inject constructor(
             MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
         )
         addCaseItem(
+            "Check NumpadTextView functionality",
+            listOf(Modules.NUMPAD),
+            MenuFragmentDirections.actionMenuFragmentToNumpadTextFragment()
+        )
+        addCaseItem(
             "Check Keyboard functionality in Util module",
             listOf(Modules.UTIL),
             MenuFragmentDirections.actionMenuFragmentToUtilKeyboardFragment()

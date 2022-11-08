@@ -2,6 +2,7 @@ package by.esas.tools
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import java.util.*
 
@@ -25,4 +26,8 @@ fun hideSystemUIApp(activity: Activity?) {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 /*or View.SYSTEM_UI_FLAG_FULLSCREEN*/)
     }
+}
+
+fun dpToPx(dp: Int): Int {
+    return (dp * Resources.getSystem().displayMetrics.density).toInt()
 }

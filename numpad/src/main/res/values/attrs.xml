@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="NumPadView">
-        <attr name="numpadIconPadding" format="dimension" />
+        <attr name="numpadContainerPadding" format="dimension" />
         <attr name="numpadIconMargin" format="dimension" />
         <attr name="numpadIconSize" format="dimension" />
         <attr name="numpadZeroDrawable" format="reference" />
@@ -31,9 +31,17 @@
         <attr name="numpadTextIconStyle" format="reference"/>
         <attr name="numpadTextIconPadding" format="dimension"/>
         <attr name="numpadTextIconSize" format="dimension" />
-        <attr name="numpadTextIconLeft" format="reference"/>
-        <attr name="numpadTextIconRight" format="reference"/>
-        <attr name="numpadTextRightIconColor" format="color"/>
+
+        <!--Left icon-->
+        <attr name="numpadTextLeftIconImage" format="reference"/>
+        <attr name="numpadTextLeftIconSize" format="integer"/>
         <attr name="numpadTextLeftIconColor" format="color"/>
+        <attr name="numpadTextLeftIconVisibitity" format="boolean"/>
+
+        <!--Right icon-->
+        <attr name="numpadTextRightIconImage" format="reference"/>
+        <attr name="numpadTextRightIconSize" format="integer"/>
+        <attr name="numpadTextRightIconColor" format="color"/>
+        <attr name="numpadTextRightIconVisibitity" format="boolean"/>
     </declare-styleable>
 </resources>

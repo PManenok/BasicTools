@@ -17,6 +17,7 @@ import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
+import by.esas.tools.screens.numpad.numpad_text.NumpadTextVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.pin_view.dynamic.DynamicPinViewVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
@@ -131,6 +132,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(InputfieldViewStartIconVM::class)
     abstract fun bindInputfieldViewStartIconVM(inputfieldViewStartIconVM: InputfieldViewStartIconVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NumpadTextVM::class)
+    abstract fun bindNumpadTextVM(numpadTextVM: NumpadTextVM): ViewModel
 
     @Binds
     @IntoMap
