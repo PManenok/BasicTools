@@ -158,8 +158,8 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/v_input_field_password_toggle"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@drawable/selector_input_filed_password_toggle"
                 android:button="@null"

@@ -38,6 +38,21 @@ class MenuVM @Inject constructor(
             MenuFragmentDirections.actionMenuFragmentToDynamicMessageDialogFragment()
         )
         addCaseItem(
+            "Check InputfieldView functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldViewFragment()
+        )
+        addCaseItem(
+            "Check InputfieldView start icon functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldViewStartIconFragment()
+        )
+        addCaseItem(
+            "Check InputfieldView end icon functionality",
+            listOf(Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToInputfieldViewEndIconFragment()
+        )
+        addCaseItem(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()

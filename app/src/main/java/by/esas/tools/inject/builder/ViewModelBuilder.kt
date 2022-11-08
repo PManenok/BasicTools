@@ -12,6 +12,9 @@ import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
+import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
+import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
+import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -113,6 +116,21 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(BottomDialogVM::class)
     abstract fun bindBottomDialogVM(bottomDialogVM: BottomDialogVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InputfieldViewEndIconVM::class)
+    abstract fun bindInputfieldViewEndIconVM(inputfieldViewEndIconVM: InputfieldViewEndIconVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InputfieldViewVM::class)
+    abstract fun bindInputfieldViewVM(inputfieldViewVM: InputfieldViewVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InputfieldViewStartIconVM::class)
+    abstract fun bindInputfieldViewStartIconVM(inputfieldViewStartIconVM: InputfieldViewStartIconVM): ViewModel
 
     @Binds
     @IntoMap

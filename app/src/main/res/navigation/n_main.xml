@@ -59,6 +59,15 @@
         <action
             android:id="@+id/action_menuFragment_to_bottomDialogFragment"
             app:destination="@id/bottomDialogFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_inputfieldViewEndIconFragment"
+            app:destination="@id/inputfieldViewEndIconFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_inputfieldViewStartIconFragment"
+            app:destination="@id/inputfieldViewStartIconFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_inputfieldViewFragment"
+            app:destination="@id/inputfieldViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -140,4 +149,19 @@
         android:name="by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment"
         android:label="Check Bottom Dialog functionality"
         tools:layout="@layout/f_main_bottom_dialog"/>
+    <fragment
+        android:id="@+id/inputfieldViewEndIconFragment"
+        android:name="by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment"
+        android:label="Check InputfieldView end icon functionality"
+        tools:layout="@layout/f_main_inputfieldview_end_icon" />
+    <fragment
+        android:id="@+id/inputfieldViewStartIconFragment"
+        android:name="by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment"
+        android:label="Check InputfieldView start icon functionality"
+        tools:layout="@layout/f_main_inputfieldview_start_icon" />
+    <fragment
+        android:id="@+id/inputfieldViewFragment"
+        android:name="by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment"
+        android:label="Check InputfieldView styles"
+        tools:layout="@layout/f_main_inputfieldview" />
 </navigation>

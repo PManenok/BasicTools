@@ -3,6 +3,7 @@
     <string name="search_hint">Search by case name or modules</string>
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
+    <string name="action">Action</string>
     <string name="title">Title</string>
     <string name="text_style">Text style</string>
     <string name="info">Info</string>
@@ -26,8 +27,16 @@
     <string name="item_1">Item 1</string>
     <string name="item_2">Item 2</string>
     <string name="item_3">Item 3</string>
+    <string name="message">Message</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
+    <string name="test_text">Test text</string>
+    <string name="set_error">Set error</string>
+    <string name="error_text">Error text!</string>
+    <string name="reset_error">Reset error</string>
+    <string name="set">Set</string>
+    <string name="reset">Reset</string>
+    <string name="change_style">Change style</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -78,6 +87,8 @@
     <string name="custom_switch_status_on">Switcher is on</string>
     <string name="custom_switch_status_off">Switcher is off</string>
     <string name="custom_switcher">Switcher</string>
+    <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
+    <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
 
     <string name="style_1">Style 1</string>
     <string name="style_2">Style 2</string>
@@ -98,7 +109,7 @@
         <item>@string/alignment_center</item>
         <item>@string/alignment_right</item>
     </string-array>
-    
+
     <!--Listheader-->
     <string name="listheader_switcher">Enable/disable views</string>
     <string name="listheader_switcher_info">Use this switcher to enable/disable views on the screen</string>
@@ -175,8 +186,6 @@
     <string name="pinView_restore_pin">Restore pin</string>
     <string name="pinView_clear_all">Clear all</string>
     <string name="hint_add_value">Add value</string>
-    <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
-    <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
     <string name="dynamic_pinView_container_title">Here will be your Pin view</string>
     <string name="dynamic_pinView_add_amount_and_size">Add amount of cells and cells size</string>
     <string name="dynamic_pinView_choose_unfilled_image">Choose unfilled cells image</string>
@@ -195,7 +204,6 @@
     <string name="message_dialog_negative_click">Negative button click</string>
     <string name="message_dialog_neutral_click">Neutral button click</string>
     <string name="message_dialog_dynamic_case">Create your own Message Dialog. Use functional below to add characteristics and style to your dialog.</string>
-    <string name="message">Message</string>
     <string name="message_dialog_dynamic_choose_message_style">Choose message style</string>
     <string name="message_dialog_dynamic_make_closeable">Make dialog closeable</string>
     <string name="message_dialog_dynamic_add_items_list">Add items list to dialog</string>
@@ -215,5 +223,45 @@
     <string name="custom_bottom_dialog_case">Use this bottom dialog to send entered data to Fragment. If you click on Send button and entered data is correct the dialog will be closed and you will see Toast message with entered data.</string>
     <string name="custom_bottom_dialog_enable_disable_views">Enable/Disable views on this dialog</string>
     <string name="custom_bottom_dialog_fragment_case">Re-open this case to see Bottom Dialog again</string>
+
+
+    <!--InputfieldView start icon-->
+    <string name="inputfieldview_title">On this screen you can check functional of InputfieldView and see different styles of views.</string>
+    <string name="inputfieldview_case_1">Case 1: Base InputFieldView</string>
+    <string name="inputfieldview_case_2">Case 2: Custom InputFieldView with two icons, label, help text. When you set error box stroke, label and start icon will have error color</string>
+    <string name="inputfieldview_case_3">Case 3: Custom InputFieldView with styled box, start icon mode checkable and end icon mode custom. When you set error only box stroke will have error color</string>
+    <string name="inputfieldview_case_4">Case 4: InputFieldView with start icon mode progress and end icon mode text. When you set error box stroke and end text will have error color</string>
+    <string name="inputfieldview_case_5">Case 5: InputFieldView with icons. Error color will be the same for each parts of view</string>
+    <string name="inputfieldview_case_6">Case 6: InputFieldView without icons. When you set error only box stroke will have own error color</string>
+    <string name="inputfieldview_set_reset_error_title">Click this buttons to set/reset errors to all inputField views</string>
+    <string name="inputfieldview_new_label">New label</string>
+
+    <!--InputfieldView end icon-->
+    <string name="inputfieldview_end_title">On this screen you can check functional of InputfieldView end icon.</string>
+    <string name="inputfieldview_end_case_1">Case 1. InputfieldView without end icon</string>
+    <string name="inputfieldview_end_case_2">Case 2. InputfieldView with end icon in Clear text mode</string>
+    <string name="inputfieldview_end_case_3">Case 3. InputfieldView with end icon in Password toggle mode</string>
+    <string name="inputfieldview_end_case_4">Case 4. InputfieldView with end icon in Custom mode</string>
+    <string name="inputfieldview_end_case_5">Case 5. InputfieldView with end icon in Text mode</string>
+    <string name="inputfieldview_end_case_6">Case 6. InputfieldView with end icon in Checkable mode</string>
+    <string name="inputfieldview_end_case_7">Case 7. InputfieldView with end icon in Error mode</string>
+    <string name="inputfieldview_end_icon_click">End icon click</string>
+    <string name="inputfieldview_end_icon_is_checked">Is checked</string>
+    <string name="inputfieldview_end_icon_is_unchecked">Is unchecked</string>
+    <string name="inputfieldview_end_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
+    <string name="inputfieldview_end_change_style">Use this button to change end icons styles for all Inputfield views</string>
+
+    <!--InputfieldView start icon-->
+    <string name="inputfieldview_start_title">On this screen you can check functional of InputfieldView start icon.</string>
+    <string name="inputfieldview_start_case_1">Case 1. InputfieldView without start icon</string>
+    <string name="inputfieldview_start_case_2">Case 2. InputfieldView with start icon in Checkable mode</string>
+    <string name="inputfieldview_start_case_3">Case 3. InputfieldView with start icon in Custom mode</string>
+    <string name="inputfieldview_start_case_4">Case 4. InputfieldView with start icon in Default mode</string>
+    <string name="inputfieldview_start_case_5">Case 5. InputfieldView with start icon in Progress mode</string>
+    <string name="inputfieldview_start_icon_click">Start icon click</string>
+    <string name="inputfieldview_start_icon_is_checked">Is checked</string>
+    <string name="inputfieldview_start_icon_is_unchecked">Is unchecked</string>
+    <string name="inputfieldview_start_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
+    <string name="inputfieldview_start_change_style">Use this button to change start icons styles for all Inputfield views</string>
 
 </resources>

@@ -94,4 +94,9 @@
         <item name="pinFilledTint">@color/colorStrokeOutline</item>
         <item name="pinUnfilledTint">@color/colorStrokeOutline</item>
     </style>
+
+    <style name="CustomInputField">
+        <item name="endIconDrawable">@drawable/ic_star</item>
+        <item name="endIconMode">custom</item>
+    </style>
 </resources>

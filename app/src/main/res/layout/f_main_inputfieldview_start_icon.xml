@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_12">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/inputfieldview_start_title" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/inputfieldview_start_case_1" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_start_case_1_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:hint="@string/hint_add_value"
+                    app:inputStartIconMode="none" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/inputfieldview_start_case_2" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_start_case_2_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:hint="@string/hint_add_value"
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="checkable" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/inputfieldview_start_case_3" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_start_case_3_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:hint="@string/hint_add_value"
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartDrawable="@drawable/ic_star"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="custom" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/inputfieldview_start_case_4" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_start_case_4_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:hint="@string/hint_add_value"
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="default_mode" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:text="@string/inputfieldview_start_case_5" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_inputfieldview_start_case_5_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="text|textPassword|textNoSuggestions"
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputStartIconColorWithError="true"
+                    app:inputStartIconMode="progress" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/inputfieldview_start_set_reset_errors_title" />
+
+            <Button
+                android:id="@+id/f_inputfieldview_start_set_error_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:text="@string/set" />
+
+            <Button
+                android:id="@+id/f_inputfieldview_start_reset_error_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reset" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/inputfieldview_start_change_style" />
+
+            <Button
+                android:id="@+id/f_inputfieldview_start_change_style_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_style" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
