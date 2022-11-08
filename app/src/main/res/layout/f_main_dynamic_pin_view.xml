@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.pin_view.dynamic.DynamicPinViewVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_12"
+        android:paddingTop="@dimen/spacing_8"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dynamic_pinView_create_case_title"/>
+
+        <FrameLayout
+            android:id="@+id/f_dynamic_pin_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_18">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dynamic_pinView_container_title"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/f_dynamic_pin_buttons_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/spacing_8">
+
+            <Button
+                android:id="@+id/f_dynamic_pin_button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:layout_marginEnd="@dimen/spacing_16"/>
+
+            <Button
+                android:id="@+id/f_dynamic_pin_button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:layout_marginEnd="@dimen/spacing_16"/>
+
+            <Button
+                android:id="@+id/f_dynamic_pin_button_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:text="@string/dynamic_pinView_add_amount_and_size"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_gravity="center"
+                android:text="@string/amount" />
+
+            <EditText
+                android:id="@+id/f_dynamic_pin_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:hint="@string/hint_add_value"
+                android:inputType="numberDecimal"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:text="@string/size" />
+
+            <EditText
+                android:id="@+id/f_dynamic_pin_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_add_value"
+                android:inputType="number"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_16">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamic_pinView_choose_unfilled_image"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <RadioGroup
+                android:id="@+id/f_dynamic_pin_image_unfilled_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_unfilled_radio_1"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_pin_star_unfilled"
+                    android:layout_marginEnd="@dimen/spacing_8"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_unfilled_radio_2"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_favorite_border"
+                    android:layout_marginEnd="@dimen/spacing_8"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_unfilled_radio_3"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_cloud_queue"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_8">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamic_pinView_choose_filled_image"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <RadioGroup
+                android:id="@+id/f_dynamic_pin_image_filled_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_filled_radio_1"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_pin_star_filled"
+                    android:layout_marginEnd="@dimen/spacing_8"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_filled_radio_2"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_favorite"
+                    android:layout_marginEnd="@dimen/spacing_8"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_image_filled_radio_3"
+                    android:layout_width="@dimen/spacing_32"
+                    android:layout_height="@dimen/spacing_32"
+                    android:background="@drawable/radio_background"
+                    android:button="@drawable/ic_cloud"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_gravity="center"
+                android:text="@string/dynamic_pinView_add_margins" />
+
+            <EditText
+                android:id="@+id/f_dynamic_pin_margins"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:hint="@string/hint_add_value"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_16">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamic_pinView_choose_unfilled_color"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <RadioGroup
+                android:id="@+id/f_dynamic_pin_unfilled_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_unfilled_radio_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/orange"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_unfilled_radio_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/purple"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_unfilled_radio_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/red"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_unfilled_radio_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_unfilled_radio_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/dynamic_pinView_choose_filled_color"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"/>
+
+            <RadioGroup
+                android:id="@+id/f_dynamic_pin_filled_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_filled_radio_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/orange"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_filled_radio_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/purple"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_filled_radio_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/red"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_filled_radio_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green"/>
+
+                <RadioButton
+                    android:id="@+id/f_dynamic_pin_filled_radio_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:text="@string/dynamic_pinView_add_time"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_gravity="center"
+                android:text="@string/dynamic_pinView_in" />
+
+            <EditText
+                android:id="@+id/f_dynamic_pin_time_in"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:hint="@string/hint_add_value"
+                android:inputType="numberDecimal"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:text="@string/dynamic_pinView_out" />
+
+            <EditText
+                android:id="@+id/f_dynamic_pin_time_out"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_add_value"
+                android:inputType="number"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/f_dynamic_pin_button_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_32"/>
+
+    </LinearLayout>
+
+</layout>

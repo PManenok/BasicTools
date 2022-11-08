@@ -15,6 +15,9 @@
             android:id="@+id/action_menuFragment_to_pinViewFragment"
             app:destination="@id/pinViewFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_dynamicPinViewFragment"
+            app:destination="@id/dynamicPinViewFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_savedStateFragment"
             app:destination="@id/savedStateFragment" />
         <action
@@ -53,6 +56,11 @@
         android:name="by.esas.tools.screens.pin_view.PinViewFragment"
         android:label="Check PinView functionality"
         tools:layout="@layout/f_main_pin_view" />
+    <fragment
+        android:id="@+id/dynamicPinViewFragment"
+        android:name="by.esas.tools.screens.pin_view.dynamic.DynamicPinViewFragment"
+        android:label="Create your Pin view"
+        tools:layout="@layout/f_main_dynamic_pin_view" />
     <fragment
         android:id="@+id/savedStateFragment"
         android:name="by.esas.tools.screens.saved_state_vm.SavedStateFragment"

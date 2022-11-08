@@ -17,6 +17,10 @@
     <string name="right">Right</string>
     <string name="width">Width</string>
     <string name="color">Color</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="clear">Clear</string>
+    <string name="amount">Amount</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -49,6 +53,7 @@
     <string name="util_manager_custom_info">Custom SwitchManager overriding base SwitchManager and also can enable/disable view if it is a Button ot SwitchMaterial</string>
     <string name="util_manager_test_hint">Test text</string>
     <string name="util_manager_test_hint_switcher">Test title</string>
+    <string name="util_manager_click">Click</string>
 
     <!--Custom switch-->
     <string name="custom_switch_check_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
@@ -57,7 +62,6 @@
     <string name="custom_switch_change_style">Change switcher style</string>
     <string name="custom_switch_disable_instruction">Use this switcher for enabling and disabling views on the screen. Switcher is on - enable views, off - disable</string>
     <string name="custom_switch_disable_title">Enable/disable switcher</string>
-    <string name="util_manager_click">Click</string>
     <string name="custom_switch_choose_title_style">Choose title style</string>
     <string name="custom_switch_choose_info_style">Choose info style</string>
     <string name="custom_switch_choose_thumb_color">Choose thumb color</string>
@@ -152,11 +156,22 @@
 
     <!--PinView-->
     <string name="pinView_case_1">Case 1: Pin view with a base style. Use button below to add/restore pin items or clear all added pins.</string>
-    <string name="pinView_case_2">Case 2: Pin view with a custom style. Use button below to add/restore pin items or clear all added pins.</string>
+    <string name="pinView_case_2">Case 2: Pin view with a custom style. Animation time to fill pin is 1 second, to unfilled pin is 0.5 second. Use button below to add/restore pin items or clear all added pins.</string>
     <string name="pinView_add_pin">Add pin</string>
     <string name="pinView_restore_pin">Restore pin</string>
     <string name="pinView_clear_all">Clear all</string>
     <string name="hint_add_value">Add value</string>
     <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
     <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
+    <string name="dynamic_pinView_container_title">Here will be your Pin view</string>
+    <string name="dynamic_pinView_add_amount_and_size">Add amount of cells and cells size</string>
+    <string name="dynamic_pinView_choose_unfilled_image">Choose unfilled cells image</string>
+    <string name="dynamic_pinView_choose_filled_image">Choose filled cells image</string>
+    <string name="dynamic_pinView_add_margins">Add margins between pin cells</string>
+    <string name="dynamic_pinView_choose_unfilled_color">Choose unfilled cells color</string>
+    <string name="dynamic_pinView_choose_filled_color">Choose filled cells color</string>
+    <string name="dynamic_pinView_add_time">Add time in mls for cells animation in/out</string>
+    <string name="dynamic_pinView_out">Out</string>
+    <string name="dynamic_pinView_in">In</string>
+    <string name="dynamic_pinView_create_case_title">Create your own Pin view using functional below</string>
 </resources>
