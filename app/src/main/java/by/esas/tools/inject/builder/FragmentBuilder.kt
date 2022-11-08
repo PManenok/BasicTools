@@ -5,6 +5,7 @@ import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
+import by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
@@ -46,6 +47,9 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindListheaderFragment(): ListheaderFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindDynamicListheaderFragment(): DynamicListheaderFragment
 
     @ContributesAndroidInjector
     abstract fun bindCustomSwitchFragment(): CustomSwitchFragment

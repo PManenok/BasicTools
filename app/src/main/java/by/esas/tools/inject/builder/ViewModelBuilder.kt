@@ -9,6 +9,7 @@ import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
+import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
@@ -70,6 +71,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(ListheaderVM::class)
     abstract fun bindListheaderVM(listheaderVM: ListheaderVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DynamicListheaderVM::class)
+    abstract fun bindDynamicListheaderVM(dynamicListheaderVM: DynamicListheaderVM): ViewModel
 
     @Binds
     @IntoMap

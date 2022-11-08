@@ -95,7 +95,7 @@
     <!--Listheader-->
     <string name="listheader_switcher">Enable/disable views</string>
     <string name="listheader_switcher_info">Use this switcher to enable/disable views on the screen</string>
-    <string name="listheader_case_1">Case 1: Listheader view with title, icon on the right and ListOpenedListener. Click on container to open/close list below</string>
+    <string name="listheader_case_1">Case 1: Listheader view with title, icon on the right. Click on container to open/close list below. Use Add button below to add more text view to Listheader</string>
     <string name="listheader_case_2">Case 2: Listheader view without title, icon on the right is clickable</string>
     <string name="listheader_case_3">Case 3: Listheader view with title, clickable action text on the right and clickable container</string>
     <string name="listheader_title">List title</string>
@@ -104,6 +104,13 @@
     <string name="listheader_icon_click">Icon click</string>
     <string name="listheader_action_click">Action click</string>
 
+    <string name="f_dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
+    <string name="f_dynamic_listheader_container">Here will be your Listheader</string>
+    <string name="f_dynamic_listheader_action_text">Action text</string>
+    <string name="f_dynamic_listheader_choose_title_style">Choose title style</string>
+    <string name="f_dynamic_listheader_choose_action_text_style">Choose action text style</string>
+    <string name="f_dynamic_listheader_choose_action_image">Choose action image</string>
+    <string name="f_dynamic_listheader_choose_action_image_tint">Choose action image tint</string>
 
     <!--Topbar-->
     <string name="topbar_title">Title</string>
@@ -174,4 +181,5 @@
     <string name="dynamic_pinView_out">Out</string>
     <string name="dynamic_pinView_in">In</string>
     <string name="dynamic_pinView_create_case_title">Create your own Pin view using functional below</string>
+
 </resources>
