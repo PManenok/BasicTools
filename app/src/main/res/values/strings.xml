@@ -4,6 +4,7 @@
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
     <string name="title">Title</string>
+    <string name="text_style">Text style</string>
     <string name="info">Info</string>
     <string name="create">Create</string>
     <string name="create_default">Create default</string>
@@ -21,6 +22,9 @@
     <string name="delete">Delete</string>
     <string name="clear">Clear</string>
     <string name="amount">Amount</string>
+    <string name="item_1">Item 1</string>
+    <string name="item_2">Item 2</string>
+    <string name="item_3">Item 3</string>
 
     <!--Numpad-->
     <string name="numpad_common_text">Enter something using numpad</string>
@@ -181,5 +185,25 @@
     <string name="dynamic_pinView_out">Out</string>
     <string name="dynamic_pinView_in">In</string>
     <string name="dynamic_pinView_create_case_title">Create your own Pin view using functional below</string>
+
+
+    <!--Message Dialog-->
+    <string name="message_dialog_positive_click">Positive button click</string>
+    <string name="message_dialog_negative_click">Negative button click</string>
+    <string name="message_dialog_neutral_click">Neutral button click</string>
+    <string name="message_dialog_dynamic_case">Create your own Message Dialog. Use functional below to add characteristics and style to your dialog.</string>
+    <string name="message">Message</string>
+    <string name="message_dialog_dynamic_choose_message_style">Choose message style</string>
+    <string name="message_dialog_dynamic_make_closeable">Make dialog closeable</string>
+    <string name="message_dialog_dynamic_add_items_list">Add items list to dialog</string>
+    <string name="message_dialog_dynamic_positive_button">Positive button text</string>
+    <string name="message_dialog_dynamic_positive_button_appearance">Add positive button appearance</string>
+    <string name="message_dialog_dynamic_all_caps">All Caps</string>
+    <string name="message_dialog_dynamic_choose_background_color">Choose background color</string>
+    <string name="message_dialog_dynamic_negative_button">Negative button text</string>
+    <string name="message_dialog_dynamic_negative_button_appearance">Add negative button appearance</string>
+    <string name="message_dialog_dynamic_neutral_button">Neutral button text</string>
+    <string name="message_dialog_dynamic_neutral_button_appearance">Add neutral button appearance</string>
+    <string name="message_dialog_dynamic_show_dialog">Show dialog</string>
 
 </resources>

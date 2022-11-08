@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Create Message Dialog",
+            listOf(Modules.DIALOG),
+            MenuFragmentDirections.actionMenuFragmentToDynamicMessageDialogFragment()
+        )
+        addCaseItem(
             "Check PinView functionality",
             listOf(Modules.PIN_VIEW),
             MenuFragmentDirections.actionMenuFragmentToPinViewFragment()

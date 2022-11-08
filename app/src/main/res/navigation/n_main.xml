@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_menuFragment_to_dynamicCardlineFragment"
             app:destination="@id/dynamicCardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_dynamicMessageDialogFragment"
+            app:destination="@id/dynamicMessageDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -124,4 +127,9 @@
         android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
         android:label="Create custom Cardline"
         tools:layout="@layout/f_main_dynamic_cardline" />
+    <fragment
+        android:id="@+id/dynamicMessageDialogFragment"
+        android:name="by.esas.tools.screens.dialog.DynamicMessageDialogFragment"
+        android:label="Create custom Message Dialog"
+        tools:layout="@layout/f_main_dynamic_message_dialog" />
 </navigation>
