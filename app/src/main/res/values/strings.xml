@@ -7,6 +7,7 @@
     <string name="info">Info</string>
     <string name="create">Create</string>
     <string name="create_default">Create default</string>
+    <string name="check">Check</string>
     <string name="value">Value</string>
     <string name="value_text">Value text</string>
     <string name="size">Size</string>
@@ -159,4 +160,25 @@
     <string name="hint_add_value">Add value</string>
     <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
     <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
+
+    <!--Checker-->
+    <string name="checker_switcher_title">Check to first error</string>
+    <string name="checker_rule_date">Rule: selected date must be between 1 jan 2022 and 31 dec 2022</string>
+    <string name="checker_rule_custom">Rule: value should be the same as in field above</string>
+    <string name="checker_rule_min_length">Rule: value must contain at least 5 symbols</string>
+    <string name="checker_rule_bigger">Rule: value must be bigger than 10</string>
+    <string name="checker_rule_range">Rule: value must be from 1 to 999</string>
+    <string name="checker_rule_regex">Rule: value can contain letters and symbols -+=,!</string>
+    <string name="checker_rule_length">Rule: value must contain from 1 to 20 symbols</string>
+    <string name="checker_rule_not_empty">Rule: field can\'t be empty</string>
+
+    <string name="checker_error_date">Date range error</string>
+    <string name="checker_error_custom">Custom error</string>
+    <string name="checker_error_min_length">Min length error</string>
+    <string name="checker_error_bigger">Bigger error</string>
+    <string name="checker_error_range">Range error</string>
+    <string name="checker_error_regex">Regex error</string>
+    <string name="checker_error_length">Length error</string>
+    <string name="checker_everything_correct">Everything is correct</string>
+
 </resources>

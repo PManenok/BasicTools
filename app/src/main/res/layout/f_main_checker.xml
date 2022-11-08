@@ -14,7 +14,7 @@
             android:id="@+id/f_checker_switcher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Check all fields at once"/>
+            android:text="@string/checker_switcher_title"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -23,14 +23,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: field can't be empty" />
+                    android:text="@string/checker_rule_not_empty" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_not_empty"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value should be from 1 to 999" />
+                    android:text="@string/checker_rule_range" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_range"
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value can't contain symbols ......" />
+                    android:text="@string/checker_rule_regex" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_regex"
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value can't contain more than 20 symbols" />
+                    android:text="@string/checker_rule_length" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_length"
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value should be bigger than 10" />
+                    android:text="@string/checker_rule_bigger" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_bigger"
@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value length shouldn't be smaller than 5 symbols" />
+                    android:text="@string/checker_rule_min_length" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_min_length"
@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value should be the same as in field above" />
+                    android:text="@string/checker_rule_custom" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/f_checker_input_custom"
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
-                    android:text="Rule: value should be the same as in field above" />
+                    android:text="@string/checker_rule_date" />
 
                 <DatePicker
                     android:id="@+id/f_checker_calendar"
@@ -138,7 +138,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_24"
             android:layout_marginBottom="@dimen/spacing_12"
-            android:text="Check" />
+            android:text="@string/check" />
     </LinearLayout>
 
 </layout>

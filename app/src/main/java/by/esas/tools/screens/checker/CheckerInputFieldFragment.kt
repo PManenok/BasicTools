@@ -37,24 +37,24 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
         return listOf(
             FieldChecking(binding.fCheckerInputNotEmpty, true),
             FieldChecking(binding.fCheckerInputRange)
-                .addCheck(RangeCheck(1.0, 999.0, "Range error")),
+                .addCheck(RangeCheck(1.0, 999.0, resources.getString(R.string.checker_error_range))),
             FieldChecking(binding.fCheckerInputRegex)
-                .addCheck(RegexCheck("^[a-zA-Zа-яА-ЯёЁ,._\\-+=?!]*\$", "Regex error")),
+                .addCheck(RegexCheck("^[a-zA-Zа-яА-ЯёЁ,._\\-+=?!]*\$", resources.getString(R.string.checker_error_regex))),
             FieldChecking(binding.fCheckerInputLength)
-                .addCheck(LengthCheck(1, 20, "Length error")),
+                .addCheck(LengthCheck(1, 20, resources.getString(R.string.checker_error_length))),
             FieldChecking(binding.fCheckerInputBigger)
-                .addCheck(BiggerCheck(10, "Bigger error")),
+                .addCheck(BiggerCheck(10, resources.getString(R.string.checker_error_bigger))),
             FieldChecking(binding.fCheckerInputMinLength)
-                .addCheck(MinLengthCheck(5, "Min length error")),
+                .addCheck(MinLengthCheck(5, resources.getString(R.string.checker_error_min_length))),
             FieldChecking(binding.fCheckerInputCustom)
                 .addCheck(
                     CustomCheck(
                         { binding.fCheckerInputCustom.getText() == binding.fCheckerInputMinLength.getText() },
-                        "Custom error"
+                        resources.getString(R.string.checker_error_custom)
                     )
                 ),
             FieldChecking(binding.fCheckerInputDate).addCheck(
-                DateRangeCheck(1640995200000, 1672520399000, errorMessage = "Date error")
+                DateRangeCheck(1640995200000, 1672520399000, errorMessage = resources.getString(R.string.checker_error_date))
             )
         )
     }
@@ -67,14 +67,13 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
 
             override fun onSuccess() {
                 enableControls()
-                Toast.makeText(context, "Everything okay", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, resources.getString(R.string.checker_everything_correct), Toast.LENGTH_LONG).show()
             }
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         binding.fCheckerInputDate.setText("${binding.fCheckerCalendar.year}-${binding.fCheckerCalendar.month + 1}-${binding.fCheckerCalendar.dayOfMonth}")
@@ -85,10 +84,7 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
         }
 
         binding.fCheckerCheckButton.setOnClickListener {
-            if (binding.fCheckerSwitcher.isChecked)
-                provideChecker().setMode(true).validate(provideChecks())
-            else
-                provideChecker().setMode(false).validate(provideChecks())
+            provideChecker().setMode(!binding.fCheckerSwitcher.isChecked).validate(provideChecks())
         }
     }
 }
