@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_menuFragment_to_dynamicMessageDialogFragment"
             app:destination="@id/dynamicMessageDialogFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_bottomDialogFragment"
+            app:destination="@id/bottomDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -132,4 +135,9 @@
         android:name="by.esas.tools.screens.dialog.DynamicMessageDialogFragment"
         android:label="Create custom Message Dialog"
         tools:layout="@layout/f_main_dynamic_message_dialog" />
+    <fragment
+        android:id="@+id/bottomDialogFragment"
+        android:name="by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment"
+        android:label="Check Bottom Dialog functionality"
+        tools:layout="@layout/f_main_bottom_dialog"/>
 </navigation>

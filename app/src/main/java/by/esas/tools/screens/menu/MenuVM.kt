@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check Bottom Dialog Functionality",
+            listOf(Modules.DIALOG, Modules.INPUTFIELD_VIEW),
+            MenuFragmentDirections.actionMenuFragmentToBottomDialogFragment()
+        )
+        addCaseItem(
             "Create Message Dialog",
             listOf(Modules.DIALOG),
             MenuFragmentDirections.actionMenuFragmentToDynamicMessageDialogFragment()
