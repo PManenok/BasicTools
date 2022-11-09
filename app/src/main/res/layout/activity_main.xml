@@ -16,6 +16,21 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
+        <by.esas.tools.topbarview.TopbarView
+            android:id="@+id/a_main_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:barNavIcon="@drawable/ic_arrow_back"
+            app:barShowNavIcon="false"
+            app:barNavIconTint="@color/black"
+            app:barShowDivider="false"
+            app:barTitleText="Menu"
+            app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"
+            app:barTitleWidthPercent="@dimen/main_topbar_width_percent"/>
+
         <fragment
             android:id="@+id/a_main_nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -23,7 +38,7 @@
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/n_main"

@@ -11,6 +11,7 @@
         <attr name="barTitleTextAppearance" format="reference" />
         <attr name="barTitlePaddingStart" format="dimension" />
         <attr name="barTitlePaddingEnd" format="dimension" />
+        <attr name="barTitleWidthPercent" format="float" />
         <!--Start icon or nav icon attrs-->
         <attr name="barNavIcon" format="reference" />
         <attr name="barNavIconSize" format="dimension" />

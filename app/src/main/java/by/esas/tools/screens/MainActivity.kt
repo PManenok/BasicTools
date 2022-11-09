@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.topbarview.ITopbarHandler
 
 /**
  * To use HasAndroidInjector with Activity do not forget to add
@@ -35,13 +36,31 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupNavigation()
+
+        binding.aMainTopBar.setupHandler(object : ITopbarHandler {
+            override fun onNavigationClick() {
+                onBackPressed()
+            }
+        })
+    }
+
+    override fun setupObservers() {
+        super.setupObservers()
+
+        viewModel.hasBackBtn.observe(this) {
+            binding.aMainTopBar.setNavIconVisibility(it)
+            binding.aMainTopBar.setDividerVisibility(it)
+        }
+        viewModel.title.observe(this) {
+            binding.aMainTopBar.setTitle(it)
+        }
     }
 
     private fun setupNavigation() {
         navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, arguments ->
-            //Set home icon
-            viewModel.hasBackBtn.set(destination.id != topDestination)
+            viewModel.hasBackBtn.value = destination.id != topDestination
+            viewModel.title.value = destination.label.toString()
         }
     }
 }

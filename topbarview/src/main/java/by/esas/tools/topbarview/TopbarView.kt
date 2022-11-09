@@ -152,6 +152,7 @@ open class TopbarView : LinearLayout {
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingStart, 0)
         val titlePaddingEnd =
             typedArray.getDimensionPixelSize(R.styleable.TopbarView_barTitlePaddingEnd, 0)
+        val titleWidthPercent = typedArray.getFloat(R.styleable.TopbarView_barTitleWidthPercent, 1f)
 
         // end action variables
         val endActionText = typedArray.getString(R.styleable.TopbarView_barEndActionText)
@@ -227,6 +228,7 @@ open class TopbarView : LinearLayout {
 
         updateActionIcon()
 
+        val screenWidth = rootView.resources.displayMetrics.widthPixels
         titleView.apply {
             text = title
             if (titleStyleId != -1)
@@ -239,6 +241,7 @@ open class TopbarView : LinearLayout {
             )
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
+            maxWidth = (screenWidth * titleWidthPercent).roundToInt()
         }
 
         dividerView.setBackgroundColor(dividerColor)
@@ -280,6 +283,11 @@ open class TopbarView : LinearLayout {
         titleView.ellipsize = truncateAt
     }
 
+    open fun setTitleWidthPercent(percent: Float) {
+        val screenWidth = rootView.resources.displayMetrics.widthPixels
+        titleView.maxWidth = (screenWidth * percent).roundToInt()
+    }
+
     open fun setDefaultTitleParams() {
         titleView.apply {
             setPadding(
@@ -290,6 +298,7 @@ open class TopbarView : LinearLayout {
             )
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
+            maxWidth = (rootView.resources.displayMetrics.widthPixels * 1.0).roundToInt()
         }
     }
 

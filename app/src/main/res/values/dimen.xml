@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dialog_standard_margin">12dp</dimen>
+
+    <item name="main_topbar_width_percent" format="float" type="dimen">0.8</item>
 </resources>
