@@ -1,5 +1,6 @@
 package by.esas.tools.screens.saved_state_vm
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import by.esas.tools.base.AppVM
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
@@ -13,7 +14,9 @@ class SavedStateVM @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory : AssistedSavedStateViewModelFactory<SavedStateVM> {
-        override fun create(savedStateHandle: SavedStateHandle): SavedStateVM  // may be ommited prior kotlin 1.3.60 or after PR #121 in AssistedInject lib
+        override fun create(savedStateHandle: SavedStateHandle): SavedStateVM
     }
 
+    val firstField = savedStateHandle.getLiveData<String>("firstField", "")
+    val secondField = MutableLiveData("")
 }

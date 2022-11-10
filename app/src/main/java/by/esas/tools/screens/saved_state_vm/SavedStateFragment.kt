@@ -1,7 +1,5 @@
 package by.esas.tools.screens.saved_state_vm
 
-import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
@@ -17,10 +15,5 @@ class SavedStateFragment : AppFragment<SavedStateVM, FMainSavedStateBinding>() {
 
     override fun provideViewModel(): SavedStateVM {
         return ViewModelProvider(this, viewModelFactory.provideFactory(this, arguments)).get(SavedStateVM::class.java)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 }
