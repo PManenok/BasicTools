@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_menuFragment_to_inputfieldViewFragment"
             app:destination="@id/inputfieldViewFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_baseuiNavigationFragment"
+            app:destination="@id/baseuiNavigationFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -172,4 +175,22 @@
         android:name="by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment"
         android:label="Check NumpadTextView functionality"
         tools:layout="@layout/f_main_numpad_text" />
+    <fragment
+        android:id="@+id/baseuiNavigationFragment"
+        android:name="by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment"
+        android:label="Check BaseUI navigation"
+        tools:layout="@layout/f_main_baseui_navigation">
+        <action
+            android:id="@+id/action_menuFragment_to_baseuiNavigationSecondFragment"
+            app:destination="@id/baseuiNavigationSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/baseuiNavigationSecondFragment"
+        android:name="by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment"
+        android:label="Second navigation fragment"
+        tools:layout="@layout/f_main_baseui_navigation_second">
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </fragment>
 </navigation>

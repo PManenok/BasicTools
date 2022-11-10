@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check BaseUI navigation",
+            listOf(Modules.BASE_UI),
+            MenuFragmentDirections.actionMenuFragmentToBaseuiNavigationFragment()
+        )
+        addCaseItem(
             "Check Bottom Dialog Functionality",
             listOf(Modules.DIALOG, Modules.INPUTFIELD_VIEW),
             MenuFragmentDirections.actionMenuFragmentToBottomDialogFragment()

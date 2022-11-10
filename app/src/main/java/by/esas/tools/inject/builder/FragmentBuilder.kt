@@ -1,5 +1,7 @@
 package by.esas.tools.inject.builder
 
+import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
+import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment
 import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
@@ -89,4 +91,10 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindNumpadTextFragment(): NumpadTextFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindBaseUINavigationFragment(): BaseUINavigationFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindBaseUINavigationSecondFragment(): BaseUINavigationSecondFragment
 }

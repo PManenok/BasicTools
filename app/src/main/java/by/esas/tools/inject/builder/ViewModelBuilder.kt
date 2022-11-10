@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
+import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
+import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondVM
+import by.esas.tools.screens.baseui.navigation.BaseUINavigationVM
 import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
@@ -137,6 +140,16 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(NumpadTextVM::class)
     abstract fun bindNumpadTextVM(numpadTextVM: NumpadTextVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BaseUINavigationSecondVM::class)
+    abstract fun bindBaseUINavigationSecondVMVM(baseUINavigationSecondVM: BaseUINavigationSecondVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BaseUINavigationVM::class)
+    abstract fun bindBaseUINavigationVMVM(baseUINavigationVM: BaseUINavigationVM): ViewModel
 
     @Binds
     @IntoMap

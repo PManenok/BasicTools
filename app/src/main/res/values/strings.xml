@@ -265,4 +265,11 @@
     <string name="inputfieldview_start_set_reset_errors_title">Use buttons to set and reset errors for all Inputfield views</string>
     <string name="inputfieldview_start_change_style">Use this button to change start icons styles for all Inputfield views</string>
 
+
+    <!--Base UI-->
+    <string name="baseui_navigation_title">Go to another fragment using two buttons. With first button you can navigate without args, with second button navigate and pass entered in field date</string>
+    <string name="baseui_navigation_without_args">Go to second fragment without args</string>
+    <string name="baseui_navigation_with_args">Go to second fragment with args</string>
+    <string name="baseui_navigation_second_args_data">Received data, if data was sent here:</string>
+
 </resources>
