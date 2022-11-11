@@ -26,18 +26,53 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Use field below to pass date with pop back"
+            android:text="@string/baseui_navigation_second_pass_data"
             android:layout_marginTop="@dimen/spacing_4"/>
 
         <by.esas.tools.inputfieldview.InputFieldView
-            android:id="@+id/f_baseui_navigation_second_input_fields"
+            android:id="@+id/f_baseui_navigation_second_input_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            android:layout_marginTop="@dimen/spacing_4"
+            android:hint="@string/hint_add_value"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_navigation_second_pop_back_without_args"/>
 
         <Button
+            android:id="@+id/f_baseui_navigation_second_pop_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pop back with args"/>
+            android:text="@string/baseui_navigation_second_pop_back_without_args_button"
+            android:layout_marginTop="@dimen/spacing_10"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_navigation_second_pop_back_with_args"
+            android:layout_marginTop="@dimen/spacing_10"/>
+
+        <Button
+            android:id="@+id/f_baseui_navigation_second_pop_back_with_args"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_navigation_second_pop_back_with_args_button"
+            android:layout_marginTop="@dimen/spacing_10"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_navigation_second_pop_back_including"
+            android:layout_marginTop="@dimen/spacing_10"/>
+
+        <Button
+            android:id="@+id/f_baseui_navigation_second_pop_back_inclusive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_navigation_second_pop_back_including_button"
+            android:layout_marginTop="@dimen/spacing_10"/>
+
     </LinearLayout>
 </layout>

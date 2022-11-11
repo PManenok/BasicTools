@@ -267,9 +267,16 @@
 
 
     <!--Base UI-->
-    <string name="baseui_navigation_title">Go to another fragment using two buttons. With first button you can navigate without args, with second button navigate and pass entered in field date</string>
+    <string name="baseui_navigation_title">Go to another fragment using two buttons. With first button you can navigate without args, with second button navigate and pass entered in field date. \nTo go back to menu use system back button or button on app top bar.</string>
     <string name="baseui_navigation_without_args">Go to second fragment without args</string>
     <string name="baseui_navigation_with_args">Go to second fragment with args</string>
     <string name="baseui_navigation_second_args_data">Received data, if data was sent here:</string>
+    <string name="baseui_navigation_second_pass_data">Use field below to pass data with pop back</string>
+    <string name="baseui_navigation_second_pop_back_without_args">To go back to previous screen without args use button below, navigation icon on app top bar or system back button.</string>
+    <string name="baseui_navigation_second_pop_back_without_args_button">Pop back without args</string>
+    <string name="baseui_navigation_second_pop_back_with_args">To go back to previous screen with args use button below and add data to input field above. Then you will see entered data on previous screen on Toast.</string>
+    <string name="baseui_navigation_second_pop_back_with_args_button">Pop back with args</string>
+    <string name="baseui_navigation_second_pop_back_including">To back to the previous screen and pop back from it too use button below(in this case you will go to Menu).</string>
+    <string name="baseui_navigation_second_pop_back_including_button">Pop back including previous fragment</string>
 
 </resources>

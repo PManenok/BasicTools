@@ -13,6 +13,11 @@ import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 
 class BaseUINavigationFragment: AppFragment<BaseUINavigationVM, FMainBaseuiNavigationBinding>() {
+
+    companion object {
+        const val ARGUMENTS_DATA = "ARGUMENTS_DATA"
+    }
+
     override val fragmentDestinationId = R.id.baseuiNavigationFragment
 
     override fun provideLayoutId() = R.layout.f_main_baseui_navigation
@@ -41,11 +46,21 @@ class BaseUINavigationFragment: AppFragment<BaseUINavigationVM, FMainBaseuiNavig
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getArgs()
+
         binding.fBaseeuiNavigationButtonWithoutArgs.setOnClickListener {
             viewModel.navigateToSecondFragment()
         }
         binding.fBaseeuiNavigationButtonWithArgs.setOnClickListener {
             provideChecker().validate(provideChecks())
+        }
+    }
+
+    private fun getArgs() {
+        val data = activity?.intent?.getStringExtra(ARGUMENTS_DATA)
+        if (data != null) {
+            Toast.makeText(requireContext(), "Get data: $data", Toast.LENGTH_LONG).show()
+            activity?.intent?.removeExtra(ARGUMENTS_DATA)
         }
     }
 }
