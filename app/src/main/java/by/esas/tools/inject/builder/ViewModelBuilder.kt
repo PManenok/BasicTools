@@ -4,17 +4,19 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
-import by.esas.tools.screens.listheader.ListheaderVM
-import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
+import by.esas.tools.screens.custom_switch.CustomSwitchVM
+import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
+import by.esas.tools.screens.recycler.base.RecyclerVM
+import by.esas.tools.screens.recycler.sticky_case.StickyCaseVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
+import by.esas.tools.screens.topbar.TopbarVM
 import by.esas.tools.screens.util.UtilKeyboardVM
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerVM
 import by.esas.tools.screens.util.utils.UtilsVM
-import by.esas.tools.screens.topbar.TopbarVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -76,10 +78,20 @@ abstract class ViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(CardlineVM::class)
-    abstract fun bindCardlineVM(cardlineVM: CardlineVM): ViewModel
+    abstract fun bindCardlineVM(viewModel: CardlineVM): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SavedStateVM::class)
     abstract fun bindVMFactory(f: SavedStateVM.Factory): AssistedSavedStateViewModelFactory<out ViewModel>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecyclerVM::class)
+    abstract fun bindRecyclerVM(viewModel: RecyclerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StickyCaseVM::class)
+    abstract fun bindStickyCaseVM(viewModel: StickyCaseVM): ViewModel
 }

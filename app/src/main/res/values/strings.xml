@@ -97,4 +97,21 @@
     <string name="pinView_add_pin">Add pin</string>
     <string name="pinView_restore_pin">Restore pin</string>
     <string name="pinView_clear_all">Clear all</string>
+
+
+    <!--Recycler-->
+    <string name="case_label_recycler_base">BaseRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_sticky">StickyRecyclerAdapter base functionality check</string>
+    <string name="recycler_case_base_title">Check:\n1. click, click with position\n2. long click, long click with position\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
+    <string name="recycler_case_sticky_title">Check:\n1. click, click with position\n2. long click, long click with position\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
+    <string name="recycler_case_simple_title">Check: click, click with position, long click, long click with position, add item\(s\) to the end of the list, delete items, set items, check onItemClick of adapter\'s ItemViewModel, check item change state to picked, check last item visualization, check item alignment</string>
+    <string name="recycler_case_custom_title">Case SimpleItemAdapter with custom binding base functionality check. Check click, click with position, long click, long click with position, add item\(s\) to the end of the list, delete items, set items, check onItemClick of adapter\'s ItemViewModel, check item change state to picked, check last item visualization, check item alignment</string>
+    <string name="recycler_cases_action">Count</string>
+    <string name="recycler_cases_add_button">Add item</string>
+    <string name="recycler_cases_delete_button">Clear items</string>
+    <string name="recycler_cases_set_button">Set another list</string>
+    <string name="recycler_cases_set_alignment">Set list alignment to:</string>
+    <string name="recycler_cases_align_left_button">left</string>
+    <string name="recycler_cases_align_center_button">center</string>
+    <string name="recycler_cases_align_right_button">right</string>
 </resources>

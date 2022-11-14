@@ -41,6 +41,12 @@
         <action
             android:id="@+id/action_menuFragment_to_cardlineFragment"
             app:destination="@id/cardlineFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_recyclerFragment"
+            app:destination="@id/recyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_stickyCaseFragment"
+            app:destination="@id/stickyCaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -92,4 +98,14 @@
         android:name="by.esas.tools.screens.cardline.CardlineFragment"
         android:label="Check Cardline functionality"
         tools:layout="@layout/f_main_cardline" />
+    <fragment
+        android:id="@+id/recyclerFragment"
+        android:name="by.esas.tools.screens.recycler.base.RecyclerFragment"
+        android:label="@string/case_label_recycler_base"
+        tools:layout="@layout/f_main_recycler" />
+    <fragment
+        android:id="@+id/stickyCaseFragment"
+        android:name="by.esas.tools.screens.recycler.sticky_case.StickyCaseFragment"
+        android:label="@string/case_label_recycler_sticky"
+        tools:layout="@layout/f_main_sticky_recycler" />
 </navigation>

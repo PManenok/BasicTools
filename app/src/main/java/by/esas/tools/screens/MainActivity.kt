@@ -35,11 +35,17 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupNavigation()
+        binding.aMainTopBar.setStartActionListener {
+            viewModel.disableControls()
+            onBackPressed()
+            viewModel.enableControls()
+        }
     }
 
     private fun setupNavigation() {
         navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, arguments ->
+            viewModel.header.set(destination.label.toString())
             //Set home icon
             viewModel.hasBackBtn.set(destination.id != topDestination)
         }

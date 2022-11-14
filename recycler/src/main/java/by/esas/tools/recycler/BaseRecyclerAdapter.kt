@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler
 
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
@@ -36,13 +37,24 @@ abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
     open fun addItems(items: List<Entity>) {
         val startPos = itemList.size
         itemList.addAll(items)
-        notifyItemRangeChanged(startPos, items.size)
+        notifyItemRangeInserted(startPos, items.size)
     }
 
     open fun addItem(item: Entity) {
         val startPos = itemList.size
         itemList.add(item)
-        notifyItemRangeChanged(startPos, 1)
+        notifyItemRangeInserted(startPos, 1)
+    }
+
+    /**
+     * Should be used for cases where we need to update previous itemList content
+     */
+    open fun setItems(items: List<Entity>) {
+        val diffCallback = BaseDiffCallback(itemList, items)
+        val difResult = DiffUtil.calculateDiff(diffCallback)
+        itemList.clear()
+        itemList.addAll(items)
+        difResult.dispatchUpdatesTo(this)
     }
 
     open fun cleanItems() {
