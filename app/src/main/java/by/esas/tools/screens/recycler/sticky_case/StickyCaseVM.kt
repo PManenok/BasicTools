@@ -12,6 +12,7 @@ import javax.inject.Inject
 class StickyCaseVM @Inject constructor() : AppVM() {
 
     val newEntity: MutableLiveData<String> = MutableLiveData("")
+    val withPositionFlag: MutableLiveData<Boolean> = MutableLiveData(false)
     var currentListIsFirst: Boolean = true
     val firstList: List<FirstEntity> = listOf(
         FirstEntity("Alpha"),
@@ -56,23 +57,27 @@ class StickyCaseVM @Inject constructor() : AppVM() {
 
     val adapter: CaseStickyAdapter = CaseStickyAdapter(
         { item ->
-
-            Toast.makeText(App.instance, "stickyAdapter: Click on ${takeTextForSticky(item)}", Toast.LENGTH_SHORT)
-                .show()
+            if (withPositionFlag.value == false)
+                Toast.makeText(App.instance, "stickyAdapter: Click on ${takeTextForSticky(item)}", Toast.LENGTH_SHORT)
+                    .show()
         }, { pos, item ->
-            Toast.makeText(
-                App.instance,
-                "stickyAdapter: Click on ${takeTextForSticky(item)} with position $pos",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (withPositionFlag.value == true)
+                Toast.makeText(
+                    App.instance,
+                    "stickyAdapter: Click on ${takeTextForSticky(item)} with position $pos",
+                    Toast.LENGTH_SHORT
+                ).show()
         }, { item ->
-            Toast.makeText(App.instance, "adapter: Long click on ${takeTextForSticky(item)}", Toast.LENGTH_SHORT).show()
+            if (withPositionFlag.value == false)
+                Toast.makeText(App.instance, "adapter: Long click on ${takeTextForSticky(item)}", Toast.LENGTH_SHORT)
+                    .show()
         }, { pos, item ->
-            Toast.makeText(
-                App.instance,
-                "adapter: Long click on ${takeTextForSticky(item)} with position $pos",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (withPositionFlag.value == true)
+                Toast.makeText(
+                    App.instance,
+                    "adapter: Long click on ${takeTextForSticky(item)} with position $pos",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     )
 

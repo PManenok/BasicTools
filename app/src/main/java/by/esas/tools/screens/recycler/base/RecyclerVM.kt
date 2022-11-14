@@ -13,6 +13,7 @@ import javax.inject.Inject
 class RecyclerVM @Inject constructor() : AppVM() {
 
     val newEntity: MutableLiveData<String> = MutableLiveData("")
+    val withPositionFlag: MutableLiveData<Boolean> = MutableLiveData(false)
     var currentListIsFirst: Boolean = true
     val firstList: List<FirstEntity> = listOf(
         FirstEntity("Alpha"),
@@ -57,18 +58,26 @@ class RecyclerVM @Inject constructor() : AppVM() {
 
     val adapter: FirstAdapter = FirstAdapter(
         { item ->
-            Toast.makeText(App.instance, "adapter: Click on item ${item.name}", Toast.LENGTH_SHORT).show()
+            if (withPositionFlag.value == false)
+                Toast.makeText(App.instance, "adapter: Click on item ${item.name}", Toast.LENGTH_SHORT).show()
         }, { pos, item ->
-            Toast.makeText(App.instance, "adapter: Click on item ${item.name} with position $pos", Toast.LENGTH_SHORT)
-                .show()
+            if (withPositionFlag.value == true)
+                Toast.makeText(
+                    App.instance,
+                    "adapter: Click on item ${item.name} with position $pos",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
         }, { item ->
-            Toast.makeText(App.instance, "adapter: Long click on item ${item.name}", Toast.LENGTH_SHORT).show()
+            if (withPositionFlag.value == false)
+                Toast.makeText(App.instance, "adapter: Long click on item ${item.name}", Toast.LENGTH_SHORT).show()
         }, { pos, item ->
-            Toast.makeText(
-                App.instance,
-                "adapter: Long click on item ${item.name} with position $pos",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (withPositionFlag.value == true)
+                Toast.makeText(
+                    App.instance,
+                    "adapter: Long click on item ${item.name} with position $pos",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     )
 
@@ -138,5 +147,4 @@ class RecyclerVM @Inject constructor() : AppVM() {
             }
         )
     }
-
 }
