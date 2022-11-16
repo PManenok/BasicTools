@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check BaseUI functionality",
+            listOf(Modules.BASE_UI),
+            MenuFragmentDirections.actionMenuFragmentToBaseuiFunctionalityFragment()
+        )
+        addCaseItem(
             "Check BaseUI navigation",
             listOf(Modules.BASE_UI),
             MenuFragmentDirections.actionMenuFragmentToBaseuiNavigationFragment()

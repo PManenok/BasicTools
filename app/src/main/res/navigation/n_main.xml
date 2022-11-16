@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_menuFragment_to_baseuiNavigationFragment"
             app:destination="@id/baseuiNavigationFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_baseuiFunctionalityFragment"
+            app:destination="@id/baseuiFunctionalityFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -193,4 +196,9 @@
             android:name="date"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/baseuiFunctionalityFragment"
+        android:name="by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment"
+        android:label="Check BaseUI functionality"
+        tools:layout="@layout/f_main_baseui_functionality"/>
 </navigation>

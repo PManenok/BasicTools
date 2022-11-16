@@ -7,6 +7,7 @@ import by.esas.tools.screens.MainVM
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondVM
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationVM
+import by.esas.tools.screens.baseui.other.BaseUIFunctionalityVM
 import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
@@ -144,12 +145,17 @@ abstract class ViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(BaseUINavigationSecondVM::class)
-    abstract fun bindBaseUINavigationSecondVMVM(baseUINavigationSecondVM: BaseUINavigationSecondVM): ViewModel
+    abstract fun bindBaseUINavigationSecondVM(baseUINavigationSecondVM: BaseUINavigationSecondVM): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(BaseUINavigationVM::class)
-    abstract fun bindBaseUINavigationVMVM(baseUINavigationVM: BaseUINavigationVM): ViewModel
+    abstract fun bindBaseUINavigationVM(baseUINavigationVM: BaseUINavigationVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BaseUIFunctionalityVM::class)
+    abstract fun bindBaseUIFunctionalityVM(baseUIFunctionalityVM: BaseUIFunctionalityVM): ViewModel
 
     @Binds
     @IntoMap

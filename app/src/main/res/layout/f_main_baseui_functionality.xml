@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_12">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_functionality_title"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_baseui_switcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_10"
+            android:checked="true"
+            style="@style/TextStyle"
+            android:text="@string/baseui_functionality_switcher"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_16">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_open_message_dialog"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_message_dialog_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/baseui_functionality_show_dialog" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_16">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_input_field"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_baseui_functionality_input_field"
+                android:layout_width="@dimen/spacing_140"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_add_value"/>
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baseui_functionality_check_permissions_title"
+            android:layout_marginTop="@dimen/spacing_16"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <Button
+                android:id="@+id/f_baseui_functionality_permission_check_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/baseui_functionality_check_permission"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_16"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_permission_request_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/baseui_functionality_request_permission"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_request_group_of_permissions_title"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_permissions_group_btn"
+                android:layout_width="@dimen/spacing_200"
+                android:layout_height="wrap_content"
+                android:text="@string/baseui_functionality_request_group_of_permission"/>
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_2"
+            android:text="@string/baseui_functionality_remove_permissions_title"/>
+
+    </LinearLayout>
+
+</layout>

@@ -266,9 +266,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
             logger.logOrder("requestPermissions")
             permissionsLauncher?.launch(denied.toTypedArray())
             false
-        } else {
-            true
-        }
+        } else !(denied.isNotEmpty() && !request)
     }
 
     //endregion action

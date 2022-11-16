@@ -279,4 +279,21 @@
     <string name="baseui_navigation_second_pop_back_including">To back to the previous screen and pop back from it too use button below(in this case you will go to Menu).</string>
     <string name="baseui_navigation_second_pop_back_including_button">Pop back including previous fragment</string>
 
+    <string name="baseui_functionality_title">On this screen you can different functional of BaseUI module.</string>
+    <string name="baseui_functionality_switcher">Enable/disable views on the screen</string>
+    <string name="baseui_functionality_open_message_dialog">Use this button to open message dialog</string>
+    <string name="baseui_functionality_show_dialog">Show dialog</string>
+    <string name="baseui_functionality_input_field">Start adding data in input field to make field focusable, than tap somewhere outside the field. Field becomes unfocusable and keyboard will be hidden</string>
+    <string name="baseui_functionality_check_permissions_title">Use buttons below to check and request permissions to read/write external storage.</string>
+    <string name="baseui_functionality_check_permission">Check permission</string>
+    <string name="baseui_functionality_request_permission">Request permission</string>
+    <string name="baseui_functionality_request_group_of_permissions_title">Use this button to request a group of permissions.</string>
+    <string name="baseui_functionality_request_group_of_permission">Request group of permission</string>
+    <string name="baseui_functionality_remove_permissions_title">*After confirming permissions, you can remove them in the application settings.</string>
+    <string name="baseui_functionality_permissions_confirmed">Permissions confirmed</string>
+    <string name="baseui_functionality_permissions_already_confirmed">Permissions already confirmed</string>
+    <string name="baseui_functionality_permissions_denied">Permissions denied</string>
+    <string name="baseui_functionality_test_message">Test message</string>
+    <string name="baseui_functionality_test_dialog">Test dialog</string>
+
 </resources>
