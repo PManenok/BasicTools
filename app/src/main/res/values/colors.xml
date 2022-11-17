@@ -24,4 +24,12 @@
     <color name="yellow">#FFEB2A</color>
     <color name="orange">#F87217</color>
     <color name="orange_light">#F88158</color>
+
+
+    <!--Base UI-->
+    <color name="baseui_background">#FFFFFF</color>
+    <color name="baseui_textColor">#000000</color>
+    <color name="baseui_minorTextColor">#600B1F35</color>
+    <color name="baseui_buttonColor">#ff7dfc</color>
+
 </resources>

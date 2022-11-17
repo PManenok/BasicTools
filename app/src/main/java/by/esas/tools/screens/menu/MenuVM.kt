@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Change BaseUI theme and language",
+            listOf(Modules.BASE_UI),
+            MenuFragmentDirections.actionMenuFragmentToBaseuiThemeFragment()
+        )
+        addCaseItem(
             "Check BaseUI functionality",
             listOf(Modules.BASE_UI),
             MenuFragmentDirections.actionMenuFragmentToBaseuiFunctionalityFragment()

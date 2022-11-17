@@ -296,16 +296,16 @@
     <string name="baseui_functionality_test_message">Test message</string>
     <string name="baseui_functionality_test_dialog">Test dialog</string>
 
-    <string name="baseui_theme_change_language">Change language</string>
-    <string name="baseui_theme_english">English</string>
-    <string name="baseui_theme_russian">Russian</string>
-    <string name="baseui_theme_belorussian">Belorussian</string>
-    <string name="baseui_theme_set_language">Set Language</string>
-    <string name="baseui_theme_case_title">Use this case to change app language and theme. Other screen will have English translations. New settings won\'t be saved after app closing. Language by default is English and theme is system.</string>
-    <string name="baseui_theme_change_theme">Change theme</string>
-    <string name="baseui_theme_system">System</string>
-    <string name="baseui_theme_light">Light</string>
-    <string name="baseui_theme_night">Dark</string>
-    <string name="baseui_theme_set_theme">Set Theme</string>
+    <string name="baseui_theme_change_language">Памяняць мову</string>
+    <string name="baseui_theme_english">Англійская</string>
+    <string name="baseui_theme_russian">Руская</string>
+    <string name="baseui_theme_belorussian">Беларуская</string>
+    <string name="baseui_theme_set_language">Усталяваць мову</string>
+    <string name="baseui_theme_case_title">Выкарыстоўвайце гэты экран, каб змяніць мову і тэму прыкладання. Іншыя экраны будуць мець англійски пераклад. Новыя налады не будуць захаваны пасля закрыцця прыкладання. Мова па змаўчанні англійская, а тэма сістэмная.</string>
+    <string name="baseui_theme_change_theme">Памяняць афармленне</string>
+    <string name="baseui_theme_system">Сістэмнае</string>
+    <string name="baseui_theme_light">Светлае</string>
+    <string name="baseui_theme_night">Цёмнае</string>
+    <string name="baseui_theme_set_theme">Усталяваць афармленне</string>
 
 </resources>

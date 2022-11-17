@@ -106,6 +106,5 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
             else
                 checkPermissions(permissions, null, true)
         }
-
     }
 }

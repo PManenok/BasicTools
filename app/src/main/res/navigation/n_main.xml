@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_menuFragment_to_baseuiFunctionalityFragment"
             app:destination="@id/baseuiFunctionalityFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_baseuiThemeFragment"
+            app:destination="@id/baseuiThemeFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -201,4 +204,9 @@
         android:name="by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment"
         android:label="Check BaseUI functionality"
         tools:layout="@layout/f_main_baseui_functionality"/>
+    <fragment
+        android:id="@+id/baseuiThemeFragment"
+        android:name="by.esas.tools.screens.baseui.ui.BaseUIThemeFragment"
+        android:label="Change BaseUI theme and language"
+        tools:layout="@layout/f_main_baseui_theme"/>
 </navigation>

@@ -296,16 +296,16 @@
     <string name="baseui_functionality_test_message">Test message</string>
     <string name="baseui_functionality_test_dialog">Test dialog</string>
 
-    <string name="baseui_theme_change_language">Change language</string>
-    <string name="baseui_theme_english">English</string>
-    <string name="baseui_theme_russian">Russian</string>
-    <string name="baseui_theme_belorussian">Belorussian</string>
-    <string name="baseui_theme_set_language">Set Language</string>
-    <string name="baseui_theme_case_title">Use this case to change app language and theme. Other screen will have English translations. New settings won\'t be saved after app closing. Language by default is English and theme is system.</string>
-    <string name="baseui_theme_change_theme">Change theme</string>
-    <string name="baseui_theme_system">System</string>
-    <string name="baseui_theme_light">Light</string>
-    <string name="baseui_theme_night">Dark</string>
-    <string name="baseui_theme_set_theme">Set Theme</string>
+    <string name="baseui_theme_change_language">Поменять язык</string>
+    <string name="baseui_theme_english">Английский</string>
+    <string name="baseui_theme_russian">Русский</string>
+    <string name="baseui_theme_belorussian">Белорусский</string>
+    <string name="baseui_theme_set_language">Установить язык</string>
+    <string name="baseui_theme_case_title">Используйте этот экран, чтобы изменить язык и тему приложения. Другие экраны будут иметь английский перевод. Новые настройки не будут сохранены после закрытия приложения. По умолчанию язык английский, а тема системная.</string>
+    <string name="baseui_theme_change_theme">Поменять тему</string>
+    <string name="baseui_theme_system">Системная</string>
+    <string name="baseui_theme_light">Светлая</string>
+    <string name="baseui_theme_night">Темная</string>
+    <string name="baseui_theme_set_theme">Установить тему</string>
 
 </resources>
