@@ -9,11 +9,15 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
+import by.esas.tools.app_domain.error_mapper.AppErrorStatusEnum
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBaseuiFunctionalityBinding
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
+import by.esas.tools.logger.handler.ErrorAction
+import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
+import by.esas.tools.utils.logger.ErrorModel
 
 class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
     override val fragmentDestinationId = R.id.baseuiFunctionalityFragment
@@ -105,6 +109,56 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
                 Toast.makeText(requireContext(), resources.getString(R.string.baseui_functionality_permissions_already_confirmed), Toast.LENGTH_LONG).show()
             else
                 checkPermissions(permissions, null, true)
+        }
+
+        binding.fBaseuiFunctionalityVmErrorDialogBtn.setOnClickListener {
+            viewModel.handleError(
+                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                showType = ShowErrorType.SHOW_ERROR_DIALOG.name
+            )
+        }
+        binding.fBaseuiFunctionalityVmErrorMessageBtn.setOnClickListener {
+            viewModel.handleError(
+                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                showType = ShowErrorType.SHOW_ERROR_MESSAGE.name
+            )
+        }
+        binding.fBaseuiFunctionalityVmErrorNothingBtn.setOnClickListener {
+            viewModel.handleError(
+                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                showType = ShowErrorType.SHOW_NOTHING.name
+            )
+        }
+
+        binding.fBaseuiFunctionalityErrorDialogBtn.setOnClickListener {
+            handleError(
+                ErrorAction.Companion.create(
+                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    showType = ShowErrorType.SHOW_ERROR_DIALOG.name,
+                    ErrorAction.ACTION_ERROR,
+                    null
+                )
+            )
+        }
+        binding.fBaseuiFunctionalityErrorMessageBtn.setOnClickListener {
+            handleError(
+                ErrorAction.Companion.create(
+                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    showType = ShowErrorType.SHOW_ERROR_MESSAGE.name,
+                    ErrorAction.ACTION_ERROR,
+                    null
+                )
+            )
+        }
+        binding.fBaseuiFunctionalityErrorNothingBtn.setOnClickListener {
+            handleError(
+                ErrorAction.Companion.create(
+                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    showType = ShowErrorType.SHOW_NOTHING.name,
+                    ErrorAction.ACTION_ERROR,
+                    null
+                )
+            )
         }
     }
 }

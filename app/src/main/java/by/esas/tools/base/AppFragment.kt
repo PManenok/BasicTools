@@ -9,6 +9,7 @@ import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
+import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.util.TAGk
@@ -34,7 +35,7 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
         return androidInjector
     }
 
-    override var logger: ILogger<*> = LoggerImpl()
+    override var logger: ILogger<*> = BaseLoggerImpl(context = provideAppContext())
 
     override fun provideAppContext(): Context {
         return App.appContext

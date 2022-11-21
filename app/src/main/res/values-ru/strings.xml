@@ -295,6 +295,11 @@
     <string name="baseui_functionality_permissions_denied">Permissions denied</string>
     <string name="baseui_functionality_test_message">Test message</string>
     <string name="baseui_functionality_test_dialog">Test dialog</string>
+    <string name="baseui_functionality_vm_handle_error_title">Use buttons below to check how viewModel handle error with different types of showing errors.</string>
+    <string name="baseui_functionality_handle_error_type_dialog">Error type Dialog</string>
+    <string name="baseui_functionality_handle_error_type_message">Error type Message</string>
+    <string name="baseui_functionality_handle_error_type_nothing">Error type Nothing</string>
+    <string name="baseui_functionality_fragment_handle_error_title">Use buttons below to check how fragment handle error with different types of showing errors.</string>
 
     <string name="baseui_theme_change_language">Поменять язык</string>
     <string name="baseui_theme_english">Английский</string>

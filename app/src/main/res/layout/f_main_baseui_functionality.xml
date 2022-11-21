@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -121,6 +125,81 @@
             android:layout_marginTop="@dimen/spacing_2"
             android:text="@string/baseui_functionality_remove_permissions_title"/>
 
-    </LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:text="@string/baseui_functionality_vm_handle_error_title" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <Button
+                android:id="@+id/f_baseui_functionality_vm_error_dialog_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_dialog"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_vm_error_message_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_message"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_vm_error_nothing_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_nothing"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:text="@string/baseui_functionality_fragment_handle_error_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
+
+            <Button
+                android:id="@+id/f_baseui_functionality_error_dialog_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_dialog"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_error_message_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_message"
+                android:layout_marginEnd="@dimen/spacing_12"/>
+
+            <Button
+                android:id="@+id/f_baseui_functionality_error_nothing_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/baseui_functionality_handle_error_type_nothing"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
 </layout>
