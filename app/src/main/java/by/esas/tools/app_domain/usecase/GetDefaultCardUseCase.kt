@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class GetDefaultCardUseCase @Inject constructor(
+class  GetDefaultCardUseCase @Inject constructor(
     errorUtil: AppErrorMapper,
     foregroundContext: CoroutineContext
 ) : BaseUseCase<String>(errorUtil, foregroundContext) {

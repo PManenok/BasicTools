@@ -12,6 +12,7 @@ import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment
 import by.esas.tools.screens.dialog.DynamicMessageDialogFragment
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment
+import by.esas.tools.screens.domain.DomainCaseFragment
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment
@@ -105,4 +106,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindBaseUIThemeFragment(): BaseUIThemeFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindDomainCaseFragment(): DomainCaseFragment
 }

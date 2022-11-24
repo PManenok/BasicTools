@@ -10,6 +10,7 @@ object Modules {
     const val CUSTOMSWITCH = "customswitch"
     const val DIALOG = "dialog"
     const val DIMEN_UTIL = "dimen_util"
+    const val DOMAIN = "domain"
     const val INPUTFIELD_VIEW = "inputfieldview"
     const val LISTHEADER = "listheader"
     const val LOGGER = "logger"

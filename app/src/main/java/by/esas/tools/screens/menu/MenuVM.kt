@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check Domain module functionality",
+            listOf(Modules.DOMAIN),
+            MenuFragmentDirections.actionMenuFragmentToDomainCaseFragment()
+        )
+        addCaseItem(
             "Change BaseUI theme and language",
             listOf(Modules.BASE_UI),
             MenuFragmentDirections.actionMenuFragmentToBaseuiThemeFragment()

@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_menuFragment_to_baseuiThemeFragment"
             app:destination="@id/baseuiThemeFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_domainCaseFragment"
+            app:destination="@id/domainCaseFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -209,4 +212,9 @@
         android:name="by.esas.tools.screens.baseui.ui.BaseUIThemeFragment"
         android:label="Change BaseUI theme and language"
         tools:layout="@layout/f_main_baseui_theme"/>
+    <fragment
+        android:id="@+id/domainCaseFragment"
+        android:name="by.esas.tools.screens.domain.DomainCaseFragment"
+        android:label="Check Domain module functionality"
+        tools:layout="@layout/f_main_domain_case"/>
 </navigation>

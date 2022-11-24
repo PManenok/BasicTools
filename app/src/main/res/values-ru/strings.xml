@@ -313,4 +313,11 @@
     <string name="baseui_theme_night">Темная</string>
     <string name="baseui_theme_set_theme">Установить тему</string>
 
+    <!--Base UI-->
+    <string name="domain_case_game_title">Use this case to check domain use case functionality and play with random numbers. The game is to match the number you guessed with the random number from 0 to range number. \nIf you guess the number you will see congratulations message, otherwise you will see error dialog.</string>
+    <string name="domain_case_range_number">Range number</string>
+    <string name="domain_case_add_your_number">Add your number</string>
+    <string name="domain_case_play">Play</string>
+    <string name="domain_case_fail">Oops, you lose!</string>
+
 </resources>
