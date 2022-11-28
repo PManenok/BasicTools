@@ -319,5 +319,10 @@
     <string name="domain_case_add_your_number">Add your number</string>
     <string name="domain_case_play">Play</string>
     <string name="domain_case_fail">Oops, you lose!</string>
+    <string name="domain_case_encrypt_aes_title">Check encrypt/decrypt AES methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
+    <string name="domain_case_encrypt">Encrypt:</string>
+    <string name="domain_case_decrypt">Decrypt:</string>
+    <string name="start">Start</string>
+    <string name="domain_case_encrypt_rsa_title">Check encrypt/decrypt RSA methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
 
 </resources>

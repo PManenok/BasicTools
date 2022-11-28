@@ -1,5 +1,6 @@
 package by.esas.tools.screens.domain
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -49,6 +50,7 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,6 +68,38 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
                     )
                 }
             }).validate(provideChecks())
+        }
+        binding.fDomainCaseEncryptAesBtn.setOnClickListener {
+            val checks = listOf(FieldChecking(binding.fDomainCaseInputEncryptAes, true))
+
+            AppChecker().setListener(object : Checker.CheckListener {
+                override fun onFailed() {
+                    enableControls()
+                }
+
+                override fun onSuccess() {
+                    enableControls()
+                    val aesResult = viewModel.encryptAES(binding.fDomainCaseInputEncryptAes.getText())
+                    binding.fDomainCaseEncryptAesData.text = resources.getString(R.string.domain_case_encrypt) + aesResult.first
+                    binding.fDomainCaseDecryptAesData.text = resources.getString(R.string.domain_case_decrypt) + aesResult.second
+                }
+            }).validate(checks)
+        }
+
+        binding.fDomainCaseEncryptRsaBtn.setOnClickListener {
+            val checks = listOf(FieldChecking(binding.fDomainCaseInputEncryptRsa, true))
+            AppChecker().setListener(object : Checker.CheckListener {
+                override fun onFailed() {
+                    enableControls()
+                }
+
+                override fun onSuccess() {
+                    enableControls()
+                    val rsaResult = viewModel.encryptRSA(binding.fDomainCaseInputEncryptRsa.getText())
+                    binding.fDomainCaseEncryptRsaData.text = resources.getString(R.string.domain_case_encrypt) + rsaResult.first
+                    binding.fDomainCaseDecryptRsaData.text = resources.getString(R.string.domain_case_decrypt) + rsaResult.second
+                }
+            }).validate(checks)
         }
     }
 }
