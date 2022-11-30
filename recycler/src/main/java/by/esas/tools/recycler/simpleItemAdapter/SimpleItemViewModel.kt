@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler.simpleItemAdapter
 
+import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField

@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler.simpleItemAdapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.recycler.BaseRecyclerAdapter
@@ -51,9 +52,73 @@ open class SimpleItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleItemViewHolder<*> {
-        return SimpleItemViewHolder.create(
-            parent,
-            SimpleItemViewModel()
-        )
+        return SimpleItemViewHolder.create(parent, SimpleItemViewModel())
+    }
+
+    /**
+     * Sets item as selected for concrete index. Can remove other items selection,
+     * or change selection of only one item.
+     */
+    open fun setItemPicked(pickedIndex: Int, clearOtherPicked: Boolean = true) {
+        Log.d("12345", (itemList[0].isChoosed == true).toString())
+        val newList = itemList.mapIndexed { index, simpleItemModel ->
+            if (clearOtherPicked)
+                simpleItemModel.copy(isChoosed = index == pickedIndex)
+            else if (index == pickedIndex)
+                simpleItemModel.copy(isChoosed = true)
+            else
+                simpleItemModel.copy()
+        }
+        Log.d("12345", (itemList[0].isChoosed == true).toString())
+        setItems(newList)
+    }
+
+    /**
+     * Sets item unselected
+     */
+    open fun setItemUnpicked(pickedIndex: Int) {
+        val newList = itemList.mapIndexed { index, simpleItemModel ->
+            if (index == pickedIndex)
+                simpleItemModel.copy(isChoosed = false)
+            else
+                simpleItemModel.copy()
+        }
+        setItems(newList)
+    }
+
+    /**
+     * Adds item in the end of the list and change its parameter as is last,
+     * and fix same parameter for previous last item
+     */
+    override fun addItem(item: SimpleItemModel) {
+        val startPos = itemList.size
+        val lastInd = itemList.lastIndex
+        if (lastInd > -1) {
+            itemList.lastOrNull()?.isLast = false
+            notifyItemChanged(lastInd)
+        }
+        item.isLast = true
+        itemList.add(item)
+        notifyItemRangeInserted(startPos, 1)
+    }
+
+    override fun addItems(items: List<SimpleItemModel>) {
+        var startPos = itemList.size
+        val lastInd = itemList.lastIndex
+        if (lastInd > -1) {
+            itemList.lastOrNull()?.isLast = false
+            startPos = lastInd
+            notifyItemChanged(lastInd)
+        }
+        items.lastOrNull()?.isLast = true
+        itemList.addAll(items)
+        notifyItemRangeInserted(startPos, items.size)
+    }
+
+    override fun setItems(items: List<SimpleItemModel>) {
+        val lastInd = items.lastIndex
+        super.setItems(items.mapIndexed { index, simpleItemModel ->
+            simpleItemModel.copy(isLast = index == lastInd)
+        })
     }
 }

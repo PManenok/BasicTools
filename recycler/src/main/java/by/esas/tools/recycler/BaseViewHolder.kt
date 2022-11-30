@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler
 
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 

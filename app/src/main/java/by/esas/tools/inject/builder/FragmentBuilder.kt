@@ -7,6 +7,7 @@ import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.pin_view.PinViewFragment
 import by.esas.tools.screens.recycler.base.RecyclerFragment
+import by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment
 import by.esas.tools.screens.recycler.sticky_case.StickyCaseFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
 import by.esas.tools.screens.topbar.TopbarFragment
@@ -58,4 +59,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindStickyCaseFragment(): StickyCaseFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindSimpleRecyclerFragment(): SimpleRecyclerFragment
 }

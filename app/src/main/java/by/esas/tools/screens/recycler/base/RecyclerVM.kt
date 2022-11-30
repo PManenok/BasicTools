@@ -81,29 +81,6 @@ class RecyclerVM @Inject constructor() : AppVM() {
         }
     )
 
-    val simpleAdapter: SimpleItemAdapter = SimpleItemAdapter(
-        onItemClick = { item ->
-            Toast.makeText(App.instance, "simpleAdapter: Click on item ${item.name}", Toast.LENGTH_SHORT).show()
-        },
-        onItemClickPosition = { pos, item ->
-            Toast.makeText(
-                App.instance,
-                "simpleAdapter: Click on item ${item.name} with position $pos",
-                Toast.LENGTH_SHORT
-            ).show()
-        },
-        onItemLongClick = { item ->
-            Toast.makeText(App.instance, "simpleAdapter: Long click on item ${item.name}", Toast.LENGTH_SHORT).show()
-        },
-        onItemLongClickPosition = { pos, item ->
-            Toast.makeText(
-                App.instance,
-                "simpleAdapter: Long click on item ${item.name} with position $pos",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    )
-
     val customAdapter: SimpleItemAdapter = SimpleItemAdapter.createCustom(
         inflater = IRecyclerCaseTwoBinding::class.java,
         onItemClick = { item ->
@@ -137,7 +114,7 @@ class RecyclerVM @Inject constructor() : AppVM() {
     }
 
     fun setAnotherList() {
-        adapter.addItems(
+        adapter.setItems(
             if (currentListIsFirst) {
                 currentListIsFirst = false
                 secondList

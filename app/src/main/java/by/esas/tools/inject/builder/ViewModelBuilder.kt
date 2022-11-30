@@ -11,6 +11,7 @@ import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.recycler.base.RecyclerVM
+import by.esas.tools.screens.recycler.simple.SimpleRecyclerVM
 import by.esas.tools.screens.recycler.sticky_case.StickyCaseVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
 import by.esas.tools.screens.topbar.TopbarVM
@@ -94,4 +95,9 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(StickyCaseVM::class)
     abstract fun bindStickyCaseVM(viewModel: StickyCaseVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SimpleRecyclerVM::class)
+    abstract fun bindSimpleRecyclerVM(viewModel: SimpleRecyclerVM): ViewModel
 }

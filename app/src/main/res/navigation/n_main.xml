@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_menuFragment_to_stickyCaseFragment"
             app:destination="@id/stickyCaseFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_simpleRecyclerFragment"
+            app:destination="@id/simpleRecyclerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -108,4 +111,9 @@
         android:name="by.esas.tools.screens.recycler.sticky_case.StickyCaseFragment"
         android:label="@string/case_label_recycler_sticky"
         tools:layout="@layout/f_main_sticky_recycler" />
+    <fragment
+        android:id="@+id/simpleRecyclerFragment"
+        android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
+        android:label="SimpleRecyclerFragment"
+        tools:layout="@layout/f_main_simple_recycler"/>
 </navigation>

@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 
 class BaseDiffCallback<Entity>(

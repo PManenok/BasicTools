@@ -8,12 +8,12 @@ package by.esas.tools.recycler.simpleItemAdapter
 import android.view.View
 import by.esas.tools.recycler.ICheckDiff
 
-class SimpleItemModel(
+data class SimpleItemModel(
     val shortName: String,
     val name: String,
     val isChoosed: Boolean,
-    val isLast: Boolean,
-    var textAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
+    var isLast: Boolean,
+    val textAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
 ) : ICheckDiff<SimpleItemModel> {
 
     override fun checkIfSameItem(item: SimpleItemModel): Boolean {
@@ -25,7 +25,7 @@ class SimpleItemModel(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
+        //if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
         other as SimpleItemModel

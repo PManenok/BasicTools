@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
@@ -76,7 +77,7 @@ abstract class BaseRecyclerAdapter<Entity, VM : BaseItemViewModel<Entity>>(
             onItemClickPosition(pos, itemList[pos])
         }
         holder.itemView.setOnLongClickListener {
-            val pos = holder.adapterPosition
+            val pos = holder.adapterPosition//CHECK
             //clickItemSubject.onNext(ItemClick(itemList[pos], pos))
             onItemLongClick(itemList[pos])
             onItemLongClickPosition(pos, itemList[pos])
