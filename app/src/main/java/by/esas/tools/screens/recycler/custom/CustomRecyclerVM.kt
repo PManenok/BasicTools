@@ -1,10 +1,12 @@
-package by.esas.tools.screens.recycler.simple
+package by.esas.tools.screens.recycler.custom
 
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import by.esas.tools.App
 import by.esas.tools.base.AppVM
+import by.esas.tools.databinding.ICustomBinding
+import by.esas.tools.recycler.databinding.IPickedBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import by.esas.tools.screens.recycler.FirstEntity
@@ -15,7 +17,7 @@ import java.util.logging.Handler
 import javax.inject.Inject
 import kotlin.concurrent.schedule
 
-class SimpleRecyclerVM @Inject constructor() : AppVM() {
+class CustomRecyclerVM @Inject constructor() : AppVM() {
 
     val newEntity: MutableLiveData<String> = MutableLiveData("")
     val withPositionFlag: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -24,7 +26,8 @@ class SimpleRecyclerVM @Inject constructor() : AppVM() {
     var currentListIsFirst: Boolean = true
     var currentAlignment: Int = View.TEXT_ALIGNMENT_CENTER
 
-    val adapter: SimpleItemAdapter = SimpleItemAdapter(
+    val adapter: SimpleItemAdapter = SimpleItemAdapter.createCustom(
+        inflater = ICustomBinding::class.java,
         onItemClick = { item ->
             if (withPositionFlag.value == false)
                 Toast.makeText(App.instance, "simpleAdapter: Click on item ${item.name}", Toast.LENGTH_SHORT).show()

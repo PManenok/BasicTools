@@ -99,6 +99,11 @@ class MenuVM @Inject constructor(
             listOf(Modules.RECYCLER),
             MenuFragmentDirections.actionMenuFragmentToSimpleRecyclerFragment()
         )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_recycler_custom),
+            listOf(Modules.RECYCLER),
+            MenuFragmentDirections.actionMenuFragmentToCustomRecyclerFragment()
+        )
         updateAdapter(allCases)
     }
 

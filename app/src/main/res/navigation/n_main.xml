@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_menuFragment_to_simpleRecyclerFragment"
             app:destination="@id/simpleRecyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_customRecyclerFragment"
+            app:destination="@id/customRecyclerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -116,4 +119,9 @@
         android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
         android:label="SimpleRecyclerFragment"
         tools:layout="@layout/f_main_simple_recycler"/>
+    <fragment
+        android:id="@+id/customRecyclerFragment"
+        android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
+        android:label="CustomRecyclerFragment"
+        tools:layout="@layout/f_main_custom_recycler" />
 </navigation>

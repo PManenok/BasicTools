@@ -1,4 +1,4 @@
-package by.esas.tools.screens.recycler.simple
+package by.esas.tools.screens.recycler.custom
 
 import android.os.Bundle
 import android.view.View
@@ -6,41 +6,41 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
-import by.esas.tools.databinding.FMainSimpleRecyclerBinding
+import by.esas.tools.databinding.FMainCustomRecyclerBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import by.esas.tools.screens.recycler.RecyclerLists
 
-class SimpleRecyclerFragment : AppFragment<SimpleRecyclerVM, FMainSimpleRecyclerBinding>() {
+class CustomRecyclerFragment : AppFragment<CustomRecyclerVM, FMainCustomRecyclerBinding>() {
 
     override val fragmentDestinationId: Int = R.id.simpleRecyclerFragment
 
     override fun provideLayoutId(): Int {
-        return R.layout.f_main_simple_recycler
+        return R.layout.f_main_custom_recycler
     }
 
-    override fun provideViewModel(): SimpleRecyclerVM {
-        return ViewModelProvider(this, viewModelFactory.provideFactory()).get(SimpleRecyclerVM::class.java)
+    override fun provideViewModel(): CustomRecyclerVM {
+        return ViewModelProvider(this, viewModelFactory.provideFactory()).get(CustomRecyclerVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fMainSimpleRecyclerCaseOne.adapter = viewModel.adapter
-        binding.fMainSimpleRecyclerCaseOne.layoutManager = LinearLayoutManager(context)
-        binding.fMainSimpleRecyclerCaseOne.setHasFixedSize(false)
+        binding.fMainCustomRecyclerCaseOne.adapter = viewModel.adapter
+        binding.fMainCustomRecyclerCaseOne.layoutManager = LinearLayoutManager(context)
+        binding.fMainCustomRecyclerCaseOne.setHasFixedSize(false)
 
-        val lastIndex = RecyclerLists.firstList.lastIndex
+        val lastIndex = viewModel.firstList.lastIndex
         viewModel.adapter.setItems(RecyclerLists.firstList.mapIndexed { index, entity ->
             entity.mapToSimple(lastIndex == index, viewModel.currentAlignment)
         })
-        binding.fMainSimpleRecyclerAlignLeft.setOnClickListener {
+        binding.fMainCustomRecyclerAlignLeft.setOnClickListener {
             viewModel.currentAlignment = View.TEXT_ALIGNMENT_TEXT_START
             resetCurrentList()
         }
-        binding.fMainSimpleRecyclerAlignCenter.setOnClickListener {
+        binding.fMainCustomRecyclerAlignCenter.setOnClickListener {
             viewModel.currentAlignment = View.TEXT_ALIGNMENT_CENTER
             resetCurrentList()
         }
-        binding.fMainSimpleRecyclerAlignRight.setOnClickListener {
+        binding.fMainCustomRecyclerAlignRight.setOnClickListener {
             viewModel.currentAlignment = View.TEXT_ALIGNMENT_TEXT_END
             resetCurrentList()
         }
@@ -59,6 +59,6 @@ class SimpleRecyclerFragment : AppFragment<SimpleRecyclerVM, FMainSimpleRecycler
         viewModel.adapter.setItems(newList)
         //Total rewrite of the adapter is used because otherwise part of
         // item's text alignment is not updating correctly
-        binding.fMainSimpleRecyclerCaseOne.adapter = viewModel.adapter
+        binding.fMainCustomRecyclerCaseOne.adapter = viewModel.adapter
     }
 }

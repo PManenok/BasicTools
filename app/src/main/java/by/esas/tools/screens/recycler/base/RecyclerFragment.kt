@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainRecyclerBinding
+import by.esas.tools.screens.recycler.RecyclerLists
 
 class RecyclerFragment : AppFragment<RecyclerVM, FMainRecyclerBinding>() {
 
@@ -26,6 +27,6 @@ class RecyclerFragment : AppFragment<RecyclerVM, FMainRecyclerBinding>() {
         binding.fMainRecyclerCaseOne.layoutManager = LinearLayoutManager(context)
         binding.fMainRecyclerCaseOne.setHasFixedSize(true)
 
-        viewModel.adapter.setItems(viewModel.firstList)
+        viewModel.adapter.setItems(RecyclerLists.firstList)
     }
 }

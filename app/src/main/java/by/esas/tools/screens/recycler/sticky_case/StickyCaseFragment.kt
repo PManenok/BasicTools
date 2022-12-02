@@ -2,12 +2,12 @@ package by.esas.tools.screens.recycler.sticky_case
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnNextLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainStickyRecyclerBinding
+import by.esas.tools.screens.recycler.RecyclerLists
 import by.esas.tools.screens.recycler.sticky_case.sticky_adapter.CaseStickyHeader
 import by.esas.tools.screens.recycler.sticky_case.sticky_adapter.CaseStickyItemVM
 
@@ -29,7 +29,7 @@ class StickyCaseFragment : AppFragment<StickyCaseVM, FMainStickyRecyclerBinding>
         binding.fMainStickyRecycler.layoutManager = LinearLayoutManager(context)
         binding.fMainStickyRecycler.setHasFixedSize(true)
 
-        viewModel.adapter.setEntities(viewModel.firstList)
+        viewModel.adapter.setEntities(RecyclerLists.firstList)
         viewModel.adapter.stickyHeaderDecoration = CaseStickyHeader.create(
             parent = binding.fMainStickyRecycler,
             viewModel = CaseStickyItemVM(),
@@ -38,21 +38,5 @@ class StickyCaseFragment : AppFragment<StickyCaseVM, FMainStickyRecyclerBinding>
         viewModel.adapter.stickyHeaderDecoration?.let {
             binding.fMainStickyRecycler.addItemDecoration(it)
         }
-
-
-        /*viewModel.adapter.stickyHeaderDecoration = CaseStickyHeader.create(
-            parent = binding.fMainStickyRecycler,
-            viewModel = CaseStickyItemVM(),
-            listener = viewModel.adapter.listener
-        )
-        viewModel.adapter.stickyHeaderDecoration?.let {
-            binding.fMainStickyRecycler.addItemDecoration(it)
-        }*/
-
-        //viewModel.adapter.setEntities(viewModel.firstList)
-        //binding.fMainStickyRecycler.invalidateItemDecorations()
-        /*Timer().schedule(30L) {
-            //viewModel.adapter.setEntities(viewModel.firstList)
-        }*/
     }
 }
