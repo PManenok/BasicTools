@@ -83,6 +83,9 @@
         <action
             android:id="@+id/action_menuFragment_to_domainCaseFragment"
             app:destination="@id/domainCaseFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_biometricDecryptionFragment"
+            app:destination="@id/biometricDecryptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -163,7 +166,7 @@
         android:id="@+id/bottomDialogFragment"
         android:name="by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment"
         android:label="Check Bottom Dialog functionality"
-        tools:layout="@layout/f_main_bottom_dialog"/>
+        tools:layout="@layout/f_main_bottom_dialog" />
     <fragment
         android:id="@+id/inputfieldViewEndIconFragment"
         android:name="by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment"
@@ -206,15 +209,20 @@
         android:id="@+id/baseuiFunctionalityFragment"
         android:name="by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment"
         android:label="Check BaseUI functionality"
-        tools:layout="@layout/f_main_baseui_functionality"/>
+        tools:layout="@layout/f_main_baseui_functionality" />
     <fragment
         android:id="@+id/baseuiThemeFragment"
         android:name="by.esas.tools.screens.baseui.ui.BaseUIThemeFragment"
         android:label="Change BaseUI theme and language"
-        tools:layout="@layout/f_main_baseui_theme"/>
+        tools:layout="@layout/f_main_baseui_theme" />
     <fragment
         android:id="@+id/domainCaseFragment"
         android:name="by.esas.tools.screens.domain.DomainCaseFragment"
         android:label="Check Domain module functionality"
-        tools:layout="@layout/f_main_domain_case"/>
+        tools:layout="@layout/f_main_domain_case" />
+    <fragment
+        android:id="@+id/biometricDecryptionFragment"
+        android:name="by.esas.tools.screens.biometric.BiometricDecryptionFragment"
+        android:label="Check BiometricDecryption functionality"
+        tools:layout="@layout/f_main_biometric_decryption" />
 </navigation>

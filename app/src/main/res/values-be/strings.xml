@@ -325,4 +325,15 @@
     <string name="start">Start</string>
     <string name="domain_case_encrypt_rsa_title">Check encrypt/decrypt RSA methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
 
+    <!--Biometric Decryption-->
+    <string name="biometric_decryption_available">Biometric is available</string>
+    <string name="biometric_decryption_not_available">Biometric is not available</string>
+    <string name="biometric_decryption_title">Use these buttons to check how biometric is working. You can open Biometric dialog if biometric is available and check if biometric is available using second button.</string>
+    <string name="biometric_decryption_open_biometric_dialog">Open biometric dialog</string>
+    <string name="biometric_decryption_check_biometric">Check Biometric</string>
+    <string name="biometric_decryption_dialog_title">Touch the fingerprint scanner</string>
+    <string name="biometric_decryption_dialog_close">Close</string>
+    <string name="biometric_decryption_authentication_succeeded">Biometric authentication Succeeded</string>
+    <string name="biometric_decryption_authentication_failed">Biometric authentication Failed</string>
+
 </resources>
