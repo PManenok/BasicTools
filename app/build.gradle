@@ -46,6 +46,7 @@ dependencies {
     //App
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$corektx_version"
+    implementation "androidx.biometric:biometric:$biometric_version"
 
     // Data binding
     kapt "com.android.databinding:compiler:$databinding_version"
@@ -82,4 +83,5 @@ dependencies {
     implementation project(path: ':customswitch')
     implementation project(path: ':topbarview')
     implementation project(path: ':cardline')
+    implementation project(path: ':biometric_decryption')
 }

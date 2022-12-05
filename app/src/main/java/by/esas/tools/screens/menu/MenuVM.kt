@@ -28,6 +28,11 @@ class MenuVM @Inject constructor(
 
     init {
         addCaseItem(
+            "Check Biometric decryption",
+            listOf(Modules.BIOMETRIC_DECRYPTION),
+            MenuFragmentDirections.actionMenuFragmentToBiometricDecryptionFragment()
+        )
+        addCaseItem(
             "Check Domain module functionality",
             listOf(Modules.DOMAIN),
             MenuFragmentDirections.actionMenuFragmentToDomainCaseFragment()

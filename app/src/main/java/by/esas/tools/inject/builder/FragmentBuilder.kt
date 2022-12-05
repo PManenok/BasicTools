@@ -4,6 +4,7 @@ import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment
 import by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment
 import by.esas.tools.screens.baseui.ui.BaseUIThemeFragment
+import by.esas.tools.screens.biometric.BiometricDecryptionFragment
 import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
@@ -113,4 +114,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindCheckerInputFieldFragment(): CheckerInputFieldFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindBiometricDecryptionFragment(): BiometricDecryptionFragment
 }

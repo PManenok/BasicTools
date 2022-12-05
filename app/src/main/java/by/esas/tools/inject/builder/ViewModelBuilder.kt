@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
-import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondVM
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationVM
 import by.esas.tools.screens.baseui.other.BaseUIFunctionalityVM
 import by.esas.tools.screens.baseui.ui.BaseUIThemeVM
+import by.esas.tools.screens.biometric.BiometricDecryptionVM
 import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
@@ -18,7 +18,6 @@ import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
-import by.esas.tools.screens.domain.DomainCaseFragment
 import by.esas.tools.screens.domain.DomainCaseVM
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
@@ -175,6 +174,11 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(CheckerInputFieldVM::class)
     abstract fun bindCheckerInputFieldVM(сheckerInputFieldVM: CheckerInputFieldVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BiometricDecryptionVM::class)
+    abstract fun bindBiometricDecryptionVM(biometricDecryptionVM: BiometricDecryptionVM): ViewModel
 
     @Binds
     @IntoMap
