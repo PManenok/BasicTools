@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="by.esas.tools.screens.recycler.sticky_case.sticky_adapter.CaseStickyItemVM" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/i_recycler_case_one_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/spacing_12">
+
+        <TextView
+            android:id="@+id/i_recycler_case_one_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.title}"
+            tools:text="Title" />
+    </LinearLayout>
+</layout>

@@ -89,6 +89,18 @@
         <action
             android:id="@+id/action_menuFragment_to_biometricDecryptionFragment"
             app:destination="@id/biometricDecryptionFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_recyclerFragment"
+            app:destination="@id/recyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_stickyCaseFragment"
+            app:destination="@id/stickyCaseFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_simpleRecyclerFragment"
+            app:destination="@id/simpleRecyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_customRecyclerFragment"
+            app:destination="@id/customRecyclerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -233,4 +245,25 @@
         android:name="by.esas.tools.screens.biometric.BiometricDecryptionFragment"
         android:label="Check BiometricDecryption functionality"
         tools:layout="@layout/f_main_biometric_decryption" />
+        tools:layout="@layout/f_main_domain_case"/>
+    <fragment
+        android:id="@+id/recyclerFragment"
+        android:name="by.esas.tools.screens.recycler.base.RecyclerFragment"
+        android:label="@string/case_label_recycler_base"
+        tools:layout="@layout/f_main_recycler" />
+    <fragment
+        android:id="@+id/stickyCaseFragment"
+        android:name="by.esas.tools.screens.recycler.sticky_case.StickyCaseFragment"
+        android:label="@string/case_label_recycler_sticky"
+        tools:layout="@layout/f_main_sticky_recycler" />
+    <fragment
+        android:id="@+id/simpleRecyclerFragment"
+        android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
+        android:label="SimpleRecyclerFragment"
+        tools:layout="@layout/f_main_simple_recycler"/>
+    <fragment
+        android:id="@+id/customRecyclerFragment"
+        android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
+        android:label="CustomRecyclerFragment"
+        tools:layout="@layout/f_main_custom_recycler" />
 </navigation>

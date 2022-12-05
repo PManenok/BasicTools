@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="by.esas.tools.screens.MainVM" />
@@ -20,270 +20,27 @@
             android:id="@+id/a_main_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:barNavIcon="@drawable/ic_arrow_back"
-            app:barShowNavIcon="false"
             app:barNavIconTint="@color/black"
             app:barShowDivider="false"
+            app:barShowNavIcon="false"
             app:barTitleText="Menu"
             app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"
-            app:barTitleWidthPercent="@dimen/main_topbar_width_percent"/>
+            app:barTitleWidthPercent="@dimen/main_topbar_width_percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <fragment
             android:id="@+id/a_main_nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/n_main"
-            />
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="15dp"-->
-<!--            android:orientation="vertical">-->
-
-<!--            &lt;!&ndash;  <by.esas.tools.inputfieldview.SpinnerFieldView-->
-<!--                  android:id="@+id/a_main_service_spinner"-->
-<!--                  android:layout_width="match_parent"-->
-<!--                  android:layout_height="wrap_content"-->
-<!--                  android:hint="Service"-->
-<!--                  android:text="@={viewModel.serviceName}"-->
-<!--                  app:layout_constraintEnd_toEndOf="parent"-->
-<!--                  app:layout_constraintStart_toStartOf="parent"-->
-<!--                  app:layout_constraintTop_toTopOf="parent"-->
-<!--                  app:spinnerStartDrawable="@drawable/ic_baseline_build_24" />&ndash;&gt;-->
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:id="@+id/f_main_phone_container"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/f_main_phone_label"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:clickable="true"-->
-<!--                    android:onClick="@{()->viewModel.onLabelClick()}"-->
-<!--                    android:text="Label"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                <by.esas.tools.inputfieldview.BoxView-->
-<!--                    android:id="@+id/f_main_phone_box"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:minHeight="48dp"-->
-<!--                    app:boxVBgColor="@color/colorDivider"-->
-<!--                    app:boxVStrokeColor="@color/colorDivider"-->
-<!--                    app:boxVStrokeRadius="4dp"-->
-<!--                    app:boxVStrokeWidth="1dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/f_main_phone_field"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/f_main_phone_field" />-->
-
-<!--                <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                    android:id="@+id/f_main_add_invoice_currency_field"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:inputType="none"-->
-<!--                    android:text="BY +375"-->
-<!--                    app:inputBoxBgColor="@android:color/transparent"-->
-<!--                    app:inputEditable="false"-->
-<!--                    app:inputEndDrawable="@drawable/ic_input_field_arrow_down_default_24"-->
-<!--                    app:inputEndDrawableTint="@android:color/black"-->
-<!--                    app:inputEndIconMode="custom"-->
-<!--                    app:inputIsWrap="true"-->
-<!--                    app:inputLabelType="hide"-->
-<!--                    app:inputShowBottomContainer="false"-->
-<!--                    app:inputStrokeWidth="0dp"-->
-<!--                    app:layout_constraintEnd_toStartOf="@id/f_main_phone_field"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/f_main_phone_field" />-->
-
-<!--                <View-->
-<!--                    android:id="@+id/f_main_add_invoice_currency_click"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:clickable="true"-->
-<!--                    android:onClick="@{()->viewModel.onPhoneCodeClick()}"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/f_main_add_invoice_currency_field"-->
-<!--                    app:layout_constraintEnd_toEndOf="@id/f_main_add_invoice_currency_field"-->
-<!--                    app:layout_constraintStart_toStartOf="@id/f_main_add_invoice_currency_field"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/f_main_add_invoice_currency_field" />-->
-
-<!--                <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                    android:id="@+id/f_main_phone_field"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Hint"-->
-<!--                    android:inputType="number|numberDecimal"-->
-<!--                    android:text="@={viewModel.serviceName}"-->
-<!--                    app:inputBoxBgColor="@android:color/transparent"-->
-<!--                    app:inputEditable="true"-->
-<!--                    app:inputEndIconMode="clear_text"-->
-<!--                    app:inputLabelType="hide"-->
-<!--                    app:inputShowBottomContainer="false"-->
-<!--                    app:inputStrokeWidth="0dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/f_main_add_invoice_currency_field"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/f_main_phone_label"-->
-<!--                    tools:text="" />-->
-
-<!--                <View-->
-<!--                    android:id="@+id/f_main_phone_divider"-->
-<!--                    android:layout_width="1dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginBottom="10dp"-->
-<!--                    android:background="@android:color/black"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/f_main_phone_box"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/f_main_add_invoice_currency_field"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/f_main_phone_box" />-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/f_main_phone_error"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Error"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/f_main_phone_box" />-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--            &lt;!&ndash;  <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                  android:id="@+id/a_main_text"-->
-<!--                  android:layout_width="match_parent"-->
-<!--                  android:layout_height="wrap_content"-->
-<!--                  android:text="@={viewModel.mainText}"-->
-<!--                  app:inputEditTextStyle="@style/EditTextStyle"-->
-<!--                  app:inputEndIconMode="clear_text"-->
-<!--                  app:inputLabel="qwerty (ex. 34567)"-->
-<!--                  app:inputPaddingBottom="8dp"-->
-<!--                  app:inputPaddingTop="8dp"-->
-<!--                  app:inputStartDrawable="@drawable/ic_baseline_build_24"-->
-<!--                  tools:text="1234" />&ndash;&gt;-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/f_main_add_invoice_additional_switch"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:focusable="true"-->
-<!--                android:gravity="center"-->
-<!--                android:onClick="@{()->viewModel.onAdditionalClick()}"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <com.google.android.material.textview.MaterialTextView-->
-<!--                    android:id="@+id/f_main_add_invoice_additional_menu"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Switch" />-->
-
-<!--                <androidx.appcompat.widget.AppCompatImageView-->
-<!--                    android:id="@+id/f_main_add_invoice_additional_icon"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:enabled="@{viewModel.showAdditional}"-->
-<!--                    app:srcCompat="@drawable/ic_input_field_arrow_down_default_24"-->
-<!--                    tools:ignore="VectorDrawableCompat" />-->
-<!--            </LinearLayout>-->
-
-<!--            <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                android:id="@+id/a_main_text_3"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="text|textPassword|textNoSuggestions"-->
-<!--                android:text="@{viewModel.password}"-->
-<!--                app:inputEditTextStyle="@style/EditTextStyle"-->
-<!--                app:inputEditViewMinHeight="32dp"-->
-<!--                app:inputEditable="true"-->
-<!--                app:inputEndIconMode="password_toggle"-->
-<!--                app:inputHideErrorIcon="true"-->
-<!--                app:inputIconsPadding="8dp"-->
-<!--                app:inputIconsSize="32dp"-->
-<!--                app:inputIsStartChecked="@{viewModel.showAdditional}"-->
-<!--                app:inputIsEndChecked="@={viewModel.showAdditional}"-->
-<!--                app:inputLabel="Label"-->
-<!--                app:inputLabelExtraTopMargin="4dp"-->
-<!--                app:inputLabelType="on_top_no_start_padding"-->
-<!--                app:inputPaddingBottom="8dp"-->
-<!--                app:inputPaddingTop="8dp"-->
-<!--                app:inputStartIconMode="checkable"-->
-<!--                tools:inputLabel="qwerty (ex. 34567)"-->
-<!--                tools:text="1234" />-->
-
-<!--            <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                android:id="@+id/a_main_text_4"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="text|textPassword"-->
-<!--                android:text="@{viewModel.password}"-->
-<!--                app:inputEditTextStyle="@style/EditTextStyle"-->
-<!--                app:inputEditViewMinHeight="32dp"-->
-<!--                app:inputEditable="true"-->
-<!--                app:inputEndDrawableTint="@null"-->
-<!--                app:inputEndIconMode="clear_text"-->
-<!--                app:inputHideErrorIcon="true"-->
-<!--                app:inputLabel="Label without error icon"-->
-<!--                app:inputLabelExtraTopMargin="4dp"-->
-<!--                app:inputLabelType="on_top_no_start_padding"-->
-<!--                app:inputPaddingBottom="8dp"-->
-<!--                app:inputPaddingTop="8dp"-->
-<!--                app:inputStartDrawable="@drawable/ic_baseline_build_24"-->
-<!--                tools:text="1234" />-->
-<!--            &lt;!&ndash;  <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                  android:id="@+id/a_main_text2"-->
-<!--                  android:layout_width="match_parent"-->
-<!--                  android:layout_height="wrap_content"-->
-<!--                  android:inputType="text|textPassword"-->
-<!--                  android:text="@={viewModel.mainText}"-->
-<!--                  app:inputEditTextStyle="@style/EditTextStyle"-->
-<!--                  app:inputEndIconMode="password_toggle"-->
-<!--                  app:inputLabel="Service qwerty (ex. 3456)"-->
-<!--                  app:inputLabelExtraTopMargin="2dp"-->
-<!--                  app:inputLabelType="on_top_no_start_padding"-->
-<!--                  app:inputPrefix="1-1-"-->
-<!--                  app:inputStartDrawable="@drawable/ic_baseline_build_24"-->
-<!--                  app:inputStartIconMode="custom"-->
-<!--                  tools:text="1234" />&ndash;&gt;-->
-
-<!--            <by.esas.tools.pinview.PinView-->
-<!--                android:id="@+id/f_main_set_error_pin"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:pinAmount="6"-->
-<!--                app:pinBetweenMargin="8dp"-->
-<!--                app:pinFilledAmount="3"-->
-<!--                app:pinFilledPadding="0dp"-->
-<!--                app:pinFilledTint="@color/colorPrimaryDark"-->
-<!--                app:pinIconSize="28dp"-->
-<!--                app:pinUnfilledPadding="4dp" />-->
-<!--            &lt;!&ndash;    <by.esas.tools.inputfieldview.InputFieldView-->
-<!--                    android:id="@+id/a_main_text2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="text"-->
-<!--                    app:inputEndIconMode="clear_text"-->
-<!--                    app:inputHideLabel="false"-->
-<!--                    app:inputLabel="1234"-->
-<!--                    app:inputPrefix="1"-->
-<!--                    app:inputStartDrawable="@drawable/ic_baseline_build_24" />&ndash;&gt;-->
-<!--        </LinearLayout>-->
-
-<!--        <ProgressBar-->
-<!--            android:id="@+id/a_main_progress"-->
-<!--            android:layout_width="@dimen/spacing_70"-->
-<!--            android:layout_height="@dimen/spacing_70"-->
-<!--            android:visibility="@{viewModel.progressing}"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />       -->
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
+            app:navGraph="@navigation/n_main" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

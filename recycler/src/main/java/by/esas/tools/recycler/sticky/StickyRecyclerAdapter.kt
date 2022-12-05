@@ -5,6 +5,7 @@
 
 package by.esas.tools.recycler.sticky
 
+import androidx.recyclerview.widget.DiffUtil
 import by.esas.tools.recycler.BaseItemViewModel
 import by.esas.tools.recycler.BaseRecyclerAdapter
 import by.esas.tools.recycler.BaseViewHolder
@@ -17,7 +18,13 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
     onItemClickPosition: (Int, StickyEntity<Entity>) -> Unit = { _, _ -> },
     onItemLongClick: (StickyEntity<Entity>) -> Unit = {},
     onItemLongClickPosition: (Int, StickyEntity<Entity>) -> Unit = { _, _ -> }
-) : BaseRecyclerAdapter<StickyEntity<Entity>, VM>(itemList, onItemClick, onItemClickPosition, onItemLongClick, onItemLongClickPosition) {
+) : BaseRecyclerAdapter<StickyEntity<Entity>, VM>(
+    itemList,
+    onItemClick,
+    onItemClickPosition,
+    onItemLongClick,
+    onItemLongClickPosition
+) {
 
     var stickyHeaderDecoration: RecyclerStickyHeaderView<StickyEntity<Entity>, *, VM>? = null
 
@@ -86,7 +93,7 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
 
     open fun addEntities(items: List<Entity>) {
         if (semaphore.tryAcquire(timeOut, TimeUnit.MILLISECONDS)) {
-            val addList: MutableList<StickyEntity<Entity>> = analyzeItems(items)
+            val addList: MutableList<StickyEntity<Entity>> = analyzeItems(items, false)
             itemList.addAll(addList)
             notifyDataSetChanged()
             semaphore.release()
@@ -97,9 +104,25 @@ abstract class StickyRecyclerAdapter<Entity, VM : BaseItemViewModel<StickyEntity
         this.addEntities(listOf(item))
     }
 
-    open fun analyzeItems(items: List<Entity>): MutableList<StickyEntity<Entity>> {
+    /**
+     * Should be used for cases where we need to update previous itemList content
+     */
+    open fun setEntities(items: List<Entity>) {
+        if (semaphore.tryAcquire(timeOut, TimeUnit.MILLISECONDS)) {
+            val addList: MutableList<StickyEntity<Entity>> = analyzeItems(items, true)
+            val diffCallback = StickyDiffCallback(itemList, addList)
+            val difResult = DiffUtil.calculateDiff(diffCallback)
+            itemList.clear()
+            itemList.addAll(addList)
+            difResult.dispatchUpdatesTo(this)
+            semaphore.release()
+        }
+    }
+
+    open fun analyzeItems(items: List<Entity>, isSet: Boolean): MutableList<StickyEntity<Entity>> {
         val addList: MutableList<StickyEntity<Entity>> = mutableListOf()
-        var compareData = createNew(this.entityList.lastOrNull())
+        //For setItems we use isSet=true and then first compareData should be null
+        var compareData = if (isSet) createNew(null) else createNew(this.entityList.lastOrNull())
 
         items.forEach { newAdapterItem ->
             newAdapterItem.let { item ->

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.recycler.custom.CustomRecyclerVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:id="@+id/f_main_custom_recycler_title"
+            style="@style/TextStyle.Normal16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recycler_case_custom_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/f_main_custom_recycler_case_one"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:layout_marginBottom="@dimen/spacing_12"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_add_btn"
+            app:layout_constraintTop_toBottomOf="@id/f_main_custom_recycler_title"
+            tools:itemCount="3"
+            tools:listitem="@layout/i_picked" />
+
+        <EditText
+            android:id="@+id/f_main_custom_recycler_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@={viewModel.newEntity}"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_are_selectable"
+            app:layout_constraintEnd_toStartOf="@id/f_main_custom_recycler_add_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_add_btn"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:onClick="@{()->viewModel.addItem()}"
+            android:text="@string/recycler_cases_add_button"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_are_selectable"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_main_custom_recycler_are_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_24"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:checked="@={viewModel.makeItemsSelectable}"
+            android:text="@string/recycler_cases_are_selectable"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_single_select"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:checked="true" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_main_custom_recycler_single_select"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_24"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:checked="@={viewModel.isSingleItemSelectable}"
+            android:text="@string/recycler_cases_is_single_selectable"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_with_position"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:checked="true" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_main_custom_recycler_with_position"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_24"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:checked="@={viewModel.withPositionFlag}"
+            android:text="@string/recycler_cases_with_position"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_delete_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:checked="true" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_delete_btn"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:onClick="@{()->viewModel.clearItems()}"
+            android:text="@string/recycler_cases_delete_button"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_alignment"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_set_btn"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:onClick="@{()->viewModel.setAnotherList()}"
+            android:text="@string/recycler_cases_set_button"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_alignment"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/f_main_custom_recycler_alignment"
+            style="@style/TextStyle.Normal16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@string/recycler_cases_set_alignment"
+            app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_align_left" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_align_left"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@string/recycler_cases_align_left_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/f_main_custom_recycler_align_center"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_align_center"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_8"
+            android:layout_marginEnd="@dimen/spacing_8"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@string/recycler_cases_align_center_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/f_main_custom_recycler_align_right"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/f_main_custom_recycler_align_left" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_custom_recycler_align_right"
+            style="@style/OutlineButtonStyle.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@string/recycler_cases_align_right_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/f_main_custom_recycler_align_center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

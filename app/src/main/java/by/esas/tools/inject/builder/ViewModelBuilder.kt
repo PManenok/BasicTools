@@ -14,24 +14,30 @@ import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.checker.CheckerInputFieldVM
+import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
-import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
 import by.esas.tools.screens.domain.DomainCaseVM
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
+import by.esas.tools.screens.listheader.ListheaderVM
+import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.numpad.numpad_text.NumpadTextVM
 import by.esas.tools.screens.pin_view.PinViewVM
 import by.esas.tools.screens.pin_view.dynamic.DynamicPinViewVM
+import by.esas.tools.screens.recycler.base.RecyclerVM
+import by.esas.tools.screens.recycler.custom.CustomRecyclerVM
+import by.esas.tools.screens.recycler.simple.SimpleRecyclerVM
+import by.esas.tools.screens.recycler.sticky_case.StickyCaseVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
+import by.esas.tools.screens.topbar.TopbarVM
 import by.esas.tools.screens.util.UtilKeyboardVM
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerVM
 import by.esas.tools.screens.util.utils.UtilsVM
-import by.esas.tools.screens.topbar.TopbarVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -184,4 +190,24 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(SavedStateVM::class)
     abstract fun bindVMFactory(f: SavedStateVM.Factory): AssistedSavedStateViewModelFactory<out ViewModel>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RecyclerVM::class)
+    abstract fun bindRecyclerVM(viewModel: RecyclerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StickyCaseVM::class)
+    abstract fun bindStickyCaseVM(viewModel: StickyCaseVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SimpleRecyclerVM::class)
+    abstract fun bindSimpleRecyclerVM(viewModel: SimpleRecyclerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CustomRecyclerVM::class)
+    abstract fun bindCustomRecyclerVM(viewModel: CustomRecyclerVM): ViewModel
 }

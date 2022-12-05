@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.recycler.base.RecyclerVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_16">
+
+        <TextView
+            android:id="@+id/f_main_recycler_title_case_one"
+            style="@style/TextStyle.Normal16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recycler_case_base_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/f_main_recycler_case_one"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:layout_marginBottom="@dimen/spacing_12"
+            app:layout_constraintBottom_toTopOf="@id/f_main_recycler_case_one_add_btn"
+            app:layout_constraintTop_toBottomOf="@id/f_main_recycler_title_case_one"
+            tools:itemCount="3"
+            tools:listitem="@layout/i_recycler_base" />
+
+        <EditText
+            android:id="@+id/f_main_recycler_case_one_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@={viewModel.newEntity}"
+            app:layout_constraintBottom_toTopOf="@id/f_main_recycler_with_position"
+            app:layout_constraintEnd_toStartOf="@id/f_main_recycler_case_one_add_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_recycler_case_one_add_btn"
+            style="@style/OutlineButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:onClick="@{()->viewModel.addItem()}"
+            android:text="@string/recycler_cases_add_button"
+            app:layout_constraintBottom_toTopOf="@id/f_main_recycler_with_position"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/f_main_recycler_with_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_12"
+            android:text="@string/recycler_cases_with_position"
+            android:checked="@={viewModel.withPositionFlag}"
+            tools:checked="true"
+            app:layout_constraintBottom_toTopOf="@id/f_main_recycler_case_one_delete_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_recycler_case_one_delete_btn"
+            style="@style/OutlineButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.clearItems()}"
+            android:text="@string/recycler_cases_delete_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/f_main_recycler_case_one_set_btn"
+            style="@style/OutlineButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.setAnotherList()}"
+            android:text="@string/recycler_cases_set_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
