@@ -9,10 +9,11 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainCustomRecyclerBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import by.esas.tools.screens.recycler.RecyclerLists
+import by.esas.tools.screens.recycler.mapToSimple
 
 class CustomRecyclerFragment : AppFragment<CustomRecyclerVM, FMainCustomRecyclerBinding>() {
 
-    override val fragmentDestinationId: Int = R.id.simpleRecyclerFragment
+    override val fragmentDestinationId: Int = R.id.customRecyclerFragment
 
     override fun provideLayoutId(): Int {
         return R.layout.f_main_custom_recycler
@@ -28,7 +29,7 @@ class CustomRecyclerFragment : AppFragment<CustomRecyclerVM, FMainCustomRecycler
         binding.fMainCustomRecyclerCaseOne.layoutManager = LinearLayoutManager(context)
         binding.fMainCustomRecyclerCaseOne.setHasFixedSize(false)
 
-        val lastIndex = viewModel.firstList.lastIndex
+        val lastIndex = RecyclerLists.firstList.lastIndex
         viewModel.adapter.setItems(RecyclerLists.firstList.mapIndexed { index, entity ->
             entity.mapToSimple(lastIndex == index, viewModel.currentAlignment)
         })

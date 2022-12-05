@@ -9,6 +9,7 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainSimpleRecyclerBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import by.esas.tools.screens.recycler.RecyclerLists
+import by.esas.tools.screens.recycler.mapToSimple
 
 class SimpleRecyclerFragment : AppFragment<SimpleRecyclerVM, FMainSimpleRecyclerBinding>() {
 
