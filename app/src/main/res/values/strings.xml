@@ -349,4 +349,8 @@
     <string name="checker_error_length">Length error</string>
     <string name="checker_everything_correct">Everything is correct</string>
 
+
+    <!--Saved State-->
+    <string name="saved_state_case">This case show that ViewModel can save necessary date and recover it after app process reboot. First field save entered data second not. \nInstructions: in developer options choose no background process in Background process limit. Then open another app and re-open this app from open applications stack.</string>
+
 </resources>
