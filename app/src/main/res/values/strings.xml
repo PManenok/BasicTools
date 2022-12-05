@@ -325,4 +325,24 @@
     <string name="start">Start</string>
     <string name="domain_case_encrypt_rsa_title">Check encrypt/decrypt RSA methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
 
+    <!--Recycler-->
+    <string name="case_label_recycler_base">BaseRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_sticky">StickyRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_simple">SimpleRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_custom">CustomRecyclerAdapter base functionality check</string>
+    <string name="recycler_case_base_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
+    <string name="recycler_case_sticky_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
+    <string name="recycler_case_simple_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check item change state to picked\n7. check last item visualization (added item in the end has no divider)\n8. check item alignment (left, center, right)</string>
+    <string name="recycler_case_custom_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check item change state to picked\n7. check last item visualization (added item in the end has no divider)\n8. check item alignment (left, center, right)</string>
+    <string name="recycler_cases_are_selectable">Items can be selected</string>
+    <string name="recycler_cases_is_single_selectable">Single item can be selected</string>
+    <string name="recycler_cases_with_position">Check clicks with position</string>
+    <string name="recycler_cases_action">Count</string>
+    <string name="recycler_cases_add_button">Add item</string>
+    <string name="recycler_cases_delete_button">Clear items</string>
+    <string name="recycler_cases_set_button">Set another list</string>
+    <string name="recycler_cases_set_alignment">Set list alignment to:</string>
+    <string name="recycler_cases_align_left_button">left</string>
+    <string name="recycler_cases_align_center_button">center</string>
+    <string name="recycler_cases_align_right_button">right</string>
 </resources>

@@ -34,6 +34,8 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
     }
 
     protected open fun doOnDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        //TODO make first header not drawable when it is in same position as header on recycler
+
         val topChild: View = parent.getChildAt(0) ?: return
 
         val topChildPosition = parent.getChildAdapterPosition(topChild)
@@ -45,6 +47,13 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         val contactPoint = binding.root.bottom
         val childInContact = getChildInContact(parent, contactPoint, headerPos)
 
+        val topContactPoint = binding.root.top
+        val topChildInContact = getChildInContact(parent, topContactPoint, headerPos)
+        if (topChildInContact != null && listener.isHeader(parent.getChildAdapterPosition(topChildInContact))) {
+            if (topChildInContact.top.toFloat() == 0.0f) {
+                return
+            }
+        }
         if (childInContact != null && listener.isHeader(parent.getChildAdapterPosition(childInContact))) {
             moveHeader(canvas, binding.root, childInContact)
             return
@@ -114,7 +123,11 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         val childWidthSpec: Int =
             ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.layoutParams.width)
         val childHeightSpec: Int =
-            ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.layoutParams.height)
+            ViewGroup.getChildMeasureSpec(
+                heightSpec,
+                parent.paddingTop + parent.paddingBottom,
+                view.layoutParams.height
+            )
 
         view.measure(childWidthSpec, childHeightSpec)
         mStickyHeaderHeight = view.measuredHeight

@@ -24,6 +24,7 @@
             android:layout_marginEnd="@dimen/spacing_8"
             android:text="@{item.name}"
             android:textAlignment="@{item.alignment}"
+            android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/i_picked_icon"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:tint="@android:color/holo_green_light"
             app:srcCompat="@drawable/ic_done"
             app:visibilityGone="@{item.isChoosed}" />
 
@@ -44,7 +46,7 @@
             android:id="@+id/i_picked_bottom_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorItemDivider"
+            android:background="@android:color/holo_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:visibilityGone="@{!item.isLast}" />
     </androidx.constraintlayout.widget.ConstraintLayout>

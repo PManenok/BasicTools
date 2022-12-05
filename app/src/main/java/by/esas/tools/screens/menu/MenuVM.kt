@@ -2,10 +2,12 @@ package by.esas.tools.screens.menu
 
 import androidx.databinding.ObservableBoolean
 import androidx.navigation.NavDirections
+import by.esas.tools.App
+import by.esas.tools.R
 import by.esas.tools.base.AppVM
-import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.entity.CaseItemInfo
 import by.esas.tools.entity.Modules
+import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.usecase.SearchCaseUseCase
 import javax.inject.Inject
 
@@ -147,6 +149,26 @@ class MenuVM @Inject constructor(
             listOf(Modules.CARDLINE),
             MenuFragmentDirections.actionMenuFragmentToDynamicCardlineFragment()
         )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_recycler_base),
+            listOf(Modules.RECYCLER),
+            MenuFragmentDirections.actionMenuFragmentToRecyclerFragment()
+        )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_recycler_sticky),
+            listOf(Modules.RECYCLER),
+            MenuFragmentDirections.actionMenuFragmentToStickyCaseFragment()
+        )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_recycler_simple),
+            listOf(Modules.RECYCLER),
+            MenuFragmentDirections.actionMenuFragmentToSimpleRecyclerFragment()
+        )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_recycler_custom),
+            listOf(Modules.RECYCLER),
+            MenuFragmentDirections.actionMenuFragmentToCustomRecyclerFragment()
+        )
         updateAdapter(allCases)
     }
 
@@ -168,7 +190,7 @@ class MenuVM @Inject constructor(
         }
     }
 
-    fun clearSearch(){
+    fun clearSearch() {
         updateAdapter(allCases)
         prevSearch = ""
     }

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Electronic Systems And Services Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package by.esas.tools.recycler
 
 import android.view.View
