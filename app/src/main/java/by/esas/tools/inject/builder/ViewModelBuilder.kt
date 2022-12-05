@@ -14,7 +14,6 @@ import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.checker.CheckerInputFieldVM
-import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
@@ -22,7 +21,6 @@ import by.esas.tools.screens.domain.DomainCaseVM
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
-import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
