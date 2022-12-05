@@ -83,6 +83,9 @@
         <action
             android:id="@+id/action_menuFragment_to_domainCaseFragment"
             app:destination="@id/domainCaseFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_checkerFragment"
+            app:destination="@id/checkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -154,6 +157,11 @@
         android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
         android:label="Create custom Cardline"
         tools:layout="@layout/f_main_dynamic_cardline" />
+    <fragment
+        android:id="@+id/checkerFragment"
+        android:name="by.esas.tools.screens.checker.CheckerInputFieldFragment"
+        android:label="Check checker functionality"
+        tools:layout="@layout/f_main_checker" />
     <fragment
         android:id="@+id/dynamicMessageDialogFragment"
         android:name="by.esas.tools.screens.dialog.DynamicMessageDialogFragment"

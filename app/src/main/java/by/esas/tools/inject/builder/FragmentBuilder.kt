@@ -8,6 +8,7 @@ import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment
+import by.esas.tools.screens.checker.CheckerInputFieldFragment
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment
 import by.esas.tools.screens.dialog.DynamicMessageDialogFragment
@@ -109,4 +110,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindDomainCaseFragment(): DomainCaseFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindCheckerInputFieldFragment(): CheckerInputFieldFragment
 }

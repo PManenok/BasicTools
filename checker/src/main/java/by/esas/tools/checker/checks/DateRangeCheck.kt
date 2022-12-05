@@ -6,6 +6,7 @@
 package by.esas.tools.checker.checks
 
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 import java.text.SimpleDateFormat

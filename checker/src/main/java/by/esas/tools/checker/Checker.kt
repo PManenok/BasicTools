@@ -39,11 +39,10 @@ open class Checker {
                 result = it.checkField(showError, getter) && result
             }
         } else {
-            checks.forEach {
+            for(it in checks) {
                 result = it.checkField(showError, getter) && result
-                if (!result) {
-                    return@forEach
-                }
+                if (!result)
+                    break
             }
         }
         if (result)
