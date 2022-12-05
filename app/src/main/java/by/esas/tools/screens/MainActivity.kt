@@ -1,6 +1,7 @@
 package by.esas.tools.screens
 
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -53,6 +54,12 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         }
         viewModel.title.observe(this) {
             binding.aMainTopBar.setTitle(it)
+        }
+    }
+
+    override fun handleTouchOutOfInputField(event: MotionEvent) {
+        if (event.action == MotionEvent.ACTION_DOWN && navController.currentDestination?.id != R.id.utilKeyboardFragment) {
+            super.handleTouchOutOfInputField(event)
         }
     }
 
