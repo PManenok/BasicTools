@@ -46,16 +46,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
+                    android:hint="@string/test_text"
+                    app:inputEditTextStyle="@style/TextStyle"
+                    app:inputHelp="Icons are clickable"
+                    app:inputIconsSize="@dimen/spacing_32"
                     app:inputLabel="Label"
                     app:inputLabelTextStyle="@style/InputfieldViewTextStyle"
-                    app:inputEditTextStyle="@style/TextStyle"
                     app:inputStartDrawable="@drawable/ic_star"
+                    app:inputStartDrawableTint="@color/inputfieldview_selector_stroke_color"
                     app:inputStartIconMode="custom"
-                    app:inputIconsSize="@dimen/spacing_32"
-                    app:inputEndIconMode="clear_text"
                     app:inputEndDrawable="@drawable/ic_cancel"
-                    app:inputHelp="Icons are clickable"
-                    android:hint="@string/test_text"/>
+                    app:inputEndDrawableTint="@color/main_color_3"
+                    app:inputEndIconMode="clear_text"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -70,8 +72,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:inputStartIconMode="checkable"
+                    app:inputStartDrawableTint="@color/main_color_2"
                     app:inputEndIconMode="custom"
                     app:inputEndDrawable="@drawable/ic_star"
+                    app:inputEndDrawableTint="@color/main_color_2"
                     android:hint="@string/test_text"
                     android:layout_marginTop="@dimen/spacing_4"/>
 
@@ -88,8 +92,11 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/test_text"
                     app:inputEndIconMode="text"
-                    app:inputEndText="click"
+                    app:inputEndText="@string/click"
+                    app:inputEndTextStyle="@style/InputfieldViewTextStyle"
                     app:inputStartIconMode="progress"
+                    app:inputStartDrawableTint="@color/main_color_2"
+                    app:inputLabelType="hide"
                     android:layout_marginTop="@dimen/spacing_4"/>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -129,8 +136,9 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/test_text"
                     app:inputLabel="Label"
-                    app:inputErrorColor="@color/yellow"
+                    app:inputLabelType="hide"
                     app:inputErrorIcon="@drawable/ic_done"
+                    app:inputStrokeColor="@color/inputfieldview_selector_custom_color"
                     android:layout_marginTop="@dimen/spacing_4"/>
 
             </LinearLayout>

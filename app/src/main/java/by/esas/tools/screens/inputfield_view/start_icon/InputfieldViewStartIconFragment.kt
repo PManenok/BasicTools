@@ -2,10 +2,12 @@ package by.esas.tools.screens.inputfield_view.start_icon
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainInputfieldviewStartIconBinding
+import by.esas.tools.inputfieldview.InputFieldView
 
 class InputfieldViewStartIconFragment: AppFragment<InputfieldViewStartIconVM, FMainInputfieldviewStartIconBinding>() {
     override val fragmentDestinationId = R.id.inputfieldViewStartIconFragment
@@ -19,6 +21,25 @@ class InputfieldViewStartIconFragment: AppFragment<InputfieldViewStartIconVM, FM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fInputfieldviewStartCase2Input.setStartIconCheckListener(object :
+            InputFieldView.IconCheckedListener {
+            override fun onCheckChanged(isChanged: Boolean) {
+                val message =
+                    if (isChanged) resources.getString(R.string.inputfieldview_start_icon_is_checked)
+                    else resources.getString(R.string.inputfieldview_start_icon_is_unchecked)
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        binding.fInputfieldviewStartCase3Input.setStartIconClickListener(object :
+            InputFieldView.IconClickListener {
+            override fun onIconClick() {
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.inputfieldview_start_icon_click),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
         binding.fInputfieldviewStartSetErrorButton.setOnClickListener {
             setErrors()
         }

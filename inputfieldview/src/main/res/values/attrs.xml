@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    <declare-styleable name="ErrorState">-->
-<!--        <attr name="state_error" format="boolean"/>-->
-<!--    </declare-styleable>-->
-
     <declare-styleable name="InputFieldView">
         <!--Common-->
         <attr name="inputPaddingTop" format="dimension" />
@@ -17,7 +13,6 @@
         <attr name="inputIsEnableable" format="boolean" />
 
         <attr name="state_error" format="boolean"/>
-        <attr name="state_focus" format="boolean"/>
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -96,18 +91,17 @@
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
-        <attr name="inputHelpColor" format="color" />
         <attr name="inputHelpTextStyle" format="reference" />
 
         <!--Error-->
         <attr name="inputError" format="string" />
-        <attr name="inputErrorColor" format="color" />
         <attr name="inputErrorTextStyle" format="reference" />
         <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
 
         <!--Box-->
         <attr name="inputStrokeColor" format="reference" />
+        <attr name="inputFocusedStrokeColor" format="reference" />
         <attr name="inputBoxBgColor" format="color" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />

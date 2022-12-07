@@ -21,6 +21,8 @@ class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fInputfieldviewCase3.disableView()
+
         binding.fInputfieldviewCase2.setStartIconClickListener(object : InputFieldView.IconClickListener {
             override fun onIconClick() {
                 Toast.makeText(
@@ -89,7 +91,9 @@ class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewB
             inputBox?.setStrokeColorRes(R.color.purple)
         }
         binding.fInputfieldviewCase6.apply {
-
+            setInputLabel(R.string.inputfieldview_new_label)
+            setLabelType(InputFieldView.LABEL_TYPE_ON_TOP)
+            setHelp(R.string.test_text)
         }
     }
 }
