@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="InputFieldView">
         <!--Common-->
         <attr name="inputPaddingTop" format="dimension" />
@@ -10,6 +11,8 @@
         <attr name="inputIsStartChecked" format="boolean"/>
         <attr name="inputIsEndChecked" format="boolean"/>
         <attr name="inputIsEnableable" format="boolean" />
+
+        <attr name="state_error" format="boolean"/>
 
         <!--Label-->
         <attr name="inputLabel" format="string" />
@@ -24,7 +27,6 @@
         <attr name="inputLabelTextStyle" format="reference" />
         <attr name="inputLabelMaxLines" format="integer" />
         <attr name="inputLabelExtraTopMargin" format="dimension" />
-        <attr name="inputLabelColorWithError" format="boolean"/>
 
         <!--Input Text-->
         <attr name="inputEditTextStyle" format="reference" />
@@ -49,7 +51,7 @@
 
         <!--Start Icon-->
         <attr name="inputStartDrawable" format="reference" />
-        <attr name="inputStartDrawableTint" format="color" />
+        <attr name="inputStartDrawableTint" format="reference" />
         <attr name="inputStartIconMode">
             <!-- The view will display a custom icon specified by the user. -->
             <enum name="custom" value="-1" />
@@ -62,7 +64,6 @@
             <!-- The view will display a progress bar. -->
             <enum name="progress" value="3" />
         </attr>
-        <attr name="inputStartIconColorWithError" format="boolean"/>
 
         <!--End Icon-->
         <attr name="inputEndDrawable" format="reference" />
@@ -83,35 +84,27 @@
             <!-- The view will display end text instead of icon -->
             <enum name="text" value="5"/>
         </attr>
-        <attr name="inputEndIconColorWithError" format="boolean"/>
 
         <!--End Text-->
         <attr name="inputEndText" format="string"/>
         <attr name="inputEndTextStyle" format="reference"/>
-        <attr name="inputEndTextErrorColor" format="color"/>
-        <attr name="inputEndTextColorWithError" format="boolean"/>
 
         <!--Help-->
         <attr name="inputHelp" format="string" />
-        <attr name="inputHelpColor" format="color" />
         <attr name="inputHelpTextStyle" format="reference" />
 
         <!--Error-->
         <attr name="inputError" format="string" />
-        <attr name="inputErrorColor" format="color" />
         <attr name="inputErrorTextStyle" format="reference" />
         <attr name="inputErrorIcon" format="reference" />
         <attr name="inputHideErrorIcon" format="boolean" />
-        <attr name="inputErrorTextColorWithError" format="boolean"/>
 
         <!--Box-->
-        <attr name="inputInactiveStrokeColor" format="color" />
-        <attr name="inputActiveStrokeColor" format="color" />
+        <attr name="inputStrokeColor" format="reference" />
+        <attr name="inputFocusedStrokeColor" format="reference" />
         <attr name="inputBoxBgColor" format="color" />
         <attr name="inputStrokeRadius" format="dimension" />
         <attr name="inputStrokeWidth" format="dimension" />
-        <attr name="inputStrokeErrorColor" format="color"/>
-        <attr name="inputStrokeErrorColorWithError" format="boolean"/>
         <attr name="inputBoxVisibility">
             <!-- Visible on screen; the default value. -->
             <enum name="visible" value="0" />

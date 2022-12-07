@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" tools:ignore="MissingDefaultResource">
+    <item android:color="@color/dark_red" app:state_error="true" />
+    <item android:color="@color/main_color_3" />
+</selector>

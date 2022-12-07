@@ -15,11 +15,9 @@
         <item name="inputIconsSize">@dimen/spacing_32</item>
         <item name="inputIconsPadding">@dimen/spacing_4</item>
         <item name="inputBoxBgColor">@color/main_color_4</item>
+        <item name="inputStrokeColor">@color/inputfieldview_selector_stroke_color</item>
         <item name="inputShowBottomContainer">false</item>
         <item name="inputLabelType">hide</item>
-        <item name="inputActiveStrokeColor">@color/main_color_4</item>
-        <item name="inputStartDrawableTint">@color/main_color_2</item>
-        <item name="inputEndDrawableTint">@color/main_color_2</item>
     </style>
 
     <style name="TextStyle">
@@ -108,6 +106,11 @@
     <style name="CustomInputField">
         <item name="endIconDrawable">@drawable/ic_star</item>
         <item name="endIconMode">custom</item>
+    </style>
+
+    <style name="InputfieldViewTextStyle">
+        <item name="android:textColor">@color/inputfieldview_selector_text_color</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
     </style>
 
     <style name="NumpadTextNumbersStyle">
