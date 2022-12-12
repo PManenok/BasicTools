@@ -31,24 +31,28 @@
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_baseui_navigation_second_input_field"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_4"
             android:hint="@string/hint_add_value"/>
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_without_args"/>
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_without_args_button"
             android:layout_marginTop="@dimen/spacing_10"/>
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_with_args"
@@ -56,12 +60,14 @@
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back_with_args"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_with_args_button"
             android:layout_marginTop="@dimen/spacing_10"/>
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_including"
@@ -69,6 +75,7 @@
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back_inclusive"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/baseui_navigation_second_pop_back_including_button"

@@ -27,7 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardTitle="@string/cardline_title"
+            app:cardTitleTextAppearance="@style/HintTextStyle"
             app:cardValue="@string/cardline_value"
+            app:cardValueTextAppearance="@style/HintTextStyle"
             app:cardShowDividerTop="true"
             app:cardShowDividerBottom="true"
             app:cardIconStart="@drawable/ic_add"
@@ -56,8 +58,8 @@
             app:cardIconEnd="@drawable/ic_remove"
             app:cardTitleTextAppearance="@style/TextStyle"
             app:cardValueTextAppearance="@style/TextStyle"
-            app:cardTopDividerColor="@color/black"
-            app:cardBottomDividerColor="@color/black"
+            app:cardTopDividerColor="@color/textColor"
+            app:cardBottomDividerColor="@color/textColor"
             app:cardTitleWidthPercent="0.1"
             android:layout_marginTop="@dimen/spacing_8"/>
 
@@ -72,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardValue="@string/cardline_value_long"
+            app:cardValueTextAppearance="@style/HintTextStyle"
             app:cardShowDividerBottom="true"
             app:cardValueAlignment="textEnd"
             android:layout_marginTop="@dimen/spacing_8"/>
@@ -87,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardTitle="@string/cardline_title_long"
+            app:cardTitleTextAppearance="@style/HintTextStyle"
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <TextView
@@ -100,25 +104,26 @@
             android:id="@+id/f_main_cardline_style"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardTitle="@string/cardline_title"
-            app:cardValue="@string/cardline_value"
-            app:cardShowDividerTop="true"
-            app:cardShowDividerBottom="true"
-            app:cardIconStart="@drawable/ic_add"
-            app:cardIconEnd="@drawable/ic_remove"
-            app:cardStartIconAlignVertical="0"
+            android:layout_marginTop="@dimen/spacing_8"
             app:cardEndIconAlignVertical="1"
+            app:cardIconEnd="@drawable/ic_remove"
+            app:cardIconStart="@drawable/ic_add"
+            app:cardShowDividerBottom="true"
+            app:cardShowDividerTop="true"
+            app:cardStartIconAlignVertical="0"
             app:cardTextAlignVertical="0.4"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            app:cardTitle="@string/cardline_title"
+            app:cardTitleTextAppearance="@style/HintTextStyle"
+            app:cardValue="@string/cardline_value"
+            app:cardValueTextAppearance="@style/HintTextStyle"/>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/f_main_cardline_change_style"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_40"
-            android:backgroundTint="@color/main_color_5"
             android:text="@string/cardline_change_style"
-            android:textColor="@color/black"
             android:layout_gravity="center"/>
     </LinearLayout>
 

@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/baseui_background"
         android:padding="@dimen/spacing_12">
 
         <com.google.android.material.textview.MaterialTextView
@@ -42,22 +41,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/baseui_theme_russian"/>
-
-            <RadioButton
-                style="@style/BaseUI_TextStyle"
-                android:id="@+id/f_baseui_theme_lang_radio_belorussian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/baseui_theme_belorussian"/>
         </RadioGroup>
 
         <Button
             android:id="@+id/f_baseui_theme_set_lang_btn"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/baseui_theme_set_language"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/baseui_buttonColor"/>
+            android:layout_gravity="center"/>
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/BaseUI_TextStyle"
@@ -97,10 +89,10 @@
 
         <Button
             android:id="@+id/f_baseui_theme_set_mode_btn"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/baseui_theme_set_theme"
-            android:backgroundTint="@color/baseui_buttonColor"
             android:layout_gravity="center"/>
 
     </LinearLayout>

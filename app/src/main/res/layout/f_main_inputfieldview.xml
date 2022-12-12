@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="@dimen/spacing_8">
 
@@ -71,13 +71,13 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:inputStartIconMode="checkable"
                     app:inputStartDrawableTint="@color/main_color_2"
                     app:inputEndIconMode="custom"
                     app:inputEndDrawable="@drawable/ic_star"
                     app:inputEndDrawableTint="@color/main_color_2"
                     android:hint="@string/test_text"
-                    android:layout_marginTop="@dimen/spacing_4"/>
+                    android:layout_marginTop="@dimen/spacing_4"
+                    app:inputStartIconMode="checkable" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -93,7 +93,6 @@
                     android:hint="@string/test_text"
                     app:inputEndIconMode="text"
                     app:inputEndText="@string/click"
-                    app:inputEndTextStyle="@style/InputfieldViewTextStyle"
                     app:inputStartIconMode="progress"
                     app:inputStartDrawableTint="@color/main_color_2"
                     app:inputLabelType="hide"
@@ -153,6 +152,7 @@
             android:layout_marginTop="@dimen/spacing_16">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -160,6 +160,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_set_error_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
@@ -167,6 +168,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_reset_error_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reset" />
@@ -181,6 +183,7 @@
             android:layout_marginTop="@dimen/spacing_8">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -188,6 +191,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_change_style_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_style" />

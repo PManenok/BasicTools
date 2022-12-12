@@ -20,8 +20,13 @@
         <item name="inputLabelType">hide</item>
     </style>
 
+    <style name="HintTextStyle">
+        <item name="android:textColor">@color/main_color_2</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
     <style name="TextStyle">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">@dimen/_14ssp</item>
     </style>
 
@@ -40,13 +45,18 @@
     </style>
 
     <style name="EditTextStyle" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColorHint">@color/main_color_2</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:inputType">text</item>
         <item name="singleLine">true</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:backgroundTint">@color/purple</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
@@ -85,7 +95,7 @@
     <style name="TopbarTextStyle">
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:textStyle">italic</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="TopbarTextStyle.Red" parent="TopbarTextStyle">

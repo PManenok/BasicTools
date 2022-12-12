@@ -119,23 +119,23 @@ class DynamicMessageDialogFragment :
         val dialog = MessageDialog()
         dialog.setRequestKey(DYNAMIC_MESSAGE_DIALOG)
         dialog.setTitle(
-            binding.fDynamicMessageDialogTitle.text.toString(),
+            binding.fDynamicMessageDialogTitle.getText(),
             getTextStyle(binding.fDynamicMessageDialogSpinnerTitle.selectedItem.toString())
         )
         dialog.setMessage(
-            binding.fDynamicMessageDialogMessage.text.toString(),
+            binding.fDynamicMessageDialogMessage.getText(),
             getTextStyle(binding.fDynamicMessageDialogSpinnerMessage.selectedItem.toString())
         )
         dialog.setPositiveButton(
-            binding.fDynamicMessageDialogBtnPositive.text.toString(),
+            binding.fDynamicMessageDialogBtnPositive.getText(),
             appearance = getPositiveButtonAppearance()
         )
         dialog.setNegativeButton(
-            binding.fDynamicMessageDialogBtnNegative.text.toString(),
+            binding.fDynamicMessageDialogBtnNegative.getText(),
             getNegativeButtonAppearance()
         )
         dialog.setNeutralButton(
-            binding.fDynamicMessageDialogBtnNeutral.text.toString(),
+            binding.fDynamicMessageDialogBtnNeutral.getText(),
             getNeutralButtonAppearance()
         )
         dialog.isCancelable = binding.fDynamicMessageDialogCloseCheck.isChecked

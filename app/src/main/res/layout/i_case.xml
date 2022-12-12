@@ -27,15 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/card" />
-            <!--
-            android:paddingStart="@dimen/spacing_16"
-            android:paddingTop="@dimen/spacing_16"
-            android:paddingEnd="@dimen/spacing_16"
-            android:paddingBottom="@dimen/spacing_16"
-                        android:paddingStart="@dimen/spacing_30"
-                        android:paddingTop="@dimen/spacing_24"
-                        android:paddingEnd="@dimen/spacing_30"
-                        android:paddingBottom="@dimen/spacing_32"-->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,6 +46,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/i_case_name"
+                style="@style/HintTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_16"
@@ -74,20 +67,24 @@
                 android:layout_marginRight="@dimen/spacing_16">
 
                 <com.google.android.material.textview.MaterialTextView
+                    style="@style/HintTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
                     android:gravity="start"
-                    android:text="Modules: "/>
+                    android:textColor="@color/main_color_2"
+                    android:text="@string/modules"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/i_case_modules"
+                    style="@style/HintTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginTop="@dimen/spacing_6"
                     android:gravity="start"
                     android:text="@{item.caseModules}"
+                    android:textColor="@color/main_color_2"
                     tools:text="Dialog, Cardline"/>
 
             </LinearLayout>

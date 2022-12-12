@@ -28,6 +28,7 @@
             app:switchTitle="@string/util_manager_base_title"
             app:switchInfo="@string/util_manager_base_info"
             app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfoTextAppearance="@style/HintTextStyle"
             android:layout_marginTop="@dimen/spacing_24"/>
 
         <LinearLayout
@@ -38,22 +39,26 @@
 
             <Button
                 android:id="@+id/f_main_util_manager_base_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/util_manager_click"/>
 
             <EditText
                 android:id="@+id/f_main_util_manager_base_edit"
+                style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/util_manager_test_hint"
+                android:textColorHint="@color/main_color_2"
                 android:layout_weight="1"/>
 
             <by.esas.tools.customswitch.CustomSwitch
                 android:id="@+id/f_main_util_manager_base_test_switcher"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/spacing_200"
                 android:layout_height="wrap_content"
-                app:switchTitle="@string/util_manager_test_hint_switcher"/>
+                app:switchTitle="@string/util_manager_test_hint_switcher"
+                app:switchTitleTextAppearance="@style/TextStyle"/>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/f_main_util_manager_base_switch_material"
@@ -69,6 +74,7 @@
             android:layout_marginTop="@dimen/spacing_36"
             app:switchTitle="@string/util_manager_custom_title"
             app:switchTitleTextAppearance="@style/TextStyle"
+            app:switchInfoTextAppearance="@style/HintTextStyle"
             app:switchInfo="@string/util_manager_custom_info"/>
 
         <LinearLayout
@@ -79,22 +85,26 @@
 
             <Button
                 android:id="@+id/f_main_util_manager_custom_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/util_manager_click"/>
 
             <EditText
                 android:id="@+id/f_main_util_manager_custom_edit"
+                style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/util_manager_test_hint"
+                android:textColorHint="@color/main_color_2"
                 android:layout_weight="1"/>
 
             <by.esas.tools.customswitch.CustomSwitch
                 android:id="@+id/f_main_util_manager_custom_test_switcher"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/spacing_200"
                 android:layout_height="wrap_content"
-                app:switchTitle="@string/util_manager_test_hint_switcher"/>
+                app:switchTitle="@string/util_manager_test_hint_switcher"
+                app:switchTitleTextAppearance="@style/TextStyle"/>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/f_main_util_manager_custom_switch_material"

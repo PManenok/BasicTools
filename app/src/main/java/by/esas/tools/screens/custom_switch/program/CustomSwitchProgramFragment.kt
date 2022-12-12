@@ -48,17 +48,17 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
         customSwitch.setSwitchThumbTint(getThumdColor())
         customSwitch.setSwitchTrackTint(getTrackColor())
 
-        customSwitch.setTitle(binding.fSwitcherProgramTitle.text.toString())
+        customSwitch.setTitle(binding.fSwitcherProgramTitle.getText())
         val titleStyle = getTextStyle(binding.fSwitcherProgramSpinnerTitle.selectedItem.toString())
         customSwitch.setTitleStyle(titleStyle)
-        customSwitch.setInfo(binding.fSwitcherProgramInfo.text.toString())
+        customSwitch.setInfo(binding.fSwitcherProgramInfo.getText())
         val infoStyle = getTextStyle(binding.fSwitcherProgramSpinnerInfo.selectedItem.toString())
         customSwitch.setInfoStyle(infoStyle)
         customSwitch.setInfoAlignment(getInfoAlignment())
 
-        val switcherPaddings = getPaddings(binding.fSwitcherProgramPaddingsSwitcher.text.toString())
+        val switcherPaddings = getPaddings(binding.fSwitcherProgramPaddingsSwitcher.getText())
         customSwitch.setSwitchPaddings(switcherPaddings, switcherPaddings, switcherPaddings, switcherPaddings)
-        val infoPaddings = getPaddings(binding.fSwitcherProgramPaddingsInfo.text.toString())
+        val infoPaddings = getPaddings(binding.fSwitcherProgramPaddingsInfo.getText())
         customSwitch.setInfoPaddings(infoPaddings, infoPaddings, infoPaddings, infoPaddings)
         return customSwitch
     }

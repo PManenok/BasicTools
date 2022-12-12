@@ -2,7 +2,6 @@ package by.esas.tools.screens.listheader.dynamic
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
@@ -10,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainDynamicListheaderBinding
-import by.esas.tools.inputfieldview.dpToPx
 import by.esas.tools.listheader.ListHeader
+import by.esas.tools.utils.getDimensInDp
 
 class DynamicListheaderFragment() :
     AppFragment<DynamicListheaderVM, FMainDynamicListheaderBinding>() {
@@ -42,8 +41,8 @@ class DynamicListheaderFragment() :
 
     private fun createListheader(): ListHeader {
         val listHeader = ListHeader(requireContext())
-        listHeader.setListTitle(binding.fDynamicListheaderTitle.text.toString())
-        listHeader.setListActionText(binding.fDynamicListheaderActionText.text.toString())
+        listHeader.setListTitle(binding.fDynamicListheaderTitle.getText())
+        listHeader.setListActionText(binding.fDynamicListheaderActionText.getText())
         listHeader.setListTitleStyle(getStyle(binding.fDynamicListheaderSpinnerTitle.selectedItem.toString()))
         listHeader.setListActionStyle(getStyle(binding.fDynamicListheaderSpinnerActionText.selectedItem.toString()))
         listHeader.setArrowIcon(getActionImages().first)
@@ -135,10 +134,4 @@ class DynamicListheaderFragment() :
             text = resources.getString(R.string.listheader_test_text)
         }
     }
-
-    private fun getDimensInDp(editField: EditText): Int {
-        val text = editField.text.toString()
-        return if (text.isNullOrEmpty()) 0 else dpToPx(text.toInt()).toInt()
-    }
-
 }

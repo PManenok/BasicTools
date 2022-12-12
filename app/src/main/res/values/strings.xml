@@ -10,6 +10,7 @@
     <string name="info">Info</string>
     <string name="create">Create</string>
     <string name="create_default">Create default</string>
+    <string name="click">Click</string>
     <string name="send">Send</string>
     <string name="check">Check</string>
     <string name="value">Value</string>
@@ -30,6 +31,7 @@
     <string name="item_2">Item 2</string>
     <string name="item_3">Item 3</string>
     <string name="message">Message</string>
+    <string name="modules">Modules:</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -50,6 +52,9 @@
     <!--Util module-->
     <string name="util_title_case_1">Case 1. When you open this screen, the keyboard are immediately shown and EditText view below has focus. Use button on the right side to defocus view and hide keyboard</string>
     <string name="util_title_case_2">Case 2. Use Show button to show keybord, but EditText view on the center will not have focus. Use Hide button to hide keyboard. If EditText view will have focus and you will use Hide button, keyboard will be hidden, but EditText will have focus</string>
+    <string name="util_hide_and_defocus">Hide and defocus</string>
+    <string name="util_hide">Hide</string>
+    <string name="util_show">Show</string>
 
     <string name="utils_title_case_1">Case 1: Add number in EditText view below, and format number to formated input using Format button</string>
     <string name="utils_title_case_2">Case 2: Add number in EditText view below, and format it to formated string using Format button</string>
@@ -69,12 +74,15 @@
     <string name="util_manager_base_title">Custom switcher for base SwitchManager</string>
     <string name="util_manager_base_info">Base SwitchManager can enable/disable view if it implements ISwitchView interface or if it is an EditText</string>
     <string name="util_manager_custom_title">Custom switcher for overriding SwitchManager</string>
-    <string name="util_manager_custom_info">Custom SwitchManager overriding base SwitchManager and also can enable/disable view if it is a Button ot SwitchMaterial</string>
+    <string name="util_manager_custom_info">Custom SwitchManager overriding base SwitchManager and also can enable/disable view if it is a Button or SwitchMaterial</string>
     <string name="util_manager_test_hint">Test text</string>
     <string name="util_manager_test_hint_switcher">Test title</string>
     <string name="util_manager_click">Click</string>
 
     <!--Custom switch-->
+    <string name="custom_switch">Custom Switcher</string>
+    <string name="custom_switch_title">Custom Switcher title</string>
+    <string name="custom_switch_info">Switcher info</string>
     <string name="custom_switch_check_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
     <string name="custom_switch_add_title_hint">Add switcher title</string>
     <string name="custom_switch_add_info_hint">Add switcher info</string>
@@ -125,13 +133,16 @@
     <string name="listheader_icon_click">Icon click</string>
     <string name="listheader_action_click">Action click</string>
 
-    <string name="f_dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
-    <string name="f_dynamic_listheader_container">Here will be your Listheader</string>
-    <string name="f_dynamic_listheader_action_text">Action text</string>
-    <string name="f_dynamic_listheader_choose_title_style">Choose title style</string>
-    <string name="f_dynamic_listheader_choose_action_text_style">Choose action text style</string>
-    <string name="f_dynamic_listheader_choose_action_image">Choose action image</string>
-    <string name="f_dynamic_listheader_choose_action_image_tint">Choose action image tint</string>
+    <string name="dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
+    <string name="dynamic_listheader_container">Here will be your Listheader</string>
+    <string name="dynamic_listheader_action_text">Action text</string>
+    <string name="dynamic_listheader_choose_title_style">Choose title style</string>
+    <string name="dynamic_listheader_choose_action_text_style">Choose action text style</string>
+    <string name="dynamic_listheader_choose_action_image">Choose action image</string>
+    <string name="dynamic_listheader_choose_action_image_tint">Choose action image tint</string>
+    <string name="dynamic_listheader_add_icon_size">Add icon size</string>
+    <string name="dynamic_listheader_add_paddings">Add paddings to Listheader</string>
+    <string name="dynamic_listheader_add_margins">Add top and bottom margins</string>
 
     <!--Topbar-->
     <string name="topbar_title">Title</string>
@@ -146,7 +157,7 @@
     <string name="topbar_case_4">Case 4. Topbar with action icon on the right</string>
     <string name="topbar_case_5">Case 5. Topbar with actionView on the left</string>
     <string name="topbar_case_6">Case 6. Topbar with actionView on the left and actionIcon on the right. Use button below to change title, actionView and action icon, with handler for handling clicks</string>
-    <string name="topbar_case_7">Case 7. Topbar with actionViews. Use button below to change style of topbar</string>
+    <string name="topbar_case_7">Case 7. Topbar with actionViews. Use button below to change style of Topbar</string>
     <string name="topbar_case_8">Case 8. Topbar with actionView on the right</string>
     <string name="topbar_case_9">Case 9. Topbar with two icons and two actionViews, but icons are not visible cause actionViews are in priority, with handler for handling clicks</string>
     <string name="topbar_case_10">Case 10. Topbar with two icons, with handler for handling clicks</string>
@@ -154,16 +165,16 @@
     <string name="topbar_action_click">onActionClick</string>
 
     <!--Cardline-->
-    <string name="cardline_case_1">Case 1. Card with icons, cardValueAlignment inherit, two dividers, all paddings and default title width percent</string>
-    <string name="cardline_case_2">Case 2. Card with end icon, cardValueAlignment center, two dividers, text style and title width percent 0.1</string>
-    <string name="cardline_case_3">Case 3. Card value without title, icons, top divider and with long text, cardValueAlignment textEnd</string>
+    <string name="cardline_case_1">Case 1. Cardline with icons, cardValueAlignment inherit, two dividers, all paddings and default title width percent</string>
+    <string name="cardline_case_2">Case 2. Cardline with end icon, cardValueAlignment center, two dividers, text style and title width percent 0.1</string>
+    <string name="cardline_case_3">Case 3. Cardline value without title, icons, top divider and with long text, cardValueAlignment textEnd</string>
     <string name="cardline_case_4">Case 4. Just title with long text, no dividers</string>
-    <string name="cardline_case_5">Case 5. Card value with fixed height, dividers and all parts have different vertical bias. You can use button below to change cardline style</string>
+    <string name="cardline_case_5">Case 5. Cardline value with fixed height, dividers and all parts have different vertical bias. You can use button below to change cardline style</string>
     <string name="cardline_title">title</string>
     <string name="cardline_title_long">loooooooooooooooooooooooong title</string>
     <string name="cardline_value">Card with text</string>
     <string name="cardline_value_long">Card with loooooooooooooooooooooooooooooooooong text</string>
-    <string name="cardline_change_style">Change cardline style</string>
+    <string name="cardline_change_style">Change Cardline style</string>
 
     <string name="cardline_dynamic_case">Create your own Cardline. Use functional below to add characteristics and style to your view.</string>
     <string name="cardline_dynamic_container">Here will be your Cardline</string>
@@ -183,8 +194,8 @@
 
 
     <!--PinView-->
-    <string name="pinView_case_1">Case 1: Pin view with a base style. Use button below to add/restore pin items or clear all added pins.</string>
-    <string name="pinView_case_2">Case 2: Pin view with a custom style. Animation time to fill pin is 1 second, to unfilled pin is 0.5 second. Use button below to add/restore pin items or clear all added pins.</string>
+    <string name="pinView_case_1">Case 1: Pin view with a base style. Use buttons below to add/restore pin items or clear all added pins.</string>
+    <string name="pinView_case_2">Case 2: Pin view with a custom style. Animation time to fill pin is 1 second, to unfilled pin is 0.5 second. Use buttons below to add/restore pin items or clear all added pins.</string>
     <string name="pinView_add_pin">Add pin</string>
     <string name="pinView_restore_pin">Restore pin</string>
     <string name="pinView_clear_all">Clear all</string>
@@ -269,7 +280,7 @@
 
 
     <!--Base UI-->
-    <string name="baseui_navigation_title">Go to another fragment using two buttons. With first button you can navigate without args, with second button navigate and pass entered in field date. \nTo go back to menu use system back button or button on app top bar.</string>
+    <string name="baseui_navigation_title">Go to another fragment using two buttons. With first button you can navigate without args, with second button navigate and pass entered in field data. \nTo go back to menu use system back button or button on app top bar.</string>
     <string name="baseui_navigation_without_args">Go to second fragment without args</string>
     <string name="baseui_navigation_with_args">Go to second fragment with args</string>
     <string name="baseui_navigation_second_args_data">Received data, if data was sent here:</string>
@@ -281,7 +292,7 @@
     <string name="baseui_navigation_second_pop_back_including">To back to the previous screen and pop back from it too use button below(in this case you will go to Menu).</string>
     <string name="baseui_navigation_second_pop_back_including_button">Pop back including previous fragment</string>
 
-    <string name="baseui_functionality_title">On this screen you can different functional of BaseUI module.</string>
+    <string name="baseui_functionality_title">On this screen you can check different functional of BaseUI module.</string>
     <string name="baseui_functionality_switcher">Enable/disable views on the screen</string>
     <string name="baseui_functionality_open_message_dialog">Use this button to open message dialog</string>
     <string name="baseui_functionality_show_dialog">Show dialog</string>
@@ -308,7 +319,7 @@
     <string name="baseui_theme_russian">Russian</string>
     <string name="baseui_theme_belorussian">Belorussian</string>
     <string name="baseui_theme_set_language">Set Language</string>
-    <string name="baseui_theme_case_title">Use this case to change app language and theme. Other screen will have English translations. New settings won\'t be saved after app closing. Language by default is English and theme is system.</string>
+    <string name="baseui_theme_case_title">Use this case to change app language and theme. New settings won\'t be saved after app closing. Language by default is English and theme is system.</string>
     <string name="baseui_theme_change_theme">Change theme</string>
     <string name="baseui_theme_system">System</string>
     <string name="baseui_theme_light">Light</string>

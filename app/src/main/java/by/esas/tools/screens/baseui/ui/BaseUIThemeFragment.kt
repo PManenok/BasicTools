@@ -23,7 +23,6 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
         binding.fBaseuiThemeSetLangBtn.setOnClickListener {
             viewModel.requestLanguageChange(getLanguage())
         }
-
         binding.fBaseuiThemeSetModeBtn.setOnClickListener {
             viewModel.requestThemeChange(getThemeMode())
         }
@@ -33,7 +32,6 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
         val selectedItem = binding.fBaseuiThemeLangRadioGroup.checkedRadioButtonId
         return when(selectedItem) {
             R.id.f_baseui_theme_lang_radio_russian -> "ru"
-            R.id.f_baseui_theme_lang_radio_belorussian -> "be"
             else -> "en"
         }
     }
