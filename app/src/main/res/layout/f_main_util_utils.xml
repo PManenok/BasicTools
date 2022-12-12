@@ -11,6 +11,7 @@
     </data>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,10 +27,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_main_utils_case_1_edit"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -39,6 +42,7 @@
 
             <Button
                 android:id="@+id/f_main_utils_case_1_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/utils_format"/>
@@ -47,10 +51,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_utils_case_1_answer"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/utils_result"/>
-
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
@@ -61,10 +65,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_main_utils_case_2_edit"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,6 +80,7 @@
 
             <Button
                 android:id="@+id/f_main_utils_case_2_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/utils_format"/>
@@ -82,10 +89,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_utils_case_2_answer"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/utils_result"/>
-
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
@@ -96,10 +103,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_main_utils_case_3_edit"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -109,6 +118,7 @@
 
             <Button
                 android:id="@+id/f_main_utils_case_3_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/utils_get_numbers" />
@@ -117,10 +127,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_utils_case_3_answer"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/utils_result"/>
-
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
@@ -131,10 +141,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_main_utils_case_4_edit"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,6 +156,7 @@
 
             <Button
                 android:id="@+id/f_main_utils_case_4_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/utils_check" />
@@ -152,10 +165,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_utils_case_4_answer"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/utils_result"/>
-
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
@@ -166,10 +179,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_main_utils_case_5_edit"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -179,6 +194,7 @@
 
             <Button
                 android:id="@+id/f_main_utils_case_5_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/utils_card_type"/>
@@ -187,6 +203,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_utils_case_5_answer"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/utils_result"/>

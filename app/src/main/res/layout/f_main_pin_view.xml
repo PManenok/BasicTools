@@ -33,26 +33,25 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_btn_add"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_12"
             android:text="@string/pinView_add_pin"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_btn_restore"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_restore_pin"
-            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+            android:text="@string/pinView_restore_pin"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_clear"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_clear_all"
-            app:layout_constraintTop_toBottomOf="@id/f_pin_view" />
+            android:text="@string/pinView_clear_all"/>
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
@@ -72,14 +71,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_custom_btn_add"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_add_pin"/>
+            android:text="@string/pinView_add_pin"
+            android:layout_marginTop="@dimen/spacing_12"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_custom_btn_restore"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pinView_restore_pin"
@@ -87,7 +87,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_custom_clear"
-            style="@style/MessageDialogButtonStyle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pinView_clear_all"

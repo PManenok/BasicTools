@@ -9,6 +9,7 @@
     <string name="info">Info</string>
     <string name="create">Create</string>
     <string name="create_default">Create default</string>
+    <string name="click">Click</string>
     <string name="send">Send</string>
     <string name="value">Value</string>
     <string name="value_text">Value text</string>
@@ -28,6 +29,7 @@
     <string name="item_2">Item 2</string>
     <string name="item_3">Item 3</string>
     <string name="message">Message</string>
+    <string name="modules">Modules:</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -48,6 +50,9 @@
     <!--Util module-->
     <string name="util_title_case_1">Case 1. When you open this screen, the keyboard are immediately shown and EditText view below has focus. Use button on the right side to defocus view and hide keyboard</string>
     <string name="util_title_case_2">Case 2. Use Show button to show keybord, but EditText view on the center will not have focus. Use Hide button to hide keyboard. If EditText view will have focus and you will use Hide button, keyboard will be hidden, but EditText will have focus</string>
+    <string name="util_hide_and_defocus">Hide and defocus</string>
+    <string name="util_hide">Hide</string>
+    <string name="util_show">Show</string>
 
     <string name="utils_title_case_1">Case 1: Add number in EditText view below, and format number to formated input using Format button</string>
     <string name="utils_title_case_2">Case 2: Add number in EditText view below, and format it to formated string using Format button</string>
@@ -73,6 +78,9 @@
     <string name="util_manager_click">Click</string>
 
     <!--Custom switch-->
+    <string name="custom_switch">Custom Switcher</string>
+    <string name="custom_switch_title">Custom Switcher title</string>
+    <string name="custom_switch_info">Switcher info</string>
     <string name="custom_switch_check_instruction">Before become isChecked switcher checks for a non-empty field below. Enter something in the input field and turn on the switcher</string>
     <string name="custom_switch_add_title_hint">Add switcher title</string>
     <string name="custom_switch_add_info_hint">Add switcher info</string>
@@ -123,13 +131,16 @@
     <string name="listheader_icon_click">Icon click</string>
     <string name="listheader_action_click">Action click</string>
 
-    <string name="f_dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
-    <string name="f_dynamic_listheader_container">Here will be your Listheader</string>
-    <string name="f_dynamic_listheader_action_text">Action text</string>
-    <string name="f_dynamic_listheader_choose_title_style">Choose title style</string>
-    <string name="f_dynamic_listheader_choose_action_text_style">Choose action text style</string>
-    <string name="f_dynamic_listheader_choose_action_image">Choose action image</string>
-    <string name="f_dynamic_listheader_choose_action_image_tint">Choose action image tint</string>
+    <string name="dynamic_listheader_add_case_title">Create ListHeader with functional below. Created Listheader is clickable and in its container will have TextViews which will be shown or hidden. Remember: when you add action text action icon becomes invisible</string>
+    <string name="dynamic_listheader_container">Here will be your Listheader</string>
+    <string name="dynamic_listheader_action_text">Action text</string>
+    <string name="dynamic_listheader_choose_title_style">Choose title style</string>
+    <string name="dynamic_listheader_choose_action_text_style">Choose action text style</string>
+    <string name="dynamic_listheader_choose_action_image">Choose action image</string>
+    <string name="dynamic_listheader_choose_action_image_tint">Choose action image tint</string>
+    <string name="dynamic_listheader_add_icon_size">Add icon size</string>
+    <string name="dynamic_listheader_add_paddings">Add paddings to Listheader</string>
+    <string name="dynamic_listheader_add_margins">Add top and bottom margins</string>
 
     <!--Topbar-->
     <string name="topbar_title">Title</string>

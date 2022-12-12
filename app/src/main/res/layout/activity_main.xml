@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:barNavIcon="@drawable/ic_arrow_back"
             app:barShowNavIcon="false"
-            app:barNavIconTint="@color/black"
+            app:barNavIconTint="@color/textColor"
             app:barShowDivider="false"
             app:barTitleText="Menu"
             app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"

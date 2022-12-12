@@ -9,6 +9,7 @@
     <string name="info">Информация</string>
     <string name="create">Создать</string>
     <string name="create_default">Создать базовое</string>
+    <string name="click">Нажми</string>
     <string name="send">Отправить</string>
     <string name="value">Значение</string>
     <string name="value_text">Текстовое значение</string>
@@ -28,9 +29,10 @@
     <string name="item_2">Значение 2</string>
     <string name="item_3">Значение 3</string>
     <string name="message">Сообщение</string>
+    <string name="modules">Модули:</string>
 
     <string name="validation_text_in_range">Допустимый диапазон длины текста %d - %d</string>
-    <string name="test_text">Тестовый текс</string>
+    <string name="test_text">Тестовый текст</string>
     <string name="set_error">Установить ошибку</string>
     <string name="error_text">Текст ошибки!</string>
     <string name="reset_error">Сбросить ошибку</string>
@@ -48,17 +50,20 @@
     <!--Util module-->
     <string name="util_title_case_1">Пример 1. При переходе на данный экран, клавиатура открывается сразу и поле ввода ниже находится в фокусе. Воспользуйтесь кнопку справа, чтобы убрать фокус с поля и скрыть клавиатуру.</string>
     <string name="util_title_case_2">Пример 2. Воспользуйтесь кнопкой Показать, чтобы открыть клавиатуру, но при этом поле ввода по центру не будет в фокусе. Воспользуйтесь кнопкой Скрыть, чтобы скрыть клавиатуру. Если поле ввода будет в фокусе и вы используете кнопку Скрыть, то клавиатура будет скрыта, но поле ввода будет в фокусе.</string>
+    <string name="util_hide_and_defocus">Скрыть и убрать фокус</string>
+    <string name="util_hide">Скрыть</string>
+    <string name="util_show">Показать</string>
 
     <string name="utils_title_case_1">Пример 1: Добавьте число в поле ввода ниже, и преобразуйте число в нужный формат, используя кнопку Отформатировать</string>
     <string name="utils_title_case_2">Пример 2: Добавьте число в поле ввода ниже, и преобразуйте его в нужный формат строки, используя кнопку Отформатировать</string>
     <string name="utils_title_case_3">Пример 3: Добавьте что-нибудь в поле ввода ниже, и получите только цифры с введенной вами строки, используя кнопку Получить цифры</string>
-    <string name="utils_title_case_4">Пример 4: Luhn algorithm check. This only works if you are certain all input will be at least 10 characters</string>
+    <string name="utils_title_case_4">Пример 4: Проверка алгоритма Луна. Он будет работать, если вы уверены, что введенные данные юудут содержать не менее 10 символов</string>
     <string name="utils_title_case_5">Пример 5: Добавьте номер карты и узнайте ее тип, используя кнопку Тип карты</string>
     <string name="utils_format">Отформатировать</string>
     <string name="utils_get_numbers">Получить цифры</string>
     <string name="utils_check">Проверить</string>
     <string name="utils_card_type">Тип карты</string>
-    <string name="utils_add_number">Доьавьте число</string>
+    <string name="utils_add_number">Добавьте число</string>
     <string name="utils_add_something">Добавьте что-нибудь</string>
     <string name="utils_add_card_type">Добавьте тип карты</string>
     <string name="utils_result">Результат: </string>
@@ -73,6 +78,9 @@
     <string name="util_manager_click">Нажми</string>
 
     <!--Custom switch-->
+    <string name="custom_switch">Custom Switcher</string>
+    <string name="custom_switch_title">Custom Switcher заголовок</string>
+    <string name="custom_switch_info">Switcher информация</string>
     <string name="custom_switch_check_instruction">Перед тем, как переключатель переходит в сотояние Включен, поле ниже проверяются на заполненность. Введите что-нибудь в поле ввода и включите переключатель</string>
     <string name="custom_switch_add_title_hint">Добавьте заголовок переключателя</string>
     <string name="custom_switch_add_info_hint">Добавьте информацию переключателя</string>
@@ -123,13 +131,16 @@
     <string name="listheader_icon_click">Нажатие на иконку</string>
     <string name="listheader_action_click">Нажатие на Действие</string>
 
-    <string name="f_dynamic_listheader_add_case_title">Создайте ListHeader, используя функционал ниже. Созданный Listheader будет кликабельным и его контейнер будет содержать текстовые поля, которые будут показаны или скрыты. Внимание: когда добавляете текст действия, иконка становится невидимой</string>
-    <string name="f_dynamic_listheader_container">Здесь будет ваш Listheader</string>
-    <string name="f_dynamic_listheader_action_text">Текст действия</string>
-    <string name="f_dynamic_listheader_choose_title_style">Выберите стиль заголовка</string>
-    <string name="f_dynamic_listheader_choose_action_text_style">Выберите стиль текста действия</string>
-    <string name="f_dynamic_listheader_choose_action_image">Выберите иконку дейсвия</string>
-    <string name="f_dynamic_listheader_choose_action_image_tint">Выберите цвет иконки действия</string>
+    <string name="dynamic_listheader_add_case_title">Создайте ListHeader, используя функционал ниже. Созданный Listheader будет кликабельным и его контейнер будет содержать текстовые поля, которые будут показаны или скрыты. Внимание: когда добавляете текст действия, иконка становится невидимой</string>
+    <string name="dynamic_listheader_container">Здесь будет ваш Listheader</string>
+    <string name="dynamic_listheader_action_text">Текст действия</string>
+    <string name="dynamic_listheader_choose_title_style">Выберите стиль заголовка</string>
+    <string name="dynamic_listheader_choose_action_text_style">Выберите стиль текста действия</string>
+    <string name="dynamic_listheader_choose_action_image">Выберите иконку дейсвия</string>
+    <string name="dynamic_listheader_choose_action_image_tint">Выберите цвет иконки действия</string>
+    <string name="dynamic_listheader_add_icon_size">Добавьте размер иконки</string>
+    <string name="dynamic_listheader_add_paddings">Добавьте внутренние отступы в Listheader</string>
+    <string name="dynamic_listheader_add_margins">Добавьте верхний и нижний внешние отступы</string>
 
     <!--Topbar-->
     <string name="topbar_title">Зоголовок</string>

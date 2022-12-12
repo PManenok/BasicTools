@@ -44,7 +44,8 @@
             app:listTitle="@string/listheader_title"
             app:listTitleTextAppearance="@style/TextStyle"
             app:listArrowIcon="@drawable/ic_arrow_down"
-            app:listArrowTint="@color/black"
+            app:listArrowTint="@color/main_color_1"
+            app:listArrowSize="@dimen/spacing_24"
             app:listContainerClickable="true"
             android:layout_marginTop="@dimen/spacing_4">
 
@@ -65,6 +66,7 @@
 
         <Button
             android:id="@+id/f_main_listheader_add_button"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
@@ -83,7 +85,8 @@
             android:layout_height="wrap_content"
             app:listTitleTextAppearance="@style/TextStyle"
             app:listArrowIcon="@drawable/ic_arrow_down"
-            app:listArrowTint="@color/black"
+            app:listArrowSize="@dimen/spacing_24"
+            app:listArrowTint="@color/main_color_1"
             android:layout_marginTop="@dimen/spacing_4"/>
 
         <com.google.android.material.textview.MaterialTextView

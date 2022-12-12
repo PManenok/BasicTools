@@ -30,6 +30,7 @@
             android:layout_marginTop="@dimen/spacing_18">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dynamic_pinView_container_title"
@@ -87,8 +88,9 @@
                 android:layout_gravity="center"
                 android:text="@string/amount" />
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_pin_amount"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -104,8 +106,9 @@
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:text="@string/size" />
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_pin_size"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -118,7 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
+            android:layout_marginTop="@dimen/spacing_16"
+            android:gravity="center">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -165,7 +169,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_8">
+            android:layout_marginTop="@dimen/spacing_8"
+            android:gravity="center">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -211,21 +216,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_8">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:layout_gravity="center"
                 android:text="@string/dynamic_pinView_add_margins" />
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_pin_margins"
-                android:layout_width="0dp"
+                style="@style/FieldStyle"
+                android:layout_width="@dimen/spacing_200"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:hint="@string/hint_add_value"
                 android:inputType="numberDecimal"/>
@@ -235,7 +243,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
+            android:layout_marginTop="@dimen/spacing_16"
+            android:gravity="center">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -289,7 +298,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
+            android:layout_marginTop="@dimen/spacing_4"
+            android:gravity="center">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -349,7 +359,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -359,8 +370,9 @@
                 android:layout_gravity="center"
                 android:text="@string/dynamic_pinView_in" />
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_pin_time_in"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -376,8 +388,9 @@
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:text="@string/dynamic_pinView_out" />
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_pin_time_out"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -387,6 +400,7 @@
 
         <Button
             android:id="@+id/f_dynamic_pin_button_create"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create"

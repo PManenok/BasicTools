@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_18">
+        android:padding="@dimen/spacing_12">
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cardline_dynamic_case" />
@@ -29,6 +29,7 @@
             android:layout_marginBottom="@dimen/spacing_30">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -52,13 +53,15 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/title" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_title"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -78,8 +81,9 @@
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/value_text" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_value"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -133,17 +137,19 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/spacing_200"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/cardline_dynamic_add_width_percent" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_title_width_percent"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="@string/hint_add_value"
+                        android:layout_gravity="center"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
 
@@ -199,13 +205,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/cardline_dynamic_add_vertical_bias" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_title_value_bias"
+                        style="@style/FieldStyle"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_add_value"
                         android:inputType="numberDecimal"/>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -241,9 +247,9 @@
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/width" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_div_top_height"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -298,9 +304,9 @@
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/width" />
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_div_bottom_height"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -339,11 +345,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/top"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_top"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -356,11 +363,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bottom"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_gravity="center"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_bottom"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -372,7 +380,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:gravity="center">
 
                     <TextView
                         style="@style/TextStyle"
@@ -381,9 +391,9 @@
                         android:text="@string/left"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_left"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -398,9 +408,9 @@
                         android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_right"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -502,6 +512,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -511,9 +522,9 @@
                         android:text="@string/top"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_top"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -528,14 +539,14 @@
                         android:text="@string/bottom"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_bottom"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
 
                 </LinearLayout>
 
@@ -544,6 +555,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_4"
                     android:orientation="horizontal">
 
                     <TextView
@@ -553,9 +566,9 @@
                         android:text="@string/left"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_left"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -570,9 +583,9 @@
                         android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_right"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -586,6 +599,8 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:gravity="center"
                     android:layout_marginBottom="@dimen/spacing_12">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -595,26 +610,28 @@
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/size"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_size"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        style="@style/FieldStyle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_16"/>
+                        android:layout_marginEnd="@dimen/spacing_4"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/spacing_100"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/cardline_dynamic_vertical_bias"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_vertical_bias"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        style="@style/FieldStyle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:hint="@string/hint_add_value"/>
                 </LinearLayout>
 
@@ -705,6 +722,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cardline_dynamic_add_paddings_for_end_icon"
+                    android:layout_marginTop="@dimen/spacing_4"
                     android:visibility="gone"/>
 
                 <LinearLayout
@@ -712,6 +730,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -721,9 +740,9 @@
                         android:text="@string/top"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_top"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -738,9 +757,9 @@
                         android:text="@string/bottom"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_bottom"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -754,6 +773,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:layout_marginTop="@dimen/spacing_4"
                     android:orientation="horizontal">
 
                     <TextView
@@ -761,11 +781,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/left"
+                        android:gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_left"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -780,9 +801,9 @@
                         android:text="@string/right"
                         android:layout_marginEnd="@dimen/spacing_8"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_right"
-                        style="@style/TextStyle"
+                        style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -795,6 +816,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:layout_marginBottom="@dimen/spacing_8"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -804,26 +828,28 @@
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/size"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_size"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        style="@style/FieldStyle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/spacing_16"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:hint="@string/hint_add_value"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/spacing_100"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/cardline_dynamic_add_vertical_bias"/>
+                        android:text="@string/cardline_dynamic_vertical_bias"/>
 
-                    <EditText
+                    <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_vertical_bias"
-                        style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        style="@style/FieldStyle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:hint="@string/hint_add_value"/>
 
                 </LinearLayout>
@@ -834,13 +860,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_30"
-            android:layout_marginBottom="@dimen/spacing_8"
+            android:layout_marginTop="@dimen/spacing_16"
             android:gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/f_dynamic_cardline_button_create_default"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -849,6 +875,7 @@
 
             <Button
                 android:id="@+id/f_dynamic_cardline_button_create"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

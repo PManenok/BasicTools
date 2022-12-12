@@ -37,5 +37,4 @@ class CardlineFragment : AppFragment<CardlineVM, FMainCardlineBinding >() {
             it.isEnabled = false
         }
     }
-
 }

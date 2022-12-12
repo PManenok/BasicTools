@@ -34,15 +34,18 @@
 
             <EditText
                 android:id="@+id/f_main_util_case_1_edit"
+                style="@style/TextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_16"
-                android:hint="Test text"/>
+                android:hint="@string/test_text"
+                android:textColorHint="@color/main_color_2"/>
 
             <Button
+                style="@style/ButtonStyle"
                 android:id="@+id/f_main_util_case_1_button"
-                android:text="hide and defocus"
+                android:text="@string/util_hide_and_defocus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -66,22 +69,26 @@
 
             <Button
                 android:id="@+id/f_main_util_case_2_button_show"
-                android:text="show"
+                style="@style/ButtonStyle"
+                android:text="@string/util_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <EditText
                 android:id="@+id/f_main_util_case_2_edit"
+                style="@style/TextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginEnd="@dimen/spacing_16"
-                android:hint="Test text"/>
+                android:hint="@string/test_text"
+                android:textColorHint="@color/main_color_2"/>
 
             <Button
                 android:id="@+id/f_main_util_case_2_button_hide"
-                android:text="hide"
+                style="@style/ButtonStyle"
+                android:text="@string/util_hide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

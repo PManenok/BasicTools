@@ -21,29 +21,29 @@ class UtilsFragment: AppFragment<UtilsVM, FMainUtilUtilsBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fMainUtilsCase1Button.setOnClickListener {
-            val data = binding.fMainUtilsCase1Edit.text.toString()
+            val data = binding.fMainUtilsCase1Edit.getText()
             if (data.isNotEmpty())
                 binding.fMainUtilsCase1Answer.text = setupResult(data.toDouble().toFormattedInput())
         }
 
         binding.fMainUtilsCase2Button.setOnClickListener {
-            val data = binding.fMainUtilsCase2Edit.text.toString()
+            val data = binding.fMainUtilsCase2Edit.getText()
             if (data.isNotEmpty())
                 binding.fMainUtilsCase2Answer.text = setupResult(data.toDouble().toFormattedString())
         }
 
         binding.fMainUtilsCase3Button.setOnClickListener {
-            val result = getOnlyNumbers(binding.fMainUtilsCase3Edit.text.toString())
+            val result = getOnlyNumbers(binding.fMainUtilsCase3Edit.getText())
             binding.fMainUtilsCase3Answer.text = setupResult(result)
         }
 
         binding.fMainUtilsCase4Button.setOnClickListener {
-            val result = luhnCheck(binding.fMainUtilsCase4Edit.text.toString())
+            val result = luhnCheck(binding.fMainUtilsCase4Edit.getText())
             binding.fMainUtilsCase4Answer.text = setupResult(result.toString())
         }
 
         binding.fMainUtilsCase5Button.setOnClickListener {
-            val data = binding.fMainUtilsCase5Edit.text.toString()
+            val data = binding.fMainUtilsCase5Edit.getText()
             if (data.length >= 13)
                 binding.fMainUtilsCase5Answer.text = setupResult(getCardType(data))
         }

@@ -6,7 +6,7 @@
     <color name="colorSpinnerBackground">#FFC107</color>
     <color name="colorStrokeOutline">#FFC107</color>
     <color name="colorCursor" override="true">#03DAC5</color>
-    <color name="colorBackground">#FFF</color>
+    <color name="colorBackground">@color/main_color_5</color>
 
     <color name="main_color_1">#0B1F35</color>
     <color name="main_color_2">#600B1F35</color>
@@ -25,9 +25,9 @@
     <color name="orange">#F87217</color>
     <color name="orange_light">#F88158</color>
 
+    <color name="textColor">#000000</color>
 
     <!--Base UI-->
-    <color name="baseui_background">#FFFFFF</color>
     <color name="baseui_textColor">#000000</color>
     <color name="baseui_minorTextColor">#600B1F35</color>
     <color name="baseui_buttonColor">#ff7dfc</color>

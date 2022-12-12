@@ -46,11 +46,11 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
             }
 
             override fun prepareToSwitchOn(): Boolean {
-                return binding.fMainSwitcherCheckField.text.isNotEmpty()
+                return binding.fMainSwitcherCheckField.getText().isNotEmpty()
             }
         })
 
-        binding.fMainSwitcherEditTitle.setOnEditorActionListener { titleView, actionId, event ->
+        binding.fMainSwitcherEditTitle.inputText?.setOnEditorActionListener { titleView, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.fMainSwitcherStyle.setTitle(titleView.text.toString())
                 defocusAndHideKeyboard(activity)
@@ -59,7 +59,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
                 false
         }
 
-        binding.fMainSwitcherEditInfo.setOnEditorActionListener { titleView, actionId, event ->
+        binding.fMainSwitcherEditInfo.inputText?.setOnEditorActionListener { titleView, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.fMainSwitcherStyle.setInfo(titleView.text.toString())
                 true
@@ -81,6 +81,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
             setTitle(resources.getString(R.string.custom_switch_disable_title))
             setTitleStyle(R.style.TextStyle)
             setInfo(resources.getString(R.string.custom_switch_disable_instruction))
+            setInfoStyle(R.style.HintTextStyle)
             setDefaultValue()
             switcherIsChecked(true)
             setSwitchHandler(object : ISwitchHandler {

@@ -56,7 +56,8 @@
                     app:inputEndDrawable="@drawable/ic_cancel"
                     app:inputEndIconColorWithError="true"
                     app:inputEndIconMode="clear_text"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputLabelType="hide"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -76,7 +77,8 @@
                     app:inputEndIconMode="password_toggle"
                     app:inputIconsSize="@dimen/spacing_32"
                     app:inputPasswordToggle="@drawable/selector_password_toggle"
-                    app:inputEndDrawableTint="@color/main_color_2"/>
+                    app:inputEndDrawableTint="@color/main_color_2"
+                    app:inputLabelType="hide"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -95,7 +97,8 @@
                     app:inputEndDrawable="@drawable/ic_star"
                     app:inputEndIconColorWithError="true"
                     app:inputEndIconMode="custom"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputLabelType="hide"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -112,8 +115,9 @@
                     android:hint="@string/hint_add_value"
                     android:inputType="text|textPassword|textNoSuggestions"
                     app:inputEndIconMode="text"
-                    app:inputEndText="click"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputEndText="@string/click"
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputLabelType="hide"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -131,7 +135,8 @@
                     android:inputType="text|textPassword|textNoSuggestions"
                     app:inputEndIconColorWithError="true"
                     app:inputEndIconMode="checkable"
-                    app:inputIconsSize="@dimen/spacing_32" />
+                    app:inputIconsSize="@dimen/spacing_32"
+                    app:inputLabelType="hide"/>
 
             </LinearLayout>
 
@@ -150,6 +155,7 @@
             android:layout_marginTop="@dimen/spacing_16">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -157,6 +163,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_end_set_error_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
@@ -164,6 +171,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_end_reset_error_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reset" />
@@ -178,6 +186,7 @@
             android:layout_marginTop="@dimen/spacing_8">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -185,6 +194,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_end_change_style_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_style" />

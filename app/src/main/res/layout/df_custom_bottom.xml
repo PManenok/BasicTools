@@ -41,6 +41,7 @@
 
                 <by.esas.tools.inputfieldview.InputFieldView
                     android:id="@+id/df_custom_bottom_input_field"
+                    style="@style/FieldStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -48,6 +49,7 @@
 
                 <Button
                     android:id="@+id/df_custom_bottom_send_button"
+                    style="@style/ButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"

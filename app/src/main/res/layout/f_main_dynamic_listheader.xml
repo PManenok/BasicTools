@@ -21,10 +21,10 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/f_dynamic_listheader_add_case_title"/>
+            android:text="@string/dynamic_listheader_add_case_title"/>
 
         <FrameLayout
             android:id="@+id/f_dynamic_listheader_container"
@@ -33,9 +33,10 @@
             android:layout_marginTop="@dimen/spacing_18">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/f_dynamic_listheader_container"
+                android:text="@string/dynamic_listheader_container"
                 android:layout_gravity="center"/>
         </FrameLayout>
 
@@ -43,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="@dimen/spacing_30">
 
             <com.google.android.material.textview.MaterialTextView
@@ -52,8 +54,9 @@
                 android:text="@string/title"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_title"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,17 +66,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/f_dynamic_listheader_action_text"
+                android:text="@string/dynamic_listheader_action_text"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_action_text"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/f_dynamic_listheader_choose_title_style" />
+                android:text="@string/dynamic_listheader_choose_title_style" />
 
             <Spinner
                 android:id="@+id/f_dynamic_listheader_spinner_title"
@@ -112,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/f_dynamic_listheader_choose_action_text_style" />
+                android:text="@string/dynamic_listheader_choose_action_text_style" />
 
             <Spinner
                 android:id="@+id/f_dynamic_listheader_spinner_action_text"
@@ -132,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/f_dynamic_listheader_choose_action_image"
+                android:text="@string/dynamic_listheader_choose_action_image"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
@@ -172,17 +178,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_4">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add icon size"
+                android:text="@string/dynamic_listheader_add_icon_size"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_image_size"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -193,6 +202,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
@@ -200,7 +210,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/f_dynamic_listheader_choose_action_image_tint"
+                android:text="@string/dynamic_listheader_choose_action_image_tint"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
@@ -248,24 +258,26 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add padding to Listheader"
+            android:text="@string/dynamic_listheader_add_paddings"
             android:layout_marginTop="@dimen/spacing_12"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_4">
 
             <TextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top"
+                android:text="@string/top"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_padding_top"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -277,12 +289,12 @@
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bottom"
+                android:text="@string/bottom"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_padding_bottom"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -294,18 +306,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_4"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Left"
+                android:text="@string/left"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_padding_left"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -317,12 +331,12 @@
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Right"
+                android:text="@string/right"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_padding_right"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -335,24 +349,26 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add top and bottom margins"
+            android:text="@string/dynamic_listheader_add_margins"
             android:layout_marginTop="@dimen/spacing_8"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_4"
             android:orientation="horizontal">
 
             <TextView
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top"
+                android:text="@string/top"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_margin_top"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -364,12 +380,12 @@
                 style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bottom"
+                android:text="@string/bottom"
                 android:layout_marginEnd="@dimen/spacing_8"/>
 
-            <EditText
+            <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_dynamic_listheader_margin_bottom"
-                style="@style/TextStyle"
+                style="@style/FieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -388,6 +404,7 @@
 
             <Button
                 android:id="@+id/f_dynamic_listheader_button_create_default"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -396,6 +413,7 @@
 
             <Button
                 android:id="@+id/f_dynamic_listheader_button_create"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

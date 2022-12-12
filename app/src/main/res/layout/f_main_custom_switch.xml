@@ -27,12 +27,14 @@
             android:id="@+id/f_main_switcher_check"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:switchTitle="Custom Switcher"
+            app:switchTitle="@string/custom_switch"
             app:switchTitleTextAppearance="@style/TextStyle"
-            app:switchInfo="@string/custom_switch_check_instruction"/>
+            app:switchInfo="@string/custom_switch_check_instruction"
+            app:switchInfoTextAppearance="@style/HintTextStyle"/>
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_main_switcher_check_field"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_something"
@@ -43,13 +45,15 @@
             android:id="@+id/f_main_switcher_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:switchTitle="Custom Switcher Style"
+            app:switchTitle="@string/custom_switch_title"
             app:switchTitleTextAppearance="@style/TextStyle"
-            app:switchInfo="Switcher Info"
+            app:switchInfo="@string/custom_switch_info"
+            app:switchInfoTextAppearance="@style/HintTextStyle"
             android:layout_marginTop="@dimen/spacing_42"/>
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_main_switcher_edit_title"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/custom_switch_add_title_hint"
@@ -57,8 +61,9 @@
             android:imeOptions="actionDone"
             android:layout_marginTop="@dimen/spacing_8" />
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_main_switcher_edit_info"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/custom_switch_add_info_hint"
@@ -66,13 +71,12 @@
             android:imeOptions="actionDone"
             android:layout_marginTop="@dimen/spacing_8" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/f_main_switcher_change_style_button"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/main_color_5"
             android:text="@string/custom_switch_change_style"
-            android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_12"/>
 

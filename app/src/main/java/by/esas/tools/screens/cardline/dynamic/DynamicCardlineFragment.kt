@@ -53,14 +53,14 @@ class DynamicCardlineFragment : AppFragment<DynamicCardlineVM, FMainDynamicCardl
     private fun createCustomCardline(): CardLine {
         val cardLine = CardLine(requireContext())
 
-        cardLine.setCardTitle(binding.fDynamicCardlineTitle.text.toString())
+        cardLine.setCardTitle(binding.fDynamicCardlineTitle.getText())
         val titleStyle =
             getTextStyle(binding.fDynamicCardlineSpinnerTitleStyle.selectedItem.toString())
         cardLine.setCardTitleStyle(titleStyle)
         cardLine.isTitleSingleLine(binding.fDynamicCardlineTitleSingleCheck.isChecked)
         setTitleWidthPercent(cardLine)
 
-        cardLine.setCardValue(binding.fDynamicCardlineValue.text.toString())
+        cardLine.setCardValue(binding.fDynamicCardlineValue.getText())
         val valueStyle =
             getTextStyle(binding.fDynamicCardlineSpinnerValueStyle.selectedItem.toString())
         cardLine.setCardValueStyle(valueStyle)
@@ -125,7 +125,7 @@ class DynamicCardlineFragment : AppFragment<DynamicCardlineVM, FMainDynamicCardl
     }
 
     private fun setTitleWidthPercent(cardLine: CardLine) {
-        val percent = binding.fDynamicCardlineTitleWidthPercent.text.toString()
+        val percent = binding.fDynamicCardlineTitleWidthPercent.getText()
         if (percent.isNotEmpty() && percent.toFloat() in 0f..1f)
             cardLine.setupTitleWidthPercent(percent.toFloat())
     }
