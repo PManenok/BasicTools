@@ -17,7 +17,6 @@
                 android:layout_height="0dp"
                 android:orientation="vertical">
 
-
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="match_parent"
@@ -87,7 +86,9 @@
                         android:id="@+id/f_dynamic_message_dialog_spinner_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"/>
 
                 </LinearLayout>
 
@@ -108,7 +109,9 @@
                         android:id="@+id/f_dynamic_message_dialog_spinner_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"/>
 
                 </LinearLayout>
 
@@ -199,12 +202,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
                     android:visibility="gone"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/text_style" />
 
@@ -213,12 +218,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/message_dialog_dynamic_all_caps" />
 
@@ -300,13 +308,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
                     android:visibility="gone"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/text_style" />
 
                     <Spinner
@@ -314,13 +324,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/message_dialog_dynamic_all_caps" />
 
                     <CheckBox
@@ -400,12 +413,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
                     android:visibility="gone"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/text_style" />
 
@@ -414,13 +429,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/message_dialog_dynamic_all_caps" />
 
                     <CheckBox

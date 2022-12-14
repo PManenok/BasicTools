@@ -11,6 +11,7 @@
     <string name="create_default">Создать базовое</string>
     <string name="click">Нажми</string>
     <string name="send">Отправить</string>
+    <string name="check">Проверить</string>
     <string name="value">Значение</string>
     <string name="value_text">Текстовое значение</string>
     <string name="size">Размер</string>
@@ -247,6 +248,8 @@
     <string name="inputfieldview_case_6">Пример 6: InputFieldView без иконок. При установке ошибки только цвет обводки будет иметь цвет ошибки</string>
     <string name="inputfieldview_set_reset_error_title">Нажмите на эти кнопки, чтобы установить и сбросить ошибки для всех Inputfield элементов</string>
     <string name="inputfieldview_new_label">Новый заголовок</string>
+    <string name="inputfieldview_label">Заголовок</string>
+    <string name="inputfieldview_help_text">Иконки кликабельны</string>
 
     <!--InputfieldView end icon-->
     <string name="inputfieldview_end_title">На этом экране вы можете проверить функционал конечной иконки InputfieldView.</string>
@@ -325,26 +328,71 @@
     <string name="baseui_theme_set_theme">Установить тему</string>
 
     <!--Base UI-->
-    <string name="domain_case_game_title">Use this case to check domain use case functionality and play with random numbers. The game is to match the number you guessed with the random number from 0 to range number. \nIf you guess the number you will see congratulations message, otherwise you will see error dialog.</string>
-    <string name="domain_case_range_number">Range number</string>
-    <string name="domain_case_add_your_number">Add your number</string>
-    <string name="domain_case_play">Play</string>
-    <string name="domain_case_fail">Oops, you lose!</string>
-    <string name="domain_case_encrypt_aes_title">Check encrypt/decrypt AES methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
-    <string name="domain_case_encrypt">Encrypt:</string>
-    <string name="domain_case_decrypt">Decrypt:</string>
-    <string name="start">Start</string>
-    <string name="domain_case_encrypt_rsa_title">Check encrypt/decrypt RSA methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
+    <string name="domain_case_game_title">Используйте этот кейс, чтобы проверить функционал базовых юз кейсов и поиграть со случайными числами. Игра заключается в том, чтобы число, которое вы загадали, совпало со случайным числом от одного до числа диапазона. \nЕсли вы угадаете число, то увидите сообщение с поздравлениями, в противном случае увидите диалог с ошибкой.</string>
+    <string name="domain_case_range_number">Диапазон чисел</string>
+    <string name="domain_case_add_your_number">Добавьте ваш номер</string>
+    <string name="domain_case_play">Играть</string>
+    <string name="domain_case_fail">Упс, вы проиграли!</string>
+    <string name="domain_case_encrypt_aes_title">Проверьте шифровку/зашифроку AES методами. Добавьте информацию в поле ввода и нажмите кнопку Старт. Ниже вы увидите результаты шифровки и обратной расшифровки.</string>
+    <string name="domain_case_encrypt">Зашифровка:</string>
+    <string name="domain_case_decrypt">Расшифровка:</string>
+    <string name="start">Старт</string>
+    <string name="domain_case_encrypt_rsa_title">Проверьте шифровку/зашифроку RSA методами. Добавьте информацию в поле ввода и нажмите кнопку Старт. Ниже вы увидите результаты шифровки и обратной расшифровки.</string>
+
+    <!--Recycler-->
+    <string name="case_label_recycler_base">BaseRecyclerAdapter проверка базового функционала</string>
+    <string name="case_label_recycler_sticky">StickyRecyclerAdapter проверка базового функционала</string>
+    <string name="case_label_recycler_simple">SimpleRecyclerAdapter проверка базового функционала</string>
+    <string name="case_label_recycler_custom">CustomRecyclerAdapter проверка базового функционала</string>
+    <string name="recycler_case_base_title">Проверка:\n1. нажатие, нажатие с позицией (используйте переключатель внизу для этого)\n2. длинное нажатие, длинное нажатие с позицией (используйте переключатель внизу для этого)\n3. добавьте элемент\(ы\) в конец списка. Добавьте что-нибудь в поле ниже и нажмите на кнопку \"Добавить элемент\"\n4. Удалить элементы. Нажмите на кнопку \"Удалить элементы\", это очистит список полностью\n5. Добавить элементы. Нажмите на кнопку \"Установить другой список\", это полностью заменит все элементы\n6. проверить onItemClick адаптера ItemViewModel. Каждый раз при нажатии на элемент, его счетчик будет увеличиваться</string>
+    <string name="recycler_case_sticky_title">Проверка:\n1. нажатие, нажатие с позицией (используйте переключатель внизу для этого)\n2. длинное нажатие, длинное нажатие с позицией (используйте переключатель внизу для этого)\n3. добавьте элемент\(ы\) в конец списка. Добавьте что-нибудь в поле ниже и нажмите на кнопку \"Добавить элемент\"\n4. Удалить элементы. Нажмите на кнопку \"Удалить элементы\", это очистит список полностью\n5. Добавить элементы. Нажмите на кнопку \"Установить другой список\", это полностью заменит все элементы\n6. проверить onItemClick адаптера ItemViewModel. Каждый раз при нажатии на элемент, его счетчик будет увеличиваться</string>
+    <string name="recycler_case_simple_title">Проверка:\n1. нажатие, нажатие с позицией (используйте переключатель внизу для этого)\n2. длинное нажатие, длинное нажатие с позицией (используйте переключатель внизу для этого)\n3. добавьте элемент\(ы\) в конец списка. Добавьте что-нибудь в поле ниже и нажмите на кнопку \"Добавить элемент\"\n4. Удалить элементы. Нажмите на кнопку \"Удалить элементы\", это очистит список полностью\n5. Добавить элементы. Нажмите на кнопку \"Установить другой список\", это полностью заменит все элементы\n6. проверить состояние элемента как выбранное\n7. проверить отображение последнего элемента (последний добавленный элемент не имеет разделителя)\n8. проверить выравнивание элемента (слева, по центру, справа)</string>
+    <string name="recycler_case_custom_title">Проверка:\n1. нажатие, нажатие с позицией (используйте переключатель внизу для этого)\n2. длинное нажатие, длинное нажатие с позицией (используйте переключатель внизу для этого)\n3. добавьте элемент\(ы\) в конец списка. Добавьте что-нибудь в поле ниже и нажмите на кнопку \"Добавить элемент\"\n4. Удалить элементы. Нажмите на кнопку \"Удалить элементы\", это очистит список полностью\n5. Добавить элементы. Нажмите на кнопку \"Установить другой список\", это полностью заменит все элементы\n6. проверить состояние элемента как выбранное\n7. проверить отображение последнего элемента (последний добавленный элемент не имеет разделителя)\n8. проверить выравнивание элемента (слева, по центру, справа)</string>
+    <string name="recycler_cases_are_selectable">Элементы могут быть выбранными</string>
+    <string name="recycler_cases_is_single_selectable">Только один элемент может быть выбран</string>
+    <string name="recycler_cases_with_position">Проверить нажатие с позицией</string>
+    <string name="recycler_cases_action">Количество</string>
+    <string name="recycler_cases_add_button">Добавить элемент</string>
+    <string name="recycler_cases_delete_button">Удалить элементы</string>
+    <string name="recycler_cases_set_button">Установить другой список</string>
+    <string name="recycler_cases_set_alignment">Установить выравнивание списка:</string>
+    <string name="recycler_cases_align_left_button">слева</string>
+    <string name="recycler_cases_align_center_button">по центру</string>
+    <string name="recycler_cases_align_right_button">справа</string>
+
 
     <!--Biometric Decryption-->
-    <string name="biometric_decryption_available">Biometric is available</string>
-    <string name="biometric_decryption_not_available">Biometric is not available</string>
-    <string name="biometric_decryption_title">Use these buttons to check how biometric is working. You can open Biometric dialog if biometric is available and check if biometric is available using second button.</string>
-    <string name="biometric_decryption_open_biometric_dialog">Open biometric dialog</string>
-    <string name="biometric_decryption_check_biometric">Check Biometric</string>
-    <string name="biometric_decryption_dialog_title">Touch the fingerprint scanner</string>
-    <string name="biometric_decryption_dialog_close">Close</string>
-    <string name="biometric_decryption_authentication_succeeded">Biometric authentication Succeeded</string>
-    <string name="biometric_decryption_authentication_failed">Biometric authentication Failed</string>
+    <string name="biometric_decryption_available">Биометрия доступна</string>
+    <string name="biometric_decryption_not_available">Биометрия не доступна</string>
+    <string name="biometric_decryption_title">Используйте эти кнопки, чтобы проверить работу биометрии. Вы можете открыть диалог для биометрии, если она доступна, и проверить доступна ли биометрия, используя вторую кнопку.</string>
+    <string name="biometric_decryption_open_biometric_dialog">Откройте диалог для биометрии</string>
+    <string name="biometric_decryption_check_biometric">Проверить биометрию</string>
+    <string name="biometric_decryption_dialog_title">Дотроньтесь до сканера отпечатка пальцев</string>
+    <string name="biometric_decryption_dialog_close">Закрыть</string>
+    <string name="biometric_decryption_authentication_succeeded">Биометрическая аутентификация пройдена</string>
+    <string name="biometric_decryption_authentication_failed">Биометрическая аутентификация провалена</string>
+
+    <!--Checker-->
+    <string name="checker_switcher_title">Проверять до первой ошибки</string>
+    <string name="checker_rule_date">Замечание: выбранная дата должна быть между 1 янв 2022 и 31 дек 2022</string>
+    <string name="checker_rule_custom">Замечание: значение должно быть таким же, как и в поле выше</string>
+    <string name="checker_rule_min_length">Замечание: значение должно состоять минимум из 5 символов</string>
+    <string name="checker_rule_bigger">Замечание: значение  должно быть больше 10</string>
+    <string name="checker_rule_range">Замечание: значение должно быть от 1 до 999</string>
+    <string name="checker_rule_regex">Замечание: значение может содержать буквы и символы -+=,!?</string>
+    <string name="checker_rule_length">Замечание: значение должно содержать от 1 до 20 символов</string>
+    <string name="checker_rule_not_empty">Замечание: поле не должно быть пустым</string>
+
+    <string name="checker_error_date">Ошибка диапазона календаря</string>
+    <string name="checker_error_custom">Кастомная ошибка</string>
+    <string name="checker_error_min_length">Ошибка минимальной длины</string>
+    <string name="checker_error_bigger">Ошибка превышения</string>
+    <string name="checker_error_range">Ошибка диапазона</string>
+    <string name="checker_error_regex">Ошибка выражения</string>
+    <string name="checker_error_length">Ошибка длины</string>
+    <string name="checker_everything_correct">Все верно</string>
+
+    <!--Saved State-->
+    <string name="saved_state_case">Этот кейс показывает как ViewModel может сохранять необходимые данные и восстанавливать их после перезагрузки приложения. Первое поле сохраняет введенные данные, второе - нет. \nИнструкция: в настройках разработчика в разделе Лимит фоновых процессов выберите вариант Нет фоновых процессов. Затем откройте другое приложение и переоткройте это приложение из стека открытых приложений.</string>
 
 </resources>

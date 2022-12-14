@@ -29,39 +29,43 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_8"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_10"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_add_btn"
             app:layout_constraintTop_toBottomOf="@id/f_main_simple_recycler_title"
             tools:itemCount="3"
             tools:listitem="@layout/i_picked" />
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_main_simple_recycler_item_name"
+            style="@style/FieldStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_12"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_8"
             android:text="@={viewModel.newEntity}"
+            android:hint="@string/hint_add_value"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_are_selectable"
             app:layout_constraintEnd_toStartOf="@id/f_main_simple_recycler_add_btn"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_add_btn"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_8"
             android:onClick="@{()->viewModel.addItem()}"
             android:text="@string/recycler_cases_add_button"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_are_selectable"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/f_main_simple_recycler_item_name" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/f_main_simple_recycler_are_selectable"
+            style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_24"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_8"
             android:checked="@={viewModel.makeItemsSelectable}"
             android:text="@string/recycler_cases_are_selectable"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_single_select"
@@ -70,9 +74,10 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/f_main_simple_recycler_single_select"
+            style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_24"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_8"
             android:checked="@={viewModel.isSingleItemSelectable}"
             android:text="@string/recycler_cases_is_single_selectable"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_with_position"
@@ -81,9 +86,10 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/f_main_simple_recycler_with_position"
+            style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_24"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_10"
             android:checked="@={viewModel.withPositionFlag}"
             android:text="@string/recycler_cases_with_position"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_delete_btn"
@@ -92,41 +98,43 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_delete_btn"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_10"
             android:onClick="@{()->viewModel.clearItems()}"
             android:text="@string/recycler_cases_delete_button"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_alignment"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/f_main_simple_recycler_set_btn"
+            android:layout_marginEnd="@dimen/spacing_12"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_set_btn"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_10"
             android:onClick="@{()->viewModel.setAnotherList()}"
             android:text="@string/recycler_cases_set_button"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_alignment"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/f_main_simple_recycler_delete_btn" />
 
         <TextView
             android:id="@+id/f_main_simple_recycler_alignment"
             style="@style/TextStyle.Normal16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
+            android:layout_marginBottom="@dimen/spacing_10"
             android:text="@string/recycler_cases_set_alignment"
             app:layout_constraintBottom_toTopOf="@id/f_main_simple_recycler_align_left" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_align_left"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
             android:text="@string/recycler_cases_align_left_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/f_main_simple_recycler_align_center"
@@ -135,12 +143,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_align_center"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8"
             android:layout_marginEnd="@dimen/spacing_8"
-            android:layout_marginBottom="@dimen/spacing_12"
             android:text="@string/recycler_cases_align_center_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/f_main_simple_recycler_align_right"
@@ -149,10 +156,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_simple_recycler_align_right"
-            style="@style/OutlineButtonStyle.Small"
+            style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_12"
             android:text="@string/recycler_cases_align_right_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

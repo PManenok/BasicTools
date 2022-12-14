@@ -21,16 +21,18 @@
             android:layout_height="wrap_content"
             android:text="@string/saved_state_case"/>
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_saved_state_field_1"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@={viewModel.firstField}"
             android:layout_marginTop="@dimen/spacing_8"
             android:hint="@string/hint_add_value"/>
 
-        <EditText
+        <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_saved_state_field_2"
+            style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewModel.secondField}"

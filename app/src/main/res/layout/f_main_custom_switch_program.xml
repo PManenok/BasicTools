@@ -97,7 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/title_styles"
-                />
+                android:background="@color/white"
+                android:popupBackground="@color/white"/>
 
         </LinearLayout>
 
@@ -109,8 +110,9 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_8"
                 android:text="@string/custom_switch_choose_info_style" />
 
@@ -119,7 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/title_styles"
-                />
+                android:background="@color/white"
+                android:popupBackground="@color/white"/>
 
         </LinearLayout>
 

@@ -26,6 +26,7 @@
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_domain_case_range"
+                style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_4"
@@ -41,6 +42,7 @@
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_domain_case_number"
+                style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_add_value"
@@ -48,6 +50,7 @@
 
             <Button
                 android:id="@+id/f_domain_case_play_btn"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -63,6 +66,7 @@
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_domain_case_input_encrypt_aes"
+                style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_add_value"
@@ -85,6 +89,7 @@
 
             <Button
                 android:id="@+id/f_domain_case_encrypt_aes_btn"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -100,6 +105,7 @@
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_domain_case_input_encrypt_rsa"
+                style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_add_value"
@@ -122,6 +128,7 @@
 
             <Button
                 android:id="@+id/f_domain_case_encrypt_rsa_btn"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

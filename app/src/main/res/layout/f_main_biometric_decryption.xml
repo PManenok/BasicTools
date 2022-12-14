@@ -15,6 +15,7 @@
 
         <Button
             android:id="@+id/f_biometric_decryption_dialog_btn"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/biometric_decryption_open_biometric_dialog"
@@ -22,6 +23,7 @@
 
         <Button
             android:id="@+id/f_biometric_decryption_check_btn"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/biometric_decryption_check_biometric"

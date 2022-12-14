@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/set" />
+                android:text="@string/change_style" />
 
         </LinearLayout>
 
@@ -194,6 +194,7 @@
 
             <Button
                 android:id="@+id/f_inputfieldview_end_reset_error_button"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reset" />

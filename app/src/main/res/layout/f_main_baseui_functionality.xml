@@ -19,11 +19,11 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/f_baseui_switcher"
+            style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_10"
             android:checked="true"
-            style="@style/TextStyle"
             android:text="@string/baseui_functionality_switcher"/>
 
         <LinearLayout

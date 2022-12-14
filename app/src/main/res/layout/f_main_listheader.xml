@@ -100,7 +100,7 @@
             android:id="@+id/f_main_listheader_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:listTitle="List title"
+            app:listTitle="@string/listheader_title"
             app:listTitleTextAppearance="@style/TextStyle"
             app:listAction="@string/listheader_click"
             app:listContainerClickable="true"

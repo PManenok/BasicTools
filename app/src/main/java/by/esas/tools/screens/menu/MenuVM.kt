@@ -214,7 +214,7 @@ class MenuVM @Inject constructor(
     }
 
     private fun updateAdapter(list: List<CaseItemInfo>) {
-        caseAdapter.addItems(list)
+        caseAdapter.setItems(list)
         isEmpty.set(list.isEmpty())
     }
 }

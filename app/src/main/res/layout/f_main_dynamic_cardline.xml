@@ -114,7 +114,10 @@
                         android:id="@+id/f_dynamic_cardline_spinner_title_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -177,7 +180,10 @@
                         android:id="@+id/f_dynamic_cardline_spinner_value_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles" />
+                        android:entries="@array/title_styles"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"
+                        android:layout_marginEnd="@dimen/spacing_8"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"

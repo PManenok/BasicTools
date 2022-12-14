@@ -4,7 +4,6 @@
     <string name="list_is_empty">List is empty</string>
     <string name="add_something">Add something</string>
     <string name="action">Action</string>
-    <string name="click">Click</string>
     <string name="title">Title</string>
     <string name="text_style">Text style</string>
     <string name="info">Info</string>
@@ -249,6 +248,8 @@
     <string name="inputfieldview_case_6">Case 6: InputFieldView without icons. When you set error only box stroke will have own error color</string>
     <string name="inputfieldview_set_reset_error_title">Click this buttons to set/reset errors to all inputField views</string>
     <string name="inputfieldview_new_label">New label</string>
+    <string name="inputfieldview_label">Label</string>
+    <string name="inputfieldview_help_text">Icons are clickable</string>
 
     <!--InputfieldView end icon-->
     <string name="inputfieldview_end_title">On this screen you can check functional of InputfieldView end icon.</string>
@@ -391,6 +392,6 @@
 
 
     <!--Saved State-->
-    <string name="saved_state_case">This case show that ViewModel can save necessary date and recover it after app process reboot. First field save entered data second not. \nInstructions: in developer options choose no background process in Background process limit. Then open another app and re-open this app from open applications stack.</string>
+    <string name="saved_state_case">This case show that ViewModel can save necessary date and recover it after app process reboot. First field save entered data, second not. \nInstructions: in developer options choose no background process in Background process limit. Then open another app and re-open this app from open applications stack.</string>
 
 </resources>
