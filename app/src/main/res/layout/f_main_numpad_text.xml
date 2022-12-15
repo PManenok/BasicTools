@@ -58,6 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_30"
             app:numpadTextIconStyle="@style/TextStyle"
+            app:numpadTextLeftIconColor="@color/main_color_1"
+            app:numpadTextRightIconColor="@color/main_color_1"
             app:layout_constraintBottom_toTopOf="@id/f_main_numpad_text_change_size_lay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

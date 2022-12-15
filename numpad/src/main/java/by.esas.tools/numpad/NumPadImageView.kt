@@ -317,11 +317,22 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setNumbersIconsColorResource(@ColorRes color: Int) {
-        setNumbersIconsColor(ContextCompat.getColor(context, color))
+        if (color != -1) {
+            iconsNumbers.forEach { num ->
+                setIconColorRes(num, color)
+            }
+        }
     }
 
     protected open fun setIconColor(iconImageView: ImageView, color: Int) {
         ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(color))
+    }
+
+    protected open fun setIconColorRes(iconImageView: ImageView, color: Int) {
+        ImageViewCompat.setImageTintList(
+            iconImageView,
+            ContextCompat.getColorStateList(context, color)
+        )
     }
 
     open fun setNumbersIconsDrawable(drawableList: List<Drawable?>) {
@@ -389,7 +400,8 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setLeftIconColorResource(@ColorRes color: Int) {
-        setLeftIconColor(ContextCompat.getColor(context, color))
+        if (color != -1)
+            setIconColorRes(btnIconLeft, color)
     }
 
     /*endregion ################### Left Image Icons ######################*/
@@ -422,7 +434,8 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     open fun setRightIconColorResource(@ColorRes color: Int) {
-        setRightIconColor(ContextCompat.getColor(context, color))
+        if (color != -1)
+            setIconColorRes(btnIconRight, color)
     }
 
     /*endregion ################### Right Image Icons ######################*/
@@ -489,15 +502,15 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         val iconEightImage = typedArray.getDrawable(R.styleable.NumPadView_numpadEightDrawable)
         val iconNineImage = typedArray.getDrawable(R.styleable.NumPadView_numpadNineDrawable)
         val iconsNumbersColor =
-            typedArray.getColor(R.styleable.NumPadView_numpadNumbersIconsColor, -1)
+            typedArray.getResourceId(R.styleable.NumPadView_numpadNumbersIconsColor, -1)
 
         val iconLeftImage = typedArray.getDrawable(R.styleable.NumPadView_numpadLeftDrawable)
-        val iconLeftColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
+        val iconLeftColor = typedArray.getResourceId(R.styleable.NumPadView_numpadLeftIconColor, -1)
         val iconLeftVisibility =
             typedArray.getBoolean(R.styleable.NumPadView_numpadLeftIconVisibitity, true)
 
         val iconRightImage = typedArray.getDrawable(R.styleable.NumPadView_numpadRightDrawable)
-        val iconRightColor = typedArray.getColor(R.styleable.NumPadView_numpadLeftIconColor, -1)
+        val iconRightColor = typedArray.getResourceId(R.styleable.NumPadView_numpadLeftIconColor, -1)
         val iconRightVisibility =
             typedArray.getBoolean(R.styleable.NumPadView_numpadRightIconVisibitity, true)
 
@@ -517,7 +530,7 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         )
 
         setNumbersIconsDrawable(iconsImagesDrawableList)
-        setNumbersIconsColor(iconsNumbersColor)
+        setNumbersIconsColorResource(iconsNumbersColor)
         setIconsSize(iconSize)
         setIconsContainersPaddings(
             containerPadding,
@@ -527,11 +540,11 @@ open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
         )
 
         setLeftIconDrawable(iconLeftImage)
-        setLeftIconColor(iconLeftColor)
+        setLeftIconColorResource(iconLeftColor)
         setLeftIconVisibility(iconLeftVisibility)
 
         setRightIconDrawable(iconRightImage)
-        setRightIconColor(iconRightColor)
+        setRightIconColorResource(iconRightColor)
         setRightIconVisibility(iconRightVisibility)
         setupNumpadHandler()
     }
