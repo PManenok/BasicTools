@@ -31,6 +31,7 @@
     <string name="item_3">Значение 3</string>
     <string name="message">Сообщение</string>
     <string name="modules">Модули:</string>
+    <string name="menu">Меню</string>
 
     <string name="validation_text_in_range">Допустимый диапазон длины текста %d - %d</string>
     <string name="test_text">Тестовый текст</string>
@@ -395,4 +396,32 @@
     <!--Saved State-->
     <string name="saved_state_case">Этот кейс показывает как ViewModel может сохранять необходимые данные и восстанавливать их после перезагрузки приложения. Первое поле сохраняет введенные данные, второе - нет. \nИнструкция: в настройках разработчика в разделе Лимит фоновых процессов выберите вариант Нет фоновых процессов. Затем откройте другое приложение и переоткройте это приложение из стека открытых приложений.</string>
 
+    <!--Case labels-->
+    <string name="case_label_pin_view">Проверить функционал PinView</string>
+    <string name="case_label_dynamic_pin_view">Создать собственный PinView</string>
+    <string name="case_label_saved_state">Проверить SavedState ViewModel</string>
+    <string name="case_label_numpad_image">Проверить функционал NumpadImageView</string>
+    <string name="case_label_listheader">Проверить функционал Listheader</string>
+    <string name="case_label_dynamic_listheader">Создать собственный Listheader</string>
+    <string name="case_label_util_keyboard">Проверить функционал Util клавиатуры</string>
+    <string name="case_label_utils">Проверить функционал Utils в модуле Util</string>
+    <string name="case_label_switch_manager">Проверить функционал SwitchManager в модуле Util</string>
+    <string name="case_label_custom_switch">Проверить функционал CustomSwitch</string>
+    <string name="case_label_dynamic_custom_switch">Создать собственный CustomSwitch</string>
+    <string name="case_label_topbar_view">Проверить функционал Topbar view</string>
+    <string name="case_label_cardline">Проверить функционал Cardline</string>
+    <string name="case_label_dynamic_cardline">Create custom Cardline</string>
+    <string name="case_label_checker">Проверить функционал Checker</string>
+    <string name="case_label_dynamic_message_dialog">Создать собственный Message Dialog</string>
+    <string name="case_label_bottom_dialog">Проверить функционал Bottom Dialog</string>
+    <string name="case_label_inputfield_view_end_icon">Проверить функционал InputfieldView конечной иконки</string>
+    <string name="case_label_inputfield_view_start_icon">Проверить функционал InputfieldView стартовой иконки</string>
+    <string name="case_label_inputfield_view">Проверить стили InputfieldView</string>
+    <string name="case_label_numpad_text">Проверить функционал NumpadTextView</string>
+    <string name="case_label_baseui_navigation">Проверить навигацию BaseUI</string>
+    <string name="case_label_baseui_navigation_second">Второй фрагмент навигации</string>
+    <string name="case_label_baseui">Проверить функционал BaseUI</string>
+    <string name="case_label_baseui_theme">Поменять тему и язык BaseUI</string>
+    <string name="case_label_domain">Проверить функционал модуля Domain</string>
+    <string name="case_label_biometric_decryption">Проверить функционал BiometricDecryption</string>
 </resources>

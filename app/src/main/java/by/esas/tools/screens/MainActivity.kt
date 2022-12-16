@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.screens.menu.MenuFragmentDirections
 import by.esas.tools.topbarview.ITopbarHandler
 
 /**
@@ -42,19 +43,11 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             override fun onNavigationClick() {
                 onBackPressed()
             }
+
+            override fun onActionClick() {
+                navController.navigate(R.id.baseuiThemeFragment)
+            }
         })
-    }
-
-    override fun setupObservers() {
-        super.setupObservers()
-
-        viewModel.hasBackBtn.observe(this) {
-            binding.aMainTopBar.setNavIconVisibility(it)
-            binding.aMainTopBar.setDividerVisibility(it)
-        }
-        viewModel.title.observe(this) {
-            binding.aMainTopBar.setTitle(it)
-        }
     }
 
     override fun handleTouchOutOfInputField(event: MotionEvent) {
@@ -65,9 +58,10 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     private fun setupNavigation() {
         navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
-        navController.addOnDestinationChangedListener { _, destination, arguments ->
-            viewModel.hasBackBtn.value = destination.id != topDestination
-            viewModel.title.value = destination.label.toString()
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            viewModel.hasBackBtn.set(destination.id != topDestination)
+            viewModel.hasSettingsBtn.set(destination.id == topDestination)
+            viewModel.title.set(destination.label.toString())
         }
     }
 }

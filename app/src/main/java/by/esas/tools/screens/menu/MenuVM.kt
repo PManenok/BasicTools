@@ -1,12 +1,8 @@
 package by.esas.tools.screens.menu
 
 import androidx.databinding.ObservableBoolean
-import androidx.navigation.NavDirections
-import by.esas.tools.App
-import by.esas.tools.R
 import by.esas.tools.base.AppVM
 import by.esas.tools.entity.CaseItemInfo
-import by.esas.tools.entity.Modules
 import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.usecase.SearchCaseUseCase
 import javax.inject.Inject
@@ -27,160 +23,6 @@ class MenuVM @Inject constructor(
             item.direction?.let { navigate(it) }
         }
     )
-
-    init {
-        addCaseItem(
-            "Check Biometric decryption",
-            listOf(Modules.BIOMETRIC_DECRYPTION),
-            MenuFragmentDirections.actionMenuFragmentToBiometricDecryptionFragment()
-        )
-        addCaseItem(
-            "Check Domain module functionality",
-            listOf(Modules.DOMAIN),
-            MenuFragmentDirections.actionMenuFragmentToDomainCaseFragment()
-        )
-        addCaseItem(
-            "Change BaseUI theme and language",
-            listOf(Modules.BASE_UI),
-            MenuFragmentDirections.actionMenuFragmentToBaseuiThemeFragment()
-        )
-        addCaseItem(
-            "Check BaseUI functionality",
-            listOf(Modules.BASE_UI),
-            MenuFragmentDirections.actionMenuFragmentToBaseuiFunctionalityFragment()
-        )
-        addCaseItem(
-            "Check BaseUI navigation",
-            listOf(Modules.BASE_UI),
-            MenuFragmentDirections.actionMenuFragmentToBaseuiNavigationFragment()
-        )
-        addCaseItem(
-            "Check Bottom Dialog Functionality",
-            listOf(Modules.DIALOG, Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToBottomDialogFragment()
-        )
-        addCaseItem(
-            "Create Message Dialog",
-            listOf(Modules.DIALOG),
-            MenuFragmentDirections.actionMenuFragmentToDynamicMessageDialogFragment()
-        )
-        addCaseItem(
-            "Check InputfieldView functionality",
-            listOf(Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToInputfieldViewFragment()
-        )
-        addCaseItem(
-            "Check InputfieldView start icon functionality",
-            listOf(Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToInputfieldViewStartIconFragment()
-        )
-        addCaseItem(
-            "Check InputfieldView end icon functionality",
-            listOf(Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToInputfieldViewEndIconFragment()
-        )
-        addCaseItem(
-            "Check Checker functionality",
-            listOf(Modules.CHECKER, Modules.INPUTFIELD_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToCheckerFragment()
-        )
-        addCaseItem(
-            "Check PinView functionality",
-            listOf(Modules.PIN_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToPinViewFragment()
-        )
-        addCaseItem(
-            "Create your Pin view",
-            listOf(Modules.PIN_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToDynamicPinViewFragment()
-        )
-        addCaseItem(
-            "Check SavedState view model",
-            listOf(Modules.BASE_DAGGER_UI, Modules.BASE_UI),
-            MenuFragmentDirections.actionMenuFragmentToSavedStateFragment()
-        )
-        addCaseItem(
-            "Check NumpadImageView functionality",
-            listOf(Modules.NUMPAD),
-            MenuFragmentDirections.actionMenuFragmentToNumpadImageFragment()
-        )
-        addCaseItem(
-            "Check NumpadTextView functionality",
-            listOf(Modules.NUMPAD),
-            MenuFragmentDirections.actionMenuFragmentToNumpadTextFragment()
-        )
-        addCaseItem(
-            "Check Keyboard functionality in Util module",
-            listOf(Modules.UTIL),
-            MenuFragmentDirections.actionMenuFragmentToUtilKeyboardFragment()
-        )
-        addCaseItem(
-            "Check Utils functionality in Util module",
-            listOf(Modules.UTIL),
-            MenuFragmentDirections.actionMenuFragmentToUtilUtilsFragment()
-        )
-        addCaseItem(
-            "Check SwitchManager functionality in Util module",
-            listOf(Modules.UTIL, Modules.CUSTOMSWITCH),
-            MenuFragmentDirections.actionMenuFragmentToUtilSwitchManagerFragment()
-        )
-        addCaseItem(
-            "Check CustomSwitch functionality",
-            listOf(Modules.CUSTOMSWITCH),
-            MenuFragmentDirections.actionMenuFragmentToCustomSwitchFragment()
-        )
-        addCaseItem(
-            "Create your CustomSwitch",
-            listOf(Modules.CUSTOMSWITCH),
-            MenuFragmentDirections.actionMenuFragmentToCustomSwitchProgramFragment()
-        )
-        addCaseItem(
-            "Check Listheader functionality",
-            listOf(Modules.LISTHEADER, Modules.CUSTOMSWITCH),
-            MenuFragmentDirections.actionMenuFragmentToListheaderFragment()
-        )
-        addCaseItem(
-            "Create custom Listheader",
-            listOf(Modules.LISTHEADER),
-            MenuFragmentDirections.actionMenuFragmentToDynamicListheaderFragment()
-        )
-        addCaseItem(
-            "Check Topbar view functionality",
-            listOf(Modules.TOPBAR_VIEW),
-            MenuFragmentDirections.actionMenuFragmentToTopbarFragment()
-        )
-        addCaseItem(
-            "Check Cardline functionality",
-            listOf(Modules.CARDLINE),
-            MenuFragmentDirections.actionMenuFragmentToCardlineFragment()
-        )
-        addCaseItem(
-            "Create custom Cardline",
-            listOf(Modules.CARDLINE),
-            MenuFragmentDirections.actionMenuFragmentToDynamicCardlineFragment()
-        )
-        addCaseItem(
-            App.appContext.getString(R.string.case_label_recycler_base),
-            listOf(Modules.RECYCLER),
-            MenuFragmentDirections.actionMenuFragmentToRecyclerFragment()
-        )
-        addCaseItem(
-            App.appContext.getString(R.string.case_label_recycler_sticky),
-            listOf(Modules.RECYCLER),
-            MenuFragmentDirections.actionMenuFragmentToStickyCaseFragment()
-        )
-        addCaseItem(
-            App.appContext.getString(R.string.case_label_recycler_simple),
-            listOf(Modules.RECYCLER),
-            MenuFragmentDirections.actionMenuFragmentToSimpleRecyclerFragment()
-        )
-        addCaseItem(
-            App.appContext.getString(R.string.case_label_recycler_custom),
-            listOf(Modules.RECYCLER),
-            MenuFragmentDirections.actionMenuFragmentToCustomRecyclerFragment()
-        )
-        updateAdapter(allCases)
-    }
 
     fun onSearchChanged(value: String) {
         if (prevSearch != value) {
@@ -205,15 +47,7 @@ class MenuVM @Inject constructor(
         prevSearch = ""
     }
 
-    private fun addCaseItem(
-        name: String,
-        modulesList: List<String>,
-        direction: NavDirections? = null
-    ) {
-        allCases.add(CaseItemInfo(allCases.size, name, modulesList, direction))
-    }
-
-    private fun updateAdapter(list: List<CaseItemInfo>) {
+    fun updateAdapter(list: List<CaseItemInfo>) {
         caseAdapter.setItems(list)
         isEmpty.set(list.isEmpty())
     }

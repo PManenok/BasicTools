@@ -31,6 +31,7 @@
     <string name="item_3">Item 3</string>
     <string name="message">Message</string>
     <string name="modules">Modules:</string>
+    <string name="menu">Menu</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -394,4 +395,32 @@
     <!--Saved State-->
     <string name="saved_state_case">This case show that ViewModel can save necessary date and recover it after app process reboot. First field save entered data, second not. \nInstructions: in developer options choose no background process in Background process limit. Then open another app and re-open this app from open applications stack.</string>
 
+    <!--Case labels-->
+    <string name="case_label_pin_view">Check PinView functionality</string>
+    <string name="case_label_dynamic_pin_view">Create your PinView</string>
+    <string name="case_label_saved_state">Check SavedState ViewModel</string>
+    <string name="case_label_numpad_image">Check NumpadImageView functionality</string>
+    <string name="case_label_listheader">Check Listheader functionality</string>
+    <string name="case_label_dynamic_listheader">Create your Listheader</string>
+    <string name="case_label_util_keyboard">Check Util keyboard functionality</string>
+    <string name="case_label_utils">Check Utils functionality in Util module</string>
+    <string name="case_label_switch_manager">Check SwitchManager functionality in Util module</string>
+    <string name="case_label_custom_switch">Check CustomSwitch functionality</string>
+    <string name="case_label_dynamic_custom_switch">Create your CustomSwitch</string>
+    <string name="case_label_topbar_view">Check Topbar view functionality</string>
+    <string name="case_label_cardline">Check Cardline functionality</string>
+    <string name="case_label_dynamic_cardline">Create custom Cardline</string>
+    <string name="case_label_checker">Check Checker functionality</string>
+    <string name="case_label_dynamic_message_dialog">Create custom Message Dialog</string>
+    <string name="case_label_bottom_dialog">Check Bottom Dialog functionality</string>
+    <string name="case_label_inputfield_view_end_icon">Check InputfieldView end icon functionality</string>
+    <string name="case_label_inputfield_view_start_icon">Check InputfieldView start icon functionality</string>
+    <string name="case_label_inputfield_view">Check InputfieldView styles</string>
+    <string name="case_label_numpad_text">Check NumpadTextView functionality</string>
+    <string name="case_label_baseui_navigation">Check BaseUI navigation</string>
+    <string name="case_label_baseui_navigation_second">Second navigation fragment</string>
+    <string name="case_label_baseui">Check BaseUI functionality</string>
+    <string name="case_label_baseui_theme">Change BaseUI theme and language</string>
+    <string name="case_label_domain">Check Domain module functionality</string>
+    <string name="case_label_biometric_decryption">Check BiometricDecryption functionality</string>
 </resources>

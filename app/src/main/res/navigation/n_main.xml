@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="by.esas.tools.screens.menu.MenuFragment"
-        android:label="Menu"
+        android:label="@string/menu"
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_pinViewFragment"
@@ -105,112 +105,112 @@
     <fragment
         android:id="@+id/pinViewFragment"
         android:name="by.esas.tools.screens.pin_view.PinViewFragment"
-        android:label="Check PinView functionality"
+        android:label="@string/case_label_pin_view"
         tools:layout="@layout/f_main_pin_view" />
     <fragment
         android:id="@+id/dynamicPinViewFragment"
         android:name="by.esas.tools.screens.pin_view.dynamic.DynamicPinViewFragment"
-        android:label="Create your Pin view"
+        android:label="@string/case_label_dynamic_pin_view"
         tools:layout="@layout/f_main_dynamic_pin_view" />
     <fragment
         android:id="@+id/savedStateFragment"
         android:name="by.esas.tools.screens.saved_state_vm.SavedStateFragment"
-        android:label="Check SavedState view model"
+        android:label="@string/case_label_saved_state"
         tools:layout="@layout/f_main_saved_state" />
     <fragment
         android:id="@+id/numpadImageFragment"
         android:name="by.esas.tools.screens.numpad.NumpadImageFragment"
-        android:label="Check NumpadImageView functionality"
+        android:label="@string/case_label_numpad_image"
         tools:layout="@layout/f_main_numpad_image" />
     <fragment
         android:id="@+id/listheaderFragment"
         android:name="by.esas.tools.screens.listheader.ListheaderFragment"
-        android:label="Check Listheader functionality"
+        android:label="@string/case_label_listheader"
         tools:layout="@layout/f_main_listheader" />
     <fragment
         android:id="@+id/dynamicListheaderFragment"
         android:name="by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment"
-        android:label="Create dynamic Listheader"
+        android:label="@string/case_label_dynamic_listheader"
         tools:layout="@layout/f_main_dynamic_listheader" />
     <fragment
         android:id="@+id/utilKeyboardFragment"
         android:name="by.esas.tools.screens.util.UtilKeyboardFragment"
-        android:label="Check Util keyboard functionality"
+        android:label="@string/case_label_util_keyboard"
         tools:layout="@layout/f_main_util_keyboard" />
     <fragment
         android:id="@+id/utilUtilsFragment"
         android:name="by.esas.tools.screens.util.utils.UtilsFragment"
-        android:label="Check Utils functionality in Util module"
+        android:label="@string/case_label_utils"
         tools:layout="@layout/f_main_util_utils" />
     <fragment
         android:id="@+id/utilSwitchManagerFragment"
         android:name="by.esas.tools.screens.util.switchManager.UtilSwitchManagerFragment"
-        android:label="Check SwitchManager functionality in Util module"
+        android:label="@string/case_label_switch_manager"
         tools:layout="@layout/f_main_util_switch_manager" />
     <fragment
         android:id="@+id/customSwitchFragment"
         android:name="by.esas.tools.screens.custom_switch.CustomSwitchFragment"
-        android:label="Check CustomSwitch functionality"
+        android:label="@string/case_label_custom_switch"
         tools:layout="@layout/f_main_custom_switch" />
     <fragment
         android:id="@+id/customSwitchProgramFragment"
         android:name="by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment"
-        android:label="Check Cardline functionality"
-        tools:layout="@layout/f_main_cardline" />
+        android:label="@string/case_label_dynamic_custom_switch"
+        tools:layout="@layout/f_main_custom_switch_program" />
     <fragment
         android:id="@+id/topbarFragment"
         android:name="by.esas.tools.screens.topbar.TopbarFragment"
-        android:label="Check Topbar view functionality"
+        android:label="@string/case_label_topbar_view"
         tools:layout="@layout/f_main_topbar" />
     <fragment
         android:id="@+id/cardlineFragment"
         android:name="by.esas.tools.screens.cardline.CardlineFragment"
-        android:label="Check Cardline functionality"
+        android:label="@string/case_label_cardline"
         tools:layout="@layout/f_main_cardline" />
     <fragment
         android:id="@+id/dynamicCardlineFragment"
         android:name="by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment"
-        android:label="Create custom Cardline"
+        android:label="@string/case_label_dynamic_cardline"
         tools:layout="@layout/f_main_dynamic_cardline" />
     <fragment
         android:id="@+id/checkerFragment"
         android:name="by.esas.tools.screens.checker.CheckerInputFieldFragment"
-        android:label="Check checker functionality"
+        android:label="@string/case_label_checker"
         tools:layout="@layout/f_main_checker" />
     <fragment
         android:id="@+id/dynamicMessageDialogFragment"
         android:name="by.esas.tools.screens.dialog.DynamicMessageDialogFragment"
-        android:label="Create custom Message Dialog"
+        android:label="@string/case_label_dynamic_message_dialog"
         tools:layout="@layout/f_main_dynamic_message_dialog" />
     <fragment
         android:id="@+id/bottomDialogFragment"
         android:name="by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment"
-        android:label="Check Bottom Dialog functionality"
+        android:label="@string/case_label_bottom_dialog"
         tools:layout="@layout/f_main_bottom_dialog" />
     <fragment
         android:id="@+id/inputfieldViewEndIconFragment"
         android:name="by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment"
-        android:label="Check InputfieldView end icon functionality"
+        android:label="@string/case_label_inputfield_view_end_icon"
         tools:layout="@layout/f_main_inputfieldview_end_icon" />
     <fragment
         android:id="@+id/inputfieldViewStartIconFragment"
         android:name="by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment"
-        android:label="Check InputfieldView start icon functionality"
+        android:label="@string/case_label_inputfield_view_start_icon"
         tools:layout="@layout/f_main_inputfieldview_start_icon" />
     <fragment
         android:id="@+id/inputfieldViewFragment"
         android:name="by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment"
-        android:label="Check InputfieldView styles"
+        android:label="@string/case_label_inputfield_view"
         tools:layout="@layout/f_main_inputfieldview" />
     <fragment
         android:id="@+id/numpadTextFragment"
         android:name="by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment"
-        android:label="Check NumpadTextView functionality"
+        android:label="@string/case_label_numpad_text"
         tools:layout="@layout/f_main_numpad_text" />
     <fragment
         android:id="@+id/baseuiNavigationFragment"
         android:name="by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment"
-        android:label="Check BaseUI navigation"
+        android:label="@string/case_label_baseui_navigation"
         tools:layout="@layout/f_main_baseui_navigation">
         <action
             android:id="@+id/action_menuFragment_to_baseuiNavigationSecondFragment"
@@ -219,7 +219,7 @@
     <fragment
         android:id="@+id/baseuiNavigationSecondFragment"
         android:name="by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment"
-        android:label="Second navigation fragment"
+        android:label="@string/case_label_baseui_navigation_second"
         tools:layout="@layout/f_main_baseui_navigation_second">
         <argument
             android:name="date"
@@ -228,24 +228,23 @@
     <fragment
         android:id="@+id/baseuiFunctionalityFragment"
         android:name="by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment"
-        android:label="Check BaseUI functionality"
+        android:label="@string/case_label_baseui"
         tools:layout="@layout/f_main_baseui_functionality" />
     <fragment
         android:id="@+id/baseuiThemeFragment"
         android:name="by.esas.tools.screens.baseui.ui.BaseUIThemeFragment"
-        android:label="Change BaseUI theme and language"
+        android:label="@string/case_label_baseui_theme"
         tools:layout="@layout/f_main_baseui_theme" />
     <fragment
         android:id="@+id/domainCaseFragment"
         android:name="by.esas.tools.screens.domain.DomainCaseFragment"
-        android:label="Check Domain module functionality"
+        android:label="@string/case_label_domain"
         tools:layout="@layout/f_main_domain_case" />
     <fragment
         android:id="@+id/biometricDecryptionFragment"
         android:name="by.esas.tools.screens.biometric.BiometricDecryptionFragment"
-        android:label="Check BiometricDecryption functionality"
+        android:label="@string/case_label_biometric_decryption"
         tools:layout="@layout/f_main_biometric_decryption" />
-        tools:layout="@layout/f_main_domain_case"/>
     <fragment
         android:id="@+id/recyclerFragment"
         android:name="by.esas.tools.screens.recycler.base.RecyclerFragment"
@@ -259,11 +258,11 @@
     <fragment
         android:id="@+id/simpleRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
-        android:label="SimpleRecyclerFragment"
+        android:label="@string/case_label_recycler_simple"
         tools:layout="@layout/f_main_simple_recycler"/>
     <fragment
         android:id="@+id/customRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
-        android:label="CustomRecyclerFragment"
+        android:label="@string/case_label_recycler_custom"
         tools:layout="@layout/f_main_custom_recycler" />
 </navigation>
