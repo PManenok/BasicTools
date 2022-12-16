@@ -1,25 +1,19 @@
 package by.esas.tools.base
 
 import android.content.Context
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsetsController
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.App
 import by.esas.tools.BR
+import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
-import by.esas.tools.hideSystemUIApp
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.util.TAGk
 import by.esas.tools.util.configs.SettingsProvider
 import by.esas.tools.util.configs.UiModeType
-import by.esas.tools.util.hideSystemUIR
 import by.esas.tools.utils.logger.ErrorModel
 import by.esas.tools.utils.logger.LoggerImpl
 import dagger.android.AndroidInjection
@@ -88,16 +82,18 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
 
     override fun provideSetter(): SettingsProvider {
         return object : SettingsProvider {
+            var prefs: AppSharedPrefs = AppSharedPrefs(App.instance)
+
             override fun getDefaultLanguage(): String {
                 return "en"
             }
 
             override fun getLanguage(): String {
-                return App.language
+                return prefs.getLanguage()
             }
 
             override fun setLanguage(lang: String) {
-                App.language = lang
+                prefs.setLanguage(lang)
             }
 
             override fun getDefaultMode(): UiModeType {
@@ -105,11 +101,11 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
             }
 
             override fun getMode(): UiModeType {
-                return App.uiMode
+                return prefs.getTheme()
             }
 
             override fun setMode(uiMode: UiModeType) {
-                App.uiMode = uiMode
+                prefs.setTheme(uiMode)
             }
         }
     }

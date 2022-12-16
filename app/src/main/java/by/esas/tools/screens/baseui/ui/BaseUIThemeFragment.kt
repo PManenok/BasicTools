@@ -3,7 +3,9 @@ package by.esas.tools.screens.baseui.ui
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import by.esas.tools.App
 import by.esas.tools.R
+import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBaseuiThemeBinding
 import by.esas.tools.util.configs.UiModeType
@@ -20,11 +22,31 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setCheckedLang()
+        setCheckedTheme()
+
         binding.fBaseuiThemeSetLangBtn.setOnClickListener {
             viewModel.requestLanguageChange(getLanguage())
         }
         binding.fBaseuiThemeSetModeBtn.setOnClickListener {
             viewModel.requestThemeChange(getThemeMode())
+        }
+    }
+
+    private fun setCheckedLang() {
+        val checkedLang = AppSharedPrefs(App.instance).getLanguage()
+        when(checkedLang) {
+            "ru" -> binding.fBaseuiThemeLangRadioRussian.isChecked = true
+            "en" -> binding.fBaseuiThemeLangRadioEnglish.isChecked = true
+        }
+    }
+
+    private fun setCheckedTheme() {
+        val checkedTheme = AppSharedPrefs(App.instance).getTheme()
+        when(checkedTheme) {
+            UiModeType.SYSTEM -> binding.fBaseuiThemeModeRadioSystem.isChecked = true
+            UiModeType.DAY -> binding.fBaseuiThemeModeRadioLight.isChecked = true
+            UiModeType.NIGHT -> binding.fBaseuiThemeModeRadioNight.isChecked = true
         }
     }
 

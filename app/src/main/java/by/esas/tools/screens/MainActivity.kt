@@ -8,7 +8,6 @@ import androidx.navigation.Navigation
 import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.databinding.ActivityMainBinding
-import by.esas.tools.screens.menu.MenuFragmentDirections
 import by.esas.tools.topbarview.ITopbarHandler
 
 /**
