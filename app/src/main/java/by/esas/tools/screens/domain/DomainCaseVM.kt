@@ -1,6 +1,7 @@
 package by.esas.tools.screens.domain
 
 import android.util.Base64
+import by.esas.tools.R
 import by.esas.tools.app_domain.usecase.PlayRandomUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.dialog.MessageDialog
@@ -23,6 +24,8 @@ class DomainCaseVM @Inject constructor(
             onComplete { result ->
                 val dialog = MessageDialog()
                 dialog.setMessage(result)
+                dialog.setTitle(R.string.domain_case_congratulations)
+                dialog.setPositiveButton(R.string.ok)
                 showDialog(dialog)
             }
             onError { errorModel ->

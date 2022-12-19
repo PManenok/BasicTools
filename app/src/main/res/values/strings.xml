@@ -32,6 +32,7 @@
     <string name="message">Message</string>
     <string name="modules">Modules:</string>
     <string name="menu">Menu</string>
+    <string name="ok">OK</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -333,6 +334,8 @@
     <string name="domain_case_range_number">Range number</string>
     <string name="domain_case_add_your_number">Add your number</string>
     <string name="domain_case_play">Play</string>
+    <string name="domain_case_congratulations">Congratulations!</string>
+    <string name="domain_case_win"> You win!</string>
     <string name="domain_case_fail">Oops, you lose!</string>
     <string name="domain_case_encrypt_aes_title">Check encrypt/decrypt AES methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
     <string name="domain_case_encrypt">Encrypt:</string>

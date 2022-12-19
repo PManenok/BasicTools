@@ -32,6 +32,7 @@
     <string name="message">Сообщение</string>
     <string name="modules">Модули:</string>
     <string name="menu">Меню</string>
+    <string name="ok">OK</string>
 
     <string name="validation_text_in_range">Допустимый диапазон длины текста %d - %d</string>
     <string name="test_text">Тестовый текст</string>
@@ -333,6 +334,8 @@
     <string name="domain_case_range_number">Диапазон чисел</string>
     <string name="domain_case_add_your_number">Добавьте ваш номер</string>
     <string name="domain_case_play">Играть</string>
+    <string name="domain_case_congratulations">Поздравляем!</string>
+    <string name="domain_case_win">Вы победили!</string>
     <string name="domain_case_fail">Упс, вы проиграли!</string>
     <string name="domain_case_encrypt_aes_title">Проверьте шифровку/зашифроку AES методами. Добавьте информацию в поле ввода и нажмите кнопку Старт. Ниже вы увидите результаты шифровки и обратной расшифровки.</string>
     <string name="domain_case_encrypt">Зашифровка:</string>

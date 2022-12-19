@@ -1,5 +1,7 @@
 package by.esas.tools.app_domain.usecase
 
+import by.esas.tools.App
+import by.esas.tools.R
 import by.esas.tools.app_domain.error_mapper.AppErrorMapper
 import by.esas.tools.domain.exception.BaseException
 import by.esas.tools.domain.exception.BaseStatusEnum
@@ -18,7 +20,7 @@ class PlayRandomUseCase @Inject constructor(
 
     override suspend fun executeOnBackground(): String {
         if (number == Random.nextInt(0, rangeNumbers+1)) {
-            return "Congratulations! You win!"
+            return App.appContext.getString(R.string.domain_case_congratulations)
         } else
             throw BaseException(BaseStatusEnum.UNKNOWN_ERROR)
     }
