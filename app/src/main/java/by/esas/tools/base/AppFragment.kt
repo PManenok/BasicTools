@@ -5,6 +5,7 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.App
 import by.esas.tools.BR
+import by.esas.tools.R
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardFragment
 import by.esas.tools.checker.Checker
@@ -50,11 +51,11 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
         return object : ErrorHandler<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
-                return "Error message"
+                return error.statusEnum
             }
 
             override fun getErrorMessage(e: Throwable): String {
-                return "Error message"
+                return e.message ?: resources.getString(R.string.test_error)
             }
 
             override fun mapError(e: Throwable): ErrorModel {

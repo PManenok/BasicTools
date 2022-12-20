@@ -15,8 +15,10 @@ import by.esas.tools.databinding.FMainBaseuiFunctionalityBinding
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.handler.ErrorAction
+import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
+import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
 
 class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
@@ -73,14 +75,19 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         }
     }
 
+    override fun enableControls(parameters: Bundle?) {
+        super.enableControls(parameters)
+
+        binding.fBaseuiSwitcher.isChecked = true
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fBaseuiFunctionalityMessageDialogBtn.setOnClickListener {
-            val dialog = MessageDialog().apply {
-                setMessage(resources.getString(R.string.baseui_functionality_test_message))
-                setTitle(resources.getString(R.string.baseui_functionality_test_dialog))
-            }
+            val dialog = MessageDialog()
+            dialog.setMessage(resources.getString(R.string.baseui_functionality_test_message))
+            dialog.setTitle(resources.getString(R.string.baseui_functionality_test_dialog))
             showDialog(dialog, "DIALOG")
         }
 
@@ -113,19 +120,19 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
 
         binding.fBaseuiFunctionalityVmErrorDialogBtn.setOnClickListener {
             viewModel.handleError(
-                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                 showType = ShowErrorType.SHOW_ERROR_DIALOG.name
             )
         }
         binding.fBaseuiFunctionalityVmErrorMessageBtn.setOnClickListener {
             viewModel.handleError(
-                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                 showType = ShowErrorType.SHOW_ERROR_MESSAGE.name
             )
         }
         binding.fBaseuiFunctionalityVmErrorNothingBtn.setOnClickListener {
             viewModel.handleError(
-                ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                 showType = ShowErrorType.SHOW_NOTHING.name
             )
         }
@@ -133,7 +140,7 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         binding.fBaseuiFunctionalityErrorDialogBtn.setOnClickListener {
             handleError(
                 ErrorAction.Companion.create(
-                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                     showType = ShowErrorType.SHOW_ERROR_DIALOG.name,
                     ErrorAction.ACTION_ERROR,
                     null
@@ -143,7 +150,7 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         binding.fBaseuiFunctionalityErrorMessageBtn.setOnClickListener {
             handleError(
                 ErrorAction.Companion.create(
-                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                     showType = ShowErrorType.SHOW_ERROR_MESSAGE.name,
                     ErrorAction.ACTION_ERROR,
                     null
@@ -153,7 +160,7 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         binding.fBaseuiFunctionalityErrorNothingBtn.setOnClickListener {
             handleError(
                 ErrorAction.Companion.create(
-                    ErrorModel(200, AppErrorStatusEnum.ACCESS_DENIED),
+                    ErrorModel(400, AppErrorStatusEnum.UNKNOWN_ERROR),
                     showType = ShowErrorType.SHOW_NOTHING.name,
                     ErrorAction.ACTION_ERROR,
                     null

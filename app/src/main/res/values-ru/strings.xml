@@ -39,6 +39,7 @@
     <string name="set_error">Установить ошибку</string>
     <string name="error_text">Текст ошибки!</string>
     <string name="reset_error">Сбросить ошибку</string>
+    <string name="test_error">Тестовая ошибка</string>
     <string name="set">Установить</string>
     <string name="reset">Сбросить</string>
     <string name="change_style">Изменить стиль</string>

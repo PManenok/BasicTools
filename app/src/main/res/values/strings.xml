@@ -39,6 +39,7 @@
     <string name="set_error">Set error</string>
     <string name="error_text">Error text!</string>
     <string name="reset_error">Reset error</string>
+    <string name="test_error">Test error</string>
     <string name="set">Set</string>
     <string name="reset">Reset</string>
     <string name="change_style">Change style</string>

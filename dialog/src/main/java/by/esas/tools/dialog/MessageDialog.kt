@@ -379,7 +379,8 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     open fun setMessage(value: String, appearanceResId: Int = -1) {
         message.set(value)
         showMessage.set(value.isNotBlank())
-        messageAppearanceResId = appearanceResId
+        if (appearanceResId != -1)
+            messageAppearanceResId = appearanceResId
     }
 
     open fun setPositiveButton(resId: Int, actionName: String? = null, appearance: ButtonAppearance? = null) {

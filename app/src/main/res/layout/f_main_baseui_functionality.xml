@@ -115,7 +115,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/baseui_functionality_request_group_of_permissions_title"/>
+                android:text="@string/baseui_functionality_request_group_of_permissions_title"
+                android:layout_marginEnd="@dimen/spacing_12"/>
 
             <Button
                 android:id="@+id/f_baseui_functionality_permissions_group_btn"
