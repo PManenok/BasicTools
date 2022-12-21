@@ -60,7 +60,14 @@ class DynamicMessageDialogFragment :
         setNeutralButtonLay()
 
         binding.fDynamicMessageDialogShowButton.setOnClickListener {
-            showDialog(createDialog(), DYNAMIC_MESSAGE_DIALOG)
+            if (checkFieldsForNotEmpty())
+                showDialog(createDialog(), DYNAMIC_MESSAGE_DIALOG)
+            else
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.message_dialog_dynamic_empty_dialog),
+                    Toast.LENGTH_LONG
+                ).show()
         }
     }
 
@@ -93,25 +100,19 @@ class DynamicMessageDialogFragment :
 
     private fun setPositiveButtonLay() {
         binding.fDynamicMessageDialogBtnPositiveCheck.setOnCheckedChangeListener { _, isChecked ->
-            val layVisibility = if (isChecked) View.VISIBLE else View.GONE
-            binding.fDynamicMessageDialogBtnPositiveStyleLay.visibility = layVisibility
-            binding.fDynamicMessageDialogBtnPositiveColorLay.visibility = layVisibility
+            viewModel.btnPositiveLayVisibility.set(isChecked)
         }
     }
 
     private fun setNegativeButtonLay() {
         binding.fDynamicMessageDialogBtnNegativeCheck.setOnCheckedChangeListener { _, isChecked ->
-            val layVisibility = if (isChecked) View.VISIBLE else View.GONE
-            binding.fDynamicMessageDialogBtnNegativeStyleLay.visibility = layVisibility
-            binding.fDynamicMessageDialogBtnNegativeColorLay.visibility = layVisibility
+            viewModel.btnNegativeLayVisibility.set(isChecked)
         }
     }
 
     private fun setNeutralButtonLay() {
         binding.fDynamicMessageDialogBtnNeutralCheck.setOnCheckedChangeListener { _, isChecked ->
-            val layVisibility = if (isChecked) View.VISIBLE else View.GONE
-            binding.fDynamicMessageDialogBtnNeutralStyleLay.visibility = layVisibility
-            binding.fDynamicMessageDialogBtnNeutralColorLay.visibility = layVisibility
+            viewModel.btnNeutralLayVisibility.set(isChecked)
         }
     }
 
@@ -202,5 +203,14 @@ class DynamicMessageDialogFragment :
             1 -> R.color.purple
             else -> R.color.red
         }
+    }
+
+    private fun checkFieldsForNotEmpty(): Boolean {
+        return binding.fDynamicMessageDialogTitle.getText().isNotEmpty() ||
+                binding.fDynamicMessageDialogMessage.getText().isNotEmpty() ||
+                binding.fDynamicMessageDialogBtnPositive.getText().isNotEmpty() ||
+                binding.fDynamicMessageDialogBtnNeutral.getText().isNotEmpty() ||
+                binding.fDynamicMessageDialogBtnNegative.getText().isNotEmpty() ||
+                binding.fDynamicMessageDialogItemsListCheck.isChecked
     }
 }

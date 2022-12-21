@@ -232,13 +232,16 @@
     <string name="message_dialog_dynamic_neutral_button">Текст нейтральной кнопки</string>
     <string name="message_dialog_dynamic_neutral_button_appearance">Добавьте стиль текста нейтральной кнопки</string>
     <string name="message_dialog_dynamic_show_dialog">Показать диалог</string>
+    <string name="message_dialog_dynamic_empty_dialog">Нельзя показать пустой диалог. Добавьте заголовок, или сообщение, или кнопки, или список элементов.</string>
 
 
     <!--Bottom Dialog-->
     <string name="custom_bottom_dialog_input_conditions">Добавьте что-нибудь длиной от 1 до 20</string>
     <string name="custom_bottom_dialog_case">Используйте этот всплывающий снизу диалог, чтобы отправить введенный данные во фрагмент. Если вы нажмете на кнопку Отправить и введенные данные корректны, диалог будет скрыт и вы увидете сообщение с введенными вами данными.</string>
     <string name="custom_bottom_dialog_enable_disable_views">Сделайте активными/неактивными элементы внутри диалога</string>
-    <string name="custom_bottom_dialog_fragment_case">Переоткройте этот экран, чтобы открыть нижний диалог еще раз</string>
+    <string name="custom_bottom_dialog_fragment_case">На этом экране вы можете открыть нижний диалог и проверить его функциональсть. Вы можете открыть диалог из фрагмента, используя первую кнопку, и открыть из view model, используя вторую кнопку.</string>
+    <string name="custom_bottom_dialog_fragment_open_from_fragment">Открыть из фрагмента</string>
+    <string name="custom_bottom_dialog_fragment_open_from_vm">Открыть из view model</string>
 
 
     <!--InputfieldView start icon-->
@@ -298,9 +301,11 @@
 
     <string name="baseui_functionality_title">На этом экране вы можете проверить различный функционал BaseUI модуля.</string>
     <string name="baseui_functionality_switcher">Сделайте активными/неактивными элементы на экране</string>
-    <string name="baseui_functionality_open_message_dialog">Воспользуйтесь этой кнопкой, чтобы открыть диалог с сообщением</string>
+    <string name="baseui_functionality_open_message_dialog">Воспользуйтесь этой кнопкой, чтобы открыть диалог с сообщением из фрагмента или view model</string>
     <string name="baseui_functionality_show_dialog">Показать диалог</string>
     <string name="baseui_functionality_input_field">Начните вводить данные в поле ввода, чтобы поле находилось в фокусе, затем нажмите где-нибудь вне поля. Поле перестает быть в фокусе и клавиатура скрывается</string>
+    <string name="baseui_functionality_open_from_fragment">Открыть из фрагмента</string>
+    <string name="baseui_functionality_open_from_vm">Открыть из view model</string>
     <string name="baseui_functionality_check_permissions_title">Воспользуйтесь кнопкаим ниже, чтобы проверить и запросить разрешение на чтение/запись во внутреннее хранилище.</string>
     <string name="baseui_functionality_check_permission">Проверить разрешение</string>
     <string name="baseui_functionality_request_permission">Запросить разрешение</string>

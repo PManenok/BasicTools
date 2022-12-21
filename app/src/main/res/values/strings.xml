@@ -232,14 +232,16 @@
     <string name="message_dialog_dynamic_neutral_button">Neutral button text</string>
     <string name="message_dialog_dynamic_neutral_button_appearance">Add neutral button appearance</string>
     <string name="message_dialog_dynamic_show_dialog">Show dialog</string>
+    <string name="message_dialog_dynamic_empty_dialog">Can\'t show an empty dialog. Add a title, or a message, or buttons, or list of items.</string>
 
 
     <!--Bottom Dialog-->
     <string name="custom_bottom_dialog_input_conditions">Add something with the length from 1 to 20</string>
     <string name="custom_bottom_dialog_case">Use this bottom dialog to send entered data to Fragment. If you click on Send button and entered data is correct the dialog will be closed and you will see Toast message with entered data.</string>
     <string name="custom_bottom_dialog_enable_disable_views">Enable/Disable views on this dialog</string>
-    <string name="custom_bottom_dialog_fragment_case">Re-open this case to see Bottom Dialog again</string>
-
+    <string name="custom_bottom_dialog_fragment_case">On this screen you can see BottomDialog fragment and check it\'s functionality. Open dialog from fragment using first button and open from view model using second button.</string>
+    <string name="custom_bottom_dialog_fragment_open_from_fragment">Open from fragment</string>
+    <string name="custom_bottom_dialog_fragment_open_from_vm">Open from view model</string>
 
     <!--InputfieldView start icon-->
     <string name="inputfieldview_title">On this screen you can check functional of InputfieldView and see different styles of views.</string>
@@ -298,9 +300,11 @@
 
     <string name="baseui_functionality_title">On this screen you can check different functional of BaseUI module.</string>
     <string name="baseui_functionality_switcher">Enable/disable views on the screen</string>
-    <string name="baseui_functionality_open_message_dialog">Use this button to open message dialog</string>
+    <string name="baseui_functionality_open_message_dialog">Use this button to open message dialog from fragment or view model</string>
     <string name="baseui_functionality_show_dialog">Show dialog</string>
     <string name="baseui_functionality_input_field">Start adding data in input field to make field focusable, than tap somewhere outside the field. Field becomes unfocusable and keyboard will be hidden</string>
+    <string name="baseui_functionality_open_from_fragment">Open from fragment</string>
+    <string name="baseui_functionality_open_from_vm">Open from view model</string>
     <string name="baseui_functionality_check_permissions_title">Use buttons below to check and request permissions to read/write external storage.</string>
     <string name="baseui_functionality_check_permission">Check permission</string>
     <string name="baseui_functionality_request_permission">Request permission</string>

@@ -44,7 +44,13 @@ class BottomDialogFragment: AppFragment<BottomDialogVM, FMainBottomDialogBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showDialog(createBottomDialog(), BOTTOM_DIALOG)
+        binding.bottomDialogFrag.setOnClickListener {
+            showDialog(createBottomDialog(), BOTTOM_DIALOG)
+        }
+
+        binding.bottomDialogVm.setOnClickListener {
+            viewModel.showBottomDialog(BOTTOM_DIALOG)
+        }
     }
 
     override fun handleAction(action: Action): Boolean {

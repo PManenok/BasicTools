@@ -102,14 +102,17 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     protected var items: List<String> = emptyList()
     protected var itemTextAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     protected var adapter: SimpleItemAdapter =
-        SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java) { position, item ->
-            if (btnEnabled.get()) {
-                disableControls()
-                setItemPickedResult(position, item.name, itemAction)
-                dismiss()
-                enableControls()
+        SimpleItemAdapter.createCustom(
+            IDialogMessageBinding::class.java,
+            onItemClickPosition = { position, item ->
+                if (btnEnabled.get()) {
+                    disableControls()
+                    setItemPickedResult(position, item.name, itemAction)
+                    dismiss()
+                    enableControls()
+                }
             }
-        }
+        )
     protected var positiveAction: String? = null
     protected var itemAction: String? = null
 

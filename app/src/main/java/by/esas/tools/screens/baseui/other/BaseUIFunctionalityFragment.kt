@@ -15,10 +15,8 @@ import by.esas.tools.databinding.FMainBaseuiFunctionalityBinding
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.handler.ErrorAction
-import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
-import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
 
 class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
@@ -32,7 +30,8 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
 
     override fun provideSwitchableViews(): List<View?> {
         return listOf(
-            binding.fBaseuiFunctionalityMessageDialogBtn,
+            binding.fBaseuiFunctionalityMessageDialogFragmentBtn,
+            binding.fBaseuiFunctionalityMessageDialogVmBtn,
             binding.fBaseuiFunctionalityInputField,
             binding.fBaseuiFunctionalityPermissionCheckBtn,
             binding.fBaseuiFunctionalityPermissionRequestBtn,
@@ -84,11 +83,15 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fBaseuiFunctionalityMessageDialogBtn.setOnClickListener {
+        binding.fBaseuiFunctionalityMessageDialogFragmentBtn.setOnClickListener {
             val dialog = MessageDialog()
             dialog.setMessage(resources.getString(R.string.baseui_functionality_test_message))
             dialog.setTitle(resources.getString(R.string.baseui_functionality_test_dialog))
             showDialog(dialog, "DIALOG")
+        }
+
+        binding.fBaseuiFunctionalityMessageDialogVmBtn.setOnClickListener {
+            viewModel.showMessageDialog()
         }
 
         binding.fBaseuiSwitcher.setOnCheckedChangeListener { _, isChecked ->
