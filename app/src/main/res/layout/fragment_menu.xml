@@ -54,6 +54,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_invoices_empty_list"
+            style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_20"

@@ -3,6 +3,7 @@ package by.esas.tools.screens.checker
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
@@ -14,12 +15,16 @@ import by.esas.tools.checker.checks.CustomCheck
 import by.esas.tools.checker.checks.DateRangeCheck
 import by.esas.tools.checker.checks.LengthCheck
 import by.esas.tools.checker.checks.MinLengthCheck
-import by.esas.tools.checker.checks.NotEmptyCheck
 import by.esas.tools.checker.checks.RangeCheck
 import by.esas.tools.checker.checks.RegexCheck
 import by.esas.tools.databinding.FMainCheckerBinding
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerBinding>() {
     override val fragmentDestinationId = R.id.checkerFragment
@@ -54,7 +59,12 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
                     )
                 ),
             FieldChecking(binding.fCheckerInputDate).addCheck(
-                DateRangeCheck(1640995200000, 1672520399000, errorMessage = resources.getString(R.string.checker_error_date))
+                DateRangeCheck(
+                    getCheckerDateRange().first,
+                    getCheckerDateRange().second,
+                    errorMessage = resources.getString(R.string.checker_error_date),
+                    pattern = binding.fCheckerPatternSpinner.selectedItem.toString()
+                )
             )
         )
     }
@@ -75,16 +85,71 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.fCheckerInputDate.setText("${binding.fCheckerCalendar.year}-${binding.fCheckerCalendar.month + 1}-${binding.fCheckerCalendar.dayOfMonth}")
+        binding.fCheckerInputDate.setText(
+            getFormattedDate(
+                getCalendarDate(
+                    binding.fCheckerCalendar.year,
+                    binding.fCheckerCalendar.month,
+                    binding.fCheckerCalendar.dayOfMonth
+                )
+            )
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.fCheckerCalendar.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-                binding.fCheckerInputDate.setText("$year-${monthOfYear + 1}-$dayOfMonth")
+                val date = getCalendarDate(year, monthOfYear, dayOfMonth)
+                binding.fCheckerInputDate.setText(getFormattedDate(date))
             }
         }
+
+        binding.fCheckerPatternSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val date = getCalendarDate(
+                        binding.fCheckerCalendar.year,
+                        binding.fCheckerCalendar.month,
+                        binding.fCheckerCalendar.dayOfMonth
+                    )
+                    binding.fCheckerInputDate.setText(getFormattedDate(date))
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
 
         binding.fCheckerCheckButton.setOnClickListener {
             provideChecker().setMode(!binding.fCheckerSwitcher.isChecked).validate(provideChecks())
         }
+    }
+
+    private fun getCalendarDate(year: Int, month: Int, day: Int): Date {
+        return Date(year - 1900, month, day)
+    }
+
+    private fun getFormattedDate(date: Date): String {
+        val formatter = SimpleDateFormat(
+            binding.fCheckerPatternSpinner.selectedItem.toString(),
+            Locale.getDefault()
+        )
+        formatter.timeZone = TimeZone.getDefault()
+
+        return formatter.format(date)
+    }
+
+    private fun getCheckerDateRange(): Pair<Long, Long> {
+        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        formatter.timeZone = TimeZone.getDefault()
+
+        val year = Calendar.getInstance().get(Calendar.YEAR)
+        val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
+        val lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        val dateStart = formatter.parse("1-$currentMonth-$year")
+        val dateEnd = formatter.parse("$lastDayOfMonth-$currentMonth-$year")
+
+        return Pair(dateStart.time, dateEnd.time)
     }
 }

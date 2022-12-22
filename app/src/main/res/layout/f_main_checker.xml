@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
@@ -45,10 +45,10 @@
                     android:hint="@string/hint_add_value"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_range" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -60,10 +60,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_regex" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -75,10 +75,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_length" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -90,10 +90,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_bigger" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -105,10 +105,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_min_length" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -120,10 +120,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_custom" />
 
                 <by.esas.tools.inputfieldview.InputFieldView
@@ -135,10 +135,10 @@
                     android:layout_marginTop="@dimen/spacing_2" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:text="@string/checker_rule_date" />
 
                 <DatePicker
@@ -148,13 +148,38 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"/>
 
-                <by.esas.tools.inputfieldview.InputFieldView
-                    android:id="@+id/f_checker_input_date"
-                    style="@style/FieldStyle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:inputEditable="false"
-                    android:layout_marginTop="@dimen/spacing_6"/>
+                    android:orientation="horizontal">
+
+                    <by.esas.tools.inputfieldview.InputFieldView
+                        android:id="@+id/f_checker_input_date"
+                        style="@style/FieldStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:inputEditable="false"
+                        android:layout_marginTop="@dimen/spacing_6"
+                        android:layout_marginEnd="@dimen/spacing_12"/>
+
+                    <Spinner
+                        android:id="@+id/f_checker_pattern_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:popupBackground="@color/white"
+                        android:entries="@array/checker_date_pattern"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/HintTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checker_date_help_text"
+                    android:layout_marginTop="@dimen/spacing_2"/>
 
             </LinearLayout>
         </ScrollView>

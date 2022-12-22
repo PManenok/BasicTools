@@ -384,7 +384,7 @@
 
     <!--Checker-->
     <string name="checker_switcher_title">Проверять до первой ошибки</string>
-    <string name="checker_rule_date">Замечание: выбранная дата должна быть между 1 янв 2022 и 31 дек 2022</string>
+    <string name="checker_rule_date">Замечание: выбранная дата должна быть между первым и последним днем текущего месяца</string>
     <string name="checker_rule_custom">Замечание: значение должно быть таким же, как и в поле выше</string>
     <string name="checker_rule_min_length">Замечание: значение должно состоять минимум из 5 символов</string>
     <string name="checker_rule_bigger">Замечание: значение  должно быть больше 10</string>
@@ -401,6 +401,7 @@
     <string name="checker_error_regex">Ошибка выражения</string>
     <string name="checker_error_length">Ошибка длины</string>
     <string name="checker_everything_correct">Все верно</string>
+    <string name="checker_date_help_text">*Вы можете выбрать разные шаблоны для отображения даты, используя выпадающий список справа</string>
 
     <!--Saved State-->
     <string name="saved_state_case">Этот кейс показывает как ViewModel может сохранять необходимые данные и восстанавливать их после перезагрузки приложения. Первое поле сохраняет введенные данные, второе - нет. \nИнструкция: в настройках разработчика в разделе Лимит фоновых процессов выберите вариант Нет фоновых процессов. Затем откройте другое приложение и переоткройте это приложение из стека открытых приложений.</string>
