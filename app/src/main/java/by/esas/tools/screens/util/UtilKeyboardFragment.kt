@@ -29,7 +29,7 @@ class UtilKeyboardFragment : AppFragment<UtilKeyboardVM, FMainUtilKeyboardBindin
             defocusAndHideKeyboard(activity)
         }
         binding.fMainUtilCase2ButtonShow.setOnClickListener {
-            showKeyboard(activity)
+            showKeyboard(activity, false)
         }
         binding.fMainUtilCase2ButtonHide.setOnClickListener {
             by.esas.tools.util.hideKeyboard(activity)
