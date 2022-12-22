@@ -58,11 +58,11 @@
     <string name="util_hide">Hide</string>
     <string name="util_show">Show</string>
 
-    <string name="utils_title_case_1">Case 1: Add number in EditText view below, and format number to formated input using Format button</string>
-    <string name="utils_title_case_2">Case 2: Add number in EditText view below, and format it to formated string using Format button</string>
-    <string name="utils_title_case_3">Case 3: Add something in EditText view below, and get only numbers from string you added using Get numbers button</string>
+    <string name="utils_title_case_1">Case 1: Number entered in the input field below formatted into integer or fractional number with two decimal signs without mathematical rounding. To convert use the Format button.</string>
+    <string name="utils_title_case_2">Case 2: Number entered in the input field below formatted into fractional number with minimum two decimal signs. To convert use the Format button.</string>
+    <string name="utils_title_case_3">Case 3: Add something in the input field below, and get only numbers and dots from string you added using Format button(Example of a valid card - 4111 1111 1111 1111)</string>
     <string name="utils_title_case_4">Case 4: Luhn algorithm check. This only works if you are certain all input will be at least 10 characters</string>
-    <string name="utils_title_case_5">Case 5: Add card number and get card type using Card type button</string>
+    <string name="utils_title_case_5">Case 5: Add card number and get card type using Card type button. \n- Mastercard - first four numbers are in 2221..2720 range or first two numbers are in 51..55 range and the length is 16 \n- AmericanExpress - first number is 34 or 37 and the length is 15 \n- Visa - first number is 4 and the length is in 13..16 range \n- Unionpay - starts with 62</string>
     <string name="utils_format">Format</string>
     <string name="utils_get_numbers">Get numbers</string>
     <string name="utils_check">Check</string>
