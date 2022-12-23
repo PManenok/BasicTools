@@ -72,7 +72,7 @@
     <string name="utils_add_card_type">Добавьте тип карты</string>
     <string name="utils_result">Результат: </string>
 
-    <string name="util_manager_title">Switch manager из Util модуля создан для управления активностью и неактивностью элементов. С помощью первого кастомного переключателя вы можете сделать активными/неактивными элементы, используя базовый SwitchManager из модуля, с помощью второго переключателя вы можете сделать то же самое, но с переопределенным SwitchManager.</string>
+    <string name="util_manager_title">Switch manager из Util модуля создан для управления активностью и неактивностью элементов. С помощью первого кастомного переключателя вы можете сделать активными/неактивными элементы, используя базовый SwitchManager из модуля(базовый SwitchManager может управлять EditText и элементами, которые реализуют интерфейс ISwitchView), с помощью второго переключателя вы можете сделать то же самое, но с переопределенным SwitchManager(этот менеджер может управлять всеми элементами, как и базовый менеджер, и еще Buttons и SwitchCompat элементами).</string>
     <string name="util_manager_base_title">Кастомный переключатель для базового SwitchManager</string>
     <string name="util_manager_base_info">Базовый SwitchManager может делать активным/неактивным элемен, который реализует интерфейс ISwitchView или является EditText</string>
     <string name="util_manager_custom_title">Кастомный переключатель для переопределенного SwitchManager</string>
@@ -80,6 +80,9 @@
     <string name="util_manager_test_hint">Тестовый текст</string>
     <string name="util_manager_test_hint_switcher">Тестовый заголовок</string>
     <string name="util_manager_click">Нажми</string>
+    <string name="util_manager_base_help_text">*Здесь будут становиться активными/неактивными поле ввода и CustomSwitcher с тестовым заголовком</string>
+    <string name="util_manager_custom_help_text">*Здесь будут становиться активными/неактивными все элементы</string>
+    <string name="util_manager_button_click">Кнопка нажата</string>
 
     <!--Custom switch-->
     <string name="custom_switch">Custom Switcher</string>

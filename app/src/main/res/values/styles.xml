@@ -68,6 +68,8 @@
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="trackTint">@color/switcher_selector</item>
         <item name="thumbTint">@color/white</item>
+        <item name="switchTitleTextAppearance">@style/TextStyle</item>
+        <item name="switchInfoTextAppearance">@style/HintTextStyle</item>
     </style>
 
     <style name="ProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
