@@ -104,7 +104,8 @@
     <string name="custom_switch_status_off">Переключатель выключен</string>
     <string name="custom_switcher">Переключатель</string>
     <string name="custom_switch_choose_alignment">Выберите выравнивание для текстовой информации</string>
-    <string name="custom_switch_add_padding">Добавьте внутренние отступы для переключателя и текстовой информации</string>
+    <string name="custom_switch_add_padding_switcher">Добавьте внутренние отступы для переключателя:</string>
+    <string name="custom_switch_add_padding_info">Добавьте внутренние отступы для текстовой информации переключателя:</string>
 
     <string name="style_1">Стиль 1</string>
     <string name="style_2">Стиль 2</string>

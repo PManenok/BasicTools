@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,321 +9,398 @@
             type="by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_18">
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/custom_switch_program_case"/>
-
-        <FrameLayout
-            android:id="@+id/f_switcher_program_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_18">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/custom_switch_container_hint"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_30">
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_18">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/spacing_8"/>
+                android:text="@string/custom_switch_program_case" />
 
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/f_switcher_program_title"
-                style="@style/FieldStyle"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/f_switcher_program_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/custom_switch_add_title_hint"/>
-        </LinearLayout>
+                android:layout_marginTop="@dimen/spacing_18">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/HintTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/custom_switch_container_hint" />
+            </FrameLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/info"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/spacing_8"/>
-
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/f_switcher_program_info"
-                style="@style/FieldStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/custom_switch_add_info_hint" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/custom_switch_choose_title_style"
-                android:layout_marginEnd="@dimen/spacing_8"/>
-
-            <Spinner
-                android:id="@+id/f_switcher_program_spinner_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/title_styles"
-                android:background="@color/white"
-                android:popupBackground="@color/white"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_8">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/custom_switch_choose_info_style" />
-
-            <Spinner
-                android:id="@+id/f_switcher_program_spinner_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/title_styles"
-                android:background="@color/white"
-                android:popupBackground="@color/white"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/custom_switch_choose_alignment" />
-
-            <Spinner
-                android:id="@+id/f_switcher_program_spinner_alignment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/switcher_info_alignment"/>
-
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_16"
-            android:text="@string/custom_switch_add_padding" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:layout_gravity="center"
-                android:text="@string/custom_switcher" />
-
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/f_switcher_program_paddings_switcher"
-                style="@style/FieldStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:hint="@string/hint_add_value"
-                android:inputType="numberDecimal"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/info" />
-
-            <by.esas.tools.inputfieldview.InputFieldView
-                android:id="@+id/f_switcher_program_paddings_info"
-                style="@style/FieldStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/hint_add_value"
-                android:inputType="number"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/custom_switch_choose_thumb_color"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/spacing_8"/>
-
-            <RadioGroup
-                android:id="@+id/f_switcher_program_thumb_radio_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_30"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_thumb_radio_1"
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/orange"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="@string/title" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_thumb_radio_2"
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_title"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/custom_switch_add_title_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/purple"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="@string/info" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_thumb_radio_3"
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_info"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/custom_switch_add_info_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/red"
-                    />
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="@string/custom_switch_choose_title_style" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_thumb_radio_4"
+                <Spinner
+                    android:id="@+id/f_switcher_program_spinner_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/green"
-                    />
+                    android:background="@color/white"
+                    android:entries="@array/title_styles"
+                    android:popupBackground="@color/white" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_thumb_radio_5"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorStrokeOutline"
-                    />
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="@string/custom_switch_choose_info_style" />
 
-            </RadioGroup>
-        </LinearLayout>
+                <Spinner
+                    android:id="@+id/f_switcher_program_spinner_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:entries="@array/title_styles"
+                    android:popupBackground="@color/white" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_8">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:text="@string/custom_switch_choose_alignment" />
+
+                <Spinner
+                    android:id="@+id/f_switcher_program_spinner_alignment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/switcher_info_alignment" />
+
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/custom_switch_choose_track_color"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:layout_gravity="center"/>
-
-            <RadioGroup
-                android:id="@+id/f_switcher_program_track_radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/custom_switch_add_padding_switcher" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_track_radio_1"
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_switcher_left"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/left"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_switcher_top"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/top"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_switcher_right"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/right"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_switcher_bottom"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/bottom"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/custom_switch_add_padding_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:orientation="horizontal">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_info_left"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/left"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_info_top"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/top"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_info_right"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/right"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_switcher_program_paddings_info_bottom"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:inputType="numberDecimal"
+                    app:inputLabel="@string/bottom"
+                    app:inputLabelTextStyle="@style/TextStyle"
+                    app:inputLabelType="on_line" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:text="@string/custom_switch_choose_thumb_color" />
+
+                <RadioGroup
+                    android:id="@+id/f_switcher_program_thumb_radio_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/orange_light"
-                    />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_track_radio_2"
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_thumb_radio_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/orange" />
+
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_thumb_radio_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/purple" />
+
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_thumb_radio_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/red" />
+
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_thumb_radio_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/green" />
+
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_thumb_radio_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorStrokeOutline" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_8"
+                    android:layout_weight="1"
+                    android:text="@string/custom_switch_choose_track_color" />
+
+                <RadioGroup
+                    android:id="@+id/f_switcher_program_track_radio_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/purple_light"
-                    />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_track_radio_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@android:color/holo_red_dark"
-                    />
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_track_radio_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/orange_light" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_track_radio_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/green_light"
-                    />
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_track_radio_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/purple_light" />
 
-                <RadioButton
-                    android:id="@+id/f_switcher_program_track_radio_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/yellow"
-                    />
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_track_radio_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@android:color/holo_red_dark" />
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_track_radio_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/green_light" />
+
+                    <RadioButton
+                        android:id="@+id/f_switcher_program_track_radio_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/f_switcher_program_button_create"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_30"
+                android:text="@string/create" />
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/f_switcher_program_button_create"
-            style="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_30"/>
-
-    </LinearLayout>
+    </ScrollView>
 </layout>

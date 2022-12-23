@@ -56,10 +56,8 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
         customSwitch.setInfoStyle(infoStyle)
         customSwitch.setInfoAlignment(getInfoAlignment())
 
-        val switcherPaddings = getPaddings(binding.fSwitcherProgramPaddingsSwitcher.getText())
-        customSwitch.setSwitchPaddings(switcherPaddings, switcherPaddings, switcherPaddings, switcherPaddings)
-        val infoPaddings = getPaddings(binding.fSwitcherProgramPaddingsInfo.getText())
-        customSwitch.setInfoPaddings(infoPaddings, infoPaddings, infoPaddings, infoPaddings)
+        setSwitcherPaddings(customSwitch)
+        setInfoPaddings(customSwitch)
         return customSwitch
     }
 
@@ -96,6 +94,24 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
             resources.getString(R.string.alignment_center) -> TEXT_ALIGNMENT_CENTER
             else -> TEXT_ALIGNMENT_TEXT_END
         }
+    }
+
+    private fun setSwitcherPaddings(customSwitch: CustomSwitch) {
+        val left = getPaddings(binding.fSwitcherProgramPaddingsSwitcherLeft.getText())
+        val top = getPaddings(binding.fSwitcherProgramPaddingsSwitcherTop.getText())
+        val right = getPaddings(binding.fSwitcherProgramPaddingsSwitcherRight.getText())
+        val bottom = getPaddings(binding.fSwitcherProgramPaddingsSwitcherBottom.getText())
+
+        customSwitch.setSwitchPaddings(left, top, right, bottom)
+    }
+
+    private fun setInfoPaddings(customSwitch: CustomSwitch) {
+        val left = getPaddings(binding.fSwitcherProgramPaddingsInfoLeft.getText())
+        val top = getPaddings(binding.fSwitcherProgramPaddingsInfoTop.getText())
+        val right = getPaddings(binding.fSwitcherProgramPaddingsInfoRight.getText())
+        val bottom = getPaddings(binding.fSwitcherProgramPaddingsInfoBottom.getText())
+
+        customSwitch.setInfoPaddings(left, top, right, bottom)
     }
 
     private fun getPaddings(paddings: String): Int {

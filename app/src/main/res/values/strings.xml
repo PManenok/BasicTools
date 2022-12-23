@@ -104,7 +104,8 @@
     <string name="custom_switch_status_off">Switcher is off</string>
     <string name="custom_switcher">Switcher</string>
     <string name="custom_switch_choose_alignment">Choose alignment for info text</string>
-    <string name="custom_switch_add_padding">Add padding to switcher and information text</string>
+    <string name="custom_switch_add_padding_switcher">Add paddings to switcher:</string>
+    <string name="custom_switch_add_padding_info">Add paddings to switcher\'s info text:</string>
 
     <string name="style_1">Style 1</string>
     <string name="style_2">Style 2</string>
