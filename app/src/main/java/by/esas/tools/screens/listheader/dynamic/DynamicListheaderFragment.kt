@@ -1,5 +1,6 @@
 package by.esas.tools.screens.listheader.dynamic
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
@@ -43,6 +44,9 @@ class DynamicListheaderFragment() :
         val listHeader = ListHeader(requireContext())
         listHeader.setListTitle(binding.fDynamicListheaderTitle.getText())
         listHeader.setListActionText(binding.fDynamicListheaderActionText.getText())
+        listHeader.setActionListener{
+            Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT).show()
+        }
         listHeader.setListTitleStyle(getStyle(binding.fDynamicListheaderSpinnerTitle.selectedItem.toString()))
         listHeader.setListActionStyle(getStyle(binding.fDynamicListheaderSpinnerActionText.selectedItem.toString()))
         listHeader.setArrowIcon(getActionImages().first)
@@ -75,6 +79,9 @@ class DynamicListheaderFragment() :
     private fun createDefaultListheader(): ListHeader {
         return ListHeader(requireContext()).apply {
             this.setDefaultValues()
+            this.setActionListener{
+                Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT).show()
+            }
             this.addChild(createTestTextView())
             this.addChild(createTestTextView())
             this.addChild(createTestTextView())
@@ -132,6 +139,10 @@ class DynamicListheaderFragment() :
     private fun createTestTextView(): TextView {
         return TextView(requireContext()).apply {
             text = resources.getString(R.string.listheader_test_text)
+            if (Build.VERSION.SDK_INT >= 23)
+                setTextAppearance(R.style.HintTextStyle)
+            else
+                setTextAppearance(this.context, R.style.HintTextStyle)
         }
     }
 }
