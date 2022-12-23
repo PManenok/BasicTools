@@ -24,6 +24,7 @@
 
         <by.esas.tools.customswitch.CustomSwitch
             android:id="@+id/f_main_listheader_switcher"
+            style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:switchTitle="@string/listheader_switcher"
@@ -45,19 +46,22 @@
             app:listTitleTextAppearance="@style/TextStyle"
             app:listArrowIcon="@drawable/ic_arrow_down"
             app:listArrowTint="@color/main_color_1"
-            app:listArrowSize="@dimen/spacing_24"
+            app:listArrowInnerPadding="0dp"
             app:listContainerClickable="true"
             android:layout_marginTop="@dimen/spacing_4">
 
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>
@@ -85,7 +89,8 @@
             android:layout_height="wrap_content"
             app:listTitleTextAppearance="@style/TextStyle"
             app:listArrowIcon="@drawable/ic_arrow_down"
-            app:listArrowSize="@dimen/spacing_24"
+            app:listArrowSize="24dp"
+            app:listArrowInnerPadding="0dp"
             app:listArrowTint="@color/main_color_1"
             android:layout_marginTop="@dimen/spacing_4"/>
 
@@ -103,6 +108,7 @@
             app:listTitle="@string/listheader_title"
             app:listTitleTextAppearance="@style/TextStyle"
             app:listAction="@string/listheader_click"
+            app:listActionTextAppearance="@style/HintTextStyle"
             app:listContainerClickable="true"
             android:layout_marginTop="@dimen/spacing_4"/>
 
@@ -114,14 +120,17 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>
             <TextView
+                style="@style/HintTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listheader_test_text"/>

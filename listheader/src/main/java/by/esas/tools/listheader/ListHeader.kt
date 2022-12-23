@@ -121,7 +121,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         val actionStyleId: Int = typedArray.getResourceId(R.styleable.ListHeader_listActionTextAppearance, -1)
 
         /*##########  Icon  ##########*/
-        val iconSize = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listArrowSize, 32)
+        val iconSize = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listArrowSize, 0)
         iconDrawableRes = typedArray.getResourceId(R.styleable.ListHeader_listArrowIcon, -1).takeIf { it != -1 }
         val iconTint = typedArray.getColor(R.styleable.ListHeader_listArrowTint, defIconColor)
         val iconInnerPadding =
@@ -381,6 +381,9 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         setupActionVisibility()
     }
 
+    /**
+    * Set arrow icon size in pixels
+     * */
     open fun setArrowIconSize(iconSize: Int){
         updateIconSize(iconSize, arrowIcon)
     }
@@ -395,7 +398,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     }
 
     protected open fun updateIconSize(iconSize: Int, icon: AppCompatImageView) {
-        val size: Int = if (iconSize == 0) dpToPx(32).roundToInt() else iconSize
+        val size: Int = if (iconSize == 0) dpToPx(24).roundToInt() else iconSize
         val params = icon.layoutParams
         if (params != null && (params.width != size || params.height != size)) {
             params.width = size

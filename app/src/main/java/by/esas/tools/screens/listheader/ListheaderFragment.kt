@@ -1,5 +1,6 @@
 package by.esas.tools.screens.listheader
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -94,6 +95,10 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
     private fun createTestTextView(): TextView {
         return TextView(requireContext()).apply {
             text = resources.getString(R.string.listheader_test_text)
+            if (Build.VERSION.SDK_INT >= 23)
+                setTextAppearance(R.style.HintTextStyle)
+            else
+                setTextAppearance(this.context, R.style.HintTextStyle)
         }
     }
 }
