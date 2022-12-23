@@ -90,7 +90,7 @@
     </style>
 
     <style name="CustomSwitcherTextStyleBold" parent="TextStyle">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
