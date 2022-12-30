@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.timeparser.TimeParserVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_12">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/timeparser_title"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:text="@string/timeparser_pattern_examples_link"/>
+
+            <DatePicker
+                android:id="@+id/f_timeparser_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/spacing_6"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/timeparser_case_utc" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_result_1"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/result"
+                android:text="@{viewModel.resultField1}"
+                app:inputEditable="false" />
+
+            <Button
+                android:id="@+id/f_timeparser_default_1_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{()->viewModel.onGetUTCDateDefaultClick()}"
+                android:text="@string/timeparser_get_utc" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/timeparser_case_utc_pattern" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_timeparser_pattern_2"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:hint="@string/timeparser_add_pattern"
+                    android:text="@={viewModel.patternField2}" />
+
+                <Button
+                    android:id="@+id/f_timeparser_pattern_2_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timeparser_custom_pattern" />
+            </LinearLayout>
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_result_2"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/result"
+                android:text="@{viewModel.resultField2}"
+                app:inputEditable="false" />
+
+            <Button
+                android:id="@+id/f_timeparser_default_2_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{()->viewModel.onGetUTCDefaultClick()}"
+                android:text="@string/timeparser_default_pattern" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/timeparser_case_date_string" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_timeparser_pattern_3"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:layout_weight="1"
+                    android:hint="@string/timeparser_add_pattern"
+                    android:text="@={viewModel.patternField3}" />
+
+                <Button
+                    android:id="@+id/f_timeparser_pattern_3_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timeparser_custom_pattern" />
+            </LinearLayout>
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_result_3"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/result"
+                android:text="@{viewModel.resultField3}"
+                app:inputEditable="false" />
+
+            <Button
+                android:id="@+id/f_timeparser_default_3_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{()->viewModel.onGetLocaleDefaultClick()}"
+                android:text="@string/timeparser_default_pattern" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/timeparser_case_local_date" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_date_4"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/hint_add_value"
+                android:text="@={viewModel.dateField4}"
+                app:inputLabelType="on_line"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabel="@string/timeparser_date"/>
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_pattern_4"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/hint_add_value"
+                app:inputLabelType="on_line"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabel="@string/timeparser_pattern"
+                app:inputHelp="@string/timeparser_case_local_date_help_text"
+                app:inputHelpTextStyle="@style/HintTextStyle"
+                android:text="@={viewModel.patternField4}" />
+
+            <Button
+                android:id="@+id/f_timeparser_pattern_4_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:layout_gravity="center"
+                android:text="@string/timeparser_get_result" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_result_4"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/result"
+                android:text="@{viewModel.resultField4}"
+                app:inputEditable="false" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/timeparser_case_utc_string_pattern" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_date_5"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/hint_add_value"
+                android:text="@={viewModel.dateField5}"
+                app:inputLabelType="on_line"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabel="@string/timeparser_date"/>
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_pattern_5"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/hint_add_value"
+                app:inputLabelType="on_line"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabel="@string/timeparser_pattern"
+                app:inputHelp="@string/timeparser_case_utc_string_pattern_help_text"
+                app:inputHelpTextStyle="@style/HintTextStyle"
+                android:text="@={viewModel.patternField5}" />
+
+            <Button
+                android:id="@+id/f_timeparser_pattern_5_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:layout_gravity="center"
+                android:text="@string/timeparser_get_result" />
+
+            <by.esas.tools.inputfieldview.InputFieldView
+                android:id="@+id/f_timeparser_result_5"
+                style="@style/FieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:hint="@string/result"
+                android:text="@{viewModel.resultField5}"
+                app:inputEditable="false" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

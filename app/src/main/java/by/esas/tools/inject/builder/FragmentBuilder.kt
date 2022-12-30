@@ -28,6 +28,7 @@ import by.esas.tools.screens.recycler.custom.CustomRecyclerFragment
 import by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment
 import by.esas.tools.screens.recycler.sticky_case.StickyCaseFragment
 import by.esas.tools.screens.saved_state_vm.SavedStateFragment
+import by.esas.tools.screens.timeparser.TimeParserFragment
 import by.esas.tools.screens.topbar.TopbarFragment
 import by.esas.tools.screens.util.UtilKeyboardFragment
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerFragment
@@ -133,4 +134,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindBiometricDecryptionFragment(): BiometricDecryptionFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindTimeParserFragment(): TimeParserFragment
 }

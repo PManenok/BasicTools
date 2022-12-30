@@ -70,6 +70,11 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
     private fun setCases() {
         viewModel.allCases.clear()
         addCaseItem(
+            R.string.case_label_timeparser,
+            listOf(Modules.TIMEPARSER),
+            MenuFragmentDirections.actionMenuFragmentToTimeParserFragment()
+        )
+        addCaseItem(
             R.string.case_label_biometric_decryption,
             listOf(Modules.BIOMETRIC_DECRYPTION),
             MenuFragmentDirections.actionMenuFragmentToBiometricDecryptionFragment()

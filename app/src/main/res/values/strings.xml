@@ -33,6 +33,7 @@
     <string name="modules">Modules:</string>
     <string name="menu">Menu</string>
     <string name="ok">OK</string>
+    <string name="result">Result</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -442,4 +443,28 @@
     <string name="case_label_baseui_theme">Change BaseUI theme and language</string>
     <string name="case_label_domain">Check Domain module functionality</string>
     <string name="case_label_biometric_decryption">Check BiometricDecryption functionality</string>
+    <string name="case_label_timeparser">Check TimeParser functionality</string>
+
+    <!--Time Parser-->
+    <string name="timeparser_title">Use this screen to check TimeParser module functionality. Use calendar for choosing date and different cases below to get selected date in different formats. If you don\'t know how use date patterns, follow the link below to see different pattern examples.</string>
+    <string name="timeparser_empty_field">Field can\'t be empty</string>
+    <string name="timeparser_error_date_in_unexpected_format">Date in unexpected format. Check entered date and pattern and try again</string>
+    <string name="timeparser_error_illegal_pattern_character">Illegal pattern characters. Check entered pattern and try again</string>
+    <string name="timeparser_error_unexpected">Unexpected error. Check entered data and try again</string>
+    <string name="timeparser_add_pattern">Add pattern</string>
+    <string name="timeparser_custom_pattern">Custom pattern</string>
+    <string name="timeparser_default_pattern">Default pattern</string>
+    <string name="timeparser_date">Date</string>
+    <string name="timeparser_pattern">Pattern</string>
+    <string name="timeparser_get_result">Get result</string>
+    <string name="timeparser_get_utc">Get UTC</string>
+    <string name="timeparser_case_utc">Return selected date in UTC format.</string>
+    <string name="timeparser_case_utc_pattern">Return selected date in UTC format string with pattern. You can set your own pattern and use the Custom Pattern button, or use default pattern (yyyy-MM-dd HH:mm:ss).</string>
+    <string name="timeparser_case_date_string">Return selected date string with pattern and the default date format symbols for the default locale. You can set your own pattern and use the Custom Pattern button, or use default pattern (dd.MM.yyyy).</string>
+    <string name="timeparser_case_local_date">Return date from entered local date string with entered pattern and default locale. You can set your own local pattern and date and use the Get result button.</string>
+    <string name="timeparser_case_local_date_help_text">Example: yyyy-MM-dd</string>
+    <string name="timeparser_case_utc_string_pattern">Return date from entered UTC date string with entered UTC pattern and default locale. You can set your own UTC pattern and date and use the Get result button.</string>
+    <string name="timeparser_case_utc_string_pattern_help_text">Example: yyyy-MM-dd HH:mm:ss</string>
+    <string name="timeparser_pattern_examples_link">https://developer.android.com/reference/java/text/SimpleDateFormat#examples</string>
+
 </resources>

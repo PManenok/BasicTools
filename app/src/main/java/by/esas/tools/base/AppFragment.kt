@@ -10,6 +10,7 @@ import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorHandler

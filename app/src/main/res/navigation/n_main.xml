@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_menuFragment_to_customRecyclerFragment"
             app:destination="@id/customRecyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_timeParserFragment"
+            app:destination="@id/timeparserFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -265,4 +268,9 @@
         android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
         android:label="@string/case_label_recycler_custom"
         tools:layout="@layout/f_main_custom_recycler" />
+    <fragment
+        android:id="@+id/timeparserFragment"
+        android:name="by.esas.tools.screens.timeparser.TimeParserFragment"
+        android:label="@string/case_label_timeparser"
+        tools:layout="@layout/f_main_timeparser"/>
 </navigation>

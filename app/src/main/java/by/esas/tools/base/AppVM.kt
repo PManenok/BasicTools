@@ -14,5 +14,4 @@ abstract class AppVM : StandardViewModel<ErrorModel>() {
         return mapper
     }
 
-
 }

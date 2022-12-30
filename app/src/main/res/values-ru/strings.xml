@@ -438,4 +438,28 @@
     <string name="case_label_baseui_theme">Поменять тему и язык BaseUI</string>
     <string name="case_label_domain">Проверить функционал модуля Domain</string>
     <string name="case_label_biometric_decryption">Проверить функционал BiometricDecryption</string>
+    <string name="case_label_timeparser">Проверить функционал TimeParser</string>
+
+    <!--Time Parser-->
+    <string name="timeparser_title">Используйте этот экран для проверки функционала модуля TimeParser. Воспользуйтесь календарем для выбора даты и примерами ниже, чтобы получить выбранную дату в разных форматах. Если вы не знаете, как пользоваться паттернами для дат, перейдите по ссылке ниже, чтобы увидеть различные примеры паттернов.</string>
+    <string name="timeparser_empty_field">Поле не должно быть пустым</string>
+    <string name="timeparser_error_date_in_unexpected_format">Дата в неопределенном формате. Проверьте введенные дату и паттерн и попробуйте снова</string>
+    <string name="timeparser_error_illegal_pattern_character">Недопустимые символы в паттерне. Проверьте введенный паттерн и попробуйте снова</string>
+    <string name="timeparser_error_unexpected">Непредвиденная ошибка. Проверьте введенные данные и попробуйте снова</string>
+    <string name="timeparser_add_pattern">Добавьте паттерн</string>
+    <string name="timeparser_custom_pattern">Кастомный паттерн</string>
+    <string name="timeparser_default_pattern">Базовый паттерн</string>
+    <string name="timeparser_date">Дата</string>
+    <string name="timeparser_pattern">Паттерн</string>
+    <string name="timeparser_get_result">Получить результат</string>
+    <string name="timeparser_get_utc">Получить UTC</string>
+    <string name="timeparser_case_utc">Получить выбранную дату в формате UTC.</string>
+    <string name="timeparser_case_utc_pattern">Получить выбранную дату в формате UTC строки с паттерном. Вы можете установить свой собственный паттерн и использовать кнопку Кастомный паттерн, или использовать базовый паттерн (yyyy-MM-dd HH:mm:ss).</string>
+    <string name="timeparser_case_date_string">Получить строку выбранной даты с паттерном и базовыми символами формата даты для локали по умолчанию. Вы можете установить свой собственный паттерн и использовать кнопку Кастомный паттерн, или использовать базовый паттерн (dd.MM.yyyy).</string>
+    <string name="timeparser_case_local_date">Получить дату из введенной строки даты и введенного паттерна, и локали по умолчанию. Вы можете установить свой собственный локальный паттерн и дату и использовать кнопку Получить реезультат.</string>
+    <string name="timeparser_case_local_date_help_text">Пример: yyyy-MM-dd</string>
+    <string name="timeparser_case_utc_string_pattern">Получить дату из введенной строки даты UTC и введенного UTC паттерна, и локали по умолчанию. Вы можете установить свой собственный UTC паттерн и дату и использовать кнопку Получить результат.</string>
+    <string name="timeparser_case_utc_string_pattern_help_text">Пример: yyyy-MM-dd HH:mm:ss</string>
+    <string name="timeparser_pattern_examples_link">https://developer.android.com/reference/java/text/SimpleDateFormat#examples</string>
+
 </resources>

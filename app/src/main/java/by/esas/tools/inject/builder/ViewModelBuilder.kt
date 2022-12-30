@@ -32,6 +32,7 @@ import by.esas.tools.screens.recycler.custom.CustomRecyclerVM
 import by.esas.tools.screens.recycler.simple.SimpleRecyclerVM
 import by.esas.tools.screens.recycler.sticky_case.StickyCaseVM
 import by.esas.tools.screens.saved_state_vm.SavedStateVM
+import by.esas.tools.screens.timeparser.TimeParserVM
 import by.esas.tools.screens.topbar.TopbarVM
 import by.esas.tools.screens.util.UtilKeyboardVM
 import by.esas.tools.screens.util.switchManager.UtilSwitchManagerVM
@@ -208,4 +209,9 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(CustomRecyclerVM::class)
     abstract fun bindCustomRecyclerVM(viewModel: CustomRecyclerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TimeParserVM::class)
+    abstract fun bindTimeParserVM(viewModel: TimeParserVM): ViewModel
 }
