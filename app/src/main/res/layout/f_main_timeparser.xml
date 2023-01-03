@@ -45,7 +45,8 @@
                 style="@style/HintTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/timeparser_case_utc" />
+                android:text="@string/timeparser_case_utc"
+                android:layout_marginTop="@dimen/spacing_2"/>
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_timeparser_result_1"

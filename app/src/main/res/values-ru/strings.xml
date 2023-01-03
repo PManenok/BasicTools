@@ -33,6 +33,7 @@
     <string name="modules">Модули:</string>
     <string name="menu">Меню</string>
     <string name="ok">OK</string>
+    <string name="result">Результат</string>
 
     <string name="validation_text_in_range">Допустимый диапазон длины текста %d - %d</string>
     <string name="test_text">Тестовый текст</string>
