@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.logger.LoggerVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_12">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/HintTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_logs_from_fragment"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/f_logger_log_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_200"
+                android:background="@drawable/frame_card"
+                android:padding="@dimen/spacing_10"
+                android:layout_marginTop="@dimen/spacing_8" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_fragment_case_1"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_4">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_tag"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_tag"/>
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_tag_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/f_logger_tag_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/logger_fragment_case_1_btn"
+                android:layout_marginTop="@dimen/spacing_4"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_fragment_case_2"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_4">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_category_tag"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_tag"/>
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_category_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/spacing_2">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_category"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_category"/>
+
+                <Button
+                    android:id="@+id/f_logger_category_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="@string/logger_fragment_case_2_btn"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_8">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/logger_fragment_case_3"
+                    android:layout_marginEnd="@dimen/spacing_12"/>
+
+                <Button
+                    android:id="@+id/f_logger_error_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="@string/logger_fragment_case_3_btn"/>
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_fragment_case_4"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_toast_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+
+                <Button
+                    android:id="@+id/f_logger_toast_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/logger_fragment_case_4_btn"/>
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/logger_vm_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/f_logger_log_recycler_vm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_200"
+                android:background="@drawable/frame_card"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:padding="@dimen/spacing_10"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_vm_case_1"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_4">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_tag"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.tag}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_tag"/>
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_tag_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.tagMessage}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/f_logger_vm_tag_btn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/logger_vm_case_1_btn"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_vm_case_2"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_4">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_category_tag"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.categoryTag}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_tag"/>
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_category_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.categoryMessage}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/spacing_2">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_category"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.category}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_category"/>
+
+                <Button
+                    android:id="@+id/f_logger_vm_category_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="@string/logger_vm_case_2_btn"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_8">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/logger_vm_case_3"
+                    android:layout_marginEnd="@dimen/spacing_12"/>
+
+                <Button
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:onClick="@{()->viewModel.logError()}"
+                    android:text="@string/logger_vm_case_3_btn"/>
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/logger_vm_case_4"
+                android:layout_marginTop="@dimen/spacing_8"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <by.esas.tools.inputfieldview.InputFieldView
+                    android:id="@+id/f_logger_vm_toast_message"
+                    style="@style/FieldStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:hint="@string/hint_add_value"
+                    android:text="@={viewModel.toastMessage}"
+                    app:inputLabelType="on_line"
+                    app:inputLabel="@string/logger_message"/>
+
+                <Button
+                    android:id="@+id/f_logger_vm_toast_btn"
+                    style="@style/ButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/logger_vm_case_4_btn"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

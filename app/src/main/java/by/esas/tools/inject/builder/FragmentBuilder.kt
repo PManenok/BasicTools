@@ -18,6 +18,7 @@ import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragm
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment
+import by.esas.tools.screens.logger.LoggerFragment
 import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.screens.numpad.NumpadImageFragment
 import by.esas.tools.screens.numpad.numpad_text.NumpadTextFragment
@@ -137,4 +138,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindTimeParserFragment(): TimeParserFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindLoggerFragment(): LoggerFragment
 }

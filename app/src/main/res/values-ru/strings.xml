@@ -440,6 +440,7 @@
     <string name="case_label_domain">Проверить функционал модуля Domain</string>
     <string name="case_label_biometric_decryption">Проверить функционал BiometricDecryption</string>
     <string name="case_label_timeparser">Проверить функционал TimeParser</string>
+    <string name="case_label_logger">Проверить функционал Logger</string>
 
     <!--Time Parser-->
     <string name="timeparser_title">Используйте этот экран для проверки функционала модуля TimeParser. Воспользуйтесь календарем для выбора даты и примерами ниже, чтобы получить выбранную дату в разных форматах. Если вы не знаете, как пользоваться паттернами для дат, перейдите по ссылке ниже, чтобы увидеть различные примеры паттернов.</string>
@@ -463,4 +464,28 @@
     <string name="timeparser_case_utc_string_pattern_help_text">Пример: yyyy-MM-dd HH:mm:ss</string>
     <string name="timeparser_pattern_examples_link">https://developer.android.com/reference/java/text/SimpleDateFormat#examples</string>
 
+
+    <!--Logger-->
+    <string name="logger_title">Используйте этот экран, чтобы проверить функционал модуля Logger. Обычно, вы можете просмотреть логи в Logcat, но на этом экране логгеры переопределены и вы можете увидеть логи в двух контейнерах списках. Используйте функционал ниже, чтобы создать собственные логи с тегами, категориями и сообщениями.</string>
+    <string name="logger_logs_from_fragment">Логи из логгера фрагмента</string>
+    <string name="logger_fragment_case_1">Пример 1: Чтобы зарегистрировать сообщение добавьте тег и сообщение</string>
+    <string name="logger_fragment_case_1_btn">Зарегистрировать тег и сообщение</string>
+    <string name="logger_fragment_case_2">Пример 2: Чтобы зарегистрировать сообщение добавьте тег, категорию и сообщение</string>
+    <string name="logger_fragment_case_2_btn">Зарегистрировать категорию, тег и сообщение</string>
+    <string name="logger_fragment_case_3">Пример 3: Зарегистрировать ошибку с показом диалога ошибки</string>
+    <string name="logger_fragment_case_3_btn">Установить ошибку</string>
+    <string name="logger_fragment_case_4">Пример 4: Зарегистрировать сообщение, показав Toast</string>
+    <string name="logger_fragment_case_4_btn">Показать сообщение</string>
+    <string name="logger_vm_title">Логи из логгера view model</string>
+    <string name="logger_vm_case_1">Пример 1: Чтобы зарегистрировать сообщение добавьте тег и сообщение</string>
+    <string name="logger_vm_case_1_btn">Зарегистрировать тег и сообщение</string>
+    <string name="logger_vm_case_2">Пример 2: Чтобы зарегистрировать сообщение добавьте тег, категорию и сообщение</string>
+    <string name="logger_vm_case_2_btn">Зарегистрировать категорию, тег и сообщение</string>
+    <string name="logger_vm_case_3">Пример 3: Зарегистрировать ошибку с показом диалога ошибки</string>
+    <string name="logger_vm_case_3_btn">Установить ошибку</string>
+    <string name="logger_vm_case_4">Пример 4: Зарегистрировать сообщение, показав Toast</string>
+    <string name="logger_vm_case_4_btn">Показать сообщение</string>
+    <string name="logger_tag">Тег</string>
+    <string name="logger_message">Сообщение</string>
+    <string name="logger_category">Категория</string>
 </resources>

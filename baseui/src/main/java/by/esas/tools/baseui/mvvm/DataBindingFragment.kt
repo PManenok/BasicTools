@@ -96,4 +96,6 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
         viewModel.disableControls(false)
         super.disableControls(parameters)
     }
+
+    protected fun isBindingInitialized() = ::binding.isInitialized
 }

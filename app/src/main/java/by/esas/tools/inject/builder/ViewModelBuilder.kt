@@ -22,6 +22,7 @@ import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
+import by.esas.tools.screens.logger.LoggerVM
 import by.esas.tools.screens.menu.MenuVM
 import by.esas.tools.screens.numpad.NumpadImageVM
 import by.esas.tools.screens.numpad.numpad_text.NumpadTextVM
@@ -214,4 +215,9 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(TimeParserVM::class)
     abstract fun bindTimeParserVM(viewModel: TimeParserVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoggerVM::class)
+    abstract fun bindLoggerVM(viewModel: LoggerVM): ViewModel
 }

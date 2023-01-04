@@ -70,6 +70,11 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
     private fun setCases() {
         viewModel.allCases.clear()
         addCaseItem(
+            R.string.case_label_logger,
+            listOf(Modules.LOGGER),
+            MenuFragmentDirections.actionMenuFragmentToLoggerFragment()
+        )
+        addCaseItem(
             R.string.case_label_timeparser,
             listOf(Modules.TIMEPARSER),
             MenuFragmentDirections.actionMenuFragmentToTimeParserFragment()

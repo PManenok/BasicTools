@@ -104,6 +104,9 @@
         <action
             android:id="@+id/action_menuFragment_to_timeParserFragment"
             app:destination="@id/timeparserFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_loggerFragment"
+            app:destination="@id/loggerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -273,4 +276,9 @@
         android:name="by.esas.tools.screens.timeparser.TimeParserFragment"
         android:label="@string/case_label_timeparser"
         tools:layout="@layout/f_main_timeparser"/>
+    <fragment
+        android:id="@+id/loggerFragment"
+        android:name="by.esas.tools.screens.logger.LoggerFragment"
+        android:label="@string/case_label_logger"
+        tools:layout="@layout/f_main_logger"/>
 </navigation>

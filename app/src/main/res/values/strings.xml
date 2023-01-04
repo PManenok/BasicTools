@@ -444,6 +444,7 @@
     <string name="case_label_domain">Check Domain module functionality</string>
     <string name="case_label_biometric_decryption">Check BiometricDecryption functionality</string>
     <string name="case_label_timeparser">Check TimeParser functionality</string>
+    <string name="case_label_logger">Check Logger functionality</string>
 
     <!--Time Parser-->
     <string name="timeparser_title">Use this screen to check TimeParser module functionality. Use calendar for choosing date and different cases below to get selected date in different formats. If you don\'t know how use date patterns, follow the link below to see different pattern examples.</string>
@@ -466,5 +467,30 @@
     <string name="timeparser_case_utc_string_pattern">Return date from entered UTC date string with entered UTC pattern and default locale. You can set your own UTC pattern and date and use the Get result button.</string>
     <string name="timeparser_case_utc_string_pattern_help_text">Example: yyyy-MM-dd HH:mm:ss</string>
     <string name="timeparser_pattern_examples_link">https://developer.android.com/reference/java/text/SimpleDateFormat#examples</string>
+
+
+    <!--Logger-->
+    <string name="logger_title">Use this screen to check Logger module functionality. Usually you can see logs in Logcat, but on this screen loggers are overridden and you can see logs on two recycler containers. Use functional below to create you own logs with tags, categories and messages.</string>
+    <string name="logger_logs_from_fragment">Logs from fragment logger</string>
+    <string name="logger_fragment_case_1">Case 1: To log action add tag and message</string>
+    <string name="logger_fragment_case_1_btn">Log tag and message</string>
+    <string name="logger_fragment_case_2">Case 2: To log action add tag, category and message</string>
+    <string name="logger_fragment_case_2_btn">Log category, tag and message</string>
+    <string name="logger_fragment_case_3">Case 3: Log error with opening Error dialog</string>
+    <string name="logger_fragment_case_3_btn">Set error</string>
+    <string name="logger_fragment_case_4">Case 4: Log message by showing Toast</string>
+    <string name="logger_fragment_case_4_btn">Show message</string>
+    <string name="logger_vm_title">Logs from view model logger</string>
+    <string name="logger_vm_case_1">Case 1: To log action add tag and message</string>
+    <string name="logger_vm_case_1_btn">Log tag and message</string>
+    <string name="logger_vm_case_2">Case 2: To log action add tag, category and message</string>
+    <string name="logger_vm_case_2_btn">Log category, tag and message</string>
+    <string name="logger_vm_case_3">Case 3: Log error with opening Error dialog</string>
+    <string name="logger_vm_case_3_btn">Set error</string>
+    <string name="logger_vm_case_4">Case 4: Log message by showing Toast</string>
+    <string name="logger_vm_case_4_btn">Show message</string>
+    <string name="logger_tag">Tag</string>
+    <string name="logger_message">Message</string>
+    <string name="logger_category">Category</string>
 
 </resources>
