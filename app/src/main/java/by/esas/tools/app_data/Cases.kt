@@ -1,123 +1,49 @@
-package by.esas.tools.screens.menu
+package by.esas.tools.app_data
 
-import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import by.esas.tools.App
 import by.esas.tools.R
-import by.esas.tools.base.AppFragment
-import by.esas.tools.databinding.FragmentMenuBinding
-import by.esas.tools.inputfieldview.InputFieldView
-import by.esas.tools.screens.menu.recycler.CaseAdapter
-import by.esas.tools.util.defocusAndHideKeyboard
+import by.esas.tools.entity.CaseInfo
+import by.esas.tools.entity.Modules
 
-class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
+object Cases {
+    private val cases = arrayListOf<CaseInfo>()
 
-    override val fragmentDestinationId: Int = R.id.menuFragment
-
-    override fun provideLayoutId(): Int {
-        return R.layout.fragment_menu
-    }
-
-    override fun provideViewModel(): MenuVM {
-        return ViewModelProvider(this, viewModelFactory.provideFactory())[MenuVM::class.java]
-    }
-
-    val caseAdapter = CaseAdapter(
-        onClick = { item ->
-            logger.logInfo("${item.name} clicked")
-//            item.direction?.let { navigate(it) }
-            navController?.navigate(item.id)
-        }
-    )
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setupCaseRecycler()
-        setupSearchView()
-    }
-
-    override fun setupObservers() {
-        super.setupObservers()
-        viewModel.casesListLive.observe(viewLifecycleOwner){ list ->
-            caseAdapter.setItems(list)
-        }
-    }
-
-    private fun setupSearchView() {
-        binding.fMenuCasesSearch.apply {
-            setupEditorActionListener(object : InputFieldView.EditorActionListener {
-                override fun onActionClick() {
-                    defocusAndHideKeyboard(activity)
-                    viewModel.onSearchChanged(viewModel.search)
-                }
-            })
-            setStartIconClickListener(object : InputFieldView.IconClickListener{
-                override fun onIconClick() {
-                    viewModel.onSearchChanged(viewModel.search)
-                }
-            })
-            setEndIconClickListener(object : InputFieldView.IconClickListener{
-                override fun onIconClick() {
-                    viewModel.clearSearch()
-                }
-            })
-        }
-    }
-
-    private fun setupCaseRecycler(){
-        binding.fMenuRecycler.apply {
-            adapter = caseAdapter
-            layoutManager = LinearLayoutManager(this@MenuFragment.requireContext())
-        }
-        binding.fMenuRecycler.hasFixedSize()
-    }
-
-//    private fun setCases() {
-//        viewModel.allCases.clear()
-//        addCaseItem(
-//            R.id.loggerFragment,
-//            R.string.case_label_logger,
-//            listOf(Modules.LOGGER),
-//            MenuFragmentDirections.actionMenuFragmentToLoggerFragment()
-//        )
-//        addCaseItem(
-//            R.id.timeparserFragment,
-//            R.string.case_label_timeparser,
-//            listOf(Modules.TIMEPARSER),
-//            MenuFragmentDirections.actionMenuFragmentToTimeParserFragment()
-//        )
-//        addCaseItem(
-//            R.id.biometricDecryptionFragment,
-//            R.string.case_label_biometric_decryption,
-//            listOf(Modules.BIOMETRIC_DECRYPTION),
-//            MenuFragmentDirections.actionMenuFragmentToBiometricDecryptionFragment()
-//        )
-//        addCaseItem(
-//            -1,
-//            R.string.case_label_domain,
-//            listOf(Modules.DOMAIN),
-//            MenuFragmentDirections.actionMenuFragmentToDomainCaseFragment()
-//        )
-//        addCaseItem(
-//            -1,
-//            R.string.case_label_baseui_theme,
-//            listOf(Modules.BASE_UI),
-//            MenuFragmentDirections.actionMenuFragmentToBaseuiThemeFragment()
-//        )
-//        addCaseItem(
-//            -1,
-//            R.string.case_label_baseui,
-//            listOf(Modules.BASE_UI),
-//            MenuFragmentDirections.actionMenuFragmentToBaseuiFunctionalityFragment()
-//        )
-//        addCaseItem(
-//            R.id.baseuiNavigationFragment,
-//            R.string.case_label_baseui_navigation,
-//            listOf(Modules.BASE_UI),
-//            MenuFragmentDirections.actionMenuFragmentToBaseuiNavigationFragment()
-//        )
+    init {
+        addCaseItem(
+            R.id.loggerFragment,
+            R.string.case_label_logger,
+            listOf(Modules.LOGGER)
+        )
+        addCaseItem(
+            R.id.timeparserFragment,
+            R.string.case_label_timeparser,
+            listOf(Modules.TIMEPARSER)
+        )
+        addCaseItem(
+            R.id.biometricDecryptionFragment,
+            R.string.case_label_biometric_decryption,
+            listOf(Modules.BIOMETRIC_DECRYPTION)
+        )
+        addCaseItem(
+            -1,
+            R.string.case_label_domain,
+            listOf(Modules.DOMAIN)
+        )
+        addCaseItem(
+            -1,
+            R.string.case_label_baseui_theme,
+            listOf(Modules.BASE_UI)
+        )
+        addCaseItem(
+            -1,
+            R.string.case_label_baseui,
+            listOf(Modules.BASE_UI)
+        )
+        addCaseItem(
+            R.id.baseuiNavigationFragment,
+            R.string.case_label_baseui_navigation,
+            listOf(Modules.BASE_UI)
+        )
 //        addCaseItem(
 //            -1,
 //            R.string.case_label_bottom_dialog,
@@ -268,7 +194,16 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 //            listOf(Modules.RECYCLER),
 //            MenuFragmentDirections.actionMenuFragmentToCustomRecyclerFragment()
 //        )
-//        viewModel.updateAdapter(viewModel.allCases)
-//    }
+    }
 
+    fun getAll() = cases.toList()
+
+    private fun addCaseItem(
+        id: Int,
+        name: Int,
+        modulesList: List<String>
+    ) {
+        val caseName = App.appContext.resources.getString(name)
+        cases.add(CaseInfo(id, caseName, modulesList))
+    }
 }

@@ -19,6 +19,7 @@ buildscript {
         dagger2_version = '2.41'
         recyclerview_version = '1.2.1'
         navigation_version = "2.5.0"
+        room_version = '2.3.0'
 
         multidex_version = "2.0.1"
     }

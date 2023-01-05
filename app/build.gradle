@@ -61,6 +61,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
+    // Room
+    api "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
     // Dagger 2
     //REMEMBER dagger is applied with api so it will be available in app module
     //implementation "com.google.dagger:dagger:$dagger2_version"

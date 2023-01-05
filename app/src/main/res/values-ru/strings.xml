@@ -488,4 +488,10 @@
     <string name="logger_tag">Тег</string>
     <string name="logger_message">Сообщение</string>
     <string name="logger_category">Категория</string>
+
+    <!--Case Test Statuses-->
+    <string name="case_status_checked">Проверен</string>
+    <string name="case_status_unchecked">Не проверен</string>
+    <string name="case_status_failed">Провален</string>
+    <string name="case_status_in_process">В процессе</string>
 </resources>

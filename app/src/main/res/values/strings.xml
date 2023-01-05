@@ -493,4 +493,10 @@
     <string name="logger_message">Message</string>
     <string name="logger_category">Category</string>
 
+    <!--Case Test Statuses-->
+    <string name="case_status_checked">Checked</string>
+    <string name="case_status_unchecked">Unchecked</string>
+    <string name="case_status_failed">Failed</string>
+    <string name="case_status_in_process">In process</string>
+
 </resources>

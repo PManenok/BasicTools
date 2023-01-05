@@ -46,7 +46,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/i_case_name"
-                style="@style/HintTextStyle"
+                style="@style/CaseItemTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_16"
@@ -58,6 +58,7 @@
                 tools:text="Input field view usecase" />
 
             <LinearLayout
+                android:id="@+id/i_case_modules_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/i_case_name"
@@ -67,7 +68,7 @@
                 android:layout_marginRight="@dimen/spacing_16">
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/HintTextStyle"
+                    style="@style/CaseItemTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
@@ -77,7 +78,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/i_case_modules"
-                    style="@style/HintTextStyle"
+                    style="@style/CaseItemTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -89,32 +90,21 @@
 
             </LinearLayout>
 
-
-            <!--  <LinearLayout
-                  android:id="@+id/i_invoice_info_container"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="@dimen/spacing_8"
-                  android:orientation="horizontal"
-                  app:layout_constraintTop_toBottomOf="@id/i_invoice_service_name">-->
-            <!--Committed at 08.10.2021-->
-            <!--<com.google.android.material.textview.MaterialTextView
-                android:id="@+id/i_invoice_date"
-                style="@style/TextStyle.Regular14.Gray1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/spacing_6"
-                android:layout_marginEnd="@dimen/spacing_16"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:text="@{item.date}"
-                android:visibility="@{item.showDate}"
-                app:layout_constraintEnd_toStartOf="@id/i_invoice_amount"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/i_invoice_service_name"
-                tools:text="1.12.1930 - 31.12.1930" />-->
-
-            <!--  </LinearLayout>-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/i_invoice_status"
+                    style="@style/TextStyle.Normal16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/spacing_64"
+                    android:minHeight="@dimen/spacing_24"
+                    android:paddingStart="@dimen/spacing_10"
+                    android:paddingTop="@dimen/spacing_4"
+                    android:paddingEnd="@dimen/spacing_10"
+                    android:paddingBottom="@dimen/spacing_4"
+                    app:caseTestStatus="@{item.caseTestStatus}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/i_case_modules_lay"
+                    tools:text="Created" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
