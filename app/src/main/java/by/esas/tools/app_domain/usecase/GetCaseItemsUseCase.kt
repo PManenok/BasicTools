@@ -17,16 +17,13 @@ class GetCaseItemsUseCase @Inject constructor(
 
     override suspend fun executeOnBackground(): List<CaseItemInfo> {
         val cases = Cases.getAll()
-        val caseItemsList = arrayListOf<CaseItemInfo>()
         val savedCaseStatuses = dao.getAll()
-        cases.forEach { caseInfo ->
-            caseItemsList.add(
-                CaseItemInfo(
-                    caseInfo.id,
-                    caseInfo.name,
-                    caseInfo.modules,
-                    savedCaseStatuses.find { it.caseId == caseInfo.id }?.status ?: TestStatusEnum.UNCHECKED
-                )
+        val caseItemsList = cases.map { caseInfo ->
+            CaseItemInfo(
+                caseInfo.id,
+                caseInfo.name,
+                caseInfo.modules,
+                savedCaseStatuses.find { it.caseId == caseInfo.id }?.status ?: TestStatusEnum.UNCHECKED
             )
         }
 

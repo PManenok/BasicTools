@@ -3,6 +3,7 @@ package by.esas.tools
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
+import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.inject.component.DaggerAppComponent
 import by.esas.tools.util.configs.SettingsManager
 import by.esas.tools.util.configs.UiModeType
@@ -46,7 +47,11 @@ class App : DaggerApplication() {
     }
 
     override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base?.let { return@let SettingsManager.updateSettings(base, language, uiMode) })
+        super.attachBaseContext(base?.let {
+            uiMode = AppSharedPrefs(base).getTheme()
+            language = AppSharedPrefs(base).getLanguage()
+            return@let SettingsManager.updateSettings(base, language , uiMode)
+        })
         MultiDex.install(this)
     }
 

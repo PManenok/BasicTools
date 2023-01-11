@@ -18,6 +18,9 @@ interface CaseStatusDao {
     @Query("SELECT * FROM caseStatusTable")
     fun getAll(): List<CaseStatus>
 
+    @Query("SELECT * FROM caseStatusTable WHERE case_id = :id")
+    fun getById(id: Int): CaseStatus
+
     @Query("DELETE FROM caseStatusTable")
     fun deleteAll()
 }

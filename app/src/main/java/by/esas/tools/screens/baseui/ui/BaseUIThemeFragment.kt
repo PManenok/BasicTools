@@ -8,6 +8,8 @@ import by.esas.tools.R
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBaseuiThemeBinding
+import by.esas.tools.logger.Action
+import by.esas.tools.screens.MainActivity
 import by.esas.tools.util.configs.UiModeType
 
 class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>() {
@@ -26,6 +28,8 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
         setCheckedTheme()
 
         binding.fBaseuiThemeSetLangBtn.setOnClickListener {
+            if (activity is MainActivity)
+                (activity as MainActivity).handleAction(Action(MainActivity.NEED_TO_UPDATE_MENU))
             viewModel.requestLanguageChange(getLanguage())
         }
         binding.fBaseuiThemeSetModeBtn.setOnClickListener {

@@ -26,6 +26,8 @@
             app:barActionIcon="@drawable/ic_settings"
             app:barShowActionIcon="@{viewModel.hasSettingsBtn}"
             app:barActionIconTint="@color/main_color_3"
+            app:barEndActionText="@string/test"
+            app:barEndActionTextAppearance="@style/TextStyle.Normal16.Red"
             app:barShowDivider="false"
             app:barTitleText="@{viewModel.title}"
             app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"

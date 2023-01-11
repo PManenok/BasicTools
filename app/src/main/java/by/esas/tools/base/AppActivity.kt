@@ -1,8 +1,11 @@
 package by.esas.tools.base
 
 import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.App
 import by.esas.tools.BR
@@ -20,6 +23,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import java.util.*
 import javax.inject.Inject
 
 
@@ -93,6 +97,7 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
             }
 
             override fun setLanguage(lang: String) {
+                setAppContext(updateResources(getAppContext(), lang))
                 prefs.setLanguage(lang)
             }
 
@@ -137,5 +142,13 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
     override fun handlePopBackArguments(arguments: Bundle?) {
         if (arguments != null)
             intent.putExtras(arguments)
+    }
+
+    private fun updateResources(context: Context, language: String): Context {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration(context.resources.configuration)
+        config.setLocale(locale)
+        return context.createConfigurationContext(config)
     }
 }

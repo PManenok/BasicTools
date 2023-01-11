@@ -21,6 +21,10 @@ class MenuVM @Inject constructor(
     private val allCases: MutableList<CaseItemInfo> = mutableListOf()
 
     init {
+        setCases()
+    }
+
+    fun setCases() {
         allCases.clear()
         getCaseItems.execute {
             onComplete {
@@ -54,7 +58,7 @@ class MenuVM @Inject constructor(
         prevSearch = ""
     }
 
-    fun updateAdapter(list: List<CaseItemInfo>) {
+    private fun updateAdapter(list: List<CaseItemInfo>) {
         casesListLive.value = list
         isEmpty.set(list.isEmpty())
     }

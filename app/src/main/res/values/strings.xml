@@ -34,6 +34,8 @@
     <string name="menu">Menu</string>
     <string name="ok">OK</string>
     <string name="result">Result</string>
+    <string name="cancel">Cancel</string>
+    <string name="test">Test</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
@@ -498,5 +500,7 @@
     <string name="case_status_unchecked">Unchecked</string>
     <string name="case_status_failed">Failed</string>
     <string name="case_status_in_process">In process</string>
+    <string name="case_status_dialog_title">Testing status</string>
+    <string name="case_status_dialog_message">Update status for %s</string>
 
 </resources>
