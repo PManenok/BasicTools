@@ -2,7 +2,7 @@ package by.esas.tools.screens
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.widget.Toast
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -10,10 +10,7 @@ import androidx.navigation.Navigation
 import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
-import by.esas.tools.baseui.standard.StandardViewModel
 import by.esas.tools.databinding.ActivityMainBinding
-import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.logger.Action
 import by.esas.tools.topbarview.ITopbarHandler
 
@@ -48,14 +45,15 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     }
 
     override fun provideRequestKeys(): List<String> {
-        return listOf(ERROR_MESSAGE_DIALOG, MainVM.CASE_STATUS_DIALOG)
+        return listOf(ERROR_MESSAGE_DIALOG, MainVM.CASE_STATUS_DIALOG, MainVM.CLEAR_CASES_TEST_DATA_DIALOG)
     }
 
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return when (requestKey) {
-            MainVM.CASE_STATUS_DIALOG -> {
-                FragmentResultListener { _, result ->
+            MainVM.CASE_STATUS_DIALOG, MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
+                FragmentResultListener { key, result ->
                     val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
+                    result.putString(MainVM.DIALOG_KEY, key)
                     if (!actionName.isNullOrBlank()) {
                         viewModel.handleAction(Action(actionName, result))
                     } else {
@@ -88,6 +86,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupNavigation()
+        setupSettingsMenu()
 
         binding.aMainTopBar.setupHandler(object : ITopbarHandler {
             override fun onNavigationClick() {
@@ -97,7 +96,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             override fun onActionClick() {
                 navController.currentDestination?.let {
                     if (it.id == topDestination)
-                        navController.navigate(R.id.baseuiThemeFragment)
+                        binding.aMainDrawerLay.openDrawer(GravityCompat.END)
                     else
                         viewModel.openCaseStatusDialog(it.label.toString())
                 }
@@ -110,6 +109,10 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
         viewModel.updateMenuLive.observe(this) {
             handleAction(Action(NEED_TO_UPDATE_MENU))
+            if (viewModel.needToRecreate) {
+                viewModel.needToRecreate = false
+                recreateActivity()
+            }
         }
     }
 
@@ -122,10 +125,22 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     private fun setupNavigation() {
         navController = Navigation.findNavController(this, R.id.a_main_nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == topDestination) viewModel.currentCaseId = -1
             viewModel.hasBackBtn.set(destination.id != topDestination)
-            binding.aMainTopBar.setEndActionViewVisibility(destination.id != topDestination)
             viewModel.hasSettingsBtn.set(destination.id == topDestination)
             viewModel.title.set(destination.label.toString())
+            binding.aMainTopBar.setEndActionViewVisibility(viewModel.currentCaseId != -1)
+        }
+    }
+
+    private fun setupSettingsMenu() {
+        binding.aMainSettingsMenu.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.menuUiSettings -> navController.navigate(R.id.baseuiThemeFragment)
+                R.id.menuUpdateTest -> viewModel.openClearCasesTestDataDialog()
+            }
+            binding.aMainDrawerLay.closeDrawer(GravityCompat.END)
+            true
         }
     }
 }

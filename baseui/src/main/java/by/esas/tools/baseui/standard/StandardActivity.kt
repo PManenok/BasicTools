@@ -17,6 +17,7 @@ import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ShowErrorType
 
 abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>

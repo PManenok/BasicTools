@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import by.esas.tools.App
 import by.esas.tools.R
 import by.esas.tools.app_domain.usecase.AddCaseStatusUseCase
+import by.esas.tools.app_domain.usecase.ClearAllSavedTestStatusesUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.entity.TestStatusEnum
@@ -13,16 +14,20 @@ import by.esas.tools.logger.Action
 import javax.inject.Inject
 
 class MainVM @Inject constructor(
+    private val clearAllCaseStatuses: ClearAllSavedTestStatusesUseCase,
     private val addCaseStatus: AddCaseStatusUseCase
 ) : AppVM() {
 
     companion object {
         const val CASE_STATUS_DIALOG = "CASE_STATUS_DIALOG"
+        const val CLEAR_CASES_TEST_DATA_DIALOG = "CLEAR_CASES_TEST_DATA_DIALOG"
+        const val DIALOG_KEY = "DIALOG_KEY"
     }
 
     override fun handleAction(action: Action?): Boolean {
-        when (action?.name) {
-            MessageDialog.USER_ACTION_ITEM_PICKED -> {
+        val dialogKey = action?.parameters?.getString(DIALOG_KEY)
+        val actionName = action?.name
+        if (dialogKey == CASE_STATUS_DIALOG && actionName == MessageDialog.USER_ACTION_ITEM_PICKED) {
                 val status = when (action.parameters?.getString(MessageDialog.ITEM_NAME)) {
                     App.appContext.getString(R.string.case_status_checked) -> TestStatusEnum.CHECKED
                     App.appContext.getString(R.string.case_status_failed) -> TestStatusEnum.FAILED
@@ -32,12 +37,26 @@ class MainVM @Inject constructor(
                 addCaseStatus.caseId = currentCaseId
                 addCaseStatus.caseStatus = status
                 addCaseStatus.execute {
-                    onComplete { updateMenuLive.postValue(true) }
+                    onComplete {
+                        logger.showMessage(R.string.case_status_is_changed)
+                        updateMenuLive.postValue(true)
+                    }
                     onError { handleError(it) }
                 }
             }
-            else -> return super.handleAction(action)
-        }
+            else if (dialogKey == CLEAR_CASES_TEST_DATA_DIALOG && actionName == MessageDialog.USER_ACTION_POSITIVE_CLICKED) {
+                clearAllCaseStatuses.execute {
+                    onComplete {
+                        updateMenuLive.postValue(true)
+                        needToRecreate = true
+                    }
+                    onError {
+                        handleError(it)
+                    }
+                }
+            }
+            else return super.handleAction(action)
+
         return true
     }
 
@@ -47,30 +66,47 @@ class MainVM @Inject constructor(
     val hasSettingsBtn = ObservableBoolean(true)
     val title = ObservableField(App.appContext.resources.getString(R.string.menu))
     var currentCaseId = -1
+    var needToRecreate = false
 
     fun openCaseStatusDialog(caseLabel: String) {
         val dialog = createCaseStatusDialog(caseLabel)
         showDialog(dialog)
-}
+    }
 
-private fun createCaseStatusDialog(caseLabel: String): MessageDialog {
-    val dialog = MessageDialog()
-    dialog.setRequestKey(CASE_STATUS_DIALOG)
-    dialog.setNegativeButton(R.string.cancel)
-    dialog.setTitle(R.string.case_status_dialog_title)
-    dialog.setMessage(
-        App.appContext.getString(R.string.case_status_dialog_message)
-            .format(caseLabel)
-    )
-    dialog.setItems(
-        listOf(
-            App.appContext.getString(R.string.case_status_checked),
-            App.appContext.getString(R.string.case_status_failed),
-            App.appContext.getString(R.string.case_status_in_process),
-            App.appContext.getString(R.string.case_status_unchecked)
+    fun openClearCasesTestDataDialog() {
+        val dialog = createClearCasesTestDataDialog()
+        showDialog(dialog)
+    }
+
+    private fun createCaseStatusDialog(caseLabel: String): MessageDialog {
+        val dialog = MessageDialog()
+        dialog.setRequestKey(CASE_STATUS_DIALOG)
+        dialog.setNegativeButton(R.string.cancel)
+        dialog.setTitle(R.string.case_status_dialog_title)
+        dialog.setMessage(
+            App.appContext.getString(R.string.case_status_dialog_message)
+                .format(caseLabel)
         )
-    )
+        dialog.setItems(
+            listOf(
+                App.appContext.getString(R.string.case_status_checked),
+                App.appContext.getString(R.string.case_status_failed),
+                App.appContext.getString(R.string.case_status_in_process),
+                App.appContext.getString(R.string.case_status_unchecked)
+            )
+        )
 
-    return dialog
-}
+        return dialog
+    }
+
+    private fun createClearCasesTestDataDialog(): MessageDialog {
+        val dialog = MessageDialog()
+        dialog.setRequestKey(CLEAR_CASES_TEST_DATA_DIALOG)
+        dialog.setPositiveButton(R.string.clear)
+        dialog.setNegativeButton(R.string.cancel)
+        dialog.setTitle(R.string.case_clear_all_dialog_title)
+        dialog.setMessage(R.string.case_clear_all_dialog_message)
+
+        return dialog
+    }
 }

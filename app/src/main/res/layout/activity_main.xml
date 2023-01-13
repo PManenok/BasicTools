@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,12 +10,19 @@
             type="by.esas.tools.screens.MainVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/a_main_drawer_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        tools:openDrawer="end">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
         <by.esas.tools.topbarview.TopbarView
             android:id="@+id/a_main_top_bar"
@@ -23,7 +31,7 @@
             app:barNavIcon="@drawable/ic_arrow_back"
             app:barShowNavIcon="@{viewModel.hasBackBtn}"
             app:barNavIconTint="@color/textColor"
-            app:barActionIcon="@drawable/ic_settings"
+            app:barActionIcon="@drawable/ic_menu"
             app:barShowActionIcon="@{viewModel.hasSettingsBtn}"
             app:barActionIconTint="@color/main_color_3"
             app:barEndActionText="@string/test"
@@ -47,5 +55,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
             app:navGraph="@navigation/n_main" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/a_main_settings_menu"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            app:menu="@menu/settings_menu"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

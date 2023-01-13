@@ -498,4 +498,12 @@
     <string name="case_status_in_process">В процессе</string>
     <string name="case_status_dialog_title">Статус тестирования</string>
     <string name="case_status_dialog_message">Изменить стутус для %s</string>
+    <string name="case_status_is_changed">Статус изменен</string>
+    <string name="case_clear_all_dialog_title">Очистить тесты</string>
+    <string name="case_clear_all_dialog_message">Вы хотите удалить все сведения о теститовании кейсов? Отменить это действие будет нельзя.</string>
+
+    <!--Menu settings-->
+    <string name="menu_settings_title_style">Настройки стиля</string>
+    <string name="menu_settings_title_clear_tests">Очистить тесты</string>
+
 </resources>

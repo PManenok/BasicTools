@@ -502,5 +502,10 @@
     <string name="case_status_in_process">In process</string>
     <string name="case_status_dialog_title">Testing status</string>
     <string name="case_status_dialog_message">Update status for %s</string>
+    <string name="case_status_is_changed">Status is changed</string>
+    <string name="case_clear_all_dialog_title">Clear test data</string>
+    <string name="case_clear_all_dialog_message">Do you want to clear all cases test data? You can\'t roll back this action.</string>
+    <string name="menu_settings_title_style">Style settings</string>
+    <string name="menu_settings_title_clear_tests">Clear tests</string>
 
 </resources>
