@@ -2,14 +2,18 @@ package by.esas.tools.screens.menu
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
+import by.esas.tools.app_domain.usecase.FilterCaseUseCase
 import by.esas.tools.app_domain.usecase.GetCaseItemsUseCase
+import by.esas.tools.app_domain.usecase.SearchCaseUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.entity.CaseItemInfo
-import by.esas.tools.usecase.SearchCaseUseCase
+import by.esas.tools.entity.TestStatusEnum
+import by.esas.tools.logger.Action
 import javax.inject.Inject
 
 class MenuVM @Inject constructor(
     private val searchCase: SearchCaseUseCase,
+    private val filterCase: FilterCaseUseCase,
     private val getCaseItems: GetCaseItemsUseCase
 ) : AppVM() {
 
@@ -22,6 +26,11 @@ class MenuVM @Inject constructor(
 
     init {
         setCases()
+    }
+
+    override fun handleAction(action: Action?): Boolean {
+
+        return super.handleAction(action)
     }
 
     fun setCases() {
@@ -49,6 +58,22 @@ class MenuVM @Inject constructor(
                 onError {
                     handleError(error = it)
                 }
+            }
+        }
+    }
+
+    fun onFilterChanged(statuses: List<String>, modules: List<String>) {
+        filterCase.caseItems = allCases
+        filterCase.statuses = statuses.map { TestStatusEnum.valueOf(it) }
+        filterCase.modules = modules
+
+        filterCase.execute {
+            onComplete { itemsList ->
+                updateAdapter(itemsList)
+                enableControls()
+            }
+            onError {
+                handleError(error = it)
             }
         }
     }

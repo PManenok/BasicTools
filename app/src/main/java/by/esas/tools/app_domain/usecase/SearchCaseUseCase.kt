@@ -1,7 +1,6 @@
-package by.esas.tools.usecase
+package by.esas.tools.app_domain.usecase
 
 import by.esas.tools.app_domain.error_mapper.AppErrorMapper
-import by.esas.tools.app_domain.usecase.BaseUseCase
 import by.esas.tools.entity.CaseItemInfo
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext

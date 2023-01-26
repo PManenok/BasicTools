@@ -27,8 +27,8 @@
             android:text="@={viewModel.search}"
             app:inputStartDrawable="@drawable/ic_search"
             app:inputStartIconMode="custom"
-            app:inputEndDrawable="@drawable/ic_cancel_round"
-            app:inputEndIconMode="clear_text"
+            app:inputEndDrawable="@drawable/ic_filter"
+            app:inputEndIconMode="custom"
             android:imeOptions="actionSearch"
             android:hint="@string/search_hint" />
 

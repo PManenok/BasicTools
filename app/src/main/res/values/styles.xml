@@ -186,6 +186,13 @@
         <item name="barShowDivider">true</item>
     </style>
 
+    <style name="CheckBoxStyle">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:button">@drawable/selector_check_box</item>
+        <item name="buttonTint">@color/black</item>
+    </style>
+
     <!--##################################### Button styles #####################################-->
 
     <style name="OutlineButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
