@@ -1,12 +1,14 @@
 package by.esas.tools.dialog
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfSearchFilterBinding
+import by.esas.tools.entity.Modules
 import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.topbarview.ITopbarHandler
 
@@ -21,8 +23,11 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
         const val FILTER_DIALOG_KEY = "FILTER_DIALOG_KEY"
     }
 
-    private var selectedModules = arrayListOf<Int>()
-    private var selectedStatuses = arrayListOf<Int>()
+    private var moduleBoxes = listOf<Pair<CheckBox, String>>()
+    private var statusBoxes = listOf<Pair<CheckBox, String>>()
+
+    private var selectedModules = arrayListOf<String>()
+    private var selectedStatuses = arrayListOf<String>()
 
     init {
         isCancelable = true
@@ -36,9 +41,7 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
 
     override fun provideVariableId() = BR.handler
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun styleSettings() {
         setStyle(STYLE_NO_FRAME, R.style.AppTheme)
     }
 
@@ -48,39 +51,55 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        statusBoxes = listOf(
+            Pair(binding.dfFilterStatusChecked, TestStatusEnum.CHECKED.name),
+            Pair(binding.dfFilterStatusUnchecked, TestStatusEnum.UNCHECKED.name),
+            Pair(binding.dfFilterStatusFailed, TestStatusEnum.FAILED.name),
+            Pair(binding.dfFilterStatusInProgress, TestStatusEnum.IN_PROCESS.name)
+        )
+        moduleBoxes = listOf(
+            Pair(binding.dfFilterModuleAccesscontainer, Modules.ACCESS_CONTAINER),
+            Pair(binding.dfFilterModuleBasedaggerui, Modules.BASE_DAGGER_UI),
+            Pair(binding.dfFilterModuleBaseui, Modules.BASE_UI),
+            Pair(binding.dfFilterModuleBiometricDecryption, Modules.BIOMETRIC_DECRYPTION),
+            Pair(binding.dfFilterModuleCardline, Modules.CARDLINE),
+            Pair(binding.dfFilterModuleChecker, Modules.CHECKER),
+            Pair(binding.dfFilterModuleCustomswitch, Modules.CUSTOMSWITCH),
+            Pair(binding.dfFilterModuleDialog, Modules.DIALOG),
+            Pair(binding.dfFilterModuleDimenUtil, Modules.DIMEN_UTIL),
+            Pair(binding.dfFilterModuleDomain, Modules.DOMAIN),
+            Pair(binding.dfFilterModuleInputfieldview, Modules.INPUTFIELD_VIEW),
+            Pair(binding.dfFilterModuleListheader, Modules.LISTHEADER),
+            Pair(binding.dfFilterModuleLogger, Modules.LOGGER),
+            Pair(binding.dfFilterModuleNumpad, Modules.NUMPAD),
+            Pair(binding.dfFilterModulePinview, Modules.PIN_VIEW),
+            Pair(binding.dfFilterModuleRecycler, Modules.RECYCLER),
+            Pair(binding.dfFilterModuleTimeparser, Modules.TIMEPARSER),
+            Pair(binding.dfFilterModuleTopbarview, Modules.TOPBAR_VIEW),
+            Pair(binding.dfFilterModuleUtil, Modules.UTIL)
+        )
+
+        setSelectedStatuses()
+        setSelectedModules()
+
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val statusBoxes = listOf(
-            binding.dfFilterStatusChecked, binding.dfFilterStatusUnchecked, binding.dfFilterStatusFailed, binding.dfFilterStatusInProgress
-        )
-        val moduleBoxes = listOf(
-            binding.dfFilterModuleAccesscontainer,
-            binding.dfFilterModuleBasedaggerui,
-            binding.dfFilterModuleBaseui,
-            binding.dfFilterModuleBiometricDecryption,
-            binding.dfFilterModuleCardline,
-            binding.dfFilterModuleChecker,
-            binding.dfFilterModuleCustomswitch,
-            binding.dfFilterModuleDialog,
-            binding.dfFilterModuleDimenUtil,
-            binding.dfFilterModuleDomain,
-            binding.dfFilterModuleInputfieldview,
-            binding.dfFilterModuleListheader,
-            binding.dfFilterModuleLogger,
-            binding.dfFilterModuleNumpad,
-            binding.dfFilterModulePinview,
-            binding.dfFilterModuleRecycler,
-            binding.dfFilterModuleTimeparser,
-            binding.dfFilterModuleTopbarview,
-            binding.dfFilterModuleUtil
-        )
 
         binding.dfFilterTopbar.setupHandler(object : ITopbarHandler {
             override fun onActionClick() {
                 resultBundle.putString(Config.DIALOG_USER_ACTION, Config.DISMISS_DIALOG)
-                resultBundle.putString(ACTION_SELECT_FILTER_STATUSES, "")
-                resultBundle.putString(ACTION_SELECT_FILTER_MODULES, "")
+                resultBundle.putStringArray(ACTION_SELECT_FILTER_STATUSES, emptyArray())
+                resultBundle.putStringArray(ACTION_SELECT_FILTER_MODULES, emptyArray())
 
                 this@SearchFilterDialog.dismiss()
             }
@@ -90,28 +109,10 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
             }
         })
 
-        statusBoxes.forEach {
-            it.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked)
-                    selectedStatuses.add(buttonView.id)
-                else
-                    selectedStatuses.remove(buttonView.id)
-            }
-        }
-
-        moduleBoxes.forEach {
-            it.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked)
-                    selectedModules.add(buttonView.id)
-                else
-                    selectedModules.remove(buttonView.id)
-            }
-        }
-
         binding.dfFilterShowResultBtn.setOnClickListener {
             resultBundle.putString(Config.DIALOG_USER_ACTION, Config.DISMISS_DIALOG)
-            resultBundle.putStringArray(ACTION_SELECT_FILTER_STATUSES, getStatusList(selectedStatuses).toTypedArray())
-            resultBundle.putStringArray(ACTION_SELECT_FILTER_MODULES, getModuleList(selectedModules).toTypedArray())
+            resultBundle.putStringArray(ACTION_SELECT_FILTER_STATUSES, getSelectedStatuses().toTypedArray())
+            resultBundle.putStringArray(ACTION_SELECT_FILTER_MODULES, getSelectedModules().toTypedArray())
 
             this@SearchFilterDialog.dismiss()
         }
@@ -120,33 +121,45 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putIntegerArrayList(SELECTED_STATUSES_KEY, selectedStatuses)
-        outState.putIntegerArrayList(SELECTED_MODULES_KEY, selectedModules)
+        outState.putStringArrayList(SELECTED_STATUSES_KEY, selectedStatuses)
+        outState.putStringArrayList(SELECTED_MODULES_KEY, selectedModules)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
-        selectedStatuses = savedInstanceState?.getIntegerArrayList(SELECTED_STATUSES_KEY) ?: arrayListOf()
-        selectedModules = savedInstanceState?.getIntegerArrayList(SELECTED_MODULES_KEY) ?: arrayListOf()
+        selectedStatuses = savedInstanceState?.getStringArrayList(SELECTED_STATUSES_KEY) ?: arrayListOf()
+        selectedModules = savedInstanceState?.getStringArrayList(SELECTED_MODULES_KEY) ?: arrayListOf()
+        setSelectedStatuses()
+        setSelectedModules()
     }
 
-    private fun getStatusList(boxesList: List<Int>): List<String> {
-        val modules = boxesList.map { when(it) {
-            binding.dfFilterStatusChecked.id -> TestStatusEnum.CHECKED.name
-            binding.dfFilterStatusInProgress.id -> TestStatusEnum.IN_PROCESS.name
-            binding.dfFilterStatusFailed.id -> TestStatusEnum.FAILED.name
-            else -> TestStatusEnum.UNCHECKED.name
-        } }
+    fun setSelectedItems(statuses: List<String>, modules: List<String>) {
+        selectedStatuses.clear()
+        selectedStatuses.addAll(statuses)
 
-        return modules
+        selectedModules.clear()
+        selectedModules.addAll(modules)
     }
 
-    private fun getModuleList(boxesList: List<Int>): List<String> {
-        val boxes = boxesList.map { view?.findViewById<CheckBox>(it)?.text }
-        val searchList = arrayListOf<String>()
-        boxes.forEach { searchList.add(it.toString()) }
-
-        return searchList
+    private fun setSelectedStatuses() {
+        selectedStatuses.forEach {
+            when(it) {
+                TestStatusEnum.CHECKED.name -> binding.dfFilterStatusChecked.isChecked = true
+                TestStatusEnum.IN_PROCESS.name -> binding.dfFilterStatusInProgress.isChecked = true
+                TestStatusEnum.FAILED.name -> binding.dfFilterStatusFailed.isChecked = true
+                TestStatusEnum.UNCHECKED.name -> binding.dfFilterStatusUnchecked.isChecked = true
+            }
+        }
     }
+
+    private fun setSelectedModules() {
+        selectedModules.forEach { selectedModule ->
+            moduleBoxes.find { it.second == selectedModule }?.first?.isChecked = true
+        }
+    }
+
+    private fun getSelectedStatuses() = statusBoxes.filter { it.first.isChecked }.map { it.second }
+
+    private fun getSelectedModules() = moduleBoxes.filter { it.first.isChecked }.map { it.second }
 }

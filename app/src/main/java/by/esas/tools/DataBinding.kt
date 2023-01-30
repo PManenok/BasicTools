@@ -1,11 +1,13 @@
 package by.esas.tools
 
 import android.view.View
+import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.topbarview.TopbarView
 import com.google.android.material.textview.MaterialTextView
+import dagger.Module
 
 @BindingAdapter("visibilityGone")
 fun setVisibilityOrGone(view: View, isVisible: Boolean) {

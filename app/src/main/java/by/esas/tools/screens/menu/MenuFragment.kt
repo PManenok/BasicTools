@@ -9,7 +9,6 @@ import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.databinding.FragmentMenuBinding
-import by.esas.tools.dialog.Config
 import by.esas.tools.dialog.SearchFilterDialog
 import by.esas.tools.inputfieldview.InputFieldView
 import by.esas.tools.logger.Action

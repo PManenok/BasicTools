@@ -63,17 +63,21 @@ class MenuVM @Inject constructor(
     }
 
     fun onFilterChanged(statuses: List<String>, modules: List<String>) {
-        filterCase.caseItems = allCases
-        filterCase.statuses = statuses.map { TestStatusEnum.valueOf(it) }
-        filterCase.modules = modules
+        if (statuses.isEmpty() && modules.isEmpty() && allCases.size != casesListLive.value?.size)
+            updateAdapter(allCases)
+        else {
+            filterCase.caseItems = allCases
+            filterCase.statuses = statuses.map { TestStatusEnum.valueOf(it) }
+            filterCase.modules = modules
 
-        filterCase.execute {
-            onComplete { itemsList ->
-                updateAdapter(itemsList)
-                enableControls()
-            }
-            onError {
-                handleError(error = it)
+            filterCase.execute {
+                onComplete { itemsList ->
+                    updateAdapter(itemsList)
+                    enableControls()
+                }
+                onError {
+                    handleError(error = it)
+                }
             }
         }
     }
