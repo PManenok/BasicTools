@@ -193,6 +193,22 @@
         <item name="buttonTint">@color/black</item>
     </style>
 
+    <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipMinHeight">@dimen/spacing_40</item>
+        <item name="chipBackgroundColor">@color/main_color_4</item>
+        <item name="chipCornerRadius">@dimen/spacing_24</item>
+        <item name="chipEndPadding">@dimen/spacing_10</item>
+        <item name="chipStartPadding">@dimen/spacing_16</item>
+        <item name="chipIcon">@drawable/ic_cancel</item>
+        <item name="chipIconTint">@color/black</item>
+        <item name="chipIconSize">@dimen/spacing_24</item>
+        <item name="iconEndPadding">@dimen/spacing_12</item>
+        <item name="textStartPadding">0dp</item>
+        <item name="android:textColor">@color/main_color_1</item>
+        <item name="android:textAppearance">@style/TextStyle.Normal16</item>
+    </style>
+
     <!--##################################### Button styles #####################################-->
 
     <style name="OutlineButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">

@@ -2,6 +2,8 @@ package by.esas.tools.screens.menu
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
+import by.esas.tools.App
+import by.esas.tools.R
 import by.esas.tools.app_domain.usecase.FilterCaseUseCase
 import by.esas.tools.app_domain.usecase.GetCaseItemsUseCase
 import by.esas.tools.app_domain.usecase.SearchCaseUseCase
@@ -21,16 +23,13 @@ class MenuVM @Inject constructor(
     var search = ""
     var isEmpty = ObservableBoolean(false)
     val casesListLive = MutableLiveData<List<CaseItemInfo>>()
+    val filterStatusesLive = MutableLiveData<List<String>>()
+    val filterModulesLive = MutableLiveData<List<String>>()
 
     private val allCases: MutableList<CaseItemInfo> = mutableListOf()
 
     init {
         setCases()
-    }
-
-    override fun handleAction(action: Action?): Boolean {
-
-        return super.handleAction(action)
     }
 
     fun setCases() {
@@ -63,11 +62,21 @@ class MenuVM @Inject constructor(
     }
 
     fun onFilterChanged(statuses: List<String>, modules: List<String>) {
+        filterStatusesLive.value = statuses
+        filterModulesLive.value = modules
+
         if (statuses.isEmpty() && modules.isEmpty() && allCases.size != casesListLive.value?.size)
             updateAdapter(allCases)
         else {
             filterCase.caseItems = allCases
-            filterCase.statuses = statuses.map { TestStatusEnum.valueOf(it) }
+            filterCase.statuses = statuses.map {
+                when(it) {
+                    App.appContext.getString(R.string.case_status_checked) -> TestStatusEnum.CHECKED
+                    App.appContext.getString(R.string.case_status_in_process) -> TestStatusEnum.IN_PROCESS
+                    App.appContext.getString(R.string.case_status_failed) -> TestStatusEnum.FAILED
+                    else -> TestStatusEnum.UNCHECKED
+                }
+            }
             filterCase.modules = modules
 
             filterCase.execute {
@@ -82,9 +91,18 @@ class MenuVM @Inject constructor(
         }
     }
 
-    fun clearSearch() {
-        updateAdapter(allCases)
-        prevSearch = ""
+    fun deleteFilterModuleItem(item: String) {
+        filterModulesLive.value?.toMutableList()?.let {
+            it.remove(item)
+            onFilterChanged(filterStatusesLive.value?.toList() ?: emptyList(), it)
+        }
+    }
+
+    fun deleteFilterStatusItem(item: String) {
+        filterStatusesLive.value?.toMutableList()?.let {
+            it.remove(item)
+            onFilterChanged(it, filterModulesLive.value ?: emptyList())
+        }
     }
 
     private fun updateAdapter(list: List<CaseItemInfo>) {

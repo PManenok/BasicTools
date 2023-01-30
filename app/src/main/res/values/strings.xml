@@ -36,6 +36,7 @@
     <string name="result">Result</string>
     <string name="cancel">Cancel</string>
     <string name="test">Test</string>
+    <string name="filter_modules">Modules</string>
 
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>

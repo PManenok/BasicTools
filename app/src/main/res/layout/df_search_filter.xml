@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_28"
-                    android:text="Test status" />
+                    android:text="@string/case_status_dialog_title" />
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -58,14 +58,14 @@
                         style="@style/CheckBoxStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Checked" />
+                        android:text="@string/case_status_checked" />
 
                     <CheckBox
                         android:id="@+id/df_filter_status_failed"
                         style="@style/CheckBoxStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Failed" />
+                        android:text="@string/case_status_failed" />
 
                     <CheckBox
                         android:id="@+id/df_filter_status_in_progress"
@@ -73,14 +73,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_30"
-                        android:text="In progress" />
+                        android:text="@string/case_status_in_process" />
 
                     <CheckBox
                         android:id="@+id/df_filter_status_unchecked"
                         style="@style/CheckBoxStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unchecked" />
+                        android:text="@string/case_status_unchecked" />
 
                 </GridLayout>
 
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_28"
-                    android:text="Modules" />
+                    android:text="@string/filter_modules" />
 
                 <GridLayout
                     android:layout_width="match_parent"

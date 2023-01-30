@@ -1,7 +1,9 @@
 package by.esas.tools.screens.menu
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.children
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import by.esas.tools.screens.MainActivity.Companion.NEED_TO_UPDATE_CURRENT_CASE
 import by.esas.tools.screens.MainActivity.Companion.NEED_TO_UPDATE_MENU
 import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.util.defocusAndHideKeyboard
+import com.google.android.material.chip.Chip
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
@@ -50,8 +53,10 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return if (requestKey == SearchFilterDialog.FILTER_DIALOG_KEY) {
             FragmentResultListener { _, result ->
-                val statusesResult = result.getStringArray(SearchFilterDialog.ACTION_SELECT_FILTER_STATUSES)
-                val modulesResult = result.getStringArray(SearchFilterDialog.ACTION_SELECT_FILTER_MODULES)
+                val statusesResult =
+                    result.getStringArray(SearchFilterDialog.ACTION_SELECT_FILTER_STATUSES)
+                val modulesResult =
+                    result.getStringArray(SearchFilterDialog.ACTION_SELECT_FILTER_MODULES)
                 if (statusesResult != null && modulesResult != null) {
                     viewModel.onFilterChanged(statusesResult.toList(), modulesResult.toList())
                 } else {
@@ -77,8 +82,14 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
     override fun setupObservers() {
         super.setupObservers()
-        viewModel.casesListLive.observe(viewLifecycleOwner){ list ->
+        viewModel.casesListLive.observe(viewLifecycleOwner) { list ->
             caseAdapter.setItems(list)
+        }
+        viewModel.filterStatusesLive.observe(viewLifecycleOwner) { list ->
+            updateFilterStatuses(list)
+        }
+        viewModel.filterModulesLive.observe(viewLifecycleOwner) { list ->
+            updateFilterModules(list)
         }
     }
 
@@ -90,26 +101,65 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
                     viewModel.onSearchChanged(viewModel.search)
                 }
             })
-            setStartIconClickListener(object : InputFieldView.IconClickListener{
+            setStartIconClickListener(object : InputFieldView.IconClickListener {
                 override fun onIconClick() {
                     viewModel.onSearchChanged(viewModel.search)
                 }
             })
-            setEndIconClickListener(object : InputFieldView.IconClickListener{
+            setEndIconClickListener(object : InputFieldView.IconClickListener {
                 override fun onIconClick() {
                     val filterDialog = SearchFilterDialog()
                     filterDialog.setRequestKey(SearchFilterDialog.FILTER_DIALOG_KEY)
+                    filterDialog.setSelectedItems(
+                        binding.fMenuFilterStatuses.children.map { (it as Chip).text.toString() }.toList(),
+                        binding.fMenuFilterModules.children.map { (it as Chip).text.toString() }.toList()
+                    )
                     viewModel.showDialog(filterDialog)
                 }
             })
         }
     }
 
-    private fun setupCaseRecycler(){
+    private fun setupCaseRecycler() {
         binding.fMenuRecycler.apply {
             adapter = caseAdapter
             layoutManager = LinearLayoutManager(this@MenuFragment.requireContext())
         }
         binding.fMenuRecycler.hasFixedSize()
+    }
+
+    private fun updateFilterStatuses(statuses: List<String>) {
+        binding.fMenuFilterStatuses.removeAllViews()
+        statuses.forEach {
+            val chip = createFilterChip(binding.fMenuFilterStatuses.context, it)
+            chip.setOnCloseIconClickListener {
+                viewModel.deleteFilterStatusItem(chip.text.toString())
+            }
+            binding.fMenuFilterStatuses.addView(chip)
+        }
+    }
+
+    private fun updateFilterModules(modules: List<String>) {
+        binding.fMenuFilterModules.removeAllViews()
+        modules.forEach {
+            val chip = createFilterChip(binding.fMenuFilterModules.context, it)
+            chip.setOnCloseIconClickListener {
+                viewModel.deleteFilterModuleItem(chip.text.toString())
+            }
+            binding.fMenuFilterModules.addView(chip)
+        }
+    }
+
+    private fun createFilterChip(context: Context, text: String): Chip {
+        val chip = Chip(context)
+        chip.setCloseIconResource(R.drawable.ic_close)
+        chip.isCloseIconVisible = true
+        chip.setChipIconTintResource(R.color.main_color_2)
+        chip.setChipBackgroundColorResource(R.color.main_color_4)
+        chip.setTextAppearance(R.style.TextStyle_Normal16)
+        chip.textEndPadding = 0f
+        chip.text = text
+
+        return chip
     }
 }

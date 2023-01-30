@@ -40,6 +40,22 @@
             android:background="@color/colorDivider"
             app:layout_constraintTop_toBottomOf="@id/f_menu_cases_search" />
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/f_menu_filter_statuses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_18"
+            android:layout_marginEnd="@dimen/spacing_18"
+            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/f_menu_filter_modules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_18"
+            android:layout_marginEnd="@dimen/spacing_18"
+            app:layout_constraintTop_toBottomOf="@id/f_menu_filter_statuses"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/f_menu_recycler"
             android:layout_width="match_parent"
@@ -48,7 +64,7 @@
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider"
+            app:layout_constraintTop_toBottomOf="@id/f_menu_filter_modules"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/i_case" />
 

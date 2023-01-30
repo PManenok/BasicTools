@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import by.esas.tools.App
 import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfSearchFilterBinding
@@ -59,10 +60,10 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         statusBoxes = listOf(
-            Pair(binding.dfFilterStatusChecked, TestStatusEnum.CHECKED.name),
-            Pair(binding.dfFilterStatusUnchecked, TestStatusEnum.UNCHECKED.name),
-            Pair(binding.dfFilterStatusFailed, TestStatusEnum.FAILED.name),
-            Pair(binding.dfFilterStatusInProgress, TestStatusEnum.IN_PROCESS.name)
+            Pair(binding.dfFilterStatusChecked, App.appContext.getString(R.string.case_status_checked)),
+            Pair(binding.dfFilterStatusUnchecked, App.appContext.getString(R.string.case_status_unchecked)),
+            Pair(binding.dfFilterStatusFailed, App.appContext.getString(R.string.case_status_failed)),
+            Pair(binding.dfFilterStatusInProgress, App.appContext.getString(R.string.case_status_in_process))
         )
         moduleBoxes = listOf(
             Pair(binding.dfFilterModuleAccesscontainer, Modules.ACCESS_CONTAINER),
@@ -145,10 +146,10 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
     private fun setSelectedStatuses() {
         selectedStatuses.forEach {
             when(it) {
-                TestStatusEnum.CHECKED.name -> binding.dfFilterStatusChecked.isChecked = true
-                TestStatusEnum.IN_PROCESS.name -> binding.dfFilterStatusInProgress.isChecked = true
-                TestStatusEnum.FAILED.name -> binding.dfFilterStatusFailed.isChecked = true
-                TestStatusEnum.UNCHECKED.name -> binding.dfFilterStatusUnchecked.isChecked = true
+                App.appContext.getString(R.string.case_status_checked) -> binding.dfFilterStatusChecked.isChecked = true
+                App.appContext.getString(R.string.case_status_in_process) -> binding.dfFilterStatusInProgress.isChecked = true
+                App.appContext.getString(R.string.case_status_failed) -> binding.dfFilterStatusFailed.isChecked = true
+                App.appContext.getString(R.string.case_status_unchecked) -> binding.dfFilterStatusUnchecked.isChecked = true
             }
         }
     }
