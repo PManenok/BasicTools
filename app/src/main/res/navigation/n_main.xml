@@ -101,6 +101,9 @@
         <action
             android:id="@+id/action_menuFragment_to_customRecyclerFragment"
             app:destination="@id/customRecyclerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_accessContainerFragment"
+            app:destination="@id/accessContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -245,7 +248,6 @@
         android:name="by.esas.tools.screens.biometric.BiometricDecryptionFragment"
         android:label="Check BiometricDecryption functionality"
         tools:layout="@layout/f_main_biometric_decryption" />
-        tools:layout="@layout/f_main_domain_case"/>
     <fragment
         android:id="@+id/recyclerFragment"
         android:name="by.esas.tools.screens.recycler.base.RecyclerFragment"
@@ -260,10 +262,15 @@
         android:id="@+id/simpleRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
         android:label="SimpleRecyclerFragment"
-        tools:layout="@layout/f_main_simple_recycler"/>
+        tools:layout="@layout/f_main_simple_recycler" />
     <fragment
         android:id="@+id/customRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
         android:label="CustomRecyclerFragment"
         tools:layout="@layout/f_main_custom_recycler" />
+    <fragment
+        android:id="@+id/accessContainerFragment"
+        android:name="by.esas.tools.screens.access_container.AccessContainerFragment"
+        android:label="@string/case_label_access_container"
+        tools:layout="@layout/f_main_refresher" />
 </navigation>

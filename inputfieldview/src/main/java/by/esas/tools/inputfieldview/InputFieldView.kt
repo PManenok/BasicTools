@@ -40,7 +40,7 @@ import androidx.core.widget.TextViewCompat
 import by.esas.tools.util.SwitchManager
 import kotlin.math.roundToInt
 
-open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
+open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     open val TAG: String = InputFieldView::class.java.simpleName
 
     companion object {
@@ -67,6 +67,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     }
 
     /*region ################ Views ################*/
+
     var inputText: EditText? = null
     var prefixTextView: TextView? = null
     var errorTextView: TextView? = null
@@ -86,9 +87,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     protected var startContainer: FrameLayout? = null
     protected var progressBar: ProgressBar? = null
     protected var endContainer: FrameLayout? = null
+
     /*endregion ################ Views END ################*/
 
     /*region ################ Parameters ################*/
+
     protected open val inflateLayoutRes: Int = R.layout.v_input_field
     protected open var labelStartMargin: Int = 0
     protected open var labelStartPadding: Int = 0
@@ -223,9 +226,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     //ActionEditor
     protected var editorActionId = EditorInfo.IME_ACTION_DONE
     protected var editorActionListener: EditorActionListener? = null
+
     /*endregion ################ Parameters END ################*/
 
     /*region ############################ Icons Click Listeners ################################*/
+
     protected open val endCheckClickListener: CompoundButton.OnCheckedChangeListener =
         CompoundButton.OnCheckedChangeListener { _, isChecked ->
             endCheckedListener?.onCheckChanged(isChecked)
@@ -249,6 +254,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     /*endregion ############################ Icons Click Listeners End ################################*/
 
     /*region ############################ TextWatcher ################################*/
+
     protected open val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             if (hasErrorText && hideErrorText) {
@@ -272,9 +278,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
     }
+
     /*endregion ############################ TextWatcher End ################################*/
 
     /*region ############################ Constructors ################################*/
+
     constructor(context: Context) : super(context) {
         initialSetting()
     }
@@ -308,9 +316,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     override fun switchOff() {
         disableView()
     }
+
     /*endregion ############### ISwitchView interface methods ################*/
 
     /*region ############### Label settings ################*/
+
     open fun hideLabel() {
         labelText?.let { label ->
             label.background = null
@@ -396,9 +406,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
             labelText?.apply { TextViewCompat.setTextAppearance(this, labelStyleId) }
         }
     }
+
     /*endregion ############### Label settings END ################*/
 
     /*region ############### Prefix settings ################*/
+
     open fun setInputPrefix(prefix: String) {
         prefixTextView?.text = prefix
     }
@@ -411,9 +423,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
         if (styleId != -1)
             prefixTextView?.apply { TextViewCompat.setTextAppearance(this, styleId) }
     }
+
     /*endregion ############### Prefix settings END ################*/
 
     /*region ############### Input settings ################*/
+
     open fun setText(text: String?) {
         if (!(inputText?.text?.toString() ?: "").equals(text ?: "")) {
             inputText?.setText(text)
@@ -471,6 +485,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     open fun enableView() {
         if (inputIsEnableable)
             enableInput()
+        clickViewEnable()
         startIconEnable()
         endIconEnable()
     }
@@ -481,6 +496,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
      */
     open fun disableView() {
         disableInput()
+        clickViewDisable()
         startIconDisable()
         endIconDisable()
     }
@@ -500,14 +516,6 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     open fun setInputStyle(inputStyle: Int) {
         if (inputStyle != -1)
             inputText?.apply { TextViewCompat.setTextAppearance(this, inputStyle) }
-    }
-
-    open fun setInputClickViewEnabled(value: Boolean) {
-        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
-    }
-
-    open fun getInputClickViewEnabled(): Boolean {
-        return inputClickView?.visibility == View.VISIBLE
     }
 
     /**
@@ -569,7 +577,37 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
         boxSettings()
         inputBoxVisibility(defaultInputBoxVisibility)
     }
+
     /*endregion ############### Input settings END ################*/
+
+    open fun setInputClickViewEnabled(value: Boolean) {
+        inputClickView?.visibility = if (value) View.VISIBLE else View.INVISIBLE
+    }
+
+    open fun getInputClickViewEnabled(): Boolean {
+        return inputClickView?.visibility == View.VISIBLE
+    }
+
+    open fun setClickViewListener(listener: OnClickListener?) {
+        inputClickView?.setOnClickListener(listener)
+    }
+
+    open fun setClickViewLongListener(listener: OnLongClickListener?) {
+        inputClickView?.setOnLongClickListener(listener)
+    }
+
+    open fun clickViewEnable() {
+        inputClickView?.isClickable = true
+        //CHECK inputClickView?.isEnabled = true
+    }
+
+    open fun clickViewDisable() {
+        inputClickView?.isClickable = false
+    }
+
+    /*region ############### Input Click view settings ################*/
+
+    /*endregion ############### Input Click view settings END ################*/
 
     /*region ############### Icons settings ################*/
     open fun setIconsPaddings(iconsPadding: Int) {
@@ -1278,9 +1316,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     open fun setupEditorActionListener(actionListener: EditorActionListener) {
         editorActionListener = actionListener
     }
+
     /*endregion ################### Editor Action Settings ######################*/
 
     /*region ################### Other ######################*/
+
     /**
      * Method sets label params depending on the label type. Return Boolean result of setLabelParams method
      * or return false if current margin top doesn't equal new margin top value.
@@ -1689,9 +1729,11 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
             }
         }
     }
+
     /*endregion ################### Other ######################*/
 
     /*region ################### Interfaces ######################*/
+
     interface IconCheckedListener {
         fun onCheckChanged(isChanged: Boolean)
     }
@@ -1703,5 +1745,6 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView  {
     interface EditorActionListener {
         fun onActionClick()
     }
+
     /*endregion ################### Interfaces End ######################*/
 }

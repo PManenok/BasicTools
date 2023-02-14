@@ -179,6 +179,17 @@ class MenuVM @Inject constructor(
             listOf(Modules.RECYCLER),
             MenuFragmentDirections.actionMenuFragmentToCustomRecyclerFragment()
         )
+        addCaseItem(
+            App.appContext.getString(R.string.case_label_access_container),
+            listOf(
+                Modules.ACCESS_CONTAINER,
+                Modules.LISTHEADER,
+                Modules.INPUTFIELD_VIEW,
+                Modules.NUMPAD,
+                Modules.DIALOG
+            ),
+            MenuFragmentDirections.actionMenuFragmentToAccessContainerFragment()
+        )
         updateAdapter(allCases)
     }
 

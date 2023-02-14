@@ -13,7 +13,6 @@ import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog.MessageDialog.ButtonAppearance
 import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding
-import by.esas.tools.logger.Action
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import com.google.android.material.button.MaterialButton
@@ -102,14 +101,14 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     protected var items: List<String> = emptyList()
     protected var itemTextAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     protected var adapter: SimpleItemAdapter =
-        SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java) { position, item ->
+        SimpleItemAdapter.createCustom(IDialogMessageBinding::class.java, onItemClickPosition = { position, item ->
             if (btnEnabled.get()) {
                 disableControls()
                 setItemPickedResult(position, item.name, itemAction)
                 dismiss()
                 enableControls()
             }
-        }
+        })
     protected var positiveAction: String? = null
     protected var itemAction: String? = null
 

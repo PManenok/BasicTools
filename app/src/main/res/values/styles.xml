@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,6 +27,14 @@
         <item name="android:textSize">@dimen/_14ssp</item>
     </style>
 
+    <style name="TextStyle.Normal42">
+        <item name="android:textSize">@dimen/_26ssp</item>
+    </style>
+
+    <style name="TextStyle.Normal32">
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
     <style name="TextStyle.Center">
         <item name="android:gravity">center</item>
     </style>
@@ -37,8 +45,21 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="TextStyle.Normal24">
+        <item name="android:textSize">@dimen/_15ssp</item>
+    </style>
+
     <style name="TextStyle.Normal16">
         <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="TextStyle.Normal16.Red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="TextStyle.Medium16">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="EditTextStyle" parent="TextAppearance.AppCompat.Body1">
@@ -177,6 +198,7 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:minHeight">@dimen/spacing_56</item>
     </style>
+
     <style name="OutlineButtonStyle.Small">
         <item name="android:minHeight">@dimen/spacing_36</item>
     </style>
@@ -199,4 +221,25 @@
 
     <!--################################## Button styles END ####################################-->
 
+
+    <style name="CheckBoxStyle" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:button">@drawable/selector_check_box</item>
+        <item name="buttonTint">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:paddingStart">@dimen/spacing_8</item>
+        <item name="android:minHeight">@dimen/spacing_56</item>
+    </style>
+
+    <style name="SwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorOnSurface">@color/green</item>
+        <item name="colorSecondary">@color/main_color_3</item>
+    </style>
 </resources>

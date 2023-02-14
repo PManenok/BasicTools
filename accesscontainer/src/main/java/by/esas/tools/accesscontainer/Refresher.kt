@@ -7,7 +7,6 @@ package by.esas.tools.accesscontainer
 
 import android.provider.Settings
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -15,6 +14,9 @@ import by.esas.tools.accesscontainer.dialog.BiometricUserInfo
 import by.esas.tools.accesscontainer.dialog.DialogProvider
 import by.esas.tools.accesscontainer.dialog.IBaseDialog
 import by.esas.tools.accesscontainer.dialog.IBiometric
+import by.esas.tools.accesscontainer.dialog.setters.MenuResultHandler
+import by.esas.tools.accesscontainer.dialog.setters.PasswordResultHandler
+import by.esas.tools.accesscontainer.dialog.setters.PinResultHandler
 import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.RefreshResult
 import by.esas.tools.accesscontainer.entity.Token
@@ -38,9 +40,12 @@ open class Refresher<M : BaseErrorModel>(
     protected val userInfo: BiometricUserInfo,
     protected val mapper: IErrorMapper<M>,
     protected val dialogProvider: DialogProvider,
-    protected val supporter: Supporter<M>
+    protected val supporter: Supporter
 ) : IRefreshContainer<M> {
     val TAG: String = Refresher::class.java.simpleName
+
+    /*region Params*/
+
     protected var accessToken: String = ""
     protected var refreshToken: String = ""
 
@@ -55,8 +60,8 @@ open class Refresher<M : BaseErrorModel>(
     protected var containerCancellationCallback: IContainerCancellationCallback =
         defaultCancellationCallback // cancellation callback invoke if UC callback not set?
 
-    protected var fragmentManager: WeakReference<FragmentManager?> =
-        WeakReference(null) // fragment manager for simple dialogs
+    /*protected var fragmentManager: WeakReference<FragmentManager?> =
+        WeakReference(null) // fragment manager for simple dialogs*/
     protected var activity: WeakReference<FragmentActivity?> = WeakReference(null) // activity for biometric dialog
 
     protected var result: ContainerRequest<RefreshResult, M> =
@@ -88,9 +93,13 @@ open class Refresher<M : BaseErrorModel>(
     protected var useExtraCheck: Boolean = false
     protected var extraRefreshCheck: (BaseErrorModel) -> Unit = {}
 
+    /*endregion Params*/
+
     init {
         logger.setTag(TAG)
     }
+
+    /*region ############################# Base functionality ##########################################*/
 
     override fun setUserId(userId: String) {
         this.userIdValue = userId
@@ -115,7 +124,7 @@ open class Refresher<M : BaseErrorModel>(
      * Запуск запроса на восстановление маркера доступа с последующим обновлением
      * данных контейнера и выполнением переданного блока кода
      */
-    override fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel) -> Unit, onCancel: () -> Unit) {
+    override fun refresh(onComplete: (String?) -> Unit, onError: (M) -> Unit, onCancel: () -> Unit) {
         logger.logOrder("refresh")
         this.refreshExplicitly = true
         result = ContainerRequest<RefreshResult, M>()
@@ -210,6 +219,7 @@ open class Refresher<M : BaseErrorModel>(
             .apply {
                 onComplete { tokenResponse ->
                     logger.logOrder("saveRefresh result.onComplete")
+                    this@Refresher.refreshToken = tokenResponse.token?.refreshToken ?: ""
                     result(accessToken)
                 }
                 onError {
@@ -230,7 +240,54 @@ open class Refresher<M : BaseErrorModel>(
         }
     }
 
-    /*############################ Simple refresh token #########################################*/
+    override fun clearAccess() {
+        logger.logOrder("clearAccess")
+        accessToken = ""
+        refreshToken = ""
+        executor.unsubscribe()
+    }
+
+    override fun clear() {
+        logger.logOrder("clear")
+        clearAccess()
+        containerCancellationCallback = defaultCancellationCallback
+        result = ContainerRequest()
+        userIdValue = ""
+        isBiometricAvailable = false
+        needCheck = false
+        refreshExplicitly = false
+        types.clear()
+        //presentType = AuthType.NONE
+        stateIsPaused = false
+        lastAction = {}
+        currentDialog?.dismiss()
+        currentDialog = null
+        currentBiometricDialog?.cancelAuthentication()
+        currentBiometricDialog = null
+        dialogProvider.menuDialog.clear(activity.get())
+        dialogProvider.pinDialog.clear(activity.get())
+        dialogProvider.passwordDialog.clear(activity.get())
+        dialogProvider.biom.clear()
+        activity.clear()
+        forgotPasswordActionEnable = false
+        forgotPasswordAction = {}
+    }
+
+    open fun setCheckRefreshError(
+        check: Boolean = false,
+        errorStatus: String? = null,
+        useExtraCheck: Boolean = false,
+        extraCheck: (BaseErrorModel) -> Unit = {}
+    ) {
+        checkRefreshError = check
+        refresherErrorStatusToCheck = errorStatus
+        this.useExtraCheck = useExtraCheck
+        extraRefreshCheck = extraCheck
+    }
+
+    /*endregion ########################### Base functionality #########################################*/
+
+    /*region ############################ Simple refresh token #########################################*/
 
     protected open fun refreshAccess(refreshToken: String) {
         logger.logOrder("refreshAccess")
@@ -265,9 +322,9 @@ open class Refresher<M : BaseErrorModel>(
         }
     }
 
-    /*############################# Simple refresh token END ####################################*/
+    /*endregion ############################# Simple refresh token END ####################################*/
 
-    /*############################# Refresh token with dialogs ##################################*/
+    /*region ############################# Refresh token with dialogs ##################################*/
 
     protected open fun getSecrets() {
         logger.logOrder("getSecrets")
@@ -279,7 +336,7 @@ open class Refresher<M : BaseErrorModel>(
                     doWhenHasSecrets(it)
                 } else {
                     if (needSecret)
-                        secretResult(supporter.util.createErrorModel(0, ErrorStatusEnum.HAS_NO_SECRETS.name))
+                        secretResult(mapper(0, ErrorStatusEnum.HAS_NO_SECRETS.name))
                     else
                         showPasswordDialog()
                 }
@@ -291,37 +348,60 @@ open class Refresher<M : BaseErrorModel>(
         }
     }
 
+    protected fun showDialogForType(type: AuthType) {
+        when (type) {
+            AuthType.PIN_AUTH -> {
+                showDecryptPinDialog()
+            }
+            AuthType.BIOMETRIC_AUTH -> {
+                showDecryptBiometricDialog()
+            }
+            AuthType.NONE -> {
+                showPasswordDialog()
+            }
+        }
+    }
+
     protected open fun doWhenHasSecrets(list: List<AuthType>) {
+        types.clear()
         types.addAll(list)
         logger.logOrder("getSecrets onComplete onlyOnePresent = ${list.size == 1}")
         val preferred = typeManager.getPreferredType()
         logger.logDebug("getSecrets onComplete preferred = $preferred")
-        if (preferred == AuthType.NONE || types.contains(preferred)) {
-            when (preferred) {
-                AuthType.PIN_AUTH -> {
-                    showDecryptPinDialog()
-                }
-                AuthType.BIOMETRIC_AUTH -> {
-                    showDecryptBiometricDialog()
-                }
-                AuthType.NONE -> {
-                    if (needSecret) {
-                        secretResult(
-                            supporter.util.createErrorModel(0, ErrorStatusEnum.HAS_NO_SECRETS.name)
-                        )
-                    } else {
-                        showPasswordDialog()
-                    }
-                }
+
+        if (!needSecret) {
+            //needSecret != true
+            if (preferred == AuthType.NONE || list.contains(preferred)) {
+                showDialogForType(preferred)
+            } else if (list.size > 1 || !list.contains(AuthType.NONE)) {
+                //FIX
+                //keep in mind that list can not be empty
+                showAuthDialog(isDecrypting = true)
+            } else {
+                showDialogForType(list[0])
             }
         } else {
-            showAuthDialog(isDecrypting = true)
+            //needSecret == true
+            if (preferred != AuthType.NONE && list.contains(preferred)) {
+                //preferred is not NONE and List contains preferred
+                showDialogForType(preferred)
+            } else {
+                //preferred is NONE or list does not contain preferred
+                val filtered = list.filter { it != AuthType.NONE }
+                if (filtered.isEmpty()) {
+                    secretResult(mapper(0, ErrorStatusEnum.HAS_NO_SECRETS.name))
+                } else if (filtered.size == 1) {
+                    showDialogForType(filtered[0])
+                } else {
+                    showAuthDialog(isDecrypting = true)
+                }
+            }
         }
     }
 
-/*############################# Refresh token with dialogs END ##############################*/
+    /*endregion ############################# Refresh token with dialogs END ##############################*/
 
-/*############################# Check access with dialogs ###################################*/
+    /*region ############################# Check access with dialogs ###################################*/
 
     protected open fun checkSecret(pinKey: SecretKey? = null, cipher: Cipher? = null) {
         logger.logOrder("checkSecret pinKey!=null ${pinKey != null}, cipher!=null ${cipher != null}")
@@ -342,7 +422,7 @@ open class Refresher<M : BaseErrorModel>(
                     }
                 } else {
                     logger.logDebug("checkSecret onComplete failed check return error SECRET_CHECK_NOT_MATCH")
-                    val error = supporter.util.createErrorModel(0, ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name)
+                    val error = mapper(0, ErrorStatusEnum.SECRET_CHECK_NOT_MATCH.name)
                     if (needSecret) secretResult(error)
                     else result(error)
                 }
@@ -373,9 +453,9 @@ open class Refresher<M : BaseErrorModel>(
         }
     }
 
-/*############################## Check access with dialogs END ##############################*/
+    /*endregion ############################## Check access with dialogs END ##############################*/
 
-    /*############################### Authentication with password ##############################*/
+    /*region ############################### Authentication with password ##############################*/
     protected open fun authenticate(password: String, recreate: Boolean, noSecrets: Boolean) {
         logger.logOrder("authenticate password not blank = ${password.isNotBlank()}; recreate = $recreate; noSecrets = $noSecrets")
         if (password.isNotBlank()) {
@@ -424,97 +504,91 @@ open class Refresher<M : BaseErrorModel>(
             }
         }
     }
-/*############################## Authentication with password END ###########################*/
+    /*endregion ############################## Authentication with password END ###########################*/
 
-/*############################### Dialogs ###################################################*/
+    /*############################### Dialogs ###################################################*/
+
+    /*region ############################### Menu dialog ##############################################*/
 
     protected open fun showAuthDialog(isDecrypting: Boolean, token: Token? = null) {
         logger.logOrder("showAuthDialog isDecrypting ${isDecrypting}, token!=null = ${token != null}")
         dialogProvider.menuDialog.let { dialog ->
             dialog.createDialog()
-            dialog.setStateActions({ e ->
-                logger.logOrder("showAuthDialog onError ${e.message}")
-                if (needSecret) secretResult(mapper(e))
-                else result(mapper(e))
-            }, { afterOk ->
-                logger.logOrder("showAuthDialog onDismiss afterOk=${afterOk}")
-                if (!afterOk) {
-                    if (needSecret) secretResult()
-                    else result()
-                }
-            })
-            dialog.isDecrypting(isDecrypting)
-            dialog.showPassword(!needSecret)
-            dialog.setCallBacks({
-                logger.logOrder("showAuthDialog onPinClick")
-                if (isDecrypting) showDecryptPinDialog()
-                else token?.let { showEncryptPinDialog(token) }
-            }, {
-                logger.logOrder("showAuthDialog onBiometricClick")
-                if (isDecrypting) showDecryptBiometricDialog()
-                else token?.let { showEncryptBiometricDialog(token) }
-            }, {
-                logger.logOrder("showAuthDialog onPasswordClick")
-                showPasswordDialog()
-            })
+            //setup menu dialog parameters
+            val showPin: Boolean
+            val showBiom: Boolean
+            if (isDecrypting) {
+                showPin = types.contains(AuthType.PIN_AUTH)
+                showBiom = types.contains(AuthType.BIOMETRIC_AUTH)
+            } else {
+                showPin = true
+                showBiom = isBiometricAvailable
+            }
+            dialog.setupParameterBundle(
+                isDecrypting = isDecrypting,
+                showPassword = !needSecret,
+                showPin = showPin,
+                showBiom = showBiom
+            )
+
+            //setup menu dialog result handler
+            dialog.setupResultHandler(provideMenuResultHandler(isDecrypting, token))
 
             val titleRes: Int = if (isDecrypting) -1 else supporter.resProvider.provideEncryptTitle()
             dialog.setTitle(titleRes)
-            if (isDecrypting) {
-                dialog.setPinPresent(types.contains(AuthType.PIN_AUTH))
-                dialog.setBiometricPresent(types.contains(AuthType.BIOMETRIC_AUTH))
-            } else {
-                dialog.setPinPresent(true)
-                dialog.setBiometricPresent(isBiometricAvailable)
-            }
             showDialog(dialog.getDialog(), "OperatorAuthDialog")
         }
     }
 
-    /*######################## PIN ##########################*/
+    protected open fun provideMenuResultHandler(
+        decrypting: Boolean,
+        accessToken: Token?
+    ): MenuResultHandler {
+        return object : MenuResultHandler(decrypting, accessToken) {
+            override fun onCancel() {
+                logger.logOrder("showAuthDialog onCancel")
+                if (needSecret) secretResult()
+                else result()
+            }
+
+            override fun onPinClick() {
+                logger.logOrder("showAuthDialog onPinClick")
+                if (this.decrypting) showDecryptPinDialog()
+                else this.accessToken?.let { showEncryptPinDialog(it) }
+            }
+
+            override fun onPasswordClick() {
+                logger.logOrder("showAuthDialog onPasswordClick")
+                showPasswordDialog()
+            }
+
+            override fun onBiomClick() {
+                if (this.decrypting) showDecryptBiometricDialog()
+                else this.accessToken?.let { showEncryptBiometricDialog(it) }
+            }
+        }
+    }
+
+    /*endregion ############################### Menu dialog ##############################################*/
+
+    /*region ######################## PIN ##########################*/
+
     protected open fun showDecryptPinDialog() {
         logger.logOrder("showDecryptPinDialog")
         dialogProvider.pinDialog.let { dialog ->
             dialog.createDialog()
-            dialog.setStateActions({ e ->
-                logger.logOrder("showDecryptPinDialog onError ${e.message}")
-                if (needSecret) secretResult(mapper(e))
-                else result(mapper(e))
-            }, { afterOk ->
-                logger.logOrder("showDecryptPinDialog onDismiss afterOk=$afterOk")
-                if (!afterOk) {
-                    if (needSecret) secretResult()
-                    else result()
-                }
-            })
 
-            dialog.setCallbacks({ pin ->
-                logger.logOrder("showDecryptPinDialog onPinComplete needCheck=$needCheck")
-                val pinKey = supporter.util.generatePin(
-                    pin, userIdValue,
-                    Settings.Secure.getString(activity.get()?.contentResolver, Settings.Secure.ANDROID_ID)
-                )
-                typeManager.putPreferredType(AuthType.PIN_AUTH)
-                //if (needCheck) {
-                checkSecret(pinKey = pinKey)
-                /*} else {
-                    refreshWithSecret(pinKey = pinKey)
-                }*/
-            }, {
-                logger.logOrder("showDecryptPinDialog onPinCanceled showAuthDialog(isDecrypting = true)")
-                showAuthDialog(isDecrypting = true)
-            })
+            val cancelId = supporter.resProvider.provideAlterCancelStr()
+            val hasAnother = if (needSecret) types.size > 1 else true
+            dialog.setupParameterBundle(cancelId, cancelId, false, hasAnother)
+
+            dialog.setupResultHandler(provideDecryptingPinHandler())
 
             logger.logDebug("showDecryptPinDialog needCheck=$needCheck")
             if (needCheck)
                 dialog.setTitle(supporter.resProvider.provideAccessConfirmStr())
             else
                 dialog.setTitle(supporter.resProvider.provideAccessStr())
-            val cancelId = supporter.resProvider.provideAlterCancelStr()
-            dialog.setCancelTitle(cancelId)
-            dialog.setCancellable(false)
-            if (needSecret) dialog.setHasAnother(types.size > 1)
-            else dialog.setHasAnother(true)
             showDialog(dialog.getDialog(), "OperatorPinDecryptDialog")
         }
     }
@@ -523,44 +597,68 @@ open class Refresher<M : BaseErrorModel>(
         logger.logOrder("showEncryptPinDialog")
         dialogProvider.pinDialog.let { dialog ->
             dialog.createDialog()
-            dialog.setStateActions({ e ->
-                logger.logOrder("showDecryptPinDialog onError ${e.message}")
-                result(mapper(e))
-            }, { afterOk ->
-                logger.logOrder("showEncryptPinDialog onDismiss afterOk=$afterOk")
-                if (!afterOk) {
-                    result(
-                        RefreshResult(
-                            token
-                        )
-                    )
-                }
-            })
-            dialog.setCallbacks({ pin ->
+
+            logger.logDebug("showEncryptPinDialog isBiometricAvailable=$isBiometricAvailable")
+            val cancelId = if (isBiometricAvailable) supporter.resProvider.provideAlterCancelStr() else -1
+            dialog.setupParameterBundle(cancelId, cancelId, false, isBiometricAvailable)
+
+            dialog.setupResultHandler(provideEncryptingPinHandler(token))
+
+            dialog.setTitle(supporter.resProvider.provideEncryptTitle())
+            showDialog(dialog.getDialog(), "OperatorPinEncryptDialog")
+        }
+    }
+
+    protected open fun provideDecryptingPinHandler(): PinResultHandler {
+        return object : PinResultHandler(null) {
+            override fun onCancel() {
+                if (needSecret) secretResult()
+                else result()
+            }
+
+            override fun onAnotherClicked() {
+                logger.logOrder("showDecryptPinDialog onPinCanceled showAuthDialog(isDecrypting = true)")
+                showAuthDialog(isDecrypting = true)
+            }
+
+            override fun onComplete(pin: String) {
+                logger.logOrder("showDecryptPinDialog onPinComplete needCheck=$needCheck")
+                val pinKey = supporter.util.generatePin(
+                    pin, userIdValue,
+                    Settings.Secure.getString(activity.get()?.contentResolver, Settings.Secure.ANDROID_ID)
+                )
+                typeManager.putPreferredType(AuthType.PIN_AUTH)
+                checkSecret(pinKey = pinKey)
+            }
+        }
+    }
+
+    protected open fun provideEncryptingPinHandler(token: Token): PinResultHandler {
+        return object : PinResultHandler(token) {
+            override fun onCancel() {
+                result(RefreshResult(this.token))
+            }
+
+            override fun onAnotherClicked() {
+                logger.logOrder("showEncryptPinDialog onPinCanceled showAuthDialog(isDecrypting = false)")
+                showAuthDialog(isDecrypting = false, token = this.token)
+            }
+
+            override fun onComplete(pin: String) {
                 logger.logOrder("showEncryptPinDialog onPinComplete preferredType=PIN_AUTH")
                 val pinKey = supporter.util.generatePin(
                     pin, userIdValue,
                     Settings.Secure.getString(activity.get()?.contentResolver, Settings.Secure.ANDROID_ID)
                 )
                 typeManager.putPreferredType(AuthType.PIN_AUTH)
-                putSecrets(token = token, pinKey = pinKey)
-            }, {
-                logger.logOrder("showEncryptPinDialog onPinCanceled showAuthDialog(isDecrypting = false)")
-                showAuthDialog(isDecrypting = false, token = token)
-            })
-
-            dialog.setTitle(supporter.resProvider.provideEncryptTitle())
-            logger.logDebug("showEncryptPinDialog isBiometricAvailable=$isBiometricAvailable")
-            val cancelId = if (isBiometricAvailable) supporter.resProvider.provideAlterCancelStr() else -1
-            dialog.setCancelTitle(cancelId)
-            dialog.setCancellable(false)
-            showDialog(dialog.getDialog(), "OperatorPinEncryptDialog")
+                this.token?.let { putSecrets(token = it, pinKey = pinKey) }
+            }
         }
     }
 
-/*######################## PIN  END #####################*/
+    /*endregion######################## PIN  END #####################*/
 
-/*###################### Biometric ######################*/
+    /*region ###################### Biometric ######################*/
 
     protected open fun showDecryptBiometricDialog() {
         logger.logOrder("showDecryptBiometricDialog")
@@ -685,74 +783,72 @@ open class Refresher<M : BaseErrorModel>(
         }
     }
 
-/*#################### Biometric END ####################*/
+/*endregion #################### Biometric END ####################*/
 
-
-/*##################### Password ########################*/
+    /*region ##################### Password ########################*/
 
     protected open fun showPasswordDialog(noSecrets: Boolean = false) {
         logger.logOrder("showPasswordDialog")
         dialogProvider.passwordDialog.let { dialog ->
             dialog.createDialog()
-            dialog.setStateActions({ e: Exception ->
-                logger.logOrder("showPasswordDialog onError ${e.message}")
-                result(mapper(e))
-            }, { afterOk: Boolean ->
-                logger.logOrder("showPasswordDialog onDismiss afterOk=$afterOk, types not empty=${types.isNotEmpty()}")
-                if (!afterOk) {
-                    if (!noSecrets && types.isNotEmpty()) {
-                        showAuthDialog(isDecrypting = true)
-                    } else {
-                        result()
-                    }
-                }
-                /*if (!afterOk && types.isNotEmpty()) {
-                    showAuthDialog(isDecrypting = true)
-                } else if (!afterOk && types.isEmpty()) {
-                    result()
-                }*/
-            })
             logger.logDebug("showPasswordDialog types not empty=${types.isNotEmpty()}")
-            if (!noSecrets && types.isNotEmpty()) {
-                dialog.setCancelTitle(supporter.resProvider.provideAlterCancelStr())
-                dialog.setShowRecreateAuth(true)
-            }
             logger.logDebug("showPasswordDialog forgotPasswordActionEnable=$forgotPasswordActionEnable")
-            dialog.setForgotPassword(forgotPasswordActionEnable)
+            dialog.setupParameterBundle(
+                cancelBtnRes = supporter.resProvider.provideCancelStr(),
+                anotherBtnRes = supporter.resProvider.provideAlterCancelStr(),
+                isCancellable = true,
+                showAnother = !noSecrets && types.isNotEmpty(),
+                forgotPasswordActionEnable = forgotPasswordActionEnable
+            )
+            dialog.setupResultHandler(providePasswordHandler(noSecrets))
+
             logger.logDebug("showPasswordDialog needCheck=$needCheck")
             if (needCheck)
                 dialog.setTitle(supporter.resProvider.provideAccessConfirmStr())
             else
                 dialog.setTitle(supporter.resProvider.provideAccessStr())
-            dialog.setCallbacks({ password: String, recreate: Boolean ->
-                logger.logOrder("showPasswordDialog onPasswordComplete")
-                authenticate(password, recreate, noSecrets)
-            }, {
-                logger.logOrder("showPasswordDialog onPasswordForgot forgotPasswordActionEnable=$forgotPasswordActionEnable")
-                if (forgotPasswordActionEnable)
-                    forgotPasswordAction()
-            })
 
             showDialog(dialog.getDialog(), "PasswordDialog")
         }
     }
 
+    protected open fun providePasswordHandler(noSecrets: Boolean): PasswordResultHandler =
+        object : PasswordResultHandler(noSecrets) {
+            override fun onCancel() {
+                result()
+            }
 
-/*##################### Password END ####################*/
+            override fun onComplete(password: String, recreate: Boolean) {
+                logger.logOrder("showPasswordDialog onPasswordComplete")
+                authenticate(password, recreate, this.noSecrets)
+            }
 
-/*################################## Dialogs END ############################################*/
+            override fun onForgotClicked() {
+                logger.logOrder("showPasswordDialog onPasswordForgot forgotPasswordActionEnable=$forgotPasswordActionEnable")
+                if (forgotPasswordActionEnable)
+                    forgotPasswordAction()
+            }
 
-/*################################## Common #################################################*/
+            override fun onAnotherClicked() {
+                showAuthDialog(isDecrypting = true)
+            }
+        }
+
+    /*endregion ##################### Password END ####################*/
+
+    /*################################## Dialogs END ############################################*/
+
+    /*region ################################## Common #################################################*/
 
     protected open fun showDialog(dialog: IBaseDialog, tag: String) {
         logger.logOrder("showDialog $tag stateIsPaused=$stateIsPaused")
         lastAction = {
             logger.logOrder("showDialog lastAction invoke")
-            val manager = fragmentManager.get()
+            //val manager = fragmentManager.get()
             val context = activity.get()
-            logger.logDebug("showDialog lastAction fragmentManager != null ${manager != null} context != null ${context != null}")
+            logger.logDebug("showDialog lastAction fragmentManager != null {manager != null} context != null ${context != null}")
             currentDialog = dialog
-            dialog.show(manager, context, tag)
+            dialog.show(context, tag)
         }
         if (!stateIsPaused) {
             lastAction.invoke()
@@ -786,9 +882,9 @@ open class Refresher<M : BaseErrorModel>(
             }
         }
     }
-/*#################################### Common END ###########################################*/
+    /*endregion #################################### Common END ###########################################*/
 
-/*############################## Settings ###################################################*/
+    /*region ############################## Settings ###################################################*/
     /**
      * Установка Activity необходимая для работы диалогов
      *
@@ -798,6 +894,7 @@ open class Refresher<M : BaseErrorModel>(
         logger.logOrder("setActivity")
         this.activity = WeakReference(activity)
         activity.lifecycle.addObserver(object : LifecycleObserver {
+            //FIX
             @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
             fun doAfterResume() {
                 logger.logOrder("activity LifecycleObserver doAfterResume")
@@ -806,6 +903,7 @@ open class Refresher<M : BaseErrorModel>(
                 lastAction = {}
             }
 
+            //FIX
             @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             fun doAfterPause() {
                 logger.logOrder("activity LifecycleObserver doAfterPause")
@@ -825,67 +923,10 @@ open class Refresher<M : BaseErrorModel>(
         this.forgotPasswordAction = if (enable) forgotPasswordAction else ({})
     }
 
-    /**
-     * Установка Params необходимая для работы диалогов
-     *
-     * @param root ViewGroup
-     * @param manager FragmentManager
-     */
-    override fun setParams(manager: FragmentManager) {
-        logger.logOrder("setParams")
-        fragmentManager = WeakReference(manager)
-    }
-
     override fun setCancellationCallback(callback: IContainerCancellationCallback) {
         logger.logOrder("setCancellationCallback")
         containerCancellationCallback = callback
     }
 
-/*############################## Settings END ###############################################*/
-
-    override fun clearAccess() {
-        logger.logOrder("clearAccess")
-        accessToken = ""
-        refreshToken = ""
-        executor.unsubscribe()
-    }
-
-    override fun clear() {
-        logger.logOrder("clear")
-        clearAccess()
-        activity.clear()
-        fragmentManager.clear()
-        containerCancellationCallback = defaultCancellationCallback
-        result = ContainerRequest()
-        userIdValue = ""
-        isBiometricAvailable = false
-        needCheck = false
-        refreshExplicitly = false
-        types.clear()
-        //presentType = AuthType.NONE
-        stateIsPaused = false
-        lastAction = {}
-        currentDialog?.dismiss()
-        currentDialog = null
-        currentBiometricDialog?.cancelAuthentication()
-        currentBiometricDialog = null
-        dialogProvider.menuDialog.clear()
-        dialogProvider.pinDialog.clear()
-        dialogProvider.passwordDialog.clear()
-        dialogProvider.biom.clear()
-        forgotPasswordActionEnable = false
-        forgotPasswordAction = {}
-    }
-
-    open fun setCheckRefreshError(
-        check: Boolean = false,
-        errorStatus: String? = null,
-        useExtraCheck: Boolean = false,
-        extraCheck: (BaseErrorModel) -> Unit = {}
-    ) {
-        checkRefreshError = check
-        refresherErrorStatusToCheck = errorStatus
-        this.useExtraCheck = useExtraCheck
-        extraRefreshCheck = extraCheck
-    }
+    /*endregion ############################## Settings END ###############################################*/
 }

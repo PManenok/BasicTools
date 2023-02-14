@@ -1,5 +1,6 @@
 package by.esas.tools.inject.builder
 
+import by.esas.tools.screens.access_container.AccessContainerFragment
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationFragment
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment
 import by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment
@@ -133,4 +134,7 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindBiometricDecryptionFragment(): BiometricDecryptionFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindAccessContainerFragment(): AccessContainerFragment
 }

@@ -29,6 +29,66 @@
     <string name="item_3">Item 3</string>
     <string name="message">Message</string>
 
+    <!-- Error -->
+    <string name="error_ok">OK</string>
+    <string name="error_unknown_happened">Возникла ошибка. Попробуйте позже или обратитесь в службу поддержки.</string>
+    <string name="error_server_error">Ошибка на сервере. Попробуйте позже или свяжитесь с нашей службой поддержки.</string>
+    <!--Authorization Error-->
+    <string name="error_access_denied">Доступ запрещён. Пожалуйста, восстановите доступ или войдите в приложение заново.</string>
+    <string name="error_invalid_refresh">Токен обновления истёк или неверен. Пожалуйста, воспользуйтесь входом через пароль, чтобы продолжить</string>
+    <string name="error_unauthenticated">Пользователь не авторизован. Пожалуйста, авторизуйтесь.</string>
+    <!--Net Error-->
+    <string name="error_net_ssl_handshake">Соединение не было установллено ввиду ошибки SSL Handshake. Пожалуйста, свяжитесь с технической поддержкой.</string>
+    <string name="error_net_unknown_host">Соединение не было установллено ввиду ошибки Unknown Host. Пожалуйста, свяжитесь с технической поддержкой.</string>
+    <string name="error_net_timeout">Ошибка ожидания. Проверьте ваше интернет соединение и повторите попытку.</string>
+    <string name="error_net_no_connection">Нет соединения. Проверьте ваше интернет соединение и повторите попытку.</string>
+    <string name="error_net_server_unavailable">Сервер недоступен. Попробуйте позже.</string>
+    <!--App Error-->
+    <string name="error_app_unpredicted">Возникла внутренняя ошибка приложения. Пожалуйста, попробуйте ещё раз. Если проблема возникнет снова, обратитесь в поддержку.</string>
+    <string name="error_app_secret_check_failed">Проверка доступа не удалась</string><!--fixme add info about what exactly goes wrong-->
+    <string name="error_app_no_access_token">Запрос не был авторизован. Повторите попытку или свяжитесь с технической поддержкой.</string>
+    <string name="error_app_context_parameters_empty">Не все параметры были заполнены, операция невозможна. Повторите попытку или свяжитесь с технической поддержкой.</string>
+    <string name="error_app_user_has_no_secrets">У пользователя нет дополнительных способов авторизации.</string>
+    <string name="error_app_not_equal">PIN-код не совпадает</string>
+    <!--Decrypt Error-->
+    <string name="error_decryption">Расшифровка не удалась, попробуйте войти при помощи пароля</string>
+    <string name="error_decryption_pin">Вход по PIN не удался (Неверный PIN)</string>
+    <string name="error_decryption_biom">Вход по отпечатку пальца не удался</string>
+    <string name="error_decryption_secret_key">Расшифровка не удалась, попробуйте войти при помощи пароля</string>
+    <string name="error_decryption_private_key">Расшифровка не удалась, попробуйте войти при помощи пароля</string>
+    <!--Api Error-->
+    <string name="error_api_password_recovery_failed">Восстановление пароля не удалось. Пожалуйста, проверьте правильность данных и попробуйте ещё раз.</string>
+    <string name="error_api_activation_failed">Активация не удалась. Пожалуйста, проверьте правильность введённых данных и попробуйте ещё раз.</string>
+    <string name="error_api_user_locked_out">Исчерпан лимит попыток ввода пароля. Пользователь был заблокирован. Подождите несколько минут и затем попробуйте ещё раз.</string>
+    <string name="error_api_already_activated">Пользователь уже активирован.</string>
+    <string name="error_api_reactivate_error">Повторная активация не удалась. Попробуйте ещё раз. Если проблема возникнет снова, обратитесь в поддержку.</string>
+    <string name="error_api_register_error">Регистрация не удалась. Попробуйте ещё раз. Если проблема возникнет снова, обратитесь в поддержку.</string>
+    <string name="error_api_phone_taken">Номер телефона, который вы хотите задать, уже используется.</string>
+    <string name="error_api_email_not_confirmed">Электронная почта не подтверждена. Подтвердите электронную почту.</string>
+    <string name="error_api_email_taken">Электронная почта, которую вы хотите задать уже используется.</string>
+    <string name="error_api_email_invalid">Неверная электронная почта.</string>
+    <string name="error_api_user_name_taken">Имя пользователя, которое вы пытаетесь добавить уже занято.</string>
+    <string name="error_api_user_name_invalid">Имя пользователя неверно.</string>
+    <string name="error_api_incorrect_password_format">Формат пароля неверен. Пожалуйста введите другой пароль.</string>
+    <string name="error_api_add_email_error">Электронная почта не была добавлена. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_verify_email_error">Подтверждение электронной почты не было успешным. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_delete_email_error">Электронная почта не была удалена. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_email_already_set">Электронная почта уже задана.</string>
+    <string name="error_api_add_phone_error">Телефон не был добавлен. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_verify_phone_error">Подтверждение телефона не было успешным. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_delete_phone_error">Телефон не был удален. Пожалуйста, попробуйте снова.</string>
+    <string name="error_api_phone_not_confirmed">Телефон не подтверждён. Подтвердите свой телефон.</string>
+    <string name="error_api_phone_already_set">Телефон уже задан.</string>
+    <string name="error_api_request">Ошибка запроса. Попробуйте позже.</string>
+    <string name="error_api_wrong_password">Неверный пароль</string>
+    <string name="error_api_user_exists">Пользователь с таким логином уже зарегистрирован.</string>
+    <string name="error_api_user_not_exist_message">Такой пользователь не зарегистрирован.</string>
+    <string name="error_api_wrong_verify_code">Введён неверный код или его время действия истекло. Проверьте правильность введённого кода или запросите новый код соответственно.</string>
+    <string name="error_api_user_not_active">Учетная запись пользователя не активирована.</string>
+    <string name="error_api_forbidden">Доступ запрещён.</string>
+    <!--#############  ERRORS END  #############-->
+
+
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
     <string name="set_error">Set error</string>
@@ -336,4 +396,48 @@
     <string name="biometric_decryption_authentication_succeeded">Biometric authentication Succeeded</string>
     <string name="biometric_decryption_authentication_failed">Biometric authentication Failed</string>
 
+    <!--Strings for dialogs for access_container module check-->
+    <string name="case_label_access_container">Проверка функционала access контейнера</string>
+    <string name="label_password">Пароль</string>
+    <string name="label_pin">PIN-код</string>
+    <string name="label_biom">Биометрический сканер</string>
+    <string name="dialog_change_btn">Другой способ</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="dialog_auth_title">Восстановить доступ</string>
+    <string name="dialog_auth_encrypt_title">Создать дополнительный способ входа</string>
+    <string name="dialog_auth_title_confirm">Подтвердить доступ</string>
+    <string name="common_password_hint">Пароль</string>
+    <string name="auth_login_forgot_password">Забыли пароль?</string>
+    <string name="auth_login_login_btn">Вход</string>
+    <string name="auth_re_login_another">Другой способ входа</string>
+    <string name="dialog_pin_title">PIN-код</string>
+    <string name="dialog_pin_create_btn">Создать</string>
+    <string name="common_continue_button">Продолжить</string>
+    <!--Strings for access_container module fragment-->
+    <string name="refresher_access_title">Текщий токен доступа:</string>
+    <string name="refresher_refresh_title">Текущий токен обновления(refresh):</string>
+    <string name="refresher_no_token">Сбросить информацию о токене после клика на кнопки кейсов</string>
+    <string name="refresher_settings_title">Настройки</string>
+    <string name="refresher_password_lable">Правильный пароль</string>
+    <string name="refresher_preferred_lable">Предпочитаемый способ входа</string>
+    <string name="refresher_pin_checkbox">PIN-код имеется</string>
+    <string name="refresher_biom_not_available">ВАЖНО! Отпечаток не поддерживается этим устройством (либо нет добавленных отпечатков)</string>
+    <string name="refresher_biom_checkbox">отпечаток имеется</string>
+    <string name="refresher_usecases_title">Настройка ошибок в usecase</string>
+    <string name="refresher_refresh_token">Показать ошибку для возобновления с токеном</string>
+    <string name="refresher_get_secrets">Показать ошибку при запросе списка секретов (способов входа)</string>
+    <string name="refresher_refresh">Показать ошибку при возобновлении</string>
+    <string name="refresher_refresh_secret">Показать ошибку при возобновлении через секрет</string>
+    <string name="refresher_check_secret">Показать ошибку при проверке секрета</string>
+    <string name="refresher_create_secret">Показать ошибку при создании секрета (способа входа)</string>
+    <string name="refresher_case_1"><b>Кейс 1. Обновление токена доступа.</b>\nОбновление токена доступа любым доступным способом. Если рефреш токен уже имеется в рефрешере, то диалоги для подтверждения доступа не используются. Если нет дополнительных способов входа, то используется пароль.</string>
+    <string name="refresher_refresh_button">Возобновить</string>
+    <string name="refresher_case_2"><b>Кейс 2. Проверка доступа.</b>\nПроверка доступа по дополнительным способам входа или паролю. Можно использовать с принудительным обновлением токена доступа или без.</string>
+    <string name="refresher_refresh_explicitly">Восстановить принудительно</string>
+    <string name="refresher_check_access_button">Проверить доступ</string>
+    <string name="refresher_case_3"><b>Кейс 3. Получение секретного ключа шифрования.</b>\nКлюч шифрования получается путём ввода одного из дополнительных способов входа, в противном случае выдаётся ошибка об отсутствии дополнительных способов входа.</string>
+    <string name="refresher_correct_secret">Верный секрет: secret</string>
+    <string name="refresher_get_secret_button">Получить секрет</string>
+    <string name="refresher_case_4"><b>Кейс 4. Сохранение рефреш токена.</b>\nИспользуется для сохранения рефреш токена при помощи дополнительных способов входа, заодно создаёт дополнительные способы входа заново. Рекомендуется использовать при отсутствии дополнительных способов входа, т.к. при их наличии может пересоздать ключи шифрования и предыдущие зашифрованные данные сотрутся, либо станут недоступны, поэтому при наличии доп. способов входа рекомендуется использовать сохранение после получения секрета (предыдущий метод) и не при помощи этого метода рефрешера.</string>
+    <string name="refresher_save_refresh_button">Сохранить токен восстановления</string>
 </resources>
