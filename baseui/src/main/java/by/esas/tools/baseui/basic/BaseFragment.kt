@@ -35,6 +35,7 @@ import by.esas.tools.util.defocusAndHideKeyboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
+
     val TAG: String = TAGk
 
     protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
@@ -56,8 +57,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     abstract fun provideFragmentResultListener(requestKey: String): FragmentResultListener?
 
     abstract fun provideErrorHandler(): ErrorHandler<M>
-
-    protected open fun provideProgressBar(): View? = null
 
     protected open fun providePermissions(parameters: Bundle?): Array<String> = emptyArray()
 
@@ -121,7 +120,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         super.onPause()
         logger.logOrder("onPause")
     }
-
 
     override fun onStop() {
         super.onStop()
@@ -193,16 +191,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
                 checkPermissions(providePermissions(action.parameters), action.parameters, true)
                 action.handled = true
             }
-            Action.ACTION_ENABLE_CONTROLS -> {
-                enableControls(action.parameters)
-                hideProgress()
-                action.handled = true
-            }
-            Action.ACTION_DISABLE_CONTROLS -> {
-                showProgress()
-                disableControls(action.parameters)
-                action.handled = true
-            }
             Action.ACTION_HIDE_KEYBOARD -> {
                 hideKeyboard(requireActivity())
                 action.handled = true
@@ -233,28 +221,49 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     }
 
     protected open fun showError(msg: String, showType: String, action: Action?) {
+        logger.logOrder("showError msg = $msg showType = $showType action = $action")
         hideProgress()
         when (showType) {
-            ShowErrorType.SHOW_NOTHING.name -> enableControls()
-            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
-                provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
-                    .setMessage(msg)
-                    .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
-                        dialogInterface?.dismiss()
-                        if (action != null)
-                            handleAction(action)
-                        enableControls()
-                    }.create().show()
-            }
-            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
-                showMessage(msg)
-                if (action != null)
-                    handleAction(action)
-                enableControls()
-            }
+            ShowErrorType.SHOW_NOTHING.name -> switchControlsOn()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> showErrorDialog(msg, action)
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> showErrorMessage(msg, action)
         }
     }
 
+    protected open fun showErrorDialog(msg: String, action: Action?) {
+        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
+            .setMessage(msg)
+            .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
+                dialogInterface?.dismiss()
+                if (action != null) {
+                    handleAction(action)
+                } else {
+                    // default behavior is to enable controls
+                    switchControlsOn()
+                }
+            }.create().show()
+    }
+
+    protected open fun showErrorMessage(msg: String, action: Action?) {
+        showMessage(msg)
+        if (action != null) {
+            handleAction(action)
+        } else {
+            // default behavior is to enable controls
+            switchControlsOn()
+        }
+    }
+
+    /**
+     * This method can check if permissions were accepted or denied,
+     * for denied permissions we have an option to request them
+     *
+     * NOTE! to use [parameters] you will need to override this method in your fragment
+     *
+     * @param permissions an array of permissions to check
+     * @param parameters some additional parameters in case we need some extra handling after the check
+     * @param request a flag indicating that we want to request permissions which were not accepted yet
+     */
     protected open fun checkPermissions(permissions: Array<String>, parameters: Bundle?, request: Boolean): Boolean {
         val denied: MutableList<String> = mutableListOf()
         permissions.forEach { permission ->
@@ -283,22 +292,6 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         logger.showMessage(textId, duration)
     }
 
-    protected open fun enableControls(parameters: Bundle? = null) {
-        logger.logInfo("enableControls")
-        provideSwitchableViews().forEach { switchable ->
-            if (switchable != null)
-                switcher.enableView(switchable)
-        }
-    }
-
-    protected open fun disableControls(parameters: Bundle? = null) {
-        logger.logInfo("disableControls")
-        provideSwitchableViews().forEach { switchable ->
-            if (switchable != null)
-                switcher.disableView(switchable)
-        }
-    }
-
     protected open fun hideSystemUi(activity: Activity?) {
         logger.logOrder("hideSystemUi")
         activity?.onWindowFocusChanged(true)
@@ -309,14 +302,42 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         defocusAndHideKeyboard(activity)
     }
 
+    /**
+     * Override this method if you have view which is indicator of some screen progress
+     * and you need to hide it (like progress bar)
+     */
     protected open fun hideProgress() {
         logger.logInfo("hideProgress")
-        provideProgressBar()?.visibility = View.INVISIBLE
     }
 
+    /**
+     * Override this method if you have view which is indicator of some screen progress
+     * and you need to show it (like progress bar)
+     */
     protected open fun showProgress() {
         logger.logInfo("showProgress")
-        provideProgressBar()?.visibility = View.VISIBLE
+    }
+
+    /**
+     * Use this method only to make control views on the screen interactive
+     * (like buttons, input fields, switchers, checkboxes and etc.)
+     */
+    protected open fun switchControlsOn() {
+        logger.logInfo("switchControlsOn")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null) switcher.enableView(switchable)
+        }
+    }
+
+    /**
+     * Use this method only to make control views on the screen non interactive
+     * (like buttons, input fields, switchers, checkboxes and etc.)
+     */
+    protected open fun switchControlsOff() {
+        logger.logInfo("switchControlsOff")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null) switcher.disableView(switchable)
+        }
     }
 
     //endregion helping methods

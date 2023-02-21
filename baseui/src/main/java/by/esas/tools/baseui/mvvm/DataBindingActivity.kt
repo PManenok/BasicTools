@@ -9,9 +9,11 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseActivity
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.handler.ShowErrorType
 
 /**
  * Base class for activity that inherits from [BaseActivity] and implements data binding.
@@ -25,7 +27,6 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
 
     abstract fun provideViewModel(): TViewModel
 
-
     abstract fun provideVariableInd(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,18 +35,7 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
         setupObservers()
     }
 
-    open fun setupObservers() {
-        setupActionObserver()
-    }
-
-    open fun setupActionObserver() {
-        viewModel.action.observe(this, Observer { action ->
-            if (action != null)
-                handleAction(action)
-        })
-    }
-
-    override fun setupRootView(){
+    override fun setupRootView() {
         viewModel = provideViewModel()
 
         binding = DataBindingUtil.setContentView(this, provideLayoutId())
@@ -67,13 +57,54 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
         return true
     }
 
-    protected override fun enableControls(parameters: Bundle?) {
-        super.enableControls(parameters)
-        viewModel.enableControls(false)
+    override fun showError(msg: String, showType: String, action: Action?) {
+        viewModel.hideProgress()
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING.name -> viewModel.enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> showErrorDialog(msg, action)
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> showErrorMessage(msg, action)
+        }
     }
 
-    protected override fun disableControls(parameters: Bundle?) {
-        viewModel.disableControls(false)
-        super.disableControls(parameters)
+    override fun showErrorDialog(msg: String, action: Action?) {
+        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
+            .setMessage(msg)
+            .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
+                dialogInterface?.dismiss()
+                if (action != null)
+                    handleAction(action)
+                viewModel.enableControls()
+            }.create().show()
     }
+
+    override fun showErrorMessage(msg: String, action: Action?) {
+        showMessage(msg)
+        if (action != null)
+            handleAction(action)
+        viewModel.enableControls()
+    }
+
+    //region setup observers
+
+    protected open fun setupObservers() {
+        setupActionObserver()
+        setupControlsObservers()
+    }
+
+    protected open fun setupActionObserver() {
+        viewModel.action.observe(this, Observer { action ->
+            if (action != null)
+                handleAction(action)
+        })
+    }
+
+    protected open fun setupControlsObservers() {
+        viewModel.controlsEnabled.observe(this, Observer { isEnabled ->
+            logger.logOrder("controlsEnabled Observer $isEnabled")
+            if (isEnabled) switchControlsOn()
+            else switchControlsOff()
+        })
+    }
+
+    //endregion setup observers
 }

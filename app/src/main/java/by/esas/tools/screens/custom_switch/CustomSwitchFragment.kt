@@ -15,6 +15,7 @@ import by.esas.tools.util.SwitchManager
 import by.esas.tools.util.defocusAndHideKeyboard
 
 class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBinding>() {
+
     override val fragmentDestinationId = R.id.customSwitchFragment
     override fun provideLayoutId() = R.layout.f_main_custom_switch
 
@@ -27,7 +28,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
 
     override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = true
                 true
             } else
@@ -35,7 +36,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = false
                 true
             } else
@@ -115,10 +116,8 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
             switcherIsChecked(true)
             setSwitchHandler(object : ISwitchHandler {
                 override fun onSwitchChange(isChecked: Boolean) {
-                    when (isChecked) {
-                        true -> enableControls()
-                        false -> disableControls()
-                    }
+                    if (isChecked) viewModel.enableControls()
+                    else viewModel.disableControls()
                 }
             })
         }

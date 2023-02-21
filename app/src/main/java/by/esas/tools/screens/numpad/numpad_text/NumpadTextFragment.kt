@@ -60,9 +60,9 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
         binding.fMainNumpadTextSwitcher.setSwitchHandler(object : ISwitchHandler {
             override fun onSwitchChange(isChecked: Boolean) {
                 if (isChecked)
-                    enableControls()
+                    viewModel.enableControls()
                 else
-                    disableControls()
+                    viewModel.disableControls()
             }
         })
 

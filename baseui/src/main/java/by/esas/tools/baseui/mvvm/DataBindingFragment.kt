@@ -12,9 +12,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import by.esas.tools.baseui.R
 import by.esas.tools.baseui.basic.BaseFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.handler.ShowErrorType
 
 abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
     : BaseFragment<M>() {
@@ -55,23 +57,6 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
 
     //endregion fragment lifecycle methods
 
-    //region Observer setups
-
-    open fun setupObservers() {
-        setupActionObserver()
-    }
-
-    open fun setupActionObserver() {
-        viewModel.action.observe(viewLifecycleOwner, Observer { action ->
-            if (action != null && !action.handled) {
-                logger.logOrder("action Observer $action")
-                handleAction(action)
-            }
-        })
-    }
-
-    //endregion Observer setups
-
     /**
      * Method handles action. If action was not handled by fragment's method - action is sent to viewModel.
      * @return Boolean (false in case if action was not handled by this method and true if it was handled)
@@ -87,15 +72,58 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
         return false
     }
 
-    protected override fun enableControls(parameters: Bundle?) {
-        super.enableControls(parameters)
-        viewModel.enableControls(false)
+    override fun showError(msg: String, showType: String, action: Action?) {
+        viewModel.hideProgress()
+        when (showType) {
+            ShowErrorType.SHOW_NOTHING.name -> viewModel.enableControls()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> showErrorDialog(msg, action)
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> showErrorMessage(msg, action)
+        }
     }
 
-    protected override fun disableControls(parameters: Bundle?) {
-        viewModel.disableControls(false)
-        super.disableControls(parameters)
+    override fun showErrorDialog(msg: String, action: Action?) {
+        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
+            .setMessage(msg)
+            .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
+                dialogInterface?.dismiss()
+                if (action != null)
+                    handleAction(action)
+                viewModel.enableControls()
+            }.create().show()
     }
+
+    override fun showErrorMessage(msg: String, action: Action?) {
+        showMessage(msg)
+        if (action != null)
+            handleAction(action)
+        viewModel.enableControls()
+    }
+
+    //region Observer setups
+
+    protected open fun setupObservers() {
+        setupActionObserver()
+        setupControlsObservers()
+    }
+
+    protected open fun setupActionObserver() {
+        viewModel.action.observe(viewLifecycleOwner, Observer { action ->
+            if (action != null && !action.handled) {
+                logger.logOrder("action Observer $action")
+                handleAction(action)
+            }
+        })
+    }
+
+    protected open fun setupControlsObservers() {
+        viewModel.controlsEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            logger.logOrder("controlsEnabled Observer $isEnabled")
+            if (isEnabled) switchControlsOn()
+            else switchControlsOff()
+        })
+    }
+
+    //endregion Observer setups
 
     protected fun isBindingInitialized() = ::binding.isInitialized
 }

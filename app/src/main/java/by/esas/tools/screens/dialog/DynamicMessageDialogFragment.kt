@@ -44,7 +44,7 @@ class DynamicMessageDialogFragment :
                 if (!actionName.isNullOrBlank()) {
                     handleAction(Action(actionName, result))
                 } else {
-                    enableControls(result)
+                    viewModel.enableControls()
                 }
             }
         } else {

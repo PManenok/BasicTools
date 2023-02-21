@@ -74,12 +74,6 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         }
     }
 
-    override fun enableControls(parameters: Bundle?) {
-        super.enableControls(parameters)
-
-        binding.fBaseuiSwitcher.isChecked = true
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -95,8 +89,8 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         }
 
         binding.fBaseuiSwitcher.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) enableControls()
-            else disableControls()
+            if (isChecked) viewModel.enableControls()
+            else viewModel.disableControls()
         }
 
         binding.fBaseuiFunctionalityPermissionCheckBtn.setOnClickListener {
@@ -170,5 +164,11 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
                 )
             )
         }
+    }
+
+    override fun switchControlsOn() {
+        super.switchControlsOn()
+
+        binding.fBaseuiSwitcher.isChecked = true
     }
 }

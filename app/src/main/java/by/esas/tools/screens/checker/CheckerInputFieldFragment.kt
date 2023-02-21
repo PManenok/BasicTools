@@ -72,11 +72,11 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
     override fun provideChecker(): Checker {
         return AppChecker().setMode(false).setListener(object : Checker.CheckListener {
             override fun onFailed() {
-                enableControls()
+                viewModel.enableControls()
             }
 
             override fun onSuccess() {
-                enableControls()
+                viewModel.enableControls()
                 Toast.makeText(context, resources.getString(R.string.checker_everything_correct), Toast.LENGTH_LONG).show()
             }
         })

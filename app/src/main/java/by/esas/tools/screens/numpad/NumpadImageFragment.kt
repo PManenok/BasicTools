@@ -61,9 +61,9 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
         binding.fMainNumpadSwitcher.setSwitchHandler(object : ISwitchHandler{
             override fun onSwitchChange(isChecked: Boolean) {
                 if (isChecked)
-                    enableControls()
+                    viewModel.enableControls()
                 else
-                    disableControls()
+                    viewModel.disableControls()
             }
         })
         binding.fMainNumpadImage.setNumpadHandler(object : INumPadHandler {

@@ -57,11 +57,11 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
         binding.fDomainCasePlayBtn.setOnClickListener {
             AppChecker().setListener(object : Checker.CheckListener {
                 override fun onFailed() {
-                    enableControls()
+                    viewModel.enableControls()
                 }
 
                 override fun onSuccess() {
-                    enableControls()
+                    viewModel.enableControls()
                     viewModel.playRandomNumber(
                         binding.fDomainCaseRange.getText().toInt(),
                         binding.fDomainCaseNumber.getText().toInt()
@@ -74,11 +74,11 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
 
             AppChecker().setListener(object : Checker.CheckListener {
                 override fun onFailed() {
-                    enableControls()
+                    viewModel.enableControls()
                 }
 
                 override fun onSuccess() {
-                    enableControls()
+                    viewModel.enableControls()
                     val aesResult = viewModel.encryptAES(binding.fDomainCaseInputEncryptAes.getText())
                     binding.fDomainCaseEncryptAesData.text = resources.getString(R.string.domain_case_encrypt) + aesResult.first
                     binding.fDomainCaseDecryptAesData.text = resources.getString(R.string.domain_case_decrypt) + aesResult.second
@@ -90,11 +90,11 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
             val checks = listOf(FieldChecking(binding.fDomainCaseInputEncryptRsa, true))
             AppChecker().setListener(object : Checker.CheckListener {
                 override fun onFailed() {
-                    enableControls()
+                    viewModel.enableControls()
                 }
 
                 override fun onSuccess() {
-                    enableControls()
+                    viewModel.enableControls()
                     val rsaResult = viewModel.encryptRSA(binding.fDomainCaseInputEncryptRsa.getText())
                     binding.fDomainCaseEncryptRsaData.text = resources.getString(R.string.domain_case_encrypt) + rsaResult.first
                     binding.fDomainCaseDecryptRsaData.text = resources.getString(R.string.domain_case_decrypt) + rsaResult.second

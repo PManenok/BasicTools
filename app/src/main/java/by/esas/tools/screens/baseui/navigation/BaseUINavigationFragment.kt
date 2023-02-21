@@ -33,11 +33,11 @@ class BaseUINavigationFragment: AppFragment<BaseUINavigationVM, FMainBaseuiNavig
     override fun provideChecker(): Checker {
         return AppChecker().setMode(false).setListener(object : Checker.CheckListener {
             override fun onFailed() {
-                enableControls()
+                viewModel.enableControls()
             }
 
             override fun onSuccess() {
-                enableControls()
+                viewModel.enableControls()
                 viewModel.navigateToSecondFragment(binding.fBaseeuiNavigationInputField.getText())
             }
         })

@@ -57,7 +57,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
                     if (!actionName.isNullOrBlank()) {
                         viewModel.handleAction(Action(actionName, result))
                     } else {
-                        enableControls(result)
+                        viewModel.enableControls()
                     }
                 }
             }

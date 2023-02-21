@@ -15,9 +15,9 @@
             style="@style/SwitcherStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:trackTint="@color/switcher_selector"
+            android:text="@string/checker_switcher_title"
             app:thumbTint="@color/white"
-            android:text="@string/checker_switcher_title"/>
+            app:trackTint="@color/switcher_selector" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_2"
-                    android:hint="@string/hint_add_value"/>
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -56,8 +56,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -71,8 +71,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -86,8 +86,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -101,8 +101,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -116,8 +116,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -131,8 +131,8 @@
                     style="@style/FieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_add_value"
-                    android:layout_marginTop="@dimen/spacing_2" />
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:hint="@string/hint_add_value" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -143,10 +143,10 @@
 
                 <DatePicker
                     android:id="@+id/f_checker_calendar"
-                    android:background="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_6"/>
+                    android:layout_marginTop="@dimen/spacing_6"
+                    android:background="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,19 +158,19 @@
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:inputEditable="false"
                         android:layout_marginTop="@dimen/spacing_6"
-                        android:layout_marginEnd="@dimen/spacing_12"/>
+                        android:layout_marginEnd="@dimen/spacing_12"
+                        android:layout_weight="1"
+                        app:inputEditable="false" />
 
                     <Spinner
                         android:id="@+id/f_checker_pattern_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"
                         android:entries="@array/checker_date_pattern"
-                        android:layout_gravity="center"/>
+                        android:popupBackground="@color/white" />
 
                 </LinearLayout>
 
@@ -178,8 +178,8 @@
                     style="@style/HintTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/checker_date_help_text"
-                    android:layout_marginTop="@dimen/spacing_2"/>
+                    android:layout_marginTop="@dimen/spacing_2"
+                    android:text="@string/checker_date_help_text" />
 
             </LinearLayout>
         </ScrollView>

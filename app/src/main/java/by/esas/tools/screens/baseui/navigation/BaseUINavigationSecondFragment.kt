@@ -29,11 +29,11 @@ class BaseUINavigationSecondFragment: AppFragment<BaseUINavigationSecondVM, FMai
     override fun provideChecker(): Checker {
         return AppChecker().setMode(false).setListener(object : Checker.CheckListener {
             override fun onFailed() {
-                enableControls()
+                viewModel.enableControls()
             }
 
             override fun onSuccess() {
-                enableControls()
+                viewModel.enableControls()
                 val bundle = Bundle()
                 bundle.putString(BaseUINavigationFragment.ARGUMENTS_DATA, binding.fBaseuiNavigationSecondInputField.getText())
                 viewModel.popBack(0, inclusive = false, parameters = bundle)

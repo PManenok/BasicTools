@@ -8,7 +8,11 @@ package by.esas.tools.baseui.mvvm
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import by.esas.tools.logger.*
+import by.esas.tools.logger.Action
+import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.logger.BaseLoggerImpl
+import by.esas.tools.logger.IErrorMapper
+import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.TAGk
@@ -20,9 +24,9 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
     open var logger: ILogger<*> = BaseLoggerImpl(TAGk)
     abstract fun provideMapper(): IErrorMapper<M>
 
-    val progressing = MutableLiveData<Boolean>(false)
     val action: MutableLiveData<Action?> = MutableLiveData<Action?>(null)
-    val controlsEnabled: MutableLiveData<Boolean> = MutableLiveData<Boolean>(true)
+    open val progressing = MutableLiveData<Boolean>(false)
+    open val controlsEnabled: MutableLiveData<Boolean> = MutableLiveData<Boolean>(true)
 
     override fun onCleared() {
         super.onCleared()
@@ -93,24 +97,20 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
 
     /**
      * Block possibility to interact with UI (buttons, fields end etc. if other is not set)
-     * Also shows progress and requests disable action
+     * Also shows progress
      */
-    open fun disableControls(sendAction: Boolean = true) {
+    open fun disableControls() {
         logger.logOrder("disableControls")
         showProgress()
         controlsEnabled.postValue(false)
-        if (sendAction)
-            action.postValue(Action(Action.ACTION_DISABLE_CONTROLS))
     }
 
     /**
      * Return possibility to interact with UI (buttons, fields end etc. if other is not set)
-     * Also hides progress and requests enable action
+     * Also hides progress
      */
-    open fun enableControls(sendAction: Boolean = true) {
+    open fun enableControls() {
         logger.logOrder("enableControls")
-        if (sendAction)
-            action.postValue(Action(Action.ACTION_ENABLE_CONTROLS))
         controlsEnabled.postValue(true)
         hideProgress()
     }

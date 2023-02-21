@@ -60,7 +60,7 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
                 if (statusesResult != null && modulesResult != null) {
                     viewModel.onFilterChanged(statusesResult.toList(), modulesResult.toList())
                 } else {
-                    enableControls(result)
+                    viewModel.enableControls()
                 }
             }
         } else {

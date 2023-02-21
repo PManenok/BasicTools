@@ -57,9 +57,9 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
         binding.fMainListheaderSwitcher.setSwitchHandler(object : ISwitchHandler {
             override fun onSwitchChange(isChecked: Boolean) {
                 if (isChecked)
-                    enableControls()
+                    viewModel.enableControls()
                 else
-                    disableControls()
+                    viewModel.disableControls()
             }
         })
 

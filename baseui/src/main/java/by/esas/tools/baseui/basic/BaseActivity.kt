@@ -70,8 +70,6 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
      * */
     abstract fun provideFragmentResultListener(requestKey: String): FragmentResultListener?
 
-    protected open fun provideProgressBar(): View? = null
-
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(doWithAttachBaseContext(base))
     }
@@ -207,16 +205,6 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
                 handleFinishAction(action.parameters)
                 action.handled = true
             }
-            Action.ACTION_ENABLE_CONTROLS -> {
-                enableControls()
-                hideProgress()
-                action.handled = true
-            }
-            Action.ACTION_DISABLE_CONTROLS -> {
-                showProgress()
-                disableControls()
-                action.handled = true
-            }
             Action.ACTION_HIDE_KEYBOARD -> {
                 hideKeyboard(this)
                 action.handled = true
@@ -248,24 +236,33 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         logger.logOrder("showError msg = $msg showType = $showType action = $action")
         hideProgress()
         when (showType) {
-            ShowErrorType.SHOW_NOTHING.name -> enableControls()
-            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
-                provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
-                    .setMessage(msg)
-                    .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
-                        dialogInterface?.dismiss()
-                        if (action != null)
-                            handleAction(action)
-                        else
-                            enableControls() // default behavior is to enable controls
-                    }.create().show()
-            }
-            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
-                showMessage(msg)
-                if (action != null)
+            ShowErrorType.SHOW_NOTHING.name -> switchControlsOn()
+            ShowErrorType.SHOW_ERROR_DIALOG.name -> showErrorDialog(msg, action)
+            ShowErrorType.SHOW_ERROR_MESSAGE.name -> showErrorMessage(msg, action)
+        }
+    }
+
+    protected open fun showErrorDialog(msg: String, action: Action?) {
+        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
+            .setMessage(msg)
+            .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
+                dialogInterface?.dismiss()
+                if (action != null) {
                     handleAction(action)
-                enableControls()
-            }
+                } else {
+                    // default behavior is to enable controls
+                    switchControlsOn()
+                }
+            }.create().show()
+    }
+
+    protected open fun showErrorMessage(msg: String, action: Action?) {
+        showMessage(msg)
+        if (action != null) {
+            handleAction(action)
+        } else {
+            // default behavior is to enable controls
+            switchControlsOn()
         }
     }
 
@@ -294,35 +291,9 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         logger.showMessage(textId, duration)
     }
 
-    protected open fun enableControls(parameters: Bundle? = null) {
-        logger.logOrder("enableControls")
-        provideSwitchableViews().forEach { switchable ->
-            if (switchable != null)
-                switcher.enableView(switchable)
-        }
-    }
-
-    protected open fun disableControls(parameters: Bundle? = null) {
-        logger.logOrder("disableControls")
-        provideSwitchableViews().forEach { switchable ->
-            if (switchable != null)
-                switcher.disableView(switchable)
-        }
-    }
-
     protected open fun hideKeyboard(activity: Activity?) {
         logger.logOrder("hideKeyboard")
         defocusAndHideKeyboard(activity)
-    }
-
-    protected open fun hideProgress() {
-        logger.logOrder("hideProgress")
-        provideProgressBar()?.visibility = View.INVISIBLE
-    }
-
-    protected open fun showProgress() {
-        logger.logOrder("hideProgressshowProgress")
-        provideProgressBar()?.visibility = View.VISIBLE
     }
 
     protected open fun hideSystemUI() {
@@ -346,10 +317,48 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         }
     }
 
+    /**
+     * Override this method if you have view which is indicator of some screen progress
+     * and you need to hide it (like progress bar)
+     */
+    protected open fun hideProgress() {
+        logger.logInfo("hideProgress")
+    }
+
+    /**
+     * Override this method if you have view which is indicator of some screen progress
+     * and you need to show it (like progress bar)
+     */
+    protected open fun showProgress() {
+        logger.logInfo("showProgress")
+    }
+
+    /**
+     * Use this method only to make control views on the screen interactive
+     * (like buttons, input fields, switchers, checkboxes and etc.)
+     */
+    protected open fun switchControlsOn() {
+        logger.logInfo("switchControlsOn")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null) switcher.enableView(switchable)
+        }
+    }
+
+    /**
+     * Use this method only to make control views on the screen non interactive
+     * (like buttons, input fields, switchers, checkboxes and etc.)
+     */
+    protected open fun switchControlsOff() {
+        logger.logInfo("switchControlsOff")
+        provideSwitchableViews().forEach { switchable ->
+            if (switchable != null) switcher.disableView(switchable)
+        }
+    }
+
     //endregion  helping methods
 
     //region settings methods
-    open fun setupRootView(){
+    open fun setupRootView() {
         setContentView(provideLayoutId())
     }
     //endregion settings methods

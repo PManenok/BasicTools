@@ -81,22 +81,6 @@ class GetPasswordDialog : BindingDialogFragment<DfPasswordBinding>() {
     }
 
     private fun validatePassword() {
-        /*disableControls()
-        Validator.with(App.appContext).setListener(object : Validator.OnValidateListener {
-            override fun onValidateFailed() {
-                enableControls()
-            }
-
-            override fun onValidateSuccess(values: List<String>) {
-                callback?.onPasswordComplete(
-                    df_password_layout.inputText.text.toString(),
-                    isChecked.get()
-                )
-                afterOk = true
-                enableControls()
-                dismiss()
-            }
-        }).validate(*validationList.toTypedArray())*/
         setPasswordCompleteResult(password.get() ?: "", isChecked.get())
         enableControls()
         dismiss()

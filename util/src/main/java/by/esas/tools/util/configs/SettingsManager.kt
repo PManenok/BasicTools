@@ -71,7 +71,7 @@ object SettingsManager {
             Locale.setDefault(locale)
             when {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> setLocaleForApi24(config, locale)
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 -> config.setLocale(locale)
+                else -> config.setLocale(locale)
             }
         }
         return config

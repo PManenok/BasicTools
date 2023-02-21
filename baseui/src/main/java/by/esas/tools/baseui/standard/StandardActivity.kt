@@ -17,8 +17,6 @@ import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.handler.ShowErrorType
 
 abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
     : DataBindingActivity<VM, B, M>(), IHandlePopBackArguments {
@@ -64,18 +62,21 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
      * */
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return if (requestKey == ERROR_MESSAGE_DIALOG) {
-            FragmentResultListener { key, result ->
+            FragmentResultListener { _, result ->
                 val actionName = result.getString(DIALOG_ACTION_NAME)
                 if (!actionName.isNullOrBlank()) {
                     handleAction(Action(actionName, result))
                 } else {
-                    enableControls(result)
+                    if (!result.isEmpty)
+                        handleAction(Action(Action.ACTION_NOT_SET, result))
+                    viewModel.enableControls()
                 }
             }
         } else {
             null
         }
     }
+
     //endregion Observer setups
 
     override fun handleAction(action: Action): Boolean {
@@ -95,28 +96,15 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
         return true
     }
 
-    protected override fun showError(msg: String, showType: String, action: Action?) {
-        logger.logOrder("showError msg = $msg showType = $showType action = $action")
-        hideProgress()
-        when (showType) {
-            ShowErrorType.SHOW_NOTHING.name -> enableControls()
-            ShowErrorType.SHOW_ERROR_DIALOG.name -> {
-                val dialog = MessageDialog(false).apply {
-                    setRequestKey(ERROR_MESSAGE_DIALOG)
-                    setTitle(R.string.base_ui_error_title)
-                    setMessage(msg)
-                    setPositiveButton(R.string.base_ui_common_ok_btn, action?.name)
-                    action?.parameters?.let { params -> setParams(params) }
-                }
-                onShowDialog(dialog, dialog.TAG)
-            }
-            ShowErrorType.SHOW_ERROR_MESSAGE.name -> {
-                showMessage(msg)
-                if (action != null)
-                    handleAction(action)
-                enableControls()
-            }
+    override fun showErrorDialog(msg: String, action: Action?) {
+        val dialog = MessageDialog(false).apply {
+            setRequestKey(ERROR_MESSAGE_DIALOG)
+            setTitle(R.string.base_ui_error_title)
+            setMessage(msg)
+            setPositiveButton(R.string.base_ui_common_ok_btn, action?.name)
+            action?.parameters?.let { params -> setParams(params) }
         }
+        onShowDialog(dialog, dialog.TAG)
     }
 
     protected open fun onChangeLanguage(lang: String?, params: Bundle?) {
