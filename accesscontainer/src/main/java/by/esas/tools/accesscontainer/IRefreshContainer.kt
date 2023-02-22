@@ -18,14 +18,13 @@ interface IRefreshContainer<M : BaseErrorModel> {
 
     fun setCancellationCallback(callback: IContainerCancellationCallback)
     fun setActivity(activity: FragmentActivity)
-    fun setParams(manager: FragmentManager)
     fun setForgotPasswordAction(enable: Boolean, forgotPasswordAction: () -> Unit)
 
     /**
      * This function can refresh token without secret key
      * Access token would be refreshed anyway
      **/
-    fun refresh(onComplete: (String?) -> Unit, onError: (BaseErrorModel) -> Unit, onCancel: () -> Unit)
+    fun refresh(onComplete: (String?) -> Unit, onError: (M) -> Unit, onCancel: () -> Unit)
 
     /**
      * This function would always invoke dialogs with secrets if it can, because it checks if user can access secret
@@ -41,8 +40,7 @@ interface IRefreshContainer<M : BaseErrorModel> {
     fun saveRefresh(refreshToken: String, response: ContainerRequest<String, M>.() -> Unit)
 
     /**
-     * This function can save refresh token, it invokes only encryption dialogs
-     * Should be used only when no secret exist, because it will override old secrets
+     * This function return secret after PIN or Biometric decryption success
      **/
     fun getSecret(response: ContainerRequest<String, M>.() -> Unit)
 

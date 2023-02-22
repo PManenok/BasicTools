@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="by.esas.tools.screens.access_container.AccessContainerVM" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_16">
+
+            <by.esas.tools.cardline.CardLine
+                android:id="@+id/f_main_refresher_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardContainerPaddingBottom="@dimen/spacing_4"
+                app:cardContainerPaddingTop="@dimen/spacing_4"
+                app:cardTitle="@string/refresher_access_title"
+                app:cardTitleTextAppearance="@style/TextStyle.Normal16"
+                app:cardTitleWidthPercent="0.4"
+                app:cardValue="@{viewModel.currentToken}"
+                app:cardValueTextAppearance="@style/TextStyle.Normal16"
+                tools:cardValue="accessToken" />
+
+            <by.esas.tools.cardline.CardLine
+                android:id="@+id/f_main_refresher_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardContainerPaddingBottom="@dimen/spacing_4"
+                app:cardContainerPaddingTop="@dimen/spacing_4"
+                app:cardTitle="@string/refresher_refresh_title"
+                app:cardTitleTextAppearance="@style/TextStyle.Normal16"
+                app:cardTitleWidthPercent="0.4"
+                app:cardValue="@{viewModel.currentRefresh}"
+                app:cardValueTextAppearance="@style/TextStyle.Normal16"
+                tools:cardValue="refreshToken" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/f_main_refresher_no_token"
+                style="@style/SwitchStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.noToken}"
+                android:text="@string/refresher_no_token" />
+
+            <by.esas.tools.listheader.ListHeader
+                android:id="@+id/f_main_refresher_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:listContainerClickable="@{viewModel.controlsEnabled}"
+                app:listContainerPaddingBottom="@dimen/spacing_12"
+                app:listContainerPaddingTop="@dimen/spacing_8"
+                app:listDefaultBehaviorEnabled="true"
+                app:listTitle="@string/refresher_settings_title"
+                app:listTitleTextAppearance="@style/TextStyle.Normal24">
+
+                <!--LinearLayout container added because some inner views have own logic for visibility-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <by.esas.tools.inputfieldview.InputFieldView
+                        android:id="@+id/f_main_refresher_password"
+                        style="@style/FieldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.correctPassword}"
+                        app:inputLabel="@string/refresher_password_lable"
+                        app:inputLabelType="on_top" />
+
+                    <by.esas.tools.inputfieldview.InputFieldView
+                        android:id="@+id/f_main_refresher_preferred"
+                        style="@style/FieldStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_8"
+                        android:inputType="none"
+                        android:text="@{viewModel.preferredTypeText}"
+                        app:enableControls="@{viewModel.controlsEnabled}"
+                        app:inputClickViewEnabled="true"
+                        app:inputIsEnableable="false"
+                        app:inputLabel="@string/refresher_preferred_lable"
+                        app:inputLabelType="on_top"
+                        app:onClickViewListener="@{()->viewModel.onPickPreferredType()}" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/f_main_refresher_pin"
+                        style="@style/CheckBoxStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.pinAvailable}"
+                        android:text="@string/refresher_pin_checkbox" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/f_main_refresher_biom_note"
+                        style="@style/TextStyle.Normal16.Red"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/refresher_biom_not_available"
+                        app:visibilityGone="@{!viewModel.isBiometricAvailable}" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/f_main_refresher_biom"
+                        style="@style/CheckBoxStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.biomAvailable}"
+                        android:text="@string/refresher_biom_checkbox"
+                        app:visibilityGone="@{viewModel.isBiometricAvailable}" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/f_main_refresher_errors_title"
+                        style="@style/TextStyle.Medium16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_16"
+                        android:text="@string/refresher_usecases_title" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_1"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnRefreshWithToken}"
+                        android:text="@string/refresher_refresh_token" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_2"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnGetSecrets}"
+                        android:text="@string/refresher_get_secrets" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_3"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnRefresh}"
+                        android:text="@string/refresher_refresh" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_4"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnRefreshWithSecret}"
+                        android:text="@string/refresher_refresh_secret" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_5"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnCheckSecret}"
+                        android:text="@string/refresher_check_secret" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/f_main_refresher_error_6"
+                        style="@style/SwitchStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.errorOnCreateSecret}"
+                        android:text="@string/refresher_create_secret" />
+                </LinearLayout>
+            </by.esas.tools.listheader.ListHeader>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/f_main_refresher_case1"
+                style="@style/TextStyle.Normal16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/refresher_case_1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_refresher_refresh_click"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:clickable="@{viewModel.controlsEnabled}"
+                android:onClick="@{()->viewModel.onRefreshAccess()}"
+                android:text="@string/refresher_refresh_button" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/f_main_refresher_case2"
+                style="@style/TextStyle.Normal16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/refresher_case_2" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/f_main_refresher_refresh_explicitly"
+                style="@style/SwitchStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.refreshExplicitly}"
+                android:text="@string/refresher_refresh_explicitly" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_refresher_check_access_click"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="@{viewModel.controlsEnabled}"
+                android:onClick="@{()->viewModel.onCheckAccess()}"
+                android:text="@string/refresher_check_access_button" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/f_main_refresher_case3"
+                style="@style/TextStyle.Normal16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/refresher_case_3" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/f_main_refresher_secret"
+                style="@style/TextStyle.Medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/refresher_correct_secret" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_refresher_get_secret_click"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:clickable="@{viewModel.controlsEnabled}"
+                android:onClick="@{()->viewModel.onGetSecret()}"
+                android:text="@string/refresher_get_secret_button" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/f_main_refresher_case4"
+                style="@style/TextStyle.Normal16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:text="@string/refresher_case_4" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_refresher_save_refresh_click"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:clickable="@{viewModel.controlsEnabled}"
+                android:onClick="@{()->viewModel.onSaveRefresh()}"
+                android:text="@string/refresher_save_refresh_button" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

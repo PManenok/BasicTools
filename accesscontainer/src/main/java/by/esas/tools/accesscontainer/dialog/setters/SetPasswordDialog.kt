@@ -5,11 +5,14 @@
 
 package by.esas.tools.accesscontainer.dialog.setters
 
-interface SetPasswordDialog :
-    IDialogSetter {
-    fun setCancelTitle(cancelBtnRes: Int)
-    fun setShowRecreateAuth(recreate: Boolean)
-    fun setForgotPassword(forgotPasswordActionEnable: Boolean)
+interface SetPasswordDialog : IDialogSetter {
+    fun setupParameterBundle(
+        cancelBtnRes: Int,
+        anotherBtnRes: Int,
+        isCancellable: Boolean,
+        showAnother: Boolean,
+        forgotPasswordActionEnable: Boolean
+    )
 
-    fun setCallbacks(complete: (String, Boolean) -> Unit, forgot: () -> Unit)
+    fun setupResultHandler(handler: PasswordResultHandler)
 }

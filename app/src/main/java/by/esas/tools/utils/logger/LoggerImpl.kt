@@ -1,6 +1,8 @@
 package by.esas.tools.utils.logger
 
 import android.util.Log
+import android.widget.Toast
+import by.esas.tools.App
 import by.esas.tools.logger.ILogger
 
 class LoggerImpl : ILogger<ErrorModel> {
@@ -10,11 +12,11 @@ class LoggerImpl : ILogger<ErrorModel> {
     }
 
     override fun showMessage(msg: String, length: Int) {
-
+        Toast.makeText(App.instance, msg, length).show()
     }
 
     override fun showMessage(msgRes: Int, length: Int) {
-
+        showMessage(App.appContext.getString(msgRes), length)
     }
 
     override fun log(tag: String, msg: String, level: Int) {

@@ -107,6 +107,9 @@
         <action
             android:id="@+id/action_menuFragment_to_loggerFragment"
             app:destination="@id/loggerFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_accessContainerFragment"
+            app:destination="@id/accessContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinViewFragment"
@@ -281,4 +284,9 @@
         android:name="by.esas.tools.screens.logger.LoggerFragment"
         android:label="@string/case_label_logger"
         tools:layout="@layout/f_main_logger"/>
+    <fragment
+        android:id="@+id/accessContainerFragment"
+        android:name="by.esas.tools.screens.access_container.AccessContainerFragment"
+        android:label="@string/case_label_access_container"
+        tools:layout="@layout/f_main_refresher" />
 </navigation>

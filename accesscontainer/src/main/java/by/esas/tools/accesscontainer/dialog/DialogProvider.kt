@@ -5,6 +5,7 @@
 
 package by.esas.tools.accesscontainer.dialog
 
+import androidx.fragment.app.FragmentActivity
 import by.esas.tools.accesscontainer.dialog.setters.MenuDialogSetter
 import by.esas.tools.accesscontainer.dialog.setters.SetBiometricDialog
 import by.esas.tools.accesscontainer.dialog.setters.SetPasswordDialog
@@ -16,10 +17,10 @@ abstract class DialogProvider {
     abstract val pinDialog: SetPinDialog
     abstract val biom: SetBiometricDialog
 
-    fun clear() {
-        passwordDialog.clear()
-        menuDialog.clear()
-        pinDialog.clear()
+    fun clear(context: FragmentActivity?) {
+        passwordDialog.clear(context)
+        menuDialog.clear(context)
+        pinDialog.clear(context)
         biom.clear()
     }
 }

@@ -4,16 +4,16 @@ import androidx.lifecycle.ViewModel
 import by.esas.tools.basedaggerui.factory.AssistedSavedStateViewModelFactory
 import by.esas.tools.basedaggerui.qualifier.ViewModelKey
 import by.esas.tools.screens.MainVM
+import by.esas.tools.screens.access_container.AccessContainerVM
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondVM
 import by.esas.tools.screens.baseui.navigation.BaseUINavigationVM
 import by.esas.tools.screens.baseui.other.BaseUIFunctionalityVM
 import by.esas.tools.screens.baseui.ui.BaseUIThemeVM
 import by.esas.tools.screens.biometric.BiometricDecryptionVM
-import by.esas.tools.screens.listheader.ListheaderVM
-import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.cardline.CardlineVM
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineVM
 import by.esas.tools.screens.checker.CheckerInputFieldVM
+import by.esas.tools.screens.custom_switch.CustomSwitchVM
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramVM
 import by.esas.tools.screens.dialog.DynamicMessageDialogVM
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogVM
@@ -21,6 +21,7 @@ import by.esas.tools.screens.domain.DomainCaseVM
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconVM
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewVM
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconVM
+import by.esas.tools.screens.listheader.ListheaderVM
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderVM
 import by.esas.tools.screens.logger.LoggerVM
 import by.esas.tools.screens.menu.MenuVM
@@ -220,4 +221,9 @@ abstract class ViewModelBuilder {
     @IntoMap
     @ViewModelKey(LoggerVM::class)
     abstract fun bindLoggerVM(viewModel: LoggerVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AccessContainerVM::class)
+    abstract fun bindAccessContainerVM(viewModel: AccessContainerVM): ViewModel
 }

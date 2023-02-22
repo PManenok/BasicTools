@@ -7,6 +7,7 @@ package by.esas.tools.inputfieldview
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -21,6 +22,19 @@ fun setClearEndIcon(view: InputFieldView, enabled: Boolean) {
 @BindingAdapter("inputEditable")
 fun setEditable(view: InputFieldView, editable: Boolean) {
     view.setInputIsEnableableValue(editable)
+}
+
+@BindingAdapter("enableControls")
+fun setEnableControls(view: InputFieldView, enable: Boolean) {
+    if (enable)
+        view.enableView()
+    else
+        view.disableView()
+}
+
+@BindingAdapter("onClickViewListener")
+fun setOnClickViewListener(view: InputFieldView, listener: View.OnClickListener) {
+    view.setClickViewListener(listener)
 }
 
 @BindingAdapter("inputStartIconIsCheckable")

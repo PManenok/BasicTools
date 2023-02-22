@@ -1,5 +1,7 @@
 package by.esas.tools.app_domain.error_mapper
 
+import by.esas.tools.accesscontainer.error.ErrorStatusEnum
+
 enum class AppErrorStatusEnum {
     OK,
     NOT_SET,
@@ -21,20 +23,15 @@ enum class AppErrorStatusEnum {
 
     //App
     APP_UNPREDICTED_ERROR,
-    APP_INVOICE_NOT_ADDED,
-    APP_INVOICE_NOT_CHANGED,
-    APP_INVOICE_NOT_FOUND,
-    APP_INVOICE_QR_NOT_FOUND,
     APP_DATE_IN_UNEXPECTED_FORMAT,
     APP_ILLEGAL_PATTERN_CHARACTER,
 
     APP_NO_ACCESS_TOKEN,
-    APP_INVOICE_ID_NOT_SET,
-    APP_INVOICE_NOT_SET,
     APP_CONTEXT_PARAMETERS_EMPTY,
     APP_USER_HAS_NO_SECRETS,
 
     //Decryption
+    BIOMETRIC_UNAVAILABLE,
     SECRET_CHECK_NOT_MATCH,
     DECRYPTION_FAILED,
     APP_REFRESH_TOKEN_DECRYPTION_FAILED,
@@ -75,19 +72,25 @@ enum class AppErrorStatusEnum {
     API_DELETE_PHONE_ERROR,
     API_PHONE_NUMBER_NOT_CONFIRMED,
     API_PHONE_ALREADY_SET,
-    API_CODE_INVALID_OR_EXPIRED,
-
-    EPOS_INVOICE_NUMBER_TAKEN,
-    SERVICE_INFO_NOT_FOUND,
-    CURRENCY_INFO_NOT_FOUND,
-    INVOICES_GET_NOT_FOUND;
+    API_CODE_INVALID_OR_EXPIRED;
 
     companion object {
         fun getAppErrorStatusEnum(value: String): AppErrorStatusEnum {
             return try {
                 valueOf(value)
-            } catch (e: IllegalStateException) {
-                NOT_SET
+            } catch (e: IllegalArgumentException) {
+                mapToAppErrorStatus(value)
+            }
+        }
+
+        private fun mapToAppErrorStatus(value: String): AppErrorStatusEnum {
+            return try {
+                when (ErrorStatusEnum.valueOf(value)) {
+                    ErrorStatusEnum.HAS_NO_SECRETS -> APP_USER_HAS_NO_SECRETS
+                    ErrorStatusEnum.SECRET_CHECK_NOT_MATCH -> SECRET_CHECK_NOT_MATCH
+                }
+            } catch (e: IllegalArgumentException) {
+                UNKNOWN_ERROR
             }
         }
     }

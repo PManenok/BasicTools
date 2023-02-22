@@ -5,10 +5,11 @@
 
 package by.esas.tools.accesscontainer.dialog
 
-import android.content.Context
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentResultListener
 
 interface IBaseDialog {
     fun dismiss()
-    fun show(manager: FragmentManager?, context: Context?, tag: String)
+    fun show(context: FragmentActivity?, tag: String)
+    fun provideResultListener(tag: String): FragmentResultListener
 }

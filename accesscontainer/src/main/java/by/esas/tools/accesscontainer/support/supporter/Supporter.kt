@@ -5,9 +5,7 @@
 
 package by.esas.tools.accesscontainer.support.supporter
 
-import by.esas.tools.logger.BaseErrorModel
-
-class Supporter<M : BaseErrorModel>(
+class Supporter(
     val resProvider: ResourceStrProvider,
-    val util: IUtil<M>
+    val util: IUtil
 )

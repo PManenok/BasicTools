@@ -38,6 +38,71 @@
     <string name="test">Test</string>
     <string name="filter_modules">Modules</string>
 
+    <!--#######################################  Error  #########################################-->
+    <string name="error_ok">OK</string>
+    <string name="error_unknown_happened">Error occurred. Please, try again later or contact technical support.</string>
+    <string name="error_server_error">Error on server occurred. Please, try again later or contact technical support.</string>
+    <!--#############  Authorization Error  #############-->
+    <string name="error_access_denied">Access denied. Please, restore access or log in again.</string>
+    <string name="error_invalid_refresh">Refresh token is expired or invalid. Please use password to continue</string>
+    <string name="error_unauthenticated">User is unauthenticated. Please, log in.</string>
+    <!--#############  Net Error  #############-->
+    <string name="error_net_ssl_handshake">Connection failed due to SSL Handshake error. Please, connect our technical support.</string>
+    <string name="error_net_unknown_host">Connection failed due to unknown host exception. Please, connect our technical support.</string>
+    <string name="error_net_timeout">Timeout exception. Check your network connection and try again.</string>
+    <string name="error_net_no_connection">No connection. Check your network connection and try again later.</string>
+    <string name="error_net_server_unavailable">Server is unavailable. Try again later.</string>
+    <!--#############  App Error  #############-->
+    <string name="error_app_unpredicted">Application inner error occurred. Please, try  again. If problem still occurs, contact our support.</string>
+    <string name="error_app_secret_check_failed">Access check failed</string><!--fixme add info about what exactly goes wrong-->
+    <string name="error_app_no_access_token">Request was not authorized. Retry or connect our technical support.</string>
+    <string name="error_app_context_parameters_empty">Parameters was not set completely. Retry or connect our technical support.</string>
+    <string name="error_app_user_has_no_secrets">User has no additional authorization types.</string>
+    <string name="error_app_not_equal">PIN-code does no match</string>
+    <!--<string name="error_app_permission_denied">Can not proceed. Permission denied</string>
+    <string name="error_app_load_file">Can not load picked file.</string>
+    <string name="error_app_parse_file">Can not get picked file storage path.</string>
+    <string name="error_app_file_big">File is too big. Please, pick file which size is less than 1Mb.\nIf you need to send file with bigger size, please, send it to our email support.</string>
+    <string name="error_app_file_many">Can not send more than 5 files at one time.</string>-->
+    <!--#############  Decrypt Error  #############-->
+    <string name="error_decryption">Decryption failed, try to enter manually</string>
+    <string name="error_decryption_pin">Failed PIN decryption (wrong PIN)</string>
+    <string name="error_decryption_biom">Failed biometric decryption</string>
+    <string name="error_decryption_secret_key">Decryption failed, try to enter manually</string>
+    <string name="error_decryption_private_key">Decryption failed, try to enter manually</string>
+    <!--#############  Api Error  #############-->
+    <string name="error_api_password_recovery_failed">Password recovery failed. Please, check inserted info and try again.</string>
+    <string name="error_api_activation_failed">Activation failed. Please, check inserted info and try again.</string>
+    <string name="error_api_user_locked_out">User was locked out due to exceeding the limit of authorization attempts. Wait few minutes and then try again.</string>
+    <string name="error_api_already_activated">User already activated</string>
+    <string name="error_api_reactivate_error">Reactivation error. Try again later. If problem still occurs, contact our support.</string>
+    <string name="error_api_register_error">Registration error. Try again and if problem still occurs, contact our support.</string>
+    <string name="error_api_phone_taken">Phone you are trying to set is already taken.</string>
+    <string name="error_api_email_not_confirmed">Email is not confirmed. Confirm your email.</string>
+    <string name="error_api_email_taken">Email you are trying to set is already taken.</string>
+    <string name="error_api_email_invalid">Email is invalid.</string>
+    <string name="error_api_user_name_taken">User name you are trying to set is already taken.</string>
+    <string name="error_api_user_name_invalid">User name is invalid.</string>
+    <string name="error_api_incorrect_password_format">Password format is incorrect. Please enter another password</string>
+    <string name="error_api_add_email_error">Email was not added. Please, try again.</string>
+    <string name="error_api_verify_email_error">Email verify was not successful. Please, try again.</string>
+    <string name="error_api_delete_email_error">Email was not deleted. Please, try again.</string>
+    <string name="error_api_email_already_set">Email is already set.</string>
+    <string name="error_api_add_phone_error">Phone was not added. Please, try again.</string>
+    <string name="error_api_verify_phone_error">Phone verify was not successful. Please, try again.</string>
+    <string name="error_api_delete_phone_error">Phone was not deleted. Please, try again.</string>
+    <string name="error_api_phone_not_confirmed">Phone is not confirmed. Confirm your phone.</string>
+    <string name="error_api_phone_already_set">Phone is already set.</string>
+    <string name="error_api_request">Invalid request. Try again later.</string>
+    <string name="error_api_wrong_password">Wrong password</string>
+    <string name="error_api_user_exists">User already exists</string>
+    <string name="error_api_user_not_exist_message">User does not exist.</string>
+    <string name="error_api_wrong_verify_code">Entered code is invalid or expired. Check if the code is correct or request a new code accordingly.</string>
+    <string name="error_api_user_not_active">The user account is not activated.</string>
+    <string name="error_api_forbidden">Access denied.</string>
+    <string name="error_date_unexpected_format">Date is in wrong format</string>
+    <!--#############  Error END  #############-->
+
     <string name="validation_text_in_range">Valid field\'s length range %d - %d</string>
     <string name="test_text">Test text</string>
     <string name="set_error">Set error</string>
@@ -509,4 +574,48 @@
     <string name="menu_settings_title_style">Style settings</string>
     <string name="menu_settings_title_clear_tests">Clear tests</string>
 
+    <!--Strings for dialogs for access_container module check-->
+    <string name="case_label_access_container">Access container functionality check</string>
+    <string name="label_password">Password</string>
+    <string name="label_pin">PIN-code</string>
+    <string name="label_biom">Biometric scanner</string>
+    <string name="dialog_change_btn">Another method</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="dialog_auth_title">Restore access</string>
+    <string name="dialog_auth_encrypt_title">Create extra authentication method</string>
+    <string name="dialog_auth_title_confirm">Verify access</string>
+    <string name="common_password_hint">Password</string>
+    <string name="auth_login_forgot_password">Forgot password?</string>
+    <string name="auth_login_login_btn">Log in</string>
+    <string name="auth_re_login_another">Another way to log in</string>
+    <string name="dialog_pin_title">PIN-code</string>
+    <string name="dialog_pin_create_btn">Create</string>
+    <string name="common_continue_button">Continue</string>
+    <!--Strings for access_container module fragment-->
+    <string name="refresher_access_title">Current access token:</string>
+    <string name="refresher_refresh_title">Current refresh token:</string>
+    <string name="refresher_no_token">Clean token info after click on case buttons</string>
+    <string name="refresher_settings_title">Settings</string>
+    <string name="refresher_password_lable">Correct password</string>
+    <string name="refresher_preferred_lable">Preferred authorization type</string>
+    <string name="refresher_pin_checkbox">has PIN-code</string>
+    <string name="refresher_biom_not_available">NOTE! Fingerprint is not supported by this device (or no fingerprints added)</string>
+    <string name="refresher_biom_checkbox">has fingerprint</string>
+    <string name="refresher_usecases_title">Setup usecases errors</string>
+    <string name="refresher_refresh_token">Show error on refresh with token</string>
+    <string name="refresher_get_secrets">Show error on get secrets</string>
+    <string name="refresher_refresh">Show error on refresh</string>
+    <string name="refresher_refresh_secret">Show error on refresh with secret</string>
+    <string name="refresher_check_secret">Show error on check secret</string>
+    <string name="refresher_create_secret">Show error on create secret</string>
+    <string name="refresher_case_1"><b>Case 1. Refresh access token.</b>\nRenewing the access token in any way possible. If the refresh token is already in the refresher, then access confirmation dialogs are not used. If there are no additional login methods, then a password is used.</string>
+    <string name="refresher_refresh_button">Refresh</string>
+    <string name="refresher_case_2"><b>Case 2. Check access.</b>\nCheck access by additional login methods or password. Can be used with or without forced refresh of the access token.</string>
+    <string name="refresher_refresh_explicitly">Refresh explicitly</string>
+    <string name="refresher_check_access_button">Check access</string>
+    <string name="refresher_case_3"><b>Case 3. Get secret key.</b>\nThe encryption secret key is obtained by entering one of the additional login methods, otherwise an error is generated about the absence of additional login methods.</string>
+    <string name="refresher_correct_secret">Correct secret: secret</string>
+    <string name="refresher_get_secret_button">Get secret</string>
+    <string name="refresher_case_4"><b>Case 4. Save refresh token.</b>\nUsed to save a refresh token using additional login methods, at the same time it recreates additional login methods. It is recommended to use this method, if there are no additional login methods, and if they are available, it can regenerate encryption keys and the previous encrypted data will be erased or become inaccessible. So when have additional login methods, it is recommended to save refresh token after getting the secret (previous method) and not with refresher method \"Save refresh\".</string>
+    <string name="refresher_save_refresh_button">Save refresh</string>
 </resources>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:windowSoftInputMode="adjustResize">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="by.esas.tools.screens.access_container.dialog.PinDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:theme="@style/AppTheme">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/df_pin_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_56"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/spacing_8"
+            android:paddingEnd="@dimen/spacing_8"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/df_pin_top_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="@{handler.btnEnabled}"
+                android:focusable="true"
+                android:onClick="@{()->handler.onBackClick()}"
+                android:padding="@dimen/spacing_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_navigate_back" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/df_pin_top_bar_title"
+                style="@style/TextStyle.Center.Regular24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/label_pin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/df_pin_top_menu"
+                app:layout_constraintStart_toEndOf="@id/df_pin_top_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/df_pin_top_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_8"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_language" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/df_pin_top_bar_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"
+            app:layout_constraintTop_toBottomOf="@id/df_pin_top_bar" />
+
+        <by.esas.tools.pinview.PinView
+            android:id="@+id/df_pin_view"
+            style="@style/PinStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_40"
+            android:paddingStart="@dimen/spacing_40"
+            android:paddingEnd="@dimen/spacing_40"
+            app:layout_constraintBottom_toTopOf="@id/df_pin_num_pad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/df_pin_top_bar_divider"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:pinFilledAmount="2" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/f_confirm_pin_error"
+            style="@style/TextStyle.Normal16.Red"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:layout_marginEnd="@dimen/spacing_16"
+            android:gravity="center"
+            android:text="@string/error_app_not_equal"
+            android:visibility="@{handler.showPinError}"
+            app:layout_constraintBottom_toTopOf="@id/df_pin_num_pad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/df_pin_view"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <by.esas.tools.numpad.NumPadTextView
+            android:id="@+id/df_pin_num_pad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_40"
+            android:layout_marginBottom="@dimen/spacing_32"
+            android:padding="@dimen/spacing_16"
+            app:layout_constraintBottom_toTopOf="@id/df_pin_another_btn"
+            app:layout_constraintDimensionRatio="1:1.25"
+            app:layout_constraintEnd_toEndOf="@id/df_pin_view"
+            app:layout_constraintStart_toStartOf="@id/df_pin_view"
+            app:layout_constraintTop_toBottomOf="@id/df_pin_view"
+            app:numpadTextIconSize="@dimen/spacing_52"
+            app:numpadTextIconStyle="@style/TextStyle.Normal42"
+            app:numpadTextLeftIconVisibitity="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/df_pin_another_btn"
+            style="@style/TextButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginEnd="@dimen/spacing_16"
+            android:layout_marginBottom="@dimen/spacing_32"
+            android:enabled="@{handler.btnEnabled}"
+            android:onClick="@{()->handler.onAnotherClick()}"
+            android:text="@string/auth_re_login_another"
+            android:visibility="@{handler.showAnotherBtn}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/df_pin_confirm_btn"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginEnd="@dimen/spacing_16"
+            android:layout_marginBottom="@dimen/spacing_32"
+            android:enabled="@{handler.confirmBtnEnable}"
+            android:onClick="@{()->handler.onConfirmClick()}"
+            android:text="@{handler.confirmBtnText}"
+            android:visibility="@{handler.showConfirmBtn}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/dialog_pin_create_btn" />
+
+        <ProgressBar
+            android:id="@+id/df_pin_circle_progress"
+            style="@style/ProgressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{handler.showProgress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

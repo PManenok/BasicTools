@@ -89,4 +89,5 @@ dependencies {
     implementation project(path: ':topbarview')
     implementation project(path: ':cardline')
     implementation project(path: ':biometric_decryption')
+    implementation project(path: ':accesscontainer')
 }

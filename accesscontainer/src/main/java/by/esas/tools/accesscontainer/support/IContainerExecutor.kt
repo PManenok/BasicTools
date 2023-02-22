@@ -34,7 +34,7 @@ interface IContainerExecutor<M : BaseErrorModel> {
     fun authorizationInSystemUC(password: String, block: ContainerRequest<Token, M>.() -> Unit)
 
     fun createSecretUC(
-        token: String,
+        refreshToken: String,
         cipher: Cipher? = null,
         pinKey: SecretKey? = null,
         block: ContainerRequest<Boolean, M>.() -> Unit
