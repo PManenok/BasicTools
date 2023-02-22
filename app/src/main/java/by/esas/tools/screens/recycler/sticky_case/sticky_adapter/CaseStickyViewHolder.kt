@@ -8,10 +8,10 @@ import by.esas.tools.databinding.IStickyRecyclerCaseBinding
 import by.esas.tools.databinding.IStickyRecyclerHeaderBinding
 import by.esas.tools.recycler.BaseViewHolder
 import by.esas.tools.recycler.sticky.StickyEntity
-import by.esas.tools.screens.recycler.FirstEntity
+import by.esas.tools.screens.recycler.RecyclerEntity
 
 class CaseStickyViewHolder<B : ViewDataBinding>(binding: B, viewModel: CaseStickyItemVM) :
-    BaseViewHolder<StickyEntity<FirstEntity>, CaseStickyItemVM, B>
+    BaseViewHolder<StickyEntity<RecyclerEntity>, CaseStickyItemVM, B>
         (binding, viewModel) {
     companion object {
         fun createItem(

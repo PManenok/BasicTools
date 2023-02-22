@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import by.esas.tools.BR
 import by.esas.tools.databinding.IRecyclerBaseBinding
 import by.esas.tools.recycler.BaseViewHolder
-import by.esas.tools.screens.recycler.FirstEntity
+import by.esas.tools.screens.recycler.RecyclerEntity
 
 class FirstViewHolder(binding: IRecyclerBaseBinding, viewModel: FirstItemVM) :
-    BaseViewHolder<FirstEntity, FirstItemVM, IRecyclerBaseBinding>(binding, viewModel) {
+    BaseViewHolder<RecyclerEntity, FirstItemVM, IRecyclerBaseBinding>(binding, viewModel) {
     companion object {
         fun create(
             parent: ViewGroup,

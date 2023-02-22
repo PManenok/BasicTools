@@ -51,7 +51,7 @@ class CustomRecyclerFragment : AppFragment<CustomRecyclerVM, FMainCustomRecycler
         val newList = viewModel.adapter.itemList.map {
             SimpleItemModel(
                 name = it.name,
-                shortName = it.shortName,
+                code = it.code,
                 isChoosed = it.isChoosed,
                 isLast = it.isLast,
                 textAlignment = viewModel.currentAlignment

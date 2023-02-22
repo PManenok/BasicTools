@@ -7,12 +7,12 @@ import by.esas.tools.R
 import by.esas.tools.databinding.IStickyRecyclerHeaderBinding
 import by.esas.tools.recycler.sticky.RecyclerStickyHeaderView
 import by.esas.tools.recycler.sticky.StickyEntity
-import by.esas.tools.screens.recycler.FirstEntity
+import by.esas.tools.screens.recycler.RecyclerEntity
 
 class CaseStickyHeader(
     binding: IStickyRecyclerHeaderBinding, viewModel: CaseStickyItemVM,
-    listener: IStickyHeader<StickyEntity<FirstEntity>>
-) : RecyclerStickyHeaderView<StickyEntity<FirstEntity>, IStickyRecyclerHeaderBinding, CaseStickyItemVM>
+    listener: IStickyHeader<StickyEntity<RecyclerEntity>>
+) : RecyclerStickyHeaderView<StickyEntity<RecyclerEntity>, IStickyRecyclerHeaderBinding, CaseStickyItemVM>
     (binding, viewModel, listener) {
     override fun provideHeaderLayout(): Int = R.layout.i_sticky_recycler_header
 
@@ -20,8 +20,8 @@ class CaseStickyHeader(
         fun create(
             parent: ViewGroup,
             viewModel: CaseStickyItemVM,
-            listener: IStickyHeader<StickyEntity<FirstEntity>>
-        ): RecyclerStickyHeaderView<StickyEntity<FirstEntity>, IStickyRecyclerHeaderBinding, CaseStickyItemVM> {
+            listener: IStickyHeader<StickyEntity<RecyclerEntity>>
+        ): RecyclerStickyHeaderView<StickyEntity<RecyclerEntity>, IStickyRecyclerHeaderBinding, CaseStickyItemVM> {
             val binding = IStickyRecyclerHeaderBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
             return CaseStickyHeader(

@@ -6,7 +6,7 @@ import by.esas.tools.App
 import by.esas.tools.base.AppVM
 import by.esas.tools.databinding.IRecyclerCaseTwoBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
-import by.esas.tools.screens.recycler.FirstEntity
+import by.esas.tools.screens.recycler.RecyclerEntity
 import by.esas.tools.screens.recycler.RecyclerLists
 import by.esas.tools.screens.recycler.base.adapter.FirstAdapter
 import javax.inject.Inject
@@ -67,7 +67,7 @@ class RecyclerVM @Inject constructor() : AppVM() {
     )
 
     fun addItem() {
-        adapter.addItem(FirstEntity(newEntity.value ?: "Empty"))
+        adapter.addItem(RecyclerEntity(newEntity.value ?: "Empty"))
     }
 
     fun clearItems() {

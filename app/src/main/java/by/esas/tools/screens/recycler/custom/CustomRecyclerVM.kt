@@ -6,16 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import by.esas.tools.App
 import by.esas.tools.base.AppVM
 import by.esas.tools.databinding.ICustomBinding
-import by.esas.tools.recycler.databinding.IPickedBinding
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
-import by.esas.tools.screens.recycler.FirstEntity
 import by.esas.tools.screens.recycler.RecyclerLists
 import by.esas.tools.screens.recycler.mapToSimple
-import java.util.*
-import java.util.logging.Handler
 import javax.inject.Inject
-import kotlin.concurrent.schedule
 
 class CustomRecyclerVM @Inject constructor() : AppVM() {
 
@@ -69,7 +64,7 @@ class CustomRecyclerVM @Inject constructor() : AppVM() {
         adapter.addItem(
             SimpleItemModel(
                 name = name,
-                shortName = name,
+                code = name,
                 isChoosed = false,
                 isLast = true,
                 textAlignment = currentAlignment

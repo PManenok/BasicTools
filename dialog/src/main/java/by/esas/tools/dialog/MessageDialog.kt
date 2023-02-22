@@ -13,7 +13,6 @@ import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog.MessageDialog.ButtonAppearance
 import by.esas.tools.dialog.databinding.DfMessageBinding
 import by.esas.tools.dialog.databinding.IDialogMessageBinding
-import by.esas.tools.logger.Action
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
 import com.google.android.material.button.MaterialButton
@@ -54,14 +53,17 @@ import com.google.android.material.button.MaterialButton
  * @see SimpleItemAdapter
  */
 open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
+
     override val TAG: String = MessageDialog::class.java.simpleName
 
     companion object {
+
         const val USER_ACTION_POSITIVE_CLICKED: String = "USER_ACTION_POSITIVE_CLICKED"
         const val USER_ACTION_NEUTRAL_CLICKED: String = "USER_ACTION_NEUTRAL_CLICKED"
         const val USER_ACTION_NEGATIVE_CLICKED: String = "USER_ACTION_NEGATIVE_CLICKED"
         const val USER_ACTION_ITEM_PICKED: String = "USER_ACTION_ITEM_PICKED"
         const val ITEM_POSITION: String = "ITEM_POSITION"
+        const val ITEM_CODE: String = "ITEM_CODE"
         const val ITEM_NAME: String = "ITEM_NAME"
     }
 
@@ -99,15 +101,17 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     protected var neutralBtnRes: Int = -1
     protected var negativeBtnRes: Int = -1
 
-    protected var items: List<String> = emptyList()
+    protected var pickedItemCode: String = ""
+    protected var items: List<ItemInfo> = emptyList()
     protected var itemTextAlignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     protected var adapter: SimpleItemAdapter =
         SimpleItemAdapter.createCustom(
             IDialogMessageBinding::class.java,
             onItemClickPosition = { position, item ->
                 if (btnEnabled.get()) {
+                    val info = ItemInfo(item.code, item.name)
                     disableControls()
-                    setItemPickedResult(position, item.name, itemAction)
+                    setItemPickedResult(position, info, itemAction)
                     dismiss()
                     enableControls()
                 }
@@ -161,7 +165,8 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         outState.putString("positiveBtnText", positiveBtnText.get())
         outState.putString("neutralBtnText", neutralBtnText.get())
         outState.putString("negativeBtnText", negativeBtnText.get())
-        outState.putStringArray("items", items.toTypedArray())
+        outState.putStringArray("items", items.map { convertInfoToString(it) }.toTypedArray())
+        outState.putString("pickedItemCode", pickedItemCode)
         outState.putInt("textAlignment", itemTextAlignment)
         outState.putInt("title_textAppearance", titleAppearanceResId)
         outState.putInt("message_textAppearance", messageAppearanceResId)
@@ -187,7 +192,11 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
             positiveBtnText.set(savedInstanceState.getString("positiveBtnText", "") ?: "")
             neutralBtnText.set(savedInstanceState.getString("neutralBtnText", "") ?: "")
             negativeBtnText.set(savedInstanceState.getString("negativeBtnText", "") ?: "")
-            items = savedInstanceState.getStringArray("items").orEmpty().toList()
+            items = savedInstanceState.getStringArray("items")
+                .orEmpty()
+                .mapNotNull { convertInfoFromString(it) }
+                .toList()
+            pickedItemCode = savedInstanceState.getString("pickedItemCode", "") ?: ""
             itemTextAlignment = savedInstanceState.getInt("textAlignment", View.TEXT_ALIGNMENT_TEXT_START)
             titleAppearanceResId = savedInstanceState.getInt("title_textAppearance", -1)
             messageAppearanceResId = savedInstanceState.getInt("message_textAppearance", -1)
@@ -271,9 +280,9 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         if (lastIndex > -1) {
             adapter.addItems(items.mapIndexed { index, item ->
                 SimpleItemModel(
-                    shortName = "",
-                    name = item,
-                    isChoosed = false,
+                    code = item.code,
+                    name = item.text,
+                    isChoosed = item.code == pickedItemCode,
                     isLast = index == lastIndex,
                     textAlignment = itemTextAlignment
                 )
@@ -319,7 +328,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
 
     //region clicks
 
-    fun onPositiveClick() {
+    open fun onPositiveClick() {
         disableControls()
         logger.logOrder("onPositiveClick")
         setPositiveClickResult()
@@ -327,7 +336,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         enableControls()
     }
 
-    fun onNeutralClick() {
+    open fun onNeutralClick() {
         disableControls()
         logger.logOrder("onNeutralClick")
         setNeutralClickResult()
@@ -335,7 +344,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         enableControls()
     }
 
-    fun onNegativeClick() {
+    open fun onNegativeClick() {
         disableControls()
         logger.logOrder("onNegativeClick")
         setNegativeClickResult()
@@ -439,10 +448,18 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         negativeAppearance = appearance
     }
 
-    open fun setItems(list: List<String>, actionName: String? = null, alignment: Int = View.TEXT_ALIGNMENT_TEXT_START) {
+    open fun setItems(
+        list: List<ItemInfo>,
+        actionName: String? = null,
+        alignment: Int = View.TEXT_ALIGNMENT_TEXT_START
+    ) {
         itemTextAlignment = alignment
         itemAction = actionName
         this.items = list
+    }
+
+    open fun setPickedItem(code: String) {
+        pickedItemCode = code
     }
 
     //endregion setters
@@ -465,11 +482,12 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_NEGATIVE_CLICKED)
     }
 
-    protected open fun setItemPickedResult(position: Int, item: String, actionName: String?) {
+    protected open fun setItemPickedResult(position: Int, item: ItemInfo, actionName: String?) {
         resultBundle.clear()
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_ITEM_PICKED)
         resultBundle.putInt(ITEM_POSITION, position)
-        resultBundle.putString(ITEM_NAME, item)
+        resultBundle.putString(ITEM_CODE, item.code)
+        resultBundle.putString(ITEM_NAME, item.text)
         actionName?.let { resultBundle.putString(DIALOG_ACTION_NAME, it) }
     }
 
@@ -480,4 +498,21 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         val backgroundColorResId: Int,
         val textAllCaps: Boolean
     )
+
+    open class ItemInfo(
+        /**
+         * Should contain only literals, numbers and symbols "_" or "-"
+         */
+        val code: String,
+        val text: String
+    )
+
+    protected open fun convertInfoToString(info: ItemInfo): String {
+        return "${info.code}#${info.text}"
+    }
+
+    protected open fun convertInfoFromString(value: String): ItemInfo? {
+        val values = value.split("#".toRegex(), 2)
+        return if (values.size == 2) ItemInfo(values[0], values[1]) else null
+    }
 }

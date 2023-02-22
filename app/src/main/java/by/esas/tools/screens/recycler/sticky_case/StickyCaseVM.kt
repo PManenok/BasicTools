@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import by.esas.tools.App
 import by.esas.tools.base.AppVM
 import by.esas.tools.recycler.sticky.StickyEntity
-import by.esas.tools.screens.recycler.FirstEntity
+import by.esas.tools.screens.recycler.RecyclerEntity
 import by.esas.tools.screens.recycler.RecyclerLists
 import by.esas.tools.screens.recycler.sticky_case.sticky_adapter.CaseStickyAdapter
 import javax.inject.Inject
@@ -42,7 +42,7 @@ class StickyCaseVM @Inject constructor() : AppVM() {
         }
     )
 
-    private fun takeTextForSticky(item: StickyEntity<FirstEntity>): String {
+    private fun takeTextForSticky(item: StickyEntity<RecyclerEntity>): String {
         return if (item.header != null) {
             "header ${item.header?.headerText}"
         } else {
@@ -51,7 +51,7 @@ class StickyCaseVM @Inject constructor() : AppVM() {
     }
 
     fun addItem() {
-        adapter.addEntity(FirstEntity(newEntity.value ?: "Empty"))
+        adapter.addEntity(RecyclerEntity(newEntity.value ?: "Empty"))
     }
 
     fun clearItems() {

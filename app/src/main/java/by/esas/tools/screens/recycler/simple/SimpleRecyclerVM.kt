@@ -7,13 +7,9 @@ import by.esas.tools.App
 import by.esas.tools.base.AppVM
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemAdapter
 import by.esas.tools.recycler.simpleItemAdapter.SimpleItemModel
-import by.esas.tools.screens.recycler.FirstEntity
 import by.esas.tools.screens.recycler.RecyclerLists
 import by.esas.tools.screens.recycler.mapToSimple
-import java.util.*
-import java.util.logging.Handler
 import javax.inject.Inject
-import kotlin.concurrent.schedule
 
 class SimpleRecyclerVM @Inject constructor() : AppVM() {
 
@@ -66,7 +62,7 @@ class SimpleRecyclerVM @Inject constructor() : AppVM() {
         adapter.addItem(
             SimpleItemModel(
                 name = name,
-                shortName = name,
+                code = name,
                 isChoosed = false,
                 isLast = true,
                 textAlignment = currentAlignment

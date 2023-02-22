@@ -11,6 +11,7 @@ import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.topbarview.ITopbarHandler
 
@@ -28,6 +29,7 @@ import by.esas.tools.topbarview.ITopbarHandler
 class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     companion object {
+
         const val NEED_TO_UPDATE_MENU: String = "NEED_TO_UPDATE_MENU"
         const val NEED_TO_UPDATE_CURRENT_CASE: String = "NEED_TO_UPDATE_CURRENT_CASE"
         const val CURRENT_CASE_ID: String = "CURRENT_CASE_ID"
@@ -50,6 +52,8 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return when (requestKey) {
+            //REMEMBER we can register result listener for CLEAR_CASES_TEST_DATA_DIALOG
+            // in MenuFragment so it will receive the result right away
             MainVM.CASE_STATUS_DIALOG, MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
                 FragmentResultListener { key, result ->
                     val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
@@ -68,7 +72,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     }
 
     override fun handleAction(action: Action): Boolean {
-        when(action.name) {
+        when (action.name) {
             NEED_TO_UPDATE_MENU -> {
                 val bundle = Bundle()
                 bundle.putBoolean(NEED_TO_UPDATE_MENU, true)
@@ -135,7 +139,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     private fun setupSettingsMenu() {
         binding.aMainSettingsMenu.setNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.menuUiSettings -> navController.navigate(R.id.baseuiThemeFragment)
                 R.id.menuUpdateTest -> viewModel.openClearCasesTestDataDialog()
             }

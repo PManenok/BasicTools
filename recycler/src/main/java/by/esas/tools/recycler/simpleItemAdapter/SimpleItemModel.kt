@@ -9,7 +9,7 @@ import android.view.View
 import by.esas.tools.recycler.ICheckDiff
 
 data class SimpleItemModel(
-    val shortName: String,
+    val code: String,
     val name: String,
     val isChoosed: Boolean,
     var isLast: Boolean,
@@ -17,7 +17,7 @@ data class SimpleItemModel(
 ) : ICheckDiff<SimpleItemModel> {
 
     override fun checkIfSameItem(item: SimpleItemModel): Boolean {
-        return this.name == item.name && this.shortName == item.shortName
+        return this.name == item.name && this.code == item.code
     }
 
     override fun checkIfSameContent(item: SimpleItemModel): Boolean {
@@ -30,7 +30,7 @@ data class SimpleItemModel(
 
         other as SimpleItemModel
 
-        if (shortName != other.shortName) return false
+        if (code != other.code) return false
         if (name != other.name) return false
         if (isChoosed != other.isChoosed) return false
         if (isLast != other.isLast) return false
@@ -40,7 +40,7 @@ data class SimpleItemModel(
     }
 
     override fun hashCode(): Int {
-        var result = shortName.hashCode()
+        var result = code.hashCode()
         result = 31 * result + name.hashCode()
         result = 31 * result + isChoosed.hashCode()
         result = 31 * result + isLast.hashCode()

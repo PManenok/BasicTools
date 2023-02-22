@@ -12,6 +12,7 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.baseui.Config
 import by.esas.tools.databinding.FMainDynamicMessageDialogBinding
 import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog.MessageDialog.Companion.ITEM_CODE
 import by.esas.tools.dialog.MessageDialog.Companion.ITEM_NAME
 import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_ITEM_PICKED
 import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_NEGATIVE_CLICKED
@@ -23,6 +24,7 @@ private const val DYNAMIC_MESSAGE_DIALOG = "DYNAMIC_MESSAGE_DIALOG"
 
 class DynamicMessageDialogFragment :
     AppFragment<DynamicMessageDialogVM, FMainDynamicMessageDialogBinding>() {
+
     override val fragmentDestinationId = R.id.dynamicMessageDialogFragment
     override fun provideLayoutId() = R.layout.f_main_dynamic_message_dialog
 
@@ -88,11 +90,15 @@ class DynamicMessageDialogFragment :
                 resources.getString(R.string.message_dialog_neutral_click),
                 Toast.LENGTH_SHORT
             ).show()
-            USER_ACTION_ITEM_PICKED -> Toast.makeText(
-                requireContext(),
-                action.parameters?.getString(ITEM_NAME),
-                Toast.LENGTH_SHORT
-            ).show()
+            USER_ACTION_ITEM_PICKED -> {
+                val code: String = action.parameters?.getString(ITEM_CODE) ?: ""
+                val name: String = action.parameters?.getString(ITEM_NAME) ?: ""
+                Toast.makeText(
+                    requireContext(),
+                    "$code - $name",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             else -> return super.handleAction(action)
         }
         return true
@@ -187,9 +193,9 @@ class DynamicMessageDialogFragment :
         if (binding.fDynamicMessageDialogItemsListCheck.isChecked)
             dialog.setItems(
                 listOf(
-                    resources.getString(R.string.item_1),
-                    resources.getString(R.string.item_2),
-                    resources.getString(R.string.item_3)
+                    MessageDialog.ItemInfo("1", resources.getString(R.string.item_1)),
+                    MessageDialog.ItemInfo("2", resources.getString(R.string.item_2)),
+                    MessageDialog.ItemInfo("3", resources.getString(R.string.item_3))
                 )
             )
     }

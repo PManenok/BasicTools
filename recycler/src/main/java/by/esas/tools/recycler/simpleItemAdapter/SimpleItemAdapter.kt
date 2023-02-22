@@ -5,7 +5,6 @@
 
 package by.esas.tools.recycler.simpleItemAdapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.recycler.BaseRecyclerAdapter
@@ -60,7 +59,6 @@ open class SimpleItemAdapter(
      * or change selection of only one item.
      */
     open fun setItemPicked(pickedIndex: Int, clearOtherPicked: Boolean = true) {
-        Log.d("12345", (itemList[0].isChoosed == true).toString())
         val newList = itemList.mapIndexed { index, simpleItemModel ->
             if (clearOtherPicked)
                 simpleItemModel.copy(isChoosed = index == pickedIndex)
@@ -69,7 +67,6 @@ open class SimpleItemAdapter(
             else
                 simpleItemModel.copy()
         }
-        Log.d("12345", (itemList[0].isChoosed == true).toString())
         setItems(newList)
     }
 
