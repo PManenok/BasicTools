@@ -10,13 +10,11 @@ import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
-import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorHandler
 import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
-import by.esas.tools.utils.logger.LoggerImpl
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -48,7 +46,7 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
     }
 
     override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
-        logger.logInfo("provideErrorHandler")
+        logger.logOrder("provideErrorHandler")
         return object : ErrorHandler<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
@@ -66,15 +64,17 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
     }
 
     override fun provideChecks(): List<Checking> {
+        logger.logOrder("provideChecks")
         return emptyList()
     }
 
     override fun provideChecker(): Checker? {
+        logger.logOrder("provideChecker")
         return null
     }
 
     override fun provideSwitchableViews(): List<View?> {
-        logger.logInfo("provideSwitchableViews")
+        logger.logOrder("provideSwitchableViews")
         return emptyList()
     }
 

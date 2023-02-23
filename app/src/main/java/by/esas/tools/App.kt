@@ -6,7 +6,6 @@ import androidx.multidex.MultiDex
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.inject.component.DaggerAppComponent
 import by.esas.tools.util.configs.SettingsManager
-import by.esas.tools.util.configs.UiModeType
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
@@ -21,8 +20,6 @@ class App : DaggerApplication() {
     companion object {
         lateinit var instance: App
         lateinit var appContext: Context
-        var uiMode:UiModeType = UiModeType.SYSTEM
-        var language:String = "en"
     }
 
     init {
@@ -48,11 +45,9 @@ class App : DaggerApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base?.let {
-            uiMode = AppSharedPrefs(base).getTheme()
-            language = AppSharedPrefs(base).getLanguage()
-            return@let SettingsManager.updateSettings(base, language , uiMode)
+            val prefs = AppSharedPrefs(base)
+            return@let SettingsManager.updateSettings(base, prefs.getLanguage(), prefs.getTheme())
         })
         MultiDex.install(this)
     }
-
 }

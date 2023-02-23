@@ -38,6 +38,42 @@
     <string name="test">Test</string>
     <string name="filter_modules">Modules</string>
 
+    <!--Case labels-->
+    <string name="case_label_pin_view">Check PinView functionality</string>
+    <string name="case_label_dynamic_pin_view">Create your PinView</string>
+    <string name="case_label_saved_state">Check SavedState ViewModel</string>
+    <string name="case_label_numpad_image">Check NumpadImageView functionality</string>
+    <string name="case_label_listheader">Check Listheader functionality</string>
+    <string name="case_label_dynamic_listheader">Create your Listheader</string>
+    <string name="case_label_util_keyboard">Check Util keyboard functionality</string>
+    <string name="case_label_utils">Check Utils functionality in Util module</string>
+    <string name="case_label_switch_manager">Check SwitchManager functionality in Util module</string>
+    <string name="case_label_custom_switch">Check CustomSwitch functionality</string>
+    <string name="case_label_dynamic_custom_switch">Create your CustomSwitch</string>
+    <string name="case_label_topbar_view">Check Topbar view functionality</string>
+    <string name="case_label_cardline">Check Cardline functionality</string>
+    <string name="case_label_dynamic_cardline">Create custom Cardline</string>
+    <string name="case_label_checker">Check Checker functionality</string>
+    <string name="case_label_dynamic_message_dialog">Create custom Message Dialog</string>
+    <string name="case_label_bottom_dialog">Check Bottom Dialog functionality</string>
+    <string name="case_label_inputfield_view_end_icon">Check InputfieldView end icon functionality</string>
+    <string name="case_label_inputfield_view_start_icon">Check InputfieldView start icon functionality</string>
+    <string name="case_label_inputfield_view">Check InputfieldView styles</string>
+    <string name="case_label_numpad_text">Check NumpadTextView functionality</string>
+    <string name="case_label_baseui_navigation">Check BaseUI navigation</string>
+    <string name="case_label_baseui_navigation_second">Second navigation fragment</string>
+    <string name="case_label_baseui">Check BaseUI functionality</string>
+    <string name="case_label_baseui_theme">Change BaseUI theme and language</string>
+    <string name="case_label_domain">Check Domain module functionality</string>
+    <string name="case_label_biometric_decryption">Check BiometricDecryption functionality</string>
+    <string name="case_label_timeparser">Check TimeParser functionality</string>
+    <string name="case_label_logger">Check Logger functionality</string>
+    <string name="case_label_recycler_base">BaseRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_sticky">StickyRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_simple">SimpleRecyclerAdapter base functionality check</string>
+    <string name="case_label_recycler_custom">CustomRecyclerAdapter base functionality check</string>
+    <string name="case_label_access_container">Access container functionality check</string>
+
     <!--#######################################  Error  #########################################-->
     <string name="error_ok">OK</string>
     <string name="error_unknown_happened">Error occurred. Please, try again later or contact technical support.</string>
@@ -422,10 +458,6 @@
     <string name="domain_case_encrypt_rsa_title">Check encrypt/decrypt RSA methods. Add some data to input field and press Start button. You will see encrypt result and decrypt back result.</string>
 
     <!--Recycler-->
-    <string name="case_label_recycler_base">BaseRecyclerAdapter base functionality check</string>
-    <string name="case_label_recycler_sticky">StickyRecyclerAdapter base functionality check</string>
-    <string name="case_label_recycler_simple">SimpleRecyclerAdapter base functionality check</string>
-    <string name="case_label_recycler_custom">CustomRecyclerAdapter base functionality check</string>
     <string name="recycler_case_base_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
     <string name="recycler_case_sticky_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check onItemClick of adapter\'s ItemViewModel. Each time you click on item, it\'s counter will increase</string>
     <string name="recycler_case_simple_title">Check:\n1. click, click with position (use switcher in the bottom for that)\n2. long click, long click with position (use switcher in the bottom for that)\n3. add item\(s\) to the end of the list. Enter something into the field below and press \"Add item\" button\n4. delete items. Press on \"Clear items\" button, it should clear recycler completely\n5. set items. Press on \"Set another list\" button, it should fully replace all items\n6. check item change state to picked\n7. check last item visualization (added item in the end has no divider)\n8. check item alignment (left, center, right)</string>
@@ -482,37 +514,6 @@
 
     <!--Saved State-->
     <string name="saved_state_case">This case show that ViewModel can save necessary date and recover it after app process reboot. First field save entered data, second not. \nInstructions: in developer options choose no background process in Background process limit. Then open another app and re-open this app from open applications stack.</string>
-
-    <!--Case labels-->
-    <string name="case_label_pin_view">Check PinView functionality</string>
-    <string name="case_label_dynamic_pin_view">Create your PinView</string>
-    <string name="case_label_saved_state">Check SavedState ViewModel</string>
-    <string name="case_label_numpad_image">Check NumpadImageView functionality</string>
-    <string name="case_label_listheader">Check Listheader functionality</string>
-    <string name="case_label_dynamic_listheader">Create your Listheader</string>
-    <string name="case_label_util_keyboard">Check Util keyboard functionality</string>
-    <string name="case_label_utils">Check Utils functionality in Util module</string>
-    <string name="case_label_switch_manager">Check SwitchManager functionality in Util module</string>
-    <string name="case_label_custom_switch">Check CustomSwitch functionality</string>
-    <string name="case_label_dynamic_custom_switch">Create your CustomSwitch</string>
-    <string name="case_label_topbar_view">Check Topbar view functionality</string>
-    <string name="case_label_cardline">Check Cardline functionality</string>
-    <string name="case_label_dynamic_cardline">Create custom Cardline</string>
-    <string name="case_label_checker">Check Checker functionality</string>
-    <string name="case_label_dynamic_message_dialog">Create custom Message Dialog</string>
-    <string name="case_label_bottom_dialog">Check Bottom Dialog functionality</string>
-    <string name="case_label_inputfield_view_end_icon">Check InputfieldView end icon functionality</string>
-    <string name="case_label_inputfield_view_start_icon">Check InputfieldView start icon functionality</string>
-    <string name="case_label_inputfield_view">Check InputfieldView styles</string>
-    <string name="case_label_numpad_text">Check NumpadTextView functionality</string>
-    <string name="case_label_baseui_navigation">Check BaseUI navigation</string>
-    <string name="case_label_baseui_navigation_second">Second navigation fragment</string>
-    <string name="case_label_baseui">Check BaseUI functionality</string>
-    <string name="case_label_baseui_theme">Change BaseUI theme and language</string>
-    <string name="case_label_domain">Check Domain module functionality</string>
-    <string name="case_label_biometric_decryption">Check BiometricDecryption functionality</string>
-    <string name="case_label_timeparser">Check TimeParser functionality</string>
-    <string name="case_label_logger">Check Logger functionality</string>
 
     <!--Time Parser-->
     <string name="timeparser_title">Use this screen to check TimeParser module functionality. Use calendar for choosing date and different cases below to get selected date in different formats. If you don\'t know how use date patterns, follow the link below to see different pattern examples.</string>
@@ -575,7 +576,6 @@
     <string name="menu_settings_title_clear_tests">Clear tests</string>
 
     <!--Strings for dialogs for access_container module check-->
-    <string name="case_label_access_container">Access container functionality check</string>
     <string name="label_password">Password</string>
     <string name="label_pin">PIN-code</string>
     <string name="label_biom">Biometric scanner</string>

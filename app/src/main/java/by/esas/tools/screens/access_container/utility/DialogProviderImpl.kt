@@ -10,13 +10,20 @@ import by.esas.tools.accesscontainer.dialog.BiometricUserInfo
 import by.esas.tools.accesscontainer.dialog.DialogProvider
 import by.esas.tools.accesscontainer.dialog.IBaseDialog
 import by.esas.tools.accesscontainer.dialog.IBiometric
-import by.esas.tools.accesscontainer.dialog.setters.*
+import by.esas.tools.accesscontainer.dialog.setters.MenuDialogSetter
+import by.esas.tools.accesscontainer.dialog.setters.MenuResultHandler
+import by.esas.tools.accesscontainer.dialog.setters.PasswordResultHandler
+import by.esas.tools.accesscontainer.dialog.setters.PinResultHandler
+import by.esas.tools.accesscontainer.dialog.setters.SetBiometricDialog
+import by.esas.tools.accesscontainer.dialog.setters.SetPasswordDialog
+import by.esas.tools.accesscontainer.dialog.setters.SetPinDialog
+import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.biometric_decryption.Biometric
 import by.esas.tools.dialog.BaseDialogFragment
 import by.esas.tools.dialog.Config
 import by.esas.tools.dialog.Config.CANCEL_DIALOG
 import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.dialog.MessageDialog.Companion.ITEM_POSITION
+import by.esas.tools.dialog.MessageDialog.Companion.ITEM_CODE
 import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_ITEM_PICKED
 import by.esas.tools.logger.ILogger
 import by.esas.tools.screens.access_container.dialog.PasswordDialog
@@ -25,6 +32,7 @@ import by.esas.tools.utils.logger.ErrorModel
 import javax.crypto.Cipher
 
 class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
+
     override val passwordDialog: SetPasswordDialog = providePasswordDialog()
     override val menuDialog: MenuDialogSetter = provideMenuDialog()
     override val pinDialog: SetPinDialog = providePinDialog()
@@ -56,7 +64,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
         var dialog: MessageDialog? = null
 
         return object : MenuDialogSetter {
-            val list = mutableListOf<Pair<String, String>>()
+            val list = mutableListOf<Pair<String, AuthType>>()
             var menuHandler: MenuResultHandler? = null
 
             override fun createDialog() {
@@ -76,13 +84,13 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                 logger.logOrder("MenuDialogSetter setupParameterBundle isDecrypting=$isDecrypting, showPassword=$showPassword, showPin=$showPin, showBiom=$showBiom")
                 list.clear()
                 if (isDecrypting && showPassword)
-                    list.add(Pair(App.appContext.getString(R.string.label_password), "NONE"))
+                    list.add(Pair(App.appContext.getString(R.string.label_password), AuthType.NONE))
                 if (showPin)
-                    list.add(Pair(App.appContext.getString(R.string.label_pin), "PIN_AUTH"))
+                    list.add(Pair(App.appContext.getString(R.string.label_pin), AuthType.PIN_AUTH))
                 if (showBiom)
-                    list.add(Pair(App.appContext.getString(R.string.label_biom), "BIOMETRIC_AUTH"))
+                    list.add(Pair(App.appContext.getString(R.string.label_biom), AuthType.BIOMETRIC_AUTH))
                 dialog?.setItems(
-                    list = list.map { it.first },
+                    list = list.map { MessageDialog.ItemInfo(it.second.name, it.first) },
                     alignment = View.TEXT_ALIGNMENT_CENTER
                 )
             }
@@ -125,11 +133,16 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                                 if (userAction == CANCEL_DIALOG) {
                                     menuHandler?.onCancel()
                                 } else if (userAction == USER_ACTION_ITEM_PICKED) {
-                                    val itemPosition = result.getInt(ITEM_POSITION)
-                                    when (list.getOrNull(itemPosition)?.second) {
-                                        "BIOMETRIC_AUTH" -> menuHandler?.onBiomClick()
-                                        "PIN_AUTH" -> menuHandler?.onPinClick()
-                                        "NONE" -> menuHandler?.onPasswordClick()
+                                    val itemCode = result.getString(ITEM_CODE) ?: ""
+                                    val type: AuthType = try {
+                                        AuthType.valueOf(itemCode)
+                                    } catch (e: IllegalArgumentException) {
+                                        AuthType.NONE
+                                    }
+                                    when (type) {
+                                        AuthType.BIOMETRIC_AUTH -> menuHandler?.onBiomClick()
+                                        AuthType.PIN_AUTH -> menuHandler?.onPinClick()
+                                        AuthType.NONE -> menuHandler?.onPasswordClick()
                                     }
                                 }
                             }
@@ -365,7 +378,6 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                     override fun getCurrentUserIv(): ByteArray {
                         return userInfo.getCurrentUserIv()
                     }
-
                 }
                 builder = biometricCallback?.let { callback ->
                     logger.logOrder("SetBiometricDialog builder update")

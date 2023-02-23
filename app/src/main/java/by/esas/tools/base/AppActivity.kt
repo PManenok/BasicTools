@@ -2,13 +2,12 @@ package by.esas.tools.base
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.App
 import by.esas.tools.BR
+import by.esas.tools.R
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
@@ -25,7 +24,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import java.util.*
 import javax.inject.Inject
-
 
 /**
  * To use HasAndroidInjector with Activity do not forget to add
@@ -64,18 +62,19 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
     }
 
     override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
+        logger.logOrder("provideErrorHandler")
         return object : ErrorHandler<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
-                return "Error message"
+                return error.statusEnum
             }
 
             override fun getErrorMessage(e: Throwable): String {
-                return "Error message"
+                return e.message ?: resources.getString(R.string.test_error)
             }
 
             override fun mapError(e: Throwable): ErrorModel {
-                return viewModel.provideMapper().mapErrorException(this@AppActivity.TAGk, e)
+                return viewModel.provideMapper().mapErrorException(this.TAGk, e)
             }
         }
     }
@@ -97,7 +96,6 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
             }
 
             override fun setLanguage(lang: String) {
-                setAppContext(updateResources(getAppContext(), lang))
                 prefs.setLanguage(lang)
             }
 
@@ -115,19 +113,6 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
         }
     }
 
-   /* override fun hideSystemUI() {
-        logger.logInfo("hideSystemUI")
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                hideSystemUIR(this)
-            } else {
-                hideSystemUIApp(this)
-            }
-        } catch (e: NullPointerException) {
-            logger.logError(e)
-        }
-    }*/
-
     override fun getAppContext(): Context {
         return App.appContext
     }
@@ -142,13 +127,5 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
     override fun handlePopBackArguments(arguments: Bundle?) {
         if (arguments != null)
             intent.putExtras(arguments)
-    }
-
-    private fun updateResources(context: Context, language: String): Context {
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val config = Configuration(context.resources.configuration)
-        config.setLocale(locale)
-        return context.createConfigurationContext(config)
     }
 }

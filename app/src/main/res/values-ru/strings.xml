@@ -131,6 +131,7 @@
     <string name="error_api_wrong_verify_code">Введён неверный код или его время действия истекло. Проверьте правильность введённого кода или запросите новый код соответственно.</string>
     <string name="error_api_user_not_active">Учетная запись пользователя не активирована.</string>
     <string name="error_api_forbidden">Доступ запрещён.</string>
+    <string name="error_date_unexpected_format">Дата в некорректном формате</string>
     <!--#############  ERRORS END  #############-->
 
     <string name="validation_text_in_range">Допустимый диапазон длины текста %d - %d</string>

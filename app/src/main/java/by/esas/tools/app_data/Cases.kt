@@ -6,6 +6,7 @@ import by.esas.tools.entity.CaseInfo
 import by.esas.tools.entity.Modules
 
 object Cases {
+
     private val cases = arrayListOf<CaseInfo>()
 
     fun getAll(): List<CaseInfo> {
@@ -170,10 +171,22 @@ object Cases {
             R.string.case_label_recycler_custom,
             listOf(Modules.RECYCLER)
         )
+        addCaseItem(
+            R.id.accessContainerFragment,
+            R.string.case_label_access_container,
+            listOf(
+                Modules.ACCESS_CONTAINER,
+                Modules.LISTHEADER,
+                Modules.INPUTFIELD_VIEW,
+                Modules.NUMPAD,
+                Modules.DIALOG
+            )
+        )
 
         return cases
     }
 
+    //REMEMBER to add some static mapping to set static ID's for cases
     private fun addCaseItem(
         id: Int,
         name: Int,

@@ -115,6 +115,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             handleAction(Action(NEED_TO_UPDATE_MENU))
             if (viewModel.needToRecreate) {
                 viewModel.needToRecreate = false
+                //REMEMBER to fix
                 recreateActivity()
             }
         }

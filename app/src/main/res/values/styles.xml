@@ -238,7 +238,6 @@
     <!--##################################### Button styles #####################################-->
 
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/button_selector</item><!--FIX-->
         <item name="android:textAllCaps">false</item>
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:includeFontPadding">false</item>

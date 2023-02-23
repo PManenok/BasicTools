@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import java.util.*
 
 interface IChangeSettings {
 
@@ -33,23 +32,14 @@ interface IChangeSettings {
             if (newLang != prevLang) {
                 logInfo("changeLanguage from $prevLang to $newLang($lang)")
                 setter.setLanguage(lang)
-                //TEST
                 val appContext = getAppContext()
                 val config = Configuration(appContext.resources?.configuration)
                 SettingsManager.localeSettings(config, lang)
-                appContext.createConfigurationContext(config)
-                setAppContext(appContext)
+                val newContext = appContext.createConfigurationContext(config)
+                setAppContext(newContext)
                 recreateActivity()
             }
         }
-    }
-
-    private fun updateResources(context: Context, language: String): Context {
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val config = Configuration(context.resources.configuration)
-        config.setLocale(locale)
-        return context.createConfigurationContext(config)
     }
 
     /**

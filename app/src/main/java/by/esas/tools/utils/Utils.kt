@@ -98,6 +98,7 @@ fun getErrorMessage(status: AppErrorStatusEnum, message: String? = null): String
         AppErrorStatusEnum.API_PHONE_NUMBER_NOT_CONFIRMED -> R.string.error_api_phone_not_confirmed
         AppErrorStatusEnum.API_PHONE_ALREADY_SET -> R.string.error_api_phone_already_set
         AppErrorStatusEnum.API_CODE_INVALID_OR_EXPIRED -> R.string.error_api_wrong_verify_code
+        AppErrorStatusEnum.APP_ILLEGAL_PATTERN_CHARACTER -> R.string.error_date_unexpected_format
     }
     return if (stringRes == -1) {
         message ?: App.appContext.getString(R.string.error_unknown_happened)

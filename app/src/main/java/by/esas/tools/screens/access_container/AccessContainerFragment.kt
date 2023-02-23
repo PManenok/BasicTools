@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
+import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.base.AppFragment
 import by.esas.tools.biometric_decryption.checkBiometricSupport
@@ -19,6 +20,7 @@ import by.esas.tools.utils.logger.ErrorModel
 class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBinding>() {
 
     companion object {
+
         const val PREFERRED_TYPE_PICKER: String = "PREFERRED_TYPE_PICKER"
         val DEFAULT_TOKEN: Token = Token("accessToken", "refreshToken")
     }
@@ -62,12 +64,12 @@ class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBin
                 val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
                 if (actionName == MessageDialog.USER_ACTION_ITEM_PICKED) {
                     val name = result.getString(MessageDialog.ITEM_NAME)
-                    val position = result.getInt(MessageDialog.ITEM_POSITION)
+                    val code = result.getString(MessageDialog.ITEM_CODE) ?: AuthType.NONE.name
                     viewModel.preferredTypeText.value = name
-                    viewModel.preferredType = viewModel.authTypes[position]
-                    enableControls()
+                    viewModel.preferredType = AuthType.valueOf(code)
+                    viewModel.enableControls()
                 } else {
-                    enableControls(result)
+                    viewModel.enableControls()
                 }
             }
         } else {

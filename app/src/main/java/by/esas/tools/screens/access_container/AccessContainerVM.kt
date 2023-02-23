@@ -75,7 +75,7 @@ class AccessContainerVM @Inject constructor() : AppVM() {
         val dialog: MessageDialog = MessageDialog()
         dialog.setRequestKey(AccessContainerFragment.PREFERRED_TYPE_PICKER)
         dialog.setTitle(R.string.refresher_preferred_lable)
-        dialog.setItems(authTypes.map { getAuthTypeText(it) })
+        dialog.setItems(authTypes.map { MessageDialog.ItemInfo(it.name, getAuthTypeText(it)) })
         dialog.isCancelable = true
         showDialog(dialog)
     }
