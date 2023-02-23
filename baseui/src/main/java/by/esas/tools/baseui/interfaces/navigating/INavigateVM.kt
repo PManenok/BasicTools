@@ -9,6 +9,8 @@ interface INavigateVM {
 
     fun navigate(direction: NavDirections, parameters: Bundle?)
 
+    fun navigate(directionId: Int, parameters: Bundle?)
+
     fun popBack() {
         popBack(destination = 0, inclusive = false, parameters = null)
     }

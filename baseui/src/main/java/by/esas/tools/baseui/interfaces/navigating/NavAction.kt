@@ -10,7 +10,8 @@ import androidx.navigation.NavDirections
 import by.esas.tools.logger.Action
 
 open class NavAction(
-    val direction: NavDirections,
+    val direction: NavDirections?,
+    val directionId: Int = -1,
     parameters: Bundle? = null
 ) : Action(ACTION_NAVIGATION, parameters) {
 

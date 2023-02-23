@@ -170,10 +170,12 @@ abstract class StandardFragment<VM : StandardViewModel<M>, B : ViewDataBinding, 
     protected open fun onNavigate(action: NavAction) {
         logger.logInfo("try to navigate")
         if (navController?.currentDestination?.id == fragmentDestinationId) {
-            logger.logInfo("navigate to destination")
-
-            activity?.runOnUiThread {
-                navController?.navigate(action.direction)
+            if (action.direction != null) {
+                logger.logInfo("navigate to destination")
+                activity?.runOnUiThread { navController?.navigate(action.direction) }
+            } else if (action.directionId != -1) {
+                logger.logInfo("navigate to destination ${action.directionId}")
+                activity?.runOnUiThread { navController?.navigate(action.directionId, action.parameters) }
             }
         }
     }

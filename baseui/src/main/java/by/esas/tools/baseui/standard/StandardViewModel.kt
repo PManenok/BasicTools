@@ -77,6 +77,10 @@ abstract class StandardViewModel<M : BaseErrorModel>
         action.postValue(NavAction(direction = direction, parameters = parameters))
     }
 
+    override fun navigate(directionId: Int, parameters: Bundle?) {
+        action.postValue(NavAction(direction = null, directionId = directionId, parameters = parameters))
+    }
+
     override fun popBack(destination: Int, inclusive: Boolean, parameters: Bundle?) {
         action.postValue(PopBackAction(destination, inclusive, parameters))
     }

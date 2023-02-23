@@ -73,16 +73,15 @@
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_main_refresher_password"
-                        style="@style/FieldStyle"
+                        style="@style/FieldStyle.WithLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.correctPassword}"
-                        app:inputLabel="@string/refresher_password_lable"
-                        app:inputLabelType="on_top" />
+                        app:inputLabel="@string/refresher_password_lable" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_main_refresher_preferred"
-                        style="@style/FieldStyle"
+                        style="@style/FieldStyle.WithLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_8"
@@ -92,7 +91,6 @@
                         app:inputClickViewEnabled="true"
                         app:inputIsEnableable="false"
                         app:inputLabel="@string/refresher_preferred_lable"
-                        app:inputLabelType="on_top"
                         app:onClickViewListener="@{()->viewModel.onPickPreferredType()}" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
