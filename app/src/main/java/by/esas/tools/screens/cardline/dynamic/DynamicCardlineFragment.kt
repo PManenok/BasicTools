@@ -13,6 +13,7 @@ import by.esas.tools.utils.getDimensInDp
 import by.esas.tools.utils.getFloatValue
 
 class DynamicCardlineFragment : AppFragment<DynamicCardlineVM, FMainDynamicCardlineBinding>() {
+
     override val fragmentDestinationId = R.id.dynamicCardlineFragment
 
     override fun provideLayoutId() = R.layout.f_main_dynamic_cardline
@@ -41,7 +42,6 @@ class DynamicCardlineFragment : AppFragment<DynamicCardlineVM, FMainDynamicCardl
             binding.fDynamicCardlineContainer.removeAllViews()
             binding.fDynamicCardlineContainer.addView(createDefaultCardline())
         }
-
     }
 
     private fun createDefaultCardline(): CardLine {

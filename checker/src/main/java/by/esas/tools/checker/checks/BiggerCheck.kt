@@ -10,10 +10,14 @@ import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
 open class BiggerCheck<T> : BaseCheck {
+
     override var TAG: String = BiggerCheck::class.java.simpleName
     private var biggerThen: T? = null
 
-    constructor(biggerThen: T, errorText: String = "Value must be bigger then %d".format(biggerThen)) : super(errorText) {
+    constructor(
+        biggerThen: T,
+        errorText: String = "Value must be bigger then %d".format(biggerThen)
+    ) : super(errorText) {
         this.biggerThen = biggerThen
     }
 

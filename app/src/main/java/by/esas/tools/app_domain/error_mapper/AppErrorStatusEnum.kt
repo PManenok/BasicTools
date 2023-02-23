@@ -75,6 +75,7 @@ enum class AppErrorStatusEnum {
     API_CODE_INVALID_OR_EXPIRED;
 
     companion object {
+
         fun getAppErrorStatusEnum(value: String): AppErrorStatusEnum {
             return try {
                 valueOf(value)

@@ -10,6 +10,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
 class App : DaggerApplication() {
+
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent
             .builder()
@@ -18,6 +19,7 @@ class App : DaggerApplication() {
     }
 
     companion object {
+
         lateinit var instance: App
         lateinit var appContext: Context
     }

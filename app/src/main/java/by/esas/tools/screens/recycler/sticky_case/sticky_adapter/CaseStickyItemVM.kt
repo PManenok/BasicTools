@@ -6,6 +6,7 @@ import by.esas.tools.recycler.sticky.StickyEntity
 import by.esas.tools.screens.recycler.RecyclerEntity
 
 class CaseStickyItemVM : BaseItemViewModel<StickyEntity<RecyclerEntity>>() {
+
     val title = ObservableField<String>("t")
 
     val name = ObservableField<String>("n")

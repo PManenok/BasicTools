@@ -11,7 +11,6 @@ import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.databinding.ActivityMainBinding
-import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.topbarview.ITopbarHandler
 

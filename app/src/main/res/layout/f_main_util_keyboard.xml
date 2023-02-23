@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -24,30 +23,30 @@
             android:layout_height="wrap_content"
             android:text="@string/util_title_case_1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
+            android:layout_marginTop="@dimen/spacing_4"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/f_main_util_case_1_edit"
                 style="@style/TextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_weight="1"
                 android:hint="@string/test_text"
-                android:textColorHint="@color/main_color_2"/>
+                android:textColorHint="@color/main_color_2" />
 
             <Button
-                style="@style/ButtonStyle"
                 android:id="@+id/f_main_util_case_1_button"
-                android:text="@string/util_hide_and_defocus"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/util_hide_and_defocus" />
 
         </LinearLayout>
 
@@ -56,41 +55,41 @@
             style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_12"
             android:text="@string/util_title_case_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/spacing_12"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_4">
+            android:layout_marginTop="@dimen/spacing_4"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/f_main_util_case_2_button_show"
                 style="@style/ButtonStyle"
-                android:text="@string/util_show"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/util_show" />
 
             <EditText
                 android:id="@+id/f_main_util_case_2_edit"
                 style="@style/TextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_weight="1"
                 android:hint="@string/test_text"
-                android:textColorHint="@color/main_color_2"/>
+                android:textColorHint="@color/main_color_2" />
 
             <Button
                 android:id="@+id/f_main_util_case_2_button_hide"
                 style="@style/ButtonStyle"
-                android:text="@string/util_hide"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/util_hide" />
 
         </LinearLayout>
 

@@ -11,6 +11,7 @@ private const val SMALLEST_NUM_TEXT_SIZE = 40
 private const val LARGEST_NUM_TEXT_SIZE = 100
 
 class NumpadTextVM @Inject constructor() : AppVM() {
+
     private val builder: StringBuilder = StringBuilder()
     val numText = ObservableField<String>()
 

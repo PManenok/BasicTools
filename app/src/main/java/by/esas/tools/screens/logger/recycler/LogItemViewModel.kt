@@ -3,9 +3,9 @@ package by.esas.tools.screens.logger.recycler
 import androidx.databinding.ObservableField
 import by.esas.tools.entity.LogItem
 import by.esas.tools.recycler.BaseItemViewModel
-import java.lang.StringBuilder
 
-class LogItemViewModel: BaseItemViewModel<LogItem>() {
+class LogItemViewModel : BaseItemViewModel<LogItem>() {
+
     val log = ObservableField<String>()
 
     override fun bindItem(item: LogItem, position: Int) {

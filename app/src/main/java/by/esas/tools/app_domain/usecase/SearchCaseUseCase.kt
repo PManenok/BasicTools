@@ -9,6 +9,7 @@ class SearchCaseUseCase @Inject constructor(
     errorUtil: AppErrorMapper,
     foregroundContext: CoroutineContext
 ) : BaseUseCase<List<CaseItemInfo>>(errorUtil, foregroundContext) {
+
     override val TAG: String = SearchCaseUseCase::class.java.simpleName
 
     var caseItems = listOf<CaseItemInfo>()

@@ -6,9 +6,14 @@ import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainUtilUtilsBinding
-import by.esas.tools.util.*
+import by.esas.tools.util.getCardType
+import by.esas.tools.util.getOnlyNumbers
+import by.esas.tools.util.luhnCheck
+import by.esas.tools.util.toFormattedInput
+import by.esas.tools.util.toFormattedString
 
-class UtilsFragment: AppFragment<UtilsVM, FMainUtilUtilsBinding>() {
+class UtilsFragment : AppFragment<UtilsVM, FMainUtilUtilsBinding>() {
+
     override val fragmentDestinationId = R.id.utilUtilsFragment
 
     override fun provideLayoutId() = R.layout.f_main_util_utils

@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="handler"
-            type="by.esas.tools.dialog.SearchFilterDialog"/>
+            type="by.esas.tools.dialog.SearchFilterDialog" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorBackground">
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
 
         <by.esas.tools.topbarview.TopbarView
             android:id="@+id/df_filter_topbar"
@@ -24,7 +25,7 @@
             app:barNavIconTint="@color/textColor"
             app:barShowNavIcon="true"
             app:barTitleText="Filter"
-            app:barTitleTextAppearance="@style/TextStyle"/>
+            app:barTitleTextAppearance="@style/TextStyle" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -49,9 +50,9 @@
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
                     android:columnCount="2"
-                    android:rowCount="2"
-                    android:layout_marginTop="@dimen/spacing_8">
+                    android:rowCount="2">
 
                     <CheckBox
                         android:id="@+id/df_filter_status_checked"
@@ -94,8 +95,8 @@
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:layout_marginTop="@dimen/spacing_8">
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:columnCount="2">
 
                     <CheckBox
                         android:id="@+id/df_filter_module_accesscontainer"
@@ -242,9 +243,9 @@
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show result"
             android:layout_marginStart="@dimen/spacing_12"
             android:layout_marginEnd="@dimen/spacing_12"
-            android:layout_marginBottom="@dimen/spacing_24"/>
+            android:layout_marginBottom="@dimen/spacing_24"
+            android:text="Show result" />
     </LinearLayout>
 </layout>

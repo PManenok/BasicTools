@@ -6,6 +6,7 @@ enum class UiModeType {
     SYSTEM;
 
     companion object {
+
         fun getMode(value: String?): UiModeType? {
             return try {
                 UiModeType.valueOf(value ?: "")

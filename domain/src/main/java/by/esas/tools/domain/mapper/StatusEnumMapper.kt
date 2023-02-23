@@ -10,7 +10,6 @@ import by.esas.tools.domain.mapper.error.ErrorMessageEnum
 import by.esas.tools.domain.mapper.error.HttpErrorStatusEnum
 import by.esas.tools.domain.mapper.error.IdentityErrorEnum
 
-
 fun mapApiErrorToHttpStatus(status: ApiErrorStatusEnum?): HttpErrorStatusEnum {
     return when (status) {
         ApiErrorStatusEnum.OK -> HttpErrorStatusEnum.OK

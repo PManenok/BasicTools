@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentResultListener
 
 interface IBaseDialog {
+
     fun dismiss()
     fun show(context: FragmentActivity?, tag: String)
     fun provideResultListener(tag: String): FragmentResultListener

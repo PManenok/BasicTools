@@ -11,7 +11,7 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_args_data"/>
+            android:text="@string/baseui_navigation_second_args_data" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_baseui_navigation_second_args"
@@ -20,14 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_4"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pass_data"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            android:layout_marginTop="@dimen/spacing_4"
+            android:text="@string/baseui_navigation_second_pass_data" />
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_baseui_navigation_second_input_field"
@@ -35,51 +35,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_4"
-            android:hint="@string/hint_add_value"/>
+            android:hint="@string/hint_add_value" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_without_args"/>
+            android:text="@string/baseui_navigation_second_pop_back_without_args" />
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_without_args_button"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_second_pop_back_without_args_button" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_with_args"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_second_pop_back_with_args" />
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back_with_args"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_with_args_button"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_second_pop_back_with_args_button" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_including"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_second_pop_back_including" />
 
         <Button
             android:id="@+id/f_baseui_navigation_second_pop_back_inclusive"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_second_pop_back_including_button"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_second_pop_back_including_button" />
 
     </LinearLayout>
 </layout>

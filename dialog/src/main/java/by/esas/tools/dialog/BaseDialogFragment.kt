@@ -30,6 +30,7 @@ import by.esas.tools.util.TAGk
  * and don't forget to set [androidx.fragment.app.DialogFragment.STYLE_NO_FRAME] style in the [styleSettings] method to remove extra padding
  * */
 abstract class BaseDialogFragment : DialogFragment() {
+
     open val TAG: String = TAGk
 
     protected val defaultRequestKey: String = TAGk

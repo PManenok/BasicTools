@@ -12,6 +12,7 @@ package by.esas.tools.topbarview
  */
 
 interface ITopbarHandler {
+
     fun onNavigationClick() {}
     fun onActionClick() {}
 }

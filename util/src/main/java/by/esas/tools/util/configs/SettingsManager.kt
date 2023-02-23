@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import java.util.*
 
 object SettingsManager {
+
     /**
      * This method is used to update configuration of the provided context.
      *

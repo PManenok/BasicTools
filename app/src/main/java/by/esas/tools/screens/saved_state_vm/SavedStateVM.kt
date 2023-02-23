@@ -14,6 +14,7 @@ class SavedStateVM @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory : AssistedSavedStateViewModelFactory<SavedStateVM> {
+
         override fun create(savedStateHandle: SavedStateHandle): SavedStateVM
     }
 

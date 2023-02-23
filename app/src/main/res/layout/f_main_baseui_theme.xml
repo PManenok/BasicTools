@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -13,14 +12,14 @@
             style="@style/BaseUI_MinorTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_theme_case_title"/>
+            android:text="@string/baseui_theme_case_title" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/BaseUI_TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_theme_change_language"
-            android:layout_marginTop="@dimen/spacing_12"/>
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="@string/baseui_theme_change_language" />
 
         <RadioGroup
             android:id="@+id/f_baseui_theme_lang_radio_group"
@@ -29,19 +28,19 @@
             android:layout_marginTop="@dimen/spacing_4">
 
             <RadioButton
-                style="@style/BaseUI_TextStyle"
                 android:id="@+id/f_baseui_theme_lang_radio_english"
+                style="@style/BaseUI_TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/baseui_theme_english"
-                tools:checked="true"/>
+                tools:checked="true" />
 
             <RadioButton
-                style="@style/BaseUI_TextStyle"
                 android:id="@+id/f_baseui_theme_lang_radio_russian"
+                style="@style/BaseUI_TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/baseui_theme_russian"/>
+                android:text="@string/baseui_theme_russian" />
         </RadioGroup>
 
         <Button
@@ -49,15 +48,15 @@
             style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_theme_set_language"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="@string/baseui_theme_set_language" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/BaseUI_TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_theme_change_theme"
-            android:layout_marginTop="@dimen/spacing_12"/>
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="@string/baseui_theme_change_theme" />
 
         <RadioGroup
             android:id="@+id/f_baseui_theme_mode_radio_group"
@@ -66,26 +65,26 @@
             android:layout_marginTop="@dimen/spacing_4">
 
             <RadioButton
-                style="@style/BaseUI_TextStyle"
                 android:id="@+id/f_baseui_theme_mode_radio_system"
+                style="@style/BaseUI_TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/baseui_theme_system"
-                tools:checked="true"/>
+                tools:checked="true" />
 
             <RadioButton
-                style="@style/BaseUI_TextStyle"
                 android:id="@+id/f_baseui_theme_mode_radio_light"
+                style="@style/BaseUI_TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/baseui_theme_light"/>
+                android:text="@string/baseui_theme_light" />
 
             <RadioButton
-                style="@style/BaseUI_TextStyle"
                 android:id="@+id/f_baseui_theme_mode_radio_night"
+                style="@style/BaseUI_TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/baseui_theme_night"/>
+                android:text="@string/baseui_theme_night" />
         </RadioGroup>
 
         <Button
@@ -93,8 +92,8 @@
             style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_theme_set_theme"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="@string/baseui_theme_set_theme" />
 
     </LinearLayout>
 

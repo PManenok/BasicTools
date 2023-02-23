@@ -17,6 +17,7 @@ import by.esas.tools.utils.checking.AppChecker
 class PasswordDialog : BindingDialogFragment<DfPasswordBinding>() {
 
     companion object {
+
         const val USER_ACTION_PASSWORD_COMPLETED: String = "USER_ACTION_PASSWORD_COMPLETED"
         const val RESULT_PASSWORD: String = "RESULT_PASSWORD"
         const val USER_ACTION_ANOTHER_CLICKED: String = "USER_ACTION_ANOTHER_CLICKED"

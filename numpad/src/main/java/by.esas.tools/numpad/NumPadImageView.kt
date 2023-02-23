@@ -54,6 +54,7 @@ import by.esas.tools.util.SwitchManager
  */
 
 open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
+
     open val TAG: String = NumPadImageView::class.java.simpleName
 
     protected val numContainerZero: FrameLayout

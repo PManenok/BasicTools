@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -24,29 +23,29 @@
                 style="@style/TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/timeparser_title"/>
+                android:text="@string/timeparser_title" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/HintTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
-                android:text="@string/timeparser_pattern_examples_link"/>
+                android:text="@string/timeparser_pattern_examples_link" />
 
             <DatePicker
                 android:id="@+id/f_timeparser_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/white"
-                android:layout_marginTop="@dimen/spacing_6"/>
+                android:layout_marginTop="@dimen/spacing_6"
+                android:background="@color/white" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/HintTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/timeparser_case_utc"
-                android:layout_marginTop="@dimen/spacing_2"/>
+                android:layout_marginTop="@dimen/spacing_2"
+                android:text="@string/timeparser_case_utc" />
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_timeparser_result_1"
@@ -184,9 +183,9 @@
                 android:layout_marginTop="@dimen/spacing_2"
                 android:hint="@string/hint_add_value"
                 android:text="@={viewModel.dateField4}"
-                app:inputLabelType="on_line"
+                app:inputLabel="@string/timeparser_date"
                 app:inputLabelTextStyle="@style/TextStyle.Normal16"
-                app:inputLabel="@string/timeparser_date"/>
+                app:inputLabelType="on_line" />
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_timeparser_pattern_4"
@@ -195,20 +194,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_2"
                 android:hint="@string/hint_add_value"
-                app:inputLabelType="on_line"
-                app:inputLabelTextStyle="@style/TextStyle.Normal16"
-                app:inputLabel="@string/timeparser_pattern"
+                android:text="@={viewModel.patternField4}"
                 app:inputHelp="@string/timeparser_case_local_date_help_text"
                 app:inputHelpTextStyle="@style/HintTextStyle"
-                android:text="@={viewModel.patternField4}" />
+                app:inputLabel="@string/timeparser_pattern"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabelType="on_line" />
 
             <Button
                 android:id="@+id/f_timeparser_pattern_4_btn"
                 style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_2"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_2"
                 android:text="@string/timeparser_get_result" />
 
             <by.esas.tools.inputfieldview.InputFieldView
@@ -236,9 +235,9 @@
                 android:layout_marginTop="@dimen/spacing_2"
                 android:hint="@string/hint_add_value"
                 android:text="@={viewModel.dateField5}"
-                app:inputLabelType="on_line"
+                app:inputLabel="@string/timeparser_date"
                 app:inputLabelTextStyle="@style/TextStyle.Normal16"
-                app:inputLabel="@string/timeparser_date"/>
+                app:inputLabelType="on_line" />
 
             <by.esas.tools.inputfieldview.InputFieldView
                 android:id="@+id/f_timeparser_pattern_5"
@@ -247,20 +246,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_2"
                 android:hint="@string/hint_add_value"
-                app:inputLabelType="on_line"
-                app:inputLabelTextStyle="@style/TextStyle.Normal16"
-                app:inputLabel="@string/timeparser_pattern"
+                android:text="@={viewModel.patternField5}"
                 app:inputHelp="@string/timeparser_case_utc_string_pattern_help_text"
                 app:inputHelpTextStyle="@style/HintTextStyle"
-                android:text="@={viewModel.patternField5}" />
+                app:inputLabel="@string/timeparser_pattern"
+                app:inputLabelTextStyle="@style/TextStyle.Normal16"
+                app:inputLabelType="on_line" />
 
             <Button
                 android:id="@+id/f_timeparser_pattern_5_btn"
                 style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_2"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/spacing_2"
                 android:text="@string/timeparser_get_result" />
 
             <by.esas.tools.inputfieldview.InputFieldView

@@ -9,7 +9,8 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainInputfieldviewBinding
 import by.esas.tools.inputfieldview.InputFieldView
 
-class InputfieldViewFragment: AppFragment<InputfieldViewVM, FMainInputfieldviewBinding>() {
+class InputfieldViewFragment : AppFragment<InputfieldViewVM, FMainInputfieldviewBinding>() {
+
     override val fragmentDestinationId = R.id.inputfieldViewFragment
 
     override fun provideLayoutId() = R.layout.f_main_inputfieldview

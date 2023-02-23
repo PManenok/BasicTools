@@ -6,6 +6,7 @@ import by.esas.tools.R
 import by.esas.tools.accesscontainer.support.supporter.ResourceStrProvider
 
 class ResProviderImpl : ResourceStrProvider {
+
     override fun requireContext(): Context {
         return App.appContext
     }

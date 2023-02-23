@@ -9,6 +9,7 @@ import by.esas.tools.entity.TestStatusEnum
 
 @Dao
 interface CaseStatusDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(caseStatus: CaseStatus)
 

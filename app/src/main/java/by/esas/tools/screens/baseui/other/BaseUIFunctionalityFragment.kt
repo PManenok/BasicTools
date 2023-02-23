@@ -19,7 +19,8 @@ import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.SwitchManager
 import by.esas.tools.utils.logger.ErrorModel
 
-class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
+class BaseUIFunctionalityFragment : AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
+
     override val fragmentDestinationId = R.id.baseuiFunctionalityFragment
 
     override fun provideLayoutId() = R.layout.f_main_baseui_functionality
@@ -39,9 +40,9 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         )
     }
 
-    override var switcher: SwitchManager = object : SwitchManager(){
+    override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = true
                 true
             } else
@@ -49,7 +50,7 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = false
                 true
             } else
@@ -67,9 +68,17 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
     override fun providePermissionResultCallback(): ActivityResultCallback<Map<String, Boolean>> {
         return ActivityResultCallback<Map<String, Boolean>> { result ->
             if (result.all { it.value }) {
-                Toast.makeText(context, resources.getString(R.string.baseui_functionality_permissions_confirmed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.baseui_functionality_permissions_confirmed),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(context,  resources.getString(R.string.baseui_functionality_permissions_denied), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.baseui_functionality_permissions_denied),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -95,14 +104,26 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
 
         binding.fBaseuiFunctionalityPermissionCheckBtn.setOnClickListener {
             if (checkPermissions(providePermissions(null), null, false))
-                Toast.makeText(requireContext(), resources.getString(R.string.baseui_functionality_permissions_confirmed), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.baseui_functionality_permissions_confirmed),
+                    Toast.LENGTH_LONG
+                ).show()
             else
-                Toast.makeText(requireContext(), resources.getString(R.string.baseui_functionality_permissions_denied), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.baseui_functionality_permissions_denied),
+                    Toast.LENGTH_LONG
+                ).show()
         }
 
         binding.fBaseuiFunctionalityPermissionRequestBtn.setOnClickListener {
             if (checkPermissions(providePermissions(null), null, false))
-                Toast.makeText(requireContext(), resources.getString(R.string.baseui_functionality_permissions_already_confirmed), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.baseui_functionality_permissions_already_confirmed),
+                    Toast.LENGTH_LONG
+                ).show()
             else
                 handleAction(Action(Action.ACTION_CHECK_AND_REQUEST_PERMISSIONS))
         }
@@ -110,7 +131,11 @@ class BaseUIFunctionalityFragment: AppFragment<BaseUIFunctionalityVM, FMainBaseu
         binding.fBaseuiFunctionalityPermissionsGroupBtn.setOnClickListener {
             val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.CALL_PHONE)
             if (checkPermissions(permissions, null, false))
-                Toast.makeText(requireContext(), resources.getString(R.string.baseui_functionality_permissions_already_confirmed), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.baseui_functionality_permissions_already_confirmed),
+                    Toast.LENGTH_LONG
+                ).show()
             else
                 checkPermissions(permissions, null, true)
         }

@@ -11,7 +11,6 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-
 @Singleton
 @Component(
     modules = [
@@ -26,6 +25,7 @@ interface AppComponent : AndroidInjector<App> {
     @Suppress("UNCHECKED_CAST")
     @Component.Builder
     interface Builder {
+
         @BindsInstance
         fun application(application: Application): Builder
 

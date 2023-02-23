@@ -15,6 +15,7 @@ open class NavAction(
 ) : Action(ACTION_NAVIGATION, parameters) {
 
     companion object {
+
         const val ACTION_NAVIGATION: String = "ACTION_NAVIGATION"
     }
 }

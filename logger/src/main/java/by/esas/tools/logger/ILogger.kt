@@ -9,9 +9,11 @@ import android.util.Log
 import android.widget.Toast
 
 interface ILogger<M : BaseErrorModel> {
+
     var currentTag: String
 
     companion object {
+
         const val CATEGORY_DEBUG: String = "CATEGORY_DEBUG"
         const val CATEGORY_INFO: String = "CATEGORY_INFO"
         const val CATEGORY_IMPORTANT: String = "CATEGORY_IMPORTANT"

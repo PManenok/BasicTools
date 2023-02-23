@@ -12,6 +12,7 @@ import by.esas.tools.accesscontainer.dialog.setters.SetPasswordDialog
 import by.esas.tools.accesscontainer.dialog.setters.SetPinDialog
 
 abstract class DialogProvider {
+
     abstract val passwordDialog: SetPasswordDialog
     abstract val menuDialog: MenuDialogSetter
     abstract val pinDialog: SetPinDialog

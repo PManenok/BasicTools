@@ -9,6 +9,7 @@ import by.esas.tools.utils.logger.LoggerImpl
 import javax.inject.Inject
 
 abstract class AppVM : StandardViewModel<ErrorModel>() {
+
     @Inject
     lateinit var mapper: AppErrorMapper
 

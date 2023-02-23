@@ -15,6 +15,7 @@ import by.esas.tools.utils.getDimensInDp
 
 class DynamicListheaderFragment() :
     AppFragment<DynamicListheaderVM, FMainDynamicListheaderBinding>() {
+
     override val fragmentDestinationId = R.id.dynamicListheaderFragment
 
     override fun provideLayoutId() = R.layout.f_main_dynamic_listheader
@@ -44,8 +45,9 @@ class DynamicListheaderFragment() :
         val listHeader = ListHeader(requireContext())
         listHeader.setListTitle(binding.fDynamicListheaderTitle.getText())
         listHeader.setListActionText(binding.fDynamicListheaderActionText.getText())
-        listHeader.setActionListener{
-            Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT).show()
+        listHeader.setActionListener {
+            Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT)
+                .show()
         }
         listHeader.setListTitleStyle(getStyle(binding.fDynamicListheaderSpinnerTitle.selectedItem.toString()))
         listHeader.setListActionStyle(getStyle(binding.fDynamicListheaderSpinnerActionText.selectedItem.toString()))
@@ -54,7 +56,7 @@ class DynamicListheaderFragment() :
         listHeader.setArrowIconTintResource(getActionImageTint())
         listHeader.addOpenedListener(object : ListHeader.ListOpenedListener {
             override fun onListStateChanged(isOpen: Boolean) {
-                when(isOpen) {
+                when (isOpen) {
                     true -> listHeader.setArrowIcon(getActionImages().first)
                     false -> listHeader.setArrowIcon(getActionImages().second)
                 }
@@ -66,7 +68,8 @@ class DynamicListheaderFragment() :
         listHeader.setDefaultContainerListener()
         listHeader.setArrowClickable(true)
         listHeader.setArrowListener {
-            Toast.makeText(requireContext(), resources.getString(R.string.listheader_icon_click), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), resources.getString(R.string.listheader_icon_click), Toast.LENGTH_SHORT)
+                .show()
         }
 
         listHeader.addChild(createTestTextView())
@@ -79,8 +82,12 @@ class DynamicListheaderFragment() :
     private fun createDefaultListheader(): ListHeader {
         return ListHeader(requireContext()).apply {
             this.setDefaultValues()
-            this.setActionListener{
-                Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT).show()
+            this.setActionListener {
+                Toast.makeText(
+                    requireContext(),
+                    resources.getString(R.string.listheader_action_click),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             this.addChild(createTestTextView())
             this.addChild(createTestTextView())
@@ -89,7 +96,7 @@ class DynamicListheaderFragment() :
     }
 
     private fun getStyle(style: String): Int {
-        return when(style){
+        return when (style) {
             resources.getString(R.string.style_1) -> R.style.CustomSwitcherTitleTextStyle
             resources.getString(R.string.style_2) -> R.style.CustomSwitcherTextStyleBold
             else -> R.style.CustomSwitcherTextStyleNormal
@@ -100,8 +107,8 @@ class DynamicListheaderFragment() :
         val checkedButtonId = binding.fDynamicListheaderActionImage.checkedRadioButtonId
         val checkedButton = binding.fDynamicListheaderActionImage.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
-            binding.fDynamicListheaderImageRadio1 -> Pair(R.drawable.ic_arrow_upward,  R.drawable.ic_arrow_downward)
+        return when (checkedButton) {
+            binding.fDynamicListheaderImageRadio1 -> Pair(R.drawable.ic_arrow_upward, R.drawable.ic_arrow_downward)
             binding.fDynamicListheaderImageRadio2 -> Pair(R.drawable.ic_remove, R.drawable.ic_add)
             else -> Pair(R.drawable.ic_arrow_drop_up, R.drawable.ic_arrow_drop_down)
         }
@@ -111,7 +118,7 @@ class DynamicListheaderFragment() :
         val checkedButtonId = binding.fDynamicListheaderTintRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fDynamicListheaderTintRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fDynamicListheaderTintRadio1 -> R.color.orange
             binding.fDynamicListheaderTintRadio2 -> R.color.purple
             binding.fDynamicListheaderTintRadio3 -> R.color.red

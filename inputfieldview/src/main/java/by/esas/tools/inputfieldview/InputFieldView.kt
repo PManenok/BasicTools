@@ -23,7 +23,11 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.CompoundButton
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -39,11 +43,13 @@ import by.esas.tools.util.SwitchManager
 import kotlin.math.roundToInt
 
 open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
+
     open val TAG: String = InputFieldView::class.java.simpleName
 
     val STATE_ERROR = intArrayOf(R.attr.state_error)
 
     companion object {
+
         const val END_ICON_CUSTOM: Int = -1
         const val END_ICON_NONE: Int = 0
         const val END_ICON_PASSWORD_TOGGLE: Int = 1
@@ -1559,14 +1565,17 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     /*region ################### Interfaces ######################*/
 
     interface IconCheckedListener {
+
         fun onCheckChanged(isChanged: Boolean)
     }
 
     interface IconClickListener {
+
         fun onIconClick()
     }
 
     interface EditorActionListener {
+
         fun onActionClick()
     }
 

@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -38,6 +39,7 @@ import kotlin.math.roundToInt
  *    default behavior and only this top container's visibility will be managed by ListHeader
  */
 open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
+
     val TAG: String = ListHeader::class.java.simpleName
     protected val container: ConstraintLayout
     protected val actionContainer: FrameLayout
@@ -105,12 +107,16 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         val defaultBehaviorEnabled = typedArray.getBoolean(R.styleable.ListHeader_listDefaultBehaviorEnabled, true)
         val containerIsClickable = typedArray.getBoolean(R.styleable.ListHeader_listContainerClickable, false)
         val topPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingTop, defPadding)
-        val bottomPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingBottom, defPadding)
-        val startPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingStart, defPadding)
+        val bottomPadding =
+            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingBottom, defPadding)
+        val startPadding =
+            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingStart, defPadding)
         val endPadding = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listContainerPaddingEnd, defPadding)
 
-        childrenMarginTop = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginTop, defChildrenMarginTop)
-        childrenMarginBottom = typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginBottom, defChildrenMarginBottom)
+        childrenMarginTop =
+            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginTop, defChildrenMarginTop)
+        childrenMarginBottom =
+            typedArray.getDimensionPixelSize(R.styleable.ListHeader_listChildrenMarginBottom, defChildrenMarginBottom)
 
         /*##########  Title  ##########*/
         val title = typedArray.getString(R.styleable.ListHeader_listTitle)
@@ -148,7 +154,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
 
     /*region ############### setups ###############*/
 
-    private fun addOnPreDrawListener(){
+    private fun addOnPreDrawListener() {
         this.viewTreeObserver.addOnPreDrawListener {
             var draw = true
             if (!checkChildrenVisibility(opened)) {
@@ -272,7 +278,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setDefaultValues(){
+    open fun setDefaultValues() {
         childrenMarginTop = defChildrenMarginTop
         childrenMarginBottom = defChildrenMarginBottom
         opened = defOpened
@@ -337,7 +343,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         return actionText.text.toString()
     }
 
-    open fun setListActionStyle(styleId: Int){
+    open fun setListActionStyle(styleId: Int) {
         if (styleId != -1)
             TextViewCompat.setTextAppearance(actionText, styleId)
     }
@@ -359,7 +365,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         return titleText.text.toString()
     }
 
-    open fun setListTitleStyle(styleId: Int){
+    open fun setListTitleStyle(styleId: Int) {
         if (styleId != -1)
             TextViewCompat.setTextAppearance(titleText, styleId)
     }
@@ -375,24 +381,24 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
         arrowIcon.setOnClickListener(listener)
     }
 
-    open fun setArrowIcon(imageRes: Int){
+    open fun setArrowIcon(imageRes: Int) {
         iconDrawableRes = imageRes
         arrowIcon.setImageResource(imageRes)
         setupActionVisibility()
     }
 
     /**
-    * Set arrow icon size in pixels
+     * Set arrow icon size in pixels
      * */
-    open fun setArrowIconSize(iconSize: Int){
+    open fun setArrowIconSize(iconSize: Int) {
         updateIconSize(iconSize, arrowIcon)
     }
 
-    open fun setArrowIconTint(color: Int){
+    open fun setArrowIconTint(color: Int) {
         ImageViewCompat.setImageTintList(arrowIcon, ColorStateList.valueOf(color))
     }
 
-    open fun setArrowIconTintResource(@ColorRes color: Int){
+    open fun setArrowIconTintResource(@ColorRes color: Int) {
         val parsedColor = ContextCompat.getColor(context, color)
         setArrowIconTint(parsedColor)
     }
@@ -439,6 +445,7 @@ open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
     }
 
     interface ListOpenedListener {
+
         fun onListStateChanged(isOpen: Boolean)
     }
     /*endregion ############### List Opened Listener ############### */

@@ -10,6 +10,7 @@ class FilterCaseUseCase @Inject constructor(
     errorUtil: AppErrorMapper,
     foregroundContext: CoroutineContext
 ) : BaseUseCase<List<CaseItemInfo>>(errorUtil, foregroundContext) {
+
     override val TAG = FilterCaseUseCase::class.java.simpleName
 
     var modules = listOf<String>()

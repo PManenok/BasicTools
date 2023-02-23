@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:ignore="MissingDefaultResource"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="MissingDefaultResource">
 
-        <RadioButton
-            android:id="@+id/color_radio_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:buttonTint="@color/orange" />
+    <RadioButton
+        android:id="@+id/color_radio_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/orange"
+        android:checked="true" />
 
-        <RadioButton
-            android:id="@+id/color_radio_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/purple" />
+    <RadioButton
+        android:id="@+id/color_radio_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/purple" />
 
-        <RadioButton
-            android:id="@+id/color_radio_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/red" />
+    <RadioButton
+        android:id="@+id/color_radio_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/red" />
 
 </RadioGroup>

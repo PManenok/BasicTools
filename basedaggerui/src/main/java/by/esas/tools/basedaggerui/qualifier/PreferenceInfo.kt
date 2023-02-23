@@ -7,7 +7,6 @@ package by.esas.tools.basedaggerui.qualifier
 
 import javax.inject.Qualifier
 
-
 @Qualifier
 @Retention
 annotation class PreferenceInfo

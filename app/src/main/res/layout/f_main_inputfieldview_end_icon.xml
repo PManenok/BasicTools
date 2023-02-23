@@ -57,7 +57,7 @@
                     app:inputEndDrawable="@drawable/ic_cancel"
                     app:inputEndIconMode="clear_text"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputLabelType="hide"/>
+                    app:inputLabelType="hide" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -74,11 +74,11 @@
                     android:layout_marginTop="@dimen/spacing_4"
                     android:hint="@string/hint_add_value"
                     android:inputType="text|textPassword|textNoSuggestions"
+                    app:inputEndDrawableTint="@color/main_color_2"
                     app:inputEndIconMode="password_toggle"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputPasswordToggle="@drawable/selector_password_toggle"
-                    app:inputEndDrawableTint="@color/main_color_2"
-                    app:inputLabelType="hide"/>
+                    app:inputLabelType="hide"
+                    app:inputPasswordToggle="@drawable/selector_password_toggle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -97,7 +97,7 @@
                     app:inputEndDrawable="@drawable/ic_star"
                     app:inputEndIconMode="custom"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputLabelType="hide"/>
+                    app:inputLabelType="hide" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -116,7 +116,7 @@
                     app:inputEndIconMode="text"
                     app:inputEndText="@string/click"
                     app:inputIconsSize="@dimen/spacing_32"
-                    app:inputLabelType="hide"/>
+                    app:inputLabelType="hide" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
@@ -131,11 +131,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
+                    android:layout_marginBottom="@dimen/spacing_10"
                     android:hint="@string/hint_add_value"
                     app:inputEndIconMode="checkable"
                     app:inputIconsSize="@dimen/spacing_32"
-                    android:layout_marginBottom="@dimen/spacing_10"
-                    app:inputLabelType="hide"/>
+                    app:inputLabelType="hide" />
 
             </LinearLayout>
 
@@ -144,7 +144,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_1"
-            android:background="@color/main_color_2"/>
+            android:background="@color/main_color_2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -173,9 +173,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_16"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacing_16">
+            android:orientation="horizontal">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/HintTextStyle"

@@ -18,6 +18,7 @@ import androidx.databinding.ViewDataBinding
  * */
 abstract class BindingBottomDialogFragment<B : ViewDataBinding>() :
     BaseBottomDialogFragment() {
+
     /**
      * This property holds [ViewDataBinding] instance for this dialog fragment.
      * It is set in [onCreateView] methods.

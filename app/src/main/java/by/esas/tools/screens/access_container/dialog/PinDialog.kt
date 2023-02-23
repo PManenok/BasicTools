@@ -16,9 +16,11 @@ import by.esas.tools.numpad.INumPadHandler
 import com.google.android.material.textfield.TextInputEditText
 
 class PinDialog : BindingDialogFragment<DfPinBinding>() {
+
     override val TAG: String = PinDialog::class.java.simpleName
 
     companion object {
+
         const val USER_ACTION_PIN_COMPLETED: String = "USER_ACTION_PIN_COMPLETED"
         const val RESULT_PIN: String = "RESULT_PIN"
         const val USER_ACTION_ANOTHER_CLICKED: String = "USER_ACTION_ANOTHER_CLICKED"

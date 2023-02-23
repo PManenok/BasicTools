@@ -16,7 +16,6 @@ class StickyDiffCallback<Entity>(
     override fun getOldListSize(): Int = oldList.size
     override fun getNewListSize(): Int = newList.size
 
-
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem: StickyEntity<Entity> = oldList[oldItemPosition]
         val newItem: StickyEntity<Entity> = newList[newItemPosition]

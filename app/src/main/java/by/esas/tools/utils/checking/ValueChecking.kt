@@ -6,10 +6,14 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.checker.checks.NotEmptyCheck
 
 class ValueChecking(val field: MutableLiveData<String>, val error: MutableLiveData<Throwable?>) : Checking() {
+
     protected override var checkEmpty: Boolean = true
     protected override var notEmptyRule: NotEmptyCheck? = NotEmptyCheck("Can\'t be empty")
 
-    constructor(field: MutableLiveData<String>, error: MutableLiveData<Throwable?>, checkEmpty: Boolean) : this(field, error) {
+    constructor(field: MutableLiveData<String>, error: MutableLiveData<Throwable?>, checkEmpty: Boolean) : this(
+        field,
+        error
+    ) {
         this.checkEmpty = checkEmpty
     }
 
@@ -22,14 +26,15 @@ class ValueChecking(val field: MutableLiveData<String>, val error: MutableLiveDa
                 notEmptyRule?.let { list.add(it) }
             else if (text.isEmpty())
                 return true
-            else{
+            else {
                 list.addAll(checks)
                 list.forEach { rule ->
                     if (!rule.check(text)) {
                         if (setError) error.postValue(rule.getException())
                         return false
                     }
-                }}
+                }
+            }
         }
         return true
     }

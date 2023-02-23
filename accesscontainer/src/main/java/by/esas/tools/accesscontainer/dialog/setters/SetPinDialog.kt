@@ -6,6 +6,7 @@
 package by.esas.tools.accesscontainer.dialog.setters
 
 interface SetPinDialog : IDialogSetter {
+
     fun setupParameterBundle(
         cancelBtnRes: Int,
         anotherBtnRes: Int,

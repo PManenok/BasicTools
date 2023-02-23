@@ -198,7 +198,7 @@
             android:id="@+id/v_num_pad_icon_left"
             style="@style/NumPadButtonsStyle"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_cancel"/>
+            app:srcCompat="@drawable/ic_cancel" />
     </FrameLayout>
 
     <FrameLayout
@@ -211,13 +211,13 @@
         app:layout_constraintStart_toEndOf="@id/v_num_pad_text_container_left_button"
         app:layout_constraintTop_toBottomOf="@id/v_num_pad_text_container_eight">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/v_num_pad_text_zero"
-                style="@style/NumPadTextIconsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="0"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/v_num_pad_text_zero"
+            style="@style/NumPadTextIconsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0" />
     </FrameLayout>
 
     <FrameLayout
@@ -234,6 +234,6 @@
             android:id="@+id/v_num_pad_icon_right"
             style="@style/NumPadButtonsStyle"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_backspace"/>
+            app:srcCompat="@drawable/ic_backspace" />
     </FrameLayout>
 </merge>

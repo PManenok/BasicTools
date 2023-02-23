@@ -6,6 +6,7 @@ import by.esas.tools.checker.Checking
 import by.esas.tools.checker.IFocusableChecking
 
 open class AppChecker : Checker() {
+
     override var getter: BaseCheck.ErrorGetter? = object : BaseCheck.ErrorGetter {
         override fun getErrorMsgFromException(exception: Exception?): String {
             return super.getErrorMsgFromException(exception)
@@ -29,7 +30,7 @@ open class AppChecker : Checker() {
                 result = tempResult
             }
         } else {
-            for(it in checks) {
+            for (it in checks) {
                 result = it.checkField(showError, getter) && result
                 if (!result) {
                     if (focusOnFirstError && it is IFocusableChecking)

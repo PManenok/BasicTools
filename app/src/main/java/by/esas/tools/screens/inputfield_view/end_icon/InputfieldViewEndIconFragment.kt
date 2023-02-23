@@ -11,6 +11,7 @@ import by.esas.tools.inputfieldview.InputFieldView
 
 class InputfieldViewEndIconFragment :
     AppFragment<InputfieldViewEndIconVM, FMainInputfieldviewEndIconBinding>() {
+
     override val fragmentDestinationId = R.id.inputfieldViewEndIconFragment
 
     override fun provideLayoutId() = R.layout.f_main_inputfieldview_end_icon

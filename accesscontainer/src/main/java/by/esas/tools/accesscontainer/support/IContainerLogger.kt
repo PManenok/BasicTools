@@ -8,6 +8,7 @@ package by.esas.tools.accesscontainer.support
 import android.widget.Toast
 
 interface IContainerLogger<T> {
+
     fun setTag(tag: String)
     fun log(msg: String)
     fun log(res: Int)

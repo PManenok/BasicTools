@@ -4,13 +4,13 @@ import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.Token
 
 open class SecretProvider {
+
     var errorOnRefreshWithToken: Boolean = true
     var errorOnGetSecrets: Boolean = true
     var errorOnRefresh: Boolean = true
     var errorOnRefreshWithSecret: Boolean = true
     var errorOnCheckSecret: Boolean = true
     var errorOnCreateSecret: Boolean = true
-
 
     var authTypes: List<AuthType> = emptyList()
     var correctPassword = "12345678"

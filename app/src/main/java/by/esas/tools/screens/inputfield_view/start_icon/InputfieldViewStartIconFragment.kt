@@ -9,7 +9,8 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainInputfieldviewStartIconBinding
 import by.esas.tools.inputfieldview.InputFieldView
 
-class InputfieldViewStartIconFragment: AppFragment<InputfieldViewStartIconVM, FMainInputfieldviewStartIconBinding>() {
+class InputfieldViewStartIconFragment : AppFragment<InputfieldViewStartIconVM, FMainInputfieldviewStartIconBinding>() {
+
     override val fragmentDestinationId = R.id.inputfieldViewStartIconFragment
 
     override fun provideLayoutId() = R.layout.f_main_inputfieldview_start_icon

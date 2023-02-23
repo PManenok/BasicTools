@@ -35,10 +35,10 @@
             android:id="@+id/i_picked_icon"
             android:layout_width="@dimen/spacing_24"
             android:layout_height="@dimen/spacing_24"
+            android:tint="@android:color/holo_green_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:tint="@android:color/holo_green_light"
             app:srcCompat="@drawable/ic_done"
             app:visibilityGone="@{item.isChoosed}" />
 

@@ -5,7 +5,6 @@ import by.esas.tools.basedaggerui.factory.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 
-
 @Module(
     includes = [
         (RepositoryBuilder::class),

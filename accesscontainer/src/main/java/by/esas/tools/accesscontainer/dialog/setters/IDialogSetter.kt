@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import by.esas.tools.accesscontainer.dialog.IBaseDialog
 
 interface IDialogSetter {
+
     fun createDialog()
     fun getDialog(): IBaseDialog
     fun setTitle(titleRes: Int)

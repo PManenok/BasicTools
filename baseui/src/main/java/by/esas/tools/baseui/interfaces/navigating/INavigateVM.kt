@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.navigation.NavDirections
 
 interface INavigateVM {
+
     fun navigate(direction: NavDirections)
 
     fun navigate(direction: NavDirections, parameters: Bundle?)

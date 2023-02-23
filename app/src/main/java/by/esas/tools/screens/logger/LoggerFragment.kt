@@ -20,6 +20,7 @@ import by.esas.tools.utils.checking.FieldChecking
 import by.esas.tools.utils.logger.ErrorModel
 
 class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
+
     override val fragmentDestinationId = R.id.loggerFragment
 
     override fun provideLayoutId() = R.layout.f_main_logger
@@ -109,14 +110,16 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
             }).validate(listOf(FieldChecking(binding.fLoggerToastMessage)))
         }
         binding.fLoggerVmTagBtn.setOnClickListener {
-            viewModel.logTag(listOf(FieldChecking(binding.fLoggerVmTag),FieldChecking(binding.fLoggerVmTagMessage)))
+            viewModel.logTag(listOf(FieldChecking(binding.fLoggerVmTag), FieldChecking(binding.fLoggerVmTagMessage)))
         }
         binding.fLoggerVmCategoryBtn.setOnClickListener {
-            viewModel.logCategory(listOf(
-                FieldChecking(binding.fLoggerVmCategory),
-                FieldChecking(binding.fLoggerVmCategoryTag),
-                FieldChecking(binding.fLoggerVmCategoryMessage)
-            ))
+            viewModel.logCategory(
+                listOf(
+                    FieldChecking(binding.fLoggerVmCategory),
+                    FieldChecking(binding.fLoggerVmCategoryTag),
+                    FieldChecking(binding.fLoggerVmCategoryMessage)
+                )
+            )
         }
         binding.fLoggerVmToastBtn.setOnClickListener {
             viewModel.showMessage(listOf(FieldChecking(binding.fLoggerVmToastMessage)))

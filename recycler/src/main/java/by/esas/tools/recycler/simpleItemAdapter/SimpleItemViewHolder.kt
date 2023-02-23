@@ -14,7 +14,9 @@ import by.esas.tools.recycler.databinding.IPickedBinding
 
 class SimpleItemViewHolder<Binding : ViewDataBinding>(binding: Binding, viewModel: SimpleItemViewModel) :
     BaseViewHolder<SimpleItemModel, SimpleItemViewModel, Binding>(binding, viewModel) {
+
     companion object {
+
         fun create(parent: ViewGroup, viewModel: SimpleItemViewModel): SimpleItemViewHolder<IPickedBinding> {
             val binding = IPickedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return SimpleItemViewHolder(

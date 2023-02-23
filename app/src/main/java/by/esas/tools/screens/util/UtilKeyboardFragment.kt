@@ -11,6 +11,7 @@ import by.esas.tools.util.focusAndShowKeyboard
 import by.esas.tools.util.showKeyboard
 
 class UtilKeyboardFragment : AppFragment<UtilKeyboardVM, FMainUtilKeyboardBinding>() {
+
     override val fragmentDestinationId = R.id.utilKeyboardFragment
     override fun provideLayoutId() = R.layout.f_main_util_keyboard
 

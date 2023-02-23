@@ -11,6 +11,7 @@ class GetSavedCaseStatusUseCase @Inject constructor(
     foregroundContext: CoroutineContext,
     private val dao: CaseStatusDao
 ) : BaseUseCase<CaseStatus>(errorUtil, foregroundContext) {
+
     override val TAG: String = GetCaseItemsUseCase::class.java.simpleName
 
     var caseId = -1

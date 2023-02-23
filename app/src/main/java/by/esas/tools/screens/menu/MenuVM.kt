@@ -10,7 +10,6 @@ import by.esas.tools.app_domain.usecase.SearchCaseUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.entity.CaseItemInfo
 import by.esas.tools.entity.TestStatusEnum
-import by.esas.tools.logger.Action
 import javax.inject.Inject
 
 class MenuVM @Inject constructor(
@@ -70,7 +69,7 @@ class MenuVM @Inject constructor(
         else {
             filterCase.caseItems = allCases
             filterCase.statuses = statuses.map {
-                when(it) {
+                when (it) {
                     App.appContext.getString(R.string.case_status_checked) -> TestStatusEnum.CHECKED
                     App.appContext.getString(R.string.case_status_in_process) -> TestStatusEnum.IN_PROCESS
                     App.appContext.getString(R.string.case_status_failed) -> TestStatusEnum.FAILED

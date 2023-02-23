@@ -13,7 +13,9 @@ import by.esas.tools.screens.recycler.RecyclerEntity
 class CaseStickyViewHolder<B : ViewDataBinding>(binding: B, viewModel: CaseStickyItemVM) :
     BaseViewHolder<StickyEntity<RecyclerEntity>, CaseStickyItemVM, B>
         (binding, viewModel) {
+
     companion object {
+
         fun createItem(
             parent: ViewGroup,
             viewModel: CaseStickyItemVM

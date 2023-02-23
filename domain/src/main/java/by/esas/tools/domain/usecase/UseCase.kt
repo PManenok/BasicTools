@@ -7,7 +7,13 @@ package by.esas.tools.domain.usecase
 
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.IErrorMapper
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 //typealias CompletionBlock<T, E,Model:IErrorModel<E>> = Request<T, E,Model:IErrorModel<E>>.() -> Unit
@@ -16,6 +22,7 @@ abstract class UseCase<T, Model : BaseErrorModel>(
     protected val errorUtil: IErrorMapper<Model>,
     protected val refresher: IRefresh<Model>?
 ) {
+
     protected abstract val TAG: String
     private var parentJob: Job = Job()
     lateinit var foregroundContext: CoroutineContext

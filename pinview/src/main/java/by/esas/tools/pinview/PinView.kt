@@ -6,14 +6,11 @@
 package by.esas.tools.pinview
 
 import android.content.Context
-import android.content.res.Resources
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -40,6 +37,7 @@ import androidx.core.widget.ImageViewCompat
  */
 
 open class PinView : LinearLayout {
+
     val TAG: String = PinView::class.java.simpleName
     protected var lastUnFilledIndex: Int = 0
     protected val listImages: ArrayList<AppCompatImageView> = arrayListOf()
@@ -239,7 +237,7 @@ open class PinView : LinearLayout {
     }
 
     open fun setPinMargins(margin: Int) {
-        betweenMargin = margin/2
+        betweenMargin = margin / 2
         listImages.forEach { image ->
             (image.layoutParams as MarginLayoutParams).setMargins(
                 betweenMargin, 0, betweenMargin, 0

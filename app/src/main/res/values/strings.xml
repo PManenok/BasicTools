@@ -494,7 +494,7 @@
     <string name="checker_rule_regex">Rule: value can contain letters and symbols -+=,!</string>
     <string name="checker_rule_length">Rule: value must contain from 1 to 20 symbols</string>
     <string name="checker_rule_not_empty">Rule: field can\'t be empty</string>
-    
+
     <string-array name="checker_date_pattern">
         <item>yyyy-MM-dd</item>
         <item>yyyy.MM.dd</item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingDefaultResource">
 
     <data>
@@ -15,220 +15,220 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="@dimen/spacing_12"
-        android:paddingEnd="@dimen/spacing_12"
-        android:paddingTop="@dimen/spacing_12">
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/topbar_case_1"/>
+            android:orientation="vertical"
+            android:paddingStart="@dimen/spacing_12"
+            android:paddingTop="@dimen/spacing_12"
+            android:paddingEnd="@dimen/spacing_12">
 
-        <by.esas.tools.topbarview.TopbarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/TextStyle"
-            app:barShowDivider="true"
-            app:barDividerColor="@color/textColor"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/topbar_case_1" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_2"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barDividerColor="@color/textColor"
+                app:barShowDivider="true"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/TextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle"
-            app:barNavIcon="@drawable/ic_add"
-            app:barNavIconTint="@color/main_color_2"
-            app:barShowNavIcon="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_2" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="Title"
-            android:text="@string/topbar_case_3"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/topBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barNavIcon="@drawable/ic_add"
+                app:barNavIconTint="@color/main_color_2"
+                app:barShowNavIcon="true"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/f_main_topbar_case_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_4"
-            app:barEndActionText="@string/topbar_action_cancel"
-            app:barEndActionTextAppearance="@style/HintTextStyle"
-            app:barNavIcon="@drawable/ic_add"
-            app:barNavIconTint="@color/main_color_2"
-            app:barShowNavIcon="true"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle" />
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_3"
+                app:barTitleText="Title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_4"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/f_main_topbar_case_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barEndActionText="@string/topbar_action_cancel"
+                app:barEndActionTextAppearance="@style/HintTextStyle"
+                app:barNavIcon="@drawable/ic_add"
+                app:barNavIconTint="@color/main_color_2"
+                app:barShowNavIcon="true"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle"
-            app:barActionIcon="@drawable/ic_add"
-            app:barActionIconTint="@color/main_color_2"
-            app:barShowActionIcon="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_4" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_5"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barActionIcon="@drawable/ic_add"
+                app:barActionIconTint="@color/main_color_2"
+                app:barShowActionIcon="true"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_4"
-            app:barStartActionText="@string/topbar_action_start"
-            app:barStartActionTextAppearance="@style/HintTextStyle"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_5" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_6"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barStartActionText="@string/topbar_action_start"
+                app:barStartActionTextAppearance="@style/HintTextStyle"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/f_main_topbar_case_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title_long"
-            app:barTitleTextAppearance="@style/HintTextStyle"
-            app:barStartActionText="@string/topbar_action_start"
-            app:barStartActionTextAppearance="@style/HintTextStyle"
-            app:barActionIcon="@drawable/ic_add"
-            app:barActionIconTint="@color/main_color_2"
-            app:barShowActionIcon="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_6" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/f_main_topbar_button_change_icons"
-            style="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_4"
-            android:text="@string/topbar_change_icons"
-            android:layout_gravity="center"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/f_main_topbar_case_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barActionIcon="@drawable/ic_add"
+                app:barActionIconTint="@color/main_color_2"
+                app:barShowActionIcon="true"
+                app:barStartActionText="@string/topbar_action_start"
+                app:barStartActionTextAppearance="@style/HintTextStyle"
+                app:barTitleText="@string/topbar_title_long"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_7"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_topbar_button_change_icons"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/spacing_4"
+                android:text="@string/topbar_change_icons" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/f_main_topbar_case_7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_4"
-            app:barEndActionText="@string/topbar_action_cancel"
-            app:barEndActionTextAppearance="@style/HintTextStyle"
-            app:barStartActionText="@string/topbar_action_start"
-            app:barStartActionTextAppearance="@style/HintTextStyle"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_7" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/f_main_topbar_button_change_style"
-            style="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_4"
-            android:text="@string/topbar_change_style"
-            android:layout_gravity="center"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/f_main_topbar_case_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barEndActionText="@string/topbar_action_cancel"
+                app:barEndActionTextAppearance="@style/HintTextStyle"
+                app:barStartActionText="@string/topbar_action_start"
+                app:barStartActionTextAppearance="@style/HintTextStyle"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_8"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/f_main_topbar_button_change_style"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/spacing_4"
+                android:text="@string/topbar_change_style" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/TopbarTextStyle"
-            app:barEndActionText="@string/topbar_action_cancel"
-            app:barEndActionTextAppearance="@style/TopbarTextStyle.Red"
-            app:barShowDivider="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_8" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_9"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barEndActionText="@string/topbar_action_cancel"
+                app:barEndActionTextAppearance="@style/TopbarTextStyle.Red"
+                app:barShowDivider="true"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/TopbarTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/f_main_topbar_case_9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title"
-            app:barTitleTextAppearance="@style/HintTextStyle"
-            app:barEndActionText="@string/topbar_action_cancel"
-            app:barEndActionTextAppearance="@style/HintTextStyle"
-            app:barStartActionText="@string/topbar_action_start"
-            app:barStartActionTextAppearance="@style/HintTextStyle"
-            app:barNavIcon="@drawable/ic_remove"
-            app:barShowNavIcon="true"
-            app:barActionIcon="@drawable/ic_add"
-            app:barShowActionIcon="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_9" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/topbar_case_10"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/f_main_topbar_case_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barActionIcon="@drawable/ic_add"
+                app:barEndActionText="@string/topbar_action_cancel"
+                app:barEndActionTextAppearance="@style/HintTextStyle"
+                app:barNavIcon="@drawable/ic_remove"
+                app:barShowActionIcon="true"
+                app:barShowNavIcon="true"
+                app:barStartActionText="@string/topbar_action_start"
+                app:barStartActionTextAppearance="@style/HintTextStyle"
+                app:barTitleText="@string/topbar_title"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/f_main_topbar_case_10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barTitleText="@string/topbar_title_long"
-            app:barTitleTextAppearance="@style/HintTextStyle"
-            app:barNavIcon="@drawable/ic_remove"
-            app:barNavIconTint="@color/colorPrimary"
-            app:barShowNavIcon="true"
-            app:barActionIcon="@drawable/ic_add"
-            app:barActionIconTint="@color/red"
-            app:barShowActionIcon="true"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_8"
+                android:text="@string/topbar_case_10" />
 
-    </LinearLayout>
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/f_main_topbar_case_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                app:barActionIcon="@drawable/ic_add"
+                app:barActionIconTint="@color/red"
+                app:barNavIcon="@drawable/ic_remove"
+                app:barNavIconTint="@color/colorPrimary"
+                app:barShowActionIcon="true"
+                app:barShowNavIcon="true"
+                app:barTitleText="@string/topbar_title_long"
+                app:barTitleTextAppearance="@style/HintTextStyle" />
+
+        </LinearLayout>
     </ScrollView>
 
 </layout>

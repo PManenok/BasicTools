@@ -14,7 +14,8 @@ import by.esas.tools.databinding.FMainListheaderBinding
 import by.esas.tools.listheader.ListHeader
 import by.esas.tools.util.SwitchManager
 
-class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
+class ListheaderFragment : AppFragment<ListheaderVM, FMainListheaderBinding>() {
+
     override val fragmentDestinationId = R.id.listheaderFragment
 
     override fun provideLayoutId() = R.layout.f_main_listheader
@@ -23,9 +24,9 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(ListheaderVM::class.java)
     }
 
-    override var switcher = object : SwitchManager(){
+    override var switcher = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = true
                 true
             } else
@@ -33,7 +34,7 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = false
                 true
             } else
@@ -76,7 +77,8 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
         }
 
         binding.fMainListheader2.setArrowListener {
-            Toast.makeText(requireContext(), resources.getString(R.string.listheader_icon_click), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), resources.getString(R.string.listheader_icon_click), Toast.LENGTH_SHORT)
+                .show()
         }
 
         binding.fMainListheader3.addOpenedListener(object : ListHeader.ListOpenedListener {
@@ -87,8 +89,9 @@ class ListheaderFragment: AppFragment<ListheaderVM, FMainListheaderBinding>() {
                     binding.fMainListheaderHiddenLay3.visibility = View.GONE
             }
         })
-        binding.fMainListheader3.setActionListener{
-            Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT).show()
+        binding.fMainListheader3.setActionListener {
+            Toast.makeText(requireContext(), resources.getString(R.string.listheader_action_click), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

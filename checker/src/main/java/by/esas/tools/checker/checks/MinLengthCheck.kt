@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
 open class MinLengthCheck : BaseCheck {
+
     override var TAG: String = CustomCheck::class.java.simpleName
     private var min: Int = 0
 

@@ -7,14 +7,16 @@ import by.esas.tools.databinding.ILogItemBinding
 import by.esas.tools.entity.LogItem
 import by.esas.tools.recycler.BaseViewHolder
 
-class LogItemViewHolder(binding: ILogItemBinding, viewModel: LogItemViewModel): BaseViewHolder<LogItem, LogItemViewModel, ILogItemBinding>(binding, viewModel) {
+class LogItemViewHolder(binding: ILogItemBinding, viewModel: LogItemViewModel) :
+    BaseViewHolder<LogItem, LogItemViewModel, ILogItemBinding>(binding, viewModel) {
 
     companion object {
+
         fun create(
             parent: ViewGroup,
             viewModel: LogItemViewModel
         ): LogItemViewHolder {
-            val binding = ILogItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            val binding = ILogItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return LogItemViewHolder(
                 binding, viewModel
             )

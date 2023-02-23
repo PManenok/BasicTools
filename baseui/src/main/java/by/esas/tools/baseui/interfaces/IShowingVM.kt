@@ -10,6 +10,7 @@ import by.esas.tools.dialog.BaseBottomDialogFragment
 import by.esas.tools.dialog.BaseDialogFragment
 
 interface IShowingVM {
+
     val showDialog: MutableLiveData<BaseDialogFragment?>
     val showBottomDialog: MutableLiveData<BaseBottomDialogFragment?>
 

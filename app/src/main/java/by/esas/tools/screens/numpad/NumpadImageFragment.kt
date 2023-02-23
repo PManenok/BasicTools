@@ -14,6 +14,7 @@ import by.esas.tools.util.SwitchManager
 import com.google.android.material.button.MaterialButton
 
 class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>() {
+
     override fun provideSwitchableViews(): List<View?> {
         return listOf(
             binding.fMainNumpadImage,
@@ -23,9 +24,9 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
         )
     }
 
-    override var switcher: SwitchManager = object : SwitchManager(){
+    override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is MaterialButton || view is ImageButton){
+            return if (view is MaterialButton || view is ImageButton) {
                 view.isEnabled = true
                 true
             } else {
@@ -34,7 +35,7 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is MaterialButton || view is ImageButton){
+            return if (view is MaterialButton || view is ImageButton) {
                 view.isEnabled = false
                 true
             } else {
@@ -58,7 +59,7 @@ class NumpadImageFragment : AppFragment<NumpadImageVM, FMainNumpadImageBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         binding.fMainNumpadSwitcher.switcherIsChecked(true)
-        binding.fMainNumpadSwitcher.setSwitchHandler(object : ISwitchHandler{
+        binding.fMainNumpadSwitcher.setSwitchHandler(object : ISwitchHandler {
             override fun onSwitchChange(isChecked: Boolean) {
                 if (isChecked)
                     viewModel.enableControls()

@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
 open class RegexCheck : BaseCheck {
+
     override var TAG: String = CustomCheck::class.java.simpleName
     private var regex: String = ""
 

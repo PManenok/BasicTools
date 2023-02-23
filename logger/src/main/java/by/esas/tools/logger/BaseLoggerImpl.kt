@@ -13,6 +13,7 @@ import android.widget.Toast
  * Base logger implementation
  */
 class BaseLoggerImpl(tag: String? = null, private var context: Context? = null) : ILogger<BaseErrorModel> {
+
     override var currentTag: String = BaseLoggerImpl::class.java.simpleName
 
     init {

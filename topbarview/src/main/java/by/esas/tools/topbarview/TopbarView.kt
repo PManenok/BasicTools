@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
-import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -27,6 +26,7 @@ import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
 open class TopbarView : LinearLayout {
+
     val TAG: String = TopbarView::class.java.simpleName
     protected val dividerView: View
     protected val containerView: ConstraintLayout
@@ -396,7 +396,7 @@ open class TopbarView : LinearLayout {
         updateNavigationIcon()
     }
 
-    open fun setStartActionViewStyle(styleId: Int){
+    open fun setStartActionViewStyle(styleId: Int) {
         if (styleId != -1)
             TextViewCompat.setTextAppearance(startActionView, styleId)
     }
@@ -422,7 +422,7 @@ open class TopbarView : LinearLayout {
         updateActionIcon()
     }
 
-    open fun setEndActionViewStyle(styleId: Int){
+    open fun setEndActionViewStyle(styleId: Int) {
         if (styleId != -1)
             TextViewCompat.setTextAppearance(endActionView, styleId)
     }

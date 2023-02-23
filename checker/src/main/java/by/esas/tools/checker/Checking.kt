@@ -8,6 +8,7 @@ package by.esas.tools.checker
 import by.esas.tools.checker.checks.NotEmptyCheck
 
 abstract class Checking {
+
     protected open var checkEmpty: Boolean = false
     protected open var notEmptyRule: NotEmptyCheck? = null
     protected open val checks: MutableList<BaseCheck> = mutableListOf()

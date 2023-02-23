@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,23 +12,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingStart="@dimen/spacing_12"
-        android:paddingEnd="@dimen/spacing_12"
         android:paddingTop="@dimen/spacing_8"
-        android:orientation="vertical">
+        android:paddingEnd="@dimen/spacing_12">
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextStyle"
-            android:text="@string/pinView_case_1"/>
+            android:text="@string/pinView_case_1" />
 
         <by.esas.tools.pinview.PinView
             android:id="@+id/f_pin_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:pinAmount="6"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            android:layout_marginTop="@dimen/spacing_8"
+            app:pinAmount="6" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_btn_add"
@@ -37,45 +36,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_12"
-            android:text="@string/pinView_add_pin"/>
+            android:text="@string/pinView_add_pin" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_btn_restore"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_restore_pin"/>
+            android:text="@string/pinView_restore_pin" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_clear"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_clear_all"/>
+            android:text="@string/pinView_clear_all" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_case_2"
-            android:layout_marginTop="@dimen/spacing_30"/>
+            android:layout_marginTop="@dimen/spacing_30"
+            android:text="@string/pinView_case_2" />
 
         <by.esas.tools.pinview.PinView
-            style="@style/PinStyle"
             android:id="@+id/f_pin_view_custom"
+            style="@style/PinStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
             app:pinInAnimationDuration="1000"
-            app:pinOutAnimationDuration="500"
-            android:layout_marginTop="@dimen/spacing_8"/>
+            app:pinOutAnimationDuration="500" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_custom_btn_add"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pinView_add_pin"
-            android:layout_marginTop="@dimen/spacing_12"/>
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="@string/pinView_add_pin" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_pin_view_custom_btn_restore"

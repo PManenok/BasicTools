@@ -13,6 +13,7 @@ import javax.crypto.Cipher
 import javax.crypto.SecretKey
 
 interface IContainerExecutor<M : BaseErrorModel> {
+
     fun refreshAccessUC(refreshToken: String, block: ContainerRequest<Token?, M>.() -> Unit)
 
     fun getSecretsUC(block: ContainerRequest<List<AuthType>, M>.() -> Unit)

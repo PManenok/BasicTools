@@ -7,7 +7,6 @@ package by.esas.tools.baseui.interfaces.navigating
 
 import android.os.Bundle
 import by.esas.tools.logger.Action
-import by.esas.tools.logger.BaseErrorModel
 
 open class PopBackAction(
     val destination: Int = 0,
@@ -16,6 +15,7 @@ open class PopBackAction(
 ) : Action(ACTION_POP_BACK, parameters) {
 
     companion object {
+
         const val ACTION_POP_BACK: String = "ACTION_POP_BACK"
     }
 }

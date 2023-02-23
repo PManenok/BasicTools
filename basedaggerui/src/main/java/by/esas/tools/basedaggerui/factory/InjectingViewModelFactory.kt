@@ -18,6 +18,7 @@ class InjectingViewModelFactory @Inject constructor(
     private val assistedFactories: Map<Class<out ViewModel>, @JvmSuppressWildcards AssistedSavedStateViewModelFactory<out ViewModel>>,
     private val simpleFactory: ViewModelFactory
 ) {
+
     fun provideFactory(
         owner: SavedStateRegistryOwner,
         defaultArgs: Bundle? = null

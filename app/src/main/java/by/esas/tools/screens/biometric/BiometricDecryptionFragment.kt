@@ -12,6 +12,7 @@ import by.esas.tools.databinding.FMainBiometricDecryptionBinding
 
 class BiometricDecryptionFragment :
     AppFragment<BiometricDecryptionVM, FMainBiometricDecryptionBinding>() {
+
     override val fragmentDestinationId = R.id.biometricDecryptionFragment
 
     override fun provideLayoutId() = R.layout.f_main_biometric_decryption
@@ -34,14 +35,16 @@ class BiometricDecryptionFragment :
             if (viewModel.isBiometricAvailable)
                 viewModel.showBiometricDialog()
             else
-                Toast.makeText(requireContext(),
+                Toast.makeText(
+                    requireContext(),
                     resources.getString(R.string.biometric_decryption_not_available),
                     Toast.LENGTH_SHORT
                 ).show()
         }
 
         binding.fBiometricDecryptionCheckBtn.setOnClickListener {
-            val message = if (viewModel.isBiometricAvailable) resources.getString(R.string.biometric_decryption_available)
+            val message =
+                if (viewModel.isBiometricAvailable) resources.getString(R.string.biometric_decryption_available)
                 else resources.getString(R.string.biometric_decryption_not_available)
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }

@@ -10,6 +10,7 @@ class ClearAllSavedTestStatusesUseCase @Inject constructor(
     foregroundContext: CoroutineContext,
     private val dao: CaseStatusDao
 ) : BaseUseCase<Unit>(errorUtil, foregroundContext) {
+
     override val TAG: String = GetCaseItemsUseCase::class.java.simpleName
 
     override suspend fun executeOnBackground() {

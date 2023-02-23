@@ -9,6 +9,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 
 abstract class BaseCheck {
+
     abstract var TAG: String
 
     @StringRes
@@ -63,6 +64,7 @@ abstract class BaseCheck {
     }
 
     interface ErrorGetter {
+
         fun getErrorMsgFromException(exception: Exception?): String {
             return exception?.message ?: ""
         }

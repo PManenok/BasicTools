@@ -13,6 +13,7 @@ open class ErrorAction<M : BaseErrorModel> protected constructor(val model: M?, 
     Action(ACTION_ERROR, parameters) {
 
     companion object {
+
         const val ACTION_ERROR: String = "ACTION_ERROR"
         const val ACTION_PARAM_SUB_NAME: String = "ACTION_PARAM_SUB_NAME"
         const val ACTION_PARAM_SHOW_TYPE: String = "ACTION_PARAM_SHOW_TYPE"

@@ -11,6 +11,7 @@ import by.esas.tools.accesscontainer.dialog.IBiometric
 import javax.crypto.Cipher
 
 interface SetBiometricDialog {
+
     fun onAuthenticationCallback(onError: (Boolean, String) -> Unit, onSuccess: (Cipher?) -> Unit)
     fun create(activity: FragmentActivity, userInfo: BiometricUserInfo)
     fun setInfo(title: String, negativeText: String)

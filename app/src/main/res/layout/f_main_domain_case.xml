@@ -69,15 +69,15 @@
                 style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_add_value"
-                android:layout_marginTop="@dimen/spacing_4"/>
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/f_domain_case_encrypt_aes_data"
                 style="@style/TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/domain_case_encrypt"/>
+                android:text="@string/domain_case_encrypt" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/f_domain_case_decrypt_aes_data"
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:text="@string/domain_case_decrypt"/>
+                android:text="@string/domain_case_decrypt" />
 
             <Button
                 android:id="@+id/f_domain_case_encrypt_aes_btn"
@@ -108,15 +108,15 @@
                 style="@style/FieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_add_value"
-                android:layout_marginTop="@dimen/spacing_4"/>
+                android:layout_marginTop="@dimen/spacing_4"
+                android:hint="@string/hint_add_value" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/f_domain_case_encrypt_rsa_data"
                 style="@style/TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/domain_case_encrypt"/>
+                android:text="@string/domain_case_encrypt" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/f_domain_case_decrypt_rsa_data"
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_12"
-                android:text="@string/domain_case_decrypt"/>
+                android:text="@string/domain_case_decrypt" />
 
             <Button
                 android:id="@+id/f_domain_case_encrypt_rsa_btn"

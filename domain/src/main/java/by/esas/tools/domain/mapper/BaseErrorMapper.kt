@@ -29,6 +29,7 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
     protected val moshi: Moshi,
     val logger: ILogger<Model>
 ) : IErrorMapper<Model> {
+
     open val TAG: String = BaseErrorMapper::class.java.simpleName
     protected val errorCodeAdapter: JsonAdapter<ErrorCode> = moshi.adapter<ErrorCode>(ErrorCode::class.java)
 
@@ -107,7 +108,6 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
                 } else {
                     HttpErrorStatusEnum.UNKNOWN_ERROR.name
                 }
-
             }
         } else HttpErrorStatusEnum.UNKNOWN_ERROR.name
     }

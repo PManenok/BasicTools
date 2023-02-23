@@ -1,6 +1,7 @@
 package by.esas.tools.entity
 
 object Modules {
+
     const val ACCESS_CONTAINER = "accesscontainer"
     const val BASE_DAGGER_UI = "basedaggerui"
     const val BASE_UI = "baseui"

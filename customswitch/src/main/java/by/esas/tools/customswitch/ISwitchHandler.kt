@@ -11,12 +11,14 @@ package by.esas.tools.customswitch
  * By default [prepareToSwitchOn]/[prepareToSwitchOff] methods return true.
  *
  * @see CustomSwitch
-*/
+ */
 interface ISwitchHandler {
+
     fun onSwitchChange(isChecked: Boolean)
     fun prepareToSwitchOn(): Boolean {
         return true
     }
+
     fun prepareToSwitchOff(): Boolean {
         return true
     }

@@ -26,6 +26,7 @@ abstract class StandardViewModel<M : BaseErrorModel>
     : BaseViewModel<M>(), INavigateVM, IExecutingVM, IShowingVM {
 
     companion object {
+
         const val ACTION_CHECK_FIELDS: String = "ACTION_CHECK_FIELDS"
         const val ACTION_CHANGE_LANGUAGE: String = "ACTION_CHANGE_LANGUAGE"
         const val ACTION_CHANGE_NIGHT_MODE: String = "ACTION_CHANGE_THEME"

@@ -6,12 +6,12 @@
 package by.esas.tools.accesscontainer
 
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.support.IContainerCancellationCallback
 import by.esas.tools.logger.BaseErrorModel
 
 interface IRefreshContainer<M : BaseErrorModel> {
+
     fun setToken(token: Token)
     fun getToken(): String
     fun getRefresh(): String

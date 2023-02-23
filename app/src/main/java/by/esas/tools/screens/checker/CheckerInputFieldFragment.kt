@@ -21,12 +21,10 @@ import by.esas.tools.databinding.FMainCheckerBinding
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import java.util.*
 
 class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerBinding>() {
+
     override val fragmentDestinationId = R.id.checkerFragment
 
     override fun provideLayoutId() = R.layout.f_main_checker
@@ -44,7 +42,12 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
             FieldChecking(binding.fCheckerInputRange)
                 .addCheck(RangeCheck(1.0, 999.0, resources.getString(R.string.checker_error_range))),
             FieldChecking(binding.fCheckerInputRegex)
-                .addCheck(RegexCheck("^[a-zA-Zа-яА-ЯёЁ,._\\-+=?!]*\$", resources.getString(R.string.checker_error_regex))),
+                .addCheck(
+                    RegexCheck(
+                        "^[a-zA-Zа-яА-ЯёЁ,._\\-+=?!]*\$",
+                        resources.getString(R.string.checker_error_regex)
+                    )
+                ),
             FieldChecking(binding.fCheckerInputLength)
                 .addCheck(LengthCheck(1, 20, resources.getString(R.string.checker_error_length))),
             FieldChecking(binding.fCheckerInputBigger)
@@ -77,7 +80,8 @@ class CheckerInputFieldFragment : AppFragment<CheckerInputFieldVM, FMainCheckerB
 
             override fun onSuccess() {
                 viewModel.enableControls()
-                Toast.makeText(context, resources.getString(R.string.checker_everything_correct), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, resources.getString(R.string.checker_everything_correct), Toast.LENGTH_LONG)
+                    .show()
             }
         })
     }

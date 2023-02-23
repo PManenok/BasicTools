@@ -10,7 +10,8 @@ import by.esas.tools.databinding.FMainDynamicPinViewBinding
 import by.esas.tools.inputfieldview.dpToPx
 import by.esas.tools.pinview.PinView
 
-class DynamicPinViewFragment: AppFragment<DynamicPinViewVM, FMainDynamicPinViewBinding>() {
+class DynamicPinViewFragment : AppFragment<DynamicPinViewVM, FMainDynamicPinViewBinding>() {
+
     override val fragmentDestinationId = R.id.dynamicPinViewFragment
 
     override fun provideLayoutId() = R.layout.f_main_dynamic_pin_view
@@ -53,7 +54,7 @@ class DynamicPinViewFragment: AppFragment<DynamicPinViewVM, FMainDynamicPinViewB
         val checkedButtonId = binding.fDynamicPinFilledRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fDynamicPinFilledRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fDynamicPinFilledRadio1 -> R.color.orange
             binding.fDynamicPinFilledRadio2 -> R.color.purple
             binding.fDynamicPinFilledRadio3 -> R.color.red
@@ -66,7 +67,7 @@ class DynamicPinViewFragment: AppFragment<DynamicPinViewVM, FMainDynamicPinViewB
         val checkedButtonId = binding.fDynamicPinUnfilledRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fDynamicPinUnfilledRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fDynamicPinUnfilledRadio1 -> R.color.orange
             binding.fDynamicPinUnfilledRadio2 -> R.color.purple
             binding.fDynamicPinUnfilledRadio3 -> R.color.red
@@ -79,7 +80,7 @@ class DynamicPinViewFragment: AppFragment<DynamicPinViewVM, FMainDynamicPinViewB
         val checkedButtonId = binding.fDynamicPinImageFilledRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fDynamicPinImageFilledRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fDynamicPinImageFilledRadio1 -> R.drawable.ic_pin_star_filled
             binding.fDynamicPinImageFilledRadio2 -> R.drawable.ic_favorite
             else -> R.drawable.ic_cloud
@@ -90,7 +91,7 @@ class DynamicPinViewFragment: AppFragment<DynamicPinViewVM, FMainDynamicPinViewB
         val checkedButtonId = binding.fDynamicPinImageUnfilledRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fDynamicPinImageUnfilledRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fDynamicPinImageUnfilledRadio1 -> R.drawable.ic_pin_star_unfilled
             binding.fDynamicPinImageUnfilledRadio2 -> R.drawable.ic_favorite_border
             else -> R.drawable.ic_cloud_queue

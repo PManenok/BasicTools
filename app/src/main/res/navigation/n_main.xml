@@ -268,7 +268,7 @@
         android:id="@+id/simpleRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.simple.SimpleRecyclerFragment"
         android:label="@string/case_label_recycler_simple"
-        tools:layout="@layout/f_main_simple_recycler"/>
+        tools:layout="@layout/f_main_simple_recycler" />
     <fragment
         android:id="@+id/customRecyclerFragment"
         android:name="by.esas.tools.screens.recycler.custom.CustomRecyclerFragment"
@@ -278,12 +278,12 @@
         android:id="@+id/timeparserFragment"
         android:name="by.esas.tools.screens.timeparser.TimeParserFragment"
         android:label="@string/case_label_timeparser"
-        tools:layout="@layout/f_main_timeparser"/>
+        tools:layout="@layout/f_main_timeparser" />
     <fragment
         android:id="@+id/loggerFragment"
         android:name="by.esas.tools.screens.logger.LoggerFragment"
         android:label="@string/case_label_logger"
-        tools:layout="@layout/f_main_logger"/>
+        tools:layout="@layout/f_main_logger" />
     <fragment
         android:id="@+id/accessContainerFragment"
         android:name="by.esas.tools.screens.access_container.AccessContainerFragment"

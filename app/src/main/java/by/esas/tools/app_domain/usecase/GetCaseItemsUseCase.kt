@@ -13,6 +13,7 @@ class GetCaseItemsUseCase @Inject constructor(
     foregroundContext: CoroutineContext,
     private val dao: CaseStatusDao
 ) : BaseUseCase<List<CaseItemInfo>>(errorUtil, foregroundContext) {
+
     override val TAG: String = GetCaseItemsUseCase::class.java.simpleName
 
     override suspend fun executeOnBackground(): List<CaseItemInfo> {

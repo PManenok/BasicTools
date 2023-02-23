@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -19,25 +18,25 @@
             style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/saved_state_case"/>
+            android:text="@string/saved_state_case" />
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_saved_state_field_1"
             style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.firstField}"
             android:layout_marginTop="@dimen/spacing_8"
-            android:hint="@string/hint_add_value"/>
+            android:hint="@string/hint_add_value"
+            android:text="@={viewModel.firstField}" />
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_saved_state_field_2"
             style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.secondField}"
             android:layout_marginTop="@dimen/spacing_8"
-            android:hint="@string/hint_add_value"/>
+            android:hint="@string/hint_add_value"
+            android:text="@{viewModel.secondField}" />
 
     </LinearLayout>
 </layout>

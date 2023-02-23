@@ -10,15 +10,15 @@ import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfSearchFilterBinding
 import by.esas.tools.entity.Modules
-import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.topbarview.ITopbarHandler
 
 private const val SELECTED_MODULES_KEY = "SELECTED_MODULES_KEY"
 private const val SELECTED_STATUSES_KEY = "SELECTED_STATUSES_KEY"
 
-class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
+class SearchFilterDialog : BindingDialogFragment<DfSearchFilterBinding>() {
 
     companion object {
+
         const val ACTION_SELECT_FILTER_MODULES = "ACTION_SELECT_FILTER_MODULES"
         const val ACTION_SELECT_FILTER_STATUSES = "ACTION_SELECT_FILTER_STATUSES"
         const val FILTER_DIALOG_KEY = "FILTER_DIALOG_KEY"
@@ -145,11 +145,13 @@ class SearchFilterDialog: BindingDialogFragment<DfSearchFilterBinding>() {
 
     private fun setSelectedStatuses() {
         selectedStatuses.forEach {
-            when(it) {
+            when (it) {
                 App.appContext.getString(R.string.case_status_checked) -> binding.dfFilterStatusChecked.isChecked = true
-                App.appContext.getString(R.string.case_status_in_process) -> binding.dfFilterStatusInProgress.isChecked = true
+                App.appContext.getString(R.string.case_status_in_process) -> binding.dfFilterStatusInProgress.isChecked =
+                    true
                 App.appContext.getString(R.string.case_status_failed) -> binding.dfFilterStatusFailed.isChecked = true
-                App.appContext.getString(R.string.case_status_unchecked) -> binding.dfFilterStatusUnchecked.isChecked = true
+                App.appContext.getString(R.string.case_status_unchecked) -> binding.dfFilterStatusUnchecked.isChecked =
+                    true
             }
         }
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -53,9 +52,9 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:text="@string/title" />
 
@@ -114,10 +113,10 @@
                         android:id="@+id/f_dynamic_cardline_spinner_title_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -150,9 +149,9 @@
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="@string/hint_add_value"
-                        android:layout_gravity="center"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
 
@@ -180,10 +179,10 @@
                         android:id="@+id/f_dynamic_cardline_spinner_value_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -201,15 +200,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextStyle"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cardline_dynamic_add_vertical_bias" />
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cardline_dynamic_add_vertical_bias" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_title_value_bias"
@@ -217,7 +216,7 @@
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_add_value"
-                        android:inputType="numberDecimal"/>
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -261,8 +260,8 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value" />
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -274,7 +273,7 @@
 
                     <include
                         android:id="@+id/f_dynamic_cardline_div_top_radio_group"
-                        layout="@layout/color_radio_group"/>
+                        layout="@layout/color_radio_group" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -318,8 +317,8 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value" />
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -331,15 +330,15 @@
 
                     <include
                         android:id="@+id/f_dynamic_cardline_div_bottom_radio_group"
-                        layout="@layout/color_radio_group"/>
+                        layout="@layout/color_radio_group" />
                 </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cardline_dynamic_add_paddings_for_container"
-                    android:layout_marginTop="@dimen/spacing_12"/>
+                    android:layout_marginTop="@dimen/spacing_12"
+                    android:text="@string/cardline_dynamic_add_paddings_for_container" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -350,27 +349,27 @@
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/top" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_top"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bottom"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:layout_gravity="center"/>
+                        android:text="@string/bottom" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_bottom"
@@ -378,41 +377,41 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="@dimen/spacing_4"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/left"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/left" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_left"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/right"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/right" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_padding_right"
@@ -420,15 +419,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/spacing_16">
+                    android:layout_marginTop="@dimen/spacing_16"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -470,25 +469,25 @@
                             android:id="@+id/f_dynamic_cardline_start_image_radio_1"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
+                            android:layout_marginEnd="@dimen/spacing_8"
                             android:background="@drawable/radio_background"
                             android:button="@drawable/ic_star"
-                            android:checked="true"
-                            android:layout_marginEnd="@dimen/spacing_8"/>
+                            android:checked="true" />
 
                         <RadioButton
                             android:id="@+id/f_dynamic_cardline_start_image_radio_2"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
+                            android:layout_marginEnd="@dimen/spacing_8"
                             android:background="@drawable/radio_background"
-                            android:button="@drawable/ic_add"
-                            android:layout_marginEnd="@dimen/spacing_8"/>
+                            android:button="@drawable/ic_add" />
 
                         <RadioButton
                             android:id="@+id/f_dynamic_cardline_start_image_radio_3"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
                             android:background="@drawable/radio_background"
-                            android:button="@drawable/ic_remove"/>
+                            android:button="@drawable/ic_remove" />
 
                     </RadioGroup>
 
@@ -502,7 +501,7 @@
 
                     <include
                         android:id="@+id/f_dynamic_cardline_start_image_color_group"
-                        layout="@layout/color_radio_group"/>
+                        layout="@layout/color_radio_group" />
                 </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -510,40 +509,40 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="@string/cardline_dynamic_add_paddings_for_start_icon" />
+                    android:text="@string/cardline_dynamic_add_paddings_for_start_icon"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/f_dynamic_cardline_start_image_paddings_lay_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/top" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_top"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bottom"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/bottom" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_bottom"
@@ -560,34 +559,34 @@
                     android:id="@+id/f_dynamic_cardline_start_image_paddings_lay_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/spacing_4"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/left"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/left" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_left"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/right"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/right" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_padding_right"
@@ -595,42 +594,42 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/f_dynamic_cardline_start_image_size_lay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="horizontal"
                     android:layout_marginTop="@dimen/spacing_4"
+                    android:layout_marginBottom="@dimen/spacing_12"
                     android:gravity="center"
-                    android:layout_marginBottom="@dimen/spacing_12">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/size"/>
+                        android:text="@string/size" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_size"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_4"
                         android:layout_weight="1"
-                        android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_4"/>
+                        android:hint="@string/hint_add_value" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="@dimen/spacing_100"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/cardline_dynamic_vertical_bias"/>
+                        android:text="@string/cardline_dynamic_vertical_bias" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_start_image_vertical_bias"
@@ -638,14 +637,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/spacing_4">
+                    android:layout_marginTop="@dimen/spacing_4"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -687,25 +686,25 @@
                             android:id="@+id/f_dynamic_cardline_end_image_radio_1"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
+                            android:layout_marginEnd="@dimen/spacing_8"
                             android:background="@drawable/radio_background"
                             android:button="@drawable/ic_star"
-                            android:checked="true"
-                            android:layout_marginEnd="@dimen/spacing_8"/>
+                            android:checked="true" />
 
                         <RadioButton
                             android:id="@+id/f_dynamic_cardline_end_image_radio_2"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
+                            android:layout_marginEnd="@dimen/spacing_8"
                             android:background="@drawable/radio_background"
-                            android:button="@drawable/ic_add"
-                            android:layout_marginEnd="@dimen/spacing_8"/>
+                            android:button="@drawable/ic_add" />
 
                         <RadioButton
                             android:id="@+id/f_dynamic_cardline_end_image_radio_3"
                             android:layout_width="@dimen/spacing_32"
                             android:layout_height="@dimen/spacing_32"
                             android:background="@drawable/radio_background"
-                            android:button="@drawable/ic_remove"/>
+                            android:button="@drawable/ic_remove" />
 
                     </RadioGroup>
 
@@ -719,7 +718,7 @@
 
                     <include
                         android:id="@+id/f_dynamic_cardline_end_image_color_group"
-                        layout="@layout/color_radio_group"/>
+                        layout="@layout/color_radio_group" />
                 </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
@@ -727,41 +726,41 @@
                     style="@style/TextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cardline_dynamic_add_paddings_for_end_icon"
                     android:layout_marginTop="@dimen/spacing_4"
-                    android:visibility="gone"/>
+                    android:text="@string/cardline_dynamic_add_paddings_for_end_icon"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/f_dynamic_cardline_end_image_paddings_lay_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/top" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_top"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bottom"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/bottom" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_bottom"
@@ -769,8 +768,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
 
                 </LinearLayout>
 
@@ -778,34 +777,34 @@
                     android:id="@+id/f_dynamic_cardline_end_image_paddings_lay_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginTop="@dimen/spacing_4"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/left"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:gravity="center"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:text="@string/left" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_left"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
                         android:hint="@string/hint_add_value"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:inputType="numberDecimal" />
 
                     <TextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/right"
-                        android:layout_marginEnd="@dimen/spacing_8"/>
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:text="@string/right" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_padding_right"
@@ -813,42 +812,42 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="numberDecimal"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value"
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/f_dynamic_cardline_end_image_size_lay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/spacing_4"
                     android:layout_marginBottom="@dimen/spacing_8"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/size"/>
+                        android:text="@string/size" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_size"
                         style="@style/FieldStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:hint="@string/hint_add_value"/>
+                        android:layout_weight="1"
+                        android:hint="@string/hint_add_value" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="@dimen/spacing_100"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/cardline_dynamic_vertical_bias"/>
+                        android:text="@string/cardline_dynamic_vertical_bias" />
 
                     <by.esas.tools.inputfieldview.InputFieldView
                         android:id="@+id/f_dynamic_cardline_end_image_vertical_bias"
@@ -856,7 +855,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="@string/hint_add_value"/>
+                        android:hint="@string/hint_add_value" />
 
                 </LinearLayout>
 

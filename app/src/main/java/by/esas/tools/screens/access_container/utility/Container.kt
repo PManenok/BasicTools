@@ -26,6 +26,7 @@ class Container(
 ) : Refresher<ErrorModel>(logger, executor, typeManager, userInfo, mapper, dialogProvider, supporter) {
 
     companion object {
+
         fun getInstance(
             logger: ILogger<ErrorModel>,
             executor: IContainerExecutor<ErrorModel>,
@@ -42,7 +43,6 @@ class Container(
                 override fun createErrorModel(code: Int, enumName: String): ErrorModel {
                     return mapper.createModel(code, enumName)
                 }
-
             }
 
             return Container(

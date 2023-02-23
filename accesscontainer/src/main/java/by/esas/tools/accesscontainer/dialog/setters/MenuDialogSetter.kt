@@ -6,6 +6,7 @@
 package by.esas.tools.accesscontainer.dialog.setters
 
 interface MenuDialogSetter : IDialogSetter {
+
     fun setupParameterBundle(isDecrypting: Boolean, showPassword: Boolean, showPin: Boolean, showBiom: Boolean)
     fun setupResultHandler(handler: MenuResultHandler)
 }

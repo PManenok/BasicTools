@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -76,7 +75,7 @@
                 style="@style/HintTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/util_manager_base_help_text"/>
+                android:text="@string/util_manager_base_help_text" />
 
             <by.esas.tools.customswitch.CustomSwitch
                 android:id="@+id/f_main_util_manager_custom_switcher"
@@ -128,8 +127,8 @@
                 style="@style/HintTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/util_manager_custom_help_text"
-                android:layout_marginBottom="@dimen/spacing_12"/>
+                android:layout_marginBottom="@dimen/spacing_12"
+                android:text="@string/util_manager_custom_help_text" />
 
         </LinearLayout>
     </ScrollView>

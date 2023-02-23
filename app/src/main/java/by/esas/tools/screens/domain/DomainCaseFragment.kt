@@ -16,6 +16,7 @@ import by.esas.tools.utils.checking.FieldChecking
 import by.esas.tools.utils.logger.ErrorModel
 
 class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
+
     override val fragmentDestinationId = R.id.domainCaseFragment
     override fun provideLayoutId() = R.layout.f_main_domain_case
 
@@ -80,8 +81,10 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
                 override fun onSuccess() {
                     viewModel.enableControls()
                     val aesResult = viewModel.encryptAES(binding.fDomainCaseInputEncryptAes.getText())
-                    binding.fDomainCaseEncryptAesData.text = resources.getString(R.string.domain_case_encrypt) + aesResult.first
-                    binding.fDomainCaseDecryptAesData.text = resources.getString(R.string.domain_case_decrypt) + aesResult.second
+                    binding.fDomainCaseEncryptAesData.text =
+                        resources.getString(R.string.domain_case_encrypt) + aesResult.first
+                    binding.fDomainCaseDecryptAesData.text =
+                        resources.getString(R.string.domain_case_decrypt) + aesResult.second
                 }
             }).validate(checks)
         }
@@ -96,8 +99,10 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
                 override fun onSuccess() {
                     viewModel.enableControls()
                     val rsaResult = viewModel.encryptRSA(binding.fDomainCaseInputEncryptRsa.getText())
-                    binding.fDomainCaseEncryptRsaData.text = resources.getString(R.string.domain_case_encrypt) + rsaResult.first
-                    binding.fDomainCaseDecryptRsaData.text = resources.getString(R.string.domain_case_decrypt) + rsaResult.second
+                    binding.fDomainCaseEncryptRsaData.text =
+                        resources.getString(R.string.domain_case_encrypt) + rsaResult.first
+                    binding.fDomainCaseDecryptRsaData.text =
+                        resources.getString(R.string.domain_case_decrypt) + rsaResult.second
                 }
             }).validate(checks)
         }

@@ -6,6 +6,7 @@
 package by.esas.tools.recycler
 
 interface ICheckDiff<Entity> {
+
     fun checkIfSameItem(item: Entity): Boolean
     fun checkIfSameContent(item: Entity): Boolean
 }

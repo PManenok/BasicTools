@@ -26,9 +26,9 @@ import javax.crypto.NoSuchPaddingException
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
-
 class Biometric {
     companion object {
+
         val TAG: String = Biometric::class.java.simpleName
         private val KEY_ALIAS = Config.BIOM_ALIAS
         var logger: ILogger<*>? = null
@@ -163,7 +163,6 @@ class Biometric {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
 
-
             val parameter = KeyGenParameterSpec.Builder(
                 KEY_ALIAS + userId,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
@@ -211,6 +210,7 @@ class Biometric {
     }
 
     interface BiometricUserInfo {
+
         fun getCurrentUser(): String
         fun setCurrentUserIv(iv: ByteArray)
         fun getCurrentUserIv(): ByteArray

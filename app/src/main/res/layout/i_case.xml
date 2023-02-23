@@ -11,38 +11,38 @@
     </data>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/i_case_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/spacing_10"
+            android:layout_marginEnd="@dimen/spacing_10"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/card" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/i_case_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/spacing_10"
-                android:layout_marginEnd="@dimen/spacing_10"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/card" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_22"
-                android:layout_marginTop="@dimen/spacing_4"
-                android:layout_marginEnd="@dimen/spacing_22"
-                android:layout_marginBottom="@dimen/spacing_20"
-                android:paddingStart="@dimen/spacing_16"
-                android:paddingTop="@dimen/spacing_16"
-                android:paddingEnd="@dimen/spacing_16"
-                android:paddingBottom="@dimen/spacing_14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_22"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:layout_marginEnd="@dimen/spacing_22"
+            android:layout_marginBottom="@dimen/spacing_20"
+            android:paddingStart="@dimen/spacing_16"
+            android:paddingTop="@dimen/spacing_16"
+            android:paddingEnd="@dimen/spacing_16"
+            android:paddingBottom="@dimen/spacing_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/i_case_name"
@@ -52,8 +52,8 @@
                 android:layout_marginEnd="@dimen/spacing_16"
                 android:layout_marginRight="@dimen/spacing_16"
                 android:text="@{item.caseName}"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Input field view usecase" />
 
@@ -61,11 +61,11 @@
                 android:id="@+id/i_case_modules_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/i_case_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/spacing_16"
-                android:layout_marginRight="@dimen/spacing_16">
+                android:layout_marginRight="@dimen/spacing_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/i_case_name">
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/CaseItemTextStyle"
@@ -73,41 +73,41 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_6"
                     android:gravity="start"
-                    android:textColor="@color/main_color_2"
-                    android:text="@string/modules"/>
+                    android:text="@string/modules"
+                    android:textColor="@color/main_color_2" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/i_case_modules"
                     style="@style/CaseItemTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/spacing_6"
+                    android:layout_weight="1"
                     android:gravity="start"
                     android:text="@{item.caseModules}"
                     android:textColor="@color/main_color_2"
-                    tools:text="Dialog, Cardline"/>
+                    tools:text="Dialog, Cardline" />
 
             </LinearLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/i_invoice_status"
-                    style="@style/TextStyle.Normal16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="@dimen/spacing_64"
-                    android:minHeight="@dimen/spacing_24"
-                    android:paddingStart="@dimen/spacing_10"
-                    android:paddingTop="@dimen/spacing_4"
-                    android:paddingEnd="@dimen/spacing_10"
-                    android:paddingBottom="@dimen/spacing_4"
-                    app:caseTestStatus="@{item.caseTestStatus}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/i_case_modules_lay"
-                    tools:text="Created" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/i_invoice_status"
+                style="@style/TextStyle.Normal16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/spacing_64"
+                android:minHeight="@dimen/spacing_24"
+                android:paddingStart="@dimen/spacing_10"
+                android:paddingTop="@dimen/spacing_4"
+                android:paddingEnd="@dimen/spacing_10"
+                android:paddingBottom="@dimen/spacing_4"
+                app:caseTestStatus="@{item.caseTestStatus}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/i_case_modules_lay"
+                tools:text="Created" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

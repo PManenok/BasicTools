@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="by.esas.tools.screens.dialog.DynamicMessageDialogVM" />
@@ -34,9 +34,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/spacing_12"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/spacing_12">
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -58,8 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -94,9 +94,9 @@
                         android:id="@+id/f_dynamic_message_dialog_spinner_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                 </LinearLayout>
 
@@ -117,9 +117,9 @@
                         android:id="@+id/f_dynamic_message_dialog_spinner_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/title_styles"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                 </LinearLayout>
 
@@ -139,7 +139,7 @@
                     <CheckBox
                         android:id="@+id/f_dynamic_message_dialog_close_check"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -158,15 +158,15 @@
                     <CheckBox
                         android:id="@+id/f_dynamic_message_dialog_items_list_check"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -187,29 +187,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/TextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/message_dialog_dynamic_positive_button_appearance" />
-
-                    <CheckBox
-                        android:id="@+id/f_dynamic_message_dialog_btn_positive_check"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/f_dynamic_message_dialog_btn_positive_style_lay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnPositiveLayVisibility}"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -217,8 +194,31 @@
                         style="@style/TextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
+                        android:text="@string/message_dialog_dynamic_positive_button_appearance" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_message_dialog_btn_positive_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/f_dynamic_message_dialog_btn_positive_style_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnPositiveLayVisibility}">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/text_style" />
 
                     <Spinner
@@ -226,16 +226,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/message_dialog_dynamic_all_caps" />
 
                     <CheckBox
@@ -250,8 +250,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnPositiveLayVisibility}"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnPositiveLayVisibility}">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -271,8 +271,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_16"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -293,21 +293,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/message_dialog_dynamic_negative_button_appearance" />
 
                     <CheckBox
                         android:id="@+id/f_dynamic_message_dialog_btn_negative_check"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -315,9 +315,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnNegativeLayVisibility}"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnNegativeLayVisibility}">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -332,9 +332,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -356,8 +356,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnNegativeLayVisibility}"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnNegativeLayVisibility}">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -376,8 +376,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -398,29 +398,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/TextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="@dimen/spacing_8"
-                        android:text="@string/message_dialog_dynamic_neutral_button_appearance" />
-
-                    <CheckBox
-                        android:id="@+id/f_dynamic_message_dialog_btn_neutral_check"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/f_dynamic_message_dialog_btn_neutral_style_lay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnNeutralLayVisibility}"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -428,8 +405,31 @@
                         style="@style/TextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
+                        android:text="@string/message_dialog_dynamic_neutral_button_appearance" />
+
+                    <CheckBox
+                        android:id="@+id/f_dynamic_message_dialog_btn_neutral_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/f_dynamic_message_dialog_btn_neutral_style_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnNeutralLayVisibility}">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_8"
+                        android:layout_weight="1"
                         android:text="@string/text_style" />
 
                     <Spinner
@@ -437,9 +437,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_12"
-                        android:entries="@array/title_styles"
                         android:background="@color/white"
-                        android:popupBackground="@color/white"/>
+                        android:entries="@array/title_styles"
+                        android:popupBackground="@color/white" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -461,8 +461,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_12"
-                    app:visibilityGone="@{viewModel.btnNeutralLayVisibility}"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:visibilityGone="@{viewModel.btnNeutralLayVisibility}">
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/TextStyle"
@@ -487,9 +487,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/message_dialog_dynamic_show_dialog"
             android:layout_marginTop="@dimen/spacing_30"
-            android:layout_marginBottom="@dimen/spacing_8"/>
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:text="@string/message_dialog_dynamic_show_dialog" />
 
     </LinearLayout>
 

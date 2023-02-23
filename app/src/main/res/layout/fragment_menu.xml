@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="by.esas.tools.screens.menu.MenuVM" />
@@ -18,19 +19,19 @@
             style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/spacing_4"
             android:layout_marginStart="@dimen/spacing_18"
+            android:layout_marginTop="@dimen/spacing_4"
             android:layout_marginEnd="@dimen/spacing_18"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
             android:text="@={viewModel.search}"
-            app:inputStartDrawable="@drawable/ic_search"
-            app:inputStartIconMode="custom"
             app:inputEndDrawable="@drawable/ic_filter"
             app:inputEndIconMode="custom"
-            android:imeOptions="actionSearch"
-            android:hint="@string/search_hint" />
+            app:inputStartDrawable="@drawable/ic_search"
+            app:inputStartIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/f_menu_cases_divider"
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_18"
             android:layout_marginEnd="@dimen/spacing_18"
-            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider"/>
+            app:layout_constraintTop_toBottomOf="@id/f_menu_cases_divider" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/f_menu_filter_modules"
@@ -54,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_18"
             android:layout_marginEnd="@dimen/spacing_18"
-            app:layout_constraintTop_toBottomOf="@id/f_menu_filter_statuses"/>
+            app:layout_constraintTop_toBottomOf="@id/f_menu_filter_statuses" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/f_menu_recycler"
@@ -62,10 +63,10 @@
             android:layout_height="0dp"
             android:clipChildren="false"
             android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/f_menu_filter_modules"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/i_case" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -77,7 +78,7 @@
             android:gravity="center"
             android:text="@string/list_is_empty"
             app:layout_constraintTop_toTopOf="@id/f_menu_recycler"
-            app:visibilityGone="@{viewModel.isEmpty}"/>
+            app:visibilityGone="@{viewModel.isEmpty}" />
 
         <ProgressBar
             android:id="@+id/f_main_invoices_circle_progress"

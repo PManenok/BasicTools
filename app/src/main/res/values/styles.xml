@@ -202,12 +202,12 @@
         <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:button">@drawable/selector_check_box</item>
-        <item name="buttonTint">@color/black</item>
+        <item name="buttonTint">@color/textColor</item>
     </style>
 
     <style name="SecondCheckBoxStyle" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:button">@drawable/selector_check_box</item>
         <item name="buttonTint">@color/colorPrimaryDark</item>
@@ -227,7 +227,7 @@
         <item name="chipEndPadding">@dimen/spacing_10</item>
         <item name="chipStartPadding">@dimen/spacing_16</item>
         <item name="chipIcon">@drawable/ic_cancel</item>
-        <item name="chipIconTint">@color/black</item>
+        <item name="chipIconTint">@color/textColor</item>
         <item name="chipIconSize">@dimen/spacing_24</item>
         <item name="iconEndPadding">@dimen/spacing_12</item>
         <item name="textStartPadding">0dp</item>
@@ -287,7 +287,7 @@
 
     <style name="SwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="android:textSize">@dimen/_11ssp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="colorOnSurface">@color/green</item>
         <item name="colorSecondary">@color/main_color_3</item>
     </style>

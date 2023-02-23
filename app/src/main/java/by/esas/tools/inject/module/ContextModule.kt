@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
-
 @Module(
     includes = [
         ViewModelFactoryBuilder::class

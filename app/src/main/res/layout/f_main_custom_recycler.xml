@@ -42,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_12"
             android:layout_marginBottom="@dimen/spacing_10"
-            android:text="@={viewModel.newEntity}"
             android:hint="@string/hint_add_value"
+            android:text="@={viewModel.newEntity}"
             app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_are_selectable"
             app:layout_constraintEnd_toStartOf="@id/f_main_custom_recycler_add_btn"
             app:layout_constraintStart_toStartOf="parent" />
@@ -101,13 +101,13 @@
             style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_12"
             android:layout_marginBottom="@dimen/spacing_10"
             android:onClick="@{()->viewModel.clearItems()}"
             android:text="@string/recycler_cases_delete_button"
             app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_alignment"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/f_main_custom_recycler_set_btn"
-            android:layout_marginEnd="@dimen/spacing_12"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/f_main_custom_recycler_set_btn"
@@ -119,7 +119,7 @@
             android:text="@string/recycler_cases_set_button"
             app:layout_constraintBottom_toTopOf="@id/f_main_custom_recycler_alignment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/f_main_custom_recycler_delete_btn"/>
+            app:layout_constraintStart_toEndOf="@id/f_main_custom_recycler_delete_btn" />
 
         <TextView
             android:id="@+id/f_main_custom_recycler_alignment"

@@ -6,13 +6,13 @@
 package by.esas.tools.checker.checks
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 import java.text.SimpleDateFormat
 import java.util.*
 
 open class DateRangeCheck : BaseCheck {
+
     override var TAG: String = CustomCheck::class.java.simpleName
 
     private var pattern = "yyyy-MM-dd"
@@ -38,7 +38,13 @@ open class DateRangeCheck : BaseCheck {
         this.to = to
     }
 
-    constructor(from: Long, to: Long, pattern: String = "yyyy-MM-dd", @StringRes errorRes: Int, vararg params: Any) : super(errorRes, params) {
+    constructor(
+        from: Long,
+        to: Long,
+        pattern: String = "yyyy-MM-dd",
+        @StringRes errorRes: Int,
+        vararg params: Any
+    ) : super(errorRes, params) {
         this.pattern = pattern
         formatter = SimpleDateFormat(this.pattern, Locale.getDefault())
         formatter.timeZone = TimeZone.getDefault()

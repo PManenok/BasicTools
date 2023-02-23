@@ -9,7 +9,9 @@ import by.esas.tools.screens.recycler.RecyclerEntity
 
 class FirstViewHolder(binding: IRecyclerBaseBinding, viewModel: FirstItemVM) :
     BaseViewHolder<RecyclerEntity, FirstItemVM, IRecyclerBaseBinding>(binding, viewModel) {
+
     companion object {
+
         fun create(
             parent: ViewGroup,
             viewModel: FirstItemVM

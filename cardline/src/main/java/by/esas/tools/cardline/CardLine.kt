@@ -26,6 +26,7 @@ import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
 open class CardLine : LinearLayout, SwitchManager.ISwitchView {
+
     val TAG: String = CardLine::class.java.simpleName
     protected val container: ConstraintLayout
     protected val titleText: MaterialTextView
@@ -292,11 +293,11 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         }
     }
 
-    open fun setCardValue(textRes: Int){
+    open fun setCardValue(textRes: Int) {
         setCardValue(Resources.getSystem().getString(textRes))
     }
 
-    open fun setCardValueStyle(styleId: Int){
+    open fun setCardValueStyle(styleId: Int) {
         if (styleId != -1)
             TextViewCompat.setTextAppearance(valueText, styleId)
     }
@@ -305,15 +306,15 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         return valueText.text.toString()
     }
 
-    open fun isValueSingleLine(value: Boolean){
+    open fun isValueSingleLine(value: Boolean) {
         valueText.isSingleLine = value
     }
 
-    open fun setCardValueColor(color: Int){
+    open fun setCardValueColor(color: Int) {
         valueText.setTextColor(color)
     }
 
-    open fun setCardValueColorRes(@ColorRes colorRes: Int){
+    open fun setCardValueColorRes(@ColorRes colorRes: Int) {
         setCardValueColor(ContextCompat.getColor(context, colorRes))
     }
 
@@ -331,11 +332,11 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         startIcon.setImageDrawable(drawable)
     }
 
-    open fun setStartIconColor(color: Int){
+    open fun setStartIconColor(color: Int) {
         setImageTintList(startIcon, ColorStateList.valueOf(color))
     }
 
-    open fun setStartIconColorRes(@ColorRes colorRes: Int){
+    open fun setStartIconColorRes(@ColorRes colorRes: Int) {
         setStartIconColor(ContextCompat.getColor(context, colorRes))
     }
 
@@ -387,11 +388,11 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         updateIconSize(size, endIcon)
     }
 
-    open fun setEndIconColor(color: Int){
+    open fun setEndIconColor(color: Int) {
         setImageTintList(endIcon, ColorStateList.valueOf(color))
     }
 
-    open fun setEndIconColorRes(@ColorRes colorRes: Int){
+    open fun setEndIconColorRes(@ColorRes colorRes: Int) {
         setEndIconColor(ContextCompat.getColor(context, colorRes))
     }
 
@@ -460,7 +461,7 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
         bottomDividerView.setBackgroundColor(color)
     }
 
-    open fun setBottomDividerColorRes(@ColorRes colorRes: Int){
+    open fun setBottomDividerColorRes(@ColorRes colorRes: Int) {
         setBottomDividerColor(ContextCompat.getColor(context, colorRes))
     }
 
@@ -504,7 +505,8 @@ open class CardLine : LinearLayout, SwitchManager.ISwitchView {
                 paddingTop,
                 paddingRight + defPadding,
                 paddingBottom
-            )}
+            )
+        }
 
         setCardValue("")
         valueText.apply {

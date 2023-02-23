@@ -12,7 +12,8 @@ import by.esas.tools.logger.Action
 import by.esas.tools.screens.MainActivity
 import by.esas.tools.util.configs.UiModeType
 
-class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>() {
+class BaseUIThemeFragment : AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>() {
+
     override val fragmentDestinationId = R.id.baseuiThemeFragment
 
     override fun provideLayoutId() = R.layout.f_main_baseui_theme
@@ -39,7 +40,7 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
 
     private fun setCheckedLang() {
         val checkedLang = AppSharedPrefs(App.instance).getLanguage()
-        when(checkedLang) {
+        when (checkedLang) {
             "ru" -> binding.fBaseuiThemeLangRadioRussian.isChecked = true
             "en" -> binding.fBaseuiThemeLangRadioEnglish.isChecked = true
         }
@@ -47,7 +48,7 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
 
     private fun setCheckedTheme() {
         val checkedTheme = AppSharedPrefs(App.instance).getTheme()
-        when(checkedTheme) {
+        when (checkedTheme) {
             UiModeType.SYSTEM -> binding.fBaseuiThemeModeRadioSystem.isChecked = true
             UiModeType.DAY -> binding.fBaseuiThemeModeRadioLight.isChecked = true
             UiModeType.NIGHT -> binding.fBaseuiThemeModeRadioNight.isChecked = true
@@ -56,7 +57,7 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
 
     private fun getLanguage(): String {
         val selectedItem = binding.fBaseuiThemeLangRadioGroup.checkedRadioButtonId
-        return when(selectedItem) {
+        return when (selectedItem) {
             R.id.f_baseui_theme_lang_radio_russian -> "ru"
             else -> "en"
         }
@@ -64,7 +65,7 @@ class BaseUIThemeFragment: AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>()
 
     private fun getThemeMode(): UiModeType {
         val selectedItem = binding.fBaseuiThemeModeRadioGroup.checkedRadioButtonId
-        return when(selectedItem) {
+        return when (selectedItem) {
             R.id.f_baseui_theme_mode_radio_light -> UiModeType.DAY
             R.id.f_baseui_theme_mode_radio_night -> UiModeType.NIGHT
             else -> UiModeType.SYSTEM

@@ -16,6 +16,7 @@ import by.esas.tools.databinding.FMainCustomSwitchProgramBinding
 import by.esas.tools.inputfieldview.dpToPx
 
 class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCustomSwitchProgramBinding>() {
+
     override val fragmentDestinationId = R.id.customSwitchProgramFragment
 
     override fun provideLayoutId() = R.layout.f_main_custom_switch_program
@@ -65,7 +66,7 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
         val checkedButtonId = binding.fSwitcherProgramThumbRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fSwitcherProgramThumbRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fSwitcherProgramThumbRadio1 -> R.color.switcher_selector_orange
             binding.fSwitcherProgramThumbRadio2 -> R.color.switcher_thumb_selector
             binding.fSwitcherProgramThumbRadio3 -> R.color.switcher_selector_red
@@ -78,7 +79,7 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
         val checkedButtonId = binding.fSwitcherProgramTrackRadioGroup.checkedRadioButtonId
         val checkedButton = binding.fSwitcherProgramTrackRadioGroup.findViewById<RadioButton>(checkedButtonId)
 
-        return when(checkedButton) {
+        return when (checkedButton) {
             binding.fSwitcherProgramTrackRadio1 -> R.color.switcher_selector_orange_light
             binding.fSwitcherProgramTrackRadio2 -> R.color.switcher_selector
             binding.fSwitcherProgramTrackRadio3 -> R.color.switcher_selector_holo_red
@@ -89,7 +90,7 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
 
     private fun getInfoAlignment(): Int {
         val alignment = binding.fSwitcherProgramSpinnerAlignment.selectedItem.toString()
-        return when(alignment) {
+        return when (alignment) {
             resources.getString(R.string.alignment_left) -> TEXT_ALIGNMENT_TEXT_START
             resources.getString(R.string.alignment_center) -> TEXT_ALIGNMENT_CENTER
             else -> TEXT_ALIGNMENT_TEXT_END
@@ -120,7 +121,7 @@ class CustomSwitchProgramFragment : AppFragment<CustomSwitchProgramVM, FMainCust
     }
 
     private fun getTextStyle(style: String): Int {
-        return when(style){
+        return when (style) {
             resources.getString(R.string.style_1) -> R.style.CustomSwitcherTitleTextStyle
             resources.getString(R.string.style_2) -> R.style.CustomSwitcherTextStyleBold
             else -> R.style.CustomSwitcherTextStyleNormal

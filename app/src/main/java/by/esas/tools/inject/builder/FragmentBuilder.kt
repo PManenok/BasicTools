@@ -6,11 +6,10 @@ import by.esas.tools.screens.baseui.navigation.BaseUINavigationSecondFragment
 import by.esas.tools.screens.baseui.other.BaseUIFunctionalityFragment
 import by.esas.tools.screens.baseui.ui.BaseUIThemeFragment
 import by.esas.tools.screens.biometric.BiometricDecryptionFragment
-import by.esas.tools.screens.listheader.ListheaderFragment
-import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.cardline.CardlineFragment
 import by.esas.tools.screens.cardline.dynamic.DynamicCardlineFragment
 import by.esas.tools.screens.checker.CheckerInputFieldFragment
+import by.esas.tools.screens.custom_switch.CustomSwitchFragment
 import by.esas.tools.screens.custom_switch.program.CustomSwitchProgramFragment
 import by.esas.tools.screens.dialog.DynamicMessageDialogFragment
 import by.esas.tools.screens.dialog.bottom_dialog.BottomDialogFragment
@@ -18,6 +17,7 @@ import by.esas.tools.screens.domain.DomainCaseFragment
 import by.esas.tools.screens.inputfield_view.end_icon.InputfieldViewEndIconFragment
 import by.esas.tools.screens.inputfield_view.input_field.InputfieldViewFragment
 import by.esas.tools.screens.inputfield_view.start_icon.InputfieldViewStartIconFragment
+import by.esas.tools.screens.listheader.ListheaderFragment
 import by.esas.tools.screens.listheader.dynamic.DynamicListheaderFragment
 import by.esas.tools.screens.logger.LoggerFragment
 import by.esas.tools.screens.menu.MenuFragment

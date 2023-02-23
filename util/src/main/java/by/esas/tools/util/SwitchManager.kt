@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.EditText
 
 open class SwitchManager {
+
     /**
      * Method makes view editable
      * return true if method handled switch and false if not
@@ -50,6 +51,7 @@ open class SwitchManager {
     }
 
     interface ISwitchView {
+
         fun switchOn()
         fun switchOff()
     }

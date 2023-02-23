@@ -40,7 +40,11 @@ object TimeParser {
         return patterns.getValue(key)
     }
 
-    fun getDateFromUTC(dateInUtc: String?, utcPattern: String? = null, patterns: Map<String, String> = getDefaultPatterns()): Date? {
+    fun getDateFromUTC(
+        dateInUtc: String?,
+        utcPattern: String? = null,
+        patterns: Map<String, String> = getDefaultPatterns()
+    ): Date? {
         return dateInUtc?.let { parsable ->
             if (parsable.isNotBlank()) {
                 val pattern: String = utcPattern ?: getPattern(parsable, patterns)
@@ -67,7 +71,11 @@ object TimeParser {
         }
     }
 
-    fun getDateFromLocal(localDate: String?, localPattern: String? = null, patterns: Map<String, String> = getDefaultPatterns()): Date? {
+    fun getDateFromLocal(
+        localDate: String?,
+        localPattern: String? = null,
+        patterns: Map<String, String> = getDefaultPatterns()
+    ): Date? {
         return localDate?.let { parsable ->
             if (parsable.isNotBlank()) {
                 val pattern: String = localPattern ?: getPattern(parsable, patterns)

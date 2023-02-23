@@ -1,6 +1,7 @@
 package by.esas.tools.dialog
 
 object Config {
+
     const val DIALOG_PARAMETERS_BUNDLE: String = "DIALOG_PARAMETERS_BUNDLE"
     const val DIALOG_RESULT_BUNDLE: String = "DIALOG_RESULT_BUNDLE"
     const val DIALOG_ACTION_NAME: String = "DIALOG_ACTION_NAME"

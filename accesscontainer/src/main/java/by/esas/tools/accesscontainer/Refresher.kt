@@ -42,6 +42,7 @@ open class Refresher<M : BaseErrorModel>(
     protected val dialogProvider: DialogProvider,
     protected val supporter: Supporter
 ) : IRefreshContainer<M> {
+
     val TAG: String = Refresher::class.java.simpleName
 
     /*region Params*/

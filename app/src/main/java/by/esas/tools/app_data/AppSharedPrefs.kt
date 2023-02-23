@@ -5,9 +5,11 @@ import android.content.SharedPreferences
 import by.esas.tools.util.configs.UiModeType
 
 class AppSharedPrefs(val context: Context) {
+
     private val sharedPrefs: SharedPreferences
 
     companion object {
+
         private const val CURRENT_LANGUAGE = "klangkopl"
         private const val CURRENT_THEME = "pjuthemred"
         private const val SHARED_PREFS_NAME = "basic_tools_pref"
@@ -31,7 +33,7 @@ class AppSharedPrefs(val context: Context) {
 
     fun getTheme(): UiModeType {
         val currentTheme = sharedPrefs.getString(CURRENT_THEME, "") ?: ""
-        return if (currentTheme.isNotBlank()){
+        return if (currentTheme.isNotBlank()) {
             UiModeType.valueOf(currentTheme)
         } else UiModeType.SYSTEM
     }

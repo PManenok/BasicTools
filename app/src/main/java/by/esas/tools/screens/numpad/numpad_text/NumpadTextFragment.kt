@@ -8,12 +8,13 @@ import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainNumpadTextBinding
+import by.esas.tools.dpToPx
 import by.esas.tools.numpad.INumPadHandler
 import by.esas.tools.util.SwitchManager
-import by.esas.tools.dpToPx
 import com.google.android.material.button.MaterialButton
 
 class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
+
     override fun provideSwitchableViews(): List<View?> {
         return listOf(
             binding.fMainNumpadText,
@@ -23,9 +24,9 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
         )
     }
 
-    override var switcher: SwitchManager = object : SwitchManager(){
+    override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is MaterialButton || view is ImageButton){
+            return if (view is MaterialButton || view is ImageButton) {
                 view.isEnabled = true
                 true
             } else {
@@ -34,7 +35,7 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is MaterialButton || view is ImageButton){
+            return if (view is MaterialButton || view is ImageButton) {
                 view.isEnabled = false
                 true
             } else {
@@ -66,7 +67,7 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
             }
         })
 
-        binding.fMainNumpadText.setNumpadHandler(object : INumPadHandler{
+        binding.fMainNumpadText.setNumpadHandler(object : INumPadHandler {
             override fun onNumClick(num: Int) {
                 viewModel.onIconClick(num)
             }
@@ -79,7 +80,6 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
                 viewModel.onRestoreClick()
             }
         })
-
     }
 
     override fun setupObservers() {

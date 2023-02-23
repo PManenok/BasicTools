@@ -15,7 +15,8 @@ import by.esas.tools.logger.Action
 
 private const val BOTTOM_DIALOG = "BOTTOM_DIALOG"
 
-class BottomDialogFragment: AppFragment<BottomDialogVM, FMainBottomDialogBinding>() {
+class BottomDialogFragment : AppFragment<BottomDialogVM, FMainBottomDialogBinding>() {
+
     override val fragmentDestinationId = R.id.bottomDialogFragment
 
     override fun provideLayoutId() = R.layout.f_main_bottom_dialog

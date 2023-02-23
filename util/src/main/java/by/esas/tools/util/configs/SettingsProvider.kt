@@ -6,6 +6,7 @@
 package by.esas.tools.util.configs
 
 interface SettingsProvider {
+
     // language methods
     fun getDefaultLanguage(): String
     fun getLanguage(): String

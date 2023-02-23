@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
- <!-- Margin -->
+    <!-- Margin -->
     <dimen name="input_edit_text_default_min_height">40dp</dimen>
     <dimen name="input_container_top_margin_default">8dp</dimen>
     <dimen name="small_margin">8dp</dimen>

@@ -5,8 +5,8 @@
 
 package by.esas.tools.checker
 
-
 open class Checker {
+
     protected open var inContinueMode: Boolean = true
     protected open var showError: Boolean = true
     protected open var listener: CheckListener? = null
@@ -39,7 +39,7 @@ open class Checker {
                 result = it.checkField(showError, getter) && result
             }
         } else {
-            for(it in checks) {
+            for (it in checks) {
                 result = it.checkField(showError, getter) && result
                 if (!result)
                     break
@@ -52,6 +52,7 @@ open class Checker {
     }
 
     interface CheckListener {
+
         fun onFailed() {}
         fun onSuccess() {}
     }

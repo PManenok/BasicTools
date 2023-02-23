@@ -5,6 +5,7 @@ import by.esas.tools.recycler.BaseItemViewModel
 import by.esas.tools.screens.recycler.RecyclerEntity
 
 class FirstItemVM : BaseItemViewModel<RecyclerEntity>() {
+
     val text = ObservableField<String>("")
     val counter = ObservableField<String>("")
     private var innerCounter = 0

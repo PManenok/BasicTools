@@ -11,7 +11,8 @@ import by.esas.tools.databinding.FMainBaseuiNavigationSecondBinding
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 
-class BaseUINavigationSecondFragment: AppFragment<BaseUINavigationSecondVM, FMainBaseuiNavigationSecondBinding>() {
+class BaseUINavigationSecondFragment : AppFragment<BaseUINavigationSecondVM, FMainBaseuiNavigationSecondBinding>() {
+
     override val fragmentDestinationId = R.id.baseuiNavigationSecondFragment
 
     override fun provideLayoutId() = R.layout.f_main_baseui_navigation_second
@@ -35,7 +36,10 @@ class BaseUINavigationSecondFragment: AppFragment<BaseUINavigationSecondVM, FMai
             override fun onSuccess() {
                 viewModel.enableControls()
                 val bundle = Bundle()
-                bundle.putString(BaseUINavigationFragment.ARGUMENTS_DATA, binding.fBaseuiNavigationSecondInputField.getText())
+                bundle.putString(
+                    BaseUINavigationFragment.ARGUMENTS_DATA,
+                    binding.fBaseuiNavigationSecondInputField.getText()
+                )
                 viewModel.popBack(0, inclusive = false, parameters = bundle)
             }
         })

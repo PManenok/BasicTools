@@ -7,8 +7,8 @@ package by.esas.tools.accesscontainer
 
 import by.esas.tools.logger.BaseErrorModel
 
-
 class ContainerRequest<T, M : BaseErrorModel> {
+
     private var onComplete: ((T) -> Unit)? = null
     private var onError: ((M) -> Unit)? = null
     private var onCancel: (() -> Unit)? = null

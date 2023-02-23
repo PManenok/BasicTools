@@ -7,7 +7,8 @@ import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainCardlineBinding
 
-class CardlineFragment : AppFragment<CardlineVM, FMainCardlineBinding >() {
+class CardlineFragment : AppFragment<CardlineVM, FMainCardlineBinding>() {
+
     override val fragmentDestinationId = R.id.cardlineFragment
 
     override fun provideLayoutId(): Int = R.layout.f_main_cardline

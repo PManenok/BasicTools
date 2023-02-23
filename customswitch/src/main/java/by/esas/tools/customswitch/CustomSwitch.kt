@@ -42,6 +42,7 @@ import com.google.android.material.textview.MaterialTextView
  */
 
 open class CustomSwitch : LinearLayout, SwitchManager.ISwitchView {
+
     val TAG: String = CustomSwitch::class.java.simpleName
     protected val switcher: SwitchMaterial
     protected val textInfoView: MaterialTextView

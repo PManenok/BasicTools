@@ -30,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * Base bottom dialog fragment with custom state callback, disabling and enabling functions, showing and hiding progress
  * */
 abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
+
     open val TAG: String = TAGk
 
     protected val defaultRequestKey: String = TAGk

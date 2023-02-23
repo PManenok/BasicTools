@@ -8,6 +8,7 @@ package by.esas.tools.baseui.interfaces
 import by.esas.tools.domain.usecase.UseCase
 
 interface IExecutingVM {
+
     var useCases: MutableList<UseCase<*, *>>
 
     fun provideUseCases(): List<UseCase<*, *>> {

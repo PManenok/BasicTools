@@ -12,9 +12,10 @@ import by.esas.tools.util.SwitchManager
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 
-class CustomBottomDialog: BindingBottomDialogFragment<DfCustomBottomBinding>() {
+class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() {
 
     companion object {
+
         const val BOTTOM_DIALOG_CHECK_RESULT = "BOTTOM_DIALOG_CHECK_RESULT"
     }
 
@@ -24,7 +25,7 @@ class CustomBottomDialog: BindingBottomDialogFragment<DfCustomBottomBinding>() {
 
     override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = true
                 true
             } else {
@@ -33,7 +34,7 @@ class CustomBottomDialog: BindingBottomDialogFragment<DfCustomBottomBinding>() {
         }
 
         override fun disableView(view: View): Boolean {
-            return if (view is Button){
+            return if (view is Button) {
                 view.isEnabled = false
                 true
             } else {
@@ -47,11 +48,14 @@ class CustomBottomDialog: BindingBottomDialogFragment<DfCustomBottomBinding>() {
     }
 
     override fun provideValidationList(): List<Checking> {
-        return listOf(FieldChecking(binding.dfCustomBottomInputField).addCheck(
-            LengthCheck(1, 20,
-                resources.getString(R.string.validation_text_in_range, 1, 20)
+        return listOf(
+            FieldChecking(binding.dfCustomBottomInputField).addCheck(
+                LengthCheck(
+                    1, 20,
+                    resources.getString(R.string.validation_text_in_range, 1, 20)
+                )
             )
-        ))
+        )
     }
 
     override fun provideVariableId(): Int {
@@ -62,7 +66,7 @@ class CustomBottomDialog: BindingBottomDialogFragment<DfCustomBottomBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.dfCustomBottomSwitcher.setOnCheckedChangeListener { _, isChecked ->
-            when(isChecked) {
+            when (isChecked) {
                 true -> enableControls()
                 false -> disableControls()
             }

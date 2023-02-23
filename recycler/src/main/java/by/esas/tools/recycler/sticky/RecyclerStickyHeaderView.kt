@@ -15,6 +15,7 @@ import by.esas.tools.recycler.BaseItemViewModel
 
 abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseItemViewModel<Entity>>
     (val binding: B, val viewModel: VM, protected val listener: IStickyHeader<Entity>) : RecyclerView.ItemDecoration() {
+
     protected var mStickyHeaderHeight = 0
 
     abstract fun provideHeaderLayout(): Int
@@ -113,7 +114,6 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
         return childInContact
     }
 
-
     protected open fun fixLayoutSize(parent: ViewGroup, view: View) {
         // Specs for parent (RecyclerView)
         val widthSpec: Int = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
@@ -139,6 +139,7 @@ abstract class RecyclerStickyHeaderView<Entity, B : ViewDataBinding, VM : BaseIt
     }*/
 
     interface IStickyHeader<Entity> {
+
         fun getHeaderPositionForItem(itemPosition: Int): Int
 
         fun getHeaderForCurrentPosition(position: Int): Entity

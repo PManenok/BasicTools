@@ -68,12 +68,10 @@ class NetworkModule {
     fun provideSharedPrefs(context: Context): AppSharedPrefs {
         return AppSharedPrefs(context)
     }*/
-
-
 }
 
-    /*  @Provides
-     @Singleton
-     fun providesTrustManagerFactory(context: Context): TrustManagerFactory {
-         return createTrustManager(context)
-     }*/
+/*  @Provides
+ @Singleton
+ fun providesTrustManagerFactory(context: Context): TrustManagerFactory {
+     return createTrustManager(context)
+ }*/

@@ -24,6 +24,7 @@ open class SimpleItemAdapter(
 ) {
 
     companion object {
+
         fun <T : ViewDataBinding> createCustom(
             inflater: Class<T>,
             itemList: MutableList<SimpleItemModel> = mutableListOf(),

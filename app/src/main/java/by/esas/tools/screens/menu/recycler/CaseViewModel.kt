@@ -5,7 +5,8 @@ import by.esas.tools.entity.CaseItemInfo
 import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.recycler.BaseItemViewModel
 
-class CaseViewModel: BaseItemViewModel<CaseItemInfo>() {
+class CaseViewModel : BaseItemViewModel<CaseItemInfo>() {
+
     val caseName = ObservableField<String>("")
     val caseModules = ObservableField<String>("")
     val caseTestStatus = ObservableField<TestStatusEnum>()

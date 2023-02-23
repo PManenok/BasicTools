@@ -14,34 +14,34 @@
         <attr name="numpadSevenDrawable" format="reference" />
         <attr name="numpadEightDrawable" format="reference" />
         <attr name="numpadNineDrawable" format="reference" />
-        <attr name="numpadNumbersIconsColor" format="reference"/>
+        <attr name="numpadNumbersIconsColor" format="reference" />
 
         <!--Left icon-->
-        <attr name="numpadLeftDrawable" format="reference"/>
-        <attr name="numpadLeftIconColor" format="reference"/>
-        <attr name="numpadLeftIconVisibitity" format="boolean"/>
+        <attr name="numpadLeftDrawable" format="reference" />
+        <attr name="numpadLeftIconColor" format="reference" />
+        <attr name="numpadLeftIconVisibitity" format="boolean" />
 
         <!--Right icon-->
-        <attr name="numpadRightDrawable" format="reference"/>
-        <attr name="numpadRightIconColor" format="reference"/>
-        <attr name="numpadRightIconVisibitity" format="boolean"/>
+        <attr name="numpadRightDrawable" format="reference" />
+        <attr name="numpadRightIconColor" format="reference" />
+        <attr name="numpadRightIconVisibitity" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="NumPadTextView">
-        <attr name="numpadTextIconStyle" format="reference"/>
-        <attr name="numpadTextIconPadding" format="dimension"/>
+        <attr name="numpadTextIconStyle" format="reference" />
+        <attr name="numpadTextIconPadding" format="dimension" />
         <attr name="numpadTextIconSize" format="dimension" />
 
         <!--Left icon-->
-        <attr name="numpadTextLeftIconImage" format="reference"/>
-        <attr name="numpadTextLeftIconSize" format="integer"/>
-        <attr name="numpadTextLeftIconColor" format="reference"/>
-        <attr name="numpadTextLeftIconVisibitity" format="boolean"/>
+        <attr name="numpadTextLeftIconImage" format="reference" />
+        <attr name="numpadTextLeftIconSize" format="integer" />
+        <attr name="numpadTextLeftIconColor" format="reference" />
+        <attr name="numpadTextLeftIconVisibitity" format="boolean" />
 
         <!--Right icon-->
-        <attr name="numpadTextRightIconImage" format="reference"/>
-        <attr name="numpadTextRightIconSize" format="integer"/>
-        <attr name="numpadTextRightIconColor" format="reference"/>
-        <attr name="numpadTextRightIconVisibitity" format="boolean"/>
+        <attr name="numpadTextRightIconImage" format="reference" />
+        <attr name="numpadTextRightIconSize" format="integer" />
+        <attr name="numpadTextRightIconColor" format="reference" />
+        <attr name="numpadTextRightIconVisibitity" format="boolean" />
     </declare-styleable>
 </resources>

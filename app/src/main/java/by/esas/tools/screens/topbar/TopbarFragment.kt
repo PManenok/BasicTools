@@ -1,9 +1,7 @@
 package by.esas.tools.screens.topbar
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
@@ -11,7 +9,8 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainTopbarBinding
 import by.esas.tools.topbarview.ITopbarHandler
 
-class TopbarFragment: AppFragment<TopbarVM, FMainTopbarBinding>() {
+class TopbarFragment : AppFragment<TopbarVM, FMainTopbarBinding>() {
+
     override val fragmentDestinationId = R.id.topbarFragment
     override fun provideLayoutId() = R.layout.f_main_topbar
 
@@ -52,7 +51,8 @@ class TopbarFragment: AppFragment<TopbarVM, FMainTopbarBinding>() {
         }
 
         override fun onActionClick() {
-            Toast.makeText(requireContext(), resources.getString(R.string.topbar_action_click), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), resources.getString(R.string.topbar_action_click), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

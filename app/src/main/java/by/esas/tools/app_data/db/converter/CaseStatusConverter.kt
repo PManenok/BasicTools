@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import by.esas.tools.entity.TestStatusEnum
 
 class CaseStatusConverter {
+
     @TypeConverter
     fun toTestStatusEnum(value: String) = enumValueOf<TestStatusEnum>(value)
 

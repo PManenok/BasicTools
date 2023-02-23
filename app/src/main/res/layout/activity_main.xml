@@ -24,46 +24,46 @@
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true">
 
-        <by.esas.tools.topbarview.TopbarView
-            android:id="@+id/a_main_top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:barNavIcon="@drawable/ic_arrow_back"
-            app:barShowNavIcon="@{viewModel.hasBackBtn}"
-            app:barNavIconTint="@color/textColor"
-            app:barActionIcon="@drawable/ic_menu"
-            app:barShowActionIcon="@{viewModel.hasSettingsBtn}"
-            app:barActionIconTint="@color/main_color_3"
-            app:barEndActionText="@string/test"
-            app:barEndActionTextAppearance="@style/TextStyle.Normal16.Red"
-            app:barShowDivider="false"
-            app:barTitleText="@{viewModel.title}"
-            app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"
-            app:barTitleWidthPercent="@dimen/main_topbar_width_percent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <by.esas.tools.topbarview.TopbarView
+                android:id="@+id/a_main_top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barActionIcon="@drawable/ic_menu"
+                app:barActionIconTint="@color/main_color_3"
+                app:barEndActionText="@string/test"
+                app:barEndActionTextAppearance="@style/TextStyle.Normal16.Red"
+                app:barNavIcon="@drawable/ic_arrow_back"
+                app:barNavIconTint="@color/textColor"
+                app:barShowActionIcon="@{viewModel.hasSettingsBtn}"
+                app:barShowDivider="false"
+                app:barShowNavIcon="@{viewModel.hasBackBtn}"
+                app:barTitleText="@{viewModel.title}"
+                app:barTitleTextAppearance="@style/TextStyle.Center.Regular24"
+                app:barTitleWidthPercent="@dimen/main_topbar_width_percent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <fragment
-            android:id="@+id/a_main_nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
-            app:navGraph="@navigation/n_main" />
+            <fragment
+                android:id="@+id/a_main_nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/a_main_top_bar"
+                app:navGraph="@navigation/n_main" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/a_main_settings_menu"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            app:menu="@menu/settings_menu"/>
+            app:menu="@menu/settings_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

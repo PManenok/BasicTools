@@ -20,6 +20,7 @@ import by.esas.tools.util.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 
 open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
+
     open val TAG: String = NumPadTextView::class.java.simpleName
 
     protected val numContainerOne: FrameLayout

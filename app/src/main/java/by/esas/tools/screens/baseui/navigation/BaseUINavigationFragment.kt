@@ -12,9 +12,10 @@ import by.esas.tools.databinding.FMainBaseuiNavigationBinding
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 
-class BaseUINavigationFragment: AppFragment<BaseUINavigationVM, FMainBaseuiNavigationBinding>() {
+class BaseUINavigationFragment : AppFragment<BaseUINavigationVM, FMainBaseuiNavigationBinding>() {
 
     companion object {
+
         const val ARGUMENTS_DATA = "ARGUMENTS_DATA"
     }
 

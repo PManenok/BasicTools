@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import by.esas.tools.checker.BaseCheck
 
 open class NotEmptyCheck : BaseCheck {
+
     override var TAG: String = CustomCheck::class.java.simpleName
 
     constructor(@StringRes errorRes: Int) : super(errorRes)

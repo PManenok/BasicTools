@@ -18,7 +18,6 @@ class Executor(
 
     var provider: SecretProvider = SecretProvider()
 
-
     init {
         logger.setTag(TAG)
     }

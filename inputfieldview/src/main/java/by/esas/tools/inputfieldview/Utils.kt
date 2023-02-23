@@ -27,6 +27,7 @@ fun Double.toFormattedInput(): String {
         else -> temp
     }
 }
+
 fun dpToPx(dp: Int): Float {
     return (dp * Resources.getSystem().displayMetrics.density)
 }

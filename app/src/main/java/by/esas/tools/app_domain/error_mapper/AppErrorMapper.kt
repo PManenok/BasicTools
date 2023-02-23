@@ -7,6 +7,7 @@ import com.squareup.moshi.Moshi
 
 class AppErrorMapper(moshi: Moshi, logger: ILogger<ErrorModel>) :
     BaseErrorMapper<AppErrorStatusEnum, ErrorModel>(moshi, logger) {
+
     override fun mapBaseException(errorText: String?): String {
         return AppErrorStatusEnum.APP_UNPREDICTED_ERROR.name
     }

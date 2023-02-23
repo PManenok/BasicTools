@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -18,15 +17,15 @@
             android:id="@+id/f_main_numpad_text_switcher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_12"
+            android:layout_marginTop="@dimen/spacing_4"
+            android:layout_marginEnd="@dimen/spacing_12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:switchTitle="@string/custom_switch_disable_title"
-            app:switchTitleTextAppearance="@style/TextStyle"
             app:switchInfo="@string/custom_switch_disable_instruction"
             app:switchInfoTextAppearance="@style/HintTextStyle"
-            android:layout_marginStart="@dimen/spacing_12"
-            android:layout_marginEnd="@dimen/spacing_12"
-            android:layout_marginTop="@dimen/spacing_4"/>
+            app:switchTitle="@string/custom_switch_disable_title"
+            app:switchTitleTextAppearance="@style/TextStyle" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/f_main_numpad_text_common_text"
@@ -45,8 +44,8 @@
             android:layout_width="@dimen/spacing_350"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8"
-            android:text="@{viewModel.numText}"
             android:hint="@string/numpad_common_text_test"
+            android:text="@{viewModel.numText}"
             app:inputEditable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,13 +56,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_30"
-            app:numpadTextIconStyle="@style/TextStyle"
-            app:numpadTextLeftIconColor="@color/main_color_1"
-            app:numpadTextRightIconColor="@color/main_color_1"
             app:layout_constraintBottom_toTopOf="@id/f_main_numpad_text_change_size_lay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_text_input_field" />
+            app:layout_constraintTop_toBottomOf="@id/f_main_numpad_text_input_field"
+            app:numpadTextIconStyle="@style/TextStyle"
+            app:numpadTextLeftIconColor="@color/main_color_1"
+            app:numpadTextRightIconColor="@color/main_color_1" />
 
         <LinearLayout
             android:id="@+id/f_main_numpad_text_change_size_lay"
@@ -79,27 +78,27 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
+                android:onClick="@{() -> viewModel.decreaseIconsSize()}"
                 android:src="@drawable/ic_remove"
-                app:tint="@color/main_color_1"
-                android:onClick="@{() -> viewModel.decreaseIconsSize()}"/>
+                app:tint="@color/main_color_1" />
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextStyle"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/spacing_8"
                 android:layout_marginEnd="@dimen/spacing_8"
-                android:text="@string/numpad_change_icons_size"/>
+                android:text="@string/numpad_change_icons_size" />
 
             <ImageButton
                 android:id="@+id/f_main_numpad_text_icons_increase_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
+                android:onClick="@{() -> viewModel.increaseIconsSize()}"
                 android:src="@drawable/ic_add"
-                app:tint="@color/main_color_1"
-                android:onClick="@{() -> viewModel.increaseIconsSize()}"/>
+                app:tint="@color/main_color_1" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -108,8 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_40"
-            android:text="@string/numpad_change_icons_style"
             android:onClick="@{() -> viewModel.updateIconsStyle()}"
+            android:text="@string/numpad_change_icons_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -9,11 +9,11 @@ import by.esas.tools.timeparser.TimeParser.getDateFromUTC
 import by.esas.tools.timeparser.TimeParser.getLocal
 import by.esas.tools.timeparser.TimeParser.getUTC
 import by.esas.tools.utils.logger.ErrorModel
-import java.lang.IllegalArgumentException
-import java.util.Date
+import java.util.*
 import javax.inject.Inject
 
 class TimeParserVM @Inject constructor() : AppVM() {
+
     var selectedDate: Date? = null
 
     val resultField1 = ObservableField("")

@@ -7,7 +7,11 @@ package by.esas.tools.inputfieldview
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -16,6 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 
 open class BoxView : View {
+
     private val path = Path()
     private val rectF = RectF()
     private val paint = Paint()
@@ -75,9 +80,13 @@ open class BoxView : View {
 
         paintColor = typedArray.getColor(R.styleable.BoxView_boxVStrokeColor, defaultStrokeColor)
         paintBGColor = typedArray.getColor(R.styleable.BoxView_boxVBgColor, defaultBgColor)
-        strokeWidth = typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStrokeWidth, defaultStrokeWidth).toFloat()
-        strokeRadius = typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStrokeRadius, defaultStrokeRadius).toFloat()
-        startStrokePadding = typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStartPadding, defaultStrokeStartPadding).toFloat()
+        strokeWidth =
+            typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStrokeWidth, defaultStrokeWidth).toFloat()
+        strokeRadius =
+            typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStrokeRadius, defaultStrokeRadius).toFloat()
+        startStrokePadding =
+            typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVStartPadding, defaultStrokeStartPadding)
+                .toFloat()
         topClip = typedArray.getDimensionPixelOffset(R.styleable.BoxView_boxVTopClip, defaultTopClip).toFloat()
 
         typedArray.recycle()

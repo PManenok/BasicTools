@@ -10,6 +10,7 @@ import by.esas.tools.biometric_decryption.Biometric
 import javax.inject.Inject
 
 class BiometricDecryptionVM @Inject constructor() : AppVM() {
+
     val messageLive = MutableLiveData<String>()
     var isBiometricAvailable = false
     var showBiometricDialog: (block: (Fragment) -> Unit) -> Unit = {}

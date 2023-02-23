@@ -11,7 +11,9 @@ open class BaseErrorModel(
     val code: Int,
     val statusEnum: String
 ) {
+
     companion object {
+
         const val ERROR_MODEL_CODE: String = "ERROR_MODEL_CODE"
         const val ERROR_MODEL_STATUS: String = "ERROR_MODEL_STATUS"
         const val ERROR_MODEL_STATUS_NOT_SET: String = "NOT_SET"

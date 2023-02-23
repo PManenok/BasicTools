@@ -6,6 +6,7 @@ import by.esas.tools.App
 import by.esas.tools.logger.ILogger
 
 class LoggerImpl : ILogger<ErrorModel> {
+
     override var currentTag: String = "LoggerImpl"
     override fun setTag(tag: String) {
         this.currentTag = tag
@@ -36,13 +37,11 @@ class LoggerImpl : ILogger<ErrorModel> {
     }
 
     override fun sendLogs(msg: String) {
-
     }
 
     override fun logError(error: ErrorModel) {
         Log.e(currentTag, error.statusEnum)
     }
-
 
     override fun logCategory(category: String, tag: String, msg: String) {
         Log.e(tag, "$category: $msg")

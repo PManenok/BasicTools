@@ -14,9 +14,11 @@ class CaseStickyHeader(
     listener: IStickyHeader<StickyEntity<RecyclerEntity>>
 ) : RecyclerStickyHeaderView<StickyEntity<RecyclerEntity>, IStickyRecyclerHeaderBinding, CaseStickyItemVM>
     (binding, viewModel, listener) {
+
     override fun provideHeaderLayout(): Int = R.layout.i_sticky_recycler_header
 
     companion object {
+
         fun create(
             parent: ViewGroup,
             viewModel: CaseStickyItemVM,

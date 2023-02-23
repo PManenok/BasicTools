@@ -11,31 +11,31 @@
             style="@style/HintTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_title"/>
+            android:text="@string/baseui_navigation_title" />
 
         <by.esas.tools.inputfieldview.InputFieldView
             android:id="@+id/f_baseeui_navigation_input_field"
             style="@style/FieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_add_value"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:hint="@string/hint_add_value" />
 
         <Button
             android:id="@+id/f_baseeui_navigation_button_without_args"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_without_args"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_without_args" />
 
         <Button
             android:id="@+id/f_baseeui_navigation_button_with_args"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/baseui_navigation_with_args"
-            android:layout_marginTop="@dimen/spacing_10"/>
+            android:layout_marginTop="@dimen/spacing_10"
+            android:text="@string/baseui_navigation_with_args" />
 
     </LinearLayout>
 </layout>

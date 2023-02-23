@@ -9,6 +9,7 @@ import by.esas.tools.inputfieldview.InputFieldView
 import java.lang.ref.WeakReference
 
 class FieldChecking(view: InputFieldView) : Checking(), IFocusableChecking {
+
     private val field: WeakReference<InputFieldView> = WeakReference(view)
     override var notEmptyRule: NotEmptyCheck? = NotEmptyCheck("Can\'t be empty")
     override var checkEmpty: Boolean = true

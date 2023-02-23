@@ -14,9 +14,10 @@ import by.esas.tools.util.TAGk
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 import by.esas.tools.utils.logger.ErrorModel
-import java.util.Date
+import java.util.*
 
 class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
+
     override val fragmentDestinationId = R.id.timeparserFragment
     override fun provideLayoutId() = R.layout.f_main_timeparser
 
@@ -31,7 +32,7 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
         return object : ErrorHandler<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
-                return when(error.getStatusAsEnum()) {
+                return when (error.getStatusAsEnum()) {
                     AppErrorStatusEnum.APP_DATE_IN_UNEXPECTED_FORMAT -> resources.getString(R.string.timeparser_error_date_in_unexpected_format)
                     AppErrorStatusEnum.APP_ILLEGAL_PATTERN_CHARACTER -> resources.getString(R.string.timeparser_error_illegal_pattern_character)
                     else -> resources.getString(R.string.timeparser_error_unexpected)
@@ -54,7 +55,8 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
         setDateFromCalendar(
             binding.fTimeparserCalendar.year,
             binding.fTimeparserCalendar.month,
-            binding.fTimeparserCalendar.dayOfMonth)
+            binding.fTimeparserCalendar.dayOfMonth
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.fTimeparserCalendar.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
@@ -80,7 +82,12 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
                     viewModel.onGetDateFromLocalPatternClick()
                 }
             })
-            parserChecker.validate(listOf(FieldChecking(binding.fTimeparserPattern4), FieldChecking(binding.fTimeparserDate4)))
+            parserChecker.validate(
+                listOf(
+                    FieldChecking(binding.fTimeparserPattern4),
+                    FieldChecking(binding.fTimeparserDate4)
+                )
+            )
         }
         binding.fTimeparserPattern5Btn.setOnClickListener {
             val parserChecker = AppChecker().setListener(object : Checker.CheckListener {
@@ -88,11 +95,16 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
                     viewModel.onGetDateFromUTCPatternClick()
                 }
             })
-            parserChecker.validate(listOf(FieldChecking(binding.fTimeparserPattern5), FieldChecking(binding.fTimeparserDate5)))
+            parserChecker.validate(
+                listOf(
+                    FieldChecking(binding.fTimeparserPattern5),
+                    FieldChecking(binding.fTimeparserDate5)
+                )
+            )
         }
     }
 
     private fun setDateFromCalendar(year: Int, month: Int, day: Int) {
-        viewModel.selectedDate = Date( year - 1900, month, day)
+        viewModel.selectedDate = Date(year - 1900, month, day)
     }
 }

@@ -19,6 +19,7 @@ open class Action(
 ) {
 
     companion object {
+
         const val ACTION_NOT_SET: String = "ACTION_NOT_SET"
         const val ACTION_FINISH: String = "ACTION_FINISH"
         const val ACTION_HIDE_KEYBOARD: String = "ACTION_HIDE_KEYBOARD"

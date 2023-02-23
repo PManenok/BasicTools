@@ -1,6 +1,7 @@
 package by.esas.tools.screens.recycler
 
 object RecyclerLists {
+
     val firstList: List<RecyclerEntity> = listOf(
         RecyclerEntity("Alpha"),
         RecyclerEntity("Beta"),

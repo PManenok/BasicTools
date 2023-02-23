@@ -18,6 +18,7 @@ import androidx.databinding.ViewDataBinding
  * */
 abstract class BindingDialogFragment<B : ViewDataBinding>() :
     BaseDialogFragment() {
+
     /**
      * This property holds [ViewDataBinding] instance for this dialog fragment.
      * It is set in [onCreateView] methods.

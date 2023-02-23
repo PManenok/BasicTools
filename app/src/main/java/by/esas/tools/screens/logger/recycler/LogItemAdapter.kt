@@ -5,7 +5,8 @@ import by.esas.tools.entity.LogItem
 import by.esas.tools.recycler.BaseRecyclerAdapter
 import by.esas.tools.recycler.BaseViewHolder
 
-class LogItemAdapter: BaseRecyclerAdapter<LogItem, LogItemViewModel>() {
+class LogItemAdapter : BaseRecyclerAdapter<LogItem, LogItemViewModel>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

@@ -15,7 +15,7 @@ import by.esas.tools.utils.checking.FieldChecking
 import by.esas.tools.utils.logger.ErrorModel
 import javax.inject.Inject
 
-class LoggerVM @Inject constructor(): AppVM() {
+class LoggerVM @Inject constructor() : AppVM() {
 
     val message = ObservableField<String>()
     val tag = ObservableField<String>()
@@ -32,7 +32,7 @@ class LoggerVM @Inject constructor(): AppVM() {
         override var currentTag = "CaseLoggerVMImpl"
 
         override fun log(tag: String, msg: String, level: Int) {
-            setLog(LogItem(tag = tag, message =  msg))
+            setLog(LogItem(tag = tag, message = msg))
         }
 
         override fun logCategory(category: String, tag: String, msg: String) {
@@ -71,7 +71,11 @@ class LoggerVM @Inject constructor(): AppVM() {
     fun logCategory(checks: List<FieldChecking>) {
         AppChecker().setListener(object : Checker.CheckListener {
             override fun onSuccess() {
-                logger.logCategory(category.get().toString(), categoryTag.get().toString(), categoryMessage.get().toString())
+                logger.logCategory(
+                    category.get().toString(),
+                    categoryTag.get().toString(),
+                    categoryMessage.get().toString()
+                )
             }
         }).validate(checks)
     }
