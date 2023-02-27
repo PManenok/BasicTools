@@ -1,8 +1,9 @@
 package by.esas.tools.screens.menu
 
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
@@ -18,6 +19,11 @@ import by.esas.tools.screens.menu.recycler.CaseAdapter
 import by.esas.tools.util.defocusAndHideKeyboard
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
+
+    companion object {
+        const val MENU_UPDATE = "MENU_UPDATE"
+        const val MENU_UPDATE_KEY_CLEAR = "MENU_UPDATE_KEY_CLEAR"
+    }
 
     override val fragmentDestinationId: Int = R.id.menuFragment
 
@@ -40,6 +46,16 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
             navController?.navigate(item.id)
         }
     )
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        requireActivity().supportFragmentManager.setFragmentResultListener(MENU_UPDATE, viewLifecycleOwner) { _, bundle ->
+            val actionName = bundle.getString(MENU_UPDATE)
+            if (actionName == MENU_UPDATE_KEY_CLEAR)
+                viewModel.clearCaseStatuses()
+        }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

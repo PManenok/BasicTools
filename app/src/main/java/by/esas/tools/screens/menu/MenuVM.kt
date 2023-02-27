@@ -2,6 +2,7 @@ package by.esas.tools.screens.menu
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
+import by.esas.tools.app_domain.usecase.ClearAllSavedTestStatusesUseCase
 import by.esas.tools.app_domain.usecase.GetCaseItemsUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.entity.CaseItemInfo
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 class MenuVM @Inject constructor(
     private val searchCase: SearchCaseUseCase,
-    private val getCaseItems: GetCaseItemsUseCase
+    private val getCaseItems: GetCaseItemsUseCase,
+    private val clearAllCaseStatuses: ClearAllSavedTestStatusesUseCase
 ) : AppVM() {
 
     var prevSearch = ""
@@ -49,6 +51,17 @@ class MenuVM @Inject constructor(
                 onError {
                     handleError(error = it)
                 }
+            }
+        }
+    }
+
+    fun clearCaseStatuses() {
+        clearAllCaseStatuses.execute {
+            onComplete {
+                setCases()
+            }
+            onError {
+                handleError(it)
             }
         }
     }

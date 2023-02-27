@@ -2,6 +2,7 @@ package by.esas.tools.screens
 
 import android.os.Bundle
 import android.view.MotionEvent
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +12,9 @@ import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
+import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.topbarview.ITopbarHandler
 
 /**
@@ -28,6 +31,7 @@ import by.esas.tools.topbarview.ITopbarHandler
 class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     companion object {
+
         const val NEED_TO_UPDATE_MENU: String = "NEED_TO_UPDATE_MENU"
         const val NEED_TO_UPDATE_CURRENT_CASE: String = "NEED_TO_UPDATE_CURRENT_CASE"
         const val CURRENT_CASE_ID: String = "CURRENT_CASE_ID"
@@ -50,7 +54,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return when (requestKey) {
-            MainVM.CASE_STATUS_DIALOG, MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
+            MainVM.CASE_STATUS_DIALOG -> {
                 FragmentResultListener { key, result ->
                     val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
                     result.putString(MainVM.DIALOG_KEY, key)
@@ -61,6 +65,16 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
                     }
                 }
             }
+            MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
+                FragmentResultListener { _, result ->
+                    val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
+                    if (actionName == MessageDialog.USER_ACTION_POSITIVE_CLICKED)
+                        supportFragmentManager.setFragmentResult(
+                            MenuFragment.MENU_UPDATE,
+                            bundleOf(Pair(MenuFragment.MENU_UPDATE, MenuFragment.MENU_UPDATE_KEY_CLEAR))
+                        )
+                }
+            }
             else -> {
                 super.provideFragmentResultListener(requestKey)
             }
@@ -68,7 +82,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     }
 
     override fun handleAction(action: Action): Boolean {
-        when(action.name) {
+        when (action.name) {
             NEED_TO_UPDATE_MENU -> {
                 val bundle = Bundle()
                 bundle.putBoolean(NEED_TO_UPDATE_MENU, true)
@@ -109,10 +123,6 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
         viewModel.updateMenuLive.observe(this) {
             handleAction(Action(NEED_TO_UPDATE_MENU))
-            if (viewModel.needToRecreate) {
-                viewModel.needToRecreate = false
-                recreateActivity()
-            }
         }
     }
 
@@ -135,7 +145,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
     private fun setupSettingsMenu() {
         binding.aMainSettingsMenu.setNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.menuUiSettings -> navController.navigate(R.id.baseuiThemeFragment)
                 R.id.menuUpdateTest -> viewModel.openClearCasesTestDataDialog()
             }

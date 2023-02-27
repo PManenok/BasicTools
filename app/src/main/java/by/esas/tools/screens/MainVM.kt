@@ -14,7 +14,6 @@ import by.esas.tools.logger.Action
 import javax.inject.Inject
 
 class MainVM @Inject constructor(
-    private val clearAllCaseStatuses: ClearAllSavedTestStatusesUseCase,
     private val addCaseStatus: AddCaseStatusUseCase
 ) : AppVM() {
 
@@ -44,17 +43,6 @@ class MainVM @Inject constructor(
                     onError { handleError(it) }
                 }
             }
-            else if (dialogKey == CLEAR_CASES_TEST_DATA_DIALOG && actionName == MessageDialog.USER_ACTION_POSITIVE_CLICKED) {
-                clearAllCaseStatuses.execute {
-                    onComplete {
-                        updateMenuLive.postValue(true)
-                        needToRecreate = true
-                    }
-                    onError {
-                        handleError(it)
-                    }
-                }
-            }
             else return super.handleAction(action)
 
         return true
@@ -66,7 +54,6 @@ class MainVM @Inject constructor(
     val hasSettingsBtn = ObservableBoolean(true)
     val title = ObservableField(App.appContext.resources.getString(R.string.menu))
     var currentCaseId = -1
-    var needToRecreate = false
 
     fun openCaseStatusDialog(caseLabel: String) {
         val dialog = createCaseStatusDialog(caseLabel)
