@@ -2,7 +2,9 @@ package by.esas.tools.screens.menu
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,11 @@ import by.esas.tools.util.defocusAndHideKeyboard
 import com.google.android.material.chip.Chip
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
+
+    companion object {
+        const val MENU_UPDATE = "MENU_UPDATE"
+        const val MENU_UPDATE_KEY_CLEAR = "MENU_UPDATE_KEY_CLEAR"
+    }
 
     private val caseAdapter = CaseAdapter(
         onClick = { item ->
@@ -63,9 +70,18 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
                     viewModel.enableControls()
                 }
             }
-        } else {
+        } else
             super.provideFragmentResultListener(requestKey)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        requireActivity().supportFragmentManager.setFragmentResultListener(MENU_UPDATE, viewLifecycleOwner) { _, bundle ->
+            val actionName = bundle.getString(MENU_UPDATE)
+            if (actionName == MENU_UPDATE_KEY_CLEAR)
+                viewModel.clearCaseStatuses()
         }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

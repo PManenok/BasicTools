@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import by.esas.tools.App
 import by.esas.tools.R
 import by.esas.tools.app_domain.usecase.AddCaseStatusUseCase
-import by.esas.tools.app_domain.usecase.ClearAllSavedTestStatusesUseCase
 import by.esas.tools.base.AppVM
 import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.entity.TestStatusEnum
@@ -15,7 +14,6 @@ import by.esas.tools.logger.Action
 import javax.inject.Inject
 
 class MainVM @Inject constructor(
-    private val clearAllCaseStatuses: ClearAllSavedTestStatusesUseCase,
     private val addCaseStatus: AddCaseStatusUseCase
 ) : AppVM() {
 
@@ -31,17 +29,8 @@ class MainVM @Inject constructor(
         val actionName = action?.name
         if (dialogKey == CASE_STATUS_DIALOG && actionName == MessageDialog.USER_ACTION_ITEM_PICKED) {
             getStatusAndUpdate(action.parameters)
-        } else if (dialogKey == CLEAR_CASES_TEST_DATA_DIALOG && actionName == MessageDialog.USER_ACTION_POSITIVE_CLICKED) {
-            clearAllCaseStatuses.execute {
-                onComplete {
-                    updateMenuLive.postValue(true)
-                    needToRecreate = true
-                }
-                onError {
-                    handleError(it)
-                }
-            }
-        } else return super.handleAction(action)
+        } else
+            return super.handleAction(action)
 
         return true
     }
@@ -52,7 +41,6 @@ class MainVM @Inject constructor(
     val hasSettingsBtn = ObservableBoolean(true)
     val title = ObservableField(App.appContext.resources.getString(R.string.menu))
     var currentCaseId = -1
-    var needToRecreate = false
 
     fun openCaseStatusDialog(caseLabel: String) {
         val dialog = MessageDialog()

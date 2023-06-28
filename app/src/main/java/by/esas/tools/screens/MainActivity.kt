@@ -2,6 +2,7 @@ package by.esas.tools.screens
 
 import android.os.Bundle
 import android.view.MotionEvent
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +12,9 @@ import by.esas.tools.R
 import by.esas.tools.base.AppActivity
 import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.databinding.ActivityMainBinding
+import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
+import by.esas.tools.screens.menu.MenuFragment
 import by.esas.tools.topbarview.ITopbarHandler
 
 /**
@@ -53,7 +56,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
         return when (requestKey) {
             //REMEMBER we can register result listener for CLEAR_CASES_TEST_DATA_DIALOG
             // in MenuFragment so it will receive the result right away
-            MainVM.CASE_STATUS_DIALOG, MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
+            MainVM.CASE_STATUS_DIALOG -> {
                 FragmentResultListener { key, result ->
                     val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
                     result.putString(MainVM.DIALOG_KEY, key)
@@ -62,6 +65,16 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
                     } else {
                         viewModel.enableControls()
                     }
+                }
+            }
+            MainVM.CLEAR_CASES_TEST_DATA_DIALOG -> {
+                FragmentResultListener { _, result ->
+                    val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
+                    if (actionName == MessageDialog.USER_ACTION_POSITIVE_CLICKED)
+                        supportFragmentManager.setFragmentResult(
+                            MenuFragment.MENU_UPDATE,
+                            bundleOf(Pair(MenuFragment.MENU_UPDATE, MenuFragment.MENU_UPDATE_KEY_CLEAR))
+                        )
                 }
             }
             else -> {
@@ -112,11 +125,6 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
 
         viewModel.updateMenuLive.observe(this) {
             handleAction(Action(NEED_TO_UPDATE_MENU))
-            if (viewModel.needToRecreate) {
-                viewModel.needToRecreate = false
-                //REMEMBER to fix
-                recreateActivity()
-            }
         }
     }
 
