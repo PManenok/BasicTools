@@ -1,9 +1,10 @@
 package by.esas.tools.screens
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MotionEvent
+import android.widget.PopupMenu
 import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -38,6 +39,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     }
 
     lateinit var navController: NavController
+    lateinit var popupMenu: PopupMenu
     private var topDestination = R.id.menuFragment
 
     override fun provideViewModel(): MainVM {
@@ -112,7 +114,7 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
             override fun onActionClick() {
                 navController.currentDestination?.let {
                     if (it.id == topDestination)
-                        binding.aMainDrawerLay.openDrawer(GravityCompat.END)
+                        popupMenu.show()
                     else
                         viewModel.openCaseStatusDialog(it.label.toString())
                 }
@@ -146,13 +148,20 @@ class MainActivity : AppActivity<MainVM, ActivityMainBinding>() {
     }
 
     private fun setupSettingsMenu() {
-        binding.aMainSettingsMenu.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.menuUiSettings -> navController.navigate(R.id.baseuiThemeFragment)
-                R.id.menuUpdateTest -> viewModel.openClearCasesTestDataDialog()
+        popupMenu = PopupMenu(this, binding.aMainTopBar, Gravity.END)
+        popupMenu.inflate(R.menu.settings_menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            return@setOnMenuItemClickListener when (menuItem.itemId) {
+                R.id.menuUiSettings -> {
+                    navController.navigate(R.id.baseuiThemeFragment)
+                    true
+                }
+                R.id.menuUpdateTest -> {
+                    viewModel.openClearCasesTestDataDialog()
+                    true
+                }
+                else -> false
             }
-            binding.aMainDrawerLay.closeDrawer(GravityCompat.END)
-            true
         }
     }
 }

@@ -58,12 +58,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/a_main_settings_menu"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            app:menu="@menu/settings_menu" />
-
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
