@@ -10,13 +10,6 @@
             type="by.esas.tools.screens.MainVM" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/a_main_drawer_lay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        tools:openDrawer="end">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,6 +50,4 @@
                 app:navGraph="@navigation/n_main" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
