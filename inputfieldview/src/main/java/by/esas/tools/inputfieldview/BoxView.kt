@@ -92,7 +92,7 @@ open class BoxView : View {
         typedArray.recycle()
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val halfStroke = strokeWidth / 2f
         //Draw Background
