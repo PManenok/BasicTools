@@ -1,0 +1,13 @@
+[versions]
+agp = "7.4.2"
+kotlin = "1.6.21"
+navigation = "2.5.0"
+
+[libraries]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
