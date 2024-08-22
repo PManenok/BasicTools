@@ -3,16 +3,16 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("maven-publish")
 }
+apply("../properties.gradle")
 
-//apply from: "../properties.gradle"
-
+val packageName = project.properties["package_name"].toString()
 android {
-    namespace = "by.esas.tools.util"//"${package_name}.${project.name}"
+    namespace = "${packageName}.${project.name}"
 
-    compileSdk =34//project.properties["compile_sdk_version"].toString()
+    compileSdk = project.properties["compile_sdk_version"] as Int?
 
     defaultConfig {
-        minSdk =19//min_sdk_version
+        minSdk = project.properties["min_sdk_version"] as Int?
     }
 
     publishing {
@@ -23,20 +23,20 @@ android {
 }
 
 dependencies {
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    implementation ("androidx.core:core-ktx:1.7.0")
-    implementation ("androidx.appcompat:appcompat:1.4.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
 }
-tasks.register < Jar > (name = "sourceJar") {
+tasks.register<Jar>(name = "sourceJar") {
     from(android.sourceSets["main"].java.srcDirs)
-    classifier = "sources"
+    archiveClassifier.set("sources")
 }
-/*publishing {
+publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "${package_name}"
-            artifactId = "${project.name}"
-            version = "$util_lib_version"
+            groupId = packageName
+            artifactId = project.name
+            version = project.properties["util_lib_version"].toString()
             //artifact("$buildDir/outputs/aar/module-name-release.aar")
             artifact(tasks["sourceJar"])
             afterEvaluate {
@@ -44,18 +44,4 @@ tasks.register < Jar > (name = "sourceJar") {
             }
         }
     }
-}*/
-
-/*afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                from components.release
-                groupId = "${package_name}"
-                artifactId = "${project.name}"
-                version = "$util_lib_version"
-            }
-        }
-    }
-}*/
+}
