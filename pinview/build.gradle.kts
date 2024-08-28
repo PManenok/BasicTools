@@ -8,7 +8,6 @@ apply("../properties.gradle")
 val packageName = project.properties["package_name"].toString()
 android {
     namespace = "${packageName}.${project.name}"
-
     compileSdk = project.properties["compile_sdk_version"] as Int?
 
     defaultConfig {
@@ -18,28 +17,21 @@ android {
     publishing {
         singleVariant("release") {
             withSourcesJar()
-            //withJavadocJar()
         }
     }
 }
-
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation ("androidx.core:core-ktx:1.7.0")
+    implementation ("androidx.appcompat:appcompat:1.4.1")
 }
-/*tasks.register<Jar>(name = "sourceJar") {
-    from (android.sourceSets["main"].java.srcDirs)
-    archiveClassifier.set("sources")
-}*/
+
 publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["util_lib_version"].toString()
-            //artifact("$buildDir/outputs/aar/${project.name}-release.aar")
-            //artifact(tasks["sourceJar"])
+            version = project.properties["pinview_lib_version"].toString()
             afterEvaluate {
                 from(components["release"])
             }
