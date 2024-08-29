@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.kotlinKapt)
     id("maven-publish")
 }
 apply("../properties.gradle")
@@ -13,14 +12,6 @@ android {
 
     defaultConfig {
         minSdk = project.properties["min_sdk_version"] as Int?
-        vectorDrawables.useSupportLibrary = true
-    }
-    buildFeatures {
-        dataBinding = true
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 
     publishing {
@@ -33,16 +24,13 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
 
-    // Constraint Layout
-    api("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.core:core-ktx:1.7.0")
 
-    // Material Design
-    api("com.google.android.material:material:1.5.0")
+    // Biometric
+    api("androidx.biometric:biometric:1.1.0")
 
-    // Data binding
-    kapt("com.android.databinding:compiler:3.1.4")
-
-    implementation(project(":util"))
+    //Module
+    api(project(":logger"))
 }
 
 publishing {
@@ -50,7 +38,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["inputfieldview_lib_version"].toString()
+            version = project.properties["biometric_lib_version"].toString()
             afterEvaluate {
                 from(components["release"])
             }

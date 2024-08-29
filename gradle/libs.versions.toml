@@ -10,4 +10,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-safeargs = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
