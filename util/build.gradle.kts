@@ -43,6 +43,8 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
+            from(components["java"])
+            artifactId = tasks.jar.get().archiveBaseName.get()
         }
     }
     repositories {
