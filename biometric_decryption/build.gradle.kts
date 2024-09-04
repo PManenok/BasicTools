@@ -3,17 +3,19 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("maven-publish")
 }
-apply("../properties.gradle")
 
-val packageName = project.properties["package_name"].toString()
+val packageName: String by rootProject.extra
+val compileSdkVer: Int by rootProject.extra
+val minSdkVersion: Int by rootProject.extra
+val repoName: String by rootProject.extra
+val libVersion: String = rootProject.extra.get("biometricLib").toString()
+
 android {
     namespace = "${packageName}.${project.name}"
-    compileSdk = project.properties["compile_sdk_version"] as Int?
-
+    compileSdk = compileSdkVer
     defaultConfig {
-        minSdk = project.properties["min_sdk_version"] as Int?
+        minSdk = minSdkVersion
     }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -22,12 +24,12 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation(libs.kotlin.stdlib)
 
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation(libs.core.ktx)
 
     // Biometric
-    api("androidx.biometric:biometric:1.1.0")
+    api(libs.biometric)
 
     //Module
     api(project(":logger"))
@@ -38,7 +40,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["biometric_lib_version"].toString()
+            version = libVersion
             afterEvaluate {
                 from(components["release"])
             }
@@ -46,7 +48,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "basetools"
+            name = repoName
             url = uri(layout.buildDirectory.dir("repo"))
         }
     }

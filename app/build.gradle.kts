@@ -4,18 +4,20 @@ plugins {
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.safeargs)
 }
-apply("../properties.gradle")
 
-val packageName = project.properties["package_name"].toString()
+val packageName: String by rootProject.extra
+val compileSdkVer: Int by rootProject.extra
+val minSdkVersion: Int by rootProject.extra
+
 android {
     namespace = "by.esas.tools"
-    compileSdk = project.properties["compile_sdk_version"] as Int?
+    compileSdk = compileSdkVer
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
-        minSdk = project.properties["min_sdk_version"] as Int?
+        minSdk = minSdkVersion
         applicationId = "by.esas.tools"
-        targetSdk = project.properties["compile_sdk_version"] as Int?
+        targetSdk = compileSdkVer
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -45,57 +47,56 @@ android {
 }
 
 dependencies {
-    implementation("androidx.multidex:multidex:2.0.1")
+    implementation(libs.multidex)
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     //App
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.biometric:biometric:1.1.0")
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.biometric)
 
     // Data binding
-    kapt("com.android.databinding:compiler:3.1.4")
+    kapt(libs.databinding)
 
     // Moshi
-    implementation("com.squareup.moshi:moshi:1.8.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.8.0")
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
 
     // Network
     //implementation "com.squareup.retrofit2:retrofit:2.6.4"
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation(libs.okhttp3)
 
     // Room
-    api("androidx.room:room-runtime:2.3.0")
-    kapt("androidx.room:room-compiler:2.3.0")
-    implementation("androidx.room:room-ktx:2.3.0")
+    api(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
 
     // Dagger 2
     //REMEMBER dagger is applied with api so it will be available in app module
     //implementation "com.google.dagger:dagger:$dagger2_version"
     //implementation "com.google.dagger:dagger-android:$dagger2_version"
     //implementation "com.google.dagger:dagger-android-support:$dagger2_version"
-    kapt("com.google.dagger:dagger-compiler:2.41")
-    kapt("com.google.dagger:dagger-android-processor:2.41")
+    kapt(libs.dagger.compiler)
+    kapt(libs.dagger.android.processor)
 
-    implementation(
-        project(":baseui"))
-                implementation (project(":basedaggerui"))
-                implementation (project(":domain"))
-                implementation (project(":dialog"))
-                implementation (project(":checker"))
-                implementation (project(":inputfieldview"))
-                implementation (project(":pinview"))
-                implementation (project(":timeparser"))
-                implementation (project(":numpad"))
-                implementation (project(":util"))
-                implementation (project(":listheader"))
-                implementation (project(":customswitch"))
-                implementation (project(":topbarview"))
-                implementation (project(":cardline"))
-                implementation (project(":biometric_decryption"))
-                implementation (project(":accesscontainer"))
+    implementation(project(":baseui"))
+    implementation(project(":basedaggerui"))
+    implementation(project(":domain"))
+    implementation(project(":dialog"))
+    implementation(project(":checker"))
+    implementation(project(":inputfieldview"))
+    implementation(project(":pinview"))
+    implementation(project(":timeparser"))
+    implementation(project(":numpad"))
+    implementation(project(":util"))
+    implementation(project(":listheader"))
+    implementation(project(":customswitch"))
+    implementation(project(":topbarview"))
+    implementation(project(":cardline"))
+    implementation(project(":biometric_decryption"))
+    implementation(project(":accesscontainer"))
 }

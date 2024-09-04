@@ -3,17 +3,19 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("maven-publish")
 }
-apply("../properties.gradle")
 
-val packageName = project.properties["package_name"].toString()
+val packageName: String by rootProject.extra
+val compileSdkVer: Int by rootProject.extra
+val minSdkVersion: Int by rootProject.extra
+val repoName: String by rootProject.extra
+val libVersion: String = rootProject.extra.get("dimenUtilLib").toString()
+
 android {
     namespace = "${packageName}.${project.name}"
-    compileSdk = project.properties["compile_sdk_version"] as Int?
-
+    compileSdk = compileSdkVer
     defaultConfig {
-        minSdk = project.properties["min_sdk_version"] as Int?
+        minSdk = minSdkVersion
     }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -23,8 +25,8 @@ android {
 
 dependencies {
     //SSP and SDP
-    api ("com.intuit.sdp:sdp-android:1.0.6")
-    api ("com.intuit.ssp:ssp-android:1.0.6")
+    api(libs.sdp)
+    api(libs.ssp)
 }
 
 publishing {
@@ -32,7 +34,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["dimen_util_lib_version"].toString()
+            version = libVersion
             afterEvaluate {
                 from(components["release"])
             }
@@ -40,7 +42,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "basetools"
+            name = repoName
             url = uri(layout.buildDirectory.dir("repo"))
         }
     }

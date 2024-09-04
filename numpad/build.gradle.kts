@@ -3,17 +3,19 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("maven-publish")
 }
-apply("../properties.gradle")
 
-val packageName = project.properties["package_name"].toString()
+val packageName: String by rootProject.extra
+val compileSdkVer: Int by rootProject.extra
+val minSdkVersion: Int by rootProject.extra
+val repoName: String by rootProject.extra
+val libVersion: String = rootProject.extra.get("numpadLib").toString()
+
 android {
     namespace = "${packageName}.${project.name}"
-    compileSdk = project.properties["compile_sdk_version"] as Int?
-
+    compileSdk = compileSdkVer
     defaultConfig {
-        minSdk = project.properties["min_sdk_version"] as Int?
+        minSdk = minSdkVersion
     }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -22,23 +24,21 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21")
-
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.appcompat)
     // Constraint Layout
-    api("androidx.constraintlayout:constraintlayout:2.1.3")
-
+    api(libs.constraintlayout)
     // Material Design
-    api("com.google.android.material:material:1.5.0")
-
+    api(libs.material)
     implementation(project(":util"))
 }
+
 publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["numpad_lib_version"].toString()
+            version = libVersion
             afterEvaluate {
                 from(components["release"])
             }
@@ -46,7 +46,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "basetools"
+            name = repoName
             url = uri(layout.buildDirectory.dir("repo"))
         }
     }

@@ -4,25 +4,25 @@ plugins {
     alias(libs.plugins.kotlinKapt)
     id("maven-publish")
 }
-apply("../properties.gradle")
 
-val packageName = project.properties["package_name"].toString()
+val packageName: String by rootProject.extra
+val compileSdkVer: Int by rootProject.extra
+val minSdkVersion: Int by rootProject.extra
+val repoName: String by rootProject.extra
+val libVersion: String = rootProject.extra.get("inputfieldviewLib").toString()
+
 android {
     namespace = "${packageName}.${project.name}"
-    compileSdk = project.properties["compile_sdk_version"] as Int?
-
+    compileSdk = compileSdkVer
     defaultConfig {
-        minSdk = project.properties["min_sdk_version"] as Int?
-        vectorDrawables.useSupportLibrary = true
+        minSdk = minSdkVersion
     }
     buildFeatures {
         dataBinding = true
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -31,17 +31,13 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-
+    implementation(libs.kotlin.stdlib)
     // Constraint Layout
-    api("androidx.constraintlayout:constraintlayout:2.1.3")
-
+    api(libs.constraintlayout)
     // Material Design
-    api("com.google.android.material:material:1.5.0")
-
+    api(libs.material)
     // Data binding
-    kapt("com.android.databinding:compiler:3.1.4")
-
+    kapt(libs.databinding)
     implementation(project(":util"))
 }
 
@@ -50,7 +46,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = packageName
             artifactId = project.name
-            version = project.properties["inputfieldview_lib_version"].toString()
+            version = libVersion
             afterEvaluate {
                 from(components["release"])
             }
@@ -58,7 +54,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "basetools"
+            name = repoName
             url = uri(layout.buildDirectory.dir("repo"))
         }
     }
