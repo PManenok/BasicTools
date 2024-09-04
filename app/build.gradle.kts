@@ -12,7 +12,7 @@ val minSdkVersion: Int by rootProject.extra
 android {
     namespace = "by.esas.tools"
     compileSdk = compileSdkVer
-    buildToolsVersion = "30.0.3"
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         minSdk = minSdkVersion
@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.multidex)
 
     // Kotlin
-    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 

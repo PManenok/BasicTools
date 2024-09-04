@@ -16,6 +16,13 @@ android {
     defaultConfig {
         minSdk = minSdkVersion
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -24,9 +31,6 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation(libs.kotlin.stdlib)
-
     /* REMEMBER com.google.dagger:dagger-android-support lib contains lifecycle-viewmodel-ktx lib
         and thus we need to set version otherwise there will be duplicate error */
     // Saved state module for ViewModel

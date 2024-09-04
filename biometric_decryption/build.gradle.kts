@@ -16,6 +16,13 @@ android {
     defaultConfig {
         minSdk = minSdkVersion
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -24,13 +31,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
-
     implementation(libs.core.ktx)
-
     // Biometric
     api(libs.biometric)
-
     //Module
     api(project(":logger"))
 }

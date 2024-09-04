@@ -20,6 +20,13 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -28,17 +35,13 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     // Material Design
     api(libs.material)
     api(libs.constraintlayout)
-
     // Data binding
     kapt(libs.databinding)
-
     //Module
     api(project(":logger"))
     api(project(":util"))

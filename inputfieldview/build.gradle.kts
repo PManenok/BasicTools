@@ -20,6 +20,10 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -31,7 +35,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
     // Constraint Layout
     api(libs.constraintlayout)
     // Material Design
