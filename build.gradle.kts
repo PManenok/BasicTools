@@ -16,7 +16,7 @@ tasks.register("clean", Delete::class) {
 buildscript {
     extra.apply {
         set("compileSdkVer", 34)
-        set("minSdkVersion", 19)
+        set("minSdkVersion", 21)
         set("packageName", "by.esas.tools")
         set("repoName", "basetools")
 

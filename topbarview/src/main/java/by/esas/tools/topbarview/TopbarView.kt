@@ -46,7 +46,6 @@ open class TopbarView : LinearLayout {
         initAttrs(attrs)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initAttrs(attrs)

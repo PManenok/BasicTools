@@ -30,12 +30,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
@@ -269,7 +267,6 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
         initAttrs(attrs)
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
             : super(context, attrs, defStyleAttr, defStyleRes) {
         initialSetting()
@@ -358,6 +355,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     //label.background = null
                     label.invalidate()
                 }
+
                 LABEL_TYPE_ON_LINE, LABEL_TYPE_ON_LINE_MULTI -> {
                     label.maxLines =
                         if (currentLabelType != LABEL_TYPE_ON_LINE_MULTI) 1 else labelMaxLines
@@ -677,6 +675,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
             END_ICON_CLEAR_TEXT -> {
                 setEndIconAsClear()
             }
+
             END_ICON_PASSWORD_TOGGLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
@@ -695,6 +694,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 endIconView?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.VISIBLE
             }
+
             END_ICON_CHECKABLE -> {
                 endContainer?.setOnClickListener {
                     endCheckBox?.performClick()
@@ -708,6 +708,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 endIconView?.visibility = View.INVISIBLE
                 endContainer?.visibility = View.VISIBLE
             }
+
             END_ICON_CUSTOM -> {
                 if (endDrawable == null) {
                     endContainer?.visibility = View.GONE
@@ -727,12 +728,15 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     endContainer?.visibility = View.VISIBLE
                 }
             }
+
             END_ICON_TEXT -> {
                 setEndIconAsText()
             }
+
             END_ICON_ERROR -> {
                 setEndIconAsError()
             }
+
             else -> {
                 endIconView?.visibility = View.INVISIBLE
                 endCheckBox?.visibility = View.INVISIBLE
@@ -887,21 +891,12 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
     }
 
     protected open fun setStartProgressBarTint(progressBar: ProgressBar, colorRes: Int) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            val wrapDrawable: Drawable = DrawableCompat.wrap(progressBar.indeterminateDrawable)
-            DrawableCompat.setTintList(
-                wrapDrawable,
-                ContextCompat.getColorStateList(context, colorRes)
+        progressBar.indeterminateDrawable?.setTintList(
+            ContextCompat.getColorStateList(
+                context,
+                colorRes
             )
-            progressBar.indeterminateDrawable = DrawableCompat.unwrap(wrapDrawable)
-        } else {
-            progressBar.indeterminateDrawable?.setTintList(
-                ContextCompat.getColorStateList(
-                    context,
-                    colorRes
-                )
-            )
-        }
+        )
     }
 
     /**
@@ -929,6 +924,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 progressBar?.visibility = View.INVISIBLE
                 startContainer?.visibility = View.VISIBLE
             }
+
             START_ICON_CUSTOM -> {
                 if (startDrawable == null) {
                     startContainer?.visibility = View.GONE
@@ -950,6 +946,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     startContainer?.visibility = View.VISIBLE
                 }
             }
+
             START_ICON_DEFAULT -> {
                 if (startDrawable == null) {
                     startContainer?.visibility = View.GONE
@@ -968,6 +965,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     startContainer?.visibility = View.VISIBLE
                 }
             }
+
             START_ICON_PROGRESS -> {
                 startContainer?.isClickable = false
                 progressBar?.apply {
@@ -978,6 +976,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 startCheckBox?.visibility = View.INVISIBLE
                 startContainer?.visibility = View.VISIBLE
             }
+
             else -> {
                 startIconView?.visibility = View.INVISIBLE
                 startCheckBox?.visibility = View.INVISIBLE
@@ -1067,6 +1066,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 errorTextView?.visibility = View.VISIBLE
                 helpTextView?.visibility = View.GONE
             }
+
             hasHelpText -> {
                 if (endIconMode == END_ICON_ERROR)
                     setupEndIconMode(previousEndIconMode)
@@ -1076,6 +1076,7 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                 errorTextView?.visibility = View.GONE
                 helpTextView?.visibility = View.VISIBLE
             }
+
             else -> {
                 if (endIconMode == END_ICON_ERROR)
                     setupEndIconMode(previousEndIconMode)
@@ -1189,14 +1190,17 @@ open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
                     topClip = 0
                     label.height + labelExtraTopMargin
                 }
+
                 LABEL_TYPE_ON_LINE_MULTI -> {
                     topClip = label.width
                     label.height + labelExtraTopMargin - resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default)
                 }
+
                 LABEL_TYPE_ON_LINE -> {
                     topClip = label.width
                     resources.getDimensionPixelOffset(R.dimen.input_container_top_margin_default) + labelExtraTopMargin
                 }
+
                 else -> {
                     topClip = 0
                     params?.topMargin ?: 0

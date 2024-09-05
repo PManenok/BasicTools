@@ -86,7 +86,7 @@ fun hideSystemUI(activity: Activity?, isDark: Boolean) {
                 }
                 statusBarColor = if (isDark) Color.BLACK else Color.WHITE
             }
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP/*21-5*/ -> {
+            else /*only from 21-5*/ -> {
                 @Suppress("DEPRECATION")
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 @Suppress("DEPRECATION")
@@ -100,7 +100,6 @@ fun hideSystemUI(activity: Activity?, isDark: Boolean) {
                 // statusBarColor cannot be changed, because before API 23 android can't change status icons color
                 statusBarColor = Color.BLACK
             }
-            else /*19-4.4*/ -> {}
         }
     }
 }
