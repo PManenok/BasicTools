@@ -51,16 +51,12 @@ dependencies {
     implementation(libs.multidex)
 
     // Kotlin
-    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
     //App
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.biometric)
-
-    // Data binding
-    kapt(libs.databinding)
 
     // Moshi
     implementation(libs.moshi)

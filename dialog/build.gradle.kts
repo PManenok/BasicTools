@@ -40,8 +40,6 @@ dependencies {
     // Material Design
     api(libs.material)
     api(libs.constraintlayout)
-    // Data binding
-    kapt(libs.databinding)
     //Module
     api(project(":logger"))
     api(project(":util"))

@@ -41,9 +41,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
 
-    // Data binding
-    kapt(libs.databinding)
-
     // Material Design
     api(libs.material)
 

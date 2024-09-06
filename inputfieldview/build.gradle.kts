@@ -39,8 +39,6 @@ dependencies {
     api(libs.constraintlayout)
     // Material Design
     api(libs.material)
-    // Data binding
-    kapt(libs.databinding)
     implementation(project(":util"))
 }
 

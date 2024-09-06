@@ -37,8 +37,6 @@ android {
 dependencies {
     // RecyclerView
     api(libs.recyclerview)
-    // Data binding
-    kapt(libs.databinding)
     // Material Design
     api(libs.material)
     api(libs.constraintlayout)
