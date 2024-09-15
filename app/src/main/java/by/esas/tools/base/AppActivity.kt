@@ -6,15 +6,11 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import by.esas.tools.App
 import by.esas.tools.BR
-import by.esas.tools.R
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
 import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.handler.ErrorHandler
-import by.esas.tools.util.TAGk
-import by.esas.tools.util.configs.SettingsProvider
-import by.esas.tools.util.configs.UiModeType
+import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.utils.logger.ErrorModel
 import by.esas.tools.utils.logger.LoggerImpl
 import dagger.android.AndroidInjection
@@ -60,20 +56,12 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
         return emptyList()
     }
 
-    override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
-        logger.logOrder("provideErrorHandler")
-        return object : ErrorHandler<ErrorModel>() {
+    override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
+        logger.logOrder("provideErrorStringHelper")
+        return object : ErrorMessageHelper<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
-                return error.statusEnum
-            }
-
-            override fun getErrorMessage(e: Throwable): String {
-                return e.message ?: resources.getString(R.string.test_error)
-            }
-
-            override fun mapError(e: Throwable): ErrorModel {
-                return viewModel.provideMapper().mapErrorException(this.TAGk, e)
+                return error.status
             }
         }
     }
@@ -82,8 +70,8 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
         return BR.viewModel
     }
 
-    override fun provideSetter(): SettingsProvider {
-        return object : SettingsProvider {
+    override fun provideSetter(): by.esas.tools.util_ui.configs.SettingsProvider {
+        return object : by.esas.tools.util_ui.configs.SettingsProvider {
             var prefs: AppSharedPrefs = AppSharedPrefs(App.instance)
 
             override fun getDefaultLanguage(): String {
@@ -98,15 +86,15 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
                 prefs.setLanguage(lang)
             }
 
-            override fun getDefaultMode(): UiModeType {
-                return UiModeType.SYSTEM
+            override fun getDefaultMode(): by.esas.tools.util_ui.configs.UiModeType {
+                return by.esas.tools.util_ui.configs.UiModeType.SYSTEM
             }
 
-            override fun getMode(): UiModeType {
+            override fun getMode(): by.esas.tools.util_ui.configs.UiModeType {
                 return prefs.getTheme()
             }
 
-            override fun setMode(uiMode: UiModeType) {
+            override fun setMode(uiMode: by.esas.tools.util_ui.configs.UiModeType) {
                 prefs.setTheme(uiMode)
             }
         }

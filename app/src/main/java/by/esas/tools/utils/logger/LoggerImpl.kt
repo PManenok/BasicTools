@@ -40,7 +40,7 @@ class LoggerImpl : ILogger<ErrorModel> {
     }
 
     override fun logError(error: ErrorModel) {
-        Log.e(currentTag, error.statusEnum)
+        Log.e(currentTag, error.status)
     }
 
     override fun logCategory(category: String, tag: String, msg: String) {

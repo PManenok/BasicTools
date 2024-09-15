@@ -1,6 +1,6 @@
 package by.esas.tools.app_domain.error_mapper
 
-import by.esas.tools.domain.mapper.BaseErrorMapper
+import by.esas.tools.error_mapper.BaseErrorMapper
 import by.esas.tools.logger.ILogger
 import by.esas.tools.utils.logger.ErrorModel
 import com.squareup.moshi.Moshi

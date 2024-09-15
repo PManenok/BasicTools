@@ -23,19 +23,16 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import by.esas.tools.baseui.R
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog_core.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
-import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.logger.handler.ShowErrorType
-import by.esas.tools.util.SwitchManager
 import by.esas.tools.util.TAGk
-import by.esas.tools.util.configs.IChangeSettings
-import by.esas.tools.util.defocusAndHideKeyboard
-import by.esas.tools.util.hideSystemUI
+import by.esas.tools.util_ui.configs.IChangeSettings
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
@@ -48,17 +45,19 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  * - [ErrorAction] is handled via [handleError] method, and it use [ShowErrorType]
  *   to choose how to show error to user
  */
-abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSettings {
+abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
+    by.esas.tools.util_ui.configs.IChangeSettings {
 
     open val logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
-    protected open var switcher: SwitchManager = SwitchManager()
+    protected open var switcher: by.esas.tools.util_ui.SwitchManager =
+        by.esas.tools.util_ui.SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
     abstract fun provideLayoutId(): Int
 
     abstract fun provideSwitchableViews(): List<View?>
 
-    abstract fun provideErrorHandler(): ErrorHandler<M>
+    abstract fun provideErrorStringHelper(): ErrorMessageHelper<M>
 
     /**
      * Do not forget to use super call for this method
@@ -224,7 +223,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
             action.handled = true
             //get error message depending on what error data we have. throwable has priority
             val msg = when {
-                action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
+                action.model != null -> provideErrorStringHelper().getErrorMessage(action.model!!)
                 else -> "Error"
             }
 
@@ -293,7 +292,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
 
     protected open fun hideKeyboard(activity: Activity?) {
         logger.logOrder("hideKeyboard")
-        defocusAndHideKeyboard(activity)
+        by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
     }
 
     protected open fun hideSystemUI() {
@@ -301,7 +300,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSe
         if (window?.decorView != null) {
             val isDark = resources.getBoolean(R.bool.is_dark)
             logger.logInfo("hideSystemUI decorView != null; isDark = $isDark")
-            hideSystemUI(this, isDark)
+            by.esas.tools.util_ui.hideSystemUI(this, isDark)
         }
     }
 

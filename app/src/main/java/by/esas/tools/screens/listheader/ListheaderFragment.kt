@@ -12,7 +12,7 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainListheaderBinding
 import by.esas.tools.listheader.ListHeader
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 
 class ListheaderFragment : AppFragment<ListheaderVM, FMainListheaderBinding>() {
 
@@ -24,7 +24,7 @@ class ListheaderFragment : AppFragment<ListheaderVM, FMainListheaderBinding>() {
         return ViewModelProvider(this, viewModelFactory.provideFactory()).get(ListheaderVM::class.java)
     }
 
-    override var switcher = object : SwitchManager() {
+    override var switcher = object : by.esas.tools.util_ui.SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is Button) {
                 view.isEnabled = true

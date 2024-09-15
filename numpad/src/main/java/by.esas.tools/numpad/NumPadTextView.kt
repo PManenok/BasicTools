@@ -4,22 +4,20 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 
-open class NumPadTextView : ConstraintLayout, SwitchManager.ISwitchView {
+open class NumPadTextView : ConstraintLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     open val TAG: String = NumPadTextView::class.java.simpleName
 

@@ -45,7 +45,7 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
         }
 
         override fun logError(error: ErrorModel) {
-            setLog(LogItem("", ILogger.CATEGORY_ERROR, error.statusEnum))
+            setLog(LogItem("", ILogger.CATEGORY_ERROR, error.status))
         }
 
         override fun sendLogs(msg: String) {

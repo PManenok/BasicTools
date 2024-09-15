@@ -21,8 +21,8 @@ import by.esas.tools.baseui.interfaces.navigating.PopBackAction
 import by.esas.tools.baseui.mvvm.DataBindingFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
-import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
-import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog_core.Config.DIALOG_ACTION_NAME
+import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 

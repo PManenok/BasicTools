@@ -13,8 +13,8 @@ import by.esas.tools.baseui.Config.ERROR_MESSAGE_DIALOG
 import by.esas.tools.baseui.R
 import by.esas.tools.baseui.interfaces.navigating.IHandlePopBackArguments
 import by.esas.tools.baseui.mvvm.DataBindingActivity
-import by.esas.tools.dialog.Config.DIALOG_ACTION_NAME
-import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog_core.Config.DIALOG_ACTION_NAME
+import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 

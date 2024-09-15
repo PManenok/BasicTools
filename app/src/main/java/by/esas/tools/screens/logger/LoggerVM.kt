@@ -44,7 +44,7 @@ class LoggerVM @Inject constructor() : AppVM() {
         }
 
         override fun logError(error: ErrorModel) {
-            setLog(LogItem(category = ILogger.CATEGORY_ERROR, message = error.statusEnum))
+            setLog(LogItem(category = ILogger.CATEGORY_ERROR, message = error.status))
         }
 
         override fun sendLogs(msg: String) {

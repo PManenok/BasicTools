@@ -6,6 +6,6 @@ import by.esas.tools.logger.BaseErrorModel
 class ErrorModel(code: Int, statusEnum: AppErrorStatusEnum) : BaseErrorModel(code, statusEnum.name) {
 
     fun getStatusAsEnum(): AppErrorStatusEnum {
-        return AppErrorStatusEnum.getAppErrorStatusEnum(statusEnum)
+        return AppErrorStatusEnum.getAppErrorStatusEnum(status)
     }
 }

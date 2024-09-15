@@ -11,13 +11,13 @@ import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.baseui.Config
 import by.esas.tools.databinding.FMainDynamicMessageDialogBinding
-import by.esas.tools.dialog.MessageDialog
-import by.esas.tools.dialog.MessageDialog.Companion.ITEM_CODE
-import by.esas.tools.dialog.MessageDialog.Companion.ITEM_NAME
-import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_ITEM_PICKED
-import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_NEGATIVE_CLICKED
-import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_NEUTRAL_CLICKED
-import by.esas.tools.dialog.MessageDialog.Companion.USER_ACTION_POSITIVE_CLICKED
+import by.esas.tools.dialog_message.MessageDialog
+import by.esas.tools.dialog_message.MessageDialog.Companion.ITEM_CODE
+import by.esas.tools.dialog_message.MessageDialog.Companion.ITEM_NAME
+import by.esas.tools.dialog_message.MessageDialog.Companion.USER_ACTION_ITEM_PICKED
+import by.esas.tools.dialog_message.MessageDialog.Companion.USER_ACTION_NEGATIVE_CLICKED
+import by.esas.tools.dialog_message.MessageDialog.Companion.USER_ACTION_NEUTRAL_CLICKED
+import by.esas.tools.dialog_message.MessageDialog.Companion.USER_ACTION_POSITIVE_CLICKED
 import by.esas.tools.logger.Action
 
 private const val DYNAMIC_MESSAGE_DIALOG = "DYNAMIC_MESSAGE_DIALOG"
@@ -42,7 +42,7 @@ class DynamicMessageDialogFragment :
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return if (requestKey == DYNAMIC_MESSAGE_DIALOG) {
             FragmentResultListener { key, result ->
-                val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
+                val actionName = result.getString(by.esas.tools.dialog_core.Config.DIALOG_USER_ACTION)
                 if (!actionName.isNullOrBlank()) {
                     handleAction(Action(actionName, result))
                 } else {
@@ -122,8 +122,8 @@ class DynamicMessageDialogFragment :
         }
     }
 
-    private fun createDialog(): MessageDialog {
-        val dialog = MessageDialog()
+    private fun createDialog(): by.esas.tools.dialog_message.MessageDialog {
+        val dialog = by.esas.tools.dialog_message.MessageDialog()
         dialog.setRequestKey(DYNAMIC_MESSAGE_DIALOG)
         dialog.setTitle(
             binding.fDynamicMessageDialogTitle.getText(),
@@ -159,9 +159,9 @@ class DynamicMessageDialogFragment :
         }
     }
 
-    private fun getPositiveButtonAppearance(): MessageDialog.ButtonAppearance? {
+    private fun getPositiveButtonAppearance(): by.esas.tools.dialog_message.MessageDialog.ButtonAppearance? {
         return if (binding.fDynamicMessageDialogBtnPositiveCheck.isChecked)
-            MessageDialog.ButtonAppearance(
+            by.esas.tools.dialog_message.MessageDialog.ButtonAppearance(
                 getTextStyle(binding.fDynamicMessageDialogBtnPositiveSpinner.selectedItem.toString()),
                 getColorFromRadioGroup(binding.fDynamicMessageDialogBtnPositiveColor as RadioGroup),
                 binding.fDynamicMessageDialogBtnPositiveCaps.isChecked
@@ -169,9 +169,9 @@ class DynamicMessageDialogFragment :
             null
     }
 
-    private fun getNegativeButtonAppearance(): MessageDialog.ButtonAppearance? {
+    private fun getNegativeButtonAppearance(): by.esas.tools.dialog_message.MessageDialog.ButtonAppearance? {
         return if (binding.fDynamicMessageDialogBtnNegativeCheck.isChecked)
-            MessageDialog.ButtonAppearance(
+            by.esas.tools.dialog_message.MessageDialog.ButtonAppearance(
                 getTextStyle(binding.fDynamicMessageDialogBtnNegativeSpinner.selectedItem.toString()),
                 getColorFromRadioGroup(binding.fDynamicMessageDialogBtnNegativeColor as RadioGroup),
                 binding.fDynamicMessageDialogBtnNegativeCaps.isChecked
@@ -179,9 +179,9 @@ class DynamicMessageDialogFragment :
             null
     }
 
-    private fun getNeutralButtonAppearance(): MessageDialog.ButtonAppearance? {
+    private fun getNeutralButtonAppearance(): by.esas.tools.dialog_message.MessageDialog.ButtonAppearance? {
         return if (binding.fDynamicMessageDialogBtnNeutralCheck.isChecked)
-            MessageDialog.ButtonAppearance(
+            by.esas.tools.dialog_message.MessageDialog.ButtonAppearance(
                 getTextStyle(binding.fDynamicMessageDialogBtnNeutralSpinner.selectedItem.toString()),
                 getColorFromRadioGroup(binding.fDynamicMessageDialogBtnNeutralColor as RadioGroup),
                 binding.fDynamicMessageDialogBtnNeutralCaps.isChecked
@@ -189,13 +189,13 @@ class DynamicMessageDialogFragment :
             null
     }
 
-    private fun setDialogItems(dialog: MessageDialog) {
+    private fun setDialogItems(dialog: by.esas.tools.dialog_message.MessageDialog) {
         if (binding.fDynamicMessageDialogItemsListCheck.isChecked)
             dialog.setItems(
                 listOf(
-                    MessageDialog.ItemInfo("1", resources.getString(R.string.item_1)),
-                    MessageDialog.ItemInfo("2", resources.getString(R.string.item_2)),
-                    MessageDialog.ItemInfo("3", resources.getString(R.string.item_3))
+                    by.esas.tools.dialog_message.MessageDialog.ItemInfo("1", resources.getString(R.string.item_1)),
+                    by.esas.tools.dialog_message.MessageDialog.ItemInfo("2", resources.getString(R.string.item_2)),
+                    by.esas.tools.dialog_message.MessageDialog.ItemInfo("3", resources.getString(R.string.item_3))
                 )
             )
     }

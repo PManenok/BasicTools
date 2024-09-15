@@ -2,7 +2,7 @@ package by.esas.tools.app_data
 
 import android.content.Context
 import android.content.SharedPreferences
-import by.esas.tools.util.configs.UiModeType
+import by.esas.tools.util_ui.configs.UiModeType
 
 class AppSharedPrefs(val context: Context) {
 
@@ -27,14 +27,14 @@ class AppSharedPrefs(val context: Context) {
         return sharedPrefs.getString(CURRENT_LANGUAGE, "en") ?: "en"
     }
 
-    fun setTheme(theme: UiModeType) {
+    fun setTheme(theme: by.esas.tools.util_ui.configs.UiModeType) {
         sharedPrefs.edit().putString(CURRENT_THEME, theme.name).apply()
     }
 
-    fun getTheme(): UiModeType {
+    fun getTheme(): by.esas.tools.util_ui.configs.UiModeType {
         val currentTheme = sharedPrefs.getString(CURRENT_THEME, "") ?: ""
         return if (currentTheme.isNotBlank()) {
-            UiModeType.valueOf(currentTheme)
-        } else UiModeType.SYSTEM
+            by.esas.tools.util_ui.configs.UiModeType.valueOf(currentTheme)
+        } else by.esas.tools.util_ui.configs.UiModeType.SYSTEM
     }
 }

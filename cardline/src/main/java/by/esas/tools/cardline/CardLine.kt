@@ -15,17 +15,16 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat.setImageTintList
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
-open class CardLine : LinearLayout, SwitchManager.ISwitchView {
+open class CardLine : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     val TAG: String = CardLine::class.java.simpleName
     protected val container: ConstraintLayout

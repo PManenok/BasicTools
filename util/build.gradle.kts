@@ -32,8 +32,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
 }
 /*tasks.register<Jar>(name = "sourceJar") {
     from (android.sourceSets["main"].java.srcDirs)

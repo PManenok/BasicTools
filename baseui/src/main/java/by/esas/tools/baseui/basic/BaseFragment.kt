@@ -21,17 +21,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import by.esas.tools.baseui.R
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog_core.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
-import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.logger.handler.ShowErrorType
-import by.esas.tools.util.SwitchManager
 import by.esas.tools.util.TAGk
-import by.esas.tools.util.defocusAndHideKeyboard
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
@@ -40,7 +38,8 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
     protected open var hideKeyboardOnStop: Boolean = true
-    protected open var switcher: SwitchManager = SwitchManager()
+    protected open var switcher: by.esas.tools.util_ui.SwitchManager =
+        by.esas.tools.util_ui.SwitchManager()
     protected var permissionsLauncher: ActivityResultLauncher<Array<String>>? = null
     protected var activityActionLauncher: ActivityResultLauncher<Action>? = null
 
@@ -56,7 +55,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     abstract fun provideFragmentResultListener(requestKey: String): FragmentResultListener?
 
-    abstract fun provideErrorHandler(): ErrorHandler<M>
+    abstract fun provideErrorStringHelper(): ErrorMessageHelper<M>
 
     protected open fun providePermissions(parameters: Bundle?): Array<String> = emptyArray()
 
@@ -90,7 +89,11 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         )
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         logger.logOrder("onCreateView")
         return inflater.inflate(provideLayoutId(), container, false)
     }
@@ -179,22 +182,27 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
                 @Suppress("UNCHECKED_CAST")
                 handleError(action as? ErrorAction<M>)
             }
+
             Action.ACTION_FINISH -> {
                 handleFinishAction(action.parameters)
                 action.handled = true
             }
+
             Action.ACTION_CHECK_PERMISSIONS -> {
                 checkPermissions(providePermissions(action.parameters), action.parameters, false)
                 action.handled = true
             }
+
             Action.ACTION_CHECK_AND_REQUEST_PERMISSIONS -> {
                 checkPermissions(providePermissions(action.parameters), action.parameters, true)
                 action.handled = true
             }
+
             Action.ACTION_HIDE_KEYBOARD -> {
                 hideKeyboard(requireActivity())
                 action.handled = true
             }
+
             else -> {
                 // return false in case if action was not handled by this method
                 return false
@@ -211,7 +219,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
         logger.logOrder("handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
             val msg = when {
-                action.model != null -> provideErrorHandler().getErrorMessage(action.model!!)
+                action.model != null -> provideErrorStringHelper().getErrorMessage(action.model!!)
                 else -> "Error"
             }
             action.handled = true
@@ -264,10 +272,18 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * @param parameters some additional parameters in case we need some extra handling after the check
      * @param request a flag indicating that we want to request permissions which were not accepted yet
      */
-    protected open fun checkPermissions(permissions: Array<String>, parameters: Bundle?, request: Boolean): Boolean {
+    protected open fun checkPermissions(
+        permissions: Array<String>,
+        parameters: Bundle?,
+        request: Boolean
+    ): Boolean {
         val denied: MutableList<String> = mutableListOf()
         permissions.forEach { permission ->
-            if (ActivityCompat.checkSelfPermission(requireActivity(), permission) != PackageManager.PERMISSION_GRANTED)
+            if (ActivityCompat.checkSelfPermission(
+                    requireActivity(),
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            )
                 denied.add(permission)
         }
         logger.logInfo("All denied permissions: ${denied.joinToString()}")
@@ -299,7 +315,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     protected open fun hideKeyboard(activity: Activity?) {
         logger.logOrder("hideKeyboard")
-        defocusAndHideKeyboard(activity)
+        by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
     }
 
     /**

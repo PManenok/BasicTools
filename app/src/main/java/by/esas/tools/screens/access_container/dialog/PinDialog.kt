@@ -11,7 +11,7 @@ import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfPinBinding
 import by.esas.tools.dialog.BindingDialogFragment
-import by.esas.tools.dialog.Config
+import by.esas.tools.dialog_core.Config
 import by.esas.tools.numpad.INumPadHandler
 import com.google.android.material.textfield.TextInputEditText
 

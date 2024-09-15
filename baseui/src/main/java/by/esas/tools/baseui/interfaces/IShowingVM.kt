@@ -6,8 +6,8 @@
 package by.esas.tools.baseui.interfaces
 
 import androidx.lifecycle.MutableLiveData
-import by.esas.tools.dialog.BaseBottomDialogFragment
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog_core.BaseBottomDialogFragment
+import by.esas.tools.dialog_core.BaseDialogFragment
 
 interface IShowingVM {
 

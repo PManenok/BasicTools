@@ -10,7 +10,7 @@ import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainNumpadTextBinding
 import by.esas.tools.dpToPx
 import by.esas.tools.numpad.INumPadHandler
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.button.MaterialButton
 
 class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
@@ -24,7 +24,7 @@ class NumpadTextFragment : AppFragment<NumpadTextVM, FMainNumpadTextBinding>() {
         )
     }
 
-    override var switcher: SwitchManager = object : SwitchManager() {
+    override var switcher: by.esas.tools.util_ui.SwitchManager = object : by.esas.tools.util_ui.SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is MaterialButton || view is ImageButton) {
                 view.isEnabled = true

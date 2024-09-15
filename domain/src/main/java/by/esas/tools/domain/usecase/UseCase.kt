@@ -55,7 +55,6 @@ abstract class UseCase<T, Model : BaseErrorModel>(
     abstract suspend fun executeOnBackground(): T
 
     open fun execute(block: Request<T, Model>.() -> Unit) {
-        errorUtil.setTagToLogger(TAG)
         val response = createRequest(block)
         unsubscribe()
         parentJob = Job()

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.kotlinKapt)
     id("maven-publish")
 }
 
@@ -34,19 +33,6 @@ android {
 dependencies {
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)
-
-    //App
-    implementation(libs.core.ktx)
-
-    // Moshi
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    implementation(libs.moshi.kotlin)
-    kapt(libs.moshi.kotlin.codegen)
-
-    // Network
-    api(libs.retrofit)
-    implementation(libs.okhttp3)
 
     //Module
     api(project(":logger"))

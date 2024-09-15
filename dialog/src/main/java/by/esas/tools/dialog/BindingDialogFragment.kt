@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ViewDataBinding
+import by.esas.tools.checker.Checking
+import by.esas.tools.dialog_core.BaseDialogFragment
 
 /**
  * Dialog fragment that uses data binding, with custom state callback, disabling and enabling functions, showing and hiding progress
@@ -42,6 +44,13 @@ abstract class BindingDialogFragment<B : ViewDataBinding>() :
      * @return null
      * */
     override fun provideProgressBar(): View? = null
+
+    /**
+     * Provides list of validation checks that can be used for input check
+     * @see by.esas.tools.checker.Checking
+     * @see by.esas.tools.checker.Checker
+     * */
+    abstract fun provideValidationList(): List<Checking>
 
     /**
      * Override parents onCreateView method

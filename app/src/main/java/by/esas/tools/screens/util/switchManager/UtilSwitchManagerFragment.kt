@@ -10,7 +10,7 @@ import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainUtilSwitchManagerBinding
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 
 class UtilSwitchManagerFragment : AppFragment<UtilSwitchManagerVM, FMainUtilSwitchManagerBinding>() {
 
@@ -75,8 +75,8 @@ class UtilSwitchManagerFragment : AppFragment<UtilSwitchManagerVM, FMainUtilSwit
         }
     }
 
-    private fun provideSwitchManagerForCustomSwitcher(): SwitchManager {
-        return object : SwitchManager() {
+    private fun provideSwitchManagerForCustomSwitcher(): by.esas.tools.util_ui.SwitchManager {
+        return object : by.esas.tools.util_ui.SwitchManager() {
             override fun enableView(view: View): Boolean {
                 return when (view) {
                     is Button, is SwitchCompat -> {

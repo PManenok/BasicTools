@@ -11,8 +11,8 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.customswitch.CustomSwitch
 import by.esas.tools.customswitch.ISwitchHandler
 import by.esas.tools.databinding.FMainCustomSwitchBinding
-import by.esas.tools.util.SwitchManager
-import by.esas.tools.util.defocusAndHideKeyboard
+import by.esas.tools.util_ui.SwitchManager
+import by.esas.tools.util_ui.defocusAndHideKeyboard
 
 class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBinding>() {
 
@@ -26,7 +26,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
         ).get(CustomSwitchVM::class.java)
     }
 
-    override var switcher: SwitchManager = object : SwitchManager() {
+    override var switcher: by.esas.tools.util_ui.SwitchManager = object : by.esas.tools.util_ui.SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is Button) {
                 view.isEnabled = true
@@ -75,7 +75,7 @@ class CustomSwitchFragment : AppFragment<CustomSwitchVM, FMainCustomSwitchBindin
         binding.fMainSwitcherEditTitle.inputText?.setOnEditorActionListener { titleView, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.fMainSwitcherStyle.setTitle(titleView.text.toString())
-                defocusAndHideKeyboard(activity)
+                by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
                 true
             } else
                 false

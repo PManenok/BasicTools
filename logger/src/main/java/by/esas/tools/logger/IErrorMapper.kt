@@ -6,8 +6,5 @@ interface IErrorMapper<M : BaseErrorModel> {
 
     fun createModel(code: Int, status: String): M
 
-    fun logThrowable(tag: String, throwable: Throwable?, status: String? = null)
-    fun logThrowable(throwable: Throwable?, status: String? = null)
-
-    fun setTagToLogger(tag: String)
+    fun provideLogger(): ILogger<M>
 }

@@ -8,7 +8,8 @@ import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
 import by.esas.tools.checker.checks.LengthCheck
 import by.esas.tools.databinding.DfCustomBottomBinding
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.dialog_core.Config
+import by.esas.tools.util_ui.SwitchManager
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 
@@ -23,7 +24,7 @@ class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() 
         return R.layout.df_custom_bottom
     }
 
-    override var switcher: SwitchManager = object : SwitchManager() {
+    override var switcher: by.esas.tools.util_ui.SwitchManager = object : by.esas.tools.util_ui.SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is Button) {
                 view.isEnabled = true

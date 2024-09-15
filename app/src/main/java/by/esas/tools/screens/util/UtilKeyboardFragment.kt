@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainUtilKeyboardBinding
-import by.esas.tools.util.defocusAndHideKeyboard
-import by.esas.tools.util.focusAndShowKeyboard
-import by.esas.tools.util.showKeyboard
+import by.esas.tools.util_ui.defocusAndHideKeyboard
+import by.esas.tools.util_ui.focusAndShowKeyboard
+import by.esas.tools.util_ui.showKeyboard
 
 class UtilKeyboardFragment : AppFragment<UtilKeyboardVM, FMainUtilKeyboardBinding>() {
 
@@ -25,15 +25,15 @@ class UtilKeyboardFragment : AppFragment<UtilKeyboardVM, FMainUtilKeyboardBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        focusAndShowKeyboard(activity, binding.fMainUtilCase1Edit)
+        by.esas.tools.util_ui.focusAndShowKeyboard(activity, binding.fMainUtilCase1Edit)
         binding.fMainUtilCase1Button.setOnClickListener {
-            defocusAndHideKeyboard(activity)
+            by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
         }
         binding.fMainUtilCase2ButtonShow.setOnClickListener {
-            showKeyboard(activity, false)
+            by.esas.tools.util_ui.showKeyboard(activity, false)
         }
         binding.fMainUtilCase2ButtonHide.setOnClickListener {
-            by.esas.tools.util.hideKeyboard(activity)
+            by.esas.tools.util_ui.hideKeyboard(activity)
         }
     }
 }

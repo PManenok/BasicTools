@@ -10,7 +10,7 @@ import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBaseuiThemeBinding
 import by.esas.tools.logger.Action
 import by.esas.tools.screens.MainActivity
-import by.esas.tools.util.configs.UiModeType
+import by.esas.tools.util_ui.configs.UiModeType
 
 class BaseUIThemeFragment : AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>() {
 
@@ -49,9 +49,9 @@ class BaseUIThemeFragment : AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>(
     private fun setCheckedTheme() {
         val checkedTheme = AppSharedPrefs(App.instance).getTheme()
         when (checkedTheme) {
-            UiModeType.SYSTEM -> binding.fBaseuiThemeModeRadioSystem.isChecked = true
-            UiModeType.DAY -> binding.fBaseuiThemeModeRadioLight.isChecked = true
-            UiModeType.NIGHT -> binding.fBaseuiThemeModeRadioNight.isChecked = true
+            by.esas.tools.util_ui.configs.UiModeType.SYSTEM -> binding.fBaseuiThemeModeRadioSystem.isChecked = true
+            by.esas.tools.util_ui.configs.UiModeType.DAY -> binding.fBaseuiThemeModeRadioLight.isChecked = true
+            by.esas.tools.util_ui.configs.UiModeType.NIGHT -> binding.fBaseuiThemeModeRadioNight.isChecked = true
         }
     }
 
@@ -63,12 +63,12 @@ class BaseUIThemeFragment : AppFragment<BaseUIThemeVM, FMainBaseuiThemeBinding>(
         }
     }
 
-    private fun getThemeMode(): UiModeType {
+    private fun getThemeMode(): by.esas.tools.util_ui.configs.UiModeType {
         val selectedItem = binding.fBaseuiThemeModeRadioGroup.checkedRadioButtonId
         return when (selectedItem) {
-            R.id.f_baseui_theme_mode_radio_light -> UiModeType.DAY
-            R.id.f_baseui_theme_mode_radio_night -> UiModeType.NIGHT
-            else -> UiModeType.SYSTEM
+            R.id.f_baseui_theme_mode_radio_light -> by.esas.tools.util_ui.configs.UiModeType.DAY
+            R.id.f_baseui_theme_mode_radio_night -> by.esas.tools.util_ui.configs.UiModeType.NIGHT
+            else -> by.esas.tools.util_ui.configs.UiModeType.SYSTEM
         }
     }
 }

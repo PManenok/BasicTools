@@ -8,7 +8,7 @@ import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.support.ITypeManager
 import by.esas.tools.base.AppVM
-import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.screens.access_container.utility.Container
 import by.esas.tools.screens.access_container.utility.Executor
 import by.esas.tools.screens.access_container.utility.SecretProvider
@@ -72,10 +72,11 @@ class AccessContainerVM @Inject constructor() : AppVM() {
 
     fun onPickPreferredType() {
         disableControls()
-        val dialog: MessageDialog = MessageDialog()
+        val dialog: by.esas.tools.dialog_message.MessageDialog =
+            by.esas.tools.dialog_message.MessageDialog()
         dialog.setRequestKey(AccessContainerFragment.PREFERRED_TYPE_PICKER)
         dialog.setTitle(R.string.refresher_preferred_lable)
-        dialog.setItems(authTypes.map { MessageDialog.ItemInfo(it.name, getAuthTypeText(it)) })
+        dialog.setItems(authTypes.map { by.esas.tools.dialog_message.MessageDialog.ItemInfo(it.name, getAuthTypeText(it)) })
         dialog.isCancelable = true
         showDialog(dialog)
     }
@@ -222,7 +223,8 @@ class AccessContainerVM @Inject constructor() : AppVM() {
     }
 
     private fun showMessage(msg: String) {
-        val dialog: MessageDialog = MessageDialog()
+        val dialog: by.esas.tools.dialog_message.MessageDialog =
+            by.esas.tools.dialog_message.MessageDialog()
         dialog.setMessage(msg)
         dialog.isCancelable = true
         showDialog(dialog)

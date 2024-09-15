@@ -54,7 +54,8 @@ dependencies {
     api(libs.navigation.fragment.ktx)
     api(libs.navigation.ui.ktx)
 
-    api(project(":dialog"))
+    api(project(":util_ui"))
+    api(project(":dialog_message"))
     api(project(":domain"))
 }
 

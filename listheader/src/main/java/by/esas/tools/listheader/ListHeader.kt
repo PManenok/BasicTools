@@ -12,14 +12,13 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
@@ -38,7 +37,7 @@ import kotlin.math.roundToInt
  * 2. Add a container as top view, that will contain all other views, then you can still use
  *    default behavior and only this top container's visibility will be managed by ListHeader
  */
-open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
+open class ListHeader : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     val TAG: String = ListHeader::class.java.simpleName
     protected val container: ConstraintLayout

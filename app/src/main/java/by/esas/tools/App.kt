@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.inject.component.DaggerAppComponent
-import by.esas.tools.util.configs.SettingsManager
+import by.esas.tools.util_ui.configs.SettingsManager
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
@@ -48,7 +48,7 @@ class App : DaggerApplication() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base?.let {
             val prefs = AppSharedPrefs(base)
-            return@let SettingsManager.updateSettings(base, prefs.getLanguage(), prefs.getTheme())
+            return@let by.esas.tools.util_ui.configs.SettingsManager.updateSettings(base, prefs.getLanguage(), prefs.getTheme())
         })
         MultiDex.install(this)
     }

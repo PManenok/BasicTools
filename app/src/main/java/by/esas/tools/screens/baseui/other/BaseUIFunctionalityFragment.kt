@@ -12,11 +12,10 @@ import by.esas.tools.R
 import by.esas.tools.app_domain.error_mapper.AppErrorStatusEnum
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBaseuiFunctionalityBinding
-import by.esas.tools.dialog.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ShowErrorType
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import by.esas.tools.utils.logger.ErrorModel
 
 class BaseUIFunctionalityFragment : AppFragment<BaseUIFunctionalityVM, FMainBaseuiFunctionalityBinding>() {
@@ -40,7 +39,7 @@ class BaseUIFunctionalityFragment : AppFragment<BaseUIFunctionalityVM, FMainBase
         )
     }
 
-    override var switcher: SwitchManager = object : SwitchManager() {
+    override var switcher: by.esas.tools.util_ui.SwitchManager = object : by.esas.tools.util_ui.SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is Button) {
                 view.isEnabled = true
@@ -87,7 +86,7 @@ class BaseUIFunctionalityFragment : AppFragment<BaseUIFunctionalityVM, FMainBase
         super.onViewCreated(view, savedInstanceState)
 
         binding.fBaseuiFunctionalityMessageDialogFragmentBtn.setOnClickListener {
-            val dialog = MessageDialog()
+            val dialog = by.esas.tools.dialog_message.MessageDialog()
             dialog.setMessage(resources.getString(R.string.baseui_functionality_test_message))
             dialog.setTitle(resources.getString(R.string.baseui_functionality_test_dialog))
             showDialog(dialog, "DIALOG")

@@ -24,10 +24,11 @@ open class Action(
         const val ACTION_FINISH: String = "ACTION_FINISH"
         const val ACTION_HIDE_KEYBOARD: String = "ACTION_HIDE_KEYBOARD"
         const val ACTION_CHECK_PERMISSIONS: String = "ACTION_CHECK_PERMISSIONS"
-        const val ACTION_CHECK_AND_REQUEST_PERMISSIONS: String = "ACTION_CHECK_AND_REQUEST_PERMISSIONS"
+        const val ACTION_CHECK_AND_REQUEST_PERMISSIONS: String =
+            "ACTION_CHECK_AND_REQUEST_PERMISSIONS"
     }
 
     override fun toString(): String {
-        return "Action(name='$name', handled=$handled, params=$parameters)"
+        return "Action(name='$name', handled=$handled, params=${parameters.toString()})"
     }
 }

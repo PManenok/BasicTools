@@ -9,7 +9,7 @@ import android.os.Bundle
 
 open class BaseErrorModel(
     val code: Int,
-    val statusEnum: String
+    val status: String
 ) {
 
     companion object {
@@ -21,7 +21,8 @@ open class BaseErrorModel(
         fun fromBundle(bundle: Bundle?): BaseErrorModel? {
             return if (bundle != null) {
                 val tempCode: Int = bundle.getInt(ERROR_MODEL_CODE)
-                val tempStatus: String = bundle.getString(ERROR_MODEL_STATUS, ERROR_MODEL_STATUS_NOT_SET)
+                val tempStatus: String =
+                    bundle.getString(ERROR_MODEL_STATUS, ERROR_MODEL_STATUS_NOT_SET)
                 BaseErrorModel(tempCode, tempStatus)
             } else {
                 null
@@ -30,13 +31,13 @@ open class BaseErrorModel(
     }
 
     override fun toString(): String {
-        return "ErrorModel(code=$code, statusEnum=${statusEnum})"
+        return "ErrorModel(code=$code, status=${status})"
     }
 
     open fun toBundle(): Bundle {
         return Bundle().apply {
             putInt(ERROR_MODEL_CODE, code)
-            putString(ERROR_MODEL_STATUS, statusEnum)
+            putString(ERROR_MODEL_STATUS, status)
         }
     }
 }

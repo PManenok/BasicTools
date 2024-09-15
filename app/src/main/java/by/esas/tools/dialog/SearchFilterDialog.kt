@@ -9,6 +9,7 @@ import by.esas.tools.App
 import by.esas.tools.R
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfSearchFilterBinding
+import by.esas.tools.dialog_core.Config
 import by.esas.tools.entity.Modules
 import by.esas.tools.topbarview.ITopbarHandler
 

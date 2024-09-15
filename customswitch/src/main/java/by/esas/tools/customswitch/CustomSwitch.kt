@@ -9,7 +9,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
 
@@ -41,7 +41,7 @@ import com.google.android.material.textview.MaterialTextView
  * CustomSwitch becomes enabled and on switchOff becomes disabled(see [setEnabled]).
  */
 
-open class CustomSwitch : LinearLayout, SwitchManager.ISwitchView {
+open class CustomSwitch : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     val TAG: String = CustomSwitch::class.java.simpleName
     protected val switcher: SwitchMaterial

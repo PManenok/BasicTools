@@ -22,7 +22,8 @@ buildscript {
 
         //Lib versions
         set("loggerLib", "3.1.0") // independent (6)
-        set("utilLib", "3.1.0") // independent (3)
+        set("utilLib", "3.1.0") // independent (1)
+        set("utilUiLib", "3.1.0") // independent (2)
         set("timeparserLib", "3.1.0") // independent
         set("pinviewLib", "3.1.0") // independent
         set("inputfieldviewLib", "3.1.0") // independent
@@ -37,7 +38,10 @@ buildscript {
 
         set("recyclerLib", "3.1.0") // dimen_util
         set("domainLib", "3.1.0") // logger (2)
-        set("dialogLib", "3.1.0") // logger, util, checker (2), recycler(dimen_util)
+        set("errorMapperLib", "3.1.0")
+        set("dialogCoreLib", "3.1.0") // logger, util, checker (2)
+        set("dialogLib", "3.1.0") // dialogCoreLib(logger, util, checker (2))
+        set("dialogMessageLib", "3.1.0") // dialogLib(dialogCoreLib(logger, util, checker (2))), recycler(dimen_util)
         set("biometricLib", "3.1.0") //logger
         set("baseuiLib", "3.1.0")
         //dialog(logger, util, checker, recycler(dimen_util)), domain(logger)

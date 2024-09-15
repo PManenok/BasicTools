@@ -44,3 +44,7 @@ include(":cardline")
 include(":topbarview")
 include(":customswitch")
 
+include(":dialog_core")
+include(":dialog_message")
+include(":util_ui")
+include(":error_mapper")

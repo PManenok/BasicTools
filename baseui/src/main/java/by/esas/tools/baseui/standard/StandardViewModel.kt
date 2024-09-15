@@ -15,12 +15,12 @@ import by.esas.tools.baseui.interfaces.navigating.NavAction
 import by.esas.tools.baseui.interfaces.navigating.PopBackAction
 import by.esas.tools.baseui.mvvm.BaseViewModel
 import by.esas.tools.checker.Checker
-import by.esas.tools.dialog.BaseBottomDialogFragment
-import by.esas.tools.dialog.BaseDialogFragment
+import by.esas.tools.dialog_core.BaseBottomDialogFragment
+import by.esas.tools.dialog_core.BaseDialogFragment
 import by.esas.tools.domain.usecase.UseCase
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.util.configs.UiModeType
+import by.esas.tools.util_ui.configs.UiModeType
 
 abstract class StandardViewModel<M : BaseErrorModel>
     : BaseViewModel<M>(), INavigateVM, IExecutingVM, IShowingVM {
@@ -56,7 +56,7 @@ abstract class StandardViewModel<M : BaseErrorModel>
         requestAction(action)
     }
 
-    open fun requestThemeChange(newTheme: UiModeType) {
+    open fun requestThemeChange(newTheme: by.esas.tools.util_ui.configs.UiModeType) {
         val params = Bundle()
         params.putString(PARAM_NEW_NIGHT_MODE, newTheme.name)
         val action = Action(ACTION_CHANGE_NIGHT_MODE, params)

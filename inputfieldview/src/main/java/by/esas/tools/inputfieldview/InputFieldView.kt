@@ -37,10 +37,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.CompoundButtonCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.TextViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 import kotlin.math.roundToInt
 
-open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
+open class InputFieldView : ConstraintLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     open val TAG: String = InputFieldView::class.java.simpleName
 

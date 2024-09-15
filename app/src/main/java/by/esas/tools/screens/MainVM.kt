@@ -8,7 +8,7 @@ import by.esas.tools.App
 import by.esas.tools.R
 import by.esas.tools.app_domain.usecase.AddCaseStatusUseCase
 import by.esas.tools.base.AppVM
-import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.entity.TestStatusEnum
 import by.esas.tools.logger.Action
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class MainVM @Inject constructor(
     override fun handleAction(action: Action?): Boolean {
         val dialogKey = action?.parameters?.getString(DIALOG_KEY)
         val actionName = action?.name
-        if (dialogKey == CASE_STATUS_DIALOG && actionName == MessageDialog.USER_ACTION_ITEM_PICKED) {
+        if (dialogKey == CASE_STATUS_DIALOG && actionName == by.esas.tools.dialog_message.MessageDialog.USER_ACTION_ITEM_PICKED) {
             getStatusAndUpdate(action.parameters)
         } else
             return super.handleAction(action)
@@ -43,7 +43,7 @@ class MainVM @Inject constructor(
     var currentCaseId = -1
 
     fun openCaseStatusDialog(caseLabel: String) {
-        val dialog = MessageDialog()
+        val dialog = by.esas.tools.dialog_message.MessageDialog()
         dialog.setRequestKey(CASE_STATUS_DIALOG)
         dialog.setNegativeButton(R.string.cancel)
         dialog.setTitle(R.string.case_status_dialog_title)
@@ -64,7 +64,7 @@ class MainVM @Inject constructor(
     }
 
     fun openClearCasesTestDataDialog() {
-        val dialog = MessageDialog()
+        val dialog = by.esas.tools.dialog_message.MessageDialog()
         dialog.setRequestKey(CLEAR_CASES_TEST_DATA_DIALOG)
         dialog.setPositiveButton(R.string.clear)
         dialog.setNegativeButton(R.string.cancel)
@@ -74,12 +74,12 @@ class MainVM @Inject constructor(
         showDialog(dialog)
     }
 
-    private fun makeItemInfo(status: TestStatusEnum, resId: Int): MessageDialog.ItemInfo {
-        return MessageDialog.ItemInfo(status.name, App.appContext.getString(resId))
+    private fun makeItemInfo(status: TestStatusEnum, resId: Int): by.esas.tools.dialog_message.MessageDialog.ItemInfo {
+        return by.esas.tools.dialog_message.MessageDialog.ItemInfo(status.name, App.appContext.getString(resId))
     }
 
     private fun getStatusAndUpdate(parameters: Bundle?) {
-        val code = parameters?.getString(MessageDialog.ITEM_CODE) ?: ""
+        val code = parameters?.getString(by.esas.tools.dialog_message.MessageDialog.ITEM_CODE) ?: ""
         val status = try {
             TestStatusEnum.valueOf(code)
         } catch (e: IllegalArgumentException) {

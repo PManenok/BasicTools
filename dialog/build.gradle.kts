@@ -33,18 +33,8 @@ android {
         }
     }
 }
-
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    // Material Design
-    api(libs.material)
-    api(libs.constraintlayout)
-    //Module
-    api(project(":logger"))
-    api(project(":util"))
-    api(project(":checker"))
-    api(project(":recycler"))
+    api(project(":dialog_core"))
 }
 
 publishing {

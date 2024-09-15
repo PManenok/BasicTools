@@ -9,7 +9,7 @@ import by.esas.tools.app_domain.error_mapper.AppErrorStatusEnum
 import by.esas.tools.base.AppFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.databinding.FMainTimeparserBinding
-import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.util.TAGk
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
@@ -28,8 +28,8 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
         ).get(TimeParserVM::class.java)
     }
 
-    override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
-        return object : ErrorHandler<ErrorModel>() {
+    override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
+        return object : ErrorMessageHelper<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return when (error.getStatusAsEnum()) {

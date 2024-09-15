@@ -4,19 +4,17 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.annotation.ColorRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import by.esas.tools.util.SwitchManager
+import by.esas.tools.util_ui.SwitchManager
 
 /**
  * This custom view is Numpad for entering numbers. It consists of 9 clickable icons for numbers
@@ -53,7 +51,7 @@ import by.esas.tools.util.SwitchManager
  * @see NumPadTextView
  */
 
-open class NumPadImageView : ConstraintLayout, SwitchManager.ISwitchView {
+open class NumPadImageView : ConstraintLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
 
     open val TAG: String = NumPadImageView::class.java.simpleName
 

@@ -9,7 +9,10 @@ import android.os.Bundle
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 
-open class ErrorAction<M : BaseErrorModel> protected constructor(val model: M?, parameters: Bundle? = null) :
+open class ErrorAction<M : BaseErrorModel> protected constructor(
+    val model: M?,
+    parameters: Bundle? = null
+) :
     Action(ACTION_ERROR, parameters) {
 
     companion object {
@@ -62,7 +65,7 @@ open class ErrorAction<M : BaseErrorModel> protected constructor(val model: M?, 
     fun getSubAction(): Action? {
         return if (parameters?.containsKey(ACTION_PARAM_SUB_NAME) == true) {
             val name: String = parameters.getString(ACTION_PARAM_SUB_NAME) ?: ACTION_NOT_SET
-            parameters.remove(ACTION_PARAM_SUB_NAME)
+            parameters.remove(ACTION_PARAM_SUB_NAME) // NOTE must remove subAction before adding parameters to the new action
             Action(name, parameters)
         } else {
             null

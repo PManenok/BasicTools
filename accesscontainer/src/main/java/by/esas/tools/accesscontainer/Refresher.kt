@@ -315,7 +315,7 @@ open class Refresher<M : BaseErrorModel>(
         if (useExtraCheck) {
             extraRefreshCheck(error)
         } else {
-            if (error.statusEnum == refresherErrorStatusToCheck) {
+            if (error.status == refresherErrorStatusToCheck) {
                 //deleteSecrets()
                 showPasswordDialog(true)
             } else

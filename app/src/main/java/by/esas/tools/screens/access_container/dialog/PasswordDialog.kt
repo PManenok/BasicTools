@@ -11,7 +11,7 @@ import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.DfPasswordBinding
 import by.esas.tools.dialog.BindingDialogFragment
-import by.esas.tools.dialog.Config
+import by.esas.tools.dialog_core.Config
 import by.esas.tools.utils.checking.AppChecker
 
 class PasswordDialog : BindingDialogFragment<DfPasswordBinding>() {

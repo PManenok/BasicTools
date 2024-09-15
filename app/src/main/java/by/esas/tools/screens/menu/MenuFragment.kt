@@ -21,7 +21,7 @@ import by.esas.tools.screens.MainActivity.Companion.CURRENT_CASE_ID
 import by.esas.tools.screens.MainActivity.Companion.NEED_TO_UPDATE_CURRENT_CASE
 import by.esas.tools.screens.MainActivity.Companion.NEED_TO_UPDATE_MENU
 import by.esas.tools.screens.menu.recycler.CaseAdapter
-import by.esas.tools.util.defocusAndHideKeyboard
+import by.esas.tools.util_ui.defocusAndHideKeyboard
 import com.google.android.material.chip.Chip
 
 class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
@@ -113,7 +113,7 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
         binding.fMenuCasesSearch.apply {
             setupEditorActionListener(object : InputFieldView.EditorActionListener {
                 override fun onActionClick() {
-                    defocusAndHideKeyboard(activity)
+                    by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
                     viewModel.onSearchChanged(viewModel.search)
                 }
             })

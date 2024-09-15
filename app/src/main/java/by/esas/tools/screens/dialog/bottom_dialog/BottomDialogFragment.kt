@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import by.esas.tools.R
 import by.esas.tools.base.AppFragment
 import by.esas.tools.databinding.FMainBottomDialogBinding
-import by.esas.tools.dialog.Config
-import by.esas.tools.dialog.Config.DIALOG_USER_ACTION
+import by.esas.tools.dialog_core.Config
+import by.esas.tools.dialog_core.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog.CustomBottomDialog
 import by.esas.tools.logger.Action
 

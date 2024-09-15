@@ -10,10 +10,11 @@ import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.base.AppFragment
 import by.esas.tools.biometric_decryption.checkBiometricSupport
 import by.esas.tools.databinding.FMainRefresherBinding
-import by.esas.tools.dialog.MessageDialog
+import by.esas.tools.dialog_core.Config
+import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.getErrorMessage
 import by.esas.tools.logger.ILogger
-import by.esas.tools.logger.handler.ErrorHandler
+import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
 
@@ -61,7 +62,7 @@ class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBin
     override fun provideFragmentResultListener(requestKey: String): FragmentResultListener? {
         return if (requestKey == PREFERRED_TYPE_PICKER) {
             FragmentResultListener { key, result ->
-                val actionName = result.getString(by.esas.tools.dialog.Config.DIALOG_USER_ACTION)
+                val actionName = result.getString(Config.DIALOG_USER_ACTION)
                 if (actionName == MessageDialog.USER_ACTION_ITEM_PICKED) {
                     val name = result.getString(MessageDialog.ITEM_NAME)
                     val code = result.getString(MessageDialog.ITEM_CODE) ?: AuthType.NONE.name
@@ -77,9 +78,9 @@ class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBin
         }
     }
 
-    override fun provideErrorHandler(): ErrorHandler<ErrorModel> {
+    override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
         logger.logInfo("provideErrorHandler")
-        return object : ErrorHandler<ErrorModel>() {
+        return object : ErrorMessageHelper<ErrorModel>() {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return getErrorMessage(error.getStatusAsEnum(), null)
