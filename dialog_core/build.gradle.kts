@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("maven-publish")
+    `maven-publish`
 }
 
 val packageName: String by rootProject.extra
@@ -58,12 +58,6 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-        }
-    }
-    repositories {
-        maven {
-            name = repoName
-            url = uri(layout.buildDirectory.dir("repo"))
         }
     }
 }

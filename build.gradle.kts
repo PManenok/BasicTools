@@ -5,8 +5,6 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.kotlinKapt) apply false
     alias(libs.plugins.safeargs) apply false
-
-    id("maven-publish")
 }
 
 tasks.register("clean", Delete::class) {
