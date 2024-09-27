@@ -7,7 +7,7 @@ package by.esas.tools.logger
 
 import android.util.Log
 
-interface ILogger<M : BaseErrorModel> {
+open class ILogger<M : BaseErrorModel> {
     companion object {
         /**
          *  Category for logging any logs, which may be needed in debug mode,
@@ -60,7 +60,23 @@ interface ILogger<M : BaseErrorModel> {
         const val CATEGORY_USER: String = "CATEGORY_USER"
     }
 
-    fun categoriesList(): List<String> {
+    protected var _tag: String = ""
+
+    /**
+     * Set a tag to use in simplified methods
+     */
+    open fun setTag(tag: String) {
+        _tag = tag
+    }
+
+    /**
+     * Get a tag to use in simplified methods
+     */
+    open fun getTag(): String {
+        return _tag
+    }
+
+    open fun categoriesList(): List<String> {
         return mutableListOf(
             CATEGORY_DEBUG,
             CATEGORY_DEBUG_ERROR,
@@ -74,7 +90,7 @@ interface ILogger<M : BaseErrorModel> {
         )
     }
 
-    fun getLevelFromCategory(category: String): Int {
+    open fun getLevelFromCategory(category: String): Int {
         return when (category) {
             CATEGORY_ORDER, CATEGORY_INFO, CATEGORY_ACTION, CATEGORY_EVENT -> Log.INFO
             CATEGORY_WARN, CATEGORY_USER -> Log.WARN
@@ -86,7 +102,7 @@ interface ILogger<M : BaseErrorModel> {
     /**
      * All logs must go through this method to be logged
      */
-    fun logCategory(category: String, tag: String, msg: String) {
+    open fun logCategory(category: String, tag: String, msg: String) {
         // do not log logs locally in release builds
         if (BuildConfig.DEBUG) {
             logLocally(tag, msg, getLevelFromCategory(category))
@@ -96,7 +112,7 @@ interface ILogger<M : BaseErrorModel> {
     /**
      * Simply logging any logs locally to see them in Logcat
      */
-    fun logLocally(tag: String, msg: String, level: Int = Log.DEBUG) {
+    open fun logLocally(tag: String, msg: String, level: Int = Log.DEBUG) {
         if (BuildConfig.DEBUG)
             when (level) {
                 Log.INFO -> Log.i(tag, msg)
@@ -110,32 +126,60 @@ interface ILogger<M : BaseErrorModel> {
      * Log logs with Debug level for development stage
      * @see CATEGORY_DEBUG
      */
-    fun d(tag: String, msg: String) {
+    open fun d(tag: String, msg: String) {
         logCategory(CATEGORY_DEBUG, tag, msg)
+    }
+
+    /**
+     * @see ILogger.d(tag: String, msg: String)
+     */
+    open fun d(msg: String) {
+        d(getTag(), msg)
     }
 
     /**
      * Log logs with Debug Error level for development stage
      * @see CATEGORY_DEBUG_ERROR
      */
-    fun dE(tag: String, msg: String) {
+    open fun dE(tag: String, msg: String) {
         logCategory(CATEGORY_DEBUG_ERROR, tag, msg)
+    }
+
+    /**
+     * @see ILogger.dE(tag: String, msg: String)
+     */
+    open fun dE(msg: String) {
+        dE(getTag(), msg)
     }
 
     /**
      * Log order logs
      * @see CATEGORY_ORDER
      */
-    fun order(tag: String, msg: String) {
+    open fun order(tag: String, msg: String) {
         logCategory(CATEGORY_ORDER, tag, msg)
+    }
+
+    /**
+     * @see ILogger.order(tag: String, msg: String)
+     */
+    open fun order(msg: String) {
+        order(getTag(), msg)
     }
 
     /**
      * Log info logs
      * @see CATEGORY_INFO
      */
-    fun i(tag: String, msg: String) {
+    open fun i(tag: String, msg: String) {
         logCategory(CATEGORY_INFO, tag, msg)
+    }
+
+    /**
+     * @see ILogger.i(tag: String, msg: String)
+     */
+    open fun i(msg: String) {
+        i(getTag(), msg)
     }
 
     /**
@@ -143,8 +187,15 @@ interface ILogger<M : BaseErrorModel> {
      * @see Action
      * @see CATEGORY_ACTION
      */
-    fun action(tag: String, action: Action) {
+    open fun action(tag: String, action: Action) {
         logCategory(CATEGORY_ACTION, tag, action.toString())
+    }
+
+    /**
+     * @see ILogger.action(tag: String, action: Action)
+     */
+    open fun action(action: Action) {
+        action(getTag(), action)
     }
 
     /**
@@ -152,40 +203,75 @@ interface ILogger<M : BaseErrorModel> {
      * @see Event
      * @see CATEGORY_EVENT
      */
-    fun event(tag: String, event: Event) {
+    open fun event(tag: String, event: Event) {
         logCategory(CATEGORY_EVENT, tag, event.toMessage())
+    }
+
+    /**
+     * @see ILogger.event(tag: String, event: Event)
+     */
+    open fun event(event: Event) {
+        event(getTag(), event)
     }
 
     /**
      * Log warning logs
      * @see CATEGORY_WARN
      */
-    fun w(tag: String, msg: String) {
+    open fun w(tag: String, msg: String) {
         logCategory(CATEGORY_WARN, tag, msg)
+    }
+
+    /**
+     * @see ILogger.w(tag: String, msg: String)
+     */
+    open fun w(msg: String) {
+        w(getTag(), msg)
     }
 
     /**
      * Log logs with user specific info
      * @see CATEGORY_USER
      */
-    fun userInfo(tag: String, msg: String) {
+    open fun userInfo(tag: String, msg: String) {
         logCategory(CATEGORY_USER, tag, msg)
+    }
+
+    /**
+     * @see ILogger.userInfo(tag: String, msg: String)
+     */
+    open fun userInfo(msg: String) {
+        userInfo(getTag(), msg)
     }
 
     /**
      * Log error logs
      * @see CATEGORY_ERROR
      */
-    fun e(tag: String, msg: String) {
+    open fun e(tag: String, msg: String) {
         logCategory(CATEGORY_ERROR, tag, msg)
+    }
+
+    /**
+     * @see ILogger.e(tag: String, msg: String)
+     */
+    open fun e(msg: String) {
+        e(getTag(), msg)
     }
 
     /**
      * Log throwable
      * @see CATEGORY_ERROR
      */
-    fun throwable(tag: String, throwable: Throwable) {
+    open fun throwable(tag: String, throwable: Throwable) {
         logCategory(CATEGORY_ERROR, tag, throwable.toString())
+    }
+
+    /**
+     * @see ILogger.throwable(tag: String, throwable: Throwable)
+     */
+    open fun throwable(throwable: Throwable) {
+        throwable(getTag(), throwable)
     }
 
     /**
@@ -193,7 +279,15 @@ interface ILogger<M : BaseErrorModel> {
      * @see BaseErrorModel
      * @see CATEGORY_ERROR
      */
-    fun errorModel(tag: String, error: M) {
+    open fun errorModel(tag: String, error: M) {
         logCategory(CATEGORY_ERROR, tag, error.toString())
+    }
+
+
+    /**
+     * @see ILogger.errorModel(tag: String, error: M)
+     */
+    open fun errorModel(error: M) {
+        errorModel(getTag(), error)
     }
 }

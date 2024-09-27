@@ -10,7 +10,6 @@ import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
 import by.esas.tools.databinding.FMainDomainCaseBinding
 import by.esas.tools.logger.handler.ErrorMessageHelper
-import by.esas.tools.util.TAGk
 import by.esas.tools.utils.checking.AppChecker
 import by.esas.tools.utils.checking.FieldChecking
 import by.esas.tools.utils.logger.ErrorModel
@@ -35,18 +34,10 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
     }
 
     override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
-        return object : ErrorMessageHelper<ErrorModel>() {
+        return object : ErrorMessageHelper<ErrorModel> {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return resources.getString(R.string.domain_case_fail)
-            }
-
-            override fun getErrorMessage(e: Throwable): String {
-                return resources.getString(R.string.domain_case_fail)
-            }
-
-            override fun mapError(e: Throwable): ErrorModel {
-                return viewModel.provideMapper().mapErrorException(this.TAGk, e)
             }
         }
     }
@@ -80,7 +71,8 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
 
                 override fun onSuccess() {
                     viewModel.enableControls()
-                    val aesResult = viewModel.encryptAES(binding.fDomainCaseInputEncryptAes.getText())
+                    val aesResult =
+                        viewModel.encryptAES(binding.fDomainCaseInputEncryptAes.getText())
                     binding.fDomainCaseEncryptAesData.text =
                         resources.getString(R.string.domain_case_encrypt) + aesResult.first
                     binding.fDomainCaseDecryptAesData.text =
@@ -98,7 +90,8 @@ class DomainCaseFragment : AppFragment<DomainCaseVM, FMainDomainCaseBinding>() {
 
                 override fun onSuccess() {
                     viewModel.enableControls()
-                    val rsaResult = viewModel.encryptRSA(binding.fDomainCaseInputEncryptRsa.getText())
+                    val rsaResult =
+                        viewModel.encryptRSA(binding.fDomainCaseInputEncryptRsa.getText())
                     binding.fDomainCaseEncryptRsaData.text =
                         resources.getString(R.string.domain_case_encrypt) + rsaResult.first
                     binding.fDomainCaseDecryptRsaData.text =

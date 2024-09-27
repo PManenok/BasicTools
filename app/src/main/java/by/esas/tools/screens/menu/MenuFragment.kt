@@ -33,7 +33,7 @@ class MenuFragment : AppFragment<MenuVM, FragmentMenuBinding>() {
 
     private val caseAdapter = CaseAdapter(
         onClick = { item ->
-            logger.logInfo("${item.name} clicked")
+            logger.i("${item.name} clicked")
             if (activity is MainActivity) {
                 val bundle = Bundle()
                 bundle.putInt(CURRENT_CASE_ID, item.id)

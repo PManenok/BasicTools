@@ -33,14 +33,10 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
     protected val errorCodeAdapter: JsonAdapter<ErrorCode> =
         moshi.adapter<ErrorCode>(ErrorCode::class.java)
 
-    override fun provideLogger(): ILogger<Model> {
-        return logger
-    }
-
     override fun mapErrorException(tag: String, throwable: Throwable?): Model {
         val errorModel: Model = when (throwable) {
             is HttpException -> {
-                getHttpError(throwable)
+                getHttpError(tag, throwable)
             }
 
             is SocketTimeoutException -> {
@@ -63,23 +59,23 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
                 createModel(-1, mapBaseException(BaseStatusEnum.UNKNOWN_ERROR.name))
             }
         }
-        if (throwable != null)
-            provideLogger().logThrowable(tag, throwable)
-        else
-            provideLogger().logInfo("Throwable was null")
+        if (throwable != null) {
+            logger.throwable(tag, throwable)
+        } else
+            logger.i(tag, "Throwable was null")
         return errorModel
     }
 
     //region Http error response mapping
-    protected open fun getHttpError(throwable: HttpException): Model {
+    protected open fun getHttpError(tag: String, throwable: HttpException): Model {
         return try {
             val response = throwable.response() as Response
             val responseBody = (response.body() ?: response.errorBody()) as ResponseBody?
             val body = responseBody?.string()
 
-            logger.logDebug("getHttpError(): errorBody = [$body]")
+            logger.d(tag, "getHttpError(): errorBody = [$body]")
 
-            val error = parseResponse(throwable, body)
+            val error = parseResponse(tag, throwable, body)
 
             when {
                 (throwable.code() >= 400) and (throwable.code() < 500) ->
@@ -96,12 +92,16 @@ abstract class BaseErrorMapper<E : Enum<E>, Model : BaseErrorModel>(
         }
     }
 
-    protected open fun parseResponse(throwable: HttpException?, body: String?): String {
+    protected open fun parseResponse(
+        tag: String,
+        throwable: HttpException?,
+        body: String?
+    ): String {
         val errorCode: ErrorCode? = body?.let {
             try {
                 errorCodeAdapter.fromJson(body)
             } catch (e: IOException) {
-                logger.logThrowable(TAG, e)
+                logger.throwable(tag, e)
                 null
             }
         }

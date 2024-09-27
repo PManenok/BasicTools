@@ -2,7 +2,6 @@ package by.esas.tools.screens.logger
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.esas.tools.R
@@ -29,10 +28,10 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
         return ViewModelProvider(this, viewModelFactory.provideFactory())[LoggerVM::class.java]
     }
 
-    override var logger: ILogger<*> = object : ILogger<ErrorModel> {
-        override var currentTag = "CaseLoggerImpl"
+    override var logger: ILogger<*> = object : ILogger<ErrorModel>() {
+        override fun getTag(): String = "CaseLoggerImpl"
 
-        override fun log(tag: String, msg: String, level: Int) {
+        override fun logLocally(tag: String, msg: String, level: Int) {
             setLog(LogItem(tag, "", msg))
         }
 
@@ -40,24 +39,12 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
             setLog(LogItem(tag, category, msg))
         }
 
-        override fun logError(throwable: Throwable) {
+        override fun throwable(throwable: Throwable) {
             setLog(LogItem("", ILogger.CATEGORY_ERROR, throwable.message.toString()))
         }
 
-        override fun logError(error: ErrorModel) {
+        override fun errorModel(error: ErrorModel) {
             setLog(LogItem("", ILogger.CATEGORY_ERROR, error.status))
-        }
-
-        override fun sendLogs(msg: String) {
-            setLog(LogItem("", "", msg))
-        }
-
-        override fun showMessage(msg: String, length: Int) {
-            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-        }
-
-        override fun showMessage(msgRes: Int, length: Int) {
-            Toast.makeText(requireContext(), resources.getString(msgRes), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -71,9 +58,14 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
         binding.fLoggerTagBtn.setOnClickListener {
             AppChecker().setListener(object : Checker.CheckListener {
                 override fun onSuccess() {
-                    logger.log(binding.fLoggerTag.getText(), binding.fLoggerTagMessage.getText())
+                    logger.i(binding.fLoggerTag.getText(), binding.fLoggerTagMessage.getText())
                 }
-            }).validate(listOf(FieldChecking(binding.fLoggerTag), FieldChecking(binding.fLoggerTagMessage)))
+            }).validate(
+                listOf(
+                    FieldChecking(binding.fLoggerTag),
+                    FieldChecking(binding.fLoggerTagMessage)
+                )
+            )
         }
         binding.fLoggerCategoryBtn.setOnClickListener {
             AppChecker().setListener(object : Checker.CheckListener {
@@ -102,15 +94,20 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
                 )
             )
         }
-        binding.fLoggerToastBtn.setOnClickListener {
+        /*binding.fLoggerToastBtn.setOnClickListener {
             AppChecker().setListener(object : Checker.CheckListener {
                 override fun onSuccess() {
                     logger.showMessage(binding.fLoggerToastMessage.getText())
                 }
             }).validate(listOf(FieldChecking(binding.fLoggerToastMessage)))
-        }
+        }*/
         binding.fLoggerVmTagBtn.setOnClickListener {
-            viewModel.logTag(listOf(FieldChecking(binding.fLoggerVmTag), FieldChecking(binding.fLoggerVmTagMessage)))
+            viewModel.logTag(
+                listOf(
+                    FieldChecking(binding.fLoggerVmTag),
+                    FieldChecking(binding.fLoggerVmTagMessage)
+                )
+            )
         }
         binding.fLoggerVmCategoryBtn.setOnClickListener {
             viewModel.logCategory(
@@ -120,9 +117,6 @@ class LoggerFragment : AppFragment<LoggerVM, FMainLoggerBinding>() {
                     FieldChecking(binding.fLoggerVmCategoryMessage)
                 )
             )
-        }
-        binding.fLoggerVmToastBtn.setOnClickListener {
-            viewModel.showMessage(listOf(FieldChecking(binding.fLoggerVmToastMessage)))
         }
     }
 

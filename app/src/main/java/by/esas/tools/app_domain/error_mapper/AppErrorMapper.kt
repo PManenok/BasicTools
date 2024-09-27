@@ -13,6 +13,7 @@ class AppErrorMapper(moshi: Moshi, logger: ILogger<ErrorModel>) :
     }
 
     override fun createModel(code: Int, status: String): ErrorModel {
+        logger.order("createModel")
         return ErrorModel(code, AppErrorStatusEnum.getAppErrorStatusEnum(status))
     }
 

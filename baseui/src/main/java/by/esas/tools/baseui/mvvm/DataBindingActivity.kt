@@ -14,6 +14,7 @@ import by.esas.tools.baseui.basic.BaseActivity
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.handler.ShowErrorType
+import by.esas.tools.util.TAGk
 
 /**
  * Base class for activity that inherits from [BaseActivity] and implements data binding.
@@ -50,7 +51,7 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
     override fun handleAction(action: Action): Boolean {
         //try to handle action by parent's handler
         if (!super.handleAction(action)) {
-            logger.logInfo("viewModel handleAction $action")
+            logger.i(TAGk, "viewModel handleAction $action")
             // try to handle action in viewModel if parent's handler didn't handle
             return viewModel.handleAction(action)
         }
@@ -100,7 +101,7 @@ abstract class DataBindingActivity<TViewModel : BaseViewModel<M>, TBinding : Vie
 
     protected open fun setupControlsObservers() {
         viewModel.controlsEnabled.observe(this, Observer { isEnabled ->
-            logger.logOrder("controlsEnabled Observer $isEnabled")
+            logger.order(TAGk, "viewModel.controlsEnabled value = $isEnabled")
             if (isEnabled) switchControlsOn()
             else switchControlsOff()
         })

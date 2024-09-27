@@ -262,7 +262,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     protected open fun updateScreen() {
-        logger.logOrder("updateScreen")
+        logger.order(TAG, "updateScreen")
         if (titleRes != -1) title.set(resources.getString(titleRes))
         if (messageRes != -1) message.set(resources.getString(messageRes))
         if (positiveBtnRes != -1) positiveBtnText.set(resources.getString(positiveBtnRes))
@@ -281,6 +281,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     protected open fun updateAdapter() {
+        logger.order(TAG, "updateAdapter")
         adapter.cleanItems()
         val lastIndex = items.lastIndex
         if (lastIndex > -1) {
@@ -301,6 +302,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     protected open fun updateAppearance() {
+        logger.order(TAG, "updateAppearance")
         updateButtonAppearance(binding.dfMessagePositiveButton, positiveAppearance)
         updateButtonAppearance(binding.dfMessageNeutralBtn, neutralAppearance)
         updateButtonAppearance(binding.dfMessageNegativeBtn, negativeAppearance)
@@ -314,6 +316,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         btnView: MaterialButton,
         appearance: ButtonAppearance?
     ) {
+        logger.order(TAG, "updateButtonAppearance")
         if (appearance != null) {
             btnView.apply {
                 TextViewCompat.setTextAppearance(this, appearance.textAppearanceResId)
@@ -343,24 +346,24 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     //region clicks
 
     open fun onPositiveClick() {
+        logger.order(TAG, "onPositiveClick")
         disableControls()
-        logger.logOrder("onPositiveClick")
         setPositiveClickResult()
         dismiss()
         enableControls()
     }
 
     open fun onNeutralClick() {
+        logger.order(TAG, "onNeutralClick")
         disableControls()
-        logger.logOrder("onNeutralClick")
         setNeutralClickResult()
         dismiss()
         enableControls()
     }
 
     open fun onNegativeClick() {
+        logger.order(TAG, "onNegativeClick")
         disableControls()
-        logger.logOrder("onNegativeClick")
         setNegativeClickResult()
         dismiss()
         enableControls()
@@ -375,7 +378,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setTitle(resId: Int, appearanceResId: Int = -1) {
-        logger.logOrder("setTitle resId = $resId appearanceResId = $appearanceResId")
+        logger.order(TAG, "setTitle resId = $resId appearanceResId = $appearanceResId")
         if (resId != -1) {
             titleRes = resId
             showTitle.set(true)
@@ -386,13 +389,14 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setTitle(value: String, appearanceResId: Int = -1) {
+        logger.order(TAG, "setTitle value = $value")
         title.set(value)
         showTitle.set(value.isNotBlank())
         titleAppearanceResId = appearanceResId
     }
 
     open fun setMessage(resId: Int, appearanceResId: Int = -1) {
-        logger.logOrder("setMessage resId = $resId appearanceResId = $appearanceResId")
+        logger.order(TAG, "setMessage resId = $resId appearanceResId = $appearanceResId")
         if (resId != -1) {
             messageRes = resId
             showMessage.set(true)
@@ -403,6 +407,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setMessage(value: String, appearanceResId: Int = -1) {
+        logger.order(TAG, "setMessage value = $value")
         message.set(value)
         showMessage.set(value.isNotBlank())
         if (appearanceResId != -1)
@@ -414,7 +419,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         actionName: String? = null,
         appearance: ButtonAppearance? = null
     ) {
-        logger.logOrder("setPositiveButton resId = $resId; actionName = $actionName")
+        logger.order(TAG, "setPositiveButton resId = $resId; actionName = $actionName")
         if (resId != -1) {
             positiveAction = actionName
             positiveBtnRes = resId
@@ -430,6 +435,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         actionName: String? = null,
         appearance: ButtonAppearance? = null
     ) {
+        logger.order(TAG, "setPositiveButton value = $value; actionName = $actionName")
         positiveAction = actionName
         positiveBtnText.set(value)
         showPositiveBtn.set(value.isNotBlank())
@@ -437,7 +443,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setNeutralButton(resId: Int, appearance: ButtonAppearance? = null) {
-        logger.logOrder("setNeutralButton resId = $resId")
+        logger.order(TAG, "setNeutralButton resId = $resId")
         if (resId != -1) {
             neutralBtnRes = resId
             showNeutralBtn.set(true)
@@ -448,13 +454,14 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setNeutralButton(value: String, appearance: ButtonAppearance? = null) {
+        logger.order(TAG, "setNeutralButton value = $value")
         neutralBtnText.set(value)
         showNeutralBtn.set(value.isNotBlank())
         neutralAppearance = appearance
     }
 
     open fun setNegativeButton(resId: Int, appearance: ButtonAppearance? = null) {
-        logger.logOrder("setNegativeButton resId = $resId")
+        logger.order(TAG, "setNegativeButton resId = $resId")
         if (resId != -1) {
             negativeBtnRes = resId
             showNegativeBtn.set(true)
@@ -465,6 +472,7 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     }
 
     open fun setNegativeButton(value: String, appearance: ButtonAppearance? = null) {
+        logger.order(TAG, "setNegativeButton value = $value")
         negativeBtnText.set(value)
         showNegativeBtn.set(value.isNotBlank())
         negativeAppearance = appearance
@@ -475,12 +483,15 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
         actionName: String? = null,
         alignment: Int = View.TEXT_ALIGNMENT_TEXT_START
     ) {
+        logger.order(TAG, "setItems alignment = $alignment")
+        logger.i(TAG, "list.size = ${list.size} actionName = $actionName")
         itemTextAlignment = alignment
         itemAction = actionName
         this.items = list
     }
 
     open fun setPickedItem(code: String) {
+        logger.order(TAG, "setPickedItem")
         pickedItemCode = code
     }
 
@@ -489,22 +500,26 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     //region result bundle setters
 
     protected open fun setPositiveClickResult() {
+        logger.order(TAG, "setPositiveClickResult")
         resultBundle.clear()
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_POSITIVE_CLICKED)
         positiveAction?.let { resultBundle.putString(DIALOG_ACTION_NAME, it) }
     }
 
     protected open fun setNeutralClickResult() {
+        logger.order(TAG, "setNeutralClickResult")
         resultBundle.clear()
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_NEUTRAL_CLICKED)
     }
 
     protected open fun setNegativeClickResult() {
+        logger.order(TAG, "setNegativeClickResult")
         resultBundle.clear()
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_NEGATIVE_CLICKED)
     }
 
     protected open fun setItemPickedResult(position: Int, item: ItemInfo, actionName: String?) {
+        logger.order(TAG, "setItemPickedResult")
         resultBundle.clear()
         resultBundle.putString(DIALOG_USER_ACTION, USER_ACTION_ITEM_PICKED)
         resultBundle.putInt(ITEM_POSITION, position)
@@ -530,10 +545,15 @@ open class MessageDialog : BindingDialogFragment<DfMessageBinding> {
     )
 
     protected open fun convertInfoToString(info: ItemInfo): String {
-        return "${info.code}#${info.text}"
+        logger.order(TAG, "convertInfoToString")
+        val itemString = "${info.code}#${info.text}"
+        logger.i(TAG, "info = $itemString")
+        return itemString
     }
 
     protected open fun convertInfoFromString(value: String): ItemInfo? {
+        logger.order(TAG, "convertInfoFromString")
+        logger.i(TAG, "value = $value")
         val values = value.split("#".toRegex(), 2)
         return if (values.size == 2) ItemInfo(values[0], values[1]) else null
     }

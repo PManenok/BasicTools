@@ -28,7 +28,7 @@ class BiometricDecryptionFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel.showBiometricDialog = { block: (Fragment) -> Unit -> block(this) }
         viewModel.isBiometricAvailable = checkBiometricSupport(requireContext()) { tag, msg ->
-            logger.log(tag, msg)
+            logger.e(tag, msg)
         }
 
         binding.fBiometricDecryptionDialogBtn.setOnClickListener {

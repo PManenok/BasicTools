@@ -24,7 +24,7 @@ import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.textview.MaterialTextView
 import kotlin.math.roundToInt
 
-open class CardLine : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
+open class CardLine : LinearLayout, SwitchManager.ISwitchView {
 
     val TAG: String = CardLine::class.java.simpleName
     protected val container: ConstraintLayout

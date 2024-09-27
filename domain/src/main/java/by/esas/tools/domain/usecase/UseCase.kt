@@ -7,6 +7,7 @@ package by.esas.tools.domain.usecase
 
 import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.IErrorMapper
+import by.esas.tools.logger.ILogger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,13 +25,16 @@ abstract class UseCase<T, Model : BaseErrorModel>(
 ) {
 
     protected abstract val TAG: String
-    private var parentJob: Job = Job()
+    protected open val logger: ILogger<Model> = ILogger<Model>().apply {
+        setTag(TAG)
+    }
+    protected var parentJob: Job = Job()
     lateinit var foregroundContext: CoroutineContext
     var backgroundContext: CoroutineContext = Dispatchers.IO
 
-    private var cancellationCallback: CancellationCallback? = null
+    protected var _cancellationCallback: CancellationCallback? = null
     fun setCancellationCallback(callback: CancellationCallback?) {
-        this.cancellationCallback = callback
+        _cancellationCallback = callback
     }
 
     constructor(
@@ -79,7 +83,7 @@ abstract class UseCase<T, Model : BaseErrorModel>(
         return Request<T, Model>().apply { block() }
     }
 
-    private fun refresh(block: Request<T, Model>.() -> Unit) {
+    protected open fun refresh(block: Request<T, Model>.() -> Unit) {
         val response = Request<T, Model>().apply { block() }
         refresher?.refresh(
             repeat = {
@@ -88,12 +92,12 @@ abstract class UseCase<T, Model : BaseErrorModel>(
                 response(it)
             },
             onCancel = {
-                cancellationCallback?.onCancel() ?: refresher.onCancel()
+                _cancellationCallback?.onCancel() ?: refresher.onCancel()
             }
         )
     }
 
-    fun unsubscribe() {
+    open fun unsubscribe() {
         parentJob.apply {
             cancelChildren()
             cancel()

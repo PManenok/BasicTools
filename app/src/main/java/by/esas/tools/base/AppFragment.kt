@@ -9,7 +9,7 @@ import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardFragment
 import by.esas.tools.checker.Checker
 import by.esas.tools.checker.Checking
-import by.esas.tools.logger.BaseLoggerImpl
+import by.esas.tools.logger.Action
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.utils.logger.ErrorModel
@@ -33,8 +33,6 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
         return androidInjector
     }
 
-    override var logger: ILogger<*> = BaseLoggerImpl(context = provideAppContext())
-
     override fun provideAppContext(): Context {
         return App.appContext
     }
@@ -44,7 +42,7 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
     }
 
     override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
-        logger.logOrder("provideErrorStringHelper")
+        logger.order(TAG, "provideErrorStringHelper")
         return object : ErrorMessageHelper<ErrorModel> {
 
             override fun getErrorMessage(error: ErrorModel): String {
@@ -53,23 +51,39 @@ abstract class AppFragment<VM : AppVM, B : ViewDataBinding> :
         }
     }
 
+    override fun handleAction(action: Action): Boolean {
+        return if (action is MessageAction) {
+            if (action.hasTextMessage()) {
+                showMessage(action.getMessage(), action.getDuration())
+                true
+            } else {
+                showMessage(action.getResId(), action.getDuration())
+                true
+            }
+        } else {
+            super.handleAction(action)
+        }
+    }
+
     override fun provideChecks(): List<Checking> {
-        logger.logOrder("provideChecks")
+        logger.order(TAG, "provideChecks")
         return emptyList()
     }
 
     override fun provideChecker(): Checker? {
-        logger.logOrder("provideChecker")
+        logger.order(TAG, "provideChecker")
         return null
     }
 
     override fun provideSwitchableViews(): List<View?> {
-        logger.logOrder("provideSwitchableViews")
+        logger.order(TAG, "provideSwitchableViews")
         return emptyList()
     }
 
     override fun onAttach(context: Context) {
+        logger.order(TAG, "onAttach injection")
         AndroidSupportInjection.inject(this)
+        logger.order(TAG, "super.onAttach")
         super.onAttach(context)
     }
 }

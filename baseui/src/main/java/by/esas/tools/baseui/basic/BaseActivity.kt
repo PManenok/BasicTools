@@ -26,31 +26,31 @@ import by.esas.tools.baseui.R
 import by.esas.tools.dialog_core.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.TAGk
+import by.esas.tools.util_ui.SwitchManager
 import by.esas.tools.util_ui.configs.IChangeSettings
+import by.esas.tools.util_ui.showMessage
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Base class for activity that can:
  * - update base context on [attachBaseContext] method
  * - hide system UI when input focus was lost (also hides keyboard)
- * - show [by.esas.tools.dialog.BaseDialogFragment] and [by.esas.tools.dialog.BaseBottomDialogFragment]
- * - [handleAction] like: [ErrorAction.ACTION_ERROR], [Action.ACTION_FINISH], [Action.ACTION_ENABLE_CONTROLS],
- *   [Action.ACTION_DISABLE_CONTROLS], [Action.ACTION_HIDE_KEYBOARD]
+ * - show [by.esas.tools.dialog_core.BaseDialogFragment] and [by.esas.tools.dialog_core.BaseBottomDialogFragment]
+ * - [handleAction] like: [ErrorAction.ACTION_ERROR], [Action.ACTION_FINISH], [Action.ACTION_HIDE_KEYBOARD]
  * - [ErrorAction] is handled via [handleError] method, and it use [ShowErrorType]
  *   to choose how to show error to user
  */
-abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
-    by.esas.tools.util_ui.configs.IChangeSettings {
+abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(), IChangeSettings {
 
-    open val logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
-    protected open var switcher: by.esas.tools.util_ui.SwitchManager =
-        by.esas.tools.util_ui.SwitchManager()
+    open val logger: ILogger<*> = ILogger<BaseErrorModel>().apply {
+        setTag(TAGk)
+    }
+    protected open var switcher: SwitchManager = SwitchManager()
     protected open var hideSystemUiOnFocus: Boolean = true
 
     abstract fun provideLayoutId(): Int
@@ -71,14 +71,14 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(doWithAttachBaseContext(base))
+        logger.order(TAGk, "attachBaseContext")
     }
 
     //region activity lifecycle methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(TAGk)
-        logger.logInfo("onCreate")
+        logger.order(TAGk, "onCreate")
         setupRootView()
         val contentView = window.decorView.findViewById<View>(android.R.id.content) as ViewGroup
 
@@ -89,29 +89,32 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
 
     override fun onStart() {
         super.onStart()
-        logger.logInfo("onStart")
+        logger.order(TAGk, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        logger.logInfo("onResume")
+        logger.order(TAGk, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logger.logInfo("onPause")
+        logger.order(TAGk, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logger.logInfo("onStop")
+        logger.order(TAGk, "onStop")
     }
 
     //endregion activity lifecycle methods
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        logger.logInfo("onWindowFocusChanged hasFocus = $hasFocus; hideSystemUiOnFocus = $hideSystemUiOnFocus")
+        logger.order(
+            TAGk,
+            "onWindowFocusChanged hasFocus = $hasFocus; hideSystemUiOnFocus = $hideSystemUiOnFocus"
+        )
         if (hideSystemUiOnFocus && hasFocus)
             hideSystemUI()
     }
@@ -119,6 +122,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     //region show dialog functionality
 
     open fun setupFragmentResultListeners(requestKeys: List<String>) {
+        logger.order(TAGk, "setupFragmentResultListeners")
         requestKeys.forEach { key ->
             provideFragmentResultListener(key)?.let { listener ->
                 supportFragmentManager.setFragmentResultListener(key, this, listener)
@@ -127,14 +131,16 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     protected open fun onShowDialog(dialog: DialogFragment, tag: String) {
-        logger.logInfo("try to showDialog $tag")
+        logger.order(TAGk, "onShowDialog $tag")
         val prevWithSameTag: Fragment? = supportFragmentManager.findFragmentByTag(tag)
         if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment
             && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
             && !prevWithSameTag.isRemoving
         ) {
+            logger.i(TAGk, "there is currently showed dialog fragment with same TAG $tag")
             //there is currently showed dialog fragment with same TAG
         } else {
+            logger.i(TAGk, "try to show dialog fragment with TAG $tag")
             //there is no currently showed dialog fragment with same TAG
             dialog.show(supportFragmentManager, tag)
         }
@@ -145,11 +151,13 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     //region touch event and keyboard
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        logger.order(TAGk, "dispatchTouchEvent")
         handleTouchOutOfInputField(event)
         return super.dispatchTouchEvent(event)
     }
 
     protected open fun handleTouchOutOfInputField(event: MotionEvent) {
+        logger.order(TAGk, "handleTouchOutOfInputField")
         if (event.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
             if (v is EditText) {
@@ -159,7 +167,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
                     v.clearFocus()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(v.windowToken, 0)
-                    logger.logInfo("dispatchTouchEvent")
+                    logger.order(TAGk, "dispatchTouchEvent")
                     hideSystemUI()
                 }
             }
@@ -174,6 +182,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * @see IChangeSettings
      */
     override fun recreateActivity() {
+        logger.order(TAGk, "recreateActivity")
         recreate()
     }
 
@@ -181,7 +190,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * @see IChangeSettings
      */
     override fun logInfo(info: String) {
-        logger.logInfo(info)
+        logger.i(TAGk, info)
     }
 
     //endregion IChangeSettings implementation
@@ -193,21 +202,24 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * @return Boolean (false in case if action was not handled by this method and true if it was handled)
      */
     open fun handleAction(action: Action): Boolean {
-        logger.logOrder("handleAction $action")
+        logger.order(TAGk, "handleAction $action")
         when (action.name) {
             ErrorAction.ACTION_ERROR -> {
                 // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
                 @Suppress("UNCHECKED_CAST")
                 handleError(action as? ErrorAction<M>)
             }
+
             Action.ACTION_FINISH -> {
                 handleFinishAction(action.parameters)
                 action.handled = true
             }
+
             Action.ACTION_HIDE_KEYBOARD -> {
                 hideKeyboard(this)
                 action.handled = true
             }
+
             else -> {
                 // return false in case if action was not handled by this method
                 return false
@@ -217,7 +229,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     open fun handleError(action: ErrorAction<M>?) {
-        logger.logOrder("handleError ${action != null} && !${action?.handled}")
+        logger.order(TAGk, "handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
             //set action as handled immediately after taking it to work so it wont be handled twice.
             action.handled = true
@@ -232,7 +244,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     protected open fun showError(msg: String, showType: String, action: Action?) {
-        logger.logOrder("showError msg = $msg showType = $showType action = $action")
+        logger.order(TAGk, "showError msg = $msg showType = $showType action = $action")
         hideProgress()
         when (showType) {
             ShowErrorType.SHOW_NOTHING.name -> switchControlsOn()
@@ -242,6 +254,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     protected open fun showErrorDialog(msg: String, action: Action?) {
+        logger.order(TAGk, "showErrorDialog")
         provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
             .setMessage(msg)
             .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
@@ -256,6 +269,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     protected open fun showErrorMessage(msg: String, action: Action?) {
+        logger.order(TAGk, "showErrorMessage")
         showMessage(msg)
         if (action != null) {
             handleAction(action)
@@ -266,6 +280,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     protected open fun handleFinishAction(parameters: Bundle?) {
+        logger.order(TAGk, "handleFinishAction")
         finish()
     }
 
@@ -274,6 +289,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     //region helping methods
 
     open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
+        logger.order(TAGk, "provideMaterialAlertDialogBuilder")
         return MaterialAlertDialogBuilder(
             this,
             R.style.AppTheme_CustomMaterialDialog
@@ -281,36 +297,38 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
     }
 
     open fun showMessage(text: String, duration: Int = Toast.LENGTH_SHORT) {
-        logger.logInfo(text)
-        logger.showMessage(text, duration)
+        logger.order(TAGk, "showMessage")
+        logger.i(TAGk, text)
+        getAppContext().showMessage(text, duration)
     }
 
     open fun showMessage(textId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        logger.logInfo(getAppContext().resources.getString(textId))
-        logger.showMessage(textId, duration)
+        logger.order(TAGk, "showMessage")
+        logger.i(TAGk, getAppContext().resources.getString(textId))
+        getAppContext().showMessage(textId, duration)
     }
 
     protected open fun hideKeyboard(activity: Activity?) {
-        logger.logOrder("hideKeyboard")
+        logger.order(TAGk, "hideKeyboard")
         by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
     }
 
     protected open fun hideSystemUI() {
-        logger.logOrder("hideSystemUI")
+        logger.order(TAGk, "hideSystemUI")
         if (window?.decorView != null) {
             val isDark = resources.getBoolean(R.bool.is_dark)
-            logger.logInfo("hideSystemUI decorView != null; isDark = $isDark")
+            logger.i(TAGk, "hideSystemUI decorView != null; isDark = $isDark")
             by.esas.tools.util_ui.hideSystemUI(this, isDark)
         }
     }
 
     @Suppress("DEPRECATION")
     open fun handleStatusBar(root: View) {
-        logger.logOrder("handleStatusBar")
+        logger.order(TAGk, "handleStatusBar")
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
             val statusInset = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             val statusBar = statusInset.top.takeIf { it != 0 } ?: insets.systemWindowInsetTop
-            logger.logInfo("insets statusBar = $statusBar")
+            logger.i(TAGk, "insets statusBar = $statusBar")
             root.updatePadding(top = statusBar)
             return@setOnApplyWindowInsetsListener insets
         }
@@ -321,7 +339,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * and you need to hide it (like progress bar)
      */
     protected open fun hideProgress() {
-        logger.logInfo("hideProgress")
+        logger.order(TAGk, "hideProgress")
     }
 
     /**
@@ -329,7 +347,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * and you need to show it (like progress bar)
      */
     protected open fun showProgress() {
-        logger.logInfo("showProgress")
+        logger.order(TAGk, "showProgress")
     }
 
     /**
@@ -337,7 +355,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * (like buttons, input fields, switchers, checkboxes and etc.)
      */
     protected open fun switchControlsOn() {
-        logger.logInfo("switchControlsOn")
+        logger.order(TAGk, "switchControlsOn")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null) switcher.enableView(switchable)
         }
@@ -348,7 +366,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
      * (like buttons, input fields, switchers, checkboxes and etc.)
      */
     protected open fun switchControlsOff() {
-        logger.logInfo("switchControlsOff")
+        logger.order(TAGk, "switchControlsOff")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null) switcher.disableView(switchable)
         }
@@ -358,6 +376,7 @@ abstract class BaseActivity<M : BaseErrorModel> : AppCompatActivity(),
 
     //region settings methods
     open fun setupRootView() {
+        logger.order(TAGk, "setupRootView")
         setContentView(provideLayoutId())
     }
     //endregion settings methods

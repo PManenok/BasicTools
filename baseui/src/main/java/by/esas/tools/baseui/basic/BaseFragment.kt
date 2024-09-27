@@ -24,19 +24,21 @@ import by.esas.tools.baseui.R
 import by.esas.tools.dialog_core.BaseDialogFragment
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
 import by.esas.tools.logger.handler.ErrorMessageHelper
 import by.esas.tools.logger.handler.ShowErrorType
 import by.esas.tools.util.TAGk
+import by.esas.tools.util_ui.showMessage
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     val TAG: String = TAGk
 
-    protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, null)
+    protected open var logger: ILogger<*> = ILogger<BaseErrorModel>().apply {
+        setTag(TAG)
+    }
     protected open var hideKeyboardOnStop: Boolean = true
     protected open var switcher: by.esas.tools.util_ui.SwitchManager =
         by.esas.tools.util_ui.SwitchManager()
@@ -61,16 +63,15 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     protected open fun provideMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
         return MaterialAlertDialogBuilder(
-            requireContext(),
-            R.style.AppTheme_CustomMaterialDialog
+            requireContext(), R.style.AppTheme_CustomMaterialDialog
         ).setCancelable(false)
     }
 
     protected open fun providePermissionResultCallback(): ActivityResultCallback<Map<String, Boolean>> {
         return ActivityResultCallback<Map<String, Boolean>> { result ->
-            logger.logOrder("ActivityResultCallback onActivityResult")
+            logger.order(TAG, "ActivityResultCallback onActivityResult")
             if (result?.all { it.value } == true) {
-                logger.logInfo("${result.toList().joinToString()} all granted")
+                logger.i(TAG, "${result.toList().joinToString()} all granted")
             }
         }
     }
@@ -81,64 +82,60 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.logOrder("onCreate")
+        logger.order(TAG, "onCreate")
 
         permissionsLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions(),
-            providePermissionResultCallback()
+            ActivityResultContracts.RequestMultiplePermissions(), providePermissionResultCallback()
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        logger.logOrder("onCreateView")
+        logger.order(TAG, "onCreateView")
         return inflater.inflate(provideLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logger.logOrder("onViewCreated")
+        logger.order(TAG, "onViewCreated")
         setupFragmentResultListeners(provideRequestKeys())
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        logger.logOrder("onViewStateRestored")
+        logger.order(TAG, "onViewStateRestored")
     }
 
     override fun onStart() {
         super.onStart()
-        logger.logOrder("onStart")
+        logger.order(TAG, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        logger.logOrder("onResume")
+        logger.order(TAG, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logger.logOrder("onPause")
+        logger.order(TAG, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logger.logOrder("onStop")
-        if (hideKeyboardOnStop)
-            hideKeyboard(activity)
+        logger.order(TAG, "onStop")
+        if (hideKeyboardOnStop) hideKeyboard(activity)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        logger.logOrder("onSaveInstanceState")
+        logger.order(TAG, "onSaveInstanceState")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        logger.logOrder("onDestroyView")
+        logger.order(TAG, "onDestroyView")
     }
 
     //endregion fragment lifecycle methods
@@ -146,12 +143,9 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     //region dialogs
 
     protected open fun showDialog(dialog: DialogFragment, tag: String) {
-        logger.logInfo("try to showDialog $tag")
+        logger.i(TAG, "try to showDialog $tag")
         val prevWithSameTag: Fragment? = childFragmentManager.findFragmentByTag(tag)
-        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment
-            && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true
-            && !prevWithSameTag.isRemoving
-        ) {
+        if (prevWithSameTag != null && prevWithSameTag is BaseDialogFragment && prevWithSameTag.getDialog() != null && prevWithSameTag.getDialog()?.isShowing == true && !prevWithSameTag.isRemoving) {
             //there is currently showed dialog fragment with same TAG
         } else {
             //there is no currently showed dialog fragment with same TAG
@@ -175,12 +169,11 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * @return Boolean (false in case if action was not handled by this method and true if it was handled)
      */
     open fun handleAction(action: Action): Boolean {
-        logger.logInfo("default handleAction $action")
+        logger.i(TAG, "default handleAction $action")
         when (action.name) {
             ErrorAction.ACTION_ERROR -> {
                 // "as?" - is a safe cast that will not throw an exception, so we can use suppress warning in this case
-                @Suppress("UNCHECKED_CAST")
-                handleError(action as? ErrorAction<M>)
+                @Suppress("UNCHECKED_CAST") handleError(action as? ErrorAction<M>)
             }
 
             Action.ACTION_FINISH -> {
@@ -216,7 +209,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     }
 
     open fun handleError(action: ErrorAction<M>?) {
-        logger.logOrder("handleError ${action != null} && !${action?.handled}")
+        logger.order(TAG, "handleError ${action != null} && !${action?.handled}")
         if (action != null && !action.handled) {
             val msg = when {
                 action.model != null -> provideErrorStringHelper().getErrorMessage(action.model!!)
@@ -229,7 +222,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     }
 
     protected open fun showError(msg: String, showType: String, action: Action?) {
-        logger.logOrder("showError msg = $msg showType = $showType action = $action")
+        logger.order(TAG, "showError msg = $msg showType = $showType action = $action")
         hideProgress()
         when (showType) {
             ShowErrorType.SHOW_NOTHING.name -> switchControlsOn()
@@ -239,8 +232,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     }
 
     protected open fun showErrorDialog(msg: String, action: Action?) {
-        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title)
-            .setMessage(msg)
+        provideMaterialAlertDialogBuilder().setTitle(R.string.base_ui_error_title).setMessage(msg)
             .setPositiveButton(R.string.base_ui_common_ok_btn) { dialogInterface, _ ->
                 dialogInterface?.dismiss()
                 if (action != null) {
@@ -273,22 +265,18 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * @param request a flag indicating that we want to request permissions which were not accepted yet
      */
     protected open fun checkPermissions(
-        permissions: Array<String>,
-        parameters: Bundle?,
-        request: Boolean
+        permissions: Array<String>, parameters: Bundle?, request: Boolean
     ): Boolean {
         val denied: MutableList<String> = mutableListOf()
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(
-                    requireActivity(),
-                    permission
+                    requireActivity(), permission
                 ) != PackageManager.PERMISSION_GRANTED
-            )
-                denied.add(permission)
+            ) denied.add(permission)
         }
-        logger.logInfo("All denied permissions: ${denied.joinToString()}")
+        logger.i(TAG, "All denied permissions: ${denied.joinToString()}")
         return if (denied.isNotEmpty() && request) {
-            logger.logOrder("requestPermissions")
+            logger.order(TAG, "requestPermissions")
             permissionsLauncher?.launch(denied.toTypedArray())
             false
         } else !(denied.isNotEmpty() && !request)
@@ -299,22 +287,22 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
     //region helping methods
 
     protected open fun showMessage(text: String, duration: Int = Toast.LENGTH_SHORT) {
-        logger.logInfo(text)
-        logger.showMessage(text, duration)
+        logger.i(TAG, text)
+        provideAppContext().showMessage(text, duration)
     }
 
     protected open fun showMessage(textId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        logger.logInfo(provideAppContext().resources.getString(textId))
-        logger.showMessage(textId, duration)
+        logger.i(TAG, provideAppContext().resources.getString(textId))
+        provideAppContext().showMessage(textId, duration)
     }
 
     protected open fun hideSystemUi(activity: Activity?) {
-        logger.logOrder("hideSystemUi")
+        logger.order(TAG, "hideSystemUi")
         activity?.onWindowFocusChanged(true)
     }
 
     protected open fun hideKeyboard(activity: Activity?) {
-        logger.logOrder("hideKeyboard")
+        logger.order(TAG, "hideKeyboard")
         by.esas.tools.util_ui.defocusAndHideKeyboard(activity)
     }
 
@@ -323,7 +311,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * and you need to hide it (like progress bar)
      */
     protected open fun hideProgress() {
-        logger.logInfo("hideProgress")
+        logger.order(TAG, "hideProgress")
     }
 
     /**
@@ -331,7 +319,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * and you need to show it (like progress bar)
      */
     protected open fun showProgress() {
-        logger.logInfo("showProgress")
+        logger.order(TAG, "showProgress")
     }
 
     /**
@@ -339,7 +327,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * (like buttons, input fields, switchers, checkboxes and etc.)
      */
     protected open fun switchControlsOn() {
-        logger.logInfo("switchControlsOn")
+        logger.order(TAG, "switchControlsOn")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null) switcher.enableView(switchable)
         }
@@ -350,7 +338,7 @@ abstract class BaseFragment<M : BaseErrorModel> : Fragment() {
      * (like buttons, input fields, switchers, checkboxes and etc.)
      */
     protected open fun switchControlsOff() {
-        logger.logInfo("switchControlsOff")
+        logger.order(TAG, "switchControlsOff")
         provideSwitchableViews().forEach { switchable ->
             if (switchable != null) switcher.disableView(switchable)
         }

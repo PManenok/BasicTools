@@ -35,6 +35,7 @@ android {
 }
 dependencies {
     api(project(":dialog_core"))
+    api(project(":checker"))
 }
 
 publishing {

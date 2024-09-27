@@ -18,15 +18,11 @@ class Executor(
 
     var provider: SecretProvider = SecretProvider()
 
-    init {
-        logger.setTag(TAG)
-    }
-
     override fun refreshAccessUC(
         refreshToken: String,
         block: ContainerRequest<Token?, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("refreshAccessUC")
+        logger.order("refreshAccessUC")
 
         val response = ContainerRequest<Token?, ErrorModel>().apply { block() }
         provider.refreshToken().let {
@@ -39,7 +35,7 @@ class Executor(
     }
 
     override fun getSecretsUC(block: ContainerRequest<List<AuthType>, ErrorModel>.() -> Unit) {
-        logger.logOrder("getSecretsUC")
+        logger.order("getSecretsUC")
 
         val response = ContainerRequest<List<AuthType>, ErrorModel>().apply { block() }
         provider.getSecrets().let {
@@ -56,7 +52,7 @@ class Executor(
         cipher: Cipher?,
         block: ContainerRequest<Token, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("refreshWithSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
+        logger.order("refreshWithSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
 
         val response = ContainerRequest<Token, ErrorModel>().apply { block() }
         provider.refreshWithSecret().let {
@@ -76,7 +72,7 @@ class Executor(
         cipher: Cipher?,
         block: ContainerRequest<Pair<Boolean, String>, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("checkSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
+        logger.order("checkSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
 
         val response = ContainerRequest<Pair<Boolean, String>, ErrorModel>().apply { block() }
         provider.checkSecret().let {
@@ -92,7 +88,7 @@ class Executor(
         secret: String,
         block: ContainerRequest<Token, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("refreshWithSecretUC secret not empty ${secret.isNotBlank()}")
+        logger.order("refreshWithSecretUC secret not empty ${secret.isNotBlank()}")
 
         val response = ContainerRequest<Token, ErrorModel>().apply { block() }
         provider.refreshWithSecretText().let {
@@ -108,7 +104,7 @@ class Executor(
         password: String,
         block: ContainerRequest<Token, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("authorizationInSystemUC password not empty ${password.isNotBlank()}")
+        logger.order("authorizationInSystemUC password not empty ${password.isNotBlank()}")
 
         val response = ContainerRequest<Token, ErrorModel>().apply { block() }
         provider.authorizationInSystem(password).let {
@@ -126,7 +122,7 @@ class Executor(
         pinKey: SecretKey?,
         block: ContainerRequest<Boolean, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("createSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
+        logger.order("createSecretUC pinKey!=null = ${pinKey != null}, cipher!=null = ${cipher != null}")
 
         val response = ContainerRequest<Boolean, ErrorModel>().apply { block() }
         provider.createSecret(refreshToken).let {
@@ -143,20 +139,20 @@ class Executor(
         type: AuthType,
         block: ContainerRequest<Boolean, ErrorModel>.() -> Unit
     ) {
-        logger.logOrder("deleteSecretTypeUC type=$type")
+        logger.order("deleteSecretTypeUC type=$type")
 
         val response = ContainerRequest<Boolean, ErrorModel>().apply { block() }
         response(true)
     }
 
     override fun deleteSecretsUC(block: ContainerRequest<Boolean, ErrorModel>.() -> Unit) {
-        logger.logOrder("deleteSecretsUC")
+        logger.order("deleteSecretsUC")
 
         val response = ContainerRequest<Boolean, ErrorModel>().apply { block() }
         response(true)
     }
 
     override fun unsubscribe() {
-        logger.logOrder("unsubscribe")
+        logger.order("unsubscribe")
     }
 }

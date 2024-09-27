@@ -9,10 +9,10 @@ import by.esas.tools.BR
 import by.esas.tools.app_data.AppSharedPrefs
 import by.esas.tools.basedaggerui.factory.InjectingViewModelFactory
 import by.esas.tools.baseui.standard.StandardActivity
-import by.esas.tools.logger.ILogger
+import by.esas.tools.logger.Action
 import by.esas.tools.logger.handler.ErrorMessageHelper
+import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
-import by.esas.tools.utils.logger.LoggerImpl
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -45,8 +45,6 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
         return androidInjector
     }
 
-    override var logger: ILogger<ErrorModel> = LoggerImpl()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -57,12 +55,26 @@ abstract class AppActivity<VM : AppVM, B : ViewDataBinding>
     }
 
     override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
-        logger.logOrder("provideErrorStringHelper")
-        return object : ErrorMessageHelper<ErrorModel>() {
+        logger.order(TAGk, "provideErrorStringHelper")
+        return object : ErrorMessageHelper<ErrorModel> {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return error.status
             }
+        }
+    }
+
+    override fun handleAction(action: Action): Boolean {
+        return if (action is MessageAction) {
+            if (action.hasTextMessage()) {
+                showMessage(action.getMessage(), action.getDuration())
+                true
+            } else {
+                showMessage(action.getResId(), action.getDuration())
+                true
+            }
+        } else {
+            super.handleAction(action)
         }
     }
 

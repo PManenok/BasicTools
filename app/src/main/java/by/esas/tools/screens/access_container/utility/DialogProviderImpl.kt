@@ -44,7 +44,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
         instance: BaseDialogFragment?,
         resultListener: FragmentResultListener
     ) {
-        logger.logOrder("IBaseDialog $tag show instance != null ${instance != null}")
+        logger.order("IBaseDialog $tag show instance != null ${instance != null}")
         if (context != null) {
             instance?.setRequestKey(tag)
 
@@ -55,7 +55,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                 instance?.show(context.supportFragmentManager, tag)
             } catch (e: java.lang.IllegalStateException) {
                 context.supportFragmentManager.clearFragmentResultListener(tag)
-                logger.logError("IBaseDialog $tag IllegalStateException while dialog show")
+                logger.e("IBaseDialog $tag IllegalStateException while dialog show")
             }
         }
     }
@@ -68,7 +68,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             var menuHandler: MenuResultHandler? = null
 
             override fun createDialog() {
-                logger.logOrder("MenuDialogSetter createDialog dialog!=null = ${dialog != null}")
+                logger.order("MenuDialogSetter createDialog dialog!=null = ${dialog != null}")
                 dialog?.dismiss()
                 dialog = null
                 dialog = MessageDialog(false)
@@ -81,7 +81,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                 showPin: Boolean,
                 showBiom: Boolean
             ) {
-                logger.logOrder("MenuDialogSetter setupParameterBundle isDecrypting=$isDecrypting, showPassword=$showPassword, showPin=$showPin, showBiom=$showBiom")
+                logger.order("MenuDialogSetter setupParameterBundle isDecrypting=$isDecrypting, showPassword=$showPassword, showPin=$showPin, showBiom=$showBiom")
                 list.clear()
                 if (isDecrypting && showPassword)
                     list.add(Pair(App.appContext.getString(R.string.label_password), AuthType.NONE))
@@ -96,27 +96,27 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun setupResultHandler(handler: MenuResultHandler) {
-                logger.logOrder("MenuDialogSetter setupResultHandler")
+                logger.order("MenuDialogSetter setupResultHandler")
                 this.menuHandler = handler
             }
 
             override fun setTitle(titleRes: Int) {
-                logger.logOrder("MenuDialogSetter setTitle dialog!=null = ${dialog != null}")
+                logger.order("MenuDialogSetter setTitle dialog!=null = ${dialog != null}")
                 dialog?.setTitle(titleRes)
             }
 
             override fun getDialog(): IBaseDialog {
-                logger.logOrder("MenuDialogSetter getDialog dialog != null = ${dialog != null}")
+                logger.order("MenuDialogSetter getDialog dialog != null = ${dialog != null}")
                 return object : IBaseDialog {
                     var dialogInst: BaseDialogFragment? = dialog
 
                     override fun dismiss() {
-                        logger.logOrder("IBaseDialog MessageDialog dismiss dialogInst != null = ${dialogInst != null}")
+                        logger.order("IBaseDialog MessageDialog dismiss dialogInst != null = ${dialogInst != null}")
                         try {
                             dialogInst?.dismiss()
                             dialogInst = null
                         } catch (e: IllegalStateException) {
-                            logger.logError(e)
+                            logger.throwable(e)
                         }
                     }
 
@@ -129,7 +129,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                         return FragmentResultListener { requestKey, result ->
                             if (requestKey == tag) {
                                 val userAction = result.getString(Config.DIALOG_USER_ACTION)
-                                logger.logOrder("IBaseDialog $tag requestKey $requestKey userAction $userAction")
+                                logger.order("IBaseDialog $tag requestKey $requestKey userAction $userAction")
                                 if (userAction == CANCEL_DIALOG) {
                                     menuHandler?.onCancel()
                                 } else if (userAction == USER_ACTION_ITEM_PICKED) {
@@ -152,7 +152,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun clear(context: FragmentActivity?) {
-                logger.logOrder("MenuDialogSetter clear dialog!=null = ${dialog != null}")
+                logger.order("MenuDialogSetter clear dialog!=null = ${dialog != null}")
                 dialog?.getRequestKey()?.let { context?.supportFragmentManager?.clearFragmentResultListener(it) }
                 dialog?.dismiss()
                 dialog = null
@@ -172,40 +172,40 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                 showAnother: Boolean,
                 forgotPasswordActionEnable: Boolean
             ) {
-                logger.logOrder("GetPasswordDialog setupParameterBundle")
+                logger.order("GetPasswordDialog setupParameterBundle")
                 dialog?.isCancelable = isCancellable
                 dialog?.showAnotherMethod(showAnother)
                 dialog?.setForgotPassword(forgotPasswordActionEnable)
             }
 
             override fun setupResultHandler(handler: PasswordResultHandler) {
-                logger.logOrder("GetPasswordDialog setupResultHandler")
+                logger.order("GetPasswordDialog setupResultHandler")
                 this.resultHandler = handler
             }
 
             override fun setTitle(titleRes: Int) {
-                logger.logOrder("GetPasswordDialog setTitle dialog!=null = ${dialog != null}")
+                logger.order("GetPasswordDialog setTitle dialog!=null = ${dialog != null}")
                 dialog?.setTitle(titleRes)
             }
 
             override fun createDialog() {
-                logger.logOrder("GetPasswordDialog createDialog dialog!=null = ${dialog != null}")
+                logger.order("GetPasswordDialog createDialog dialog!=null = ${dialog != null}")
                 dialog?.dismiss()
                 dialog = null
                 dialog = PasswordDialog()
             }
 
             override fun getDialog(): IBaseDialog {
-                logger.logOrder("GetPasswordDialog getDialog dialog != null = ${dialog != null}")
+                logger.order("GetPasswordDialog getDialog dialog != null = ${dialog != null}")
                 return object : IBaseDialog {
                     var dialogInst: BaseDialogFragment? = dialog
                     override fun dismiss() {
-                        logger.logOrder("IBaseDialog PasswordDialog dismiss dialogInst != null = ${dialogInst != null}")
+                        logger.order("IBaseDialog PasswordDialog dismiss dialogInst != null = ${dialogInst != null}")
                         try {
                             dialogInst?.dismiss()
                             dialogInst = null
                         } catch (e: IllegalStateException) {
-                            logger.logError(e)
+                            logger.throwable(e)
                         }
                     }
 
@@ -218,7 +218,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                         return FragmentResultListener { requestKey, result ->
                             if (requestKey == tag) {
                                 val userAction = result.getString(Config.DIALOG_USER_ACTION)
-                                logger.logOrder("IBaseDialog $tag requestKey $requestKey userAction $userAction")
+                                logger.order("IBaseDialog $tag requestKey $requestKey userAction $userAction")
                                 when (userAction) {
                                     CANCEL_DIALOG -> {
                                         resultHandler?.onCancel()
@@ -241,7 +241,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun clear(context: FragmentActivity?) {
-                logger.logOrder("GetPasswordDialog clear dialog!=null = ${dialog != null}")
+                logger.order("GetPasswordDialog clear dialog!=null = ${dialog != null}")
                 dialog?.getRequestKey()?.let { context?.supportFragmentManager?.clearFragmentResultListener(it) }
                 dialog?.dismiss()
                 dialog = null
@@ -255,14 +255,14 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             var resultHandler: PinResultHandler? = null
 
             override fun createDialog() {
-                logger.logOrder("SetPinDialog createDialog dialog!=null = ${dialog != null}")
+                logger.order("SetPinDialog createDialog dialog!=null = ${dialog != null}")
                 dialog?.dismiss()
                 dialog = null
                 dialog = PinDialog()
             }
 
             override fun setTitle(titleRes: Int) {
-                logger.logOrder("SetPinDialog setTitle dialog!=null = ${dialog != null}")
+                logger.order("SetPinDialog setTitle dialog!=null = ${dialog != null}")
                 dialog?.setTitle(titleRes)
             }
 
@@ -272,10 +272,10 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                 cancellable: Boolean,
                 hasAnother: Boolean
             ) {
-                logger.logOrder("SetPinDialog dialog!=null = ${dialog != null}")
-                logger.logInfo("SetPinDialog setCancellable $cancellable")
+                logger.order("SetPinDialog dialog!=null = ${dialog != null}")
+                logger.i("SetPinDialog setCancellable $cancellable")
                 dialog?.isCancelable = cancellable
-                logger.logInfo("SetPinDialog hasAnother $hasAnother")
+                logger.i("SetPinDialog hasAnother $hasAnother")
                 dialog?.setHasAnother(hasAnother)
             }
 
@@ -284,16 +284,16 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun getDialog(): IBaseDialog {
-                logger.logOrder("SetPinDialog getDialog dialog != null = ${dialog != null}")
+                logger.order("SetPinDialog getDialog dialog != null = ${dialog != null}")
                 return object : IBaseDialog {
                     var dialogInst: BaseDialogFragment? = dialog
                     override fun dismiss() {
-                        logger.logOrder("IBaseDialog PinDialog dismiss dialogInst != null = ${dialogInst != null}")
+                        logger.order("IBaseDialog PinDialog dismiss dialogInst != null = ${dialogInst != null}")
                         try {
                             dialogInst?.dismiss()
                             dialogInst = null
                         } catch (e: IllegalStateException) {
-                            logger.logError(e)
+                            logger.throwable(e)
                         }
                     }
 
@@ -306,7 +306,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                         return FragmentResultListener { requestKey, result ->
                             if (requestKey == tag) {
                                 val userAction = result.getString(Config.DIALOG_USER_ACTION)
-                                logger.logOrder("IBaseDialog $tag requestKey $requestKey userAction $userAction")
+                                logger.order("IBaseDialog $tag requestKey $requestKey userAction $userAction")
                                 when (userAction) {
                                     CANCEL_DIALOG -> {
                                         resultHandler?.onCancel()
@@ -326,7 +326,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun clear(context: FragmentActivity?) {
-                logger.logOrder("GetPasswordDialog clear dialog!=null = ${dialog != null}")
+                logger.order("GetPasswordDialog clear dialog!=null = ${dialog != null}")
                 dialog?.getRequestKey()?.let { context?.supportFragmentManager?.clearFragmentResultListener(it) }
                 dialog?.dismiss()
                 dialog = null
@@ -342,30 +342,30 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             var dialog: BiometricPrompt? = null
 
             override fun onAuthenticationCallback(onError: (Boolean, String) -> Unit, onSuccess: (Cipher?) -> Unit) {
-                logger.logOrder("SetBiometricDialog onAuthenticationCallback")
+                logger.order("SetBiometricDialog onAuthenticationCallback")
                 biometricCallback = object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                         super.onAuthenticationError(errorCode, errString)
-                        logger.logOrder("SetBiometricDialog authentication Error")
+                        logger.order("SetBiometricDialog authentication Error")
                         onError(errorCode == BiometricPrompt.ERROR_CANCELED, errString.toString())
                     }
 
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
-                        logger.logOrder("SetBiometricDialog authentication Succeeded")
+                        logger.order("SetBiometricDialog authentication Succeeded")
                         onSuccess(result.cryptoObject?.cipher)
                     }
 
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
-                        logger.logOrder("SetBiometricDialog authentication Failed")
+                        logger.order("SetBiometricDialog authentication Failed")
                     }
                 }
-                logger.logOrder("SetBiometricDialog biometricCallback!=null = ${biometricCallback != null}")
+                logger.order("SetBiometricDialog biometricCallback!=null = ${biometricCallback != null}")
             }
 
             override fun create(activity: FragmentActivity, userInfo: BiometricUserInfo) {
-                logger.logOrder("SetBiometricDialog create")
+                logger.order("SetBiometricDialog create")
                 val info = object : Biometric.BiometricUserInfo {
                     override fun getCurrentUser(): String {
                         return userInfo.getCurrentUser()
@@ -380,32 +380,32 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
                     }
                 }
                 builder = biometricCallback?.let { callback ->
-                    logger.logOrder("SetBiometricDialog builder update")
+                    logger.order("SetBiometricDialog builder update")
                     Biometric(activity, callback, info)
                 }
-                logger.logOrder("SetBiometricDialog builder!=null = ${builder != null}")
+                logger.order("SetBiometricDialog builder!=null = ${builder != null}")
             }
 
             override fun setInfo(title: String, negativeText: String) {
-                logger.logOrder("SetBiometricDialog setInfo")
+                logger.order("SetBiometricDialog setInfo")
                 prompt = builder?.createInfo(title, negativeText)
-                logger.logOrder("SetBiometricDialog prompt!=null = ${prompt != null}")
+                logger.order("SetBiometricDialog prompt!=null = ${prompt != null}")
             }
 
             override fun authenticate(isDecrypt: Boolean): IBiometric? {
-                logger.logOrder("SetBiometricDialog authenticate isDecrypt = $isDecrypt")
+                logger.order("SetBiometricDialog authenticate isDecrypt = $isDecrypt")
                 prompt?.let { info ->
-                    logger.logOrder("SetBiometricDialog authenticate prompt let")
+                    logger.order("SetBiometricDialog authenticate prompt let")
                     dialog = builder?.authenticate(
                         if (isDecrypt) Biometric.DialogMode.DECRYPT_MODE else Biometric.DialogMode.ENCRYPT_MODE,
                         info
                     )
                 }
-                logger.logOrder("SetBiometricDialog authenticate return IBiometric")
+                logger.order("SetBiometricDialog authenticate return IBiometric")
                 return object : IBiometric {
                     private var dialogInst: BiometricPrompt? = dialog
                     override fun cancelAuthentication() {
-                        logger.logOrder("IBiometric cancelAuthentication dialogInst!=null ${dialogInst != null}")
+                        logger.order("IBiometric cancelAuthentication dialogInst!=null ${dialogInst != null}")
                         dialogInst?.cancelAuthentication()
                         dialogInst = null
                     }
@@ -413,7 +413,7 @@ class DialogProviderImpl(val logger: ILogger<ErrorModel>) : DialogProvider() {
             }
 
             override fun clear() {
-                logger.logOrder("SetBiometricDialog clear")
+                logger.order("SetBiometricDialog clear")
                 biometricCallback = null
                 builder = null
                 prompt = null

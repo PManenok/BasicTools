@@ -40,7 +40,7 @@ import androidx.core.widget.TextViewCompat
 import by.esas.tools.util_ui.SwitchManager
 import kotlin.math.roundToInt
 
-open class InputFieldView : ConstraintLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
+open class InputFieldView : ConstraintLayout, SwitchManager.ISwitchView {
 
     open val TAG: String = InputFieldView::class.java.simpleName
 

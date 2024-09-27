@@ -6,7 +6,6 @@ import by.esas.tools.app_domain.error_mapper.AppErrorMapper
 import by.esas.tools.inject.builder.ViewModelFactoryBuilder
 import by.esas.tools.logger.ILogger
 import by.esas.tools.utils.logger.ErrorModel
-import by.esas.tools.utils.logger.LoggerImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -39,6 +38,6 @@ class ContextModule {
 
     @Provides
     fun provideLogger(): ILogger<ErrorModel> {
-        return LoggerImpl().apply { setTag("LoggerImpl") }
+        return ILogger()
     }
 }

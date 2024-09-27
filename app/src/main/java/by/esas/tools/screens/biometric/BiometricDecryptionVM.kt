@@ -20,19 +20,19 @@ class BiometricDecryptionVM @Inject constructor() : AppVM() {
             val biometricCallback = object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    logger.logInfo(errString.toString())
+                    logger.i(errString.toString())
                     messageLive.postValue(errString.toString())
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    logger.logInfo(App.appContext.resources.getString(R.string.biometric_decryption_authentication_succeeded))
+                    logger.i(App.appContext.resources.getString(R.string.biometric_decryption_authentication_succeeded))
                     messageLive.postValue(App.appContext.resources.getString(R.string.biometric_decryption_authentication_succeeded))
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    logger.logInfo(App.appContext.resources.getString(R.string.biometric_decryption_authentication_failed))
+                    logger.i(App.appContext.resources.getString(R.string.biometric_decryption_authentication_failed))
                     messageLive.postValue(App.appContext.resources.getString(R.string.biometric_decryption_authentication_failed))
                 }
             }

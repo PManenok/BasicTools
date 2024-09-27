@@ -41,7 +41,7 @@ import com.google.android.material.textview.MaterialTextView
  * CustomSwitch becomes enabled and on switchOff becomes disabled(see [setEnabled]).
  */
 
-open class CustomSwitch : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
+open class CustomSwitch : LinearLayout, SwitchManager.ISwitchView {
 
     val TAG: String = CustomSwitch::class.java.simpleName
     protected val switcher: SwitchMaterial
@@ -251,7 +251,8 @@ open class CustomSwitch : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwi
         /*##########  Switcher Icon  ##########*/
         val thumbTint =
             typedArray.getResourceId(R.styleable.CustomSwitch_thumbTint, defaultThumbColor)
-        val trackTint = typedArray.getResourceId(R.styleable.CustomSwitch_trackTint, defaultTrackColor)
+        val trackTint =
+            typedArray.getResourceId(R.styleable.CustomSwitch_trackTint, defaultTrackColor)
 
         typedArray.recycle()
 

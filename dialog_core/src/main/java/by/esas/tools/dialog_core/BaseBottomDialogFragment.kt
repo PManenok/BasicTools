@@ -17,10 +17,10 @@ import by.esas.tools.dialog_core.Config.DIALOG_PARAMETERS_BUNDLE
 import by.esas.tools.dialog_core.Config.DIALOG_RESULT_BUNDLE
 import by.esas.tools.dialog_core.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog_core.Config.DISMISS_DIALOG
-import by.esas.tools.logger.BaseLoggerImpl
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ILogger
-import by.esas.tools.util_ui.SwitchManager
 import by.esas.tools.util.TAGk
+import by.esas.tools.util_ui.SwitchManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -40,16 +40,17 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
      * depends on its interface realisation
-     * By default this logger is [BaseLoggerImpl]
+     * @see ILogger
      * */
-    protected open var logger: ILogger<*> = BaseLoggerImpl(TAGk, this.context)
+    protected open var logger: ILogger<*> = ILogger<BaseErrorModel>().apply {
+        setTag(TAGk)
+    }
 
     /**
      * Manager that provides enabling and disabling views functionality
      * @see SwitchManager
      * */
-    protected open var switcher: by.esas.tools.util_ui.SwitchManager =
-        by.esas.tools.util_ui.SwitchManager()
+    protected open var switcher: SwitchManager = SwitchManager()
 
     /**
      * This parameter is set in [onCreateDialog] method
@@ -99,8 +100,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logger.setTag(TAG)
-        logger.logInfo("onCreate")
+        logger.order(TAG, "onCreate")
         styleSettings()
     }
 
@@ -110,6 +110,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      **/
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
+        logger.order(TAG, "onCreateDialog")
         if (dialog is BottomSheetDialog) {
             behavior = dialog.behavior
         }
@@ -121,7 +122,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logger.logInfo("onCreateView")
+        logger.order(TAG, "onCreateView")
         return inflater.inflate(provideLayoutId(), container, false)
     }
 
@@ -131,29 +132,29 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * */
     override fun onStart() {
         super.onStart()
-        logger.logInfo("onStart")
+        logger.order(TAG, "onStart")
 
         layoutSettings()
     }
 
     override fun onResume() {
         super.onResume()
-        logger.logInfo("onResume")
+        logger.order(TAG, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logger.logInfo("onPause")
+        logger.order(TAG, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logger.logInfo("onStop")
+        logger.order(TAG, "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        logger.logInfo("onDestroyView")
+        logger.order(TAG, "onDestroyView")
     }
 
     /**
@@ -162,7 +163,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         setDismissResult()
         super.onDismiss(dialog)
-        logger.logInfo("onDismiss")
+        logger.order(TAG, "onDismiss")
     }
 
     /**
@@ -170,8 +171,8 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * */
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
+        logger.order(TAG, "onCancel")
         resultBundle.putString(DIALOG_USER_ACTION, CANCEL_DIALOG)
-        logger.logInfo("onCancel")
     }
 
     //endregion lifecycle methods
@@ -183,7 +184,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * it will automatically clear resultBundle and set DIALOG_USER_ACTION to [DISMISS_DIALOG] value.
      * */
     protected open fun setDismissResult() {
-        logger.logOrder("setDismissResult")
+        logger.order(TAG, "setDismissResult")
         val userAction: String = if (resultBundle.containsKey(DIALOG_USER_ACTION)) {
             resultBundle.getString(DIALOG_USER_ACTION, "")
         } else {
@@ -191,7 +192,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
             resultBundle.putString(DIALOG_USER_ACTION, DISMISS_DIALOG)
             DISMISS_DIALOG
         }
-        logger.logInfo("userAction $userAction; result size ${resultBundle.size()}")
+        logger.i(TAG, "userAction $userAction; result size ${resultBundle.size()}")
 
         val bundle = Bundle()
         bundle.putAll(resultBundle)
@@ -200,7 +201,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     open fun setRequestKey(requestKey: String) {
-        logger.logOrder("setRequestKey $requestKey")
+        logger.order(TAG, "setRequestKey $requestKey")
         dialogRequestKey = requestKey
     }
 
@@ -213,7 +214,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * along with resultBundle as fragment result
      * */
     open fun setParams(bundle: Bundle) {
-        logger.logOrder("setParams $bundle")
+        logger.order(TAG, "setParams $bundle")
         paramsBundle = bundle
     }
 
@@ -222,6 +223,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * By default do nothing
      * */
     protected open fun styleSettings() {
+        logger.order(TAG, "styleSettings")
         //Do nothing
     }
 
@@ -230,6 +232,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * By default do nothing
      * */
     protected open fun layoutSettings() {
+        logger.order(TAG, "layoutSettings")
         //Do nothing
     }
 
@@ -242,7 +245,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * Should be used in pair with [enableControls] method, otherwise all views would be blocked until enableControls invocation
      */
     protected open fun disableControls() {
-        logger.logOrder("disableControls")
+        logger.order(TAG, "disableControls")
         showProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.disableView(view)
@@ -259,7 +262,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * otherwise all views would be blocked until enableControls invocation
      * */
     protected open fun enableControls() {
-        logger.logOrder("enableControls")
+        logger.order(TAG, "enableControls")
         hideProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.enableView(view)
@@ -271,7 +274,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * @see disableControls
      * */
     protected open fun showProgress() {
-        logger.logOrder("showProgress")
+        logger.order(TAG, "showProgress")
         provideProgressBar()?.visibility = View.VISIBLE
     }
 
@@ -280,7 +283,7 @@ abstract class BaseBottomDialogFragment : BottomSheetDialogFragment() {
      * @see enableControls
      * */
     protected open fun hideProgress() {
-        logger.logOrder("hideProgress")
+        logger.order(TAG, "hideProgress")
         provideProgressBar()?.visibility = View.INVISIBLE
     }
 }

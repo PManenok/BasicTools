@@ -17,7 +17,6 @@ import by.esas.tools.dialog_core.Config.DIALOG_RESULT_BUNDLE
 import by.esas.tools.dialog_core.Config.DIALOG_USER_ACTION
 import by.esas.tools.dialog_core.Config.DISMISS_DIALOG
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.Event
 import by.esas.tools.logger.Event.Companion.DIALOG_FINISHED_EVENT
 import by.esas.tools.logger.ILogger
@@ -43,9 +42,11 @@ abstract class BaseDialogFragment : DialogFragment() {
     /**
      * Simple logger that is used for logging and provides ability to send all logs into one place
      * depends on its interface realisation
-     * By default this logger is [BaseLoggerImpl]
+     * @see ILogger
      * */
-    protected open var logger: ILogger<*> = object : ILogger<BaseErrorModel>
+    protected open var logger: ILogger<*> = ILogger<BaseErrorModel>().apply {
+        setTag(TAGk)
+    }
 
     /**
      * Manager that provides enabling and disabling views functionality
@@ -165,7 +166,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * it will automatically clear resultBundle and set DIALOG_USER_ACTION to [DISMISS_DIALOG] value.
      * */
     protected open fun setDismissResult() {
-        logger.order(TAG,"setDismissResult")
+        logger.order(TAG, "setDismissResult")
         val userAction: String = if (resultBundle.containsKey(DIALOG_USER_ACTION)) {
             resultBundle.getString(DIALOG_USER_ACTION, "")
         } else {
@@ -173,7 +174,7 @@ abstract class BaseDialogFragment : DialogFragment() {
             resultBundle.putString(DIALOG_USER_ACTION, DISMISS_DIALOG)
             DISMISS_DIALOG
         }
-        logger.logInfo("userAction $userAction; result size ${resultBundle.size()}")
+        logger.i(TAG, "userAction $userAction; result size ${resultBundle.size()}")
 
         val bundle = Bundle()
         bundle.putAll(resultBundle)
@@ -186,7 +187,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * otherwise you will need to additionally set fragment result listener with according request key in activity or fragment
      * */
     open fun setRequestKey(requestKey: String) {
-        logger.logOrder("setRequestKey $requestKey")
+        logger.order(TAG, "setRequestKey $requestKey")
         dialogRequestKey = requestKey
     }
 
@@ -203,7 +204,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * along with resultBundle as fragment result
      * */
     open fun setParams(bundle: Bundle) {
-        logger.logOrder("setParams $bundle")
+        logger.order(TAG, "setParams $bundle")
         paramsBundle = bundle
     }
 
@@ -212,6 +213,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * STYLE_NO_TITLE handle situations in old android versions where dialogs has own Title by default
      * */
     protected open fun styleSettings() {
+        logger.order(TAG, "styleSettings")
         setStyle(STYLE_NO_TITLE, 0)
     }
 
@@ -220,6 +222,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * By default its width set to [ViewGroup.LayoutParams.MATCH_PARENT] and height to [ViewGroup.LayoutParams.WRAP_CONTENT]
      * */
     protected open fun layoutSettings() {
+        logger.order(TAG, "layoutSettings")
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -235,7 +238,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * Should be used in pair with [enableControls] method, otherwise all views would be blocked until enableControls invocation
      * */
     protected open fun disableControls() {
-        logger.logOrder("disableControls")
+        logger.order(TAG, "disableControls")
         showProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.disableView(view)
@@ -252,7 +255,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * otherwise all views would be blocked until enableControls invocation
      * */
     protected open fun enableControls() {
-        logger.logOrder("enableControls")
+        logger.order(TAG, "enableControls")
         hideProgress()
         provideSwitchableList().forEach { view ->
             if (view != null) switcher.enableView(view)
@@ -264,7 +267,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * @see disableControls
      * */
     protected open fun showProgress() {
-        logger.logOrder("showProgress")
+        logger.order(TAG, "showProgress")
         provideProgressBar()?.visibility = View.VISIBLE
     }
 
@@ -273,7 +276,7 @@ abstract class BaseDialogFragment : DialogFragment() {
      * @see enableControls
      * */
     protected open fun hideProgress() {
-        logger.logOrder("hideProgress")
+        logger.order(TAG, "hideProgress")
         provideProgressBar()?.visibility = View.INVISIBLE
     }
 }

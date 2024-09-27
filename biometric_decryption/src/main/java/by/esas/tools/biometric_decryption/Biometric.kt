@@ -11,6 +11,7 @@ import android.security.keystore.KeyProperties
 import androidx.biometric.BiometricPrompt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import by.esas.tools.logger.BaseErrorModel
 import by.esas.tools.logger.ILogger
 import java.io.IOException
 import java.security.InvalidKeyException
@@ -31,7 +32,9 @@ class Biometric {
 
         val TAG: String = Biometric::class.java.simpleName
         private val KEY_ALIAS = Config.BIOM_ALIAS
-        var logger: ILogger<*>? = null
+        var logger: ILogger<*>? = ILogger<BaseErrorModel>().apply {
+            setTag(TAG)
+        }
         private lateinit var sKeyStore: KeyStore
         private fun getKeyStore(): Boolean {
             try {
@@ -39,24 +42,24 @@ class Biometric {
                 sKeyStore.load(null)
                 return true
             } catch (e: KeyStoreException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: IOException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: NoSuchAlgorithmException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: CertificateException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             }
             return false
         }
 
         fun deleteInvalidKey(userId: String) {
-            logger?.logInfo("deleteInvalidKey")
+            logger?.i(TAG, "deleteInvalidKey")
             if (getKeyStore() && sKeyStore.containsAlias(KEY_ALIAS + userId)) {
                 try {
                     sKeyStore.deleteEntry(KEY_ALIAS + userId)
                 } catch (e: KeyStoreException) {
-                    logger?.logError(e)
+                    logger?.throwable(TAG, e)
                 }
             }
         }
@@ -112,7 +115,8 @@ class Biometric {
     }
 
     fun createInfo(title: String, negativeText: String): BiometricPrompt.PromptInfo {
-        return BiometricPrompt.PromptInfo.Builder().setTitle(title).setNegativeButtonText(negativeText).build()
+        return BiometricPrompt.PromptInfo.Builder().setTitle(title)
+            .setNegativeButtonText(negativeText).build()
     }
 
     private fun prepare(): Boolean {
@@ -140,17 +144,17 @@ class Biometric {
 
                 return true
             } catch (e: NoSuchAlgorithmException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: KeyStoreException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: CertificateException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: IOException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: NoSuchAlgorithmException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
             } catch (e: InvalidKeyException) {
-                logger?.logError(e)
+                logger?.throwable(TAG, e)
                 deleteInvalidKey(userId)
                 throw DecryptionException(DecryptionEnum.INVALID_KEY)
             }
@@ -161,7 +165,8 @@ class Biometric {
 
     private fun generateNewKey(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+            val generator =
+                KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
 
             val parameter = KeyGenParameterSpec.Builder(
                 KEY_ALIAS + userId,
@@ -192,19 +197,20 @@ class Biometric {
             val contains = sKeyStore.containsAlias(KEY_ALIAS + userId)
             return contains || generateNewKey()
         } catch (e: KeyStoreException) {
-            logger?.logError(e)
+            logger?.throwable(TAG, e)
         }
         return false
     }
 
     private fun getCipher(): Boolean {
         try {
-            sCipher = Cipher.getInstance("AES/CBC/PKCS7Padding")//"RSA/ECB/OAEPWithSHA-256AndMGF1Padding"
+            sCipher =
+                Cipher.getInstance("AES/CBC/PKCS7Padding")//"RSA/ECB/OAEPWithSHA-256AndMGF1Padding"
             return true
         } catch (e: NoSuchAlgorithmException) {
-            logger?.logError(e)
+            logger?.throwable(TAG, e)
         } catch (e: NoSuchPaddingException) {
-            logger?.logError(e)
+            logger?.throwable(TAG, e)
         }
         return false
     }

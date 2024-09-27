@@ -33,7 +33,6 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel()
-        viewModel.logger.setTag(viewModel.TAG)
     }
 
     override fun onCreateView(
@@ -41,8 +40,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logger.setTag(TAG)
-        logger.logOrder("onCreateView")
+        logger.order(TAG, "onCreateView")
 
         binding = DataBindingUtil.inflate(inflater, provideLayoutId(), container, false)
         binding.setVariable(provideVariableInd(), viewModel)
@@ -62,10 +60,10 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
      * @return Boolean (false in case if action was not handled by this method and true if it was handled)
      */
     override fun handleAction(action: Action): Boolean {
-        logger.logInfo("override handleAction $action")
+        logger.order(TAG,"override handleAction $action")
         //try to handle action by parent's handler
         if (!super.handleAction(action)) {
-            logger.logInfo("viewModel handleAction $action")
+            logger.i(TAG, "parent's handler didn't solve $action")
             // try to handle action in viewModel if parent's handler didn't handle
             return viewModel.handleAction(action)
         }
@@ -109,7 +107,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
     protected open fun setupActionObserver() {
         viewModel.action.observe(viewLifecycleOwner, Observer { action ->
             if (action != null && !action.handled) {
-                logger.logOrder("action Observer $action")
+                logger.order(TAG, "viewModel.action value = $action")
                 handleAction(action)
             }
         })
@@ -117,7 +115,7 @@ abstract class DataBindingFragment<VM : BaseViewModel<M>, B : ViewDataBinding, M
 
     protected open fun setupControlsObservers() {
         viewModel.controlsEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
-            logger.logOrder("controlsEnabled Observer $isEnabled")
+            logger.order(TAG, "viewModel.controlsEnabled value = $isEnabled")
             if (isEnabled) switchControlsOn()
             else switchControlsOff()
         })

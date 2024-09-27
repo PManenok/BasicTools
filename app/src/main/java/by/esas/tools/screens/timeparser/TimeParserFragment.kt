@@ -29,7 +29,7 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
     }
 
     override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
-        return object : ErrorMessageHelper<ErrorModel>() {
+        return object : ErrorMessageHelper<ErrorModel> {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return when (error.getStatusAsEnum()) {
@@ -37,14 +37,6 @@ class TimeParserFragment : AppFragment<TimeParserVM, FMainTimeparserBinding>() {
                     AppErrorStatusEnum.APP_ILLEGAL_PATTERN_CHARACTER -> resources.getString(R.string.timeparser_error_illegal_pattern_character)
                     else -> resources.getString(R.string.timeparser_error_unexpected)
                 }
-            }
-
-            override fun getErrorMessage(e: Throwable): String {
-                return e.message.toString()
-            }
-
-            override fun mapError(e: Throwable): ErrorModel {
-                return viewModel.provideMapper().mapErrorException(this.TAGk, e)
             }
         }
     }

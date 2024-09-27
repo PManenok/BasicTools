@@ -90,7 +90,7 @@ class MainVM @Inject constructor(
         addCaseStatus.caseStatus = status
         addCaseStatus.execute {
             onComplete {
-                logger.showMessage(R.string.case_status_is_changed)
+                showMessage(R.string.case_status_is_changed)
                 updateMenuLive.postValue(true)
             }
             onError { handleError(it) }

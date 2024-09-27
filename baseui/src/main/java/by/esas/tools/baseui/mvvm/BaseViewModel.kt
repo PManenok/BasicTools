@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
-import by.esas.tools.logger.BaseLoggerImpl
 import by.esas.tools.logger.IErrorMapper
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorAction
@@ -21,7 +20,9 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
 
     open val TAG: String = TAGk
 
-    open var logger: ILogger<*> = BaseLoggerImpl(TAGk)
+    open var logger: ILogger<*> = ILogger<BaseErrorModel>().apply {
+        setTag(TAG)
+    }
     abstract fun provideMapper(): IErrorMapper<M>
 
     val action: MutableLiveData<Action?> = MutableLiveData<Action?>(null)
@@ -30,7 +31,7 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        logger.logOrder("onCleared")
+        logger.order(TAG, "onCleared")
     }
 
     //region handling methods
@@ -41,7 +42,7 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
         actionName: String? = null,
         parameters: Bundle? = null
     ) {
-        logger.logOrder("handleError throwable")
+        logger.order(TAG, "handleError throwable")
         action.postValue(
             ErrorAction.create(
                 provideMapper().mapErrorException(TAGk, error),
@@ -58,12 +59,12 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
         actionName: String? = null,
         parameters: Bundle = Bundle()
     ) {
-        logger.logOrder("handleError errorModel")
+        logger.order(TAG, "handleError errorModel")
         action.postValue(ErrorAction.create(error, showType, actionName, parameters))
     }
 
     open fun requestAction(action: Action) {
-        logger.logInfo("requestAction $action")
+        logger.i(TAG, "requestAction $action")
         this.action.postValue(action)
     }
 
@@ -77,7 +78,7 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
      *   By default returns false
      */
     open fun handleAction(action: Action?): Boolean {
-        logger.logOrder("handleAction $action")
+        logger.order(TAG, "handleAction $action")
         return false
     }
 
@@ -86,12 +87,12 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
     //region helping methods
 
     open fun hideProgress() {
-        logger.logOrder("hideProgress")
+        logger.order(TAG, "hideProgress")
         progressing.postValue(false)
     }
 
     open fun showProgress() {
-        logger.logOrder("showProgress")
+        logger.order(TAG, "showProgress")
         progressing.postValue(true)
     }
 
@@ -100,7 +101,7 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
      * Also shows progress
      */
     open fun disableControls() {
-        logger.logOrder("disableControls")
+        logger.order(TAG, "disableControls")
         showProgress()
         controlsEnabled.postValue(false)
     }
@@ -110,7 +111,7 @@ abstract class BaseViewModel<M : BaseErrorModel> : ViewModel() {
      * Also hides progress
      */
     open fun enableControls() {
-        logger.logOrder("enableControls")
+        logger.order(TAG, "enableControls")
         controlsEnabled.postValue(true)
         hideProgress()
     }

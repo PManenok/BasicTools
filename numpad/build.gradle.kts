@@ -36,7 +36,7 @@ dependencies {
     api(libs.constraintlayout)
     // Material Design
     api(libs.material)
-    implementation(project(":util"))
+    implementation(project(":util_ui"))
 }
 
 publishing {

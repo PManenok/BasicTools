@@ -113,7 +113,7 @@ class PinDialog : BindingDialogFragment<DfPinBinding>() {
                 builder.append(num)
                 if (!showConfirmBtn.get()) {
                     binding.dfPinView.postOnAnimationDelayed({
-                        logger.logInfo(builder.length.toString())
+                        logger.i(builder.length.toString())
                         resultBundle.clear()
                         resultBundle.putString(Config.DIALOG_USER_ACTION, USER_ACTION_PIN_COMPLETED)
                         resultBundle.putString(RESULT_PIN, builder.toString())

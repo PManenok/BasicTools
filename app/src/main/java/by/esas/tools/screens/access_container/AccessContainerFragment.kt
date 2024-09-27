@@ -15,7 +15,6 @@ import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.getErrorMessage
 import by.esas.tools.logger.ILogger
 import by.esas.tools.logger.handler.ErrorMessageHelper
-import by.esas.tools.util.TAGk
 import by.esas.tools.utils.logger.ErrorModel
 
 class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBinding>() {
@@ -79,19 +78,11 @@ class AccessContainerFragment : AppFragment<AccessContainerVM, FMainRefresherBin
     }
 
     override fun provideErrorStringHelper(): ErrorMessageHelper<ErrorModel> {
-        logger.logInfo("provideErrorHandler")
-        return object : ErrorMessageHelper<ErrorModel>() {
+        logger.order(TAG, "provideErrorHandler")
+        return object : ErrorMessageHelper<ErrorModel> {
 
             override fun getErrorMessage(error: ErrorModel): String {
                 return getErrorMessage(error.getStatusAsEnum(), null)
-            }
-
-            override fun getErrorMessage(e: Throwable): String {
-                return getErrorMessage(mapError(e))
-            }
-
-            override fun mapError(e: Throwable): ErrorModel {
-                return viewModel.provideMapper().mapErrorException(this.TAGk, e)
             }
         }
     }

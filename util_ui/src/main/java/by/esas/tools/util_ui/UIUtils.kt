@@ -6,6 +6,7 @@
 package by.esas.tools.util_ui
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.text.method.KeyListener
@@ -14,8 +15,17 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowInsetsCompat
+
+fun Context.showMessage(text: String, duration: Int) {
+    Toast.makeText(this, text, duration).show()
+}
+
+fun Context.showMessage(resId: Int, duration: Int) {
+    Toast.makeText(this, resId, duration).show()
+}
 
 fun disableView(view: EditText) {
     view.setText(view.text.toString().trim())
@@ -45,7 +55,8 @@ fun hideSystemUI(activity: Activity?, isDark: Boolean) {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R/*30-11*/ -> {
                 setDecorFitsSystemWindows(false)
-                insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                insetsController?.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 if (!isDark) {
                     insetsController?.setSystemBarsAppearance(
                         WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
@@ -62,6 +73,7 @@ fun hideSystemUI(activity: Activity?, isDark: Boolean) {
 
                 statusBarColor = if (isDark) Color.BLACK else Color.WHITE
             }
+
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M/*23-6*/ -> {
                 @Suppress("DEPRECATION")
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -86,6 +98,7 @@ fun hideSystemUI(activity: Activity?, isDark: Boolean) {
                 }
                 statusBarColor = if (isDark) Color.BLACK else Color.WHITE
             }
+
             else /*only from 21-5*/ -> {
                 @Suppress("DEPRECATION")
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

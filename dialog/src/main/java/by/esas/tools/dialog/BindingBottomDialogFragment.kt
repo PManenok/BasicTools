@@ -63,7 +63,7 @@ abstract class BindingBottomDialogFragment<B : ViewDataBinding>() :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logger.logInfo("onCreateView")
+        logger.order(TAG, "onCreateView")
         binding = DataBindingUtil.inflate<B>(inflater, provideLayoutId(), container, false)
         binding.setVariable(provideVariableId(), this)
         return binding.root
@@ -74,6 +74,7 @@ abstract class BindingBottomDialogFragment<B : ViewDataBinding>() :
      * @see disableControls
      * */
     override fun showProgress() {
+        logger.order(TAG, "showProgress")
         showProgress.set(true)
     }
 
@@ -82,6 +83,7 @@ abstract class BindingBottomDialogFragment<B : ViewDataBinding>() :
      * @see enableControls
      * */
     override fun hideProgress() {
+        logger.order(TAG, "hideProgress")
         showProgress.set(false)
     }
 }

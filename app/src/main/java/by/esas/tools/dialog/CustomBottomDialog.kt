@@ -24,7 +24,7 @@ class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() 
         return R.layout.df_custom_bottom
     }
 
-    override var switcher: by.esas.tools.util_ui.SwitchManager = object : by.esas.tools.util_ui.SwitchManager() {
+    override var switcher: SwitchManager = object : SwitchManager() {
         override fun enableView(view: View): Boolean {
             return if (view is Button) {
                 view.isEnabled = true
@@ -52,8 +52,7 @@ class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() 
         return listOf(
             FieldChecking(binding.dfCustomBottomInputField).addCheck(
                 LengthCheck(
-                    1, 20,
-                    resources.getString(R.string.validation_text_in_range, 1, 20)
+                    1, 20, resources.getString(R.string.validation_text_in_range, 1, 20)
                 )
             )
         )
@@ -65,7 +64,7 @@ class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        logger.i(logger.getTag())
         binding.dfCustomBottomSwitcher.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> enableControls()
@@ -83,7 +82,9 @@ class CustomBottomDialog : BindingBottomDialogFragment<DfCustomBottomBinding>() 
                 override fun onSuccess() {
                     enableControls()
                     resultBundle.putString(Config.DIALOG_USER_ACTION, Config.DISMISS_DIALOG)
-                    resultBundle.putString(BOTTOM_DIALOG_CHECK_RESULT, binding.dfCustomBottomInputField.getText())
+                    resultBundle.putString(
+                        BOTTOM_DIALOG_CHECK_RESULT, binding.dfCustomBottomInputField.getText()
+                    )
                     dismiss()
                 }
             }).validate(provideValidationList())

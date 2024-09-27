@@ -8,19 +8,15 @@ import by.esas.tools.accesscontainer.entity.AuthType
 import by.esas.tools.accesscontainer.entity.Token
 import by.esas.tools.accesscontainer.support.ITypeManager
 import by.esas.tools.base.AppVM
-import by.esas.tools.dialog_message.MessageDialog
+import by.esas.tools.logger.ILogger
 import by.esas.tools.screens.access_container.utility.Container
 import by.esas.tools.screens.access_container.utility.Executor
 import by.esas.tools.screens.access_container.utility.SecretProvider
 import by.esas.tools.util.TAGk
-import by.esas.tools.utils.logger.LoggerImpl
+import by.esas.tools.utils.logger.ErrorModel
 import javax.inject.Inject
 
 class AccessContainerVM @Inject constructor() : AppVM() {
-
-    init {
-        logger.setTag(AccessContainerVM::class.TAGk)
-    }
 
     lateinit var refresher: Container
     lateinit var provider: SecretProvider
@@ -46,7 +42,9 @@ class AccessContainerVM @Inject constructor() : AppVM() {
     val errorOnCreateSecret = MutableLiveData(false)
 
     private var userIv: ByteArray = ByteArray(16)
-    private val containerLogger = LoggerImpl()
+    private val containerLogger = ILogger<ErrorModel>().apply {
+        setTag(Container::class.TAGk)
+    }
 
     fun getAuthTypeText(type: AuthType): String {
         val resId = when (type) {
@@ -58,9 +56,10 @@ class AccessContainerVM @Inject constructor() : AppVM() {
     }
 
     fun initialize() {
-        val executor = Executor(LoggerImpl())
+        val executor = Executor(ILogger<ErrorModel>().apply {
+            setTag(Executor::class.TAGk)
+        })
         provider = executor.provider
-        containerLogger.setTag("Container")
         refresher = Container.getInstance(
             logger = containerLogger,
             appMapper = mapper,
@@ -76,7 +75,12 @@ class AccessContainerVM @Inject constructor() : AppVM() {
             by.esas.tools.dialog_message.MessageDialog()
         dialog.setRequestKey(AccessContainerFragment.PREFERRED_TYPE_PICKER)
         dialog.setTitle(R.string.refresher_preferred_lable)
-        dialog.setItems(authTypes.map { by.esas.tools.dialog_message.MessageDialog.ItemInfo(it.name, getAuthTypeText(it)) })
+        dialog.setItems(authTypes.map {
+            by.esas.tools.dialog_message.MessageDialog.ItemInfo(
+                it.name,
+                getAuthTypeText(it)
+            )
+        })
         dialog.isCancelable = true
         showDialog(dialog)
     }

@@ -17,6 +17,7 @@ import by.esas.tools.dialog_core.Config.DIALOG_ACTION_NAME
 import by.esas.tools.dialog_message.MessageDialog
 import by.esas.tools.logger.Action
 import by.esas.tools.logger.BaseErrorModel
+import by.esas.tools.util.TAGk
 
 abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, M : BaseErrorModel>
     : DataBindingActivity<VM, B, M>(), IHandlePopBackArguments {
@@ -80,6 +81,7 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
     //endregion Observer setups
 
     override fun handleAction(action: Action): Boolean {
+        logger.order(TAGk, "override handleAction $action")
         when (action.name) {
             StandardViewModel.ACTION_CHANGE_LANGUAGE -> {
                 val lang = action.parameters?.getString(StandardViewModel.PARAM_NEW_LANGUAGE)
@@ -97,6 +99,7 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     override fun showErrorDialog(msg: String, action: Action?) {
+        logger.order(TAGk,"showErrorDialog")
         val dialog = MessageDialog(false).apply {
             setRequestKey(ERROR_MESSAGE_DIALOG)
             setTitle(R.string.base_ui_error_title)
@@ -108,14 +111,14 @@ abstract class StandardActivity<VM : StandardViewModel<M>, B : ViewDataBinding, 
     }
 
     protected open fun onChangeLanguage(lang: String?, params: Bundle?) {
-        logger.logOrder("onChangeLanguage $lang $params")
+        logger.order(TAGk,"onChangeLanguage lang = $lang, $params")
         if (!lang.isNullOrBlank()) {
             this.changeLanguage(lang)
         }
     }
 
     protected open fun onChangeNightMode(mode: String?, params: Bundle?) {
-        logger.logOrder("onChangeNightMode $mode $params")
+        logger.order(TAGk,"onChangeNightMode mode = $mode, $params")
         if (mode != null) {
             this.changeNightMode(mode)
         }

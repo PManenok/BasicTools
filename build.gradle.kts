@@ -21,14 +21,14 @@ buildscript {
         set("repoName", "basetools")
 
         //Lib versions
-        set("loggerLib", "3.1.0") // independent (6)
-        set("utilLib", "3.1.0") // independent (1)
+        set("loggerLib", "3.2.0") // independent (6)
+        set("utilLib", "3.2.0") // independent (1)
         set("utilUiLib", "3.1.0") // independent (2)
         set("timeparserLib", "3.1.0") // independent
         set("pinviewLib", "3.1.0") // independent
         set("inputfieldviewLib", "3.1.0") // independent
         set("checkerLib", "3.1.0") // independent (3)
-        set("numpadLib", "3.1.0")
+        set("numpadLib", "3.2.0")
         set("listheaderLib", "3.1.0")
         set("dimenUtilLib", "3.1.0") // independent (1)
         set("basedaggeruiLib", "3.1.0") // independent
