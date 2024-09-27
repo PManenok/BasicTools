@@ -37,18 +37,6 @@ android {
 
 dependencies {
     implementation(libs.multidex)
-    // App
-    implementation(libs.appcompat)
-    implementation(libs.core.ktx)
-
-    // Material Design
-    api(libs.material)
-
-    /* REMEMBER com.google.dagger:dagger-android-support lib contains lifecycle-viewmodel-ktx lib
-        and thus we need to set version otherwise there will be duplicate error */
-    // Saved state module for ViewModel
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    //implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     // Navigation
     api(libs.navigation.fragment.ktx)

@@ -32,7 +32,6 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
-    implementation(libs.core.ktx)
 
     //Module
     api(project(":logger"))

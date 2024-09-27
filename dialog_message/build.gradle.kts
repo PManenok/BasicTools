@@ -44,8 +44,6 @@ android {
 }
 
 dependencies {
-    // Material Design
-    api(libs.constraintlayout)
     //Module
     api(project(":dialog"))
     api(project(":recycler"))

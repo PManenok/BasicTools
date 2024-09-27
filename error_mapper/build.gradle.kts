@@ -34,10 +34,6 @@ android {
 dependencies {
     // Moshi
     implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    implementation(libs.moshi.kotlin)
-    kapt(libs.moshi.kotlin.codegen)
-
     // Network
     implementation(libs.retrofit)
     implementation(libs.okhttp3)

@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
     // Biometric
     api(libs.biometric)
     //Module

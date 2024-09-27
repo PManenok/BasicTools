@@ -32,7 +32,7 @@ object TimeParser {
         localDateTimeRegex to simpleDateTimePattern
     )
 
-    private fun getPattern(parsable: String, patterns: Map<String, String>): String {
+    fun getPattern(parsable: String, patterns: Map<String, String>): String {
         val key: String = patterns.keys.find { regString ->
             parsable.contains(regString.toRegex())
         } ?: throw Exception(DATE_IN_UNEXPECTED_FORMAT)

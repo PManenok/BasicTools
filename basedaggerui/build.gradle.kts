@@ -34,8 +34,8 @@ dependencies {
     /* REMEMBER com.google.dagger:dagger-android-support lib contains lifecycle-viewmodel-ktx lib
         and thus we need to set version otherwise there will be duplicate error */
     // Saved state module for ViewModel
-    implementation(libs.lifecycle.viewmodel.savedstate)
-    implementation(libs.lifecycle.viewmodel.ktx)
+    api(libs.lifecycle.viewmodel.savedstate)
+    api(libs.lifecycle.viewmodel.ktx)
 
     // Dagger 2
     api(libs.dagger)

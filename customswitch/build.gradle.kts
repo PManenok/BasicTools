@@ -32,8 +32,6 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
-    // Constraint Layout
-    api(libs.constraintlayout)
 
     // Material Design
     api(libs.material)

@@ -37,7 +37,7 @@ import kotlin.math.roundToInt
  * 2. Add a container as top view, that will contain all other views, then you can still use
  *    default behavior and only this top container's visibility will be managed by ListHeader
  */
-open class ListHeader : LinearLayout, by.esas.tools.util_ui.SwitchManager.ISwitchView {
+open class ListHeader : LinearLayout, SwitchManager.ISwitchView {
 
     val TAG: String = ListHeader::class.java.simpleName
     protected val container: ConstraintLayout
