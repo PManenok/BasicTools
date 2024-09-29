@@ -20,9 +20,12 @@ class PlayRandomUseCase @Inject constructor(
     var number = 0
 
     override suspend fun executeOnBackground(): String {
-        if (number == Random.nextInt(0, rangeNumbers + 1)) {
+        val random = Random.nextInt(0, rangeNumbers + 1)
+        logger.i("Random number is $random")
+        if (number == random) {
             return App.appContext.getString(R.string.domain_case_congratulations)
-        } else
+        } else {
             throw BaseException(BaseStatusEnum.UNKNOWN_ERROR)
+        }
     }
 }

@@ -25,9 +25,7 @@ abstract class UseCase<T, Model : BaseErrorModel>(
 ) {
 
     protected abstract val TAG: String
-    protected open val logger: ILogger<Model> = ILogger<Model>().apply {
-        setTag(TAG)
-    }
+    protected open val logger: ILogger<Model> = ILogger<Model>()
     protected var parentJob: Job = Job()
     lateinit var foregroundContext: CoroutineContext
     var backgroundContext: CoroutineContext = Dispatchers.IO
@@ -59,6 +57,7 @@ abstract class UseCase<T, Model : BaseErrorModel>(
     abstract suspend fun executeOnBackground(): T
 
     open fun execute(block: Request<T, Model>.() -> Unit) {
+        logger.setTag(TAG)
         val response = createRequest(block)
         unsubscribe()
         parentJob = Job()
